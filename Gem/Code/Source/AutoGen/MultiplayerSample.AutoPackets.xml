@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PacketGroup Name="MultiplayerSamplePackets" PacketStart="CorePackets::PacketType::MAX">
+    <Include File="AzNetworking/AutoGen/CorePackets.AutoPackets.h" />
+    
+    <Packet Name="Sample" Desc="Stub packet">
+        <Member Type="uint16_t" Name="sample" Init="0" />
+    </Packet>
+</PacketGroup>
