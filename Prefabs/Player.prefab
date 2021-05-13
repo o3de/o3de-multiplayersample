@@ -1,0 +1,157 @@
+{
+    "Source": "Prefabs/Player.prefab",
+    "ContainerEntity": {
+        "Id": "Entity_[1419387525450]",
+        "Name": "Player",
+        "Components": {
+            "Component_[10086140917457517544]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 10086140917457517544
+            },
+            "Component_[10732697195551847781]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 10732697195551847781
+            },
+            "Component_[1098481335074499299]": {
+                "$type": "SelectionComponent",
+                "Id": 1098481335074499299
+            },
+            "Component_[14001194199437502546]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 14001194199437502546
+            },
+            "Component_[14553509779608767866]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 14553509779608767866
+            },
+            "Component_[16798910558364407453]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 16798910558364407453
+            },
+            "Component_[2672163486390585699]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 2672163486390585699
+            },
+            "Component_[3378458177329371627]": {
+                "$type": "EditorLockComponent",
+                "Id": 3378458177329371627
+            },
+            "Component_[3452999764137394831]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 3452999764137394831,
+                "Parent Entity": "",
+                "Cached World Transform Parent": ""
+            },
+            "Component_[5342528680800760201]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 5342528680800760201
+            },
+            "Component_[9544742750209915924]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 9544742750209915924
+            }
+        },
+        "IsDependencyReady": true
+    },
+    "Entities": {
+        "Entity_[1423682492746]": {
+            "Id": "Entity_[1423682492746]",
+            "Name": "Player",
+            "Components": {
+                "Component_[10752091759919038477]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 10752091759919038477,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 7672425355040569134
+                        },
+                        {
+                            "ComponentId": 2596368806843971783,
+                            "SortIndex": 1
+                        }
+                    ]
+                },
+                "Component_[11366312871180321311]": {
+                    "$type": "SelectionComponent",
+                    "Id": 11366312871180321311
+                },
+                "Component_[16870214955717717317]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 16870214955717717317
+                },
+                "Component_[17019293261405199280]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17019293261405199280
+                },
+                "Component_[17057124452563381137]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 17057124452563381137
+                },
+                "Component_[17993245065130330388]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17993245065130330388
+                },
+                "Component_[2596368806843971783]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 2596368806843971783,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[3873700008294568875]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 3873700008294568875
+                },
+                "Component_[7411749707748254874]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 7411749707748254874
+                },
+                "Component_[7478691996646188034]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7478691996646188034
+                },
+                "Component_[7672425355040569134]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 7672425355040569134,
+                    "Parent Entity": "Entity_[1419387525450]",
+                    "Cached World Transform": {
+                        "Translation": [
+                            -3.9142520427703859,
+                            -299.07098388671877,
+                            66.23870086669922
+                        ]
+                    },
+                    "Cached World Transform Parent": "Entity_[1419387525450]"
+                },
+                "Component_[6252367322126438780]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6252367322126438780,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[3191544009700536030]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3191544009700536030,
+                    "m_template": {
+                        "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
+                    }
+                },
+                "Component_[5329091026602047821]": {
+                    "$type": "EditorActorComponent",
+                    "Id": 5329091026602047821,
+                    "AttachmentTarget": "",
+                    "ActorAsset": {
+                        "assetId": {
+                            "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
+                            "subId": 526701631
+                        },
+                        "loadBehavior": "QueueLoad",
+                        "assetHint": "burt/burtactor.actor"
+                    }
+                }
+            },
+            "IsDependencyReady": true
+        }
+    }
+}

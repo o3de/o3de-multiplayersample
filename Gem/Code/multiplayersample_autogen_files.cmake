@@ -10,9 +10,9 @@
 #
 
 set(FILES
-    ${LY_ROOT_FOLDER}/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Header.jinja
-    ${LY_ROOT_FOLDER}/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Inline.jinja
-    ${LY_ROOT_FOLDER}/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Source.jinja
-    ${LY_ROOT_FOLDER}/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Header.jinja
-    ${LY_ROOT_FOLDER}/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Inline.jinja
+    ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Source/AutoGen/AutoComponent_Common.jinja
+    ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Source/AutoGen/AutoComponent_Header.jinja
+    ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Source/AutoGen/AutoComponent_Source.jinja
+    ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Source/AutoGen/AutoComponentTypes_Header.jinja
+    ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Source/AutoGen/AutoComponentTypes_Source.jinja
 )

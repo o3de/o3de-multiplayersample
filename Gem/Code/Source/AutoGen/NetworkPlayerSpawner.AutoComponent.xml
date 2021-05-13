@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkPlayerSpawner" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="false" 
+    OverrideInclude="Source/Components/NetworkPlayerSpawner.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Weak" HasController="false" Name="TransformComponent" Namespace="AzFramework" Include="AzFramework/Components/TransformComponent.h" />
+
+    <ArchetypeProperty Type="bool" Name="snapToGround"    Init="false" ExposeToEditor="true" />
+    <ArchetypeProperty Type="bool" Name="useGroundNormal" Init="false" ExposeToEditor="true" />
+</Component>

@@ -1,0 +1,1188 @@
+{
+    "values": [
+        {
+            "$type": "ActorGroup",
+            "name": "burtactor",
+            "selectedRootBone": "RootNode.LOD_Group_1.LOD_0",
+            "id": "{3FD4641F-0C68-5561-8634-4E10486CC36E}",
+            "rules": {
+                "rules": [
+                    {
+                        "$type": "MetaDataRule",
+                        "metaData": "AdjustActor -actorID $(ACTORID) -name \"burtactor\"\r\nActorSetCollisionMeshes -actorID $(ACTORID) -lod 0 -nodeList \"\"\r\nAdjustActor -actorID $(ACTORID) -nodesExcludedFromBounds \"\" -nodeAction \"select\"\r\nAdjustActor -actorID $(ACTORID) -nodeAction \"replace\" -attachmentNodes \"\"\r\nAdjustActor -actorID $(ACTORID) -motionExtractionNodeName \"Reference\"\r\n"
+                    },
+                    {
+                        "$type": "ActorPhysicsSetupRule",
+                        "data": {
+                            "config": {
+                                "ragdollConfig": {
+                                    "nodes": [
+                                        {
+                                            "name": "Hips",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "Spine",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "Spine1",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "Spine2",
+                                            "Compute Mass": false,
+                                            "Mass": 1.5,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "Neck",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "Head",
+                                            "Compute Mass": false,
+                                            "Mass": 4.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftShoulder",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftArm",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftForeArm",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftHand",
+                                            "Compute Mass": false,
+                                            "Mass": 4.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightShoulder",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightArm",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightForeArm",
+                                            "Compute Mass": false,
+                                            "Mass": 2.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightHand",
+                                            "Compute Mass": false,
+                                            "Mass": 4.0,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftUpLeg",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftLeg",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "LeftFoot",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightUpLeg",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightLeg",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        },
+                                        {
+                                            "name": "RightFoot",
+                                            "Compute Mass": false,
+                                            "Compute inertia": false
+                                        }
+                                    ],
+                                    "colliders": {
+                                        "nodes": [
+                                            {
+                                                "name": "Hips",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                0.009999999776482582
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.3700000047683716,
+                                                            "Radius": 0.07000000029802323
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "Spine",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                0.10000000149011612
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.37000009417533877,
+                                                            "Radius": 0.07999999821186066
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "Spine1",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                0.10000000149011612
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.31000009179115298,
+                                                            "Radius": 0.07999999821186066
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "Spine2",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                0.05000000074505806
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.30000001192092898,
+                                                            "Radius": 0.05000000074505806
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "Neck",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.10000000149011612,
+                                                            "Radius": 0.04500000178813934
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "Head",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.20000000298023225,
+                                                            "Radius": 0.09000000357627869
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftShoulder",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                0.05000000074505806
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.15000000596046449,
+                                                            "Radius": 0.03500000014901161
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftArm",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.10000000149011612,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.25999999046325686,
+                                                            "Radius": 0.04500000178813934
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftForeArm",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.10000000149011612,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.25,
+                                                            "Radius": 0.03999999910593033
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftHand",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.10000000149011612,
+                                                            "Radius": 0.04500000178813934
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightShoulder",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.0,
+                                                                -0.05000000074505806
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.15000000596046449,
+                                                            "Radius": 0.03500000014901161
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightArm",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.10000000149011612,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.25999999046325686,
+                                                            "Radius": 0.04500000178813934
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightForeArm",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                0.10000000149011612,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.25,
+                                                            "Radius": 0.03999999910593033
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightHand",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.10000000149011612,
+                                                            "Radius": 0.04500000178813934
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftUpLeg",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.25,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.44999998807907107,
+                                                            "Radius": 0.09000000357627869
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftLeg",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.20000000298023225,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.47999998927116396,
+                                                            "Radius": 0.07500000298023224
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "LeftFoot",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.05000000074505806,
+                                                                0.07999999821186066
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.18000000715255738,
+                                                            "Radius": 0.03500000014901161
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightUpLeg",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.25,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.44999998807907107,
+                                                            "Radius": 0.09000000357627869
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightLeg",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.20000000298023225,
+                                                                0.0
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.4699999988079071,
+                                                            "Radius": 0.07000000029802323
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            {
+                                                "name": "RightFoot",
+                                                "shapes": [
+                                                    [
+                                                        {
+                                                            "Visible": true,
+                                                            "Position": [
+                                                                0.0,
+                                                                -0.05000000074505806,
+                                                                0.07999999821186066
+                                                            ]
+                                                        },
+                                                        {
+                                                            "$type": "CapsuleShapeConfiguration",
+                                                            "Height": 0.18000000715255738,
+                                                            "Radius": 0.03500000014901161
+                                                        }
+                                                    ]
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "$type": "{07B356B7-3635-40B5-878A-FAC4EFD5AD86} MeshGroup",
+            "name": "BURTActor",
+            "nodeSelectionList": {
+                "selectedNodes": [
+                    "RootNode.LOD_Group_1.LOD_0.BURT",
+                    "RootNode.LOD_Group_1.LOD_0.BURT.SkinWeight_0",
+                    "RootNode.LOD_Group_1.LOD_0.BURT.map1",
+                    "RootNode.LOD_Group_1.LOD_0.BURT.BURTMat"
+                ],
+                "unselectedNodes": [
+                    "RootNode",
+                    "RootNode.LOD_Group_1",
+                    "RootNode.LOD_Group_1.LOD_0",
+                    "RootNode.LOD_Group_1.LOD_1",
+                    "RootNode.LOD_Group_1.LOD_2",
+                    "RootNode.LOD_Group_1.LOD_3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference",
+                    "RootNode.LOD_Group_1.LOD_1.BURT",
+                    "RootNode.LOD_Group_1.LOD_2.BURT",
+                    "RootNode.LOD_Group_1.LOD_3.BURT",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips",
+                    "RootNode.LOD_Group_1.LOD_1.BURT.SkinWeight_0",
+                    "RootNode.LOD_Group_1.LOD_1.BURT.map1",
+                    "RootNode.LOD_Group_1.LOD_1.BURT.BURTMat",
+                    "RootNode.LOD_Group_1.LOD_2.BURT.SkinWeight_0",
+                    "RootNode.LOD_Group_1.LOD_2.BURT.map1",
+                    "RootNode.LOD_Group_1.LOD_2.BURT.BURTMat",
+                    "RootNode.LOD_Group_1.LOD_3.BURT.SkinWeight_0",
+                    "RootNode.LOD_Group_1.LOD_3.BURT.map1",
+                    "RootNode.LOD_Group_1.LOD_3.BURT.BURTMat",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3.transform",
+                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3.transform"
+                ]
+            },
+            "rules": {
+                "rules": [
+                    {
+                        "$type": "SkinRule"
+                    },
+                    {
+                        "$type": "MaterialRule"
+                    },
+                    {
+                        "$type": "{6E796AC8-1484-4909-860A-6D3F22A7346F} LodRule",
+                        "nodeSelectionList": [
+                            {
+                                "selectedNodes": [
+                                    "RootNode.LOD_Group_1.LOD_1.BURT",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.BURTMat"
+                                ],
+                                "unselectedNodes": [
+                                    "RootNode",
+                                    "RootNode.LOD_Group_1",
+                                    "RootNode.LOD_Group_1.LOD_0",
+                                    "RootNode.LOD_Group_1.LOD_1",
+                                    "RootNode.LOD_Group_1.LOD_2",
+                                    "RootNode.LOD_Group_1.LOD_3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3.transform"
+                                ]
+                            },
+                            {
+                                "selectedNodes": [
+                                    "RootNode.LOD_Group_1.LOD_2.BURT",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.BURTMat"
+                                ],
+                                "unselectedNodes": [
+                                    "RootNode",
+                                    "RootNode.LOD_Group_1",
+                                    "RootNode.LOD_Group_1.LOD_0",
+                                    "RootNode.LOD_Group_1.LOD_1",
+                                    "RootNode.LOD_Group_1.LOD_2",
+                                    "RootNode.LOD_Group_1.LOD_3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3.transform"
+                                ]
+                            },
+                            {
+                                "selectedNodes": [
+                                    "RootNode.LOD_Group_1.LOD_3.BURT",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_3.BURT.BURTMat"
+                                ],
+                                "unselectedNodes": [
+                                    "RootNode",
+                                    "RootNode.LOD_Group_1",
+                                    "RootNode.LOD_Group_1.LOD_0",
+                                    "RootNode.LOD_Group_1.LOD_1",
+                                    "RootNode.LOD_Group_1.LOD_2",
+                                    "RootNode.LOD_Group_1.LOD_3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_0.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_1.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.SkinWeight_0",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.map1",
+                                    "RootNode.LOD_Group_1.LOD_2.BURT.BURTMat",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightUpLegRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.LeftUpLeg.LeftLeg.LeftFoot.LeftToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.RightUpLeg.RightLeg.RightFoot.RightToeBase.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.Neck.Head.Eyebeam.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightArmPV.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightAimStart.RightAimEnd.RightHandIKAlign.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightForeArmRoll.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandProp.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandThumb1.LeftHandThumb2.LeftHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandIndex1.LeftHandIndex2.LeftHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.LeftHandMiddle1.LeftHandMiddle2.LeftHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandThumb1.RightHandThumb2.RightHandThumb3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandIndex1.RightHandIndex2.RightHandIndex3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.RightHandMiddle1.RightHandMiddle2.RightHandMiddle3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandRing1.LeftHandRing2.LeftHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.LeftShoulder.LeftArm.LeftForeArm.LeftHand.l_metacarpal.LeftHandPinky1.LeftHandPinky2.LeftHandPinky3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandRing1.RightHandRing2.RightHandRing3.transform",
+                                    "RootNode.LOD_Group_1.LOD_0.Reference.Hips.Spine.Spine1.Spine2.RightShoulder.RightArm.RightForeArm.RightHand.r_metacarpal.RightHandPinky1.RightHandPinky2.RightHandPinky3.transform"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "id": "{66E77896-CCBD-4363-94E0-8C718AF09F74}"
+        }
+    ]
+}

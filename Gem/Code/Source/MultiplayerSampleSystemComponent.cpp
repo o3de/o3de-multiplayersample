@@ -17,7 +17,7 @@
 #include <AzNetworking/Framework/INetworking.h>
 
 #include "MultiplayerSampleSystemComponent.h"
-
+#include <Source/AutoGen/AutoComponentTypes.h>
 
 namespace MultiplayerSample
 {
@@ -73,6 +73,9 @@ namespace MultiplayerSample
     void MultiplayerSampleSystemComponent::Activate()
     {
         AZ::TickBus::Handler::BusConnect();
+
+        //! Register our gems multiplayer components to assign NetComponentIds
+        RegisterMultiplayerComponents();
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()

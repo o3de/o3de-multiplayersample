@@ -50,4 +50,5 @@ set(GEM_DEPENDENCIES
     Gem::Atom_RHI_Null.Private
     Gem::MultiplayerSample
     Gem::Multiplayer
+    Gem::Multiplayer.Debug
 )

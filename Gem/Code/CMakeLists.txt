@@ -22,6 +22,7 @@ ly_add_target(
         PRIVATE
             Source
             AZ::AzNetworking
+            Gem::Multiplayer
             .
         PUBLIC
             Include
@@ -29,14 +30,15 @@ ly_add_target(
         PUBLIC
             AZ::AzGameFramework
             AZ::AzNetworking
+            Gem::Multiplayer
         PRIVATE
             Gem::LmbrCentral.Static
+            Gem::Multiplayer.Static
     AUTOGEN_RULES
-        *.AutoPackets.xml,AutoPackets_Header.jinja,$path/$fileprefix.AutoPackets.h
-        *.AutoPackets.xml,AutoPackets_Inline.jinja,$path/$fileprefix.AutoPackets.inl
-        *.AutoPackets.xml,AutoPackets_Source.jinja,$path/$fileprefix.AutoPackets.cpp
-        *.AutoPackets.xml,AutoPacketDispatcher_Header.jinja,$path/$fileprefix.AutoPacketDispatcher.h
-        *.AutoPackets.xml,AutoPacketDispatcher_Inline.jinja,$path/$fileprefix.AutoPacketDispatcher.inl
+        *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
+        *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
+        *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
+        *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
 )
 
 ly_add_target(
