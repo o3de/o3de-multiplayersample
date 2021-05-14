@@ -10,8 +10,14 @@
 #
 
 set(FILES
-    Source/AutoGen/NetworkPlayerSpawner.AutoComponent.xml
+    Source/AutoGen/CharacterComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
 	Source/AutoGen/WasdPlayerMovementComponent.AutoComponent.xml
+	Source/Components/CharacterComponent.cpp
+	Source/Components/CharacterComponent.h
+	Source/Components/WasdPlayerMovementComponent.cpp
+	Source/Components/WasdPlayerMovementComponent.h
     Source/MultiplayerSampleSystemComponent.cpp
     Source/MultiplayerSampleSystemComponent.h
+    Source/MultiplayerSampleTypes.h
 )

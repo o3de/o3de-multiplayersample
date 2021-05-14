@@ -23,8 +23,6 @@ namespace MultiplayerSample
 {
     using namespace AzNetworking;
 
-    static const AZStd::string_view s_networkInterfaceName("MultiplayerSampleInterface");
-
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
@@ -92,37 +90,5 @@ namespace MultiplayerSample
     {
         // Tick immediately after the multiplayer system component
         return AZ::TICK_PLACEMENT + 2;
-    }
-
-    bool MultiplayerSampleSystemComponent::HandleRequest([[maybe_unused]] IConnection* connection,
-        [[maybe_unused]] const IPacketHeader& packetHeader, [[maybe_unused]] const MultiplayerSamplePackets::Sample& packet)
-    {
-        return true;
-    }
-
-    ConnectResult MultiplayerSampleSystemComponent::ValidateConnect([[maybe_unused]] const IpAddress& remoteAddress,
-        [[maybe_unused]] const IPacketHeader& packetHeader, [[maybe_unused]] ISerializer& serializer)
-    {
-        return ConnectResult::Accepted;
-    }
-
-    void MultiplayerSampleSystemComponent::OnConnect([[maybe_unused]] IConnection* connection)
-    {
-        ;
-    }
-
-    bool MultiplayerSampleSystemComponent::OnPacketReceived([[maybe_unused]] IConnection* connection, [[maybe_unused]] const IPacketHeader& packetHeader, [[maybe_unused]] ISerializer& serializer)
-    {
-        return true;
-    }
-
-    void MultiplayerSampleSystemComponent::OnPacketLost([[maybe_unused]] IConnection* connection, [[maybe_unused]] PacketId packetId)
-    {
-        ;
-    }
-
-    void MultiplayerSampleSystemComponent::OnDisconnect(IConnection* connection, [[maybe_unused]] DisconnectReason reason, [[maybe_unused]] AzNetworking::TerminationEndpoint endpoint)
-    {
-        AZLOG_INFO("Disconnected from remote address: %s", connection->GetRemoteAddress().GetString().c_str());
     }
 }

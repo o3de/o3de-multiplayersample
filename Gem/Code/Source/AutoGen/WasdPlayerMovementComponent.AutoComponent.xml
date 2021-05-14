@@ -3,10 +3,23 @@
 <Component
     Name="WasdPlayerMovementComponent" 
     Namespace="MultiplayerSample" 
-    OverrideComponent="false" 
-    OverrideController="false" 
+    OverrideComponent="true" 
+    OverrideController="true" 
     OverrideInclude="Source/Components/WasdPlayerMovementComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="CharacterComponent" Namespace="MultiplayerSample" Include="Source/Components/CharacterComponent.h" />
 
-    <ComponentRelation Constraint="Weak" HasController="false" Name="TransformComponent" Namespace="AzFramework" Include="AzFramework/Components/TransformComponent.h" />
+    <Include File="Source/MultiplayerSampleTypes.h"/>
+
+    <NetworkProperty Type="float" Name="Speed" Init="0.0f" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current movement speed of this player"/>
+
+    <NetworkInput Type="StickAxis" Name="ForwardAxis" Init="0.0f" />
+    <NetworkInput Type="StickAxis" Name="StrafeAxis"  Init="0.0f" />
+    <NetworkInput Type="MouseAxis" Name="ViewYaw"     Init="0.0f" />
+    <NetworkInput Type="bool"      Name="Sprint"      Init="false" />
+    <NetworkInput Type="bool"      Name="Jump"        Init="false" />
+    <NetworkInput Type="bool"      Name="Crouch"      Init="false" />
+    <NetworkInput Type="uint8_t"   Name="ResetCount"  Init="0" />
 </Component>

@@ -116,9 +116,9 @@
                     "Parent Entity": "Entity_[1419387525450]",
                     "Cached World Transform": {
                         "Translation": [
-                            -3.9142520427703859,
-                            -299.07098388671877,
-                            66.23870086669922
+                            -0.013632859103381634,
+                            19.999990463256837,
+                            0.013632990419864655
                         ]
                     },
                     "Cached World Transform Parent": "Entity_[1419387525450]"
@@ -148,6 +148,46 @@
                         },
                         "loadBehavior": "QueueLoad",
                         "assetHint": "burt/burtactor.actor"
+                    },
+                    "MaterialPerLOD": [
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        }
+                    ],
+                    "MaterialPerActor": {
+                        "AssetPath": "burt/burtactor.mtl"
+                    }
+                },
+                "Component_[17075755877203862909]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 17075755877203862909,
+                    "m_template": {
+                        "$type": "MultiplayerSample::WasdPlayerMovementComponent"
+                    }
+                },
+                "Component_[7398251875150394377]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 7398251875150394377,
+                    "m_template": {
+                        "$type": "MultiplayerSample::CharacterComponent",
+                        "WalkSpeed": 0.08761131763458252,
+                        "SprintSpeed": 0.8999999761581421,
+                        "ReverseSprintSpeed": 1.0,
+                        "SpawnTimerDuration": -1.7014635547491818e38,
+                        "DeathTimerDuration": 0.04500001668930054,
+                        "RespawnOnDeath": true,
+                        "StepHeight": 1.0,
+                        "SlopeLimitDegrees": -1.714652191593956e38,
+                        "ContactOffset": 0.04500001668930054
                     }
                 }
             },
