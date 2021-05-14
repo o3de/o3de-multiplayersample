@@ -16,8 +16,6 @@
 
 #include <AzNetworking/ConnectionLayer/IConnectionListener.h>
 
-#include "Source/AutoGen/MultiplayerSample.AutoPacketDispatcher.h"
-
 namespace AzNetworking
 {
     class INetworkInterface;
@@ -39,8 +37,6 @@ namespace MultiplayerSample
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
-
-        bool HandleRequest(AzNetworking::IConnection* connection, const AzNetworking::IPacketHeader& packetHeader, const MultiplayerSamplePackets::Sample& packet);
 
     protected:
         ////////////////////////////////////////////////////////////////////////
