@@ -10,13 +10,15 @@
  *
  */
 
+#include "MultiplayerSampleSystemComponent.h"
+
+#include <AzCore/Console/ILogger.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
 
 #include <AzNetworking/Framework/INetworking.h>
 
-#include "MultiplayerSampleSystemComponent.h"
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 namespace MultiplayerSample
@@ -92,12 +94,6 @@ namespace MultiplayerSample
     {
         // Tick immediately after the multiplayer system component
         return AZ::TICK_PLACEMENT + 2;
-    }
-
-    bool MultiplayerSampleSystemComponent::HandleRequest([[maybe_unused]] IConnection* connection,
-        [[maybe_unused]] const IPacketHeader& packetHeader, [[maybe_unused]] const MultiplayerSamplePackets::Sample& packet)
-    {
-        return true;
     }
 
     ConnectResult MultiplayerSampleSystemComponent::ValidateConnect([[maybe_unused]] const IpAddress& remoteAddress,
