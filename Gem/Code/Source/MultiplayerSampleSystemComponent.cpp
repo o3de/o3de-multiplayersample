@@ -10,13 +10,15 @@
  *
  */
 
+#include "MultiplayerSampleSystemComponent.h"
+
+#include <AzCore/Console/ILogger.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
 
 #include <AzNetworking/Framework/INetworking.h>
 
-#include "MultiplayerSampleSystemComponent.h"
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 namespace MultiplayerSample
@@ -92,3 +94,4 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 }
+
