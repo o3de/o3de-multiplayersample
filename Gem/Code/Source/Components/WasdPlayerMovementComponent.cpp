@@ -52,32 +52,34 @@ namespace MultiplayerSample
 
     void WasdPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
-
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
-
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+        if (IsAutonomous())
+        {
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+        }
     }
 
     void WasdPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveLeftEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveRightEventId);
-
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(SprintEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(JumpEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
-
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
-        StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
+        if (IsAutonomous())
+        {
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveLeftEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(SprintEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(JumpEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
+        }
     }
 
     void WasdPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
@@ -155,16 +157,7 @@ namespace MultiplayerSample
         // Update velocity
         UpdateVelocity(*wasdInput);
 
-        // Update position
-        AZ::Vector3 newPosition = UpdatePosition(deltaTime);
-
-        GetCharacterComponentController()->TryMoveToPosition(AZ::Transform::CreateFromQuaternionAndTranslation(newOrientation, newPosition), deltaTime);
-    }
-
-    AZ::Vector3 WasdPlayerMovementComponentController::UpdatePosition(float deltaTime)
-    {
-        // Integrate velocity
-        return GetNetworkTransformComponentController()->GetTranslation() + m_velocity * deltaTime;
+        GetCharacterComponentController()->TryMoveWithVelocity(m_velocity, deltaTime);
     }
 
     void WasdPlayerMovementComponentController::UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput)

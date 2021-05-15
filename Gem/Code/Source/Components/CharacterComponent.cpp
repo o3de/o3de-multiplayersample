@@ -12,6 +12,8 @@
 
 #include <Source/Components/CharacterComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <AzFramework/Physics/CharacterBus.h>
+#include <AzFramework/Physics/Character.h>
 
 namespace MultiplayerSample
 {
@@ -28,31 +30,43 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnInit()
     {
+        ;
     }
 
     void CharacterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
     CharacterComponentController::CharacterComponentController(CharacterComponent& parent)
         : CharacterComponentControllerBase(parent)
     {
+        ;
     }
 
     void CharacterComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_physxCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntity()->GetId());
     }
 
     void CharacterComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
-    AZ::Vector3 CharacterComponentController::TryMoveToPosition([[maybe_unused]] const AZ::Transform& targetTransform, [[maybe_unused]] float deltaTime)
+    AZ::Vector3 CharacterComponentController::TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime)
     {
-        return GetNetworkTransformComponentController()->GetTranslation();
+        if (m_physxCharacter == nullptr)
+        {
+            return GetNetworkTransformComponentController()->GetTranslation();
+        }
+        m_physxCharacter->AddVelocity(velocity);
+        m_physxCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
+        return m_physxCharacter->GetBasePosition();
     }
 }
