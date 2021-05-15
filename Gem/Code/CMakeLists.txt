@@ -23,14 +23,17 @@ ly_add_target(
             Source
             AZ::AzNetworking
             Gem::Multiplayer
+            Gem::StartingPointInput
             .
         PUBLIC
             Include
+            ${common_dir}
     BUILD_DEPENDENCIES
         PUBLIC
             AZ::AzGameFramework
             AZ::AzNetworking
             Gem::Multiplayer
+            Gem::StartingPointInput
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Static
@@ -54,7 +57,7 @@ ly_add_target(
             .
     BUILD_DEPENDENCIES
         PRIVATE
-	    Gem::Atom_AtomBridge.Static
+            Gem::Atom_AtomBridge.Static
             Gem::MultiplayerSample.Static
             Gem::LmbrCentral.Static
 )

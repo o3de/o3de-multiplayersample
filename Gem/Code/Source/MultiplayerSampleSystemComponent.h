@@ -9,12 +9,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *
  */
+
 #pragma once
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
-
-#include <AzNetworking/ConnectionLayer/IConnectionListener.h>
 
 namespace AzNetworking
 {
@@ -26,7 +25,6 @@ namespace MultiplayerSample
     class MultiplayerSampleSystemComponent
         : public AZ::Component
         , public AZ::TickBus::Handler
-        , public AzNetworking::IConnectionListener
     {
     public:
         AZ_COMPONENT(MultiplayerSampleSystemComponent, "{7BF68D79-E870-44B5-853A-BA68FF4F0B90}");
@@ -49,15 +47,6 @@ namespace MultiplayerSample
         // AZ::TickBus::Handler overrides
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         int GetTickOrder() override;
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
-        // IConnectionListener interface
-        AzNetworking::ConnectResult ValidateConnect(const AzNetworking::IpAddress& remoteAddress, const AzNetworking::IPacketHeader& packetHeader, AzNetworking::ISerializer& serializer) override;
-        void OnConnect(AzNetworking::IConnection* connection) override;
-        bool OnPacketReceived(AzNetworking::IConnection* connection, const AzNetworking::IPacketHeader& packetHeader, AzNetworking::ISerializer& serializer) override;
-        void OnPacketLost(AzNetworking::IConnection* connection, AzNetworking::PacketId packetId) override;
-        void OnDisconnect(AzNetworking::IConnection* connection, AzNetworking::DisconnectReason reason, AzNetworking::TerminationEndpoint endpoint) override;
         ////////////////////////////////////////////////////////////////////////
 
     private:

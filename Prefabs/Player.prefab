@@ -116,9 +116,9 @@
                     "Parent Entity": "Entity_[1419387525450]",
                     "Cached World Transform": {
                         "Translation": [
-                            -3.9142520427703859,
-                            -299.07098388671877,
-                            66.23870086669922
+                            -3.4641551971435549,
+                            -305.2246398925781,
+                            61.03078842163086
                         ]
                     },
                     "Cached World Transform Parent": "Entity_[1419387525450]"
@@ -148,6 +148,66 @@
                         },
                         "loadBehavior": "QueueLoad",
                         "assetHint": "burt/burtactor.actor"
+                    },
+                    "MaterialPerLOD": [
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        }
+                    ],
+                    "MaterialPerActor": {
+                        "AssetPath": "burt/burtactor.mtl"
+                    }
+                },
+                "Component_[17075755877203862909]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 17075755877203862909,
+                    "m_template": {
+                        "$type": "MultiplayerSample::WasdPlayerMovementComponent"
+                    }
+                },
+                "Component_[7398251875150394377]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 7398251875150394377,
+                    "m_template": {
+                        "$type": "MultiplayerSample::CharacterComponent",
+                        "WalkSpeed": 0.08761131763458252,
+                        "SprintSpeed": 0.8999999761581421,
+                        "ReverseSprintSpeed": 1.0,
+                        "SpawnTimerDuration": -1.7014635547491818e38,
+                        "DeathTimerDuration": 0.04500001668930054,
+                        "RespawnOnDeath": true,
+                        "StepHeight": 1.0,
+                        "SlopeLimitDegrees": -1.7146521915939559e38,
+                        "ContactOffset": 0.04500001668930054
+                    }
+                },
+                "Component_[10731928891422556040]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 10731928891422556040,
+                    "m_template": {
+                        "$type": "InputConfigurationComponent",
+                        "Input Event Bindings": {
+                            "assetId": {
+                                "guid": "{C67E0526-85F2-525B-A44B-04855474A5BE}"
+                            },
+                            "assetHint": "inputbindings/player.inputbindings"
+                        }
+                    }
+                },
+                "Component_[14925070260434397195]": {
+                    "$type": "EditorCharacterControllerComponent",
+                    "Id": 14925070260434397195,
+                    "Configuration": {
+                        "entityId": ""
                     }
                 }
             },
