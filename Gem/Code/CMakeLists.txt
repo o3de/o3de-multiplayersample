@@ -57,7 +57,7 @@ ly_add_target(
             .
     BUILD_DEPENDENCIES
         PRIVATE
-	    Gem::Atom_AtomBridge.Static
+            Gem::Atom_AtomBridge.Static
             Gem::MultiplayerSample.Static
             Gem::LmbrCentral.Static
 )
