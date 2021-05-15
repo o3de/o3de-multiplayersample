@@ -14,6 +14,11 @@
 
 #include <Source/AutoGen/CharacterComponent.AutoComponent.h>
 
+namespace Physics
+{
+    class CharacterRequests;
+}
+
 namespace MultiplayerSample
 {
     class CharacterComponent
@@ -38,6 +43,9 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        AZ::Vector3 TryMoveToPosition(const AZ::Transform& targetTransform, float deltaTime);
+        AZ::Vector3 TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime);
+
+    private:
+        Physics::CharacterRequests* m_characterRequests = nullptr;
     };
 }

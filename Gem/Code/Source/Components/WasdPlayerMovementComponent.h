@@ -57,7 +57,6 @@ namespace MultiplayerSample
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
     private:
-        AZ::Vector3 UpdatePosition(float deltaTime);
         void UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput);
         float NormalizeHeading(float heading) const;
 

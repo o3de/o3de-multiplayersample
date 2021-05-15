@@ -12,6 +12,8 @@
 
 #include <Source/Components/CharacterComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <AzFramework/Physics/CharacterBus.h>
+#include <AzFramework/Physics/Character.h>
 
 namespace MultiplayerSample
 {
@@ -28,14 +30,17 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnInit()
     {
+        ;
     }
 
     void CharacterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
     CharacterComponentController::CharacterComponentController(CharacterComponent& parent)
@@ -45,14 +50,23 @@ namespace MultiplayerSample
 
     void CharacterComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_characterRequests = Physics::CharacterRequestBus::FindFirstHandler(GetEntity()->GetId());
+        AZ_Assert(m_characterRequests != nullptr, "WasdPlayerMovementComponentController requires a physx character controller");
     }
 
     void CharacterComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
-    AZ::Vector3 CharacterComponentController::TryMoveToPosition([[maybe_unused]] const AZ::Transform& targetTransform, [[maybe_unused]] float deltaTime)
+    AZ::Vector3 CharacterComponentController::TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime)
     {
-        return GetNetworkTransformComponentController()->GetTranslation();
+        if (m_characterRequests == nullptr)
+        {
+            return GetNetworkTransformComponentController()->GetTranslation();
+        }
+        m_characterRequests->AddVelocity(velocity);
+        m_characterRequests->GetCharacter()->ApplyRequestedVelocity(deltaTime);
+        return m_characterRequests->GetBasePosition();
     }
 }
