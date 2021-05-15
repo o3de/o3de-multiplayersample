@@ -17,6 +17,7 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
+    AZ_CVAR(bool, override_forward, false, nullptr, AZ::ConsoleFunctorFlags::Null, "debug override forward key value");
 
     void WasdPlayerMovementComponent::WasdPlayerMovementComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -87,7 +88,7 @@ namespace MultiplayerSample
         // Movement axis
         // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
         // This is so that tapping the keyboard moves the virtual stick less than just holding it down
-        m_forwardWeight = std::min<float>(m_forwardDown ? m_forwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
+        m_forwardWeight = std::min<float>(m_forwardDown || override_forward ? m_forwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
         m_leftWeight = std::min<float>(m_leftDown ? m_leftWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
         m_backwardWeight = std::min<float>(m_backwardDown ? m_backwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
         m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);

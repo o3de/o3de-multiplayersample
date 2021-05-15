@@ -18,17 +18,17 @@
 namespace MultiplayerSample
 {
     // Input Event Ids for Player Controls
-    const StartingPointInput::InputEventNotificationId MoveFwdEventId(AZ_CRC_CE("default"), "move_fwd");
-    const StartingPointInput::InputEventNotificationId MoveBackEventId(AZ_CRC_CE("default"), "move_back");
-    const StartingPointInput::InputEventNotificationId MoveLeftEventId(AZ_CRC_CE("default"), "move_left");
-    const StartingPointInput::InputEventNotificationId MoveRightEventId(AZ_CRC_CE("default"), "move_right");
+    const StartingPointInput::InputEventNotificationId MoveFwdEventId("move_fwd");
+    const StartingPointInput::InputEventNotificationId MoveBackEventId("move_back");
+    const StartingPointInput::InputEventNotificationId MoveLeftEventId("move_left");
+    const StartingPointInput::InputEventNotificationId MoveRightEventId("move_right");
 
-    const StartingPointInput::InputEventNotificationId SprintEventId(AZ_CRC_CE("default"), "sprint");
-    const StartingPointInput::InputEventNotificationId JumpEventId(AZ_CRC_CE("default"), "jump");
-    const StartingPointInput::InputEventNotificationId CrouchEventId(AZ_CRC_CE("default"), "crouch");
+    const StartingPointInput::InputEventNotificationId SprintEventId("sprint");
+    const StartingPointInput::InputEventNotificationId JumpEventId("jump");
+    const StartingPointInput::InputEventNotificationId CrouchEventId("crouch");
 
-    const StartingPointInput::InputEventNotificationId LookLeftRightEventId(AZ_CRC_CE("default"), "lookLeftRight");
-    const StartingPointInput::InputEventNotificationId LookUpDownEventId(AZ_CRC_CE("default"), "lookUpDown");
+    const StartingPointInput::InputEventNotificationId LookLeftRightEventId("lookLeftRight");
+    const StartingPointInput::InputEventNotificationId LookUpDownEventId("lookUpDown");
 
     class WasdPlayerMovementComponent
         : public WasdPlayerMovementComponentBase

@@ -67,6 +67,8 @@ namespace MultiplayerSample
         }
         m_physxCharacter->AddVelocity(velocity);
         m_physxCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
-        return m_physxCharacter->GetBasePosition();
+        GetNetworkTransformComponentController()->SetTranslation(m_physxCharacter->GetBasePosition());
+        AZLOG(NET_Movement, "Moved to position %f x %f x %f", m_physxCharacter->GetBasePosition().GetX(), m_physxCharacter->GetBasePosition().GetY(), m_physxCharacter->GetBasePosition().GetZ());
+        return GetNetworkTransformComponentController()->GetTranslation();
     }
 }
