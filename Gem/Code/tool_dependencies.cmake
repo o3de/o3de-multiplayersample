@@ -63,5 +63,5 @@ set(GEM_DEPENDENCIES
     Gem::PrefabBuilder
     Gem::Multiplayer.Tools
     Gem::MultiplayerSample
-	Gem::StartingPointInput.Editor
+    Gem::StartingPointInput.Editor
 )

@@ -51,5 +51,5 @@ set(GEM_DEPENDENCIES
     Gem::MultiplayerSample
     Gem::Multiplayer
     Gem::Multiplayer.Debug
-	Gem::StartingPointInput
+    Gem::StartingPointInput
 )
