@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkAnimationComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="false"
+    OverrideInclude="Source/Components/NetworkAnimationComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Include File="Source/MultiplayerSampleTypes.h"/>
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Weak" HasController="true" Name="WasdPlayerMovementComponent" Namespace="MultiplayerSample" Include="Source/Components/WasdPlayerMovementComponent.h" />
+
+    <NetworkProperty Type="CharacterAnimStateBitset" Name="ActiveAnimStates" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="false" Description="Bitset of active animation states" />
+
+    <ArchetypeProperty Type="AZStd::string" Name="MovementSpeedParamName" Init=""     ExposeToEditor="true" Description="EMotionFX movement speed parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="AttackParamName"        Init=""     ExposeToEditor="true" Description="EMotionFX attack parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="JumpParamName"          Init=""     ExposeToEditor="true" Description="EMotionFX jump parameter"/>
+    <ArchetypeProperty Type="float"         Name="MaxSpeed"               Init="1.0f" ExposeToEditor="true" Description="EMotionFX max speed value"/>
+</Component>

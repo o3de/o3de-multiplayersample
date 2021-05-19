@@ -12,7 +12,9 @@
 
 #include <Source/Components/WasdPlayerMovementComponent.h>
 #include <Source/Components/CharacterComponent.h>
+#include <Source/Components/NetworkAnimationComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <AzFramework/Visibility/EntityBoundsUnionBus.h>
 
 namespace MultiplayerSample
 {
@@ -94,7 +96,7 @@ namespace MultiplayerSample
         m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
 
         // inputs for your own component always exist
-        auto* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
+        WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
 
         wasdInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
         wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
@@ -137,18 +139,15 @@ namespace MultiplayerSample
         //  1) On the server: we were reset and we are now receiving inputs from the client for an old reset count 
         //  2) On the client: we were reset and we are replaying old inputs after being corrected
         // In both cases we don't want to process these inputs
-        auto* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
+        WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
         if (wasdInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
             return;
         }
 
-        //if (m_networkAnimationComponentPredictable)
-        //{
-        //    m_NetworkAnimationComponentPredictable->ModifyActiveAnimStates(input).SetBit(static_cast<uint32_t>(ECharacterAnimState::Sprinting), wasdInput->m_Sprint);
-        //    m_NetworkAnimationComponentPredictable->ModifyActiveAnimStates(input).SetBit(static_cast<uint32_t>(ECharacterAnimState::Jumping), wasdInput->m_Jump);
-        //    m_NetworkAnimationComponentPredictable->ModifyActiveAnimStates(input).SetBit(static_cast<uint32_t>(ECharacterAnimState::Crouching), wasdInput->m_Crouch);
-        //}
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
 
         // Update orientation
         const float fwdBack = wasdInput->m_forwardAxis;
@@ -157,6 +156,15 @@ namespace MultiplayerSample
 
         // Update velocity
         UpdateVelocity(*wasdInput);
+
+        // Ensure any entities that we might interact with are properly synchronized to their rewind state
+        {
+            const AZ::Aabb entityStartBounds = AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->GetEntityLocalBoundsUnion(GetEntity()->GetId());
+            const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(m_velocity);
+            AZ::Aabb entitySweptBounds = entityStartBounds;
+            entitySweptBounds.AddAabb(entityFinalBounds);
+            Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(entitySweptBounds);
+        }
 
         GetCharacterComponentController()->TryMoveWithVelocity(m_velocity, deltaTime);
     }
