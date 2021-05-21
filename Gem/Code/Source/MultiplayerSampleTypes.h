@@ -13,9 +13,26 @@
 #pragma once
 
 #include <AzNetworking/Utilities/QuantizedValues.h>
+#include <AzNetworking/DataStructures/FixedSizeBitset.h>
 
 namespace MultiplayerSample
 {
     using StickAxis = AzNetworking::QuantizedValues<1, 1, -1, 1>;
     using MouseAxis = AzNetworking::QuantizedValues<1, 2, -1, 1>;
+
+    //! Various character animation states.
+    enum class CharacterAnimState
+    {
+        IdleMovement,
+        Sprinting,
+        Crouching,
+        Jumping,
+        Climbing,
+        Attacking,
+        Spawning,
+        Dying,
+        MAX
+    };
+
+    using CharacterAnimStateBitset = AzNetworking::FixedSizeBitset<static_cast<AZStd::size_t>(CharacterAnimState::MAX)> ;
 }

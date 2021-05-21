@@ -35,12 +35,28 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        ;
+        m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
+        GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         ;
+    }
+
+    void CharacterComponent::OnSyncRewind()
+    {
+        if (m_physicsCharacter == nullptr)
+        {
+            return;
+        }
+
+        const AZ::Vector3 currPosition = m_physicsCharacter->GetBasePosition();
+
+        if (currPosition != GetNetworkTransformComponent()->GetTranslation())
+        {
+            m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
+        }
     }
 
     CharacterComponentController::CharacterComponentController(CharacterComponent& parent)
@@ -51,7 +67,7 @@ namespace MultiplayerSample
 
     void CharacterComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_physxCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntity()->GetId());
+        ;
     }
 
     void CharacterComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -61,14 +77,21 @@ namespace MultiplayerSample
 
     AZ::Vector3 CharacterComponentController::TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime)
     {
-        if (m_physxCharacter == nullptr)
+        if (GetParent().m_physicsCharacter == nullptr)
         {
             return GetNetworkTransformComponentController()->GetTranslation();
         }
-        m_physxCharacter->AddVelocity(velocity);
-        m_physxCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
-        GetNetworkTransformComponentController()->SetTranslation(m_physxCharacter->GetBasePosition());
-        AZLOG(NET_Movement, "Moved to position %f x %f x %f", m_physxCharacter->GetBasePosition().GetX(), m_physxCharacter->GetBasePosition().GetY(), m_physxCharacter->GetBasePosition().GetZ());
+        GetParent().m_physicsCharacter->AddVelocity(velocity);
+        GetParent().m_physicsCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
+        GetNetworkTransformComponentController()->SetTranslation(GetParent().m_physicsCharacter->GetBasePosition());
+        AZLOG
+        (
+            NET_Movement,
+            "Moved to position %f x %f x %f",
+            GetParent().m_physicsCharacter->GetBasePosition().GetX(),
+            GetParent().m_physicsCharacter->GetBasePosition().GetY(),
+            GetParent().m_physicsCharacter->GetBasePosition().GetZ()
+        );
         return GetNetworkTransformComponentController()->GetTranslation();
     }
 }

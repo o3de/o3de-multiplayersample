@@ -116,9 +116,9 @@
                     "Parent Entity": "Entity_[1419387525450]",
                     "Cached World Transform": {
                         "Translation": [
-                            -3.4641551971435549,
-                            -305.2246398925781,
-                            61.03078842163086
+                            -0.01572617143392563,
+                            19.999988555908204,
+                            0.015726406127214433
                         ]
                     },
                     "Cached World Transform Parent": "Entity_[1419387525450]"
@@ -142,30 +142,21 @@
                     "Id": 5329091026602047821,
                     "AttachmentTarget": "",
                     "ActorAsset": {
-                        "assetId": {
-                            "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                            "subId": 526701631
-                        },
                         "loadBehavior": "QueueLoad",
-                        "assetHint": "burt/burtactor.actor"
+                        "assetId": {
+                            "guid": "{DC4B7F23-4F34-5D24-9776-E2A6767BDE64}",
+                            "subId": 2695769668
+                        },
+                        "assetHint": "jack/jackbind_zup.actor"
+                    },
+                    "MaterialPerActor": {
+                        "AssetPath": "burt/burtactor.mtl"
                     },
                     "MaterialPerLOD": [
                         {
                             "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
                         }
-                    ],
-                    "MaterialPerActor": {
-                        "AssetPath": "burt/burtactor.mtl"
-                    }
+                    ]
                 },
                 "Component_[17075755877203862909]": {
                     "$type": "GenericComponentWrapper",
@@ -208,6 +199,41 @@
                     "Id": 14925070260434397195,
                     "Configuration": {
                         "entityId": ""
+                    }
+                },
+                "Component_[4186588317358117667]": {
+                    "$type": "EditorAnimGraphComponent",
+                    "Id": 4186588317358117667,
+                    "AnimGraphAsset": {
+                        "assetId": {
+                            "guid": "{654FDF1E-55BB-5E05-9D9C-5E98871B4CA7}"
+                        },
+                        "assetHint": "jack/simple_jacklocomotion.animgraph"
+                    },
+                    "MotionSetAsset": {
+                        "assetId": {
+                            "guid": "{E2A3F974-AFEA-5E79-896A-700249C85159}"
+                        },
+                        "assetHint": "jack/simple_jacklocomotion.motionset"
+                    },
+                    "ActiveMotionSetName": "Simple_JackLocomotion"
+                },
+                "Component_[13362124592556856876]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13362124592556856876,
+                    "m_template": {
+                        "$type": "MultiplayerSample::AnimatedHitVolumesComponent"
+                    }
+                },
+                "Component_[11996978980717063697]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11996978980717063697,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkAnimationComponent",
+                        "MaxSpeed": -1.7877743184709537e26,
+                        "MovementSpeedParamName": "Speed",
+                        "AttackParamName": "Attack",
+                        "JumpParamName": "Jump"
                     }
                 }
             },

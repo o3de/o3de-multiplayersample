@@ -13,6 +13,7 @@
 #pragma once
 
 #include <Source/AutoGen/CharacterComponent.AutoComponent.h>
+#include <Multiplayer/Components/NetBindComponent.h>
 
 namespace Physics
 {
@@ -24,6 +25,8 @@ namespace MultiplayerSample
     class CharacterComponent
         : public CharacterComponentBase
     {
+        friend class CharacterComponentController;
+
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::CharacterComponent, s_characterComponentConcreteUuid, MultiplayerSample::CharacterComponentBase);
 
@@ -32,6 +35,12 @@ namespace MultiplayerSample
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+    private:
+        void OnSyncRewind();
+
+        Physics::CharacterRequests* m_physicsCharacter = nullptr;
+        Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler = Multiplayer::EntitySyncRewindEvent::Handler([this]() { OnSyncRewind(); });
     };
 
     class CharacterComponentController
@@ -44,8 +53,5 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         AZ::Vector3 TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime);
-
-    private:
-        Physics::CharacterRequests* m_physxCharacter = nullptr;
     };
 }

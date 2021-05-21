@@ -23,6 +23,8 @@ ly_add_target(
             Source
             AZ::AzNetworking
             Gem::Multiplayer
+            Gem::EMotionFXStaticLib
+            Gem::PhysX
             Gem::StartingPointInput
             .
         PUBLIC
@@ -33,6 +35,8 @@ ly_add_target(
             AZ::AzGameFramework
             AZ::AzNetworking
             Gem::Multiplayer
+            Gem::EMotionFXStaticLib
+            Gem::PhysX
             Gem::StartingPointInput
         PRIVATE
             Gem::LmbrCentral.Static
