@@ -35,7 +35,7 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntity()->GetId());
+        m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
     }
 

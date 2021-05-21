@@ -37,8 +37,8 @@ namespace MultiplayerSample
     {
         AZ::TickBus::Handler::BusConnect();
 
-        m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
-        m_animationGraph = EMotionFX::Integration::AnimGraphComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
+        m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntityId());
+        m_animationGraph = EMotionFX::Integration::AnimGraphComponentRequestBus::FindFirstHandler(GetEntityId());
 
         if (m_animationGraph != nullptr)
         {
@@ -47,7 +47,7 @@ namespace MultiplayerSample
             m_jumpParamId = m_animationGraph->FindParameterIndex(GetJumpParamName().c_str());
         }
 
-        EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntity()->GetId());
+        EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntityId());
     }
 
     void NetworkAnimationComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -115,15 +115,15 @@ namespace MultiplayerSample
 
     int NetworkAnimationComponent::GetTickOrder()
     {
-        // It is quite critical that the location component update before the animation component
-        // That means, if you touch this, and server anims are hooked up, you are on the hook to triple check that client AND server tick ordering is correct and consistent!
-        // We're assuming EMotion FX will eventually use AZ::TICK_ANIMATION, so we're pre-emptively setting ourselves to run before
+        // It is quite critical that the network transform component updates before the network animation component
+        // That means, if you touch this, and server anims are hooked up, you should triple check that tick ordering is still correct
+        // We're also assuming EMotionFX will eventually use AZ::TICK_ANIMATION, so we're pre-emptively setting ourselves to run before
         return AZ::TICK_ANIMATION - 1;
     }
 
     void NetworkAnimationComponent::OnActorInstanceCreated([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
-        m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
+        m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntityId());
     }
 
     void NetworkAnimationComponent::OnActorInstanceDestroyed([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
