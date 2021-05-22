@@ -116,9 +116,9 @@
                     "Parent Entity": "Entity_[1419387525450]",
                     "Cached World Transform": {
                         "Translation": [
-                            -0.01572617143392563,
-                            19.999988555908204,
-                            0.015726406127214433
+                            -0.013710042461752892,
+                            19.999990463256837,
+                            0.01370984222739935
                         ]
                     },
                     "Cached World Transform Parent": "Entity_[1419387525450]"
@@ -170,14 +170,14 @@
                     "Id": 7398251875150394377,
                     "m_template": {
                         "$type": "MultiplayerSample::CharacterComponent",
-                        "WalkSpeed": 0.08761131763458252,
-                        "SprintSpeed": 0.8999999761581421,
+                        "WalkSpeed": 2.0,
+                        "SprintSpeed": 4.0,
                         "ReverseSprintSpeed": 1.0,
-                        "SpawnTimerDuration": -1.7014635547491818e38,
-                        "DeathTimerDuration": 0.04500001668930054,
+                        "SpawnTimerDuration": 10.0,
+                        "DeathTimerDuration": 10.0,
                         "RespawnOnDeath": true,
                         "StepHeight": 1.0,
-                        "SlopeLimitDegrees": -1.7146521915939559e38,
+                        "SlopeLimitDegrees": 30,
                         "ContactOffset": 0.04500001668930054
                     }
                 },
@@ -216,7 +216,7 @@
                         },
                         "assetHint": "jack/simple_jacklocomotion.motionset"
                     },
-                    "ActiveMotionSetName": "Simple_JackLocomotion"
+                    "ActiveMotionSetName": "Cowboy"
                 },
                 "Component_[13362124592556856876]": {
                     "$type": "GenericComponentWrapper",
@@ -230,7 +230,7 @@
                     "Id": 11996978980717063697,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkAnimationComponent",
-                        "MaxSpeed": -1.7877743184709537e26,
+                        "MaxSpeed": 4.0,
                         "MovementSpeedParamName": "Speed",
                         "AttackParamName": "Attack",
                         "JumpParamName": "Jump"

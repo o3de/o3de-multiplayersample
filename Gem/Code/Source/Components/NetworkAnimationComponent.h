@@ -15,11 +15,16 @@
 #include <Source/AutoGen/NetworkAnimationComponent.AutoComponent.h>
 #include <AzCore/Component/TickBus.h>
 #include <Integration/ActorComponentBus.h>
+#include <Integration/AnimGraphComponentBus.h>
 
-namespace EMotionFX::Integration
+namespace EMotionFX
 {
-    class ActorComponentRequests;
-    class AnimGraphComponentRequests;
+    class AnimGraphComponentNetworkRequests;
+    namespace Integration
+    {
+        class ActorComponentRequests;
+        class AnimGraphComponentRequests;
+    }
 }
 
 namespace MultiplayerSample
@@ -33,6 +38,7 @@ namespace MultiplayerSample
         : public NetworkAnimationComponentBase
         , public AZ::TickBus::Handler
         , private EMotionFX::Integration::ActorComponentNotificationBus::Handler
+        , private EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkAnimationComponent, s_networkAnimationComponentConcreteUuid, MultiplayerSample::NetworkAnimationComponentBase);
@@ -57,11 +63,17 @@ namespace MultiplayerSample
 
         //! EMotionFX::Integration::ActorComponentNotificationBus::Handler
         //! @{
-        void OnActorInstanceCreated(EMotionFX::ActorInstance* actorInstance);
-        void OnActorInstanceDestroyed(EMotionFX::ActorInstance* actorInstance);
+        void OnActorInstanceCreated(EMotionFX::ActorInstance* actorInstance) override;
+        void OnActorInstanceDestroyed(EMotionFX::ActorInstance* actorInstance) override;
+        //! @}
+
+        //! EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler
+        //! @{
+        void OnAnimGraphInstanceCreated(EMotionFX::AnimGraphInstance* animGraphInstance) override;
         //! @}
 
         EMotionFX::Integration::ActorComponentRequests* m_actorRequests = nullptr;
+        EMotionFX::AnimGraphComponentNetworkRequests* m_networkRequests = nullptr;
         EMotionFX::Integration::AnimGraphComponentRequests* m_animationGraph = nullptr;
 
         // Hardcoded parameters, be nice if this was flexible and configurable from within the editor

@@ -14,6 +14,7 @@
 #include <Source/Components/WasdPlayerMovementComponent.h>
 #include <Integration/AnimGraphComponentBus.h>
 #include <Integration/AnimationBus.h>
+#include <Integration/AnimGraphNetworkingBus.h>
 
 namespace MultiplayerSample
 {
@@ -38,6 +39,7 @@ namespace MultiplayerSample
         AZ::TickBus::Handler::BusConnect();
 
         m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntityId());
+        m_networkRequests = EMotionFX::AnimGraphComponentNetworkRequestBus::FindFirstHandler(GetEntityId());
         m_animationGraph = EMotionFX::Integration::AnimGraphComponentRequestBus::FindFirstHandler(GetEntityId());
 
         if (m_animationGraph != nullptr)
@@ -48,12 +50,13 @@ namespace MultiplayerSample
         }
 
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntityId());
+        EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler::BusConnect(GetEntityId());
     }
 
     void NetworkAnimationComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusDisconnect();
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusDisconnect();
+        AZ::TickBus::Handler::BusDisconnect();
     }
 
     int32_t NetworkAnimationComponent::GetBoneIdByName(const char* boneName) const
@@ -87,7 +90,14 @@ namespace MultiplayerSample
 
     void NetworkAnimationComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
-        if ((m_animationGraph != nullptr) && (m_movementSpeedParamId == InvalidParamIndex))
+        if (m_animationGraph == nullptr || m_networkRequests == nullptr)
+        {
+            return;
+        }
+
+        m_networkRequests->UpdateActorExternal(deltaTime);
+
+        if (m_movementSpeedParamId == InvalidParamIndex)
         {
             m_movementSpeedParamId = m_animationGraph->FindParameterIndex(GetMovementSpeedParamName().c_str());
             m_attackParamId = m_animationGraph->FindParameterIndex(GetAttackParamName().c_str());
@@ -129,5 +139,18 @@ namespace MultiplayerSample
     void NetworkAnimationComponent::OnActorInstanceDestroyed([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
         m_actorRequests = nullptr;
+    }
+
+    void NetworkAnimationComponent::OnAnimGraphInstanceCreated([[maybe_unused]] EMotionFX::AnimGraphInstance* animGraphInstance)
+    {
+        // We don't need any more notifications
+        EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler::BusDisconnect();
+
+        // Disable automatic EMotionFX updates of transform, network has control
+        if (m_networkRequests != nullptr)
+        {
+            constexpr bool isAuthoritative = true;
+            m_networkRequests->CreateSnapshot(isAuthoritative);
+        }
     }
 }

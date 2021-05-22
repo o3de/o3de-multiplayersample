@@ -77,7 +77,7 @@ namespace MultiplayerSample
 
     AZ::Vector3 CharacterComponentController::TryMoveWithVelocity(const AZ::Vector3& velocity, float deltaTime)
     {
-        if (GetParent().m_physicsCharacter == nullptr)
+        if ((GetParent().m_physicsCharacter == nullptr) || (velocity.GetLengthSq() <= 0.0f))
         {
             return GetNetworkTransformComponentController()->GetTranslation();
         }
