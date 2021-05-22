@@ -18,6 +18,7 @@
 #include <AzFramework/Physics/Material.h>
 #include <MCore/Source/AzCoreConversions.h>
 #include <Integration/ActorComponentBus.h>
+#include <Integration/AnimGraphNetworkingBus.h>
 
 namespace MultiplayerSample
 {
@@ -131,10 +132,10 @@ namespace MultiplayerSample
 
     void AnimatedHitVolumesComponent::Update([[maybe_unused]] AZ::TimeMs deltaTimeMs)
     {
-        if (m_animatedHitVolumes.size() <= 0)
-        {
-            CreateHitVolumes();
-        }
+        //if (m_animatedHitVolumes.size() <= 0)
+        //{
+        //    CreateHitVolumes();
+        //}
 
         AZ::Vector3 position, scale;
         AZ::Quaternion rotation;
