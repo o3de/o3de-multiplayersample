@@ -67,8 +67,6 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
-        AZ::Vector3 m_velocity = AZ::Vector3::CreateZero();
-
         float m_forwardWeight = 0.0f;
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;

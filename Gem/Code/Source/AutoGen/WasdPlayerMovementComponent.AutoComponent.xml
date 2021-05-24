@@ -14,7 +14,7 @@
 
     <Include File="Source/MultiplayerSampleTypes.h"/>
 
-    <NetworkProperty Type="float" Name="Speed" Init="0.0f" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current movement speed of this player"/>
+    <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current velocity of this player"/>
 
     <NetworkInput Type="StickAxis" Name="ForwardAxis" Init="0.0f" />
     <NetworkInput Type="StickAxis" Name="StrafeAxis"  Init="0.0f" />

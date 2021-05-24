@@ -77,8 +77,15 @@ namespace MultiplayerSample
         EMotionFX::Integration::AnimGraphComponentRequests* m_animationGraph = nullptr;
 
         // Hardcoded parameters, be nice if this was flexible and configurable from within the editor
-        uint32_t m_movementSpeedParamId = InvalidParamIndex;
-        uint32_t m_attackParamId = InvalidParamIndex;
+        uint32_t m_velocityParamId = InvalidParamIndex;
+        uint32_t m_aimTargetParamId = InvalidParamIndex;
+        uint32_t m_crouchParamId = InvalidParamIndex;
+        uint32_t m_aimingParamId = InvalidParamIndex;
+        uint32_t m_shootParamId = InvalidParamIndex;
         uint32_t m_jumpParamId = InvalidParamIndex;
+        uint32_t m_fallParamId = InvalidParamIndex;
+        uint32_t m_landParamId = InvalidParamIndex;
+        uint32_t m_hitParamId = InvalidParamIndex;
+        uint32_t m_deathParamId = InvalidParamIndex;
     };
 }
