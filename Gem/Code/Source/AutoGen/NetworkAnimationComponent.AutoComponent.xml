@@ -15,8 +15,14 @@
 
     <NetworkProperty Type="CharacterAnimStateBitset" Name="ActiveAnimStates" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="false" Description="Bitset of active animation states" />
 
-    <ArchetypeProperty Type="AZStd::string" Name="MovementSpeedParamName" Init=""     ExposeToEditor="true" Description="EMotionFX movement speed parameter"/>
-    <ArchetypeProperty Type="AZStd::string" Name="AttackParamName"        Init=""     ExposeToEditor="true" Description="EMotionFX attack parameter"/>
-    <ArchetypeProperty Type="AZStd::string" Name="JumpParamName"          Init=""     ExposeToEditor="true" Description="EMotionFX jump parameter"/>
-    <ArchetypeProperty Type="float"         Name="MaxSpeed"               Init="1.0f" ExposeToEditor="true" Description="EMotionFX max speed value"/>
+    <ArchetypeProperty Type="AZStd::string" Name="VelocityParamName"  Init=""     ExposeToEditor="true" Description="Anim graph velocity parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="AimTargetParamName" Init=""     ExposeToEditor="true" Description="Anim graph aim target parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="CrouchParamName"    Init=""     ExposeToEditor="true" Description="Anim graph crouch parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="AimingParamName"    Init=""     ExposeToEditor="true" Description="Anim graph aiming parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="ShootParamName"     Init=""     ExposeToEditor="true" Description="Anim graph shoot parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="JumpParamName"      Init=""     ExposeToEditor="true" Description="Anim graph jump parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="FallParamName"      Init=""     ExposeToEditor="true" Description="Anim graph fall parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="LandParamName"      Init=""     ExposeToEditor="true" Description="Anim graph land parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="HitParamName"       Init=""     ExposeToEditor="true" Description="Anim graph hit parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="DeathParamName"     Init=""     ExposeToEditor="true" Description="Anim graph death parameter"/>
 </Component>

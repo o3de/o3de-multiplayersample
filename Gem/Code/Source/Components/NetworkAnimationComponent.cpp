@@ -42,13 +42,6 @@ namespace MultiplayerSample
         m_networkRequests = EMotionFX::AnimGraphComponentNetworkRequestBus::FindFirstHandler(GetEntityId());
         m_animationGraph = EMotionFX::Integration::AnimGraphComponentRequestBus::FindFirstHandler(GetEntityId());
 
-        if (m_animationGraph != nullptr)
-        {
-            m_movementSpeedParamId = m_animationGraph->FindParameterIndex(GetMovementSpeedParamName().c_str());
-            m_attackParamId = m_animationGraph->FindParameterIndex(GetAttackParamName().c_str());
-            m_jumpParamId = m_animationGraph->FindParameterIndex(GetJumpParamName().c_str());
-        }
-
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntityId());
         EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler::BusConnect(GetEntityId());
     }
@@ -97,29 +90,79 @@ namespace MultiplayerSample
 
         m_networkRequests->UpdateActorExternal(deltaTime);
 
-        if (m_movementSpeedParamId == InvalidParamIndex)
+        if (m_velocityParamId == InvalidParamIndex)
         {
-            m_movementSpeedParamId = m_animationGraph->FindParameterIndex(GetMovementSpeedParamName().c_str());
-            m_attackParamId = m_animationGraph->FindParameterIndex(GetAttackParamName().c_str());
+            m_velocityParamId = m_animationGraph->FindParameterIndex(GetVelocityParamName().c_str());
+            m_aimTargetParamId = m_animationGraph->FindParameterIndex(GetAimTargetParamName().c_str());
+            m_crouchParamId = m_animationGraph->FindParameterIndex(GetCrouchParamName().c_str());
+            m_aimingParamId = m_animationGraph->FindParameterIndex(GetAimingParamName().c_str());
+            m_shootParamId = m_animationGraph->FindParameterIndex(GetShootParamName().c_str());
             m_jumpParamId = m_animationGraph->FindParameterIndex(GetJumpParamName().c_str());
+            m_fallParamId = m_animationGraph->FindParameterIndex(GetFallParamName().c_str());
+            m_landParamId = m_animationGraph->FindParameterIndex(GetLandParamName().c_str());
+            m_hitParamId = m_animationGraph->FindParameterIndex(GetHitParamName().c_str());
+            m_deathParamId = m_animationGraph->FindParameterIndex(GetDeathParamName().c_str());
         }
 
-        if (m_movementSpeedParamId != InvalidParamIndex)
+        if (m_velocityParamId != InvalidParamIndex)
         {
-            const float speed = GetWasdPlayerMovementComponent()->GetSpeed() / GetMaxSpeed();
-            m_animationGraph->SetParameterFloat(m_movementSpeedParamId, speed);
+            const AZ::Vector3 velocity = GetWasdPlayerMovementComponent()->GetVelocity();
+            const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
+            m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d);
         }
 
-        if (m_attackParamId != InvalidParamIndex)
+        if (m_aimTargetParamId != InvalidParamIndex)
         {
-            const bool attacking = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Attacking));
-            m_animationGraph->SetParameterBool(m_attackParamId, attacking);
+            //const AZ::Vector3 aimTarget = GetWeaponsComponent()->GetAimTarget();
+            //m_animationGraph->SetParameterVector2(m_aimTargetParamId, aimTarget);
+        }
+
+        if (m_crouchParamId != InvalidParamIndex)
+        {
+            const bool crouching = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching));
+            m_animationGraph->SetParameterBool(m_crouchParamId, crouching);
+        }
+
+        if (m_aimingParamId != InvalidParamIndex)
+        {
+            const bool aiming = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Aiming));
+            m_animationGraph->SetParameterBool(m_aimingParamId, aiming);
+        }
+
+        if (m_shootParamId != InvalidParamIndex)
+        {
+            const bool shooting = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Shooting));
+            m_animationGraph->SetParameterBool(m_shootParamId, shooting);
         }
 
         if (m_jumpParamId != InvalidParamIndex)
         {
             const bool jumping = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Jumping));
             m_animationGraph->SetParameterBool(m_jumpParamId, jumping);
+        }
+
+        if (m_fallParamId != InvalidParamIndex)
+        {
+            const bool falling = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Falling));
+            m_animationGraph->SetParameterBool(m_fallParamId, falling);
+        }
+
+        if (m_landParamId != InvalidParamIndex)
+        {
+            const bool landing = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Landing));
+            m_animationGraph->SetParameterBool(m_landParamId, landing);
+        }
+
+        if (m_hitParamId != InvalidParamIndex)
+        {
+            const bool hit = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Hit));
+            m_animationGraph->SetParameterBool(m_hitParamId, hit);
+        }
+
+        if (m_deathParamId != InvalidParamIndex)
+        {
+            const bool dead = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Dying));
+            m_animationGraph->SetParameterBool(m_deathParamId, dead);
         }
     }
 

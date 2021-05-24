@@ -144,10 +144,10 @@
                     "ActorAsset": {
                         "loadBehavior": "QueueLoad",
                         "assetId": {
-                            "guid": "{DC4B7F23-4F34-5D24-9776-E2A6767BDE64}",
-                            "subId": 2695769668
+                            "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
+                            "subId": 526701631
                         },
-                        "assetHint": "jack/jackbind_zup.actor"
+                        "assetHint": "burt/burtactor.actor"
                     },
                     "MaterialPerActor": {
                         "AssetPath": "burt/burtactor.mtl"
@@ -206,17 +206,128 @@
                     "Id": 4186588317358117667,
                     "AnimGraphAsset": {
                         "assetId": {
-                            "guid": "{654FDF1E-55BB-5E05-9D9C-5E98871B4CA7}"
+                            "guid": "{46F677B6-0C57-50DE-BA38-2CC3079FDFC9}"
                         },
-                        "assetHint": "jack/simple_jacklocomotion.animgraph"
+                        "assetHint": "burt/humanoidcharacter.animgraph"
                     },
                     "MotionSetAsset": {
                         "assetId": {
-                            "guid": "{E2A3F974-AFEA-5E79-896A-700249C85159}"
+                            "guid": "{0FA6D069-A122-57F5-BF54-A66AC8BE58A5}"
                         },
-                        "assetHint": "jack/simple_jacklocomotion.motionset"
+                        "assetHint": "burt/burt.motionset"
                     },
-                    "ActiveMotionSetName": "Cowboy"
+                    "ActiveMotionSetName": "BURTMotionSet",
+                    "ParameterDefaults": {
+                        "Parameters": [
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 958518102,
+                                "name": "desired_angle"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 182703473,
+                                "name": "slope_angle"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 2155279128,
+                                "name": "crouch"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 1084884419,
+                                "name": "aiming"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 1883569342,
+                                "name": "shoot"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 1720552084,
+                                "name": "lateral_adjustment",
+                                "value": 0.03500000014901161
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 819414243,
+                                "name": "height_adjustment",
+                                "value": -0.05000000074505806
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 2672514538,
+                                "name": "forward_adjustment"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 2813527574,
+                                "name": "jump"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 4216381196,
+                                "name": "fall"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 2818627032,
+                                "name": "land"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 2553848132,
+                                "name": "land_type_index",
+                                "value": 1.0
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 1523721793,
+                                "name": "hit"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 4154523292,
+                                "name": "hit_axis_index"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 23391511,
+                                "name": "death_state_index"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 2469366193,
+                                "name": "adjust_hip",
+                                "value": true
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 671657505,
+                                "name": "lock_feet",
+                                "value": true
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 3470154576,
+                                "name": "foot_ik_weight",
+                                "value": true
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 1891303514,
+                                "name": "victory"
+                            },
+                            {
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 420668671,
+                                "name": "game_entry",
+                                "value": true
+                            }
+                        ]
+                    }
                 },
                 "Component_[13362124592556856876]": {
                     "$type": "GenericComponentWrapper",
@@ -230,10 +341,16 @@
                     "Id": 11996978980717063697,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkAnimationComponent",
-                        "MaxSpeed": 4.0,
-                        "MovementSpeedParamName": "Speed",
-                        "AttackParamName": "Attack",
-                        "JumpParamName": "Jump"
+                        "VelocityParamName": "movement_direction",
+                        "AimTargetParamName": "target_position",
+                        "CrouchParamName": "crouch",
+                        "AimingParamName": "aiming",
+                        "ShootParamName": "shoot",
+                        "JumpParamName": "jump",
+                        "FallParamName": "fall",
+                        "LandParamName": "land",
+                        "HitParamName": "hit",
+                        "DeathParamName": "death_state_index"
                     }
                 }
             },

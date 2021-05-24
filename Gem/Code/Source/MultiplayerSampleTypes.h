@@ -23,13 +23,15 @@ namespace MultiplayerSample
     //! Various character animation states.
     enum class CharacterAnimState
     {
-        IdleMovement,
-        Sprinting,
+        Idle,
         Crouching,
         Jumping,
+        Falling,
+        Landing,
         Climbing,
-        Attacking,
-        Spawning,
+        Aiming,
+        Shooting,
+        Hit,
         Dying,
         MAX
     };

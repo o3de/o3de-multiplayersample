@@ -144,7 +144,6 @@ namespace MultiplayerSample
             return;
         }
 
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
 
@@ -159,13 +158,13 @@ namespace MultiplayerSample
         // Ensure any entities that we might interact with are properly synchronized to their rewind state
         {
             const AZ::Aabb entityStartBounds = AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->GetEntityLocalBoundsUnion(GetEntity()->GetId());
-            const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(m_velocity);
+            const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(GetVelocity());
             AZ::Aabb entitySweptBounds = entityStartBounds;
             entitySweptBounds.AddAabb(entityFinalBounds);
             Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(entitySweptBounds);
         }
 
-        GetCharacterComponentController()->TryMoveWithVelocity(m_velocity, deltaTime);
+        GetCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
     }
 
     void WasdPlayerMovementComponentController::UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput)
@@ -173,28 +172,27 @@ namespace MultiplayerSample
         const float fwdBack = wasdInput.m_forwardAxis;
         const float leftRight = wasdInput.m_strafeAxis;
 
-        // Note that we really want to be setting a velocity anim graph param so the character strafes correctly
+        float speed = 0.0f;
         if (fwdBack < 0.0f)
         {
-            SetSpeed(GetCharacterComponentController()->GetReverseSprintSpeed());
+            speed = GetCharacterComponentController()->GetReverseSprintSpeed();
         }
         else
         {
             if (wasdInput.m_sprint)
             {
-                SetSpeed(GetCharacterComponentController()->GetSprintSpeed());
+                speed = GetCharacterComponentController()->GetSprintSpeed();
             }
             else
             {
-                SetSpeed(GetCharacterComponentController()->GetWalkSpeed());
+                speed = GetCharacterComponentController()->GetWalkSpeed();
             }
         }
 
         // Not moving?
         if (fwdBack == 0.0f && leftRight == 0.0f)
         {
-            SetSpeed(0.0f);
-            m_velocity = AZ::Vector3::CreateZero();
+            SetVelocity(AZ::Vector3::CreateZero());
         }
         else
         {
@@ -206,7 +204,7 @@ namespace MultiplayerSample
             targetHeading = NormalizeHeading(targetHeading);
 
             static const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
-            m_velocity = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * GetSpeed();
+            SetVelocity(AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed);
         }
     }
 
