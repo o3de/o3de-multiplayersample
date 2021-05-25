@@ -14,6 +14,7 @@ set(FILES
     Source/AutoGen/CharacterComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/SimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/WasdPlayerMovementComponent.AutoComponent.xml
     Source/Components/AnimatedHitVolumesComponent.cpp
     Source/Components/AnimatedHitVolumesComponent.h
@@ -23,6 +24,8 @@ set(FILES
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
     Source/Components/NetworkPlayerSpawnerComponent.h
+    Source/Components/SimplePlayerCameraComponent.cpp
+    Source/Components/SimplePlayerCameraComponent.h
     Source/Components/WasdPlayerMovementComponent.cpp
     Source/Components/WasdPlayerMovementComponent.h
     Source/MultiplayerSampleSystemComponent.cpp

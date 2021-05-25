@@ -52,22 +52,17 @@ namespace MultiplayerSample
         }
         else
         {
-            // Fallback method in case the collider config was not set to exclusive.
             Physics::ColliderConfiguration colliderConfiguration = *m_colliderConfig;
             colliderConfiguration.m_isExclusive = true;
+            colliderConfiguration.m_isSimulated = false;
+            colliderConfiguration.m_isInSceneQueries = true;
             Physics::SystemRequestBus::BroadcastResult(m_physicsShape, &Physics::SystemRequests::CreateShape, colliderConfiguration, *m_shapeConfig);
         }
 
         if (m_physicsShape)
         {
-            // TODO: We need this ported to the new physx api
-            //physx::PxShape* shape = static_cast<physx::PxShape*>(m_physicsShape->GetNativePointer());
-            //physx::PxFilterData filterData;
-            //filterData.word0 = static_cast<physx::PxU32>(NovaNet::PhysicsObjectTypes::CharacterHitShapes);
-            //shape->setQueryFilterData(filterData);
-            //shape->setSimulationFilterData(filterData);
-
             m_physicsShape->SetName(hitVolumeName);
+            m_physicsShape->SetCollisionLayer(AzPhysics::CollisionLayer::TouchBend);
             character->GetCharacter()->AttachShape(m_physicsShape);
         }
     }
@@ -132,10 +127,10 @@ namespace MultiplayerSample
 
     void AnimatedHitVolumesComponent::Update([[maybe_unused]] AZ::TimeMs deltaTimeMs)
     {
-        //if (m_animatedHitVolumes.size() <= 0)
-        //{
-        //    CreateHitVolumes();
-        //}
+        if (m_animatedHitVolumes.size() <= 0)
+        {
+            CreateHitVolumes();
+        }
 
         AZ::Vector3 position, scale;
         AZ::Quaternion rotation;
