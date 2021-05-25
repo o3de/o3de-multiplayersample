@@ -24,6 +24,7 @@ namespace MultiplayerSample
     enum class CharacterAnimState
     {
         Idle,
+        Sprinting,
         Crouching,
         Jumping,
         Falling,

@@ -13,38 +13,16 @@
 #include <Source/Components/WasdPlayerMovementComponent.h>
 #include <Source/Components/CharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
+#include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzFramework/Visibility/EntityBoundsUnionBus.h>
+#include <AzFramework/Components/CameraBus.h>
 
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
-
-    void WasdPlayerMovementComponent::WasdPlayerMovementComponent::Reflect(AZ::ReflectContext* context)
-    {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<WasdPlayerMovementComponent, WasdPlayerMovementComponentBase>()
-                ->Version(1);
-        }
-        WasdPlayerMovementComponentBase::Reflect(context);
-    }
-
-    void WasdPlayerMovementComponent::OnInit()
-    {
-        ;
-    }
-
-    void WasdPlayerMovementComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
-
-    void WasdPlayerMovementComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
+    AZ_CVAR(float, cl_AimStickScaleZ, 0.01f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleX, 0.0025f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
 
     WasdPlayerMovementComponentController::WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent)
         : WasdPlayerMovementComponentControllerBase(parent)
@@ -101,26 +79,14 @@ namespace MultiplayerSample
         wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
         // View Axis
-        float camYaw = 0.0f; // Value [-pi, +pi]
-        //const PlayerComponent::Autonomous* playerComponent = FindController<PlayerComponent::Autonomous>(GetHandle());
-        //if (playerComponent == nullptr)
-        //{
-        //    // Try and get one from the primary entity (useful when we have multiple autonomous entities)
-        //    playerComponent = FindController<PlayerComponent::Autonomous>(gNovaGame->GetNovaNetworkAgent().GetPrimaryPlayerEntity());
-        //}
-        //if (playerComponent != nullptr)
-        //{
-        //    AZ::Vector3 eulerAngs = AZ::Vector3::CreateZero();
-        //    EBUS_EVENT_ID_RESULT(eulerAngs, playerComponent->GetCameraEnt(), AZ::TransformBus, GetLocalRotation);
-        //    camYaw = eulerAngs.GetZ();
-        //    // euler angles come back 0 <-> 2PI, but we want -PI <-> PI ( we require to wrap around to -PI after hitting PI is the range mapping )
-        //    if (camYaw > AZ::Constants::Pi)
-        //    {
-        //        camYaw -= AZ::Constants::TwoPi;
-        //    }
-        //
-        //    camYaw = camYaw / AZ::Constants::Pi; // Normalize to [-1,1]
-        //}
+        float camYaw = GetSimplePlayerCameraComponentController()->GetCameraYaw(); // Value [-pi, +pi]
+
+        // euler angles come back 0 <-> 2PI, but we want -PI <-> PI ( we require to wrap around to -PI after hitting PI is the range mapping )
+        if (camYaw > AZ::Constants::Pi)
+        {
+            camYaw -= AZ::Constants::TwoPi;
+        }
+        camYaw = camYaw / AZ::Constants::Pi; // Normalize to [-1,1]
         wasdInput->m_viewYaw = MouseAxis(camYaw);
 
         // Strafe input
@@ -144,13 +110,13 @@ namespace MultiplayerSample
             return;
         }
 
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
 
         // Update orientation
-        const float fwdBack = wasdInput->m_forwardAxis;
-        const float leftRight = wasdInput->m_strafeAxis;
-        AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(wasdInput->m_viewYaw * AZ::Constants::Pi);
+        const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(GetSimplePlayerCameraComponentController()->GetCameraYaw());
+        GetNetworkTransformComponentController()->SetRotation(newOrientation);
 
         // Update velocity
         UpdateVelocity(*wasdInput);
@@ -173,9 +139,13 @@ namespace MultiplayerSample
         const float leftRight = wasdInput.m_strafeAxis;
 
         float speed = 0.0f;
-        if (fwdBack < 0.0f)
+        if (wasdInput.m_crouch)
         {
-            speed = GetCharacterComponentController()->GetReverseSprintSpeed();
+            speed = GetCharacterComponentController()->GetCrouchSpeed();
+        }
+        else if (fwdBack < 0.0f)
+        {
+            speed = GetCharacterComponentController()->GetReverseSpeed();
         }
         else
         {
@@ -197,13 +167,9 @@ namespace MultiplayerSample
         else
         {
             const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
-
-            float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
-            float targetHeading = currentHeading + stickInputAngle; // Update current heading with stick input angles
-
-            targetHeading = NormalizeHeading(targetHeading);
-
-            static const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
+            const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
+            const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle); // Update current heading with stick input angles
+            const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
             SetVelocity(AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed);
         }
     }
@@ -230,8 +196,7 @@ namespace MultiplayerSample
         {
             return;
         }
-
-        if (*inputId == MoveFwdEventId)
+        else if (*inputId == MoveFwdEventId)
         {
             m_forwardDown = true;
         }
@@ -269,8 +234,7 @@ namespace MultiplayerSample
         {
             return;
         }
-
-        if (*inputId == MoveFwdEventId)
+        else if (*inputId == MoveFwdEventId)
         {
             m_forwardDown = false;
         }
@@ -300,13 +264,26 @@ namespace MultiplayerSample
         }
     }
 
-    void WasdPlayerMovementComponentController::OnHeld([[maybe_unused]] float value)
+    void WasdPlayerMovementComponentController::OnHeld(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
         if (inputId == nullptr)
         {
             return;
+        }
+        else if (*inputId == LookLeftRightEventId)
+        {
+            AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
+            aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() + value * cl_AimStickScaleZ));
+            GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
+        }
+        else if (*inputId == LookUpDownEventId)
+        {
+            AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
+            aimAngles.SetX(NormalizeHeading(aimAngles.GetX() + value * cl_AimStickScaleX));
+            aimAngles.SetX(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.5f, AZ::Constants::QuarterPi * 0.5f));
+            GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
         }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="SimplePlayerCameraComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="false"
+    OverrideController="true"
+    OverrideInclude="Source/Components/SimplePlayerCameraComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <Include File="Source/MultiplayerSampleTypes.h"/>
+
+    <NetworkProperty Type="AZ::Vector3" Name="AimAngles" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current aim direction of this player"/>
+</Component>
