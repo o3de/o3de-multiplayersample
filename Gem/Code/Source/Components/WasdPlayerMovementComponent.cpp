@@ -21,8 +21,8 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
-    AZ_CVAR(float, cl_AimStickScaleZ, 0.01f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
-    AZ_CVAR(float, cl_AimStickScaleX, 0.0025f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleZ, 0.1f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleX, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
 
     WasdPlayerMovementComponentController::WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent)
         : WasdPlayerMovementComponentControllerBase(parent)
@@ -79,15 +79,8 @@ namespace MultiplayerSample
         wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
         // View Axis
-        float camYaw = GetSimplePlayerCameraComponentController()->GetCameraYaw(); // Value [-pi, +pi]
-
-        // euler angles come back 0 <-> 2PI, but we want -PI <-> PI ( we require to wrap around to -PI after hitting PI is the range mapping )
-        if (camYaw > AZ::Constants::Pi)
-        {
-            camYaw -= AZ::Constants::TwoPi;
-        }
-        camYaw = camYaw / AZ::Constants::Pi; // Normalize to [-1,1]
-        wasdInput->m_viewYaw = MouseAxis(camYaw);
+        wasdInput->m_viewYaw = MouseAxis(m_viewYaw);
+        wasdInput->m_viewPitch = MouseAxis(m_viewPitch);
 
         // Strafe input
         wasdInput->m_sprint = m_sprinting;
@@ -115,7 +108,13 @@ namespace MultiplayerSample
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
 
         // Update orientation
-        const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(GetSimplePlayerCameraComponentController()->GetCameraYaw());
+        AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
+        aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - wasdInput->m_viewYaw * cl_AimStickScaleZ));
+        aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - wasdInput->m_viewPitch * cl_AimStickScaleX));
+        aimAngles.SetX(NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.5f, AZ::Constants::QuarterPi * 0.5f)));
+        GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
+
+        const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ());
         GetNetworkTransformComponentController()->SetRotation(newOrientation);
 
         // Update velocity
@@ -188,7 +187,7 @@ namespace MultiplayerSample
         return heading;
     }
 
-    void WasdPlayerMovementComponentController::OnPressed([[maybe_unused]] float value)
+    void WasdPlayerMovementComponentController::OnPressed(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -224,9 +223,17 @@ namespace MultiplayerSample
         {
             m_crouching = true;
         }
+        else if (*inputId == LookLeftRightEventId)
+        {
+            m_viewYaw = value;
+        }
+        else if (*inputId == LookUpDownEventId)
+        {
+            m_viewPitch = value;
+        }
     }
 
-    void WasdPlayerMovementComponentController::OnReleased([[maybe_unused]] float value)
+    void WasdPlayerMovementComponentController::OnReleased(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -262,6 +269,14 @@ namespace MultiplayerSample
         {
             m_crouching = false;
         }
+        else if (*inputId == LookLeftRightEventId)
+        {
+            m_viewYaw = value;
+        }
+        else if (*inputId == LookUpDownEventId)
+        {
+            m_viewPitch = value;
+        }
     }
 
     void WasdPlayerMovementComponentController::OnHeld(float value)
@@ -274,16 +289,11 @@ namespace MultiplayerSample
         }
         else if (*inputId == LookLeftRightEventId)
         {
-            AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
-            aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() + value * cl_AimStickScaleZ));
-            GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
+            m_viewYaw = value;
         }
         else if (*inputId == LookUpDownEventId)
         {
-            AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
-            aimAngles.SetX(NormalizeHeading(aimAngles.GetX() + value * cl_AimStickScaleX));
-            aimAngles.SetX(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.5f, AZ::Constants::QuarterPi * 0.5f));
-            GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
+            m_viewPitch = value;
         }
     }
 }

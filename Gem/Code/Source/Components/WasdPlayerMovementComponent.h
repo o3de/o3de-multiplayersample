@@ -59,6 +59,9 @@ namespace MultiplayerSample
         float m_backwardWeight = 0.0f;
         float m_rightWeight = 0.0f;
 
+        float m_viewYaw = 0.0f;
+        float m_viewPitch = 0.0f;
+
         bool  m_forwardDown = false;
         bool  m_leftDown = false;
         bool  m_backwardDown = false;
