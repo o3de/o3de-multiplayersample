@@ -106,9 +106,13 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 velocity = GetWasdPlayerMovementComponent()->GetVelocity();
-            const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
-            m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d);
+            WasdPlayerMovementComponentController* controller = static_cast<WasdPlayerMovementComponentController*>(GetWasdPlayerMovementComponent()->GetController());
+            if (controller)
+            {
+                const AZ::Vector3 velocity = controller->GetVelocity();
+                const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
+                m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d);    
+            }
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
