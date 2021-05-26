@@ -11,6 +11,8 @@
     <Include File="Source/MultiplayerSampleTypes.h"/>
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="CharacterComponent" Namespace="MultiplayerSample" Include="Source/Components/CharacterComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="SimplePlayerCameraComponent" Namespace="MultiplayerSample" Include="Source/Components/SimplePlayerCameraComponent.h" />
     <ComponentRelation Constraint="Weak" HasController="true" Name="WasdPlayerMovementComponent" Namespace="MultiplayerSample" Include="Source/Components/WasdPlayerMovementComponent.h" />
 
     <NetworkProperty Type="CharacterAnimStateBitset" Name="ActiveAnimStates" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="false" Description="Bitset of active animation states" />

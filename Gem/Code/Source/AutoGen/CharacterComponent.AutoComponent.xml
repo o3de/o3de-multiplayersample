@@ -10,17 +10,8 @@
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
 
-    <NetworkProperty Type="bool"  Name="IsAlive"           Init="false" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="false" IsPredictable="falses" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="True if alive" />
-    <NetworkProperty Type="float" Name="CurrentSpawnTimer" Init="0.0f"  ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="false" IsPredictable="falses" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Units in seconds" />
-    <NetworkProperty Type="float" Name="CurrentDeathTimer" Init="0.0f"  ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="false" IsPredictable="falses" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Units in seconds" />
-
-    <ArchetypeProperty Type="float" Name="WalkSpeed"          Init="3.0f"  ExposeToEditor="true" Description="Walk speed, units in meters per second" />
-    <ArchetypeProperty Type="float" Name="SprintSpeed"        Init="4.0f"  ExposeToEditor="true" Description="Sprint speed, units in meters per second" />
-    <ArchetypeProperty Type="float" Name="ReverseSprintSpeed" Init="3.5f"  ExposeToEditor="true" Description="Backward sprint speed, units in meters per second" />
-    <ArchetypeProperty Type="float" Name="SpawnTimerDuration" Init="3.0f"  ExposeToEditor="true" Description="Time to remain in a spawn state, units in seconds" />
-    <ArchetypeProperty Type="float" Name="DeathTimerDuration" Init="3.0f"  ExposeToEditor="true" Description="Time to remain dead before respawning, units in seconds" />
-    <ArchetypeProperty Type="bool"  Name="RespawnOnDeath"     Init="false" ExposeToEditor="true" Description="If true, this character will respawn after the death timer expires" />
-    <ArchetypeProperty Type="float" Name="StepHeight"         Init="0.5f"  ExposeToEditor="true" Description="If true, this character will respawn after the death timer expires" />
-    <ArchetypeProperty Type="float" Name="SlopeLimitDegrees"  Init="45.0f" ExposeToEditor="true" Description="If true, this character will respawn after the death timer expires" />
-    <ArchetypeProperty Type="float" Name="ContactOffset"      Init="0.1f"  ExposeToEditor="true" Description="If true, this character will respawn after the death timer expires" />
+    <ArchetypeProperty Type="float" Name="WalkSpeed"    Init="3.0f" ExposeToEditor="true" Description="Walk speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="SprintSpeed"  Init="5.0f" ExposeToEditor="true" Description="Sprint speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="ReverseSpeed" Init="2.0f" ExposeToEditor="true" Description="Reverse speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="CrouchSpeed"  Init="1.5f" ExposeToEditor="true" Description="Crouching speed, units in meters per second" />
 </Component>

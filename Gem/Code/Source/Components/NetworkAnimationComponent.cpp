@@ -11,10 +11,13 @@
  */
 
 #include <Source/Components/NetworkAnimationComponent.h>
+#include <Source/Components/CharacterComponent.h>
+#include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Components/WasdPlayerMovementComponent.h>
 #include <Integration/AnimGraphComponentBus.h>
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
+#include <AzCore/Component/TransformBus.h>
 
 namespace MultiplayerSample
 {
@@ -111,14 +114,19 @@ namespace MultiplayerSample
             {
                 const AZ::Vector3 velocity = controller->GetVelocity();
                 const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
-                m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d);    
+                const float maxSpeed = GetCharacterComponent()->GetSprintSpeed();
+                m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
             }
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
         {
-            //const AZ::Vector3 aimTarget = GetWeaponsComponent()->GetAimTarget();
-            //m_animationGraph->SetParameterVector2(m_aimTargetParamId, aimTarget);
+            const AZ::Vector3 aimAngles = GetSimplePlayerCameraComponent()->GetAimAngles();
+            const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
+            const AZ::Transform worldTm = GetEntity()->GetTransform()->GetWorldTM();
+            // TODO: This should probably be a physx raycast out to some maxDistance
+            const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(AZ::Vector3(5.0f));
+            m_animationGraph->SetParameterVector3(m_aimTargetParamId, aimTarget);
         }
 
         if (m_crouchParamId != InvalidParamIndex)
