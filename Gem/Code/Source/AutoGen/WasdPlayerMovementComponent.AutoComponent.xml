@@ -15,11 +15,12 @@
 
     <Include File="Source/MultiplayerSampleTypes.h"/>
 
-    <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current velocity of this player"/>
+    <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" GenerateEventBindings="true" Description="Current velocity of this player"/>
 
     <NetworkInput Type="StickAxis" Name="ForwardAxis" Init="0.0f" />
     <NetworkInput Type="StickAxis" Name="StrafeAxis"  Init="0.0f" />
     <NetworkInput Type="MouseAxis" Name="ViewYaw"     Init="0.0f" />
+    <NetworkInput Type="MouseAxis" Name="ViewPitch"   Init="0.0f" />
     <NetworkInput Type="bool"      Name="Sprint"      Init="false" />
     <NetworkInput Type="bool"      Name="Jump"        Init="false" />
     <NetworkInput Type="bool"      Name="Crouch"      Init="false" />

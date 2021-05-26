@@ -64,7 +64,7 @@ namespace MultiplayerSample
     {
         if (m_activeCameraEntity != nullptr)
         {
-            const AZ::Quaternion targetRotation = AZ::Quaternion::CreateRotationZ(GetAimAngles().GetZ()) * AZ::Quaternion::CreateRotationX(GetAimAngles().GetX());
+            const AZ::Quaternion targetRotation = AZ::Quaternion::CreateRotationZ(GetCameraYaw()) * AZ::Quaternion::CreateRotationX(GetCameraPitch());
             const AZ::Quaternion currentRotation = m_activeCameraEntity->GetTransform()->GetWorldTM().GetRotation();
             const AZ::Quaternion aimRotation = currentRotation.Slerp(targetRotation, cl_cameraBlendSpeed).GetNormalized();
             const AZ::Vector3 targetTranslation = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
