@@ -22,7 +22,7 @@ set(GEM_DEPENDENCIES
     Gem::ExpressionEvaluation
     Gem::PhysX.Editor
     Gem::PhysXDebug.Editor
-    Gem::TextureAtlas
+    Gem::TextureAtlas.Editor
     Gem::SurfaceData.Editor
     Gem::DebugDraw.Editor
     Gem::AudioSystem.Editor
