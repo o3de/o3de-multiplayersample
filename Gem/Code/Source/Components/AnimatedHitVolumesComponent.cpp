@@ -153,6 +153,12 @@ namespace MultiplayerSample
 
     void AnimatedHitVolumesComponent::OnSyncRewind()
     {
+        if (m_physicsCharacter)
+        {
+            uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
+            m_physicsCharacter->GetCharacter()->SetFrameId(frameId);
+        }
+
         for (AnimatedHitVolume& hitVolume : m_animatedHitVolumes)
         {
             hitVolume.SyncToCurrentTransform();

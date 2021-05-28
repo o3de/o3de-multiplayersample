@@ -11,9 +11,10 @@
  */
 
 #include <Source/Components/CharacterComponent.h>
-#include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzFramework/Physics/CharacterBus.h>
 #include <AzFramework/Physics/Character.h>
+#include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <Multiplayer/NetworkTime/INetworkTime.h>
 
 namespace MultiplayerSample
 {
@@ -55,6 +56,8 @@ namespace MultiplayerSample
 
         if (currPosition != GetNetworkTransformComponent()->GetTranslation())
         {
+            uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
+            m_physicsCharacter->GetCharacter()->SetFrameId(frameId);
             m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }
