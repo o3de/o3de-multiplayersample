@@ -158,27 +158,15 @@
                         }
                     ]
                 },
-                "Component_[17075755877203862909]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 17075755877203862909,
-                    "m_template": {
-                        "$type": "MultiplayerSample::WasdPlayerMovementComponent"
-                    }
-                },
                 "Component_[7398251875150394377]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 7398251875150394377,
                     "m_template": {
                         "$type": "MultiplayerSample::CharacterComponent",
-                        "WalkSpeed": 2.0,
-                        "SprintSpeed": 4.0,
-                        "ReverseSprintSpeed": 1.0,
-                        "SpawnTimerDuration": 10.0,
-                        "DeathTimerDuration": 10.0,
-                        "RespawnOnDeath": true,
-                        "StepHeight": 1.0,
-                        "SlopeLimitDegrees": 30,
-                        "ContactOffset": 0.04500001668930054
+                        "WalkSpeed": 3.0,
+                        "SprintSpeed": 5.0,
+                        "ReverseSpeed": 2.0,
+                        "CrouchSpeed": 1.5
                     }
                 },
                 "Component_[10731928891422556040]": {
@@ -351,6 +339,20 @@
                         "LandParamName": "land",
                         "HitParamName": "hit",
                         "DeathParamName": "death_state_index"
+                    }
+                },
+                "Component_[8068531680783328727]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8068531680783328727,
+                    "m_template": {
+                        "$type": "MultiplayerSample::SimplePlayerCameraComponent"
+                    }
+                },
+                "Component_[12008415632399015100]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12008415632399015100,
+                    "m_template": {
+                        "$type": "MultiplayerSample::WasdPlayerMovementComponent"
                     }
                 }
             },

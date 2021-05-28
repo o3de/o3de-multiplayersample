@@ -36,7 +36,7 @@ namespace MultiplayerSample
 
     class NetworkAnimationComponent
         : public NetworkAnimationComponentBase
-        , public AZ::TickBus::Handler
+        , private AZ::TickBus::Handler
         , private EMotionFX::Integration::ActorComponentNotificationBus::Handler
         , private EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler
     {

@@ -30,19 +30,6 @@ namespace MultiplayerSample
     const StartingPointInput::InputEventNotificationId LookLeftRightEventId("lookLeftRight");
     const StartingPointInput::InputEventNotificationId LookUpDownEventId("lookUpDown");
 
-    class WasdPlayerMovementComponent
-        : public WasdPlayerMovementComponentBase
-    {
-    public:
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::WasdPlayerMovementComponent, s_wasdPlayerMovementComponentConcreteUuid, MultiplayerSample::WasdPlayerMovementComponentBase);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        void OnInit() override;
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-    };
-
     class WasdPlayerMovementComponentController
         : public WasdPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
@@ -71,6 +58,9 @@ namespace MultiplayerSample
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;
         float m_rightWeight = 0.0f;
+
+        float m_viewYaw = 0.0f;
+        float m_viewPitch = 0.0f;
 
         bool  m_forwardDown = false;
         bool  m_leftDown = false;
