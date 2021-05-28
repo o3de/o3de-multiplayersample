@@ -13,7 +13,7 @@
 #pragma once
 
 #include <Source/AutoGen/NetworkAnimationComponent.AutoComponent.h>
-#include <AzCore/Component/TickBus.h>
+#include <Multiplayer/Components/NetBindComponent.h>
 #include <Integration/ActorComponentBus.h>
 #include <Integration/AnimGraphComponentBus.h>
 
@@ -36,7 +36,6 @@ namespace MultiplayerSample
 
     class NetworkAnimationComponent
         : public NetworkAnimationComponentBase
-        , private AZ::TickBus::Handler
         , private EMotionFX::Integration::ActorComponentNotificationBus::Handler
         , private EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler
     {
@@ -44,6 +43,8 @@ namespace MultiplayerSample
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkAnimationComponent, s_networkAnimationComponentConcreteUuid, MultiplayerSample::NetworkAnimationComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
+
+        NetworkAnimationComponent();
 
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
@@ -55,11 +56,7 @@ namespace MultiplayerSample
         bool GetJointTransformById(int32_t a_BoneId, AZ::Transform& outJointTransform) const;
 
     private:
-        //! AZ::TickBus::Handler
-        //! @{
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
-        int GetTickOrder() override;
-        //! @}
+        void OnPreRender(float deltaTime, float blendFactor);
 
         //! EMotionFX::Integration::ActorComponentNotificationBus::Handler
         //! @{
@@ -71,6 +68,8 @@ namespace MultiplayerSample
         //! @{
         void OnAnimGraphInstanceCreated(EMotionFX::AnimGraphInstance* animGraphInstance) override;
         //! @}
+
+        Multiplayer::EntityPreRenderEvent::Handler m_preRenderEventHandler;
 
         EMotionFX::Integration::ActorComponentRequests* m_actorRequests = nullptr;
         EMotionFX::AnimGraphComponentNetworkRequests* m_networkRequests = nullptr;

@@ -28,6 +28,12 @@ namespace MultiplayerSample
         CharacterComponentBase::Reflect(context);
     }
 
+    CharacterComponent::CharacterComponent()
+        : m_translationEventHandler([this](const AZ::Vector3& translation) { OnTranslationChangedEvent(translation); })
+    {
+        ;
+    }
+
     void CharacterComponent::OnInit()
     {
         ;
@@ -37,11 +43,22 @@ namespace MultiplayerSample
     {
         m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
+
+        if (!HasController())
+        {
+            GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
+        }
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         ;
+    }
+
+    void CharacterComponent::OnTranslationChangedEvent(const AZ::Vector3& translation)
+    {
+        GetEntity()->GetTransform()->SetWorldTranslation(translation);
+        OnSyncRewind();
     }
 
     void CharacterComponent::OnSyncRewind()
@@ -79,11 +96,11 @@ namespace MultiplayerSample
     {
         if ((GetParent().m_physicsCharacter == nullptr) || (velocity.GetLengthSq() <= 0.0f))
         {
-            return GetNetworkTransformComponentController()->GetTranslation();
+            return GetEntity()->GetTransform()->GetWorldTranslation();
         }
         GetParent().m_physicsCharacter->AddVelocity(velocity);
         GetParent().m_physicsCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
-        GetNetworkTransformComponentController()->SetTranslation(GetParent().m_physicsCharacter->GetBasePosition());
+        GetEntity()->GetTransform()->SetWorldTranslation(GetParent().m_physicsCharacter->GetBasePosition());
         AZLOG
         (
             NET_Movement,
@@ -92,6 +109,6 @@ namespace MultiplayerSample
             GetParent().m_physicsCharacter->GetBasePosition().GetY(),
             GetParent().m_physicsCharacter->GetBasePosition().GetZ()
         );
-        return GetNetworkTransformComponentController()->GetTranslation();
+        return GetEntity()->GetTransform()->GetWorldTranslation();
     }
 }

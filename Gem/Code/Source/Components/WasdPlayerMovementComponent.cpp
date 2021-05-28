@@ -115,7 +115,7 @@ namespace MultiplayerSample
         GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
 
         const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ());
-        GetNetworkTransformComponentController()->SetRotation(newOrientation);
+        GetEntity()->GetTransform()->SetLocalRotationQuaternion(newOrientation);
 
         // Update velocity
         UpdateVelocity(*wasdInput);
