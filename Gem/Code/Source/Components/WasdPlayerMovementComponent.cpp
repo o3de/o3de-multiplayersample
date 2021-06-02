@@ -121,6 +121,7 @@ namespace MultiplayerSample
         UpdateVelocity(*wasdInput);
 
         // Ensure any entities that we might interact with are properly synchronized to their rewind state
+        if (IsAuthority())
         {
             const AZ::Aabb entityStartBounds = AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->GetEntityLocalBoundsUnion(GetEntity()->GetId());
             const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(GetVelocity());

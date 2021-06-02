@@ -41,7 +41,8 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
+        Physics::CharacterRequests* characterRequests = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
+        m_physicsCharacter = (characterRequests != nullptr) ? characterRequests->GetCharacter() : nullptr;
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
 
         if (!HasController())
@@ -55,9 +56,8 @@ namespace MultiplayerSample
         ;
     }
 
-    void CharacterComponent::OnTranslationChangedEvent(const AZ::Vector3& translation)
+    void CharacterComponent::OnTranslationChangedEvent([[maybe_unused]] const AZ::Vector3& translation)
     {
-        GetEntity()->GetTransform()->SetWorldTranslation(translation);
         OnSyncRewind();
     }
 
@@ -69,10 +69,9 @@ namespace MultiplayerSample
         }
 
         const AZ::Vector3 currPosition = m_physicsCharacter->GetBasePosition();
-
-        if (currPosition != GetNetworkTransformComponent()->GetTranslation())
+        if (!currPosition.IsClose(GetNetworkTransformComponent()->GetTranslation()))
         {
-            m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
+            //m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }
 
@@ -99,7 +98,7 @@ namespace MultiplayerSample
             return GetEntity()->GetTransform()->GetWorldTranslation();
         }
         GetParent().m_physicsCharacter->AddVelocity(velocity);
-        GetParent().m_physicsCharacter->GetCharacter()->ApplyRequestedVelocity(deltaTime);
+        GetParent().m_physicsCharacter->ApplyRequestedVelocity(deltaTime);
         GetEntity()->GetTransform()->SetWorldTranslation(GetParent().m_physicsCharacter->GetBasePosition());
         AZLOG
         (
