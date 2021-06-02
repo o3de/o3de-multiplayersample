@@ -59,7 +59,7 @@ set(GEM_DEPENDENCIES
     Gem::AtomToolsFramework.Editor
     Gem::GradientSignal.Editor
     Gem::Multiplayer.Editor
-	Gem::Multiplayer.Debug
+    Gem::Multiplayer.Debug
     Gem::PrefabBuilder
     Gem::Multiplayer.Builders
     Gem::MultiplayerSample
