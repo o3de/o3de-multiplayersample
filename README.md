@@ -31,7 +31,7 @@ You can clone the project to any folder locally, including inside the engine fol
 
 ```shell
 # clone the project into a folder outside your engine repository folder
-> git clone https://github.com/aws/o3de-multiplayersample.git
+> git clone https://github.com/aws-lumberyard/o3de-multiplayersample.git
 Cloning into 'o3de-multiplayersample'...
 ```
 
