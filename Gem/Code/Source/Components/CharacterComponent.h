@@ -17,7 +17,7 @@
 
 namespace Physics
 {
-    class CharacterRequests;
+    class Character;
 }
 
 namespace MultiplayerSample
@@ -32,15 +32,19 @@ namespace MultiplayerSample
 
         static void Reflect(AZ::ReflectContext* context);
 
+        CharacterComponent();
+
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
     private:
+        void OnTranslationChangedEvent(const AZ::Vector3& translation);
         void OnSyncRewind();
 
-        Physics::CharacterRequests* m_physicsCharacter = nullptr;
+        Physics::Character* m_physicsCharacter = nullptr;
         Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler = Multiplayer::EntitySyncRewindEvent::Handler([this]() { OnSyncRewind(); });
+        AZ::Event<AZ::Vector3>::Handler m_translationEventHandler;
     };
 
     class CharacterComponentController
