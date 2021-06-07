@@ -67,8 +67,7 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
     private:
-        void Update(AZ::TimeMs deltaTimeMs);
-
+        void OnPreRender(float deltaTime, float blendFactor);
         void OnTransformUpdate(const AZ::Transform& transform);
         void OnSyncRewind();
 
@@ -87,7 +86,7 @@ namespace MultiplayerSample
 
         AZStd::vector<AnimatedHitVolume> m_animatedHitVolumes;
 
-        AZ::ScheduledEvent m_updateEvent;
-        Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler = Multiplayer::EntitySyncRewindEvent::Handler([this]() { OnSyncRewind(); });
+        Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler;
+        Multiplayer::EntityPreRenderEvent::Handler m_preRenderHandler;
     };
 }

@@ -22,7 +22,6 @@
 
 namespace MultiplayerSample
 {
-    AZ_CVAR(AZ::TimeMs, bg_MinUpdateRateMs, AZ::TimeMs{ 10 }, nullptr, AZ::ConsoleFunctorFlags::Null, "The minimum time to allow between calls to updating animation state, if this number is below tickrate it will effectively pump at tickrate");
     AZ_CVAR(bool, bg_DrawArticulatedHitVolumes, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Enables debug draw of articulated hit volumes");
     AZ_CVAR(float, bg_DrawDebugHitVolumeLifetime, 0.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The lifetime for hit volume draw-debug shapes");
 
@@ -100,7 +99,8 @@ namespace MultiplayerSample
     }
 
     AnimatedHitVolumesComponent::AnimatedHitVolumesComponent()
-        : m_updateEvent([this] { Update(m_updateEvent.TimeInQueueMs()); }, AZ::Name("AnimatedHitVolumes update event"))
+        : m_syncRewindHandler([this]() { OnSyncRewind(); })
+        , m_preRenderHandler([this](float deltaTime, float blendFactor) { OnPreRender(deltaTime, blendFactor); })
     {
         ;
     }
@@ -120,12 +120,10 @@ namespace MultiplayerSample
     void AnimatedHitVolumesComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         DestroyHitVolumes();
-
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusDisconnect();
-        m_updateEvent.RemoveFromQueue();
     }
 
-    void AnimatedHitVolumesComponent::Update([[maybe_unused]] AZ::TimeMs deltaTimeMs)
+    void AnimatedHitVolumesComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
     {
         if (m_animatedHitVolumes.size() <= 0)
         {
@@ -202,12 +200,10 @@ namespace MultiplayerSample
     void AnimatedHitVolumesComponent::OnActorInstanceCreated([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
         m_actorComponent = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
-        m_updateEvent.Enqueue(bg_MinUpdateRateMs, true);
     }
 
     void AnimatedHitVolumesComponent::OnActorInstanceDestroyed([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
-        m_updateEvent.RemoveFromQueue();
         m_actorComponent = nullptr;
     }
 }

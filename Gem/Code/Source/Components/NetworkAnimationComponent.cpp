@@ -32,6 +32,12 @@ namespace MultiplayerSample
         NetworkAnimationComponentBase::Reflect(context);
     }
 
+    NetworkAnimationComponent::NetworkAnimationComponent()
+        : m_preRenderEventHandler([this](float deltaTime, float blendFactor) {OnPreRender(deltaTime, blendFactor); })
+    {
+        ;
+    }
+
     void NetworkAnimationComponent::OnInit()
     {
         ;
@@ -39,20 +45,19 @@ namespace MultiplayerSample
 
     void NetworkAnimationComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusConnect();
-
         m_actorRequests = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntityId());
         m_networkRequests = EMotionFX::AnimGraphComponentNetworkRequestBus::FindFirstHandler(GetEntityId());
         m_animationGraph = EMotionFX::Integration::AnimGraphComponentRequestBus::FindFirstHandler(GetEntityId());
 
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntityId());
         EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler::BusConnect(GetEntityId());
+
+        GetNetBindComponent()->AddEntityPreRenderEventHandler(m_preRenderEventHandler);
     }
 
     void NetworkAnimationComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusDisconnect();
-        AZ::TickBus::Handler::BusDisconnect();
     }
 
     int32_t NetworkAnimationComponent::GetBoneIdByName(const char* boneName) const
@@ -84,13 +89,15 @@ namespace MultiplayerSample
         return true;
     }
 
-    void NetworkAnimationComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkAnimationComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
     {
         if (m_animationGraph == nullptr || m_networkRequests == nullptr)
         {
             return;
         }
 
+        constexpr bool isAuthoritative = true;
+        m_networkRequests->CreateSnapshot(isAuthoritative);
         m_networkRequests->UpdateActorExternal(deltaTime);
 
         if (m_velocityParamId == InvalidParamIndex)
@@ -172,14 +179,6 @@ namespace MultiplayerSample
             const bool dead = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Dying));
             m_animationGraph->SetParameterBool(m_deathParamId, dead);
         }
-    }
-
-    int NetworkAnimationComponent::GetTickOrder()
-    {
-        // It is quite critical that the network transform component updates before the network animation component
-        // That means, if you touch this, and server anims are hooked up, you should triple check that tick ordering is still correct
-        // We're also assuming EMotionFX will eventually use AZ::TICK_ANIMATION, so we're pre-emptively setting ourselves to run before
-        return AZ::TICK_ANIMATION - 1;
     }
 
     void NetworkAnimationComponent::OnActorInstanceCreated([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
