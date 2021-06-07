@@ -73,7 +73,7 @@ namespace MultiplayerSample
         if (!currPosition.IsClose(GetNetworkTransformComponent()->GetTranslation()))
         {
             uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
-            m_physicsCharacter->GetCharacter()->SetFrameId(frameId);
+            m_physicsCharacter->SetFrameId(frameId);
             //m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }

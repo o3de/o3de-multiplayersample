@@ -62,7 +62,7 @@ namespace MultiplayerSample
 
     void SimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
-        if (m_activeCameraEntity != nullptr)
+        if (m_activeCameraEntity != nullptr && m_activeCameraEntity->GetState() == AZ::Entity::State::Active)
         {
             const AZ::Quaternion targetRotation = AZ::Quaternion::CreateRotationZ(GetCameraYaw()) * AZ::Quaternion::CreateRotationX(GetCameraPitch());
             const AZ::Quaternion currentRotation = m_activeCameraEntity->GetTransform()->GetWorldTM().GetRotation();
