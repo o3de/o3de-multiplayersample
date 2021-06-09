@@ -26,7 +26,6 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PUBLIC
-            AZ::AzCore
             AZ::AzGameFramework
             AZ::AzNetworking
             Gem::Multiplayer
