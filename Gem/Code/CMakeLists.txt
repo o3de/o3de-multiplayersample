@@ -21,15 +21,9 @@ ly_add_target(
     INCLUDE_DIRECTORIES
         PRIVATE
             Source
-            AZ::AzNetworking
-            Gem::Multiplayer
-            Gem::EMotionFXStaticLib
-            Gem::PhysX
-            Gem::StartingPointInput
             .
         PUBLIC
             Include
-            ${common_dir}
     BUILD_DEPENDENCIES
         PUBLIC
             AZ::AzGameFramework
@@ -51,7 +45,6 @@ ly_add_target(
 ly_add_target(
     NAME MultiplayerSample ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
     NAMESPACE Gem
-    OUTPUT_NAME Gem.MultiplayerSample.8d7f210742af4b8c8813d593f4c46cf2.v0.1.0
     FILES_CMAKE
         multiplayersample_shared_files.cmake
         ../../multiplayersample_asset_files.cmake
@@ -59,65 +52,49 @@ ly_add_target(
         PRIVATE
             Source
             .
+        PUBLIC
+            Include
     BUILD_DEPENDENCIES
         PRIVATE
-            Gem::Atom_AtomBridge.Static
             Gem::MultiplayerSample.Static
-            Gem::LmbrCentral.Static
+            Gem::Atom_AtomBridge.Static
 )
+
+# if enabled, MultiplayerSample is used by all kinds of applications
+ly_create_alias(NAME MultiplayerSample.Builders NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+ly_create_alias(NAME MultiplayerSample.Tools    NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
 
 ################################################################################
 # Gem dependencies
 ################################################################################
-ly_add_project_dependencies(
-    PROJECT_NAME
-        MultiplayerSample
-    TARGETS 
-        MultiplayerSample.GameLauncher
-    DEPENDENCIES_FILES 
-        runtime_dependencies.cmake
-        ${pal_dir}/runtime_dependencies.cmake
-)
 
-if(PAL_TRAIT_BUILD_HOST_TOOLS)
-    ly_add_project_dependencies(
-        PROJECT_NAME
-            MultiplayerSample
-        TARGETS
-            AssetBuilder
-            AssetProcessor
-            AssetProcessorBatch
-            Editor
-        DEPENDENCIES_FILES
-            tool_dependencies.cmake
-            ${pal_dir}/tool_dependencies.cmake
-    )
+# The GameLauncher uses "Clients" gem variants:
+ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
+    TARGETS MultiplayerSample.GameLauncher
+    VARIANTS Clients)
+
+# If we build a server, then apply the gems to the server
+if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
+    # if we're making a server, then add the "Server" gem variants to it:
+    ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
+        TARGETS MultiplayerSample.ServerLauncher
+        VARIANTS Servers)
+    
+    set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
 endif()
 
-if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
-    ly_add_target(
-        NAME MultiplayerSample.Server ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
-        NAMESPACE Gem
-        OUTPUT_NAME Gem.MultiplayerSample.Server.8d7f210742af4b8c8813d593f4c46cf2.v0.1.0
-        FILES_CMAKE
-            multiplayersample_shared_files.cmake
-        INCLUDE_DIRECTORIES
-            PRIVATE
-                Source
-                .
-        BUILD_DEPENDENCIES
-            PRIVATE
-                Gem::MultiplayerSample.Static
-    )
+if (PAL_TRAIT_BUILD_HOST_TOOLS)
+    # The Editor uses "Tools" gem variants:
+    ly_enable_gems(
+        PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
+        TARGETS Editor
+        VARIANTS Tools)
 
-    ly_add_project_dependencies(
-        PROJECT_NAME
-            MultiplayerSample
-        TARGETS
-            MultiplayerSample.ServerLauncher
-        DEPENDENCIES_FILES
-            runtime_dependencies.cmake
-    )
-    set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
-
+    # The pipeline tools use "Builders" gem variants:
+    ly_enable_gems(
+        PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
+        TARGETS Editor AssetBuilder AssetProcessor AssetProcessorBatch
+        VARIANTS Builders)
 endif()
