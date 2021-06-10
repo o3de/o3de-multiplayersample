@@ -146,7 +146,7 @@ namespace MultiplayerSample
 
     void AnimatedHitVolumesComponent::OnSyncRewind()
     {
-        if (m_physicsCharacter)
+        if (m_physicsCharacter && m_physicsCharacter->GetCharacter())
         {
             uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
             m_physicsCharacter->GetCharacter()->SetFrameId(frameId);
