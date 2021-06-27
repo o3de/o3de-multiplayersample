@@ -21,6 +21,10 @@ set(FILES
     Source/Components/AnimatedHitVolumesComponent.h
     Source/Components/CharacterComponent.cpp
     Source/Components/CharacterComponent.h
+    Source/Components/ExampleNetworkDebugComponent.h
+    Source/Components/ExampleNetworkDebugComponent.cpp
+    Source/Components/ExampleFilteredEntityComponent.h
+    Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAnimationComponent.cpp
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
