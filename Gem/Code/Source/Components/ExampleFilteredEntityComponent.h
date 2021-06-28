@@ -8,32 +8,33 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <Multiplayer/Components/FilteredReplicationInterface.h>
-#include <Multiplayer/Components/FilteredServerToClientBus.h>
+#include <Multiplayer/NetworkEntity/IFilterEntityManager.h>
 
 namespace MultiplayerSample
 {
+    //! @class ExampleFilteredEntityComponent
+    //! @brief An example of using IFilterEntityManager to filter entities to clients.
     class ExampleFilteredEntityComponent final
         : public AZ::Component
-        , public Multiplayer::FilteredReplicationInterface
-        , public Multiplayer::FilteredServerToClientNotificationBus::Handler
+        , public Multiplayer::IFilterEntityManager
     {
     public:
         AZ_COMPONENT(MultiplayerSample::ExampleFilteredEntityComponent, "{7BF3BF1D-383A-40E7-BCF2-1ED5B2D2A43C}");
 
         static void Reflect(AZ::ReflectContext* context);
 
+        //! AZ::Component overrides.
+        //! @{
         void Activate() override;
         void Deactivate() override;
+        //! }@
 
-        //! FilteredReplicationInterface overrides.
-        bool IsEntityFiltered(AZ::Entity* entity, Multiplayer::ConstNetworkEntityHandle controllerEntity, const AzNetworking::ConnectionId connectionId) override;
-
-        // Multiplayer::FilteredServerToClientNotificationBus overrides.
-        void OnFilteredServerToClientActivated(AZ::EntityId controllerEntity) override;
+        //! IFilterEntityManager overrides.
+        //! @{
+        bool IsEntityFiltered(AZ::Entity* entity, Multiplayer::ConstNetworkEntityHandle controllerEntity, AzNetworking::ConnectionId connectionId) override;
+        //! }@
 
     private:
-        AZStd::vector<AZ::EntityId> m_filteredEntitiesForOddConnections;
-        AZStd::vector<AZ::EntityId> m_filteredEntitiesForEvenConnections;
+        bool m_enabled = true;
     };
 }

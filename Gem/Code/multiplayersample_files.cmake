@@ -1,6 +1,6 @@
 #
 # Copyright (c) Contributors to the Open 3D Engine Project
-# 
+#
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 #
 #
@@ -17,8 +17,6 @@ set(FILES
     Source/Components/AnimatedHitVolumesComponent.h
     Source/Components/CharacterComponent.cpp
     Source/Components/CharacterComponent.h
-    Source/Components/ExampleNetworkDebugComponent.h
-    Source/Components/ExampleNetworkDebugComponent.cpp
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAnimationComponent.cpp

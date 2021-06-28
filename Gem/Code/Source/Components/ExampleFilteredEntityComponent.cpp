@@ -16,9 +16,8 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<ExampleFilteredEntityComponent, AZ::Component>()
-                ->Field("Hide from Odd Connections", &ExampleFilteredEntityComponent::m_filteredEntitiesForOddConnections)
-                ->Field("Hide from Even Connections", &ExampleFilteredEntityComponent::m_filteredEntitiesForEvenConnections)
-                ->Version(1);
+                ->Field( "Enabled", &ExampleFilteredEntityComponent::m_enabled )
+                ->Version(3);
 
             if (AZ::EditContext* ptrEdit = serializeContext->GetEditContext())
             {
@@ -26,52 +25,42 @@ namespace MultiplayerSample
                 ptrEdit->Class<ExampleFilteredEntityComponent>("ExampleFilteredEntityComponent", "An example of filtering entities out in network replication")
                     ->ClassElement(ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
-                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
-                    ->DataElement(UIHandlers::Default, &ExampleFilteredEntityComponent::m_filteredEntitiesForOddConnections, "Hide from Odd Connections", "")
-                    ->DataElement(UIHandlers::Default, &ExampleFilteredEntityComponent::m_filteredEntitiesForEvenConnections, "Hide from Even Connections", "");
+                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Level"))
+                    ->DataElement(nullptr, &ExampleFilteredEntityComponent::m_enabled, "Enabled", "enabled if checked")
+                ;
             }
         }
     }
 
     void ExampleFilteredEntityComponent::Activate()
     {
-        if (Multiplayer::GetMultiplayer()->GetAgentType() != Multiplayer::MultiplayerAgentType::Client)
-        {
-            Multiplayer::FilteredServerToClientRequestBus::Broadcast(&Multiplayer::FilteredServerToClientRequestBus::Events::SetFilteredInterface, this);
-            Multiplayer::FilteredServerToClientNotificationBus::Handler::BusConnect();
-        }
+        Multiplayer::GetMultiplayer()->SetFilterEntityManager( this );
     }
 
     void ExampleFilteredEntityComponent::Deactivate()
     {
-        if (Multiplayer::GetMultiplayer()->GetAgentType() != Multiplayer::MultiplayerAgentType::Client)
-        {
-            Multiplayer::FilteredServerToClientNotificationBus::Handler::BusDisconnect();
-            Multiplayer::FilteredServerToClientRequestBus::Broadcast(&Multiplayer::FilteredServerToClientRequestBus::Events::SetFilteredInterface, nullptr);
-        }
+        Multiplayer::GetMultiplayer()->SetFilterEntityManager( nullptr );
     }
 
     bool ExampleFilteredEntityComponent::IsEntityFiltered(
         [[maybe_unused]] AZ::Entity* entity,
         [[maybe_unused]] Multiplayer::ConstNetworkEntityHandle controllerEntity,
-        [[maybe_unused]] const AzNetworking::ConnectionId connectionId)
+        [[maybe_unused]] AzNetworking::ConnectionId connectionId)
     {
-        // Note: @IsEntityFiltered can be a very hot path, so do your best to optimize this method.
-        // This example component just uses entity names for filtering, for the sake of an example.
-        // In practice, one might implement the lookup using a specialized structure such as AZStd::map<AZ::EntityId, bool>, etc.
-
-        const bool evenConnectionId = static_cast<uint32_t>(connectionId) % 2 == 0;
-
-        if (entity->GetName().starts_with( evenConnectionId ? "Even" : "Odd" ))
+        if (m_enabled)
         {
-            return true;
+            // Note: @IsEntityFiltered is a hot code path, so do your best to optimize this method.
+            // This example just uses entity names for filtering, for the sake of simplicity.
+            // In practice, one might implement this lookup using a specialized structure such as AZStd::map<AZ::EntityId, bool>, etc.
+
+            const bool evenConnectionId = static_cast<uint32_t>(connectionId) % 2 == 0;
+
+            if (entity->GetName().starts_with( evenConnectionId ? "Even" : "Odd" ))
+            {
+                return true;
+            }
         }
 
         return false;
-    }
-
-    void ExampleFilteredEntityComponent::OnFilteredServerToClientActivated(AZ::EntityId controllerEntity)
-    {
-        Multiplayer::FilteredServerToClientRequestBus::Event(controllerEntity, &Multiplayer::FilteredServerToClientRequestBus::Events::SetFilteredInterface, this);
     }
 }
