@@ -8,6 +8,8 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 
+AZ_CVAR(bool, mps_EnableFilteringEntities, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If true, enables the example of filtering entities");
+
 namespace MultiplayerSample
 {
     void ExampleFilteredEntityComponent::Reflect(AZ::ReflectContext* context)
@@ -47,7 +49,7 @@ namespace MultiplayerSample
         [[maybe_unused]] Multiplayer::ConstNetworkEntityHandle controllerEntity,
         [[maybe_unused]] AzNetworking::ConnectionId connectionId)
     {
-        if (m_enabled)
+        if (m_enabled && mps_EnableFilteringEntities)
         {
             // Note: @IsEntityFiltered is a hot code path, so do your best to optimize this method.
             // This example just uses entity names for filtering, for the sake of simplicity.
@@ -55,7 +57,7 @@ namespace MultiplayerSample
 
             const bool evenConnectionId = static_cast<uint32_t>(connectionId) % 2 == 0;
 
-            if (entity->GetName().starts_with( evenConnectionId ? "Even" : "Odd" ))
+            if (entity->GetName().starts_with( evenConnectionId ? "Filter Even" : "Filter Odd" ))
             {
                 return true;
             }
