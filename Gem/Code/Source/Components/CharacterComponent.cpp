@@ -40,11 +40,7 @@ namespace MultiplayerSample
         Physics::CharacterRequests* characterRequests = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
         m_physicsCharacter = (characterRequests != nullptr) ? characterRequests->GetCharacter() : nullptr;
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
-
-        if (!HasController())
-        {
-            GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
-        }
+        GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -69,7 +65,7 @@ namespace MultiplayerSample
         {
             uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
             m_physicsCharacter->SetFrameId(frameId);
-            //m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
+            m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }
 
