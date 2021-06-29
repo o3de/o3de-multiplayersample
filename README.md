@@ -1,9 +1,4 @@
-# MultiplayerSample Project - Project Spectra Private Preview 
-
-## Confidentiality; Pre-Release Access  
-
-Welcome to the Project Spectra Private Preview.  This is a confidential pre-release project; your use is subject to the nondisclosure agreement between you (or your organization) and Amazon.  Do not disclose the existence of this project, your participation in it, or any of the  materials provided, to any unauthorized third party.  To request access for a third party, please contact [Royal O'Brien, obriroya@amazon.com](mailto:obriroya@amazon.com).
-
+# MultiplayerSample Project 
 ## Download and Install
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
@@ -31,7 +26,7 @@ You can clone the project to any folder locally, including inside the engine fol
 
 ```shell
 # clone the project into a folder outside your engine repository folder
-> git clone https://github.com/aws-lumberyard/o3de-multiplayersample.git
+> git clone https://github.com/o3de/o3de-multiplayersample.git
 Cloning into 'o3de-multiplayersample'...
 ```
 
@@ -39,7 +34,7 @@ Cloning into 'o3de-multiplayersample'...
 
 ```shell
 # clone the project into a folder named 'o3de-multiplayersample' in your existing engine repository folder
-> git clone https://github.com/aws/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
+> git clone https://github.com/o3de/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
 Cloning into 'o3de-multiplayersample'...
 
 # modify the local engine git exclude file to ignore the project folder
