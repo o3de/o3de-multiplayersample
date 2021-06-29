@@ -19,7 +19,9 @@ namespace MultiplayerSample
         {
             serializeContext->Class<ExampleFilteredEntityComponent, AZ::Component>()
                 ->Field( "Enabled", &ExampleFilteredEntityComponent::m_enabled )
-                ->Version(3);
+                ->Field( "Filter Names for Even Connections", &ExampleFilteredEntityComponent::m_filerNamesForEvenConnectionIds )
+                ->Field( "Filter Names for Odd Connections", &ExampleFilteredEntityComponent::m_filerNamesForOddConnectionIds )
+                ->Version(5);
 
             if (AZ::EditContext* ptrEdit = serializeContext->GetEditContext())
             {
@@ -29,6 +31,10 @@ namespace MultiplayerSample
                     ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Level"))
                     ->DataElement(nullptr, &ExampleFilteredEntityComponent::m_enabled, "Enabled", "enabled if checked")
+                    ->DataElement(nullptr, &ExampleFilteredEntityComponent::m_filerNamesForEvenConnectionIds, "Filter for Even",
+                        "if an entity starts with this prefix, don't send them to even connections")
+                    ->DataElement(nullptr, &ExampleFilteredEntityComponent::m_filerNamesForOddConnectionIds, "Filter for Odd",
+                        "if an entity starts with this prefix, don't send them to odd connections")
                 ;
             }
         }
@@ -57,7 +63,7 @@ namespace MultiplayerSample
 
             const bool evenConnectionId = static_cast<uint32_t>(connectionId) % 2 == 0;
 
-            if (entity->GetName().starts_with( evenConnectionId ? "Filter Even" : "Filter Odd" ))
+            if (entity->GetName().starts_with( evenConnectionId ? m_filerNamesForEvenConnectionIds : m_filerNamesForOddConnectionIds ))
             {
                 return true;
             }

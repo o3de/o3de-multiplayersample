@@ -1,6 +1,6 @@
 /*
  * Copyright (c) Contributors to the Open 3D Engine Project
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
@@ -91,8 +91,11 @@ namespace MultiplayerSample
             return;
         }
 
-        constexpr bool isAuthoritative = true;
-        m_networkRequests->CreateSnapshot(isAuthoritative);
+        if (m_networkRequests->HasSnapshot() == false)
+        {
+            constexpr bool isAuthoritative = true;
+            m_networkRequests->CreateSnapshot(isAuthoritative);
+        }
         m_networkRequests->UpdateActorExternal(deltaTime);
 
         if (m_velocityParamId == InvalidParamIndex)
