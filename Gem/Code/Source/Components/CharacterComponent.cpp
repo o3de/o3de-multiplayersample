@@ -25,7 +25,8 @@ namespace MultiplayerSample
     }
 
     CharacterComponent::CharacterComponent()
-        : m_translationEventHandler([this](const AZ::Vector3& translation) { OnTranslationChangedEvent(translation); })
+        : m_translationEventHandler([this]([[maybe_unused]] const AZ::Vector3& translation) { OnSyncRewind(); })
+        , m_translationAutonomousEventHandler([this](const AZ::Vector3& translation) { OnTranslationAutonomousChangedEvent(translation); })
     {
         ;
     }
@@ -40,7 +41,15 @@ namespace MultiplayerSample
         Physics::CharacterRequests* characterRequests = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
         m_physicsCharacter = (characterRequests != nullptr) ? characterRequests->GetCharacter() : nullptr;
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
-        GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
+
+        if (!HasController())
+        {
+            GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
+        }
+        else if (GetController()->IsAutonomous())
+        {
+            GetNetworkTransformComponent()->TranslationAddEvent(m_translationAutonomousEventHandler);
+        }
     }
 
     void CharacterComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -51,6 +60,22 @@ namespace MultiplayerSample
     void CharacterComponent::OnTranslationChangedEvent([[maybe_unused]] const AZ::Vector3& translation)
     {
         OnSyncRewind();
+    }
+
+    void CharacterComponent::OnTranslationAutonomousChangedEvent([[maybe_unused]] const AZ::Vector3& translation)
+    {
+        if (m_physicsCharacter == nullptr)
+        {
+            return;
+        }
+
+        const AZ::Vector3 currPosition = m_physicsCharacter->GetBasePosition();
+        if (!currPosition.IsClose(GetNetworkTransformComponent()->GetTranslation()))
+        {
+            uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
+            m_physicsCharacter->SetFrameId(frameId);
+            m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
+        }
     }
 
     void CharacterComponent::OnSyncRewind()
@@ -65,7 +90,6 @@ namespace MultiplayerSample
         {
             uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
             m_physicsCharacter->SetFrameId(frameId);
-            m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }
 
