@@ -37,7 +37,7 @@ namespace MultiplayerSample
     private:
         bool m_enabled = true;
 
-        AZStd::string m_filerNamesForEvenConnectionIds{ "Filter Even" };
-        AZStd::string m_filerNamesForOddConnectionIds{ "Filter Odd" };
+        AZStd::string m_filterNamesForEvenConnectionIds{ "Filter Even" };
+        AZStd::string m_filterNamesForOddConnectionIds{ "Filter Odd" };
     };
 }
