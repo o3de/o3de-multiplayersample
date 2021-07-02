@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <Source/Components/WasdPlayerMovementComponent.h>
-#include <Source/Components/CharacterComponent.h>
+#include <Source/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
@@ -67,7 +67,7 @@ namespace MultiplayerSample
         m_backwardWeight = std::min<float>(m_backwardDown ? m_backwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
         m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
 
-        // inputs for your own component always exist
+        // Inputs for your own component always exist
         WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
 
         wasdInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
@@ -125,7 +125,7 @@ namespace MultiplayerSample
             Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(entitySweptBounds);
         }
 
-        GetCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
+        GetNetworkCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
     }
 
     void WasdPlayerMovementComponentController::UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput)
@@ -136,21 +136,21 @@ namespace MultiplayerSample
         float speed = 0.0f;
         if (wasdInput.m_crouch)
         {
-            speed = GetCharacterComponentController()->GetCrouchSpeed();
+            speed = GetNetworkCharacterComponentController()->GetCrouchSpeed();
         }
         else if (fwdBack < 0.0f)
         {
-            speed = GetCharacterComponentController()->GetReverseSpeed();
+            speed = GetNetworkCharacterComponentController()->GetReverseSpeed();
         }
         else
         {
             if (wasdInput.m_sprint)
             {
-                speed = GetCharacterComponentController()->GetSprintSpeed();
+                speed = GetNetworkCharacterComponentController()->GetSprintSpeed();
             }
             else
             {
-                speed = GetCharacterComponentController()->GetWalkSpeed();
+                speed = GetNetworkCharacterComponentController()->GetWalkSpeed();
             }
         }
 
