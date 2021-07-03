@@ -35,13 +35,11 @@ namespace MultiplayerSample
 
     private:
         void OnTranslationChangedEvent(const AZ::Vector3& translation);
-        void OnTranslationAutonomousChangedEvent(const AZ::Vector3& translation);
         void OnSyncRewind();
 
         Physics::Character* m_physicsCharacter = nullptr;
         Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler = Multiplayer::EntitySyncRewindEvent::Handler([this]() { OnSyncRewind(); });
         AZ::Event<AZ::Vector3>::Handler m_translationEventHandler;
-        AZ::Event<AZ::Vector3>::Handler m_translationAutonomousEventHandler;
     };
 
     class CharacterComponentController
