@@ -1,6 +1,4 @@
-# MultiplayerSample Project - Project Spectra Private Preview 
-
-
+# MultiplayerSample Project 
 ## Download and Install
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
@@ -28,7 +26,7 @@ You can clone the project to any folder locally, including inside the engine fol
 
 ```shell
 # clone the project into a folder outside your engine repository folder
-> git clone https://github.com/aws-lumberyard/o3de-multiplayersample.git
+> git clone https://github.com/o3de/o3de-multiplayersample.git
 Cloning into 'o3de-multiplayersample'...
 ```
 
@@ -36,7 +34,7 @@ Cloning into 'o3de-multiplayersample'...
 
 ```shell
 # clone the project into a folder named 'o3de-multiplayersample' in your existing engine repository folder
-> git clone https://github.com/aws/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
+> git clone https://github.com/o3de/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
 Cloning into 'o3de-multiplayersample'...
 
 # modify the local engine git exclude file to ignore the project folder
