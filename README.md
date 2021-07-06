@@ -1,8 +1,5 @@
 # MultiplayerSample Project - Project Spectra Private Preview 
 
-## Confidentiality; Pre-Release Access  
-
-Welcome to the Project Spectra Private Preview.  This is a confidential pre-release project; your use is subject to the nondisclosure agreement between you (or your organization) and Amazon.  Do not disclose the existence of this project, your participation in it, or any of the  materials provided, to any unauthorized third party.  To request access for a third party, please contact [Royal O'Brien, obriroya@amazon.com](mailto:obriroya@amazon.com).
 
 ## Download and Install
 
@@ -84,6 +81,37 @@ This option will output all the project and engine binaries in the engine's buil
 > cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo 
 
 ```
+
+
+### Step 4. Setup Client and Server
+
+Under engine root, create 2 flies: client.cfg and server.cfg. File c:/path/to/o3de/client.cfg should contain:
+
+```shell
+connect
+```
+
+File c:/path/to/o3de/server.cfg should contain:
+
+```shell
+host
+LoadLevel Levels/SampleBase/SampleBase.spawnable
+```
+
+A server can be run as follows:
+
+```shell
+MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg
+```
+
+A client can be run with:
+
+```shell
+MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
+```
+
+This will connect a client to the local server and start a multiplayer session.
+
 
 
 
