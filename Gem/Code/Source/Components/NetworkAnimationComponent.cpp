@@ -91,8 +91,11 @@ namespace MultiplayerSample
             return;
         }
 
-        constexpr bool isAuthoritative = true;
-        m_networkRequests->CreateSnapshot(isAuthoritative);
+        if (m_networkRequests->HasSnapshot() == false)
+        {
+            constexpr bool isAuthoritative = true;
+            m_networkRequests->CreateSnapshot(isAuthoritative);
+        }
         m_networkRequests->UpdateActorExternal(deltaTime);
 
         if (m_velocityParamId == InvalidParamIndex)
