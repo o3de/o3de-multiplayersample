@@ -1,5 +1,4 @@
 {
-    "Source": "Levels/SampleBase/SampleBase.prefab",
     "ContainerEntity": {
         "Id": "Entity_[356758116574]",
         "Name": "Level",
@@ -49,6 +48,13 @@
             "Component_[8247764638131379605]": {
                 "$type": "EditorEntitySortComponent",
                 "Id": 8247764638131379605
+            },
+            "Component_[17738894840857488786]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 17738894840857488786,
+                "m_template": {
+                    "$type": "MultiplayerSample::ExampleFilteredEntityComponent"
+                }
             }
         },
         "IsDependencyReady": true
@@ -197,6 +203,13 @@
                             "diffuseImageAsset": {
                                 "assetId": {
                                     "guid": "{4CF4C63C-B317-5E0B-B523-44167A02F81E}",
+                                    "subId": 3000
+                                },
+                                "assetHint": "testdata/lightingpresets/beach_parking_1k_iblglobalcm_ibldiffuse.exr.streamingimage"
+                            },
+                            "specularImageAsset": {
+                                "assetId": {
+                                    "guid": "{4CF4C63C-B317-5E0B-B523-44167A02F81E}",
                                     "subId": 2000
                                 },
                                 "assetHint": "testdata/lightingpresets/beach_parking_1k_iblglobalcm_iblspecular.exr.streamingimage"
@@ -231,7 +244,12 @@
                             0.0,
                             0.0,
                             -0.5
-                        ]
+                        ],
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 }
             },
@@ -322,7 +340,7 @@
         },
         "Entity_[391688917776]": {
             "Id": "Entity_[391688917776]",
-            "Name": "Entity1",
+            "Name": "Box1",
             "Components": {
                 "Component_[11653223786701195962]": {
                     "$type": "SelectionComponent",
@@ -434,6 +452,13 @@
                     "Id": 11384954117619258935,
                     "ShapeConfiguration": {
                         "ShapeType": 1
+                    },
+                    "ColliderConfiguration": {
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 },
                 "Component_[8125251054274400256]": {
@@ -462,13 +487,20 @@
         },
         "Entity_[514163319219]": {
             "Id": "Entity_[514163319219]",
-            "Name": "Entity1",
+            "Name": "Box2",
             "Components": {
                 "Component_[11384954117619258935]": {
                     "$type": "EditorColliderComponent",
                     "Id": 11384954117619258935,
                     "ShapeConfiguration": {
                         "ShapeType": 1
+                    },
+                    "ColliderConfiguration": {
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 },
                 "Component_[11653223786701195962]": {
@@ -610,13 +642,20 @@
         },
         "Entity_[668782141875]": {
             "Id": "Entity_[668782141875]",
-            "Name": "Entity1",
+            "Name": "Box4",
             "Components": {
                 "Component_[11384954117619258935]": {
                     "$type": "EditorColliderComponent",
                     "Id": 11384954117619258935,
                     "ShapeConfiguration": {
                         "ShapeType": 1
+                    },
+                    "ColliderConfiguration": {
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 },
                 "Component_[11653223786701195962]": {
@@ -758,13 +797,20 @@
         },
         "Entity_[673077109171]": {
             "Id": "Entity_[673077109171]",
-            "Name": "Entity1",
+            "Name": "Box3",
             "Components": {
                 "Component_[11384954117619258935]": {
                     "$type": "EditorColliderComponent",
                     "Id": 11384954117619258935,
                     "ShapeConfiguration": {
                         "ShapeType": 1
+                    },
+                    "ColliderConfiguration": {
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 },
                 "Component_[11653223786701195962]": {
@@ -903,6 +949,89 @@
             },
             "IsDependencyReady": true,
             "IsRuntimeActive": true
+        },
+        "Entity_[1863191303392]": {
+            "Id": "Entity_[1863191303392]",
+            "Name": "Spawn On Server",
+            "Components": {
+                "Component_[11694963092145732257]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 11694963092145732257
+                },
+                "Component_[12168972718315127051]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 12168972718315127051
+                },
+                "Component_[15194128185768259769]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 15194128185768259769
+                },
+                "Component_[15807254068344673462]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 15807254068344673462
+                },
+                "Component_[16123618383967744353]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 16123618383967744353
+                },
+                "Component_[17552782890585275482]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 17552782890585275482
+                },
+                "Component_[495949337740718080]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 495949337740718080,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            11.002283096313477,
+                            6.703400611877441,
+                            12.253546714782717
+                        ]
+                    },
+                    "Cached World Transform": {
+                        "Translation": [
+                            11.002283096313477,
+                            6.703400611877441,
+                            12.253546714782717
+                        ]
+                    },
+                    "Cached World Transform Parent": "Entity_[356758116574]"
+                },
+                "Component_[6471614284017878558]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 6471614284017878558
+                },
+                "Component_[8728229503371540755]": {
+                    "$type": "SelectionComponent",
+                    "Id": 8728229503371540755
+                },
+                "Component_[9871950863787101514]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 9871950863787101514
+                },
+                "Component_[92855489511868459]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 92855489511868459,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[12802329719955739455]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 12802329719955739455,
+                    "m_name": "SpawnIfAuthority",
+                    "m_assetHolder": {
+                        "m_asset": {
+                            "assetId": {
+                                "guid": "{B605AD71-0689-5650-B3F5-558D471B6351}"
+                            },
+                            "assetHint": "scriptcanvas/spawnifauthority.scriptcanvas"
+                        }
+                    }
+                }
+            },
+            "IsDependencyReady": true
         }
     }
 }
