@@ -52,13 +52,16 @@ namespace MultiplayerSample
             if (isKinematic)
             {
                 const PhysX::ActorData* actorData = PhysX::Utils::GetUserData(rigidDynamic);
-                const AZ::EntityId entityId = actorData->GetEntityId();
-
-                if (NetworkRigidBodyRequestBus::FindFirstHandler(entityId) != nullptr)
+                if (actorData)
                 {
-                    // Network rigid bodies are kinematic on the client but dynamic on the server,
-                    // hence filtering treats these actors as dynamic to support client prediction and avoid desyncs
-                    isKinematic = false;
+                    const AZ::EntityId entityId = actorData->GetEntityId();
+
+                    if (NetworkRigidBodyRequestBus::FindFirstHandler(entityId) != nullptr)
+                    {
+                        // Network rigid bodies are kinematic on the client but dynamic on the server,
+                        // hence filtering treats these actors as dynamic to support client prediction and avoid desyncs
+                        isKinematic = false;
+                    }
                 }
             }
 
