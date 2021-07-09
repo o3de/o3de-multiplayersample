@@ -7,6 +7,7 @@
 
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/ExampleFilteredEntityComponent.h>
+#include <Multiplayer/IMultiplayer.h>
 
 AZ_CVAR(bool, mps_EnableFilteringEntities, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If true, enables the example of filtering entities");
 

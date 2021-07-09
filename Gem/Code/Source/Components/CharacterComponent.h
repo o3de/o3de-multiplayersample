@@ -9,6 +9,7 @@
 
 #include <Source/AutoGen/CharacterComponent.AutoComponent.h>
 #include <Multiplayer/Components/NetBindComponent.h>
+#include <PhysX/CharacterGameplayBus.h>
 
 namespace Physics
 {
@@ -19,6 +20,7 @@ namespace MultiplayerSample
 {
     class CharacterComponent
         : public CharacterComponentBase
+        , private PhysX::CharacterGameplayRequestBus::Handler
     {
         friend class CharacterComponentController;
 
@@ -36,6 +38,13 @@ namespace MultiplayerSample
     private:
         void OnTranslationChangedEvent(const AZ::Vector3& translation);
         void OnSyncRewind();
+
+        // CharacterGameplayRequestBus
+        bool IsOnGround() const override;
+        float GetGravityMultiplier() const override { return {}; }
+        void SetGravityMultiplier([[maybe_unused]] float gravityMultiplier) override {}
+        AZ::Vector3 GetFallingVelocity() const override { return {}; }
+        void SetFallingVelocity([[maybe_unused]] const AZ::Vector3& fallingVelocity) override {}
 
         Physics::Character* m_physicsCharacter = nullptr;
         Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler = Multiplayer::EntitySyncRewindEvent::Handler([this]() { OnSyncRewind(); });

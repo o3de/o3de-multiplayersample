@@ -17,7 +17,15 @@ namespace Physics
 
 namespace MultiplayerSample
 {
-    class NetworkRigidBodyComponent final : public NetworkRigidBodyComponentBase
+    //! Bus for requests to the network rigid body component.
+    class NetworkRigidBodyRequests : public AZ::ComponentBus
+    {
+    };
+    using NetworkRigidBodyRequestBus = AZ::EBus<NetworkRigidBodyRequests>;
+
+    class NetworkRigidBodyComponent final
+        : public NetworkRigidBodyComponentBase
+        , private NetworkRigidBodyRequestBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(
