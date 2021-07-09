@@ -35,6 +35,11 @@ namespace MultiplayerSample
 
         NetworkRigidBodyComponent();
 
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+        {
+            provided.push_back(AZ_CRC_CE("NetworkRigidBodyService"));
+        }
+
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
         {
             required.push_back(AZ_CRC_CE("PhysXRigidBodyService"));
