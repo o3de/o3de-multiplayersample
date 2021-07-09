@@ -38,6 +38,8 @@ namespace MultiplayerSample
 
     void NetworkRigidBodyComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        NetworkRigidBodyRequestBus::Handler::BusConnect(GetEntityId());
+
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
         GetEntity()->FindComponent<AzFramework::TransformComponent>()->BindTransformChangedEventHandler(m_transformChangedHandler);
 
@@ -53,6 +55,7 @@ namespace MultiplayerSample
 
     void NetworkRigidBodyComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        NetworkRigidBodyRequestBus::Handler::BusDisconnect();
     }
 
     void NetworkRigidBodyComponent::OnTransformUpdate(const AZ::Transform& worldTm)

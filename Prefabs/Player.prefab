@@ -1,5 +1,4 @@
 {
-    "Source": "Prefabs/Player.prefab",
     "ContainerEntity": {
         "Id": "Entity_[1419387525450]",
         "Name": "Player",
@@ -155,6 +154,15 @@
                     "MaterialPerLOD": [
                         {
                             "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
+                        },
+                        {
+                            "AssetPath": "burt/burtactor.mtl"
                         }
                     ]
                 },
@@ -186,7 +194,12 @@
                     "$type": "EditorCharacterControllerComponent",
                     "Id": 14925070260434397195,
                     "Configuration": {
-                        "entityId": ""
+                        "entityId": "",
+                        "Material": {
+                            "MaterialIds": [
+                                {}
+                            ]
+                        }
                     }
                 },
                 "Component_[4186588317358117667]": {
@@ -353,13 +366,6 @@
                     "Id": 12008415632399015100,
                     "m_template": {
                         "$type": "MultiplayerSample::WasdPlayerMovementComponent"
-                    }
-                },
-                "Component_[6498305582851833793]": {
-                    "$type": "EditorCharacterGameplayComponent",
-                    "Id": 6498305582851833793,
-                    "GameplayConfig": {
-                        "GravityMultiplier": 0.0
                     }
                 }
             },
