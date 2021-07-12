@@ -82,7 +82,7 @@ This option will output all the project and engine binaries in the engine's buil
 
 ### Step 4. Setup Client and Server
 
-Under engine root, create 2 flies: client.cfg and server.cfg. File c:/path/to/o3de/client.cfg should contain:
+Under engine root, create 2 files: client.cfg and server.cfg. File c:/path/to/o3de/client.cfg should contain:
 
 ```shell
 connect
