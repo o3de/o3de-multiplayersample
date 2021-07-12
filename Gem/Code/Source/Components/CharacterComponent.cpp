@@ -119,7 +119,7 @@ namespace MultiplayerSample
             }
         }
 
-        if (!HasController())
+        if (!HasController() || GetController()->IsAutonomous())
         {
             GetNetworkTransformComponent()->TranslationAddEvent(m_translationEventHandler);
         }
@@ -132,7 +132,22 @@ namespace MultiplayerSample
 
     void CharacterComponent::OnTranslationChangedEvent([[maybe_unused]] const AZ::Vector3& translation)
     {
-        OnSyncRewind();
+        if (m_physicsCharacter == nullptr)
+        {
+            return;
+        }
+
+        const AZ::Vector3 currPosition = m_physicsCharacter->GetBasePosition();
+        if (!currPosition.IsClose(translation))
+        {
+            uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
+            m_physicsCharacter->SetFrameId(frameId);
+            if (GetController() && GetController()->IsAutonomous())
+            {
+                m_physicsCharacter->SetBasePosition(translation);
+                GetEntity()->GetTransform()->SetLocalTranslation(translation);
+            }
+        }
     }
 
     void CharacterComponent::OnSyncRewind()
@@ -147,7 +162,6 @@ namespace MultiplayerSample
         {
             uint32_t frameId = static_cast<uint32_t>(Multiplayer::GetNetworkTime()->GetHostFrameId());
             m_physicsCharacter->SetFrameId(frameId);
-            //m_physicsCharacter->SetBasePosition(GetNetworkTransformComponent()->GetTranslation());
         }
     }
 

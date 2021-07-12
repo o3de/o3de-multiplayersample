@@ -70,20 +70,24 @@ namespace MultiplayerSample
         // inputs for your own component always exist
         WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
 
-        wasdInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
-        wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
+        if (wasdInput)
+        {
+            wasdInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
+            wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
-        // View Axis
-        wasdInput->m_viewYaw = MouseAxis(m_viewYaw);
-        wasdInput->m_viewPitch = MouseAxis(m_viewPitch);
+            // View Axis
+            wasdInput->m_viewYaw = MouseAxis(m_viewYaw);
+            wasdInput->m_viewPitch = MouseAxis(m_viewPitch);
 
-        // Strafe input
-        wasdInput->m_sprint = m_sprinting;
-        wasdInput->m_jump = m_jumping;
-        wasdInput->m_crouch = m_crouching;
+            // Strafe input
+            wasdInput->m_sprint = m_sprinting;
+            wasdInput->m_jump = m_jumping;
+            wasdInput->m_crouch = m_crouching;
 
-        // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client through correction packets
-        wasdInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
+            // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client
+            // through correction packets
+            wasdInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
+        }
     }
 
     void WasdPlayerMovementComponentController::ProcessInput(Multiplayer::NetworkInput& input, float deltaTime)
@@ -93,7 +97,7 @@ namespace MultiplayerSample
         //  2) On the client: we were reset and we are replaying old inputs after being corrected
         // In both cases we don't want to process these inputs
         WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
-        if (wasdInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
+        if (!wasdInput || wasdInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
             return;
         }
