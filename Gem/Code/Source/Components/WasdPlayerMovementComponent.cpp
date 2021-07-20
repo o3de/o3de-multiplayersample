@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
+
 #include <Source/Components/WasdPlayerMovementComponent.h>
 #include <Source/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
