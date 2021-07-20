@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ * Copyright (c) Contributors to the Open 3D Engine Project
  * 
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
@@ -7,9 +7,10 @@
 
 #pragma once
 
-#include <Source/AutoGen/AnimatedHitVolumesComponent.AutoComponent.h>
+#include <Source/AutoGen/NetworkHitVolumesComponent.AutoComponent.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 #include <Integration/ActorComponentBus.h>
+#include <AzCore/Component/TransformBus.h>
 
 namespace Physics
 {
@@ -19,8 +20,8 @@ namespace Physics
 
 namespace MultiplayerSample
 {
-    class AnimatedHitVolumesComponent
-        : public AnimatedHitVolumesComponentBase
+    class NetworkHitVolumesComponent
+        : public NetworkHitVolumesComponentBase
         , private EMotionFX::Integration::ActorComponentNotificationBus::Handler
     {
     public:
@@ -51,11 +52,11 @@ namespace MultiplayerSample
             const AZ::u32 m_jointIndex = 0;
         };
 
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::AnimatedHitVolumesComponent, s_animatedHitVolumesComponentConcreteUuid, MultiplayerSample::AnimatedHitVolumesComponentBase);
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkHitVolumesComponent, s_networkHitVolumesComponentConcreteUuid, MultiplayerSample::NetworkHitVolumesComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
 
-        AnimatedHitVolumesComponent();
+        NetworkHitVolumesComponent();
 
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
@@ -83,5 +84,6 @@ namespace MultiplayerSample
 
         Multiplayer::EntitySyncRewindEvent::Handler m_syncRewindHandler;
         Multiplayer::EntityPreRenderEvent::Handler m_preRenderHandler;
+        AZ::TransformChangedEvent::Handler m_transformChangedHandler;
     };
 }
