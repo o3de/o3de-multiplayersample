@@ -1,11 +1,12 @@
 /*
- * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ * Copyright (c) Contributors to the Open 3D Engine Project
  * 
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
 
-#include <Source/Components/AnimatedHitVolumesComponent.h>
+#include <Source/Components/NetworkHitVolumesComponent.h>
+#include <AzFramework/Components/TransformComponent.h>
 #include <AzFramework/Physics/Common/PhysicsTypes.h>
 #include <AzFramework/Physics/CharacterBus.h>
 #include <AzFramework/Physics/Character.h>
@@ -23,7 +24,7 @@ namespace MultiplayerSample
     AZ_CVAR(float, bg_RewindPositionTolerance, 0.0001f, nullptr, AZ::ConsoleFunctorFlags::Null, "Don't sync the physx entity if the square of delta position is less than this value");
     AZ_CVAR(float, bg_RewindOrientationTolerance, 0.001f, nullptr, AZ::ConsoleFunctorFlags::Null, "Don't sync the physx entity if the square of delta orientation is less than this value");
 
-    AnimatedHitVolumesComponent::AnimatedHitVolume::AnimatedHitVolume
+    NetworkHitVolumesComponent::AnimatedHitVolume::AnimatedHitVolume
     (
         AzNetworking::ConnectionId connectionId,
         Physics::CharacterRequests* character,
@@ -61,13 +62,13 @@ namespace MultiplayerSample
         }
     }
 
-    void AnimatedHitVolumesComponent::AnimatedHitVolume::UpdateTransform(const AZ::Transform& transform)
+    void NetworkHitVolumesComponent::AnimatedHitVolume::UpdateTransform(const AZ::Transform& transform)
     {
         m_transform = transform;
         m_physicsShape->SetLocalPose(transform.GetTranslation(), transform.GetRotation());
     }
 
-    void AnimatedHitVolumesComponent::AnimatedHitVolume::SyncToCurrentTransform()
+    void NetworkHitVolumesComponent::AnimatedHitVolume::SyncToCurrentTransform()
     {
         const AZ::Transform& rewoundTransform = m_transform.Get();
         const AZ::Transform  physicsTransform = AZ::Transform::CreateFromQuaternionAndTranslation(m_physicsShape->GetLocalPose().second, m_physicsShape->GetLocalPose().first);
@@ -82,43 +83,46 @@ namespace MultiplayerSample
         }
     }
 
-    void AnimatedHitVolumesComponent::AnimatedHitVolumesComponent::Reflect(AZ::ReflectContext* context)
+    void NetworkHitVolumesComponent::NetworkHitVolumesComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
         if (serializeContext)
         {
-            serializeContext->Class<AnimatedHitVolumesComponent, AnimatedHitVolumesComponentBase>()
+            serializeContext->Class<NetworkHitVolumesComponent, NetworkHitVolumesComponentBase>()
                 ->Version(1);
         }
-        AnimatedHitVolumesComponentBase::Reflect(context);
+        NetworkHitVolumesComponentBase::Reflect(context);
     }
 
-    AnimatedHitVolumesComponent::AnimatedHitVolumesComponent()
+    NetworkHitVolumesComponent::NetworkHitVolumesComponent()
         : m_syncRewindHandler([this]() { OnSyncRewind(); })
         , m_preRenderHandler([this](float deltaTime, float blendFactor) { OnPreRender(deltaTime, blendFactor); })
+        , m_transformChangedHandler([this](const AZ::Transform&, const AZ::Transform& worldTm) { OnTransformUpdate(worldTm); })
     {
         ;
     }
 
-    void AnimatedHitVolumesComponent::OnInit()
+    void NetworkHitVolumesComponent::OnInit()
     {
         ;
     }
 
-    void AnimatedHitVolumesComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkHitVolumesComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(GetEntityId());
         GetNetBindComponent()->AddEntitySyncRewindEventHandler(m_syncRewindHandler);
         m_physicsCharacter = Physics::CharacterRequestBus::FindFirstHandler(GetEntityId());
+        GetTransformComponent()->BindTransformChangedEventHandler(m_transformChangedHandler);
+        OnTransformUpdate(GetTransformComponent()->GetWorldTM());
     }
 
-    void AnimatedHitVolumesComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkHitVolumesComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         DestroyHitVolumes();
         EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusDisconnect();
     }
 
-    void AnimatedHitVolumesComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
+    void NetworkHitVolumesComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
     {
         if (m_animatedHitVolumes.size() <= 0)
         {
@@ -134,12 +138,12 @@ namespace MultiplayerSample
         }
     }
 
-    void AnimatedHitVolumesComponent::OnTransformUpdate([[maybe_unused]] const AZ::Transform& transform)
+    void NetworkHitVolumesComponent::OnTransformUpdate([[maybe_unused]] const AZ::Transform& transform)
     {
         OnSyncRewind();
     }
 
-    void AnimatedHitVolumesComponent::OnSyncRewind()
+    void NetworkHitVolumesComponent::OnSyncRewind()
     {
         if (m_physicsCharacter && m_physicsCharacter->GetCharacter())
         {
@@ -153,7 +157,7 @@ namespace MultiplayerSample
         }
     }
 
-    void AnimatedHitVolumesComponent::CreateHitVolumes()
+    void NetworkHitVolumesComponent::CreateHitVolumes()
     {
         if (m_physicsCharacter == nullptr || m_actorComponent == nullptr)
         {
@@ -187,17 +191,17 @@ namespace MultiplayerSample
         }
     }
 
-    void AnimatedHitVolumesComponent::DestroyHitVolumes()
+    void NetworkHitVolumesComponent::DestroyHitVolumes()
     {
         m_animatedHitVolumes.clear();
     }
 
-    void AnimatedHitVolumesComponent::OnActorInstanceCreated([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
+    void NetworkHitVolumesComponent::OnActorInstanceCreated([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
         m_actorComponent = EMotionFX::Integration::ActorComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
     }
 
-    void AnimatedHitVolumesComponent::OnActorInstanceDestroyed([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
+    void NetworkHitVolumesComponent::OnActorInstanceDestroyed([[maybe_unused]] EMotionFX::ActorInstance* actorInstance)
     {
         m_actorComponent = nullptr;
     }

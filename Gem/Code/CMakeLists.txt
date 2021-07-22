@@ -92,6 +92,6 @@ if (PAL_TRAIT_BUILD_HOST_TOOLS)
     # The pipeline tools use "Builders" gem variants:
     ly_enable_gems(
         PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
-        TARGETS Editor AssetBuilder AssetProcessor AssetProcessorBatch
+        TARGETS AssetBuilder AssetProcessor AssetProcessorBatch
         VARIANTS Builders)
 endif()

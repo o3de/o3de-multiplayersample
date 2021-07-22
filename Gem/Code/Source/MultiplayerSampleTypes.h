@@ -31,6 +31,5 @@ namespace MultiplayerSample
         Dying,
         MAX
     };
-
-    using CharacterAnimStateBitset = AzNetworking::FixedSizeBitset<static_cast<AZStd::size_t>(CharacterAnimState::MAX)> ;
+    using CharacterAnimStateBitset = AzNetworking::FixedSizeBitset<static_cast<AZStd::size_t>(CharacterAnimState::MAX)>;
 }
