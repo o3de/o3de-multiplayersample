@@ -5,6 +5,7 @@
  *
  */
 
+#include <AzCore/Component/ComponentApplicationBus.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Components/CameraBus.h>
