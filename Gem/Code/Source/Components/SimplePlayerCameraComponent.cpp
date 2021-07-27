@@ -8,6 +8,7 @@
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Components/CameraBus.h>
+#include <AzCore/Component/ComponentApplicationBus.h>
 
 namespace MultiplayerSample
 {
