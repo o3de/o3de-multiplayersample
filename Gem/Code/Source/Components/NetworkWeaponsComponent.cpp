@@ -104,12 +104,12 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
 
         for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
             const CharacterAnimState animState = CharacterAnimState::Shooting;
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(animState), weaponInput->m_firing.GetBit(weaponIndex));
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(animState), weaponInput->m_firing.GetBit(static_cast<uint32_t>(weaponIndex)));
         }
     }
 
@@ -183,11 +183,11 @@ namespace MultiplayerSample
         }
         else if (*inputId == FirePrimaryEventId)
         {
-            m_weaponFiring.SetBit(aznumeric_cast<AZStd::size_t>(PrimaryWeaponIndex), true);
+            m_weaponFiring.SetBit(aznumeric_cast<uint32_t>(PrimaryWeaponIndex), true);
         }
         else if (*inputId == FireSecondaryEventId)
         {
-            m_weaponFiring.SetBit(aznumeric_cast<AZStd::size_t>(SecondaryWeaponIndex), true);
+            m_weaponFiring.SetBit(aznumeric_cast<uint32_t>(SecondaryWeaponIndex), true);
         }
     }
 
@@ -201,11 +201,11 @@ namespace MultiplayerSample
         }
         else if (*inputId == FirePrimaryEventId)
         {
-            m_weaponFiring.SetBit(aznumeric_cast<AZStd::size_t>(PrimaryWeaponIndex), false);
+            m_weaponFiring.SetBit(aznumeric_cast<uint32_t>(PrimaryWeaponIndex), false);
         }
         else if (*inputId == FireSecondaryEventId)
         {
-            m_weaponFiring.SetBit(aznumeric_cast<AZStd::size_t>(SecondaryWeaponIndex), false);
+            m_weaponFiring.SetBit(aznumeric_cast<uint32_t>(SecondaryWeaponIndex), false);
         }
     }
 
