@@ -77,7 +77,7 @@ namespace MultiplayerSample
 
         AZ::Transform rewoundTransform;
         const AZ::Transform& targetTransform = m_transform.Get();
-        float blendFactor = Multiplayer::GetNetworkTime()->GetHostBlendFactor();
+        const float blendFactor = Multiplayer::GetNetworkTime()->GetHostBlendFactor();
         if (blendFactor < 1.f)
         {
             // If a blend factor was supplied, interpolate the transform appropriately
