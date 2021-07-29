@@ -167,7 +167,7 @@ namespace MultiplayerSample
         }
 
         WeaponHitInfo hitInfo(*this, eventData.m_initialTransform.GetTranslation(), hitEvent);
-        m_weaponListener.OnPredictHit(hitInfo);
+        m_weaponListener.OnWeaponPredictHit(hitInfo);
     }
 
     WeaponActivationInfo::WeaponActivationInfo(const IWeapon& weapon, const ActivateEvent& activateEvent)

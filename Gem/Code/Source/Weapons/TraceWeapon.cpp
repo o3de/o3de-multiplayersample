@@ -37,7 +37,7 @@ namespace MultiplayerSample
 
             if (dispatchActivateEvents)
             {
-                m_weaponListener.OnActivate(WeaponActivationInfo(*this, eventData));
+                m_weaponListener.OnWeaponActivate(WeaponActivationInfo(*this, eventData));
             }
 
             const bool isMultiSegmented = (m_weaponParams.m_gatherParams.m_travelSpeed > 0.0f);

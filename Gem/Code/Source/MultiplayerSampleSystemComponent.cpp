@@ -15,6 +15,7 @@
 #include <AzNetworking/Framework/INetworking.h>
 
 #include <Source/AutoGen/AutoComponentTypes.h>
+#include <Source/Weapons/WeaponTypes.h>
 
 namespace MultiplayerSample
 {
@@ -22,6 +23,12 @@ namespace MultiplayerSample
 
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
+        ReflectWeaponEnums(context);
+        ClientEffect::Reflect(context);
+        GatherParams::Reflect(context);
+        HitEffect::Reflect(context);
+        WeaponParams::Reflect(context);
+
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<MultiplayerSampleSystemComponent, AZ::Component>()

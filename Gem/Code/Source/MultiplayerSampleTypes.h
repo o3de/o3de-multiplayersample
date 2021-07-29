@@ -33,3 +33,8 @@ namespace MultiplayerSample
     };
     using CharacterAnimStateBitset = AzNetworking::FixedSizeBitset<static_cast<AZStd::size_t>(CharacterAnimState::MAX)>;
 }
+
+namespace AZ
+{
+    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::CharacterAnimState, "{2DC36B4D-3B14-45A8-911A-60F8732F6A88}");
+}

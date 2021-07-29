@@ -7,6 +7,7 @@
 
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
+#include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 
 namespace MultiplayerSample
@@ -54,15 +55,20 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkWeaponsComponent::OnActivate([[maybe_unused]] const WeaponActivationInfo& activationInfo)
+    IWeapon* NetworkWeaponsComponent::GetWeapon(WeaponIndex weaponIndex) const
+    {
+        return m_weapons[aznumeric_cast<uint32_t>(weaponIndex)].get();
+    }
+
+    void NetworkWeaponsComponent::OnWeaponActivate([[maybe_unused]] const WeaponActivationInfo& activationInfo)
     {
     }
 
-    void NetworkWeaponsComponent::OnPredictHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
+    void NetworkWeaponsComponent::OnWeaponPredictHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
     {
     }
 
-    void NetworkWeaponsComponent::OnConfirmHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
+    void NetworkWeaponsComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
     {
     }
 
@@ -111,61 +117,117 @@ namespace MultiplayerSample
             const CharacterAnimState animState = CharacterAnimState::Shooting;
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<AZStd::size_t>(animState), weaponInput->m_firing.GetBit(weaponIndex));
         }
+
+        for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
+        {
+            if (weaponInput->m_firing.GetBit(weaponIndex))
+            {
+                const AZ::Vector3& aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
+                FireParams fireParams{ aimAngles, Multiplayer::InvalidNetEntityId };
+                TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndex), fireParams);
+            }
+        }
+
+        UpdateWeaponFiring(deltaTime);
     }
 
     void NetworkWeaponsComponentController::UpdateWeaponFiring([[maybe_unused]] float deltaTime)
     {
-        /*
-        WeaponsComponent::NetworkInput* weaponsInput = a_Input->FindInput<WeaponsComponent::NetworkInput>();
-
-        pWeapon->UpdateWeaponState(weaponState, a_DeltaTime);
-
-        if ((weaponState.GetStatus() == EWeaponStatus::Firing) && (weaponState.GetCooldownTime() <= 0.0f))
+        for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
-            AZLOG(NET_TraceWeapons, "Weapon predicted activation event for weapon index %u", iWeaponIndex);
+            IWeapon* weapon = GetParent().GetWeapon(aznumeric_cast<WeaponIndex>(weaponIndex));
 
-            // Temp hack for weapon firing due to late ebus binding in 1.14
-            if (m_FireBoneJointIds[iWeaponIndex] == NetworkAnimationComponent::k_InvalidBoneId)
+            if ((weapon == nullptr) || !weapon->GetParams().m_locallyPredicted)
             {
-                const char* fireBoneName = GetFireBoneName(iWeaponIndex).GetString();
-                m_FireBoneJointIds[iWeaponIndex] = GetNetworkAnimationComponentPredictable()->GetCommonParent().GetBoneIdByName(fireBoneName);
+                continue;
             }
 
-            NovaNet::Transform fireBoneTransform;
-            if (!GetNetworkAnimationComponentPredictable()->GetCommonParent().GetJointTransformById(m_FireBoneJointIds[iWeaponIndex], fireBoneTransform))
+            WeaponState& weaponState = ModifyWeaponStates(weaponIndex);
+
+            weapon->UpdateWeaponState(weaponState, deltaTime);
+
+            if ((weaponState.m_status == WeaponStatus::Firing) && (weaponState.m_cooldownTime <= 0.0f))
             {
-                NVLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneName(iWeaponIndex).GetString(), m_FireBoneJointIds[iWeaponIndex]);
+                AZLOG(NET_TraceWeapons, "Weapon predicted activation event for weapon index %u", aznumeric_cast<uint32_t>(weaponIndex));
+
+                // Temp hack for weapon firing due to late ebus binding in 1.14
+                if (m_fireBoneJointIds[weaponIndex] == InvalidBoneId)
+                {
+                    const char* fireBoneName = GetFireBoneNames(weaponIndex).c_str();
+                    m_fireBoneJointIds[weaponIndex] = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
+                }
+
+                AZ::Transform fireBoneTransform;
+                if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(m_fireBoneJointIds[weaponIndex], fireBoneTransform))
+                {
+                    AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(weaponIndex).c_str(), m_fireBoneJointIds[weaponIndex]);
+                }
+
+                const FireParams&    fireParams = weapon->GetFireParams();
+                const AZ::Vector3    position = fireBoneTransform.GetTranslation();
+                const AZ::Quaternion orientation = AZ::Quaternion::CreateShortestArc(AZ::Vector3::CreateAxisX(), (fireParams.m_targetPosition - position).GetNormalized());
+                const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
+                ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
+
+                //if (cl_DebugDrawWeaponOrigin && (mp_DebugComponentAutonomous != nullptr))
+                //{
+                //    mp_DebugComponentAutonomous->GetParent().ClientDrawSphere(a_ActivateEvent.GetInitialTransform().m_Position, 0.1f, NovaNet::Vec3(0.0f, 1.0f, 0.0f), 1.0f);
+                //    mp_DebugComponentAutonomous->GetParent().ClientDrawSphere(a_ActivateEvent.GetTargetPosition(), 0.5f, NovaNet::Vec3(1.0f, 0.0f, 0.0f), 1.0f);
+                //}
+
+                const bool isReplay = false;// PlayerNetworkInputComponent::IsReplayingInput();
+                bool dispatchHitEvents = weapon->GetParams().m_locallyPredicted;
+                bool dispatchActivateEvents = weapon->GetParams().m_locallyPredicted;
+                bool skipGathers = false;
+
+                if (IsAutonomous())
+                {
+                    //GetParent().ClearTriggeredPredictedHit();
+                }
+                else if (IsAuthority())
+                {
+                    // If client didn't even predict a hit, don't bother checking
+                    skipGathers = false;// (a_Input != nullptr) ? !a_Input->m_WeaponGatherRequests.GetBit(a_Weapon->GetWeaponIndex()) : false;
+                }
+
+                weapon->Activate(deltaTime, weaponState, GetEntityHandle(), activateEvent, dispatchHitEvents, dispatchActivateEvents, skipGathers);
+
+                if (IsAutonomous())
+                {
+                    // We predicted a local hit, in this case, let the server know so it can perform a test for this activation
+                    //if (GetParent().HasTriggeredPredictedHit())
+                    //{
+                    //    a_Input->m_WeaponGatherRequests.SetBit(a_Weapon->GetWeaponIndex(), true);
+                    //}
+                }
+                else if (IsAuthority())
+                {
+                    SetActivationCounts(weaponIndex, weaponState.m_activationCount);
+                }
             }
-
-            const FireParams& fireParams = pWeapon->GetFireParams();
-            const Vec3        position = fireBoneTransform.m_Position;
-            const Quat        orientation = Quat::CreateLookRotation((fireParams.GetTargetPosition() - position).Normalized());
-            const Transform   transform = Transform(position, orientation);
-
-            ActivateEvent activateEvent(transform, fireParams.GetTargetPosition(), GetNetId(), INVALID_ENTITY_ID);
-
-            DispatchActivateEvent(weaponsInput, a_DeltaTime, pWeapon, weaponState, activateEvent);
         }
-        */
     }
 
-
-    bool NetworkWeaponsComponentController::TryStartFire()
+    bool NetworkWeaponsComponentController::TryStartFire(WeaponIndex weaponIndex, const FireParams& fireParams)
     {
-        /*
-        AZLOG(NET_TraceWeapons, "Weapon attempting to fire");
+        AZLOG(NET_TraceWeapons, "Weapon start fire on %u", aznumeric_cast<uint32_t>(weaponIndex));
 
-        WeaponState& weaponState = ModifyWeaponStates(*a_Input, a_WeaponIndex);
+        IWeapon* weapon = GetParent().GetWeapon(weaponIndex);
 
-        if (pWeapon->TryStartFire(weaponState, a_FireParams))
+        if (weapon == nullptr)
         {
-            const uint32_t animBit = static_cast<uint32_t>(pWeapon->GetParams().GetAnimFlag());
+            return false;
+        }
 
-            GetNetworkAnimationComponentPredictable()->ModifyActiveAnimStates(*a_Input).SetBit(animBit, true);
+        WeaponState& weaponState = ModifyWeaponStates(aznumeric_cast<uint32_t>(weaponIndex));
 
+        if (weapon->TryStartFire(weaponState, fireParams))
+        {
+            const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, true);
             return true;
         }
-        */
+
         return false;
     }
 

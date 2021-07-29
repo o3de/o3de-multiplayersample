@@ -25,7 +25,7 @@ namespace MultiplayerSample
 
     private:
 
-        //! BaseWeapon interface
+        //! IWeapon interface
         //! @{
         void Activate
         (
