@@ -175,7 +175,7 @@ namespace MultiplayerSample
                 //    mp_DebugComponentAutonomous->GetParent().ClientDrawSphere(a_ActivateEvent.GetTargetPosition(), 0.5f, NovaNet::Vec3(1.0f, 0.0f, 0.0f), 1.0f);
                 //}
 
-                const bool isReplay = false;// PlayerNetworkInputComponent::IsReplayingInput();
+                const bool isReplay = GetNetBindComponent()->IsReprocessingInput();
                 bool dispatchHitEvents = weapon->GetParams().m_locallyPredicted;
                 bool dispatchActivateEvents = weapon->GetParams().m_locallyPredicted;
                 bool skipGathers = false;

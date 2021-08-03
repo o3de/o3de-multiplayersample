@@ -72,7 +72,7 @@ namespace MultiplayerSample
 
         //! Starts a weapon with the frame id from the client
         //! @return boolean true on activate, false if the weapon failed to activate
-        virtual bool TryStartFire(WeaponIndex, const FireParams& fireParams);
+        virtual bool TryStartFire(WeaponIndex weaponIndex, const FireParams& fireParams);
 
         //! AZ::InputEventNotificationBus interface
         //! @{
