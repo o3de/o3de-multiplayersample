@@ -70,7 +70,22 @@ namespace MultiplayerSample
 
     void NetworkHitVolumesComponent::AnimatedHitVolume::SyncToCurrentTransform()
     {
-        const AZ::Transform& rewoundTransform = m_transform.Get();
+        AZ::Transform rewoundTransform;
+        const AZ::Transform& targetTransform = m_transform.Get();
+        const float blendFactor = Multiplayer::GetNetworkTime()->GetHostBlendFactor();
+        if (blendFactor < 1.f)
+        {
+            // If a blend factor was supplied, interpolate the transform appropriately
+            const AZ::Transform& previousTransform = m_transform.GetPrevious();
+            rewoundTransform.SetRotation(previousTransform.GetRotation().Slerp(targetTransform.GetRotation(), blendFactor));
+            rewoundTransform.SetTranslation(previousTransform.GetTranslation().Lerp(targetTransform.GetTranslation(), blendFactor));
+            rewoundTransform.SetUniformScale(AZ::Lerp(previousTransform.GetUniformScale(), targetTransform.GetUniformScale(), blendFactor));
+        }
+        else
+        {
+            rewoundTransform = m_transform.Get();
+        }
+
         const AZ::Transform  physicsTransform = AZ::Transform::CreateFromQuaternionAndTranslation(m_physicsShape->GetLocalPose().second, m_physicsShape->GetLocalPose().first);
 
         // Don't call SetLocalPose unless the transforms are actually different
