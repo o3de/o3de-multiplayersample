@@ -9,8 +9,6 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/NetworkTraceComponent.h>
 
-#pragma optimize("", off)
-
 namespace MultiplayerSample
 {
     NetworkTraceComponent::NetworkTraceComponent()
