@@ -70,35 +70,33 @@ namespace MultiplayerSample
 
         const AZ::u32 stateBefore = m_debugDisplay->GetState();
 
-        m_debugDisplay->SetColor(AZ::Colors::Blue);
-        for (AZStd::size_t clientIndex = 1; clientIndex < m_previousClientPositions.size(); ++clientIndex)
-        {
-            const PositionInTime& prevPoint = m_previousClientPositions[clientIndex - 1];
-            const PositionInTime& nextPoint = m_previousClientPositions[clientIndex];
-
-            m_debugDisplay->DrawLine(prevPoint.m_position, nextPoint.m_position);
-            char buffer[10] = {};
-            azsprintf(buffer, "%lu", nextPoint.m_time);
-            m_debugDisplay->DrawTextLabel(nextPoint.m_position, 0.7f, buffer);
-        }
-
-        m_debugDisplay->SetColor(AZ::Colors::Red);
-        for (AZStd::size_t serverIndex = 1; serverIndex < m_previousServerPositions.size(); ++serverIndex)
-        {
-            const PositionInTime& prevPoint = m_previousServerPositions[serverIndex - 1];
-            const PositionInTime& nextPoint = m_previousServerPositions[serverIndex];
-
-            m_debugDisplay->DrawLine(prevPoint.m_position, nextPoint.m_position);
-            char buffer[10] = {};
-            azsprintf(buffer, "%lu", nextPoint.m_time);
-
-            auto modifiedPosition = nextPoint.m_position;
-            modifiedPosition.SetZ(modifiedPosition.GetZ() + 0.3f);
-
-            m_debugDisplay->DrawTextLabel(modifiedPosition, 0.7f, buffer);
-        }
+        DrawTraceLine(m_previousClientPositions, AZ::Colors::Blue, "C");
+        DrawTraceLine(m_previousServerPositions, AZ::Colors::Red, "S");
 
         m_debugDisplay->SetState(stateBefore);
+    }
+
+    void NetworkTraceComponent::DrawTraceLine(const AZStd::ring_buffer<PositionInTime>& data, const AZ::Color& color, const char* heading)
+    {
+        m_debugDisplay->SetColor(color);
+        for (AZStd::size_t pointIndex = 1; pointIndex < data.size(); ++pointIndex)
+        {
+            const PositionInTime& prevPoint = data[pointIndex - 1];
+            const PositionInTime& nextPoint = data[pointIndex];
+
+            m_debugDisplay->DrawLine(prevPoint.m_position, nextPoint.m_position);
+            char buffer[10] = {};
+            azsprintf(buffer, "%lu", nextPoint.m_time);
+
+            if (pointIndex < (data.size() - 1))
+            {
+                m_debugDisplay->DrawTextLabel(nextPoint.m_position, 0.7f, buffer);
+            }
+            else
+            {
+                m_debugDisplay->DrawTextLabel(nextPoint.m_position, 0.7f, heading);
+            }
+        }
     }
 
     void NetworkTraceComponent::OnServerPositionChanged(const AZ::Vector3& serverPosition)

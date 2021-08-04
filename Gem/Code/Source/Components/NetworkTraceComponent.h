@@ -58,6 +58,7 @@ namespace MultiplayerSample
 
         AZ::ScheduledEvent m_updateTraceOverlay;
         void UpdateTraceOverlay();
+        void DrawTraceLine(const AZStd::ring_buffer<PositionInTime>& data, const AZ::Color& color, const char* heading);
     };
 
     class NetworkTraceComponentController
