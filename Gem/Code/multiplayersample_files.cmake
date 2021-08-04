@@ -8,6 +8,7 @@
 set(FILES
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkCharacterComponent.AutoComponent.xml
+    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkHitVolumesComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRigidBodyComponent.AutoComponent.xml
@@ -20,6 +21,8 @@ set(FILES
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkCharacterComponent.cpp
     Source/Components/NetworkCharacterComponent.h
+    Source/Components/NetworkHealthComponent.cpp
+    Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkHitVolumesComponent.cpp
     Source/Components/NetworkHitVolumesComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
