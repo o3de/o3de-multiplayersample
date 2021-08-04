@@ -8,6 +8,8 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
 #include <Components/ExampleFilteredEntityComponent.h>
+#include <Components/NetworkTraceComponent.h>
+
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -28,6 +30,7 @@ namespace MultiplayerSample
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
+                NetworkTraceComponent::CreateDescriptor(),
             });
 
             CreateComponentDescriptors(m_descriptors);
