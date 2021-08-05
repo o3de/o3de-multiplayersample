@@ -21,7 +21,7 @@ namespace MultiplayerSample
     }
 
     NetworkHealthComponent::NetworkHealthComponent()
-        : m_healthEventHandler([this](const uint8_t& health) { OnHealthChangedEvent(health); })
+        : m_healthEventHandler([this](const float& health) { OnHealthChangedEvent(health); })
     {
         ;
     }
@@ -41,13 +41,13 @@ namespace MultiplayerSample
         ;
     }
 
-    void NetworkHealthComponent::SetHealth(uint8_t updatedHealth)
+    void NetworkHealthComponent::SetHealth(float updatedHealth)
     {
-        updatedHealth = AZStd::min(updatedHealth, GetMaxHealth());
+        updatedHealth = AZStd::max(0.f, AZStd::min(updatedHealth, GetMaxHealth()));
         static_cast<NetworkHealthComponentController*>(GetController())->SetHealth(updatedHealth);
     }
 
-    void NetworkHealthComponent::OnHealthChangedEvent([[maybe_unused]] const uint8_t& health)
+    void NetworkHealthComponent::OnHealthChangedEvent([[maybe_unused]] const float& health)
     {
         // Hook for gameplay events such as player death, player revive, showing damage numbers, etc.
         ;

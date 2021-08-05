@@ -27,12 +27,12 @@ namespace MultiplayerSample
 
         //! Component accessor to set health, accounting for a configurable max and floor of 0
         //! @param updatedHealth the new health value
-        void SetHealth(uint8_t updatedHealth);
+        void SetHealth(float updatedHealth);
 
     private:
-        void OnHealthChangedEvent(const uint8_t& health);
+        void OnHealthChangedEvent(const float& health);
 
-        AZ::Event<uint8_t>::Handler m_healthEventHandler;
+        AZ::Event<float>::Handler m_healthEventHandler;
     };
 
     class NetworkHealthComponentController
