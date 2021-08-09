@@ -11,6 +11,7 @@ set(FILES
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkHitVolumesComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkRigidBodyComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/SimplePlayerCameraComponent.AutoComponent.xml
@@ -27,6 +28,8 @@ set(FILES
     Source/Components/NetworkHitVolumesComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
     Source/Components/NetworkPlayerSpawnerComponent.h
+    Source/Components/NetworkRandomComponent.cpp
+    Source/Components/NetworkRandomComponent.h
     Source/Components/NetworkRigidBodyComponent.cpp
     Source/Components/NetworkRigidBodyComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
