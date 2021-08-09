@@ -179,7 +179,7 @@ namespace MultiplayerSample
     //! Single hit entity in a weapon hit event.
     struct HitEntity
     {
-        AZ::Vector3 m_hitPosition; // Location where the entity was hit, NOT the location of the projectile or weapon in the case of area damage
+        AZ::Vector3 m_hitPosition = AZ::Vector3::CreateZero(); // Location where the entity was hit, NOT the location of the projectile or weapon in the case of area damage
         Multiplayer::NetEntityId m_hitNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the entity which was hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
@@ -189,10 +189,10 @@ namespace MultiplayerSample
     //! Structure containing details for a single weapon hit event.
     struct HitEvent
     {
-        AZ::Transform m_hitTransform;                     // Transform of the hit event, NOT the location of the entity that was hit in the case of area damage
+        AZ::Transform m_hitTransform = AZ::Transform::CreateIdentity(); // Transform of the hit event, NOT the location of the entity that was hit in the case of area damage
         Multiplayer::NetEntityId m_shooterNetEntityId    = Multiplayer::InvalidNetEntityId; // Entity Id of the shooter
         Multiplayer::NetEntityId m_projectileNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the projectile, InvalidNetEntityId if this was a trace weapon hit
-        HitEntities m_hitEntities;                        // Information about the entities that were hit
+        HitEntities m_hitEntities; // Information about the entities that were hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
     };
@@ -200,7 +200,7 @@ namespace MultiplayerSample
     //! Structure containing details for a single fire event.
     struct FireParams
     {
-        AZ::Vector3 m_targetPosition; // Location of the activate event.
+        AZ::Vector3 m_targetPosition = AZ::Vector3::CreateZero(); // Location of the activate event.
         Multiplayer::NetEntityId m_targetId = Multiplayer::InvalidNetEntityId; // Entity Id of the target (for homing weapons)
 
         bool operator!=(const FireParams& rhs) const;
