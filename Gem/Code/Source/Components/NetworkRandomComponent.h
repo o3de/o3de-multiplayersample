@@ -27,7 +27,9 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void RollRandom();
+        uint64_t GetRandomUint64();
+        int GetRandomInt();
+        float GetRandomFloat();
 
     private:
         void OnSeedChangedEvent(const uint64_t& seed);

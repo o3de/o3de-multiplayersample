@@ -50,16 +50,35 @@ namespace MultiplayerSample
         ;
     }
 
-    void NetworkRandomComponent::RollRandom()
+    uint64_t NetworkRandomComponent::GetRandomUint64()
     {
-        Multiplayer::INetworkTime* networkTime = Multiplayer::GetNetworkTime();
-        // We should not need to roll rands in the past, history should be relied upon instead
-        if (!networkTime->IsTimeRewound())
-        {
-            AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
-            int rand = m_simpleRng.GetRandom();
-            static_cast<NetworkRandomComponentController*>(GetController())->SetRandom(rand);
-        }
+        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
+        uint64_t seed = m_simpleRng.Getu64Random();
+        static_cast<NetworkRandomComponentController*>(GetController())->SetSeed(seed);
+        return seed;
+    }
+
+    int NetworkRandomComponent::GetRandomInt()
+    {
+        // Reimplements SimpleLcgRandom's rand int with a synchronized seed
+        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
+        return static_cast<unsigned int>(GetRandomUint64() >> 16);
+    }
+
+    float NetworkRandomComponent::GetRandomFloat()
+    {
+        // Reimplements SimpleLcgRandom's rand float with a synchronized seed
+        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
+        unsigned int r = GetRandomInt();
+            r &= 0x007fffff; //sets mantissa to random bits
+            r |= 0x3f800000; //result is in [1,2), uniformly distributed
+            union
+            {
+                float f;
+                unsigned int i;
+            } u;
+            u.i = r;
+            return u.f - 1.0f;
     }
 
     void NetworkRandomComponent::OnSeedChangedEvent([[maybe_unused]] const uint64_t& seed)
