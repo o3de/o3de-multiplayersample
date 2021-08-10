@@ -100,16 +100,16 @@ namespace MultiplayerSample
 
         if (m_velocityParamId == InvalidParamIndex)
         {
-            m_velocityParamId = m_animationGraph->FindParameterIndex(GetVelocityParamName().c_str());
-            m_aimTargetParamId = m_animationGraph->FindParameterIndex(GetAimTargetParamName().c_str());
-            m_crouchParamId = m_animationGraph->FindParameterIndex(GetCrouchParamName().c_str());
-            m_aimingParamId = m_animationGraph->FindParameterIndex(GetAimingParamName().c_str());
-            m_shootParamId = m_animationGraph->FindParameterIndex(GetShootParamName().c_str());
-            m_jumpParamId = m_animationGraph->FindParameterIndex(GetJumpParamName().c_str());
-            m_fallParamId = m_animationGraph->FindParameterIndex(GetFallParamName().c_str());
-            m_landParamId = m_animationGraph->FindParameterIndex(GetLandParamName().c_str());
-            m_hitParamId = m_animationGraph->FindParameterIndex(GetHitParamName().c_str());
-            m_deathParamId = m_animationGraph->FindParameterIndex(GetDeathParamName().c_str());
+            m_velocityParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetVelocityParamName().c_str()));
+            m_aimTargetParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetAimTargetParamName().c_str()));
+            m_crouchParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetCrouchParamName().c_str()));
+            m_aimingParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetAimingParamName().c_str()));
+            m_shootParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetShootParamName().c_str()));
+            m_jumpParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetJumpParamName().c_str()));
+            m_fallParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetFallParamName().c_str()));
+            m_landParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetLandParamName().c_str()));
+            m_hitParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetHitParamName().c_str()));
+            m_deathParamId = static_cast<uint32_t>(m_animationGraph->FindParameterIndex(GetDeathParamName().c_str()));
         }
 
         if (m_velocityParamId != InvalidParamIndex)
