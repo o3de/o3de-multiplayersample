@@ -13,32 +13,6 @@
 
 namespace MultiplayerSample
 {
-    class NetworkRandomComponent
-        : public NetworkRandomComponentBase
-    {
-    public:
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkRandomComponent, s_networkRandomComponentConcreteUuid, MultiplayerSample::NetworkRandomComponentBase);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        NetworkRandomComponent();
-
-        void OnInit() override;
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-
-        uint64_t GetRandomUint64();
-        int GetRandomInt();
-        float GetRandomFloat();
-
-    private:
-        void OnSeedChangedEvent(const uint64_t& seed);
-
-        AZ::Event<uint64_t>::Handler m_seedEventHandler;
-        AZ::SimpleLcgRandom m_simpleRng;
-        bool m_seedInitialized = false;
-    };
-
     class NetworkRandomComponentController
         : public NetworkRandomComponentControllerBase
     {
@@ -47,5 +21,9 @@ namespace MultiplayerSample
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        uint64_t GetRandomUint64();
+        int GetRandomInt();
+        float GetRandomFloat();
     };
 }

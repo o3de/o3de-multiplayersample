@@ -34,14 +34,4 @@ namespace MultiplayerSample
 
         AZ::Event<float>::Handler m_healthEventHandler;
     };
-
-    class NetworkHealthComponentController
-        : public NetworkHealthComponentControllerBase
-    {
-    public:
-        NetworkHealthComponentController(NetworkHealthComponent& parent);
-
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-    };
 }

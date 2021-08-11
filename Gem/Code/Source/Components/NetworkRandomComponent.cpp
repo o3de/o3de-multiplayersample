@@ -9,66 +9,23 @@
 
 namespace MultiplayerSample
 {
-    void NetworkRandomComponent::NetworkRandomComponent::Reflect(AZ::ReflectContext* context)
+    uint64_t NetworkRandomComponentController::GetRandomUint64()
     {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<NetworkRandomComponent, NetworkRandomComponentBase>()
-                ->Version(1);
-        }
-        NetworkRandomComponentBase::Reflect(context);
-    }
-
-    NetworkRandomComponent::NetworkRandomComponent()
-        : m_seedEventHandler([this](const uint64_t& seed) { OnSeedChangedEvent(seed); })
-    {
-        if (IsNetEntityRoleAuthority())
-        {
-            // Setup seed on authority for proxies to pull
-            AZ::BetterPseudoRandom seedGenerator;
-            uint64_t seed = 0;
-            seedGenerator.GetRandom(seed);
-            static_cast<NetworkRandomComponentController*>(GetController())->SetSeed(seed);
-            m_simpleRng.SetSeed(seed);
-            m_seedInitialized = true;
-        };
-    }
-
-    void NetworkRandomComponent::OnInit()
-    {
-        
-    }
-
-    void NetworkRandomComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        SeedAddEvent(m_seedEventHandler);
-    }
-
-    void NetworkRandomComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
-
-    uint64_t NetworkRandomComponent::GetRandomUint64()
-    {
-        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
-        uint64_t seed = m_simpleRng.Getu64Random();
-        static_cast<NetworkRandomComponentController*>(GetController())->SetSeed(seed);
+        // Reimplements SimpleLcgRandom's rand int with a synchronized seed
+        uint64_t& seed = ModifySeed();
+        seed = (GetSeed() * 0x5DEECE66DLL + 0xBLL) & ((1LL << 48) - 1);
         return seed;
     }
 
-    int NetworkRandomComponent::GetRandomInt()
+    int NetworkRandomComponentController::GetRandomInt()
     {
         // Reimplements SimpleLcgRandom's rand int with a synchronized seed
-        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
         return static_cast<unsigned int>(GetRandomUint64() >> 16);
     }
 
-    float NetworkRandomComponent::GetRandomFloat()
+    float NetworkRandomComponentController::GetRandomFloat()
     {
         // Reimplements SimpleLcgRandom's rand float with a synchronized seed
-        AZ_Assert(m_seedInitialized, "RNG Seed not initialized");
         unsigned int r = GetRandomInt();
             r &= 0x007fffff; //sets mantissa to random bits
             r |= 0x3f800000; //result is in [1,2), uniformly distributed
@@ -81,18 +38,17 @@ namespace MultiplayerSample
             return u.f - 1.0f;
     }
 
-    void NetworkRandomComponent::OnSeedChangedEvent([[maybe_unused]] const uint64_t& seed)
-    {
-        // Proxy hook to set rng seed
-        static_cast<NetworkRandomComponentController*>(GetController())->SetSeed(seed);
-        m_simpleRng.SetSeed(seed);
-        m_seedInitialized = true;
-    }
-
     NetworkRandomComponentController::NetworkRandomComponentController(NetworkRandomComponent& parent)
         : NetworkRandomComponentControllerBase(parent)
     {
-        ;
+        if (IsAuthority())
+        {
+            // Setup seed on authority for proxies to pull
+            AZ::BetterPseudoRandom seedGenerator;
+            uint64_t seed = 0;
+            seedGenerator.GetRandom(seed);
+            SetSeed(seed);
+        };
     }
 
     void NetworkRandomComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)

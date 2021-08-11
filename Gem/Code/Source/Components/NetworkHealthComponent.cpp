@@ -52,19 +52,4 @@ namespace MultiplayerSample
         // Hook for gameplay events such as player death, player revive, showing damage numbers, etc.
         ;
     }
-
-    NetworkHealthComponentController::NetworkHealthComponentController(NetworkHealthComponent& parent)
-        : NetworkHealthComponentControllerBase(parent)
-    {
-    }
-
-    void NetworkHealthComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
-
-    void NetworkHealthComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
 }
