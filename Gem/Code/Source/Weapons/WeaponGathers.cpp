@@ -4,9 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#pragma optimize("", off)
 
 #include <Source/Weapons/WeaponGathers.h>
 #include <Multiplayer/NetworkTime/INetworkTime.h>
+#include <AzFramework/Physics/PhysicsScene.h>
+#include <AzCore/Component/Component.h>
+#include <AzCore/Console/ILogger.h>
+#include <DebugDraw/DebugDrawBus.h>
 
 namespace MultiplayerSample
 {
@@ -49,7 +54,16 @@ namespace MultiplayerSample
         [[maybe_unused]] const GatherShape&   intersectShape = gatherParams.m_gatherShape;
 
         IntersectFilter filter(startTransform, sweep, HitStatic::Yes, HitDynamic::Yes, hitMultiple, filteredNetEntityIds);
+
         //gNovaGame->GetNetworkPhysicalWorld().WorldIntersect(intersectShape, filter, outResultList);
+        DebugDraw::DebugDrawRequestBus::Broadcast
+        (
+            &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
+            eventData.m_initialTransform.GetTranslation(),
+            eventData.m_targetPosition,
+            AZ::Colors::Red,
+            10.0f
+        );
 
         return true;
     }
@@ -72,8 +86,9 @@ namespace MultiplayerSample
         const AZ::Vector3 sweep = (inOutActiveShot.m_targetPosition - startTransform.GetTranslation()).GetNormalized();
 
         // World gravity for our current location (making the currently safe assumption that it's constant over the duration of our trace)
-        //const AZ::Vector3& gravity = gatherParams.m_bulletDrop ? gNovaGame->GetNetworkPhysicalWorld().GetWorldGravity(a_InOutActiveShot.GetInitialTransform().m_Position) : AZ::Vector3::CreateZero();
-        const AZ::Vector3& gravity = AZ::Vector3::CreateZero();
+        AzPhysics::SceneInterface* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
+        AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+        const AZ::Vector3& gravity = gatherParams.m_bulletDrop ? sceneInterface->GetGravity(sceneHandle) : AZ::Vector3::CreateZero();
         const float segmentTickSize = deltaTime / bg_MultitraceNumTraceSegments; // Duration in seconds of each cast segment
         const AZ::Vector3 segmentStepOffset = sweep * gatherParams.m_travelSpeed; // Displacement (disregarding gravity) of our bullet over one second
         const float maxTravelDistanceSq = gatherParams.m_castDistance * gatherParams.m_castDistance;
@@ -97,6 +112,15 @@ namespace MultiplayerSample
             IntersectFilter filter(currSegTransform, segSweep, HitStatic::Yes, HitDynamic::Yes, hitMultiple, filteredNetEntityIds);
             //gNovaGame->GetNetworkPhysicalWorld().WorldIntersect(gatherParams.m_gatherShape, filter, a_OutResultList);
 
+            DebugDraw::DebugDrawRequestBus::Broadcast
+            (
+                &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
+                currSegmentPosition,
+                nextSegmentPosition,
+                AZ::Colors::Red,
+                10.0f
+            );
+
             // Terminate the loop if we hit something
             if (((outResults.size() > 0) && !gatherParams.m_multiHit) || (travelDistance.GetLengthSq() > maxTravelDistanceSq))
             {
@@ -109,6 +133,7 @@ namespace MultiplayerSample
         }
 
         inOutActiveShot.m_lifetimeSeconds = LifetimeSec(inOutActiveShot.m_lifetimeSeconds + deltaTime);
+        AZ_TracePrintf("gathers", "Ticking active shot, deltaTime=%f, lifetime=%f", deltaTime, (float)(inOutActiveShot.m_lifetimeSeconds));
 
         return result;
     }

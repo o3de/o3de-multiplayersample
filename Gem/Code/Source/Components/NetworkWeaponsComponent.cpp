@@ -4,14 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
+#include <AzCore/Component/TransformBus.h>
+#include <DebugDraw/DebugDrawBus.h>
 
 namespace MultiplayerSample
 {
+    AZ_CVAR(bool, cl_WeaponsDrawDebug, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
+
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -41,6 +45,11 @@ namespace MultiplayerSample
 
             m_weapons[weaponIndex] = AZStd::move(CreateWeapon(constructParams));
         }
+
+        if (m_debugDraw == nullptr)
+        {
+            m_debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler();
+        }
     }
 
     void NetworkWeaponsComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -51,10 +60,6 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkWeaponsComponent::HandleSendConfirmProjectileHit([[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const WeaponIndex& WeaponIndex, [[maybe_unused]] const HitEvent& HitEvent)
-    {
-    }
-
     IWeapon* NetworkWeaponsComponent::GetWeapon(WeaponIndex weaponIndex) const
     {
         return m_weapons[aznumeric_cast<uint32_t>(weaponIndex)].get();
@@ -62,6 +67,24 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponActivate([[maybe_unused]] const WeaponActivationInfo& activationInfo)
     {
+        if (cl_WeaponsDrawDebug && m_debugDraw)
+        {
+            m_debugDraw->DrawSphereAtLocation
+            (
+                activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
+                0.5f, 
+                AZ::Colors::GreenYellow,
+                10.0f
+            );
+
+            m_debugDraw->DrawSphereAtLocation
+            (
+                activationInfo.m_activateEvent.m_targetPosition,
+                0.5f,
+                AZ::Colors::Crimson,
+                10.0f
+            );
+        }
     }
 
     void NetworkWeaponsComponent::OnWeaponPredictHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
@@ -76,6 +99,7 @@ namespace MultiplayerSample
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
     {
+        AZStd::uninitialized_fill_n(m_fireBoneJointIds.data(), MaxWeaponsPerComponent, InvalidBoneId);
     }
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -118,12 +142,18 @@ namespace MultiplayerSample
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(animState), weaponInput->m_firing.GetBit(static_cast<uint32_t>(weaponIndex)));
         }
 
+        const AZ::Transform worldTm = GetParent().GetEntity()->GetTransform()->GetWorldTM();
+
         for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
-            if (weaponInput->m_firing.GetBit(weaponIndex))
+            if (weaponInput->m_firing.GetBit(aznumeric_cast<uint32_t>(weaponIndex)))
             {
                 const AZ::Vector3& aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
-                FireParams fireParams{ aimAngles, Multiplayer::InvalidNetEntityId };
+                const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
+                // TODO: This should probably be a physx raycast out to some maxDistance
+                const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
+                const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
+                FireParams fireParams{ aimTarget, Multiplayer::InvalidNetEntityId };
                 TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndex), fireParams);
             }
         }
@@ -142,10 +172,7 @@ namespace MultiplayerSample
                 continue;
             }
 
-            WeaponState& weaponState = ModifyWeaponStates(weaponIndex);
-
-            weapon->UpdateWeaponState(weaponState, deltaTime);
-
+            WeaponState& weaponState = ModifyWeaponStates(aznumeric_cast<uint32_t>(weaponIndex));
             if ((weaponState.m_status == WeaponStatus::Firing) && (weaponState.m_cooldownTime <= 0.0f))
             {
                 AZLOG(NET_TraceWeapons, "Weapon predicted activation event for weapon index %u", aznumeric_cast<uint32_t>(weaponIndex));
@@ -153,14 +180,14 @@ namespace MultiplayerSample
                 // Temp hack for weapon firing due to late ebus binding in 1.14
                 if (m_fireBoneJointIds[weaponIndex] == InvalidBoneId)
                 {
-                    const char* fireBoneName = GetFireBoneNames(weaponIndex).c_str();
+                    const char* fireBoneName = GetFireBoneNames(aznumeric_cast<uint32_t>(weaponIndex)).c_str();
                     m_fireBoneJointIds[weaponIndex] = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
                 }
 
                 AZ::Transform fireBoneTransform;
                 if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(m_fireBoneJointIds[weaponIndex], fireBoneTransform))
                 {
-                    AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(weaponIndex).c_str(), m_fireBoneJointIds[weaponIndex]);
+                    AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(aznumeric_cast<uint32_t>(weaponIndex)).c_str(), m_fireBoneJointIds[weaponIndex]);
                 }
 
                 const FireParams&    fireParams = weapon->GetFireParams();
@@ -169,42 +196,21 @@ namespace MultiplayerSample
                 const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
                 ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
 
-                //if (cl_DebugDrawWeaponOrigin && (mp_DebugComponentAutonomous != nullptr))
-                //{
-                //    mp_DebugComponentAutonomous->GetParent().ClientDrawSphere(a_ActivateEvent.GetInitialTransform().m_Position, 0.1f, NovaNet::Vec3(0.0f, 1.0f, 0.0f), 1.0f);
-                //    mp_DebugComponentAutonomous->GetParent().ClientDrawSphere(a_ActivateEvent.GetTargetPosition(), 0.5f, NovaNet::Vec3(1.0f, 0.0f, 0.0f), 1.0f);
-                //}
-
                 const bool isReplay = GetNetBindComponent()->IsReprocessingInput();
                 bool dispatchHitEvents = weapon->GetParams().m_locallyPredicted;
                 bool dispatchActivateEvents = weapon->GetParams().m_locallyPredicted;
                 bool skipGathers = false;
 
-                if (IsAutonomous())
-                {
-                    //GetParent().ClearTriggeredPredictedHit();
-                }
-                else if (IsAuthority())
-                {
-                    // If client didn't even predict a hit, don't bother checking
-                    skipGathers = false;// (a_Input != nullptr) ? !a_Input->m_WeaponGatherRequests.GetBit(a_Weapon->GetWeaponIndex()) : false;
-                }
-
                 weapon->Activate(deltaTime, weaponState, GetEntityHandle(), activateEvent, dispatchHitEvents, dispatchActivateEvents, skipGathers);
+                AZ_TracePrintf("gathers", "activting weapon %d", (uint32_t)weaponIndex);
 
-                if (IsAutonomous())
+                if (IsAuthority())
                 {
-                    // We predicted a local hit, in this case, let the server know so it can perform a test for this activation
-                    //if (GetParent().HasTriggeredPredictedHit())
-                    //{
-                    //    a_Input->m_WeaponGatherRequests.SetBit(a_Weapon->GetWeaponIndex(), true);
-                    //}
-                }
-                else if (IsAuthority())
-                {
-                    SetActivationCounts(weaponIndex, weaponState.m_activationCount);
+                    SetActivationCounts(aznumeric_cast<uint32_t>(weaponIndex), weaponState.m_activationCount);
                 }
             }
+            AZ_TracePrintf("gathers", "updating weapon state %d", (uint32_t)weaponIndex);
+            weapon->UpdateWeaponState(weaponState, deltaTime);
         }
     }
 

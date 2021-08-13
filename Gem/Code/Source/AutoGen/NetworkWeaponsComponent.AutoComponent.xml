@@ -28,9 +28,4 @@
         <Param Type="WeaponIndex" Name="WeaponIndex" />
         <Param Type="HitEvent"    Name="HitEvent" />
     </RemoteProcedure>
-
-    <RemoteProcedure Name="SendConfirmProjectileHit" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="false" GenerateEventBindings="false" Description="Fired by projectile entities on confirmed hit" >
-        <Param Type="WeaponIndex" Name="WeaponIndex" />
-        <Param Type="HitEvent"    Name="HitEvent" />
-    </RemoteProcedure>
 </Component>

@@ -26,7 +26,7 @@ namespace MultiplayerSample
 {
     // This is not documented, you kind of have to jump into mcore to find this, but invalid parameter index values are max uint32_t
     // See MCORE_INVALIDINDEX32 in Gems/EMotionFX/Code/MCore/Source/Config.h
-    constexpr uint32_t InvalidParamIndex = 0xFFFFFFFF;
+    constexpr AZStd::size_t InvalidParamIndex = 0xffffffffffffffff;
     constexpr int32_t  InvalidBoneId = -1;
 
     class NetworkAnimationComponent
@@ -71,15 +71,15 @@ namespace MultiplayerSample
         EMotionFX::Integration::AnimGraphComponentRequests* m_animationGraph = nullptr;
 
         // Hardcoded parameters, be nice if this was flexible and configurable from within the editor
-        uint32_t m_velocityParamId = InvalidParamIndex;
-        uint32_t m_aimTargetParamId = InvalidParamIndex;
-        uint32_t m_crouchParamId = InvalidParamIndex;
-        uint32_t m_aimingParamId = InvalidParamIndex;
-        uint32_t m_shootParamId = InvalidParamIndex;
-        uint32_t m_jumpParamId = InvalidParamIndex;
-        uint32_t m_fallParamId = InvalidParamIndex;
-        uint32_t m_landParamId = InvalidParamIndex;
-        uint32_t m_hitParamId = InvalidParamIndex;
-        uint32_t m_deathParamId = InvalidParamIndex;
+        AZStd::size_t m_velocityParamId = InvalidParamIndex;
+        AZStd::size_t m_aimTargetParamId = InvalidParamIndex;
+        AZStd::size_t m_crouchParamId = InvalidParamIndex;
+        AZStd::size_t m_aimingParamId = InvalidParamIndex;
+        AZStd::size_t m_shootParamId = InvalidParamIndex;
+        AZStd::size_t m_jumpParamId = InvalidParamIndex;
+        AZStd::size_t m_fallParamId = InvalidParamIndex;
+        AZStd::size_t m_landParamId = InvalidParamIndex;
+        AZStd::size_t m_hitParamId = InvalidParamIndex;
+        AZStd::size_t m_deathParamId = InvalidParamIndex;
     };
 }

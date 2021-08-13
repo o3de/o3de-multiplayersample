@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#pragma optimize("", off)
 
 #include <Source/Weapons/WeaponTypes.h>
 #include <AzCore/Serialization/SerializeContext.h>
@@ -172,7 +173,7 @@ namespace MultiplayerSample
             && serializer.Serialize(m_castAngle, "CastAngle")
             && serializer.Serialize(m_travelSpeed, "TravelSpeed")
             && serializer.Serialize(m_multiHit, "Multihit")
-            && serializer.Serialize(m_ignoresGravity, "IgnoresGravity")
+            && serializer.Serialize(m_bulletDrop, "BulletDrop")
             && serializer.Serialize(m_hitMask, "HitMask");
     }
 
@@ -188,7 +189,7 @@ namespace MultiplayerSample
                 ->Field("CastAngle", &GatherParams::m_castAngle)
                 ->Field("TravelSpeed", &GatherParams::m_travelSpeed)
                 ->Field("Multihit", &GatherParams::m_multiHit)
-                ->Field("BulletDrop", &GatherParams::m_ignoresGravity)
+                ->Field("BulletDrop", &GatherParams::m_bulletDrop)
                 ->Field("HitMask", &GatherParams::m_hitMask);
 
             AZ::EditContext* editContext = serializeContext->GetEditContext();
@@ -201,7 +202,7 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_castAngle, "CastAngle", "The cast/gather angle to use on hit or activate")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_travelSpeed, "TravelSpeed", "The 'speed' the cast should travel at for weapons that require target leading, 0 == instant hit (not projectile speed for projectile weapons!)")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_multiHit, "Multihit", "If true, the gather will not stop at the first entity hit, and will continue gathering entities until blocked by blocker geo")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_ignoresGravity, "BulletDrop", "If true, the gather shape will follow a parabolic arc simulating gravity")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_bulletDrop, "BulletDrop", "If true, the gather shape will follow a parabolic arc simulating gravity")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_hitMask, "HitMask", "The hit mask for this weapon");
             }
         }

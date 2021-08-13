@@ -11,6 +11,8 @@
 #include <Source/Weapons/IWeapon.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
+namespace DebugDraw { class DebugDrawRequests; }
+
 namespace MultiplayerSample
 {
     // Input Event Ids for Player Controls
@@ -35,7 +37,6 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& WeaponIndex, const HitEvent& HitEvent) override;
-        void HandleSendConfirmProjectileHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& WeaponIndex, const HitEvent& HitEvent) override;
 
         IWeapon* GetWeapon(WeaponIndex weaponIndex) const;
 
@@ -49,6 +50,8 @@ namespace MultiplayerSample
 
         using WeaponPointer = AZStd::unique_ptr<IWeapon>;
         AZStd::array<WeaponPointer, MaxWeaponsPerComponent> m_weapons;
+
+        DebugDraw::DebugDrawRequests* m_debugDraw = nullptr;
     };
 
     class NetworkWeaponsComponentController
