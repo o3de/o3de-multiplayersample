@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
+
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
@@ -202,14 +202,12 @@ namespace MultiplayerSample
                 bool skipGathers = false;
 
                 weapon->Activate(deltaTime, weaponState, GetEntityHandle(), activateEvent, dispatchHitEvents, dispatchActivateEvents, skipGathers);
-                AZ_TracePrintf("gathers", "activting weapon %d", (uint32_t)weaponIndex);
 
                 if (IsAuthority())
                 {
                     SetActivationCounts(aznumeric_cast<uint32_t>(weaponIndex), weaponState.m_activationCount);
                 }
             }
-            AZ_TracePrintf("gathers", "updating weapon state %d", (uint32_t)weaponIndex);
             weapon->UpdateWeaponState(weaponState, deltaTime);
         }
     }

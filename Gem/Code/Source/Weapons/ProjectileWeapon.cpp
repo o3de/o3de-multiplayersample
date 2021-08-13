@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
 
 #include <Source/Weapons/ProjectileWeapon.h>
 

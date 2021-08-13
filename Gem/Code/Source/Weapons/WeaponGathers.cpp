@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
 
 #include <Source/Weapons/WeaponGathers.h>
 #include <Multiplayer/NetworkTime/INetworkTime.h>
@@ -133,8 +132,6 @@ namespace MultiplayerSample
         }
 
         inOutActiveShot.m_lifetimeSeconds = LifetimeSec(inOutActiveShot.m_lifetimeSeconds + deltaTime);
-        AZ_TracePrintf("gathers", "Ticking active shot, deltaTime=%f, lifetime=%f", deltaTime, (float)(inOutActiveShot.m_lifetimeSeconds));
-
         return result;
     }
 }

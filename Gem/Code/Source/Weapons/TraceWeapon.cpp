@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
 
 #include <Source/Weapons/TraceWeapon.h>
 
@@ -62,11 +61,9 @@ namespace MultiplayerSample
     void TraceWeapon::TickActiveShots(WeaponState& weaponState, float deltaTime)
     {
         AZStd::size_t numActiveShots = weaponState.m_activeShots.size();
-        AZ_TracePrintf("gathers", "ticking %d active shots", (uint32_t)numActiveShots);
         for (AZStd::size_t i = 0; i < numActiveShots; ++i)
         {
             ActiveShot& activeShot = weaponState.m_activeShots[i];
-            AZ_TracePrintf("gathers", "ticking active shot %d", (uint32_t)i);
 
             IntersectResults gatherResults;
             const ShotResult result = GatherEntitiesMultisegment(deltaTime, activeShot, gatherResults);
@@ -74,7 +71,6 @@ namespace MultiplayerSample
             // If expired, dispatch hit events, swap and pop
             if (result == ShotResult::ShouldTerminate)
             {
-                AZ_TracePrintf("gathers", "active shot %d should terminate", (uint32_t)i);
                 ActivateEvent eventData{ activeShot.m_initialTransform, activeShot.m_targetPosition, Multiplayer::InvalidNetEntityId, Multiplayer::InvalidNetEntityId };
                 DispatchHitEvents(gatherResults, eventData, m_gatheredNetEntityIds);
 
