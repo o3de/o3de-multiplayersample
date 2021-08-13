@@ -68,7 +68,7 @@ namespace MultiplayerSample
     };
     const char* GetEnumString(EffectDirection value);
 
-    static void ReflectWeaponEnums(AZ::ReflectContext* context);
+    void ReflectWeaponEnums(AZ::ReflectContext* context);
 
     using AssetStringType = AZStd::string; //< @TODO, Replace with proper asset reference types
 

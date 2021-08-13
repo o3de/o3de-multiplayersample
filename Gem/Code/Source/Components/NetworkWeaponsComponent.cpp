@@ -144,7 +144,7 @@ namespace MultiplayerSample
 
         const AZ::Transform worldTm = GetParent().GetEntity()->GetTransform()->GetWorldTM();
 
-        for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
+        for (uint32_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
             if (weaponInput->m_firing.GetBit(aznumeric_cast<uint32_t>(weaponIndex)))
             {
@@ -163,7 +163,7 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::UpdateWeaponFiring([[maybe_unused]] float deltaTime)
     {
-        for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
+        for (uint32_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
             IWeapon* weapon = GetParent().GetWeapon(aznumeric_cast<WeaponIndex>(weaponIndex));
 

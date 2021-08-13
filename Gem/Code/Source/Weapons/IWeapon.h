@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Source/Weapons/WeaponTypes.h>
+#include "Multiplayer/NetworkEntity/NetworkEntityHandle.h"
 
 namespace MultiplayerSample
 {
