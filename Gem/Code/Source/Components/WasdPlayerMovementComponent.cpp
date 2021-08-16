@@ -106,7 +106,7 @@ namespace MultiplayerSample
         AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
         aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - wasdInput->m_viewYaw * cl_AimStickScaleZ));
         aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - wasdInput->m_viewPitch * cl_AimStickScaleX));
-        aimAngles.SetX(NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.5f, AZ::Constants::QuarterPi * 0.5f)));
+        aimAngles.SetX(NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.75f, AZ::Constants::QuarterPi * 0.75f)));
         GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
 
         const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ());
