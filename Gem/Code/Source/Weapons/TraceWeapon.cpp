@@ -17,7 +17,7 @@ namespace MultiplayerSample
 
     void TraceWeapon::Activate
     (
-        float deltaTime,
+        [[maybe_unused]] float deltaTime,
         WeaponState& weaponState,
         [[maybe_unused]] const Multiplayer::ConstNetworkEntityHandle weaponOwner,
         ActivateEvent& eventData,
@@ -37,7 +37,7 @@ namespace MultiplayerSample
 
             if (dispatchActivateEvents)
             {
-                m_weaponListener.OnActivate(WeaponActivationInfo(*this, eventData));
+                m_weaponListener.OnWeaponActivate(WeaponActivationInfo(*this, eventData));
             }
 
             const bool isMultiSegmented = (m_weaponParams.m_gatherParams.m_travelSpeed > 0.0f);
@@ -46,18 +46,7 @@ namespace MultiplayerSample
             if (isMultiSegmented)
             {
                 ActiveShot activeShot{ eventData.m_initialTransform, eventData.m_targetPosition, LifetimeSec{ 0.0f } };
-
-                const ShotResult result = GatherEntitiesMultisegment(deltaTime, activeShot, gatherResults);
-
-                // If this activation did not immediately terminate this frame, then push back the new shot to track
-                if (result == ShotResult::ShouldTerminate)
-                {
-                    DispatchHitEvents(gatherResults, eventData, m_gatheredNetEntityIds);
-                }
-                else
-                {
-                    weaponState.m_activeShots.emplace_back(activeShot);
-                }
+                weaponState.m_activeShots.emplace_back(activeShot);
             }
             else if (!forceSkipGather)
             {
@@ -72,7 +61,6 @@ namespace MultiplayerSample
     void TraceWeapon::TickActiveShots(WeaponState& weaponState, float deltaTime)
     {
         AZStd::size_t numActiveShots = weaponState.m_activeShots.size();
-
         for (AZStd::size_t i = 0; i < numActiveShots; ++i)
         {
             ActiveShot& activeShot = weaponState.m_activeShots[i];

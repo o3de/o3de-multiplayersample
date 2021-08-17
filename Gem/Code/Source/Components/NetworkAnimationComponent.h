@@ -24,9 +24,9 @@ namespace EMotionFX
 
 namespace MultiplayerSample
 {
-    // This is not documented, you kind of have to jump into mcore to find this, but invalid parameter index values are max uint32_t
-    // See MCORE_INVALIDINDEX32 in Gems/EMotionFX/Code/MCore/Source/Config.h
-    constexpr uint32_t InvalidParamIndex = 0xFFFFFFFF;
+    // This is not documented, you kind of have to jump into EMotionFX's private headers to find this, invalid parameter index values are max size_t
+    // See InvalidIndex in Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXConfig.h
+    constexpr size_t InvalidParamIndex = 0xffffffffffffffff;
     constexpr int32_t  InvalidBoneId = -1;
 
     class NetworkAnimationComponent
@@ -71,15 +71,15 @@ namespace MultiplayerSample
         EMotionFX::Integration::AnimGraphComponentRequests* m_animationGraph = nullptr;
 
         // Hardcoded parameters, be nice if this was flexible and configurable from within the editor
-        uint32_t m_velocityParamId = InvalidParamIndex;
-        uint32_t m_aimTargetParamId = InvalidParamIndex;
-        uint32_t m_crouchParamId = InvalidParamIndex;
-        uint32_t m_aimingParamId = InvalidParamIndex;
-        uint32_t m_shootParamId = InvalidParamIndex;
-        uint32_t m_jumpParamId = InvalidParamIndex;
-        uint32_t m_fallParamId = InvalidParamIndex;
-        uint32_t m_landParamId = InvalidParamIndex;
-        uint32_t m_hitParamId = InvalidParamIndex;
-        uint32_t m_deathParamId = InvalidParamIndex;
+        size_t m_velocityParamId = InvalidParamIndex;
+        size_t m_aimTargetParamId = InvalidParamIndex;
+        size_t m_crouchParamId = InvalidParamIndex;
+        size_t m_aimingParamId = InvalidParamIndex;
+        size_t m_shootParamId = InvalidParamIndex;
+        size_t m_jumpParamId = InvalidParamIndex;
+        size_t m_fallParamId = InvalidParamIndex;
+        size_t m_landParamId = InvalidParamIndex;
+        size_t m_hitParamId = InvalidParamIndex;
+        size_t m_deathParamId = InvalidParamIndex;
     };
 }

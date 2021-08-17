@@ -70,30 +70,6 @@ namespace MultiplayerSample
         //! @param eventData     specific data regarding the weapon activation
         void DispatchHitEvents(const IntersectResults& gatherResults, const ActivateEvent& eventData, const NetEntityIdSet& prefilteredNetEntityIds);
 
-        //! Internally called on every weapon activation.
-        //! @param deltaTime              the time in seconds this activate event corresponds to
-        //! @param weaponState            the weapons internal state structure
-        //! @param weaponOwner            the weapons owning entity
-        //! @param eventData              contains details of the activation event
-        //! @param dispatchHitEvents      if true, the Activate call will invoke hit events for gathered entities
-        //! @param dispatchActivateEvents if true, the Activate call will invoke activate events for valid activations
-        //! @param forceSkipGather        if true, skip the gather step of the activation
-        virtual void Activate
-        (
-            float deltaTime,
-            WeaponState& weaponState,
-            const Multiplayer::ConstNetworkEntityHandle weaponOwner,
-            ActivateEvent& eventData,
-            bool dispatchHitEvents,
-            bool dispatchActivateEvents,
-            bool forceSkipGather
-        ) = 0;
-
-        //! Ticks the active shots for this weapon.
-        //! @param weaponState reference to the predictive state for this weapon
-        //! @param deltaTime   the amount of time we are ticking over
-        virtual void TickActiveShots(WeaponState& weaponState, float deltaTime) = 0;
-
         // Do not allow assignment
         BaseWeapon& operator =(const BaseWeapon&) = delete;
 

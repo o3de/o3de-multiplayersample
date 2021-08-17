@@ -10,11 +10,6 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 
-namespace AzNetworking
-{
-    class INetworkInterface;
-}
-
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
@@ -43,8 +38,5 @@ namespace MultiplayerSample
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         int GetTickOrder() override;
         ////////////////////////////////////////////////////////////////////////
-
-    private:
-        AzNetworking::INetworkInterface* m_networkInterface = nullptr;
     };
 }

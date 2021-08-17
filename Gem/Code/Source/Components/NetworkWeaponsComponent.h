@@ -11,12 +11,14 @@
 #include <Source/Weapons/IWeapon.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
+namespace DebugDraw { class DebugDrawRequests; }
+
 namespace MultiplayerSample
 {
     // Input Event Ids for Player Controls
-    const StartingPointInput::InputEventNotificationId DrawEventId("draw");
-    const StartingPointInput::InputEventNotificationId FirePrimaryEventId("firePrimary");
-    const StartingPointInput::InputEventNotificationId FireSecondaryEventId("fireSecondary");
+    const StartingPointInput::InputEventNotificationId DrawEventId("drawWeapon");
+    const StartingPointInput::InputEventNotificationId FirePrimaryEventId("firePrimaryWeapon");
+    const StartingPointInput::InputEventNotificationId FireSecondaryEventId("fireSecondaryWeapon");
 
     const WeaponIndex PrimaryWeaponIndex   = WeaponIndex{ 0 };
     const WeaponIndex SecondaryWeaponIndex = WeaponIndex{ 1 };
@@ -35,18 +37,21 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& WeaponIndex, const HitEvent& HitEvent) override;
-        void HandleSendConfirmProjectileHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& WeaponIndex, const HitEvent& HitEvent) override;
+
+        IWeapon* GetWeapon(WeaponIndex weaponIndex) const;
 
     private:
         //! WeaponListener interface
         //! @{
-        void OnActivate(const WeaponActivationInfo& activationInfo) override;
-        void OnPredictHit(const WeaponHitInfo& hitInfo) override;
-        void OnConfirmHit(const WeaponHitInfo& hitInfo) override;
+        void OnWeaponActivate(const WeaponActivationInfo& activationInfo) override;
+        void OnWeaponPredictHit(const WeaponHitInfo& hitInfo) override;
+        void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo) override;
         //! @}
 
         using WeaponPointer = AZStd::unique_ptr<IWeapon>;
         AZStd::array<WeaponPointer, MaxWeaponsPerComponent> m_weapons;
+
+        DebugDraw::DebugDrawRequests* m_debugDraw = nullptr;
     };
 
     class NetworkWeaponsComponentController
@@ -70,7 +75,7 @@ namespace MultiplayerSample
 
         //! Starts a weapon with the frame id from the client
         //! @return boolean true on activate, false if the weapon failed to activate
-        virtual bool TryStartFire();
+        virtual bool TryStartFire(WeaponIndex weaponIndex, const FireParams& fireParams);
 
         //! AZ::InputEventNotificationBus interface
         //! @{
@@ -81,5 +86,7 @@ namespace MultiplayerSample
 
         bool m_weaponDrawn = false;
         WeaponActivationBitset m_weaponFiring;
+
+        AZStd::array<int32_t, MaxWeaponsPerComponent> m_fireBoneJointIds;
     };
 }

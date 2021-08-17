@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Source/Weapons/WeaponTypes.h>
+#include "Multiplayer/NetworkEntity/NetworkEntityHandle.h"
 
 namespace MultiplayerSample
 {
@@ -21,15 +22,15 @@ namespace MultiplayerSample
     public:
         //! Called whenever a weapon activates.
         //! @param activationInfo details of the weapon activation
-        virtual void OnActivate(const WeaponActivationInfo& activationInfo) = 0;
+        virtual void OnWeaponActivate(const WeaponActivationInfo& activationInfo) = 0;
 
         //! Invoked when the weapon predictively hits a target entity.
         //! @param hitInfo details of the weapon hit
-        virtual void OnPredictHit(const WeaponHitInfo& hitInfo) = 0;
+        virtual void OnWeaponPredictHit(const WeaponHitInfo& hitInfo) = 0;
 
         //! Invoked when the weapon gets confirmation from the server that it hit a target entity.
         //! @param hitInfo details of the weapon hit
-        virtual void OnConfirmHit(const WeaponHitInfo& hitInfo) = 0;
+        virtual void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo) = 0;
     };
 
     //! @class IWeapon
@@ -73,6 +74,30 @@ namespace MultiplayerSample
         //! Sets the internal fire params
         //! @fireParams structure containing the internal fire params
         virtual void SetFireParams(const FireParams& fireParams) = 0;
+
+        //! Internally called on every weapon activation.
+        //! @param deltaTime              the time in seconds this activate event corresponds to
+        //! @param weaponState            the weapons internal state structure
+        //! @param weaponOwner            the weapons owning entity
+        //! @param eventData              contains details of the activation event
+        //! @param dispatchHitEvents      if true, the Activate call will invoke hit events for gathered entities
+        //! @param dispatchActivateEvents if true, the Activate call will invoke activate events for valid activations
+        //! @param forceSkipGather        if true, skip the gather step of the activation
+        virtual void Activate
+        (
+            float deltaTime,
+            WeaponState& weaponState,
+            const Multiplayer::ConstNetworkEntityHandle weaponOwner,
+            ActivateEvent& eventData,
+            bool dispatchHitEvents,
+            bool dispatchActivateEvents,
+            bool forceSkipGather
+        ) = 0;
+
+        //! Ticks the active shots for this weapon.
+        //! @param weaponState reference to the predictive state for this weapon
+        //! @param deltaTime   the amount of time we are ticking over
+        virtual void TickActiveShots(WeaponState& weaponState, float deltaTime) = 0;
 
         //! Returns the activate effect bound to this weapon instance.
         //! @return reference to the activate effect bound to this weapon instance
