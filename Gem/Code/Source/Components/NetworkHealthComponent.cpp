@@ -9,47 +9,25 @@
 
 namespace MultiplayerSample
 {
-    void NetworkHealthComponent::NetworkHealthComponent::Reflect(AZ::ReflectContext* context)
+    NetworkHealthComponentController::NetworkHealthComponentController(NetworkHealthComponent& parent)
+        : NetworkHealthComponentControllerBase(parent)
     {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<NetworkHealthComponent, NetworkHealthComponentBase>()
-                ->Version(1);
-        }
-        NetworkHealthComponentBase::Reflect(context);
     }
 
-    NetworkHealthComponent::NetworkHealthComponent()
-        : m_healthEventHandler([this](const float& health) { OnHealthChangedEvent(health); })
+    void NetworkHealthComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         ;
     }
 
-    void NetworkHealthComponent::OnInit()
+    void NetworkHealthComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         ;
     }
 
-    void NetworkHealthComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkHealthComponentController::HandleSendHealthDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const float& healthDelta)
     {
-        HealthAddEvent(m_healthEventHandler);
-    }
-
-    void NetworkHealthComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        ;
-    }
-
-    void NetworkHealthComponent::SetHealth(float updatedHealth)
-    {
-        updatedHealth = AZStd::max(0.f, AZStd::min(updatedHealth, GetMaxHealth()));
-        static_cast<NetworkHealthComponentController*>(GetController())->SetHealth(updatedHealth);
-    }
-
-    void NetworkHealthComponent::OnHealthChangedEvent([[maybe_unused]] const float& health)
-    {
-        // Hook for gameplay events such as player death, player revive, showing damage numbers, etc.
-        ;
+        float health = GetHealth();
+        health = AZStd::max(0.0f, AZStd::min(GetMaxHealth(), health + healthDelta));
+        SetHealth(health);
     }
 }

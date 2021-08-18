@@ -11,27 +11,15 @@
 
 namespace MultiplayerSample
 {
-    class NetworkHealthComponent
-        : public NetworkHealthComponentBase
+    class NetworkHealthComponentController
+        : public NetworkHealthComponentControllerBase
     {
     public:
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkHealthComponent, s_networkHealthComponentConcreteUuid, MultiplayerSample::NetworkHealthComponentBase);
+        NetworkHealthComponentController(NetworkHealthComponent& parent);
 
-        static void Reflect(AZ::ReflectContext* context);
-
-        NetworkHealthComponent();
-
-        void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        //! Component accessor to set health, accounting for a configurable max and floor of 0
-        //! @param updatedHealth the new health value
-        void SetHealth(float updatedHealth);
-
-    private:
-        void OnHealthChangedEvent(const float& health);
-
-        AZ::Event<float>::Handler m_healthEventHandler;
+        void HandleSendHealthDelta(AzNetworking::IConnection* invokingConnection, const float& healthDelta) override;
     };
 }

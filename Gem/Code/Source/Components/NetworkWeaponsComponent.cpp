@@ -100,7 +100,7 @@ namespace MultiplayerSample
             {
                 Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
 
-                if (entityHandle != nullptr)
+                if (entityHandle != nullptr && entityHandle.GetEntity() != nullptr)
                 {
                     [[maybe_unused]] const AZ::Vector3& hitCenter = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
                     [[maybe_unused]] const AZ::Vector3& hitPoint = hitEntity.m_hitPosition;
@@ -108,7 +108,7 @@ namespace MultiplayerSample
                     // Look for physics rigid body component and make impact updates
                     
                     // Look for health component and directly update health based on hit parameters
-                    NetworkHealthComponent* healthComponent = FindComponent<NetworkHealthComponent>();
+                    NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>();
                     if (healthComponent)
                     {
                         const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
@@ -118,9 +118,8 @@ namespace MultiplayerSample
                         float hitDistance = 1.f;
                         float maxDistance = 1.f;
                         float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
-                        const float& originalHealth = healthComponent->GetHealth();
+                        healthComponent->SendHealthDelta(damage * -1.0f);
 
-                        healthComponent->SetHealth(originalHealth - damage);
                     }
                 }
             }
