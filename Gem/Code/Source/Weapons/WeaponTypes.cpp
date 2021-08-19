@@ -9,6 +9,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
+#include "AzFramework/Physics/CollisionBus.h"
 
 namespace MultiplayerSample
 {
@@ -189,7 +190,9 @@ namespace MultiplayerSample
                 ->Field("TravelSpeed", &GatherParams::m_travelSpeed)
                 ->Field("Multihit", &GatherParams::m_multiHit)
                 ->Field("BulletDrop", &GatherParams::m_bulletDrop)
-                ->Field("HitMask", &GatherParams::m_hitMask);
+                ->Field("HitMask", &GatherParams::m_hitMask)
+                ->Field("EditorCollisionGroupId", &GatherParams::m_editorCollisionGroupId)
+            ;
 
             AZ::EditContext* editContext = serializeContext->GetEditContext();
             if (editContext)
@@ -202,9 +205,19 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_travelSpeed, "TravelSpeed", "The 'speed' the cast should travel at for weapons that require target leading, 0 == instant hit (not projectile speed for projectile weapons!)")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_multiHit, "Multihit", "If true, the gather will not stop at the first entity hit, and will continue gathering entities until blocked by blocker geo")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_bulletDrop, "BulletDrop", "If true, the gather shape will follow a parabolic arc simulating gravity")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_hitMask, "HitMask", "The hit mask for this weapon");
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_editorCollisionGroupId, "EditorCollisionGroupId", "The collision group hit mask for this weapon")
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &GatherParams::OnCollisionGroupChanged)
+                ;
             }
         }
+    }
+
+    void GatherParams::OnCollisionGroupChanged()
+    {
+        AzPhysics::CollisionGroup collisionGroup;
+        Physics::CollisionRequestBus::BroadcastResult(
+            collisionGroup, &Physics::CollisionRequests::GetCollisionGroupById, m_editorCollisionGroupId);
+        m_hitMask = collisionGroup.GetMask();
     }
 
     bool HitEffect::Serialize(AzNetworking::ISerializer& serializer)

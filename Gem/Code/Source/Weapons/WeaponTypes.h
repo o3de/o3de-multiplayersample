@@ -98,10 +98,11 @@ namespace MultiplayerSample
         float m_travelSpeed = 0.0f;    // The 'speed' the cast should travel at for weapons that require target leading, 0 == instant hit (not projectile speed for projectile weapons!)
         bool m_multiHit = false;       // If true, the gather will not stop at the first entity hit, and will continue gathering entities until blocked by blocker geo
         bool m_bulletDrop = true;      // If true, the gather shape will follow a parabolic arc simulating gravity
-        uint64_t m_hitMask = 0;        // The hit mask for this weapon (@TODO: What's the physics filter type with the new physics API?)
-
+        uint64_t m_hitMask = 0;        // The hit mask for this weapon
+        AzPhysics::CollisionGroups::Id m_editorCollisionGroupId; // Editor reflection of CollisionGroups works only with UUID. This is Editor-only data and is not serialized over network.
         bool Serialize(AzNetworking::ISerializer& serializer);
         static void Reflect(AZ::ReflectContext* context);
+        void OnCollisionGroupChanged();
     };
 
     //! Parameters controlling hit effect application and falloff, HitMagnitude * ((HitFalloff * (1 - Distance / MaxDistance)) ^ HitExponent).

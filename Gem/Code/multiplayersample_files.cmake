@@ -43,6 +43,8 @@ set(FILES
     Source/Weapons/WeaponGathers.h
     Source/Weapons/WeaponTypes.cpp
     Source/Weapons/WeaponTypes.h
+    Source/Weapons/SceneQuery.cpp
+    Source/Weapons/SceneQuery.h
     Source/MultiplayerSampleSystemComponent.cpp
     Source/MultiplayerSampleSystemComponent.h
     Source/MultiplayerSampleTypes.h

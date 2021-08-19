@@ -9,6 +9,7 @@
 
 #include <Source/Weapons/WeaponTypes.h>
 #include <AzCore/std/containers/unordered_set.h>
+#include <AzFramework/Physics/Collision/CollisionGroups.h>
 
 namespace MultiplayerSample
 {
@@ -34,7 +35,8 @@ namespace MultiplayerSample
             const AZ::Vector3& sweep, 
             HitStatic intersectStatic, 
             HitDynamic intersectDynamic, 
-            HitMultiple intersectMultiple, 
+            HitMultiple intersectMultiple,
+            const AzPhysics::CollisionGroup& collisionGroup,
             const NetEntityIdSet& filteredEntityIds
         );
 
@@ -45,6 +47,7 @@ namespace MultiplayerSample
         HitDynamic               m_intersectDynamic;
         HitMultiple              m_intersectMultiple;
         NetEntityIdSet           m_filteredNetEntityIds;
+        AzPhysics::CollisionGroup m_collisionGroup;
 
         IntersectFilter& operator=(const IntersectFilter&) = delete;
     };
