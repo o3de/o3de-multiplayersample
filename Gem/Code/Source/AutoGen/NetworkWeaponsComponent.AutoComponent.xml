@@ -7,7 +7,7 @@
     OverrideController="true" 
     OverrideInclude="Source/Components/NetworkWeaponsComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    
+
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkAnimationComponent" Namespace="MultiplayerSample" Include="Source/Components/NetworkAnimationComponent.h" />
     <ComponentRelation Constraint="Required" HasController="true" Name="SimplePlayerCameraComponent" Namespace="MultiplayerSample" Include="Source/Components/SimplePlayerCameraComponent.h" />
 
@@ -16,9 +16,8 @@
     <NetworkInput Type="bool" Name="Draw" Init="false" />
     <NetworkInput Type="WeaponActivationBitset" Name="Firing"  Init="" />
 
-    <NetworkProperty Type="AZ::Vector3" Name="TargetPosition"   Init="AZ::Vector3::CreateZero()" Container="Object"       ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="false" Description="Target position the weapons component is currently aiming at" />
     <NetworkProperty Type="FireParams"  Name="ActivationParams" Init=""  Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="false" Description="Parameters for the current weapon activation" />
-    <NetworkProperty Type="uint8_t"     Name="ActivationCounts" Init="0" Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="false" Description="The number of activations" />
+    <NetworkProperty Type="uint8_t"     Name="ActivationCounts" Init="0" Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="true"  Description="The number of activations" />
     <NetworkProperty Type="WeaponState" Name="WeaponStates"     Init=""  Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsPublic="false" IsRewindable="false" IsPredictable="true"  ExposeToEditor="false" GenerateEventBindings="false" Description="The predictable states of the weapons" />
 
     <ArchetypeProperty Type="WeaponParams"  Name="WeaponParams"  Init="" Container="Array" Count="MaxWeaponsPerComponent" ExposeToEditor="true" Description="Parameters for the weapons attached to this NetworkWeaponsComponent" />

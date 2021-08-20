@@ -17,13 +17,10 @@ namespace MultiplayerSample
 
     void ProjectileWeapon::Activate
     (
-        [[maybe_unused]] float deltaTime,
         [[maybe_unused]] WeaponState& weaponState,
         [[maybe_unused]] const Multiplayer::ConstNetworkEntityHandle weaponOwner,
         [[maybe_unused]] ActivateEvent& eventData,
-        [[maybe_unused]] bool dispatchHitEvents,
-        [[maybe_unused]] bool dispatchActivateEvents,
-        [[maybe_unused]] bool forceSkipGather
+        [[maybe_unused]] bool validateActivation
     )
     {
         ; // need to port this code
