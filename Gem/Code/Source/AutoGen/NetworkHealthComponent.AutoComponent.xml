@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkHealthComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/NetworkHealthComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <NetworkProperty Type="float" Name="Health" Init="100.0f" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="The amount of health" />
+
+    <ArchetypeProperty Type="float" Name="MaxHealth" Init="100.0f" ExposeToEditor="true" Description="Maximum health" />
+
+    <RemoteProcedure Name="SendHealthDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="false" GenerateEventBindings="false" Description="Health changed RPC">
+        <Param Type="float" Name="deltaHealth" />
+    </RemoteProcedure>
+
+</Component>
