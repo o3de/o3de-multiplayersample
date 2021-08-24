@@ -7,6 +7,7 @@
 
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
+#include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
@@ -93,6 +94,36 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
     {
+        if (IsNetEntityRoleAuthority())
+        {
+            for (const HitEntity& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
+            {
+                Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+
+                if (entityHandle != nullptr && entityHandle.GetEntity() != nullptr)
+                {
+                    [[maybe_unused]] const AZ::Vector3& hitCenter = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
+                    [[maybe_unused]] const AZ::Vector3& hitPoint = hitEntity.m_hitPosition;
+
+                    // Look for physics rigid body component and make impact updates
+                    
+                    // Look for health component and directly update health based on hit parameters
+                    NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>();
+                    if (healthComponent)
+                    {
+                        const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
+                        const HitEffect effect = weaponParams.m_damageEffect;
+
+                        // Presently set to 1 until we capture falloff range
+                        float hitDistance = 1.f;
+                        float maxDistance = 1.f;
+                        float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
+                        healthComponent->SendHealthDelta(damage * -1.0f);
+
+                    }
+                }
+            }
+        }
     }
 
 
