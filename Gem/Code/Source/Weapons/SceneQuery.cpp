@@ -15,48 +15,38 @@ namespace MultiplayerSample
 {
     namespace SceneQuery
     {
-        static AZStd::shared_ptr<Physics::ShapeConfiguration> GatherShapeToPhysicsShape(const GatherShape& gatherShape)
+        static AZStd::shared_ptr<Physics::ShapeConfiguration> GatherShapeToPhysicsShape(const GatherShape& gatherShape, const IntersectFilter& filter)
         {
-            const float defaultValue = 1.0f; // TODO: Pass via gather params
+            if (gatherShape == GatherShape::Point)
+            {
+                // Point shape generally means a raycast, but we fall back to a small sphere in case if Overlap with Point type is requested.
+                const float pointSphereSize = 0.01f;
+                return AZStd::make_unique<Physics::SphereShapeConfiguration>(pointSphereSize);
+            }
 
+            // AzPhysics Scene queries work with shared_ptr
             switch (gatherShape)
             {
             case GatherShape::Box:
-                return AZStd::make_unique<Physics::BoxShapeConfiguration>(AZ::Vector3(defaultValue));
-                break;
+                AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Box, "Shape configuration type must be Box");
+                return AZStd::make_unique<Physics::BoxShapeConfiguration>(*(azdynamic_cast<Physics::BoxShapeConfiguration*>(filter.m_shapeConfiguration)));
             case GatherShape::Sphere:
-                return AZStd::make_unique<Physics::SphereShapeConfiguration>(defaultValue);
-                break;
+                AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Sphere, "Shape configuration type must be Sphere");
+                return AZStd::make_unique<Physics::SphereShapeConfiguration>(*(azdynamic_cast<Physics::SphereShapeConfiguration*>(filter.m_shapeConfiguration)));
             case GatherShape::Capsule:
-                return AZStd::make_unique<Physics::CapsuleShapeConfiguration>(defaultValue, defaultValue);
-                break;
+                AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Capsule, "Shape configuration type must be Capsule");
+                return AZStd::make_unique<Physics::CapsuleShapeConfiguration>(*(azdynamic_cast<Physics::CapsuleShapeConfiguration*>(filter.m_shapeConfiguration)));
             default:
                 AZ_Warning("", false, "Only box, sphere, and capsule conversions are supported.");
-                return nullptr;
             }
 
-        }
-
-        static AzPhysics::SceneQuery::QueryType GetQueryTypeFromFilter(const IntersectFilter& filter)
-        {
-            // There's no "None" type for the scene query type, using "Static" by default.
-            AzPhysics::SceneQuery::QueryType queryType = AzPhysics::SceneQuery::QueryType::Static;
-
-            if (filter.m_intersectStatic == HitStatic::Yes && filter.m_intersectDynamic == HitDynamic::Yes)
-            {
-                queryType = AzPhysics::SceneQuery::QueryType::StaticAndDynamic;
-            }
-            else if (filter.m_intersectDynamic == HitDynamic::Yes)
-            {
-                queryType = AzPhysics::SceneQuery::QueryType::Dynamic;
-            }
-
-            return queryType;
+            return nullptr;
         }
 
         static void CollectHits(AzPhysics::SceneQueryHits& result, IntersectResults& outResults)
         {
             auto* networkEntityManager = AZ::Interface<Multiplayer::INetworkEntityManager>::Get();
+            AZ_Assert(networkEntityManager, "Multiplayer entity manager must be initialized");
 
             for (const AzPhysics::SceneQueryHit& hit : result.m_hits)
             {
@@ -69,8 +59,11 @@ namespace MultiplayerSample
             }
         }
 
-        void WorldIntersect(const GatherShape& intersectShape, const IntersectFilter& filter, IntersectResults& outResults)
+        size_t WorldIntersect(const GatherShape& intersectShape, const IntersectFilter& filter, IntersectResults& outResults)
         {
+            AZ_Assert(intersectShape == GatherShape::Point || filter.m_shapeConfiguration != nullptr,
+                "Shape configuration must be provided for shape casts and overlap requests");
+
             auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
             AZ_Assert(sceneInterface, "Physics system must be initialized");
 
@@ -79,8 +72,6 @@ namespace MultiplayerSample
 
             auto* networkEntityManager = AZ::Interface<Multiplayer::INetworkEntityManager>::Get();
             AZ_Assert(networkEntityManager, "Multiplayer entity manager must be initialized");
-
-            AzPhysics::SceneQuery::QueryType queryType = GetQueryTypeFromFilter(filter);
 
             auto ignoreEntitiesFilterCallback =
                 [&filter, networkEntityManager](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
@@ -105,34 +96,63 @@ namespace MultiplayerSample
                 return AzPhysics::SceneQuery::QueryHitType::Touch;
             };
 
-            if (intersectShape == GatherShape::Point)
+            const float maxSweepDistance = filter.m_sweep.GetLength();
+            const bool shouldDoOverlap = (maxSweepDistance == 0);
+
+            if (shouldDoOverlap)
+            {
+                // Interset queries with 0 length are considered Overlaps
+                AzPhysics::OverlapRequest request;
+                request.m_collisionGroup = filter.m_collisionGroup;
+                request.m_pose = filter.m_initialPose;
+                request.m_shapeConfiguration = GatherShapeToPhysicsShape(intersectShape, filter);
+                request.m_queryType = filter.m_queryType;
+
+                // Overlap filter callback signature is slightly different from Ray/ShapeCast
+                // Have to wrap it into a pass-through lambda
+                request.m_filterCallback = [&ignoreEntitiesFilterCallback, &filter,
+                                            networkEntityManager](const AzPhysics::SimulatedBody* body, const Physics::Shape* shape)
+                {
+                    return ignoreEntitiesFilterCallback(body, shape) == AzPhysics::SceneQuery::QueryHitType::None ? false : true;
+                };
+
+                AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
+                CollectHits(result, outResults);
+            }
+            else if (intersectShape == GatherShape::Point)
             {
                 // Perform raycast
                 AzPhysics::RayCastRequest request;
                 request.m_collisionGroup = filter.m_collisionGroup;
                 request.m_start = filter.m_initialPose.GetTranslation();
                 request.m_direction = filter.m_sweep.GetNormalized();
-                request.m_distance = filter.m_sweep.GetLength();
-                request.m_queryType = queryType;
+                request.m_distance = maxSweepDistance;
+                request.m_queryType = filter.m_queryType;
                 request.m_filterCallback = AZStd::move(ignoreEntitiesFilterCallback);
+                request.m_reportMultipleHits = (filter.m_intersectMultiple == HitMultiple::Yes);
 
                 AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
                 CollectHits(result, outResults);
             }
             else
             {
+                // Perform shapecast
                 AzPhysics::ShapeCastRequest request;
                 request.m_collisionGroup = filter.m_collisionGroup;
                 request.m_start = filter.m_initialPose;
                 request.m_direction = filter.m_sweep.GetNormalized();
-                request.m_distance = filter.m_sweep.GetLength();
-                request.m_shapeConfiguration = GatherShapeToPhysicsShape(intersectShape);
-                request.m_queryType = queryType;
+                request.m_distance = maxSweepDistance;
+                request.m_shapeConfiguration = GatherShapeToPhysicsShape(intersectShape, filter);
+                request.m_queryType = filter.m_queryType;
                 request.m_filterCallback = AZStd::move(ignoreEntitiesFilterCallback);
+                request.m_reportMultipleHits = (filter.m_intersectMultiple == HitMultiple::Yes);
 
                 AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
                 CollectHits(result, outResults);
             }
+            
+
+            return outResults.size();
         }
     }
 }

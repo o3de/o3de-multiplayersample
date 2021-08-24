@@ -9,7 +9,6 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
-#include "AzFramework/Physics/CollisionBus.h"
 
 namespace MultiplayerSample
 {
@@ -166,17 +165,6 @@ namespace MultiplayerSample
         }
     }
 
-    bool GatherParams::Serialize(AzNetworking::ISerializer& serializer)
-    {
-        return serializer.Serialize(m_gatherShape, "GatherShape")
-            && serializer.Serialize(m_castDistance, "CastDistance")
-            && serializer.Serialize(m_castAngle, "CastAngle")
-            && serializer.Serialize(m_travelSpeed, "TravelSpeed")
-            && serializer.Serialize(m_multiHit, "Multihit")
-            && serializer.Serialize(m_bulletDrop, "BulletDrop")
-            && serializer.Serialize(m_hitMask, "HitMask");
-    }
-
     void GatherParams::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -190,8 +178,10 @@ namespace MultiplayerSample
                 ->Field("TravelSpeed", &GatherParams::m_travelSpeed)
                 ->Field("Multihit", &GatherParams::m_multiHit)
                 ->Field("BulletDrop", &GatherParams::m_bulletDrop)
-                ->Field("HitMask", &GatherParams::m_hitMask)
-                ->Field("EditorCollisionGroupId", &GatherParams::m_editorCollisionGroupId)
+                ->Field("EditorCollisionGroupId", &GatherParams::m_collisionGroupId)
+                ->Field("Sphere", &GatherParams::m_sphere)
+                ->Field("Box", &GatherParams::m_box)
+                ->Field("Capsule", &GatherParams::m_capsule)
             ;
 
             AZ::EditContext* editContext = serializeContext->GetEditContext();
@@ -200,24 +190,40 @@ namespace MultiplayerSample
                 editContext->Class<GatherParams>("GatherParams", "Parameters that control entity gathers on weapon or projectile activates")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &GatherParams::m_gatherShape, "GatherShape", "The shape of the primitive to use for intersect queries during gathers")
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::EntireTree)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_sphere, "Sphere", "Configuration of sphere shape")
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &GatherParams::IsSphereConfig)
+
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_box, "Box", "Configuration of box shape")
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &GatherParams::IsBoxConfig)
+
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_capsule, "Capsule", "Configuration of capsule shape")
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &GatherParams::IsCapsuleConfig)
+
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_castDistance, "CastDistance", "The cast distance or gather radius to use on hit or activate")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_castAngle, "CastAngle", "The cast/gather angle to use on hit or activate")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_travelSpeed, "TravelSpeed", "The 'speed' the cast should travel at for weapons that require target leading, 0 == instant hit (not projectile speed for projectile weapons!)")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_multiHit, "Multihit", "If true, the gather will not stop at the first entity hit, and will continue gathering entities until blocked by blocker geo")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_bulletDrop, "BulletDrop", "If true, the gather shape will follow a parabolic arc simulating gravity")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_editorCollisionGroupId, "EditorCollisionGroupId", "The collision group hit mask for this weapon")
-                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &GatherParams::OnCollisionGroupChanged)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GatherParams::m_collisionGroupId, "CollisionGroup", "The collision group hit mask for this weapon")
                 ;
             }
         }
     }
 
-    void GatherParams::OnCollisionGroupChanged()
+    bool GatherParams::IsSphereConfig() const
     {
-        AzPhysics::CollisionGroup collisionGroup;
-        Physics::CollisionRequestBus::BroadcastResult(
-            collisionGroup, &Physics::CollisionRequests::GetCollisionGroupById, m_editorCollisionGroupId);
-        m_hitMask = collisionGroup.GetMask();
+        return m_gatherShape == GatherShape::Sphere;
+    }
+
+    bool GatherParams::IsBoxConfig() const
+    {
+        return m_gatherShape == GatherShape::Box;
+    }
+
+    bool GatherParams::IsCapsuleConfig() const
+    {
+        return m_gatherShape == GatherShape::Capsule;
     }
 
     bool HitEffect::Serialize(AzNetworking::ISerializer& serializer)
@@ -248,21 +254,6 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &HitEffect::m_hitExponent, "HitExponent", "Falloff exponent to apply to hit entities");
             }
         }
-    }
-
-    bool WeaponParams::Serialize(AzNetworking::ISerializer& serializer)
-    {
-        return serializer.Serialize(m_weaponType, "WeaponType")
-            && serializer.Serialize(m_locallyPredicted, "LocallyPredicted")
-            && serializer.Serialize(m_cooldownTimeMs, "CooldownTimeMs")
-            && serializer.Serialize(m_animFlag, "AnimFlag")
-            && serializer.Serialize(m_activateFx, "ActivateFx")
-            && serializer.Serialize(m_impactFx, "ImpactFx")
-            && serializer.Serialize(m_damageFx, "DamageFx")
-            && serializer.Serialize(m_projectileAsset, "ProjectileAsset")
-            && serializer.Serialize(m_ammoMaterialType, "AmmoMaterialType")
-            && serializer.Serialize(m_gatherParams, "GatherParams")
-            && serializer.Serialize(m_damageEffect, "DamageEffect");
     }
 
     void WeaponParams::Reflect(AZ::ReflectContext* context)

@@ -15,8 +15,6 @@ namespace MultiplayerSample
 {
     typedef AZStd::unordered_set<Multiplayer::NetEntityId> NetEntityIdSet;
 
-    enum class HitStatic { No, Yes };
-    enum class HitDynamic { No, Yes };
     enum class HitMultiple { No, Yes };
 
     enum class ShotResult
@@ -33,8 +31,7 @@ namespace MultiplayerSample
         (
             const AZ::Transform& initialPose, 
             const AZ::Vector3& sweep, 
-            HitStatic intersectStatic, 
-            HitDynamic intersectDynamic, 
+            AzPhysics::SceneQuery::QueryType queryType,
             HitMultiple intersectMultiple,
             const AzPhysics::CollisionGroup& collisionGroup,
             const NetEntityIdSet& filteredEntityIds
@@ -43,11 +40,12 @@ namespace MultiplayerSample
         Multiplayer::HostFrameId m_rewindFrameId = Multiplayer::InvalidHostFrameId; // If an entity is dynamic, it must be synced to this frameId to pass intersect testing
         AZ::Transform            m_initialPose;
         AZ::Vector3              m_sweep;
-        HitStatic                m_intersectStatic;
-        HitDynamic               m_intersectDynamic;
+        AzPhysics::SceneQuery::QueryType m_queryType; // Intersect static, dynamic or both
+
         HitMultiple              m_intersectMultiple;
         NetEntityIdSet           m_filteredNetEntityIds;
         AzPhysics::CollisionGroup m_collisionGroup;
+        Physics::ShapeConfiguration* m_shapeConfiguration = nullptr; // Shape configuration for shape casts and overlaps
 
         IntersectFilter& operator=(const IntersectFilter&) = delete;
     };

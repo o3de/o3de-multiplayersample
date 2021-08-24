@@ -13,6 +13,11 @@ namespace MultiplayerSample
 {
     namespace SceneQuery
     {
-        void WorldIntersect(const GatherShape& intersectShape, const IntersectFilter& filter, IntersectResults& outResults);
+        //! Performs a world intersection query
+        //! @param intersectShape a convex shape to use for the intersection test (point, box, sphere, capsule)
+        //! @param filter parameters controlling whether the query is swept, how many entities to gather, world positions, and filtering information
+        //! @param a_OutResults result structure to store all relevant hits
+        //! @return the number of hits stored in the result structure
+        size_t WorldIntersect(const GatherShape& intersectShape, const IntersectFilter& filter, IntersectResults& outResults);
     }
 }
