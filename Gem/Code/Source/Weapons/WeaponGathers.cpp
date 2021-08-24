@@ -52,7 +52,7 @@ namespace MultiplayerSample
         const AZ::Vector3    sweep = eventData.m_targetPosition - startTransform.GetTranslation();
         const HitMultiple    hitMultiple = gatherParams.m_multiHit ? HitMultiple::Yes : HitMultiple::No;
         const GatherShape&   intersectShape = gatherParams.m_gatherShape;
-        AzPhysics::CollisionGroup collisionGroup = AzPhysics::MakeCollisionGroup(gatherParams.m_collisionGroupId);
+        AzPhysics::CollisionGroup collisionGroup = AzPhysics::GetCollisionGroupById(gatherParams.m_collisionGroupId);
 
         IntersectFilter filter(startTransform, sweep, AzPhysics::SceneQuery::QueryType::StaticAndDynamic, hitMultiple, collisionGroup, filteredNetEntityIds);
         SceneQuery::WorldIntersect(intersectShape, filter, outResults);
@@ -98,7 +98,7 @@ namespace MultiplayerSample
         // Any such adjustments, estimates for how fast the bullet is spinning due to muzzle exit velocity and the rifling of the gun, air density, temperature, etc...
 
         const HitMultiple hitMultiple = gatherParams.m_multiHit ? HitMultiple::Yes : HitMultiple::No;
-        const AzPhysics::CollisionGroup collisionGroup = AzPhysics::MakeCollisionGroup(gatherParams.m_collisionGroupId);
+        const AzPhysics::CollisionGroup collisionGroup = AzPhysics::GetCollisionGroupById(gatherParams.m_collisionGroupId);
 
         float currSegmentStartTime = inOutActiveShot.m_lifetimeSeconds;
         AZ::Vector3 currSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + (segmentStepOffset * currSegmentStartTime) + (gravity * 0.5f * currSegmentStartTime * currSegmentStartTime);
