@@ -108,6 +108,7 @@ namespace MultiplayerSample
         bool IsSphereConfig() const;
         bool IsBoxConfig() const;
         bool IsCapsuleConfig() const;
+        const Physics::ShapeConfiguration* GetCurrentShapeConfiguration() const;
     };
 
     //! Parameters controlling hit effect application and falloff, HitMagnitude * ((HitFalloff * (1 - Distance / MaxDistance)) ^ HitExponent).

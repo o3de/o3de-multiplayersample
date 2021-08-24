@@ -34,7 +34,8 @@ namespace MultiplayerSample
             AzPhysics::SceneQuery::QueryType queryType,
             HitMultiple intersectMultiple,
             const AzPhysics::CollisionGroup& collisionGroup,
-            const NetEntityIdSet& filteredEntityIds
+            const NetEntityIdSet& filteredEntityIds,
+            const Physics::ShapeConfiguration* shapeConfiguration = nullptr
         );
 
         Multiplayer::HostFrameId m_rewindFrameId = Multiplayer::InvalidHostFrameId; // If an entity is dynamic, it must be synced to this frameId to pass intersect testing
@@ -45,7 +46,7 @@ namespace MultiplayerSample
         HitMultiple              m_intersectMultiple;
         NetEntityIdSet           m_filteredNetEntityIds;
         AzPhysics::CollisionGroup m_collisionGroup;
-        Physics::ShapeConfiguration* m_shapeConfiguration = nullptr; // Shape configuration for shape casts and overlaps
+        const Physics::ShapeConfiguration* m_shapeConfiguration = nullptr; // Shape configuration for shape casts and overlaps
 
         IntersectFilter& operator=(const IntersectFilter&) = delete;
     };

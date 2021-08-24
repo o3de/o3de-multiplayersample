@@ -226,6 +226,21 @@ namespace MultiplayerSample
         return m_gatherShape == GatherShape::Capsule;
     }
 
+    const Physics::ShapeConfiguration* GatherParams::GetCurrentShapeConfiguration() const 
+    {
+        switch(m_gatherShape)
+        {
+        case GatherShape::Box:
+            return &m_box;
+        case GatherShape::Sphere:
+            return &m_sphere;
+        case GatherShape::Capsule:
+            return &m_capsule;
+        default:
+            return nullptr;
+        }
+    }
+
     bool HitEffect::Serialize(AzNetworking::ISerializer& serializer)
     {
         return serializer.Serialize(m_hitMagnitude, "HitMagnitude")

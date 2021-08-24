@@ -29,13 +29,13 @@ namespace MultiplayerSample
             {
             case GatherShape::Box:
                 AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Box, "Shape configuration type must be Box");
-                return AZStd::make_unique<Physics::BoxShapeConfiguration>(*(azdynamic_cast<Physics::BoxShapeConfiguration*>(filter.m_shapeConfiguration)));
+                return AZStd::make_unique<Physics::BoxShapeConfiguration>(*(azdynamic_cast<const Physics::BoxShapeConfiguration*>(filter.m_shapeConfiguration)));
             case GatherShape::Sphere:
                 AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Sphere, "Shape configuration type must be Sphere");
-                return AZStd::make_unique<Physics::SphereShapeConfiguration>(*(azdynamic_cast<Physics::SphereShapeConfiguration*>(filter.m_shapeConfiguration)));
+                return AZStd::make_unique<Physics::SphereShapeConfiguration>(*(azdynamic_cast<const Physics::SphereShapeConfiguration*>(filter.m_shapeConfiguration)));
             case GatherShape::Capsule:
                 AZ_Assert(filter.m_shapeConfiguration->GetShapeType() == Physics::ShapeType::Capsule, "Shape configuration type must be Capsule");
-                return AZStd::make_unique<Physics::CapsuleShapeConfiguration>(*(azdynamic_cast<Physics::CapsuleShapeConfiguration*>(filter.m_shapeConfiguration)));
+                return AZStd::make_unique<Physics::CapsuleShapeConfiguration>(*(azdynamic_cast<const Physics::CapsuleShapeConfiguration*>(filter.m_shapeConfiguration)));
             default:
                 AZ_Warning("", false, "Only box, sphere, and capsule conversions are supported.");
             }
