@@ -10,6 +10,7 @@
 #include <Source/MultiplayerSampleTypes.h>
 #include <Multiplayer/MultiplayerTypes.h>
 #include <AzCore/RTTI/TypeSafeIntegral.h>
+#include <AzFramework/Physics/ShapeConfiguration.h>
 
 namespace MultiplayerSample
 {
@@ -76,7 +77,7 @@ namespace MultiplayerSample
     //! Parameters that control client effect spawning.
     struct ClientEffect
     {
-        AZ_RTTI(ClientEffect, "{B0B4E78C-51EC-4103-BC57-4C54ED36E3DB}");
+        AZ_TYPE_INFO(ClientEffect, "{B0B4E78C-51EC-4103-BC57-4C54ED36E3DB}");
 
         AssetStringType m_effectName;  // The effect to play upon weapon hit confirmation
         float m_lifespan = 1.0f;       // The lifespan value to provide the effects manager
@@ -90,25 +91,31 @@ namespace MultiplayerSample
     //! Parameters that control entity gathers on weapon or projectile activates.
     struct GatherParams
     {
-        AZ_RTTI(GatherParams, "{A20999EE-8A32-4C85-B93B-FFBD0D795A58}");
+        AZ_TYPE_INFO(GatherParams, "{A20999EE-8A32-4C85-B93B-FFBD0D795A58}");
 
-        GatherShape m_gatherShape;     // The shape of the primitive to use for intersect queries during gathers
+        GatherShape m_gatherShape = GatherShape::Point; // The shape of the primitive to use for intersect queries during gathers
         float m_castDistance = 1.0f;   // The cast distance or gather radius to use on hit or activate
         float m_castAngle = 0.0f;      // The cast/gather angle to use on hit or activate
         float m_travelSpeed = 0.0f;    // The 'speed' the cast should travel at for weapons that require target leading, 0 == instant hit (not projectile speed for projectile weapons!)
         bool m_multiHit = false;       // If true, the gather will not stop at the first entity hit, and will continue gathering entities until blocked by blocker geo
         bool m_bulletDrop = true;      // If true, the gather shape will follow a parabolic arc simulating gravity
-        uint64_t m_hitMask = 0;        // The hit mask for this weapon (@TODO: What's the physics filter type with the new physics API?)
+        AzPhysics::CollisionGroups::Id m_collisionGroupId; // Collision group hit mask ID
+        Physics::SphereShapeConfiguration m_sphere;     // Configuration of the sphere shape (radius)
+        Physics::BoxShapeConfiguration m_box;           // Configuration of the box shape (dimensions)
+        Physics::CapsuleShapeConfiguration m_capsule;   // Configuration of the capsule shape (height & radius)
 
-        bool Serialize(AzNetworking::ISerializer& serializer);
         static void Reflect(AZ::ReflectContext* context);
+        bool IsSphereConfig() const;
+        bool IsBoxConfig() const;
+        bool IsCapsuleConfig() const;
+        const Physics::ShapeConfiguration* GetCurrentShapeConfiguration() const;
     };
 
     //! Parameters controlling hit effect application and falloff, HitMagnitude * ((HitFalloff * (1 - Distance / MaxDistance)) ^ HitExponent).
     //! Note that if you were wanting to implement melee mechanics, you might want additional attributes about stuns, knockbacks, etc.. here
     struct HitEffect
     {
-        AZ_RTTI(HitEffect, "{24233666-5726-4DDA-8CB5-6859CFC4F7C2}");
+        AZ_TYPE_INFO(HitEffect, "{24233666-5726-4DDA-8CB5-6859CFC4F7C2}");
 
         float m_hitMagnitude = 0.0f; // Base status amount to apply to hit entities
         float m_hitFalloff   = 1.0f; // Distance scalar to apply to hit entities
@@ -121,7 +128,7 @@ namespace MultiplayerSample
     //! Parameters that control the behaviour of a weapon.
     struct WeaponParams
     {
-        AZ_RTTI(WeaponParams, "{935FCBEB-F636-4D30-AB85-A1B225EA953F}");
+        AZ_TYPE_INFO(WeaponParams, "{935FCBEB-F636-4D30-AB85-A1B225EA953F}");
 
         WeaponType m_weaponType = WeaponType::None; // The type of this weapon
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again
@@ -135,7 +142,6 @@ namespace MultiplayerSample
         HitEffect m_damageEffect;           // Parameters controlling damage distribution on hit
         bool m_locallyPredicted = true;     // Whether or not this weapon is locally predicted or waits round trip to display on a client
 
-        bool Serialize(AzNetworking::ISerializer& serializer);
         static void Reflect(AZ::ReflectContext* context);
     };
 
