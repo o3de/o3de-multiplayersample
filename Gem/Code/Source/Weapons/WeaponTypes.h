@@ -78,6 +78,8 @@ namespace MultiplayerSample
     {
         AZ_RTTI(ClientEffect, "{B0B4E78C-51EC-4103-BC57-4C54ED36E3DB}");
 
+        virtual ~ClientEffect() = default;
+
         AssetStringType m_effectName;  // The effect to play upon weapon hit confirmation
         float m_lifespan = 1.0f;       // The lifespan value to provide the effects manager
         bool m_travelToTarget = false; // If true, effect will travel from origin to target position over it's lifetime
@@ -91,6 +93,8 @@ namespace MultiplayerSample
     struct GatherParams
     {
         AZ_RTTI(GatherParams, "{A20999EE-8A32-4C85-B93B-FFBD0D795A58}");
+
+        virtual ~GatherParams() = default;
 
         GatherShape m_gatherShape;     // The shape of the primitive to use for intersect queries during gathers
         float m_castDistance = 1.0f;   // The cast distance or gather radius to use on hit or activate
@@ -110,6 +114,8 @@ namespace MultiplayerSample
     {
         AZ_RTTI(HitEffect, "{24233666-5726-4DDA-8CB5-6859CFC4F7C2}");
 
+        virtual ~HitEffect() = default;
+
         float m_hitMagnitude = 0.0f; // Base status amount to apply to hit entities
         float m_hitFalloff   = 1.0f; // Distance scalar to apply to hit entities
         float m_hitExponent  = 0.0f; // Falloff exponent to apply to hit entities
@@ -122,6 +128,8 @@ namespace MultiplayerSample
     struct WeaponParams
     {
         AZ_RTTI(WeaponParams, "{935FCBEB-F636-4D30-AB85-A1B225EA953F}");
+
+        virtual ~WeaponParams() = default;
 
         WeaponType m_weaponType = WeaponType::None; // The type of this weapon
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again

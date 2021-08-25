@@ -227,7 +227,6 @@ namespace MultiplayerSample
                 const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
                 ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
 
-                const bool isReplay = GetNetBindComponent()->IsReprocessingInput();
                 bool dispatchHitEvents = weapon->GetParams().m_locallyPredicted;
                 bool dispatchActivateEvents = weapon->GetParams().m_locallyPredicted;
                 bool skipGathers = false;
