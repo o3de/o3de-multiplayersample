@@ -11,6 +11,7 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Console/ILogger.h>
 #include <DebugDraw/DebugDrawBus.h>
+#include <Source/Weapons/SceneQuery.h>
 
 namespace MultiplayerSample
 {
@@ -20,17 +21,19 @@ namespace MultiplayerSample
     (
         const AZ::Transform& initialPose, 
         const AZ::Vector3& sweep, 
-        HitStatic intersectStatic, 
-        HitDynamic intersectDynamic, 
-        HitMultiple intersectMultiple, 
-        const NetEntityIdSet& filteredNetEntityIds
+        AzPhysics::SceneQuery::QueryType queryType,
+        HitMultiple intersectMultiple,
+        const AzPhysics::CollisionGroup& collisionGroup,
+        const NetEntityIdSet& filteredNetEntityIds,
+        const Physics::ShapeConfiguration* shapeConfiguration
     )
         : m_initialPose(initialPose)
         , m_sweep(sweep)
-        , m_intersectStatic(intersectStatic)
-        , m_intersectDynamic(intersectDynamic)
+        , m_queryType(queryType)
         , m_intersectMultiple(intersectMultiple)
+        , m_collisionGroup(collisionGroup)
         , m_filteredNetEntityIds(filteredNetEntityIds)
+        , m_shapeConfiguration(shapeConfiguration)
     {
         Multiplayer::INetworkTime* networkTime = Multiplayer::GetNetworkTime();
         if (networkTime->IsTimeRewound())
@@ -44,17 +47,19 @@ namespace MultiplayerSample
         const GatherParams& gatherParams, 
         const ActivateEvent& eventData, 
         const NetEntityIdSet& filteredNetEntityIds, 
-        [[maybe_unused]] IntersectResults& outResults
+        IntersectResults& outResults
     )
     {
         const AZ::Transform& startTransform = eventData.m_initialTransform;
         const AZ::Vector3    sweep = eventData.m_targetPosition - startTransform.GetTranslation();
         const HitMultiple    hitMultiple = gatherParams.m_multiHit ? HitMultiple::Yes : HitMultiple::No;
-        [[maybe_unused]] const GatherShape&   intersectShape = gatherParams.m_gatherShape;
+        const GatherShape&   intersectShape = gatherParams.m_gatherShape;
+        AzPhysics::CollisionGroup collisionGroup = AzPhysics::GetCollisionGroupById(gatherParams.m_collisionGroupId);
 
-        IntersectFilter filter(startTransform, sweep, HitStatic::Yes, HitDynamic::Yes, hitMultiple, filteredNetEntityIds);
+        IntersectFilter filter(startTransform, sweep, AzPhysics::SceneQuery::QueryType::StaticAndDynamic, hitMultiple,
+            collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
+        SceneQuery::WorldIntersect(intersectShape, filter, outResults);
 
-        //gNovaGame->GetNetworkPhysicalWorld().WorldIntersect(intersectShape, filter, outResultList);
         DebugDraw::DebugDrawRequestBus::Broadcast
         (
             &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
@@ -96,6 +101,7 @@ namespace MultiplayerSample
         // Any such adjustments, estimates for how fast the bullet is spinning due to muzzle exit velocity and the rifling of the gun, air density, temperature, etc...
 
         const HitMultiple hitMultiple = gatherParams.m_multiHit ? HitMultiple::Yes : HitMultiple::No;
+        const AzPhysics::CollisionGroup collisionGroup = AzPhysics::GetCollisionGroupById(gatherParams.m_collisionGroupId);
 
         float currSegmentStartTime = inOutActiveShot.m_lifetimeSeconds;
         AZ::Vector3 currSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + (segmentStepOffset * currSegmentStartTime) + (gravity * 0.5f * currSegmentStartTime * currSegmentStartTime);
@@ -108,8 +114,9 @@ namespace MultiplayerSample
             const AZ::Transform currSegTransform = AZ::Transform::CreateFromQuaternionAndTranslation(inOutActiveShot.m_initialTransform.GetRotation(), currSegmentPosition);
             const AZ::Vector3   segSweep = nextSegmentPosition - currSegmentPosition;
 
-            IntersectFilter filter(currSegTransform, segSweep, HitStatic::Yes, HitDynamic::Yes, hitMultiple, filteredNetEntityIds);
-            //gNovaGame->GetNetworkPhysicalWorld().WorldIntersect(gatherParams.m_gatherShape, filter, a_OutResultList);
+            IntersectFilter filter(currSegTransform, segSweep, AzPhysics::SceneQuery::QueryType::StaticAndDynamic,
+                hitMultiple, collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
+            SceneQuery::WorldIntersect(gatherParams.m_gatherShape, filter, outResults);
 
             DebugDraw::DebugDrawRequestBus::Broadcast
             (
