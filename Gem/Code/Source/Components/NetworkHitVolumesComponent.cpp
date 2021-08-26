@@ -57,7 +57,6 @@ namespace MultiplayerSample
         if (m_physicsShape)
         {
             m_physicsShape->SetName(hitVolumeName);
-            m_physicsShape->SetCollisionLayer(AzPhysics::CollisionLayer::TouchBend);
             character->GetCharacter()->AttachShape(m_physicsShape);
         }
     }
