@@ -110,8 +110,7 @@ namespace MultiplayerSample
 
                 // Overlap filter callback signature is slightly different from Ray/ShapeCast
                 // Have to wrap it into a pass-through lambda
-                request.m_filterCallback = [&ignoreEntitiesFilterCallback, &filter,
-                                            networkEntityManager](const AzPhysics::SimulatedBody* body, const Physics::Shape* shape)
+                request.m_filterCallback = [&ignoreEntitiesFilterCallback](const AzPhysics::SimulatedBody* body, const Physics::Shape* shape)
                 {
                     return ignoreEntitiesFilterCallback(body, shape) == AzPhysics::SceneQuery::QueryHitType::None ? false : true;
                 };
