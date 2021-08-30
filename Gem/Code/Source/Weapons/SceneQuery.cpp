@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+
 #include <Source/Weapons/SceneQuery.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
@@ -150,7 +151,6 @@ namespace MultiplayerSample
                 CollectHits(result, outResults);
             }
             
-
             return outResults.size();
         }
     }
