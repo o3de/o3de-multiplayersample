@@ -29,13 +29,10 @@ namespace MultiplayerSample
         //! @{
         void Activate
         (
-            float deltaTime,
             WeaponState& weaponState,
             const Multiplayer::ConstNetworkEntityHandle weaponOwner,
             ActivateEvent& eventData,
-            bool dispatchHitEvents,
-            bool dispatchActivateEvents,
-            bool forceSkipGather
+            bool validateActivation
         ) override;
 
         void TickActiveShots(WeaponState& weaponState, float deltaTime) override;

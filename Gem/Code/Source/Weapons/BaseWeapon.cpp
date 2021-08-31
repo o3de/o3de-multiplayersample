@@ -166,7 +166,7 @@ namespace MultiplayerSample
             hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_netEntityId });
         }
 
-        WeaponHitInfo hitInfo(*this, eventData.m_initialTransform.GetTranslation(), hitEvent);
+        WeaponHitInfo hitInfo(*this, hitEvent);
         m_weaponListener.OnWeaponPredictHit(hitInfo);
     }
 
@@ -177,9 +177,8 @@ namespace MultiplayerSample
         ;
     }
 
-    WeaponHitInfo::WeaponHitInfo(const IWeapon& weapon, const AZ::Vector3& gatherOrigin, const HitEvent& hitEvent)
+    WeaponHitInfo::WeaponHitInfo(const IWeapon& weapon, const HitEvent& hitEvent)
         : m_weapon(weapon)
-        , m_gatherOrigin(gatherOrigin)
         , m_hitEvent(hitEvent)
     {
         ;

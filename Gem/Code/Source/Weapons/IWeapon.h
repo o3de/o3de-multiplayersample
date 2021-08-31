@@ -76,22 +76,16 @@ namespace MultiplayerSample
         virtual void SetFireParams(const FireParams& fireParams) = 0;
 
         //! Internally called on every weapon activation.
-        //! @param deltaTime              the time in seconds this activate event corresponds to
-        //! @param weaponState            the weapons internal state structure
-        //! @param weaponOwner            the weapons owning entity
-        //! @param eventData              contains details of the activation event
-        //! @param dispatchHitEvents      if true, the Activate call will invoke hit events for gathered entities
-        //! @param dispatchActivateEvents if true, the Activate call will invoke activate events for valid activations
-        //! @param forceSkipGather        if true, skip the gather step of the activation
+        //! @param weaponState        the weapons internal state structure
+        //! @param weaponOwner        the weapons owning entity
+        //! @param eventData          contains details of the activation event
+        //! @param validateActivation if true, the Activate call will only invoke if it passes validation
         virtual void Activate
         (
-            float deltaTime,
             WeaponState& weaponState,
             const Multiplayer::ConstNetworkEntityHandle weaponOwner,
             ActivateEvent& eventData,
-            bool dispatchHitEvents,
-            bool dispatchActivateEvents,
-            bool forceSkipGather
+            bool validateActivation
         ) = 0;
 
         //! Ticks the active shots for this weapon.
@@ -136,14 +130,12 @@ namespace MultiplayerSample
     struct WeaponHitInfo
     {
         //! Full constructor.
-        //! @param a_Weapon       reference to the weapon instance which produced the hit
-        //! @param a_GatherOrigin the origin point for any gather operations (center of explosion, muzzle of lasergun, etc..)
-        //! @param a_HitEvent     specific details about the weapon hit event
-        WeaponHitInfo(const IWeapon& weapon, const AZ::Vector3& gatherOrigin, const HitEvent& hitEvent);
+        //! @param weapon   reference to the weapon instance which produced the hit
+        //! @param hitEvent specific details about the weapon hit event
+        WeaponHitInfo(const IWeapon& weapon, const HitEvent& hitEvent);
 
-        const IWeapon& m_weapon;       //< Reference to the weapon instance which produced the hit
-        AZ::Vector3    m_gatherOrigin; //< Origin point for any gather operations (center of explosion, muzzle of lasergun, etc..)
-        HitEvent       m_hitEvent;     //< Specific details about the weapon hit event
+        const IWeapon& m_weapon; //< Reference to the weapon instance which produced the hit
+        HitEvent m_hitEvent;     //< Specific details about the weapon hit event
 
         WeaponHitInfo& operator =(const WeaponHitInfo&) = delete; // Don't allow copying, these guys get dispatched under special conditions
     };

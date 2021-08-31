@@ -360,7 +360,7 @@ namespace MultiplayerSample
 
     bool FireParams::operator!=(const FireParams& rhs) const
     {
-        return m_targetPosition.IsClose(rhs.m_targetPosition)
+        return !m_targetPosition.IsClose(rhs.m_targetPosition)
             || m_targetId != rhs.m_targetId;
     }
 
