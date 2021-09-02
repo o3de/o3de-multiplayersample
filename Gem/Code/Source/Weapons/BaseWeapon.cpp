@@ -156,7 +156,7 @@ namespace MultiplayerSample
         {
             if (prefilteredNetEntityIds.size() > 0)
             {
-                if (prefilteredNetEntityIds.find(gatherResult.m_netEntityId) == prefilteredNetEntityIds.end())
+                if (prefilteredNetEntityIds.find(gatherResult.m_netEntityId) != prefilteredNetEntityIds.end())
                 {
                     // Skip this hit, it was not gathered by the high-detail client physics trace, and should be filtered
                     continue;
@@ -166,8 +166,8 @@ namespace MultiplayerSample
             hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_netEntityId });
         }
 
-        WeaponHitInfo hitInfo(*this, eventData.m_initialTransform.GetTranslation(), hitEvent);
-        m_weaponListener.OnWeaponPredictHit(hitInfo);
+        WeaponHitInfo hitInfo(*this, hitEvent);
+        m_weaponListener.OnWeaponHit(hitInfo);
     }
 
     WeaponActivationInfo::WeaponActivationInfo(const IWeapon& weapon, const ActivateEvent& activateEvent)
@@ -177,9 +177,8 @@ namespace MultiplayerSample
         ;
     }
 
-    WeaponHitInfo::WeaponHitInfo(const IWeapon& weapon, const AZ::Vector3& gatherOrigin, const HitEvent& hitEvent)
+    WeaponHitInfo::WeaponHitInfo(const IWeapon& weapon, const HitEvent& hitEvent)
         : m_weapon(weapon)
-        , m_gatherOrigin(gatherOrigin)
         , m_hitEvent(hitEvent)
     {
         ;

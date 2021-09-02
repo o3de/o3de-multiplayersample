@@ -32,11 +32,14 @@ namespace MultiplayerSample
 
         static void Reflect(AZ::ReflectContext* context);
 
+        NetworkWeaponsComponent();
+
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& WeaponIndex, const HitEvent& HitEvent) override;
+        void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& weaponIndex, const HitEvent& hitEvent) override;
+        void ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations);
 
         IWeapon* GetWeapon(WeaponIndex weaponIndex) const;
 
@@ -44,12 +47,20 @@ namespace MultiplayerSample
         //! WeaponListener interface
         //! @{
         void OnWeaponActivate(const WeaponActivationInfo& activationInfo) override;
-        void OnWeaponPredictHit(const WeaponHitInfo& hitInfo) override;
-        void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo) override;
+        void OnWeaponHit(const WeaponHitInfo& hitInfo) override;
         //! @}
+
+        void OnWeaponPredictHit(const WeaponHitInfo& hitInfo);
+        void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo);
+
+        void OnUpdateActivationCounts(int32_t index, uint8_t value);
 
         using WeaponPointer = AZStd::unique_ptr<IWeapon>;
         AZStd::array<WeaponPointer, MaxWeaponsPerComponent> m_weapons;
+
+        AZ::Event<int32_t, uint8_t>::Handler m_activationCountHandler;
+        AZStd::array<WeaponState, MaxWeaponsPerComponent> m_simulatedWeaponStates;
+        AZStd::array<int32_t, MaxWeaponsPerComponent> m_fireBoneJointIds;
 
         DebugDraw::DebugDrawRequests* m_debugDraw = nullptr;
     };
@@ -86,7 +97,5 @@ namespace MultiplayerSample
 
         bool m_weaponDrawn = false;
         WeaponActivationBitset m_weaponFiring;
-
-        AZStd::array<int32_t, MaxWeaponsPerComponent> m_fireBoneJointIds;
     };
 }

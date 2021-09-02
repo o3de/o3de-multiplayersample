@@ -9,7 +9,9 @@
 #include <AzFramework/Physics/ShapeConfiguration.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Material.h>
+#include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/NetworkEntity/INetworkEntityManager.h>
+#include <Multiplayer/NetworkTime/INetworkTime.h>
 
 namespace MultiplayerSample
 {
@@ -77,7 +79,8 @@ namespace MultiplayerSample
                 [&filter, networkEntityManager](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
             {
                 // Exclude the bodies from another rewind frame
-                if (body->GetFrameId() != static_cast<uint32_t>(filter.m_rewindFrameId))
+                if ((filter.m_rewindFrameId != Multiplayer::InvalidHostFrameId)
+                     && (body->GetFrameId() != static_cast<uint32_t>(filter.m_rewindFrameId)))
                 {
                     return AzPhysics::SceneQuery::QueryHitType::None;
                 }
@@ -98,6 +101,12 @@ namespace MultiplayerSample
 
             const float maxSweepDistance = filter.m_sweep.GetLength();
             const bool shouldDoOverlap = (maxSweepDistance == 0);
+
+            // Ensure any entities that we might interact with are properly synchronized to their rewind state
+            const AZ::Vector3 minBound = filter.m_initialPose.GetTranslation().GetMin(filter.m_initialPose.GetTranslation() + filter.m_sweep);
+            const AZ::Vector3 maxBound = filter.m_initialPose.GetTranslation().GetMax(filter.m_initialPose.GetTranslation() + filter.m_sweep);
+            const AZ::Aabb rewindBounds = AZ::Aabb::CreateFromMinMax(minBound, maxBound);
+            Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(rewindBounds);
 
             if (shouldDoOverlap)
             {

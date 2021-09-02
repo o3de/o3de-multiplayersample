@@ -25,11 +25,26 @@ namespace MultiplayerSample
         NetworkRigidBodyComponentBase::Reflect(context);
     }
 
+    void NetworkRigidBodyComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    {
+        provided.push_back(AZ_CRC_CE("NetworkRigidBodyService"));
+    }
+
+    void NetworkRigidBodyComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    {
+        required.push_back(AZ_CRC_CE("PhysXRigidBodyService"));
+    }
+
+    void NetworkRigidBodyComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    {
+        dependent.push_back(AZ_CRC_CE("TransformService"));
+        dependent.push_back(AZ_CRC_CE("PhysXRigidBodyService"));
+    }
+
     NetworkRigidBodyComponent::NetworkRigidBodyComponent()
         : m_syncRewindHandler([this](){ OnSyncRewind(); })
         , m_transformChangedHandler([this]([[maybe_unused]] const AZ::Transform& localTm, const AZ::Transform& worldTm){ OnTransformUpdate(worldTm); })
     {
-
     }
 
     void NetworkRigidBodyComponent::OnInit()
@@ -103,4 +118,30 @@ namespace MultiplayerSample
         }
     }
 
+    NetworkRigidBodyComponentController::NetworkRigidBodyComponentController(NetworkRigidBodyComponent& parent)
+        : NetworkRigidBodyComponentControllerBase(parent)
+    {
+        ;
+    }
+
+    void NetworkRigidBodyComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        ;
+    }
+
+    void NetworkRigidBodyComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        ;
+    }
+
+    void NetworkRigidBodyComponentController::HandleSendApplyImpulse
+    (
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection,
+        const AZ::Vector3& impulse,
+        const AZ::Vector3& worldPoint
+    )
+    {
+        AzPhysics::RigidBody* rigidBody = GetParent().m_physicsRigidBodyComponent->GetRigidBody();
+        rigidBody->ApplyLinearImpulseAtWorldPoint(impulse, worldPoint);
+    }
 } // namespace MultiplayerSample

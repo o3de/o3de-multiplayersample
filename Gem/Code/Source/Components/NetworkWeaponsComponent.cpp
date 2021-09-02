@@ -8,6 +8,7 @@
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
+#include <Source/Components/NetworkRigidBodyComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
@@ -16,6 +17,9 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_WeaponsDrawDebug, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
+    AZ_CVAR(float, cl_WeaponsDrawDebugSize, 0.25f, nullptr, AZ::ConsoleFunctorFlags::Null, "The size of sphere to debug draw during weapon events");
+    AZ_CVAR(float, cl_WeaponsDrawDebugDurationSec, 10.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of seconds to display debug draw data");
+    AZ_CVAR(float, sv_ImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
 
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -28,8 +32,16 @@ namespace MultiplayerSample
         NetworkWeaponsComponentBase::Reflect(context);
     }
 
+    NetworkWeaponsComponent::NetworkWeaponsComponent()
+        : NetworkWeaponsComponentBase()
+        , m_activationCountHandler([this](int32_t index, uint8_t value) { OnUpdateActivationCounts(index, value); })
+    {
+        ;
+    }
+
     void NetworkWeaponsComponent::OnInit()
     {
+        AZStd::uninitialized_fill_n(m_fireBoneJointIds.data(), MaxWeaponsPerComponent, InvalidBoneId);
     }
 
     void NetworkWeaponsComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -47,6 +59,11 @@ namespace MultiplayerSample
             m_weapons[weaponIndex] = AZStd::move(CreateWeapon(constructParams));
         }
 
+        if (IsNetEntityRoleClient())
+        {
+            ActivationCountsAddEvent(m_activationCountHandler);
+        }
+
         if (m_debugDraw == nullptr)
         {
             m_debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler();
@@ -55,10 +72,45 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        ;
     }
 
-    void NetworkWeaponsComponent::HandleSendConfirmHit([[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const WeaponIndex& WeaponIndex, [[maybe_unused]] const HitEvent& HitEvent)
+    void NetworkWeaponsComponent::HandleSendConfirmHit([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const WeaponIndex& weaponIndex, const HitEvent& hitEvent)
     {
+        if (GetWeapon(weaponIndex) == nullptr)
+        {
+            AZLOG_ERROR("Got confirmed hit for null weapon index");
+            return;
+        }
+
+        WeaponHitInfo weaponHitInfo(*GetWeapon(weaponIndex), hitEvent);
+        OnWeaponConfirmHit(weaponHitInfo);
+    }
+
+    void NetworkWeaponsComponent::ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations)
+    {
+        const uint32_t weaponIndexInt = aznumeric_cast<uint32_t>(weaponIndex);
+
+        // Temp hack for weapon firing due to late ebus binding in 1.14
+        if (m_fireBoneJointIds[weaponIndexInt] == InvalidBoneId)
+        {
+            const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
+            m_fireBoneJointIds[weaponIndexInt] = GetNetworkAnimationComponent()->GetBoneIdByName(fireBoneName);
+        }
+
+        AZ::Transform fireBoneTransform;
+        if (!GetNetworkAnimationComponent()->GetJointTransformById(m_fireBoneJointIds[weaponIndexInt], fireBoneTransform))
+        {
+            AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(weaponIndexInt).c_str(), m_fireBoneJointIds[weaponIndexInt]);
+        }
+
+        const AZ::Vector3    position = fireBoneTransform.GetTranslation();
+        const AZ::Quaternion orientation = AZ::Quaternion::CreateShortestArc(AZ::Vector3::CreateAxisX(), (fireParams.m_targetPosition - position).GetNormalized());
+        const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
+        ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
+
+        IWeapon* weapon = GetWeapon(weaponIndex);
+        weapon->Activate(weaponState, GetEntityHandle(), activateEvent, validateActivations);
     }
 
     IWeapon* NetworkWeaponsComponent::GetWeapon(WeaponIndex weaponIndex) const
@@ -68,31 +120,81 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponActivate([[maybe_unused]] const WeaponActivationInfo& activationInfo)
     {
+        // If we're replaying inputs then early out
+        if (GetNetBindComponent()->IsReprocessingInput())
+        {
+            return;
+        }
+
         if (cl_WeaponsDrawDebug && m_debugDraw)
         {
             m_debugDraw->DrawSphereAtLocation
             (
                 activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
-                0.5f, 
-                AZ::Colors::GreenYellow,
-                10.0f
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Green,
+                cl_WeaponsDrawDebugDurationSec
             );
 
             m_debugDraw->DrawSphereAtLocation
             (
                 activationInfo.m_activateEvent.m_targetPosition,
-                0.5f,
-                AZ::Colors::Crimson,
-                10.0f
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Yellow,
+                cl_WeaponsDrawDebugDurationSec
             );
         }
     }
 
-    void NetworkWeaponsComponent::OnWeaponPredictHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
+    void NetworkWeaponsComponent::OnWeaponHit(const WeaponHitInfo& hitInfo)
     {
+        if (IsNetEntityRoleAuthority())
+        {
+            OnWeaponConfirmHit(hitInfo);
+            static_cast<NetworkWeaponsComponentController*>(GetController())->SendConfirmHit(hitInfo.m_weapon.GetWeaponIndex(), hitInfo.m_hitEvent);
+        }
+        else
+        {
+            OnWeaponPredictHit(hitInfo);
+        }
     }
 
-    void NetworkWeaponsComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& hitInfo)
+    void NetworkWeaponsComponent::OnWeaponPredictHit(const WeaponHitInfo& hitInfo)
+    {
+        // If we're replaying inputs then early out
+        if (GetNetBindComponent()->IsReprocessingInput())
+        {
+            return;
+        }
+
+        for (uint32_t i = 0; i < hitInfo.m_hitEvent.m_hitEntities.size(); ++i)
+        {
+            const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
+
+            if (cl_WeaponsDrawDebug && m_debugDraw)
+            {
+                m_debugDraw->DrawSphereAtLocation
+                (
+                    hitEntity.m_hitPosition,
+                    cl_WeaponsDrawDebugSize,
+                    AZ::Colors::Orange,
+                    cl_WeaponsDrawDebugDurationSec
+                );
+            }
+
+            AZLOG
+            (
+                NET_Weapons,
+                "Predicted hit on entity %u at position %f x %f x %f",
+                hitEntity.m_hitNetEntityId,
+                hitEntity.m_hitPosition.GetX(),
+                hitEntity.m_hitPosition.GetY(),
+                hitEntity.m_hitPosition.GetZ()
+            );
+        }
+    }
+
+    void NetworkWeaponsComponent::OnWeaponConfirmHit(const WeaponHitInfo& hitInfo)
     {
         if (IsNetEntityRoleAuthority())
         {
@@ -105,24 +207,89 @@ namespace MultiplayerSample
                     [[maybe_unused]] const AZ::Vector3& hitCenter = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
                     [[maybe_unused]] const AZ::Vector3& hitPoint = hitEntity.m_hitPosition;
 
+                    const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
+                    const HitEffect effect = weaponParams.m_damageEffect;
+
+                    // Presently set to 1 until we capture falloff range
+                    float hitDistance = 1.f;
+                    float maxDistance = 1.f;
+                    float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
+
                     // Look for physics rigid body component and make impact updates
-                    
+                    NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<NetworkRigidBodyComponent>();
+                    if (rigidBodyComponent)
+                    {
+                        const AZ::Vector3 hitLocation = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
+                        const AZ::Vector3 hitDelta = hitEntity.m_hitPosition - hitLocation;
+                        const AZ::Vector3 impulse = hitDelta.GetNormalized() * damage * sv_ImpulseScalar;
+                        rigidBodyComponent->SendApplyImpulse(impulse, hitLocation);
+                    }
+
                     // Look for health component and directly update health based on hit parameters
                     NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>();
                     if (healthComponent)
                     {
-                        const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
-                        const HitEffect effect = weaponParams.m_damageEffect;
-
-                        // Presently set to 1 until we capture falloff range
-                        float hitDistance = 1.f;
-                        float maxDistance = 1.f;
-                        float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
                         healthComponent->SendHealthDelta(damage * -1.0f);
-
                     }
                 }
             }
+        }
+
+        // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
+        [[maybe_unused]] bool shouldIssueMaterialEffects = !HasController() || !hitInfo.m_weapon.GetParams().m_locallyPredicted;
+
+        for (uint32_t i = 0; i < hitInfo.m_hitEvent.m_hitEntities.size(); ++i)
+        {
+            const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
+
+            if (cl_WeaponsDrawDebug && m_debugDraw)
+            {
+                m_debugDraw->DrawSphereAtLocation
+                (
+                    hitEntity.m_hitPosition,
+                    cl_WeaponsDrawDebugSize,
+                    AZ::Colors::Red,
+                    cl_WeaponsDrawDebugDurationSec
+                );
+            }
+
+            AZLOG
+            (
+                NET_Weapons,
+                "Confirmed hit on entity %u at position %f x %f x %f",
+                hitEntity.m_hitNetEntityId,
+                hitEntity.m_hitPosition.GetX(),
+                hitEntity.m_hitPosition.GetY(),
+                hitEntity.m_hitPosition.GetZ()
+            );
+        }
+    }
+
+    void NetworkWeaponsComponent::OnUpdateActivationCounts(int32_t index, uint8_t value)
+    {
+        IWeapon* weapon = GetWeapon(aznumeric_cast<WeaponIndex>(index));
+
+        if (weapon == nullptr)
+        {
+            return;
+        }
+
+        if (HasController() && weapon->GetParams().m_locallyPredicted)
+        {
+            // If this is a predicted weapon, exit out because autonomous weapons predict activations
+            return;
+        }
+
+        AZLOG(NET_Weapons, "Client activation event for weapon index %u", index);
+
+        WeaponState& weaponState = m_simulatedWeaponStates[index];
+        const FireParams& fireParams = GetActivationParams(index);
+        weapon->SetFireParams(fireParams);
+
+        while (weaponState.m_activationCount != value)
+        {
+            const bool validateActivations = false;
+            ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(index), weaponState, fireParams, validateActivations);
         }
     }
 
@@ -130,7 +297,7 @@ namespace MultiplayerSample
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
     {
-        AZStd::uninitialized_fill_n(m_fireBoneJointIds.data(), MaxWeaponsPerComponent, InvalidBoneId);
+        ;
     }
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -175,9 +342,9 @@ namespace MultiplayerSample
 
         const AZ::Transform worldTm = GetParent().GetEntity()->GetTransform()->GetWorldTM();
 
-        for (uint32_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
+        for (uint32_t weaponIndexInt = 0; weaponIndexInt < MaxWeaponsPerComponent; ++weaponIndexInt)
         {
-            if (weaponInput->m_firing.GetBit(aznumeric_cast<uint32_t>(weaponIndex)))
+            if (weaponInput->m_firing.GetBit(weaponIndexInt))
             {
                 const AZ::Vector3& aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
                 const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
@@ -185,7 +352,7 @@ namespace MultiplayerSample
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
                 FireParams fireParams{ aimTarget, Multiplayer::InvalidNetEntityId };
-                TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndex), fireParams);
+                TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndexInt), fireParams);
             }
         }
 
@@ -194,48 +361,28 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::UpdateWeaponFiring([[maybe_unused]] float deltaTime)
     {
-        for (uint32_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
+        for (uint32_t weaponIndexInt = 0; weaponIndexInt < MaxWeaponsPerComponent; ++weaponIndexInt)
         {
-            IWeapon* weapon = GetParent().GetWeapon(aznumeric_cast<WeaponIndex>(weaponIndex));
+            IWeapon* weapon = GetParent().GetWeapon(aznumeric_cast<WeaponIndex>(weaponIndexInt));
 
             if ((weapon == nullptr) || !weapon->GetParams().m_locallyPredicted)
             {
                 continue;
             }
 
-            WeaponState& weaponState = ModifyWeaponStates(aznumeric_cast<uint32_t>(weaponIndex));
+            WeaponState& weaponState = ModifyWeaponStates(weaponIndexInt);
             if ((weaponState.m_status == WeaponStatus::Firing) && (weaponState.m_cooldownTime <= 0.0f))
             {
-                AZLOG(NET_TraceWeapons, "Weapon predicted activation event for weapon index %u", aznumeric_cast<uint32_t>(weaponIndex));
+                AZLOG(NET_Weapons, "Weapon predicted activation event for weapon index %u", weaponIndexInt);
 
-                // Temp hack for weapon firing due to late ebus binding in 1.14
-                if (m_fireBoneJointIds[weaponIndex] == InvalidBoneId)
-                {
-                    const char* fireBoneName = GetFireBoneNames(aznumeric_cast<uint32_t>(weaponIndex)).c_str();
-                    m_fireBoneJointIds[weaponIndex] = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
-                }
-
-                AZ::Transform fireBoneTransform;
-                if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(m_fireBoneJointIds[weaponIndex], fireBoneTransform))
-                {
-                    AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(aznumeric_cast<uint32_t>(weaponIndex)).c_str(), m_fireBoneJointIds[weaponIndex]);
-                }
-
-                const FireParams&    fireParams = weapon->GetFireParams();
-                const AZ::Vector3    position = fireBoneTransform.GetTranslation();
-                const AZ::Quaternion orientation = AZ::Quaternion::CreateShortestArc(AZ::Vector3::CreateAxisX(), (fireParams.m_targetPosition - position).GetNormalized());
-                const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
-                ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
-
-                bool dispatchHitEvents = weapon->GetParams().m_locallyPredicted;
-                bool dispatchActivateEvents = weapon->GetParams().m_locallyPredicted;
-                bool skipGathers = false;
-
-                weapon->Activate(deltaTime, weaponState, GetEntityHandle(), activateEvent, dispatchHitEvents, dispatchActivateEvents, skipGathers);
+                const bool validateActivations = true;
+                const FireParams& fireParams = weapon->GetFireParams();
+                GetParent().ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(weaponIndexInt), weaponState, fireParams, validateActivations);
 
                 if (IsAuthority())
                 {
-                    SetActivationCounts(aznumeric_cast<uint32_t>(weaponIndex), weaponState.m_activationCount);
+                    SetActivationParams(weaponIndexInt, fireParams);
+                    SetActivationCounts(weaponIndexInt, weaponState.m_activationCount);
                 }
             }
             weapon->UpdateWeaponState(weaponState, deltaTime);
@@ -244,21 +391,23 @@ namespace MultiplayerSample
 
     bool NetworkWeaponsComponentController::TryStartFire(WeaponIndex weaponIndex, const FireParams& fireParams)
     {
-        AZLOG(NET_TraceWeapons, "Weapon start fire on %u", aznumeric_cast<uint32_t>(weaponIndex));
+        const uint32_t weaponIndexInt = aznumeric_cast<uint32_t>(weaponIndex);
+        AZLOG(NET_Weapons, "Weapon start fire on %u", weaponIndexInt);
 
         IWeapon* weapon = GetParent().GetWeapon(weaponIndex);
-
         if (weapon == nullptr)
         {
             return false;
         }
 
-        WeaponState& weaponState = ModifyWeaponStates(aznumeric_cast<uint32_t>(weaponIndex));
-
+        WeaponState& weaponState = ModifyWeaponStates(weaponIndexInt);
         if (weapon->TryStartFire(weaponState, fireParams))
         {
             const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, true);
+            if (!GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(animBit))
+            {
+                GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, true);
+            }
             return true;
         }
 

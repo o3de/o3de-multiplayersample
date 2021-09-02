@@ -10,7 +10,6 @@
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
-#include <AzFramework/Visibility/EntityBoundsUnionBus.h>
 #include <AzFramework/Components/CameraBus.h>
 
 namespace MultiplayerSample
@@ -114,16 +113,6 @@ namespace MultiplayerSample
 
         // Update velocity
         UpdateVelocity(*wasdInput);
-
-        // Ensure any entities that we might interact with are properly synchronized to their rewind state
-        if (IsAuthority())
-        {
-            const AZ::Aabb entityStartBounds = AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->GetEntityLocalBoundsUnion(GetEntity()->GetId());
-            const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(GetVelocity());
-            AZ::Aabb entitySweptBounds = entityStartBounds;
-            entitySweptBounds.AddAabb(entityFinalBounds);
-            Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(entitySweptBounds);
-        }
 
         GetNetworkCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
     }
