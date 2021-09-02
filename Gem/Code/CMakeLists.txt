@@ -69,10 +69,10 @@ ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::Multi
 # Gem dependencies
 ################################################################################
 
-# Maps tthe MultiplayerSample Project with the specified list of enabled gems
+# Maps the MultiplayerSample Project with the specified list of enabled gems
 ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake)
 
-# If we build a server, then apply the gems to the server
+# If we build a server, then add the project name to the list of server launcher projects
 if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
 endif()
