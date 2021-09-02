@@ -47,8 +47,8 @@ namespace MultiplayerSample
 
         int32_t GetBoneIdByName(const char* boneName) const;
 
-        bool GetJointTransformByName(const char* a_BoneName, AZ::Transform& outJointTransform) const;
-        bool GetJointTransformById(int32_t a_BoneId, AZ::Transform& outJointTransform) const;
+        bool GetJointTransformByName(const char* boneName, AZ::Transform& outJointTransform) const;
+        bool GetJointTransformById(int32_t boneId, AZ::Transform& outJointTransform) const;
 
     private:
         void OnPreRender(float deltaTime, float blendFactor);

@@ -48,8 +48,6 @@ namespace MultiplayerSample
             return "Box";
         case GatherShape::Sphere:
             return "Sphere";
-        case GatherShape::Cylinder:
-            return "Cylinder";
         case GatherShape::Capsule:
             return "Capsule";
         }
@@ -116,7 +114,6 @@ namespace MultiplayerSample
                     ->Value("Point", GatherShape::Point)
                     ->Value("Box", GatherShape::Box)
                     ->Value("Sphere", GatherShape::Sphere)
-                    ->Value("Cylinder", GatherShape::Cylinder)
                     ->Value("Capsule", GatherShape::Capsule);
 
                 editContext->Enum<GatherDirection>("GatherDirection", "Different types of entity gather directions")
@@ -363,7 +360,7 @@ namespace MultiplayerSample
 
     bool FireParams::operator!=(const FireParams& rhs) const
     {
-        return m_targetPosition.IsClose(rhs.m_targetPosition)
+        return !m_targetPosition.IsClose(rhs.m_targetPosition)
             || m_targetId != rhs.m_targetId;
     }
 

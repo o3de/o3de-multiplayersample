@@ -160,7 +160,7 @@ namespace MultiplayerSample
 
     float WasdPlayerMovementComponentController::NormalizeHeading(float heading) const
     {
-        // Ensure a_Heading in range [-pi, +pi]
+        // Ensure heading in range [-pi, +pi]
         if (heading > AZ::Constants::Pi)
         {
             return static_cast<float>(heading - AZ::Constants::TwoPi);

@@ -47,7 +47,6 @@ namespace MultiplayerSample
         Point,    // Gather entities that intersect a line-cast ending at the first hit
         Box,      // Gather entities that intersect a line-cast
         Sphere,   // Gather entities that fall within a spherical radius
-        Cylinder, // Gather entities that intersect with a cylinder
         Capsule   // Gather entities that intersect with a capsule
     };
     const char* GetEnumString(GatherShape value);

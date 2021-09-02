@@ -17,28 +17,15 @@ namespace MultiplayerSample
 
     void TraceWeapon::Activate
     (
-        [[maybe_unused]] float deltaTime,
         WeaponState& weaponState,
         [[maybe_unused]] const Multiplayer::ConstNetworkEntityHandle weaponOwner,
         ActivateEvent& eventData,
-        bool dispatchHitEvents,
-        bool dispatchActivateEvents,
-        bool forceSkipGather
+        bool validateActivation
     )
     {
-        const bool validate = dispatchHitEvents; // Perform activation validation if we're actually going to dispatch hit events
-        if (ActivateInternal(weaponState, validate))
+        if (ActivateInternal(weaponState, validateActivation))
         {
-            if (!dispatchHitEvents)
-            {
-                // Skip out on all the remaining activation logic if this is a replay.. We do not want to spawn particles or sounds or other effects during a replay event
-                return;
-            }
-
-            if (dispatchActivateEvents)
-            {
-                m_weaponListener.OnWeaponActivate(WeaponActivationInfo(*this, eventData));
-            }
+            m_weaponListener.OnWeaponActivate(WeaponActivationInfo(*this, eventData));
 
             const bool isMultiSegmented = (m_weaponParams.m_gatherParams.m_travelSpeed > 0.0f);
 
@@ -48,12 +35,9 @@ namespace MultiplayerSample
                 ActiveShot activeShot{ eventData.m_initialTransform, eventData.m_targetPosition, LifetimeSec{ 0.0f } };
                 weaponState.m_activeShots.emplace_back(activeShot);
             }
-            else if (!forceSkipGather)
+            else if (GatherEntities(eventData, gatherResults))
             {
-                if (GatherEntities(eventData, gatherResults))
-                {
-                    DispatchHitEvents(gatherResults, eventData, m_gatheredNetEntityIds);
-                }
+                DispatchHitEvents(gatherResults, eventData, m_gatheredNetEntityIds);
             }
         }
     }
