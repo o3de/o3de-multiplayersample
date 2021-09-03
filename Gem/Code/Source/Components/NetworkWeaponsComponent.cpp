@@ -8,6 +8,7 @@
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
+#include <Source/Components/NetworkRigidBodyComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
@@ -16,6 +17,9 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_WeaponsDrawDebug, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
+    AZ_CVAR(float, cl_WeaponsDrawDebugSize, 0.25f, nullptr, AZ::ConsoleFunctorFlags::Null, "The size of sphere to debug draw during weapon events");
+    AZ_CVAR(float, cl_WeaponsDrawDebugDurationSec, 10.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of seconds to display debug draw data");
+    AZ_CVAR(float, sv_WeaponsImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
 
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -127,18 +131,31 @@ namespace MultiplayerSample
             m_debugDraw->DrawSphereAtLocation
             (
                 activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
-                0.25f, 
-                AZ::Colors::GreenYellow,
-                10.0f
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Green,
+                cl_WeaponsDrawDebugDurationSec
             );
 
             m_debugDraw->DrawSphereAtLocation
             (
                 activationInfo.m_activateEvent.m_targetPosition,
-                0.25f,
-                AZ::Colors::Crimson,
-                10.0f
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Yellow,
+                cl_WeaponsDrawDebugDurationSec
             );
+        }
+    }
+
+    void NetworkWeaponsComponent::OnWeaponHit(const WeaponHitInfo& hitInfo)
+    {
+        if (IsNetEntityRoleAuthority())
+        {
+            OnWeaponConfirmHit(hitInfo);
+            static_cast<NetworkWeaponsComponentController*>(GetController())->SendConfirmHit(hitInfo.m_weapon.GetWeaponIndex(), hitInfo.m_hitEvent);
+        }
+        else
+        {
+            OnWeaponPredictHit(hitInfo);
         }
     }
 
@@ -159,9 +176,9 @@ namespace MultiplayerSample
                 m_debugDraw->DrawSphereAtLocation
                 (
                     hitEntity.m_hitPosition,
-                    1.0f,
-                    AZ::Colors::OrangeRed,
-                    10.0f
+                    cl_WeaponsDrawDebugSize,
+                    AZ::Colors::Orange,
+                    cl_WeaponsDrawDebugDurationSec
                 );
             }
 
@@ -190,19 +207,28 @@ namespace MultiplayerSample
                     [[maybe_unused]] const AZ::Vector3& hitCenter = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
                     [[maybe_unused]] const AZ::Vector3& hitPoint = hitEntity.m_hitPosition;
 
+                    const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
+                    const HitEffect effect = weaponParams.m_damageEffect;
+
+                    // Presently set to 1 until we capture falloff range
+                    float hitDistance = 1.f;
+                    float maxDistance = 1.f;
+                    float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
+
                     // Look for physics rigid body component and make impact updates
-                    
+                    NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<NetworkRigidBodyComponent>();
+                    if (rigidBodyComponent)
+                    {
+                        const AZ::Vector3 hitLocation = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
+                        const AZ::Vector3 hitDelta = hitEntity.m_hitPosition - hitLocation;
+                        const AZ::Vector3 impulse = hitDelta.GetNormalized() * damage * sv_WeaponsImpulseScalar;
+                        rigidBodyComponent->SendApplyImpulse(impulse, hitLocation);
+                    }
+
                     // Look for health component and directly update health based on hit parameters
                     NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>();
                     if (healthComponent)
                     {
-                        const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
-                        const HitEffect effect = weaponParams.m_damageEffect;
-
-                        // Presently set to 1 until we capture falloff range
-                        float hitDistance = 1.f;
-                        float maxDistance = 1.f;
-                        float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
                         healthComponent->SendHealthDelta(damage * -1.0f);
                     }
                 }
@@ -221,9 +247,9 @@ namespace MultiplayerSample
                 m_debugDraw->DrawSphereAtLocation
                 (
                     hitEntity.m_hitPosition,
-                    1.0f,
+                    cl_WeaponsDrawDebugSize,
                     AZ::Colors::Red,
-                    10.0f
+                    cl_WeaponsDrawDebugDurationSec
                 );
             }
 

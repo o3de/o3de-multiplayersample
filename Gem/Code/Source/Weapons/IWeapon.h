@@ -24,13 +24,9 @@ namespace MultiplayerSample
         //! @param activationInfo details of the weapon activation
         virtual void OnWeaponActivate(const WeaponActivationInfo& activationInfo) = 0;
 
-        //! Invoked when the weapon predictively hits a target entity.
+        //! Invoked when the weapon hits a target entity.
         //! @param hitInfo details of the weapon hit
-        virtual void OnWeaponPredictHit(const WeaponHitInfo& hitInfo) = 0;
-
-        //! Invoked when the weapon gets confirmation from the server that it hit a target entity.
-        //! @param hitInfo details of the weapon hit
-        virtual void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo) = 0;
+        virtual void OnWeaponHit(const WeaponHitInfo& hitInfo) = 0;
     };
 
     //! @class IWeapon

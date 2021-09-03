@@ -156,7 +156,7 @@ namespace MultiplayerSample
         {
             if (prefilteredNetEntityIds.size() > 0)
             {
-                if (prefilteredNetEntityIds.find(gatherResult.m_netEntityId) == prefilteredNetEntityIds.end())
+                if (prefilteredNetEntityIds.find(gatherResult.m_netEntityId) != prefilteredNetEntityIds.end())
                 {
                     // Skip this hit, it was not gathered by the high-detail client physics trace, and should be filtered
                     continue;
@@ -167,7 +167,7 @@ namespace MultiplayerSample
         }
 
         WeaponHitInfo hitInfo(*this, hitEvent);
-        m_weaponListener.OnWeaponPredictHit(hitInfo);
+        m_weaponListener.OnWeaponHit(hitInfo);
     }
 
     WeaponActivationInfo::WeaponActivationInfo(const IWeapon& weapon, const ActivateEvent& activateEvent)

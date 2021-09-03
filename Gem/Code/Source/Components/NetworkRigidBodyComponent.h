@@ -27,29 +27,18 @@ namespace MultiplayerSample
         : public NetworkRigidBodyComponentBase
         , private NetworkRigidBodyRequestBus::Handler
     {
+        friend class NetworkRigidBodyComponentController;
+
     public:
         AZ_MULTIPLAYER_COMPONENT(
             MultiplayerSample::NetworkRigidBodyComponent, s_networkRigidBodyComponentConcreteUuid, MultiplayerSample::NetworkRigidBodyComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
         NetworkRigidBodyComponent();
-
-        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
-        {
-            provided.push_back(AZ_CRC_CE("NetworkRigidBodyService"));
-        }
-
-        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-        {
-            required.push_back(AZ_CRC_CE("PhysXRigidBodyService"));
-        }
-
-        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-        {
-            required.push_back(AZ_CRC_CE("TransformService"));
-            required.push_back(AZ_CRC_CE("PhysXRigidBodyService"));
-        }
 
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
@@ -65,4 +54,15 @@ namespace MultiplayerSample
         Multiplayer::RewindableObject<AZ::Transform, Multiplayer::RewindHistorySize> m_transform;
     };
 
+    class NetworkRigidBodyComponentController
+        : public NetworkRigidBodyComponentControllerBase
+    {
+    public:
+        NetworkRigidBodyComponentController(NetworkRigidBodyComponent& parent);
+
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        void HandleSendApplyImpulse(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& impulse, const AZ::Vector3& worldPoint) override;
+    };
 } // namespace MultiplayerSample

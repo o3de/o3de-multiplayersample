@@ -47,9 +47,11 @@ namespace MultiplayerSample
         //! WeaponListener interface
         //! @{
         void OnWeaponActivate(const WeaponActivationInfo& activationInfo) override;
-        void OnWeaponPredictHit(const WeaponHitInfo& hitInfo) override;
-        void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo) override;
+        void OnWeaponHit(const WeaponHitInfo& hitInfo) override;
         //! @}
+
+        void OnWeaponPredictHit(const WeaponHitInfo& hitInfo);
+        void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo);
 
         void OnUpdateActivationCounts(int32_t index, uint8_t value);
 
