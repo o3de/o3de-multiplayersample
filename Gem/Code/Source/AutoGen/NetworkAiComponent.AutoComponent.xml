@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkAiComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="true" 
+    OverrideController="false" 
+    OverrideInclude="Source/Components/NetworkAiComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <NetworkProperty Type="bool" Name="Enabled" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />
+    <NetworkProperty Type="uint32_t" Name="OwningConnectionId" Init="0xffffffff" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="Defines whether the host or a particular client should drive the AI of this component's parent entity. A max uint32_t value indicates that the server ticks the AI."/>
+
+</Component>

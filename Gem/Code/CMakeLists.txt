@@ -34,6 +34,7 @@ ly_add_target(
             Gem::Multiplayer.Static
             Gem::PhysX.Static
             Gem::DebugDraw.Static
+            Gem::ImGui.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
