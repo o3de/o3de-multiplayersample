@@ -6,10 +6,13 @@
  */
 
 #include <Source/Components/WasdPlayerMovementComponent.h>
+
+#include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
 
 namespace MultiplayerSample
@@ -20,6 +23,11 @@ namespace MultiplayerSample
 
     WasdPlayerMovementComponentController::WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent)
         : WasdPlayerMovementComponentControllerBase(parent)
+        , m_updateAI{ [this]
+                      {
+                          UpdateAI();
+                      },
+                      AZ::Name{ "MovementControllerAi" } }
     {
         ;
     }
@@ -28,21 +36,29 @@ namespace MultiplayerSample
     {
         if (IsAutonomous())
         {
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
+            if (m_aiEnabled)
+            {
+                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
+            }
+            else
+            {
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+            }
         }
     }
 
     void WasdPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
@@ -81,14 +97,15 @@ namespace MultiplayerSample
         wasdInput->m_jump = m_jumping;
         wasdInput->m_crouch = m_crouching;
 
-        // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client through correction packets
+        // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client
+        // through correction packets
         wasdInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
     }
 
     void WasdPlayerMovementComponentController::ProcessInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
         // If the input reset count doesn't match the state's reset count it can mean two things:
-        //  1) On the server: we were reset and we are now receiving inputs from the client for an old reset count 
+        //  1) On the server: we were reset and we are now receiving inputs from the client for an old reset count
         //  2) On the client: we were reset and we are replaying old inputs after being corrected
         // In both cases we don't want to process these inputs
         WasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<WasdPlayerMovementComponentNetworkInput>();
@@ -97,15 +114,19 @@ namespace MultiplayerSample
             return;
         }
 
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
 
         // Update orientation
         AZ::Vector3 aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
         aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - wasdInput->m_viewYaw * cl_AimStickScaleZ));
         aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - wasdInput->m_viewPitch * cl_AimStickScaleX));
-        aimAngles.SetX(NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.75f, AZ::Constants::QuarterPi * 0.75f)));
+        aimAngles.SetX(
+            NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.75f, AZ::Constants::QuarterPi * 0.75f)));
         GetSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
 
         const AZ::Quaternion newOrientation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ());
@@ -152,7 +173,8 @@ namespace MultiplayerSample
         {
             const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
             const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
-            const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle); // Update current heading with stick input angles
+            const float targetHeading =
+                NormalizeHeading(currentHeading + stickInputAngle); // Update current heading with stick input angles
             const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
             SetVelocity(AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed);
         }
@@ -281,4 +303,10 @@ namespace MultiplayerSample
             m_viewPitch = value;
         }
     }
-}
+
+    void WasdPlayerMovementComponentController::UpdateAI()
+    {
+        float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
+        FindComponent<NetworkAiComponent>()->TickMovement(*this, deltaTime);
+    }
+} // namespace MultiplayerSample

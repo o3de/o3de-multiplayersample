@@ -6,6 +6,7 @@
  */
 
 #include <AzCore/Component/ComponentApplicationBus.h>
+#include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Components/CameraBus.h>
@@ -25,17 +26,21 @@ namespace MultiplayerSample
     {
         if (IsAutonomous())
         {
-            AZ::EntityId activeCameraId;
-            Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
-            m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
+            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
+            if (!m_aiEnabled)
+            {
+                AZ::EntityId activeCameraId;
+                Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
+                m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
 
-            AZ::TickBus::Handler::BusConnect();
+                AZ::TickBus::Handler::BusConnect();
+            }
         }
     }
 
     void SimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
             AZ::TickBus::Handler::BusDisconnect();
         }

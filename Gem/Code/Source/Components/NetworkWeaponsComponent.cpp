@@ -6,6 +6,8 @@
  */
 
 #include <Source/Components/NetworkWeaponsComponent.h>
+
+#include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkRigidBodyComponent.h>
@@ -296,6 +298,11 @@ namespace MultiplayerSample
 
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
+        , m_updateAI{ [this]
+                      {
+                          UpdateAI();
+                      },
+                      AZ::Name{ "WeaponsControllerAI" } }
     {
         ;
     }
@@ -304,15 +311,23 @@ namespace MultiplayerSample
     {
         if (IsAutonomous())
         {
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
+            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
+            if (m_aiEnabled)
+            {
+                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
+            }
+            else
+            {
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
+            }
         }
     }
 
     void NetworkWeaponsComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(DrawEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FirePrimaryEventId);
@@ -332,12 +347,14 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
 
         for (AZStd::size_t weaponIndex = 0; weaponIndex < MaxWeaponsPerComponent; ++weaponIndex)
         {
             const CharacterAnimState animState = CharacterAnimState::Shooting;
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(animState), weaponInput->m_firing.GetBit(static_cast<uint32_t>(weaponIndex)));
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(animState), weaponInput->m_firing.GetBit(static_cast<uint32_t>(weaponIndex)));
         }
 
         const AZ::Transform worldTm = GetParent().GetEntity()->GetTransform()->GetWorldTM();
@@ -347,7 +364,8 @@ namespace MultiplayerSample
             if (weaponInput->m_firing.GetBit(weaponIndexInt))
             {
                 const AZ::Vector3& aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
-                const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
+                const AZ::Quaternion aimRotation =
+                    AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
                 // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
@@ -377,7 +395,8 @@ namespace MultiplayerSample
 
                 const bool validateActivations = true;
                 const FireParams& fireParams = weapon->GetFireParams();
-                GetParent().ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(weaponIndexInt), weaponState, fireParams, validateActivations);
+                GetParent().ActivateWeaponWithParams(
+                    aznumeric_cast<WeaponIndex>(weaponIndexInt), weaponState, fireParams, validateActivations);
 
                 if (IsAuthority())
                 {
@@ -458,4 +477,10 @@ namespace MultiplayerSample
     {
         ;
     }
-}
+
+    void NetworkWeaponsComponentController::UpdateAI()
+    {
+        float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
+        FindComponent<NetworkAiComponent>()->TickWeapons(*this, deltaTime);
+    }
+} // namespace MultiplayerSample

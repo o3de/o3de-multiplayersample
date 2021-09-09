@@ -79,6 +79,9 @@ namespace MultiplayerSample
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
     private:
+        friend class NetworkAiComponent;
+
+        void UpdateAI();
 
         //! Update pump for player controlled weapons
         //! @param deltaTime the time in seconds since last tick
@@ -95,6 +98,8 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
+        AZ::ScheduledEvent m_updateAI;
+        bool m_aiEnabled = false;
         bool m_weaponDrawn = false;
         WeaponActivationBitset m_weaponFiring;
     };

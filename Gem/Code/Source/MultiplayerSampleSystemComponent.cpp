@@ -14,6 +14,12 @@
 
 #include <Source/AutoGen/AutoComponentTypes.h>
 #include <Source/Weapons/WeaponTypes.h>
+#include <Source/Components/StressTestComponent.h>
+#include <Source/Components/NetworkAiComponent.h>
+
+#include <Multiplayer/IMultiplayer.h>
+#include <Multiplayer/Components/NetBindComponent.h>
+#include <Multiplayer/ConnectionData/IConnectionData.h>
 
 namespace MultiplayerSample
 {
@@ -93,5 +99,6 @@ namespace MultiplayerSample
         // Tick immediately after the multiplayer system component
         return AZ::TICK_PLACEMENT + 2;
     }
+
 }
 

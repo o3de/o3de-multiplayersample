@@ -32,13 +32,15 @@ namespace MultiplayerSample
     public:
         WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent);
 
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating);
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating);
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void CreateInput(Multiplayer::NetworkInput& input, float deltaTime) override;
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
     private:
+        friend class NetworkAiComponent;
+
         void UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput);
         float NormalizeHeading(float heading) const;
 
@@ -49,6 +51,9 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
+        void UpdateAI();
+
+        AZ::ScheduledEvent m_updateAI;
         float m_forwardWeight = 0.0f;
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;
@@ -64,5 +69,7 @@ namespace MultiplayerSample
         bool  m_sprinting = false;
         bool  m_jumping = false;
         bool  m_crouching = false;
+
+        bool m_aiEnabled = false;
     };
 }

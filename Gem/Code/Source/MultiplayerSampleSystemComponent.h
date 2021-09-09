@@ -25,7 +25,6 @@ namespace MultiplayerSample
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
-
     protected:
         ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
