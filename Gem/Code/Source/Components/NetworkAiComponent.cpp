@@ -16,6 +16,8 @@
 
 namespace MultiplayerSample
 {
+    constexpr static float SecondsToMs = 1000.f;
+
     void NetworkAiComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -28,8 +30,6 @@ namespace MultiplayerSample
 
     void NetworkAiComponent::OnInit()
     {
-        // TODO: Provide an interface for controlling the seed
-        m_lcg.SetSeed(static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()));
     }
 
     void NetworkAiComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -43,15 +43,20 @@ namespace MultiplayerSample
     void NetworkAiComponent::TickMovement(WasdPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
-        m_remainingTimeMs -= deltaTime * 1000;
+        float deltaTimeMs = deltaTime * SecondsToMs;
+        m_remainingTimeMs -= deltaTimeMs;
 
         if (m_remainingTimeMs <= 0)
         {
             // Determine a new directive after 500 to 9500 ms
-            m_remainingTimeMs = m_lcg.GetRandomFloat() * 9500.f + 500.f;
+            m_remainingTimeMs = m_lcg.GetRandomFloat() * (m_actionIntervalMaxMs - m_actionIntervalMinMs) + m_actionIntervalMinMs;
             m_turnRate = 1.f / m_remainingTimeMs;
+
+            // Randomize new target yaw and pitch and compute the delta from the current yaw and pitch respectively
             m_targetYawDelta = -movementController.m_viewYaw + (m_lcg.GetRandomFloat() * 2.f - 1.f);
             m_targetPitchDelta = -movementController.m_viewPitch + (m_lcg.GetRandomFloat() - 0.5f);
+
+            // Randomize the action and strafe direction (used only if we decide to strafe)
             m_action = static_cast<Action>(m_lcg.GetRandom() % static_cast<int>(Action::COUNT));
             m_strafingRight = static_cast<bool>(m_lcg.GetRandom() % 2);
         }
@@ -59,8 +64,8 @@ namespace MultiplayerSample
         // Translate desired motion into inputs
 
         // Interpolate the current view yaw and pitch values towards the desired values
-        movementController.m_viewYaw += 1000.f * m_turnRate * deltaTime * m_targetYawDelta;
-        movementController.m_viewPitch += 1000.f * m_turnRate * deltaTime * m_targetPitchDelta;
+        movementController.m_viewYaw += m_turnRate * deltaTimeMs * m_targetYawDelta;
+        movementController.m_viewPitch += m_turnRate * deltaTimeMs * m_targetPitchDelta;
 
         // Reset keyboard movement inputs decided on the previous frame
         movementController.m_forwardDown = false;
@@ -106,13 +111,13 @@ namespace MultiplayerSample
     void NetworkAiComponent::TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
-        m_timeToNextShot -= deltaTime * 1000;
+        m_timeToNextShot -= deltaTime * SecondsToMs;
         if (m_timeToNextShot <= 0)
         {
             if (m_shotFired)
             {
                 // Fire weapon between 100 and 10000 ms from now
-                m_timeToNextShot = m_lcg.GetRandomFloat() * 9900.f + 100.f;
+                m_timeToNextShot = m_lcg.GetRandomFloat() * (m_fireIntervalMaxMs - m_fireIntervalMinMs) + m_fireIntervalMinMs;
                 m_shotFired = false;
                 weaponsController.m_weaponFiring = false;
             }
@@ -122,5 +127,15 @@ namespace MultiplayerSample
                 m_shotFired = true;
             }
         }
+    }
+
+    void NetworkAiComponent::ConfigureAi(
+            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed)
+    {
+        m_fireIntervalMinMs = fireIntervalMinMs;
+        m_fireIntervalMaxMs = fireIntervalMaxMs;
+        m_actionIntervalMinMs = actionIntervalMinMs;
+        m_actionIntervalMaxMs = actionIntervalMaxMs;
+        m_lcg.SetSeed(seed);
     }
 }

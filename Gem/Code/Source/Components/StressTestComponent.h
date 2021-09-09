@@ -42,7 +42,14 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void HandleSpawnAIEntity(AzNetworking::IConnection* invokingConnection, const int& teamId) override;
+        void HandleSpawnAIEntity(
+            AzNetworking::IConnection* invokingConnection,
+            const float& fireIntervalMinMs,
+            const float& fireIntervalMaxMs,
+            const float& actionIntervalMinMs,
+            const float& actionIntervalMaxMs,
+            const uint64_t& seed,
+            const int& teamId);
 
 #if defined(IMGUI_ENABLED)
         void OnImGuiMainMenuUpdate() override;
@@ -56,6 +63,11 @@ namespace MultiplayerSample
         bool m_displayEntitySpawner = false;
         bool m_isServer = false;
         int m_quantity = 1;
+        float m_fireIntervalMinMs = 100.f;
+        float m_fireIntervalMaxMs = 10000.f;
+        float m_actionIntervalMinMs = 500.f;
+        float m_actionIntervalMaxMs = 10000.f;
+        uint64_t m_seed = 0;
         int m_teamID = 0;
 #endif
     };

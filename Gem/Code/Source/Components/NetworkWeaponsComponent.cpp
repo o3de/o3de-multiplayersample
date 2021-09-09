@@ -298,6 +298,11 @@ namespace MultiplayerSample
 
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
+        , m_updateAI{ [this]
+                      {
+                          UpdateAI();
+                      },
+                      AZ::Name{ "WeaponsControllerAI" } }
     {
         ;
     }
@@ -309,7 +314,7 @@ namespace MultiplayerSample
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
             if (m_aiEnabled)
             {
-                AZ::TickBus::Handler::BusConnect();
+                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             }
             else
             {
@@ -322,18 +327,11 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
-            if (m_aiEnabled)
-            {
-                AZ::TickBus::Handler::BusDisconnect();
-            }
-            else
-            {
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(DrawEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FirePrimaryEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FireSecondaryEventId);
-            }
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(DrawEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FirePrimaryEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FireSecondaryEventId);
         }
     }
 
@@ -480,13 +478,9 @@ namespace MultiplayerSample
         ;
     }
 
-    void NetworkWeaponsComponentController::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkWeaponsComponentController::UpdateAI()
     {
+        float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         FindComponent<NetworkAiComponent>()->TickWeapons(*this, deltaTime);
-    }
-
-    int NetworkWeaponsComponentController::GetTickOrder()
-    {
-        return AZ::ComponentTickBus::TICK_GAME;
     }
 } // namespace MultiplayerSample

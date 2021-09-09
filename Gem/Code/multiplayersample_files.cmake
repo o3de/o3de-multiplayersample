@@ -16,7 +16,7 @@ set(FILES
     Source/AutoGen/NetworkRigidBodyComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/SimplePlayerCameraComponent.AutoComponent.xml
-    Source/AutoGen/StressTestCOmponent.AutoComponent.xml
+    Source/AutoGen/StressTestComponent.AutoComponent.xml
     Source/AutoGen/WasdPlayerMovementComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp

@@ -11,8 +11,6 @@
 #include <Source/Weapons/IWeapon.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
-#include <AzCore/Component/TickBus.h>
-
 namespace DebugDraw { class DebugDrawRequests; }
 
 namespace MultiplayerSample
@@ -70,7 +68,6 @@ namespace MultiplayerSample
     class NetworkWeaponsComponentController
         : public NetworkWeaponsComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
-        , private AZ::TickBus::Handler
     {
     public:
         NetworkWeaponsComponentController(NetworkWeaponsComponent& parent);
@@ -84,9 +81,7 @@ namespace MultiplayerSample
     private:
         friend class NetworkAiComponent;
 
-        //! AZ::TickBus::Handler interface
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
-        int GetTickOrder() override;
+        void UpdateAI();
 
         //! Update pump for player controlled weapons
         //! @param deltaTime the time in seconds since last tick
@@ -103,6 +98,7 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
+        AZ::ScheduledEvent m_updateAI;
         bool m_aiEnabled = false;
         bool m_weaponDrawn = false;
         WeaponActivationBitset m_weaponFiring;

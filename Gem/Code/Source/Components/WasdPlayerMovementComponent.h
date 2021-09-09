@@ -10,8 +10,6 @@
 #include <Source/AutoGen/WasdPlayerMovementComponent.AutoComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
-#include <AzCore/Component/TickBus.h>
-
 namespace MultiplayerSample
 {
     // Input Event Ids for Player Controls
@@ -30,7 +28,6 @@ namespace MultiplayerSample
     class WasdPlayerMovementComponentController
         : public WasdPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
-        , private AZ::TickBus::Handler
     {
     public:
         WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent);
@@ -54,12 +51,9 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
-        //! AZ::TickBus::Handler interface
-        //! @{
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
-        int GetTickOrder() override;
-        //! @}
+        void UpdateAI();
 
+        AZ::ScheduledEvent m_updateAI;
         float m_forwardWeight = 0.0f;
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;

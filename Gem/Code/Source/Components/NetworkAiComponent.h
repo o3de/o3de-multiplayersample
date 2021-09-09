@@ -16,6 +16,9 @@ namespace MultiplayerSample
     class NetworkWeaponsComponentController;
     class WasdPlayerMovementComponentController;
 
+
+    // The NetworkAiComponent, when active, can execute behaviors and produce synthetic inputs to drive the
+    // WasdPlayerMovementComponentController and NetworkWeaponsComponentController.
     class NetworkAiComponent : public NetworkAiComponentBase
     {
     public:
@@ -34,11 +37,19 @@ namespace MultiplayerSample
         void TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime);
 
     private:
+        friend class StressTestComponentController;
+        void ConfigureAi(
+            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed);
+
         AZ::SimpleLcgRandom m_lcg;
 
         // Our "AI" is really just a chaos monkey. Every N ms, we choose a cardinal direction to move towards,
         // and flip coins to determine if we should shoot, or perform some other action.
         float m_remainingTimeMs = 0.f;
+        float m_fireIntervalMinMs = 100.f;
+        float m_fireIntervalMaxMs = 10000.f;
+        float m_actionIntervalMinMs = 500.f;
+        float m_actionIntervalMaxMs = 10000.f;
 
         float m_turnRate = 0.f;
         float m_targetYawDelta = 0.f;
@@ -51,7 +62,7 @@ namespace MultiplayerSample
             Sprinting,
             Jumping,
             Crouching,
-            COUNT = Crouching
+            COUNT = Crouching + 1
         };
         Action m_action = Action::Default;
         bool m_strafingRight = false;

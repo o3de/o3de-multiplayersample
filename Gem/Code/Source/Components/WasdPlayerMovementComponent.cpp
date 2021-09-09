@@ -12,6 +12,7 @@
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
 
 namespace MultiplayerSample
@@ -22,6 +23,11 @@ namespace MultiplayerSample
 
     WasdPlayerMovementComponentController::WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent)
         : WasdPlayerMovementComponentControllerBase(parent)
+        , m_updateAI{ [this]
+                      {
+                          UpdateAI();
+                      },
+                      AZ::Name{ "MovementControllerAi" } }
     {
         ;
     }
@@ -33,7 +39,7 @@ namespace MultiplayerSample
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
             if (m_aiEnabled)
             {
-                AZ::TickBus::Handler::BusConnect();
+                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             }
             else
             {
@@ -52,24 +58,17 @@ namespace MultiplayerSample
 
     void WasdPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
-            if (m_aiEnabled)
-            {
-                AZ::TickBus::Handler::BusDisconnect();
-            }
-            else
-            {
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveLeftEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveRightEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(SprintEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(JumpEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
-            }
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveLeftEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(SprintEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(JumpEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
         }
     }
 
@@ -305,13 +304,9 @@ namespace MultiplayerSample
         }
     }
 
-    void WasdPlayerMovementComponentController::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void WasdPlayerMovementComponentController::UpdateAI()
     {
+        float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         FindComponent<NetworkAiComponent>()->TickMovement(*this, deltaTime);
-    }
-
-    int WasdPlayerMovementComponentController::GetTickOrder()
-    {
-        return AZ::ComponentTickBus::TICK_GAME;
     }
 } // namespace MultiplayerSample
