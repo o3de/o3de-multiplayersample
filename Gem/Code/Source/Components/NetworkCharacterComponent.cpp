@@ -8,12 +8,14 @@
 #include <Source/Components/NetworkCharacterComponent.h>
 #include <AzFramework/Physics/CharacterBus.h>
 #include <AzFramework/Physics/Character.h>
+#include <AzFramework/Visibility/EntityBoundsUnionBus.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <Multiplayer/NetworkTime/INetworkTime.h>
 #include <PhysXCharacters/API/CharacterController.h>
 #include <PhysX/PhysXLocks.h>
 #include <PhysX/Utils.h>
 #include <Source/Components/NetworkRigidBodyComponent.h>
+
 
 namespace MultiplayerSample
 {
@@ -186,6 +188,17 @@ namespace MultiplayerSample
         {
             return GetEntity()->GetTransform()->GetWorldTranslation();
         }
+
+        // Ensure any entities that we might interact with are properly synchronized to their rewind state
+        if (IsAuthority())
+        {
+            const AZ::Aabb entityStartBounds = AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->GetEntityLocalBoundsUnion(GetEntity()->GetId());
+            const AZ::Aabb entityFinalBounds = entityStartBounds.GetTranslated(velocity);
+            AZ::Aabb entitySweptBounds = entityStartBounds;
+            entitySweptBounds.AddAabb(entityFinalBounds);
+            Multiplayer::GetNetworkTime()->SyncEntitiesToRewindState(entitySweptBounds);
+        }
+
         GetParent().m_physicsCharacter->AddVelocity(velocity);
         GetParent().m_physicsCharacter->ApplyRequestedVelocity(deltaTime);
         GetEntity()->GetTransform()->SetWorldTranslation(GetParent().m_physicsCharacter->GetBasePosition());
