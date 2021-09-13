@@ -10,7 +10,7 @@
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
-#include <Source/Components/NetworkRigidBodyComponent.h>
+#include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
@@ -218,8 +218,7 @@ namespace MultiplayerSample
                     float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
 
                     // Look for physics rigid body component and make impact updates
-                    NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<NetworkRigidBodyComponent>();
-                    if (rigidBodyComponent)
+                    if (Multiplayer::NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<Multiplayer::NetworkRigidBodyComponent>())
                     {
                         const AZ::Vector3 hitLocation = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
                         const AZ::Vector3 hitDelta = hitEntity.m_hitPosition - hitLocation;
@@ -228,8 +227,7 @@ namespace MultiplayerSample
                     }
 
                     // Look for health component and directly update health based on hit parameters
-                    NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>();
-                    if (healthComponent)
+                    if (NetworkHealthComponent* healthComponent = entityHandle.GetEntity()->FindComponent<NetworkHealthComponent>())
                     {
                         healthComponent->SendHealthDelta(damage * -1.0f);
                     }

@@ -6,7 +6,7 @@
  */
 
 #include <Source/Components/NetworkCharacterComponent.h>
-#include <Source/Components/NetworkRigidBodyComponent.h>
+#include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <AzFramework/Visibility/EntityBoundsUnionBus.h>
 #include <AzFramework/Physics/CharacterBus.h>
 #include <AzFramework/Physics/Character.h>
@@ -57,7 +57,7 @@ namespace MultiplayerSample
                 {
                     const AZ::EntityId entityId = actorData->GetEntityId();
 
-                    if (NetworkRigidBodyRequestBus::FindFirstHandler(entityId) != nullptr)
+                    if (Multiplayer::NetworkRigidBodyRequestBus::FindFirstHandler(entityId) != nullptr)
                     {
                         // Network rigid bodies are kinematic on the client but dynamic on the server,
                         // hence filtering treats these actors as dynamic to support client prediction and avoid desyncs
