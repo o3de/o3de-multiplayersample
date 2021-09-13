@@ -146,21 +146,21 @@ namespace MultiplayerSample
         float speed = 0.0f;
         if (wasdInput.m_crouch)
         {
-            speed = GetNetworkCharacterComponentController()->GetCrouchSpeed();
+            speed = GetCrouchSpeed();
         }
         else if (fwdBack < 0.0f)
         {
-            speed = GetNetworkCharacterComponentController()->GetReverseSpeed();
+            speed = GetReverseSpeed();
         }
         else
         {
             if (wasdInput.m_sprint)
             {
-                speed = GetNetworkCharacterComponentController()->GetSprintSpeed();
+                speed = GetSprintSpeed();
             }
             else
             {
-                speed = GetNetworkCharacterComponentController()->GetWalkSpeed();
+                speed = GetWalkSpeed();
             }
         }
 

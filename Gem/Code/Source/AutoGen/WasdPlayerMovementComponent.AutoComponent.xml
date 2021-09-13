@@ -25,4 +25,10 @@
     <NetworkInput Type="bool"      Name="Jump"        Init="false" />
     <NetworkInput Type="bool"      Name="Crouch"      Init="false" />
     <NetworkInput Type="uint8_t"   Name="ResetCount"  Init="0" />
+
+    <ArchetypeProperty Type="float" Name="WalkSpeed"    Init="3.0f" ExposeToEditor="true" Description="Walk speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="SprintSpeed"  Init="5.0f" ExposeToEditor="true" Description="Sprint speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="ReverseSpeed" Init="2.0f" ExposeToEditor="true" Description="Reverse speed, units in meters per second" />
+    <ArchetypeProperty Type="float" Name="CrouchSpeed"  Init="1.5f" ExposeToEditor="true" Description="Crouching speed, units in meters per second" />
+
 </Component>
