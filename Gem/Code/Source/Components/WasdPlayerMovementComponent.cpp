@@ -8,7 +8,7 @@
 #include <Source/Components/WasdPlayerMovementComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
-#include <Source/Components/NetworkCharacterComponent.h>
+#include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>

@@ -8,7 +8,6 @@
 set(FILES
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/NetworkCharacterComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
@@ -22,8 +21,6 @@ set(FILES
     Source/Components/NetworkAiComponent.h
     Source/Components/NetworkAnimationComponent.cpp
     Source/Components/NetworkAnimationComponent.h
-    Source/Components/NetworkCharacterComponent.cpp
-    Source/Components/NetworkCharacterComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
