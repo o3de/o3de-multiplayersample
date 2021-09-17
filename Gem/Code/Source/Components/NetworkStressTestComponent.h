@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <Source/AutoGen/StressTestComponent.AutoComponent.h>
+#include <Source/AutoGen/NetworkStressTestComponent.AutoComponent.h>
 
 #if defined(IMGUI_ENABLED)
 #include <imgui/imgui.h>
@@ -17,11 +17,11 @@
 
 namespace MultiplayerSample
 {
-    class StressTestComponent
-        : public StressTestComponentBase
+    class NetworkStressTestComponent
+        : public NetworkStressTestComponentBase
     {
     public:
-        AZ_MULTIPLAYER_COMPONENT(StressTestComponent, s_stressTestComponentConcreteUuid, StressTestComponentBase);
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkStressTestComponent, s_networkStressTestComponentConcreteUuid, MultiplayerSample::NetworkStressTestComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
 
@@ -30,14 +30,14 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
     };
 
-    class StressTestComponentController
-        : public StressTestComponentControllerBase
+    class NetworkStressTestComponentController
+        : public NetworkStressTestComponentControllerBase
 #if defined(IMGUI_ENABLED)
         , public ImGui::ImGuiUpdateListenerBus::Handler
 #endif
     {
     public:
-        using StressTestComponentControllerBase::StressTestComponentControllerBase;
+        using NetworkStressTestComponentControllerBase::NetworkStressTestComponentControllerBase;
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;

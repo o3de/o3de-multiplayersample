@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
 <Component
-    Name="WasdPlayerMovementComponent" 
+    Name="NetworkWasdPlayerMovementComponent" 
     Namespace="MultiplayerSample" 
     OverrideComponent="false" 
     OverrideController="true" 
-    OverrideInclude="Source/Components/WasdPlayerMovementComponent.h"
+    OverrideInclude="Source/Components/NetworkWasdPlayerMovementComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkAnimationComponent" Namespace="MultiplayerSample" Include="Source/Components/NetworkAnimationComponent.h" />
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
-    <ComponentRelation Constraint="Required" HasController="true" Name="SimplePlayerCameraComponent" Namespace="MultiplayerSample" Include="Source/Components/SimplePlayerCameraComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkSimplePlayerCameraComponent" Namespace="MultiplayerSample" Include="Source/Components/NetworkSimplePlayerCameraComponent.h" />
 
     <Include File="Source/MultiplayerSampleTypes.h"/>
 

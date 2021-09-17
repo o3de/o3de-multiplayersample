@@ -6,10 +6,10 @@
  *
  */
 
-#include <Source/Components/StressTestComponent.h>
+#include <Source/Components/NetworkStressTestComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
-#include <Source/Components/WasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkWasdPlayerMovementComponent.h>
 
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
@@ -20,23 +20,23 @@
 
 namespace MultiplayerSample
 {
-    void StressTestComponent::Reflect(AZ::ReflectContext* context)
+    void NetworkStressTestComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
         if (serializeContext)
         {
-            serializeContext->Class<StressTestComponent, StressTestComponentBase>()
+            serializeContext->Class<NetworkStressTestComponent, NetworkStressTestComponentBase>()
                 ->Version(1);
         }
 
-        StressTestComponentBase::Reflect(context);
+        NetworkStressTestComponentBase::Reflect(context);
     }
 
-    void StressTestComponent::OnInit()
+    void NetworkStressTestComponent::OnInit()
     {
     }
 
-    void StressTestComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkStressTestComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #ifdef IMGUI_ENABLED
         ImGui::ImGuiUpdateListenerBus::Handler::BusConnect();
@@ -53,7 +53,7 @@ namespace MultiplayerSample
         }
     }
 
-    void StressTestComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkStressTestComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #ifdef IMGUI_ENABLED
         ImGui::ImGuiUpdateListenerBus::Handler::BusDisconnect();
@@ -61,7 +61,7 @@ namespace MultiplayerSample
     }
 
 #if defined(IMGUI_ENABLED)
-    void StressTestComponentController::OnImGuiMainMenuUpdate()
+    void NetworkStressTestComponentController::OnImGuiMainMenuUpdate()
     {
         if (ImGui::BeginMenu("Multiplayer Sample"))
         {
@@ -70,7 +70,7 @@ namespace MultiplayerSample
         }
     }
 
-    void StressTestComponentController::OnImGuiUpdate()
+    void NetworkStressTestComponentController::OnImGuiUpdate()
     {
         if (m_displayEntitySpawner)
         {
@@ -81,7 +81,7 @@ namespace MultiplayerSample
         }
     }
 
-    void StressTestComponentController::DrawEntitySpawner()
+    void NetworkStressTestComponentController::DrawEntitySpawner()
     {
         ImGui::SliderInt("Quantity", &m_quantity, 1, 100);
         ImGui::SliderInt("Team ID", &m_teamID, 0, 3);
@@ -125,15 +125,15 @@ namespace MultiplayerSample
     }
 #endif // defined(IMGUI_ENABLED)
 
-    void StressTestComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkStressTestComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
     }
 
-    void StressTestComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkStressTestComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
     }
 
-    void StressTestComponentController::HandleSpawnAIEntity(
+    void NetworkStressTestComponentController::HandleSpawnAIEntity(
         AzNetworking::IConnection* invokingConnection,
         const float& fireIntervalMinMs,
         const float& fireIntervalMaxMs,

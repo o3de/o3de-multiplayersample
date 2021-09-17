@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
 <Component
-    Name="StressTestComponent" 
+    Name="NetworkStressTestComponent" 
     Namespace="MultiplayerSample" 
     OverrideComponent="true" 
     OverrideController="true" 
-    OverrideInclude="Source/Components/StressTestComponent.h"
+    OverrideInclude="Source/Components/NetworkStressTestComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <NetworkProperty Type="bool" Name="Enabled" Init="true" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />

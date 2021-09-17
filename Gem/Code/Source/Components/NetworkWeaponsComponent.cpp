@@ -11,7 +11,7 @@
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
-#include <Source/Components/SimplePlayerCameraComponent.h>
+#include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
 #include <DebugDraw/DebugDrawBus.h>
@@ -361,7 +361,7 @@ namespace MultiplayerSample
         {
             if (weaponInput->m_firing.GetBit(weaponIndexInt))
             {
-                const AZ::Vector3& aimAngles = GetSimplePlayerCameraComponentController()->GetAimAngles();
+                const AZ::Vector3& aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
                 const AZ::Quaternion aimRotation =
                     AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
                 // TODO: This should probably be a physx raycast out to some maxDistance
