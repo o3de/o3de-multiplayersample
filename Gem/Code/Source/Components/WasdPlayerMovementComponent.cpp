@@ -8,7 +8,7 @@
 #include <Source/Components/WasdPlayerMovementComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
-#include <Source/Components/NetworkCharacterComponent.h>
+#include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/SimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
@@ -146,21 +146,21 @@ namespace MultiplayerSample
         float speed = 0.0f;
         if (wasdInput.m_crouch)
         {
-            speed = GetNetworkCharacterComponentController()->GetCrouchSpeed();
+            speed = GetCrouchSpeed();
         }
         else if (fwdBack < 0.0f)
         {
-            speed = GetNetworkCharacterComponentController()->GetReverseSpeed();
+            speed = GetReverseSpeed();
         }
         else
         {
             if (wasdInput.m_sprint)
             {
-                speed = GetNetworkCharacterComponentController()->GetSprintSpeed();
+                speed = GetSprintSpeed();
             }
             else
             {
-                speed = GetNetworkCharacterComponentController()->GetWalkSpeed();
+                speed = GetWalkSpeed();
             }
         }
 
