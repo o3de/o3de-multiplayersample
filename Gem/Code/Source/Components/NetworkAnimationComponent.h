@@ -51,7 +51,7 @@ namespace MultiplayerSample
         bool GetJointTransformById(int32_t boneId, AZ::Transform& outJointTransform) const;
 
     private:
-        void OnPreRender(float deltaTime, float blendFactor);
+        void OnPreRender(float deltaTime);
 
         //! EMotionFX::Integration::ActorComponentNotificationBus::Handler
         //! @{
