@@ -28,7 +28,7 @@ namespace MultiplayerSample
     }
 
     NetworkAnimationComponent::NetworkAnimationComponent()
-        : m_preRenderEventHandler([this](float deltaTime, float blendFactor) {OnPreRender(deltaTime, blendFactor); })
+        : m_preRenderEventHandler([this](float deltaTime) {OnPreRender(deltaTime); })
     {
         ;
     }
@@ -84,7 +84,7 @@ namespace MultiplayerSample
         return true;
     }
 
-    void NetworkAnimationComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
+    void NetworkAnimationComponent::OnPreRender(float deltaTime)
     {
         if (m_animationGraph == nullptr || m_networkRequests == nullptr)
         {
