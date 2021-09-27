@@ -9,7 +9,7 @@
 
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <Source/Components/WasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <AzCore/Time/ITime.h>
 #include <Multiplayer/Components/NetBindComponent.h>
@@ -40,7 +40,7 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkAiComponent::TickMovement(WasdPlayerMovementComponentController& movementController, float deltaTime)
+    void NetworkAiComponent::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
         float deltaTimeMs = deltaTime * SecondsToMs;

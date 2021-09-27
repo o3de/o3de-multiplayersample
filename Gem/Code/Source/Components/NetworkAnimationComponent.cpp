@@ -7,8 +7,8 @@
 
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
-#include <Source/Components/SimplePlayerCameraComponent.h>
-#include <Source/Components/WasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkSimplePlayerCameraComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Integration/AnimGraphComponentBus.h>
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
@@ -114,15 +114,15 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 velocity = GetWasdPlayerMovementComponent()->GetVelocity();
+            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetVelocity();
             const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
-            const float maxSpeed = GetWasdPlayerMovementComponent()->GetSprintSpeed();
+            const float maxSpeed = GetNetworkPlayerMovementComponent()->GetSprintSpeed();
             m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 aimAngles = GetSimplePlayerCameraComponent()->GetAimAngles();
+            const AZ::Vector3 aimAngles = GetNetworkSimplePlayerCameraComponent()->GetAimAngles();
             const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
             const AZ::Transform worldTm = GetEntity()->GetTransform()->GetWorldTM();
             // TODO: This should probably be a physx raycast out to some maxDistance

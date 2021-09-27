@@ -7,17 +7,17 @@
 
 #pragma once
 
-#include <Source/AutoGen/SimplePlayerCameraComponent.AutoComponent.h>
+#include <Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.h>
 #include <AzCore/Component/TickBus.h>
 
 namespace MultiplayerSample
 {
-    class SimplePlayerCameraComponentController
-        : public SimplePlayerCameraComponentControllerBase
+    class NetworkSimplePlayerCameraComponentController
+        : public NetworkSimplePlayerCameraComponentControllerBase
         , private AZ::TickBus::Handler
     {
     public:
-        SimplePlayerCameraComponentController(SimplePlayerCameraComponent& parent);
+        NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating);
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating);

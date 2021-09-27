@@ -14,7 +14,7 @@
 
 #include <Source/AutoGen/AutoComponentTypes.h>
 #include <Source/Weapons/WeaponTypes.h>
-#include <Source/Components/StressTestComponent.h>
+#include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 
 #include <Multiplayer/IMultiplayer.h>
