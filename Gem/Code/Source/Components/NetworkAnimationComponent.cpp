@@ -8,7 +8,7 @@
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
-#include <Source/Components/NetworkWasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Integration/AnimGraphComponentBus.h>
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
@@ -114,9 +114,9 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 velocity = GetNetworkWasdPlayerMovementComponent()->GetVelocity();
+            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetVelocity();
             const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
-            const float maxSpeed = GetNetworkWasdPlayerMovementComponent()->GetSprintSpeed();
+            const float maxSpeed = GetNetworkPlayerMovementComponent()->GetSprintSpeed();
             m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
         }
 

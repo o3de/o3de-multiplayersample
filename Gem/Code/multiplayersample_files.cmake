@@ -14,7 +14,7 @@ set(FILES
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWasdPlayerMovementComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -33,8 +33,8 @@ set(FILES
     Source/Components/NetworkSimplePlayerCameraComponent.h
     Source/Components/NetworkStressTestComponent.cpp
     Source/Components/NetworkStressTestComponent.h
-    Source/Components/NetworkWasdPlayerMovementComponent.cpp
-    Source/Components/NetworkWasdPlayerMovementComponent.h
+    Source/Components/NetworkPlayerMovementComponent.cpp
+    Source/Components/NetworkPlayerMovementComponent.h
     Source/Weapons/BaseWeapon.cpp
     Source/Weapons/BaseWeapon.h
     Source/Weapons/IWeapon.h

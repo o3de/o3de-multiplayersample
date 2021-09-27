@@ -9,7 +9,7 @@
 #include <Source/Components/NetworkStressTestComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
-#include <Source/Components/NetworkWasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>

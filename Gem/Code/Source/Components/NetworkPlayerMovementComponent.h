@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <Source/AutoGen/NetworkWasdPlayerMovementComponent.AutoComponent.h>
+#include <Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
 namespace MultiplayerSample
@@ -25,23 +25,26 @@ namespace MultiplayerSample
     const StartingPointInput::InputEventNotificationId LookLeftRightEventId("lookLeftRight");
     const StartingPointInput::InputEventNotificationId LookUpDownEventId("lookUpDown");
 
-    class NetworkWasdPlayerMovementComponentController
-        : public NetworkWasdPlayerMovementComponentControllerBase
+    class NetworkPlayerMovementComponentController
+        : public NetworkPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
     {
     public:
-        NetworkWasdPlayerMovementComponentController(NetworkWasdPlayerMovementComponent& parent);
+        NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent);
 
+        //! NetworkPlayerMovementComponentControllerBase
+        //! @{
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void CreateInput(Multiplayer::NetworkInput& input, float deltaTime) override;
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
-
+        //! @}
+    
     private:
         friend class NetworkAiComponent;
 
-        void UpdateVelocity(const NetworkWasdPlayerMovementComponentNetworkInput& wasdInput);
+        void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput);
         float NormalizeHeading(float heading) const;
 
         //! AZ::InputEventNotificationBus interface

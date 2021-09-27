@@ -14,11 +14,11 @@
 namespace MultiplayerSample
 {
     class NetworkWeaponsComponentController;
-    class NetworkWasdPlayerMovementComponentController;
+    class NetworkPlayerMovementComponentController;
 
 
     // The NetworkAiComponent, when active, can execute behaviors and produce synthetic inputs to drive the
-    // NetworkWasdPlayerMovementComponentController and NetworkWeaponsComponentController.
+    // NetworkPlayerMovementComponentController and NetworkWeaponsComponentController.
     class NetworkAiComponent : public NetworkAiComponentBase
     {
     public:
@@ -33,7 +33,7 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void TickMovement(NetworkWasdPlayerMovementComponentController& movementController, float deltaTime);
+        void TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime);
         void TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime);
 
     private:

@@ -5,7 +5,7 @@
  *
  */
 
-#include <Source/Components/NetworkWasdPlayerMovementComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
@@ -21,8 +21,8 @@ namespace MultiplayerSample
     AZ_CVAR(float, cl_AimStickScaleZ, 0.1f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
     AZ_CVAR(float, cl_AimStickScaleX, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
 
-    NetworkWasdPlayerMovementComponentController::NetworkWasdPlayerMovementComponentController(NetworkWasdPlayerMovementComponent& parent)
-        : NetworkWasdPlayerMovementComponentControllerBase(parent)
+    NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
+        : NetworkPlayerMovementComponentControllerBase(parent)
         , m_updateAI{ [this]
                       {
                           UpdateAI();
@@ -32,7 +32,7 @@ namespace MultiplayerSample
         ;
     }
 
-    void NetworkWasdPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         if (IsAutonomous())
         {
@@ -56,7 +56,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkWasdPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         if (IsAutonomous() && !m_aiEnabled)
         {
@@ -72,7 +72,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkWasdPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
+    void NetworkPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
         // Movement axis
         // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
@@ -83,48 +83,48 @@ namespace MultiplayerSample
         m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
 
         // Inputs for your own component always exist
-        NetworkWasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<NetworkWasdPlayerMovementComponentNetworkInput>();
+        NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        wasdInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
-        wasdInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
+        playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
+        playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
         // View Axis
-        wasdInput->m_viewYaw = MouseAxis(m_viewYaw);
-        wasdInput->m_viewPitch = MouseAxis(m_viewPitch);
+        playerInput->m_viewYaw = MouseAxis(m_viewYaw);
+        playerInput->m_viewPitch = MouseAxis(m_viewPitch);
 
         // Strafe input
-        wasdInput->m_sprint = m_sprinting;
-        wasdInput->m_jump = m_jumping;
-        wasdInput->m_crouch = m_crouching;
+        playerInput->m_sprint = m_sprinting;
+        playerInput->m_jump = m_jumping;
+        playerInput->m_crouch = m_crouching;
 
         // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client
         // through correction packets
-        wasdInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
+        playerInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
     }
 
-    void NetworkWasdPlayerMovementComponentController::ProcessInput(Multiplayer::NetworkInput& input, float deltaTime)
+    void NetworkPlayerMovementComponentController::ProcessInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
         // If the input reset count doesn't match the state's reset count it can mean two things:
         //  1) On the server: we were reset and we are now receiving inputs from the client for an old reset count
         //  2) On the client: we were reset and we are replaying old inputs after being corrected
         // In both cases we don't want to process these inputs
-        NetworkWasdPlayerMovementComponentNetworkInput* wasdInput = input.FindComponentInput<NetworkWasdPlayerMovementComponentNetworkInput>();
-        if (wasdInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
+        NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
+        if (playerInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
             return;
         }
 
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), wasdInput->m_sprint);
+            aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), playerInput->m_sprint);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), wasdInput->m_jump);
+            aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), playerInput->m_jump);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), wasdInput->m_crouch);
+            aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), playerInput->m_crouch);
 
         // Update orientation
         AZ::Vector3 aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
-        aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - wasdInput->m_viewYaw * cl_AimStickScaleZ));
-        aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - wasdInput->m_viewPitch * cl_AimStickScaleX));
+        aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - playerInput->m_viewYaw * cl_AimStickScaleZ));
+        aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - playerInput->m_viewPitch * cl_AimStickScaleX));
         aimAngles.SetX(
             NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.75f, AZ::Constants::QuarterPi * 0.75f)));
         GetNetworkSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
@@ -133,18 +133,18 @@ namespace MultiplayerSample
         GetEntity()->GetTransform()->SetLocalRotationQuaternion(newOrientation);
 
         // Update velocity
-        UpdateVelocity(*wasdInput);
+        UpdateVelocity(*playerInput);
 
         GetNetworkCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
     }
 
-    void NetworkWasdPlayerMovementComponentController::UpdateVelocity(const NetworkWasdPlayerMovementComponentNetworkInput& wasdInput)
+    void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput)
     {
-        const float fwdBack = wasdInput.m_forwardAxis;
-        const float leftRight = wasdInput.m_strafeAxis;
+        const float fwdBack = playerInput.m_forwardAxis;
+        const float leftRight = playerInput.m_strafeAxis;
 
         float speed = 0.0f;
-        if (wasdInput.m_crouch)
+        if (playerInput.m_crouch)
         {
             speed = GetCrouchSpeed();
         }
@@ -154,7 +154,7 @@ namespace MultiplayerSample
         }
         else
         {
-            if (wasdInput.m_sprint)
+            if (playerInput.m_sprint)
             {
                 speed = GetSprintSpeed();
             }
@@ -180,7 +180,7 @@ namespace MultiplayerSample
         }
     }
 
-    float NetworkWasdPlayerMovementComponentController::NormalizeHeading(float heading) const
+    float NetworkPlayerMovementComponentController::NormalizeHeading(float heading) const
     {
         // Ensure heading in range [-pi, +pi]
         if (heading > AZ::Constants::Pi)
@@ -194,7 +194,7 @@ namespace MultiplayerSample
         return heading;
     }
 
-    void NetworkWasdPlayerMovementComponentController::OnPressed(float value)
+    void NetworkPlayerMovementComponentController::OnPressed(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -240,7 +240,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkWasdPlayerMovementComponentController::OnReleased(float value)
+    void NetworkPlayerMovementComponentController::OnReleased(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -286,7 +286,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkWasdPlayerMovementComponentController::OnHeld(float value)
+    void NetworkPlayerMovementComponentController::OnHeld(float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -304,7 +304,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkWasdPlayerMovementComponentController::UpdateAI()
+    void NetworkPlayerMovementComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         FindComponent<NetworkAiComponent>()->TickMovement(*this, deltaTime);
