@@ -32,9 +32,20 @@ namespace MultiplayerSample
         MAX
     };
     using CharacterAnimStateBitset = AzNetworking::FixedSizeBitset<static_cast<AZStd::size_t>(CharacterAnimState::MAX)>;
+
+    enum class Action
+    {
+        Default,
+        Strafing,
+        Sprinting,
+        Jumping,
+        Crouching,
+        COUNT = Crouching + 1
+    };
 }
 
 namespace AZ
 {
     AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::CharacterAnimState, "{2DC36B4D-3B14-45A8-911A-60F8732F6A88}");
+    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::Action, "{1BFDEBD3-ED36-465D-BFA0-9160CFB24F37}");
 }

@@ -34,25 +34,24 @@ namespace MultiplayerSample
 
     void NetworkPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        NetworkAiComponent* networkAiComponent = FindComponent<NetworkAiComponent>();
+        m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
+        if (m_aiEnabled)
         {
-            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
-            if (m_aiEnabled)
-            {
-                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
-            }
-            else
-            {
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
-            }
+            m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
+            m_networkAiComponentController = static_cast<NetworkAiComponentController*>(networkAiComponent->GetController());
+        }
+        else if (IsAutonomous())
+        {
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
         }
     }
 
@@ -307,6 +306,9 @@ namespace MultiplayerSample
     void NetworkPlayerMovementComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
-        FindComponent<NetworkAiComponent>()->TickMovement(*this, deltaTime);
+        if (m_networkAiComponentController != nullptr)
+        {
+            m_networkAiComponentController->TickMovement(*this, deltaTime);
+        }
     }
 } // namespace MultiplayerSample

@@ -128,24 +128,24 @@ namespace MultiplayerSample
             return;
         }
 
-        if (cl_WeaponsDrawDebug && m_debugDraw)
-        {
-            m_debugDraw->DrawSphereAtLocation
-            (
-                activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
-                cl_WeaponsDrawDebugSize,
-                AZ::Colors::Green,
-                cl_WeaponsDrawDebugDurationSec
-            );
-
-            m_debugDraw->DrawSphereAtLocation
-            (
-                activationInfo.m_activateEvent.m_targetPosition,
-                cl_WeaponsDrawDebugSize,
-                AZ::Colors::Yellow,
-                cl_WeaponsDrawDebugDurationSec
-            );
-        }
+        //if (cl_WeaponsDrawDebug && m_debugDraw)
+        //{
+        //    m_debugDraw->DrawSphereAtLocation
+        //    (
+        //        activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
+        //        cl_WeaponsDrawDebugSize,
+        //        AZ::Colors::Green,
+        //        cl_WeaponsDrawDebugDurationSec
+        //    );
+        //
+        //    m_debugDraw->DrawSphereAtLocation
+        //    (
+        //        activationInfo.m_activateEvent.m_targetPosition,
+        //        cl_WeaponsDrawDebugSize,
+        //        AZ::Colors::Yellow,
+        //        cl_WeaponsDrawDebugDurationSec
+        //    );
+        //}
     }
 
     void NetworkWeaponsComponent::OnWeaponHit(const WeaponHitInfo& hitInfo)
@@ -173,16 +173,16 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
-            if (cl_WeaponsDrawDebug && m_debugDraw)
-            {
-                m_debugDraw->DrawSphereAtLocation
-                (
-                    hitEntity.m_hitPosition,
-                    cl_WeaponsDrawDebugSize,
-                    AZ::Colors::Orange,
-                    cl_WeaponsDrawDebugDurationSec
-                );
-            }
+            //if (cl_WeaponsDrawDebug && m_debugDraw)
+            //{
+            //    m_debugDraw->DrawSphereAtLocation
+            //    (
+            //        hitEntity.m_hitPosition,
+            //        cl_WeaponsDrawDebugSize,
+            //        AZ::Colors::Orange,
+            //        cl_WeaponsDrawDebugDurationSec
+            //    );
+            //}
 
             AZLOG
             (
@@ -242,16 +242,16 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
-            if (cl_WeaponsDrawDebug && m_debugDraw)
-            {
-                m_debugDraw->DrawSphereAtLocation
-                (
-                    hitEntity.m_hitPosition,
-                    cl_WeaponsDrawDebugSize,
-                    AZ::Colors::Red,
-                    cl_WeaponsDrawDebugDurationSec
-                );
-            }
+            //if (cl_WeaponsDrawDebug && m_debugDraw)
+            //{
+            //    m_debugDraw->DrawSphereAtLocation
+            //    (
+            //        hitEntity.m_hitPosition,
+            //        cl_WeaponsDrawDebugSize,
+            //        AZ::Colors::Red,
+            //        cl_WeaponsDrawDebugDurationSec
+            //    );
+            //}
 
             AZLOG
             (
@@ -307,19 +307,18 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        NetworkAiComponent* networkAiComponent = FindComponent<NetworkAiComponent>();
+        m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
+        if (m_aiEnabled)
         {
-            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
-            if (m_aiEnabled)
-            {
-                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
-            }
-            else
-            {
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
-            }
+            m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
+            m_networkAiComponentController = static_cast<NetworkAiComponentController*>(networkAiComponent->GetController());
+        }
+        else if (IsAutonomous())
+        {
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
         }
     }
 
@@ -479,6 +478,9 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
-        FindComponent<NetworkAiComponent>()->TickWeapons(*this, deltaTime);
+        if (m_networkAiComponentController != nullptr)
+        {
+            m_networkAiComponentController->TickWeapons(*this, deltaTime);
+        }
     }
 } // namespace MultiplayerSample
