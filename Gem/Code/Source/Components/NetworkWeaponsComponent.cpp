@@ -137,7 +137,7 @@ namespace MultiplayerSample
                 AZ::Colors::Green,
                 cl_WeaponsDrawDebugDurationSec
             );
-        
+
             m_debugDraw->DrawSphereAtLocation
             (
                 activationInfo.m_activateEvent.m_targetPosition,
