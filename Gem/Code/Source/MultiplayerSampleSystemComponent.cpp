@@ -32,6 +32,8 @@ namespace MultiplayerSample
         GatherParams::Reflect(context);
         HitEffect::Reflect(context);
         WeaponParams::Reflect(context);
+        StickAxis::Reflect(context, "StickAxis");
+        MouseAxis::Reflect(context, "MouseAxis");
 
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
