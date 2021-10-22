@@ -128,24 +128,24 @@ namespace MultiplayerSample
             return;
         }
 
-        //if (cl_WeaponsDrawDebug && m_debugDraw)
-        //{
-        //    m_debugDraw->DrawSphereAtLocation
-        //    (
-        //        activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
-        //        cl_WeaponsDrawDebugSize,
-        //        AZ::Colors::Green,
-        //        cl_WeaponsDrawDebugDurationSec
-        //    );
-        //
-        //    m_debugDraw->DrawSphereAtLocation
-        //    (
-        //        activationInfo.m_activateEvent.m_targetPosition,
-        //        cl_WeaponsDrawDebugSize,
-        //        AZ::Colors::Yellow,
-        //        cl_WeaponsDrawDebugDurationSec
-        //    );
-        //}
+        if (cl_WeaponsDrawDebug && m_debugDraw)
+        {
+            m_debugDraw->DrawSphereAtLocation
+            (
+                activationInfo.m_activateEvent.m_initialTransform.GetTranslation(),
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Green,
+                cl_WeaponsDrawDebugDurationSec
+            );
+        
+            m_debugDraw->DrawSphereAtLocation
+            (
+                activationInfo.m_activateEvent.m_targetPosition,
+                cl_WeaponsDrawDebugSize,
+                AZ::Colors::Yellow,
+                cl_WeaponsDrawDebugDurationSec
+            );
+        }
     }
 
     void NetworkWeaponsComponent::OnWeaponHit(const WeaponHitInfo& hitInfo)
@@ -173,16 +173,16 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
-            //if (cl_WeaponsDrawDebug && m_debugDraw)
-            //{
-            //    m_debugDraw->DrawSphereAtLocation
-            //    (
-            //        hitEntity.m_hitPosition,
-            //        cl_WeaponsDrawDebugSize,
-            //        AZ::Colors::Orange,
-            //        cl_WeaponsDrawDebugDurationSec
-            //    );
-            //}
+            if (cl_WeaponsDrawDebug && m_debugDraw)
+            {
+                m_debugDraw->DrawSphereAtLocation
+                (
+                    hitEntity.m_hitPosition,
+                    cl_WeaponsDrawDebugSize,
+                    AZ::Colors::Orange,
+                    cl_WeaponsDrawDebugDurationSec
+                );
+            }
 
             AZLOG
             (
@@ -242,16 +242,16 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
-            //if (cl_WeaponsDrawDebug && m_debugDraw)
-            //{
-            //    m_debugDraw->DrawSphereAtLocation
-            //    (
-            //        hitEntity.m_hitPosition,
-            //        cl_WeaponsDrawDebugSize,
-            //        AZ::Colors::Red,
-            //        cl_WeaponsDrawDebugDurationSec
-            //    );
-            //}
+            if (cl_WeaponsDrawDebug && m_debugDraw)
+            {
+                m_debugDraw->DrawSphereAtLocation
+                (
+                    hitEntity.m_hitPosition,
+                    cl_WeaponsDrawDebugSize,
+                    AZ::Colors::Red,
+                    cl_WeaponsDrawDebugDurationSec
+                );
+            }
 
             AZLOG
             (
