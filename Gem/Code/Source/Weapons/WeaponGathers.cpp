@@ -16,6 +16,7 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(uint32_t, bg_MultitraceNumTraceSegments, 3, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of segments to use when performing multitrace casts");
+    AZ_CVAR(bool, bg_DrawPhysicsRaycasts, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, will debug draw physics raycasts");
 
     IntersectFilter::IntersectFilter
     (
@@ -60,14 +61,17 @@ namespace MultiplayerSample
             collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
         SceneQuery::WorldIntersect(intersectShape, filter, outResults);
 
-        DebugDraw::DebugDrawRequestBus::Broadcast
-        (
-            &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
-            eventData.m_initialTransform.GetTranslation(),
-            eventData.m_targetPosition,
-            AZ::Colors::Red,
-            10.0f
-        );
+        if (bg_DrawPhysicsRaycasts)
+        {
+            DebugDraw::DebugDrawRequestBus::Broadcast
+            (
+                &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
+                eventData.m_initialTransform.GetTranslation(),
+                eventData.m_targetPosition,
+                AZ::Colors::Red,
+                10.0f
+            );
+        }
 
         return true;
     }
@@ -118,14 +122,17 @@ namespace MultiplayerSample
                 hitMultiple, collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
             SceneQuery::WorldIntersect(gatherParams.m_gatherShape, filter, outResults);
 
-            DebugDraw::DebugDrawRequestBus::Broadcast
-            (
-                &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
-                currSegmentPosition,
-                nextSegmentPosition,
-                AZ::Colors::Red,
-                10.0f
-            );
+            if (bg_DrawPhysicsRaycasts)
+            {
+                DebugDraw::DebugDrawRequestBus::Broadcast
+                (
+                    &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
+                    currSegmentPosition,
+                    nextSegmentPosition,
+                    AZ::Colors::Red,
+                    10.0f
+                );
+            }
 
             // Terminate the loop if we hit something
             if (((outResults.size() > 0) && !gatherParams.m_multiHit) || (travelDistance.GetLengthSq() > maxTravelDistanceSq))

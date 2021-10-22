@@ -307,19 +307,18 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        NetworkAiComponent* networkAiComponent = FindComponent<NetworkAiComponent>();
+        m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
+        if (m_aiEnabled)
         {
-            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
-            if (m_aiEnabled)
-            {
-                m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
-            }
-            else
-            {
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
-                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
-            }
+            m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
+            m_networkAiComponentController = static_cast<NetworkAiComponentController*>(networkAiComponent->GetController());
+        }
+        else if (IsAutonomous())
+        {
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FireSecondaryEventId);
         }
     }
 
@@ -479,6 +478,9 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
-        FindComponent<NetworkAiComponent>()->TickWeapons(*this, deltaTime);
+        if (m_networkAiComponentController != nullptr)
+        {
+            m_networkAiComponentController->TickWeapons(*this, deltaTime);
+        }
     }
 } // namespace MultiplayerSample

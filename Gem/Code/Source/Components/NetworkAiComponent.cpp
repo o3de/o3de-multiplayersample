@@ -6,66 +6,79 @@
  */
 
 #include <Source/Components/NetworkAiComponent.h>
-
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/Serialization/SerializeContext.h>
 #include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Source/Components/NetworkWeaponsComponent.h>
-#include <AzCore/Time/ITime.h>
 #include <Multiplayer/Components/NetBindComponent.h>
+#include <Multiplayer/Components/LocalPredictionPlayerInputComponent.h>
+#include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Time/ITime.h>
 
 namespace MultiplayerSample
 {
     constexpr static float SecondsToMs = 1000.f;
 
-    void NetworkAiComponent::Reflect(AZ::ReflectContext* context)
+    NetworkAiComponentController::NetworkAiComponentController(NetworkAiComponent& parent)
+        : NetworkAiComponentControllerBase(parent)
     {
-        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+    }
+
+    void NetworkAiComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        if (GetEnabled())
         {
-            serializeContext->Class<NetworkAiComponent, NetworkAiComponentBase>()->Version(1);
+            Multiplayer::LocalPredictionPlayerInputComponent* playerInputComponent = FindComponent<Multiplayer::LocalPredictionPlayerInputComponent>();
+            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = (playerInputComponent != nullptr) ?
+                static_cast<Multiplayer::LocalPredictionPlayerInputComponentController*>(playerInputComponent->GetController()) : nullptr;
+
+            if (playerInputController != nullptr)
+            {
+                playerInputController->ForceEnableAutonomousUpdate();
+            }
         }
-
-        NetworkAiComponentBase::Reflect(context);
     }
 
-    void NetworkAiComponent::OnInit()
+    void NetworkAiComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        if (GetEnabled())
+        {
+            Multiplayer::LocalPredictionPlayerInputComponent* playerInputComponent = FindComponent<Multiplayer::LocalPredictionPlayerInputComponent>();
+            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = (playerInputComponent != nullptr) ?
+                static_cast<Multiplayer::LocalPredictionPlayerInputComponentController*>(playerInputComponent->GetController()) : nullptr;
+
+            if (playerInputController != nullptr)
+            {
+                playerInputController->ForceDisableAutonomousUpdate();
+            }
+        }
     }
 
-    void NetworkAiComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-    }
-
-    void NetworkAiComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-    }
-
-    void NetworkAiComponent::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
+    void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
         float deltaTimeMs = deltaTime * SecondsToMs;
-        m_remainingTimeMs -= deltaTimeMs;
+        ModifyRemainingTimeMs() -= deltaTimeMs;
 
-        if (m_remainingTimeMs <= 0)
+        if (GetRemainingTimeMs() <= 0)
         {
             // Determine a new directive after 500 to 9500 ms
-            m_remainingTimeMs = m_lcg.GetRandomFloat() * (m_actionIntervalMaxMs - m_actionIntervalMinMs) + m_actionIntervalMinMs;
-            m_turnRate = 1.f / m_remainingTimeMs;
+            SetRemainingTimeMs(m_lcg.GetRandomFloat() * (GetActionIntervalMaxMs() - GetActionIntervalMinMs()) + GetActionIntervalMinMs());
+            SetTurnRate(1.f / GetRemainingTimeMs());
 
             // Randomize new target yaw and pitch and compute the delta from the current yaw and pitch respectively
-            m_targetYawDelta = -movementController.m_viewYaw + (m_lcg.GetRandomFloat() * 2.f - 1.f);
-            m_targetPitchDelta = -movementController.m_viewPitch + (m_lcg.GetRandomFloat() - 0.5f);
+            SetTargetYawDelta(-movementController.m_viewYaw + (m_lcg.GetRandomFloat() * 2.f - 1.f));
+            SetTargetPitchDelta(-movementController.m_viewPitch + (m_lcg.GetRandomFloat() - 0.5f));
 
             // Randomize the action and strafe direction (used only if we decide to strafe)
-            m_action = static_cast<Action>(m_lcg.GetRandom() % static_cast<int>(Action::COUNT));
-            m_strafingRight = static_cast<bool>(m_lcg.GetRandom() % 2);
+            SetAction(static_cast<Action>(m_lcg.GetRandom() % static_cast<int>(Action::COUNT)));
+            SetStrafingRight(static_cast<bool>(m_lcg.GetRandom() % 2));
         }
 
         // Translate desired motion into inputs
 
         // Interpolate the current view yaw and pitch values towards the desired values
-        movementController.m_viewYaw += m_turnRate * deltaTimeMs * m_targetYawDelta;
-        movementController.m_viewPitch += m_turnRate * deltaTimeMs * m_targetPitchDelta;
+        movementController.m_viewYaw += GetTurnRate() * deltaTimeMs * GetTargetYawDelta();
+        movementController.m_viewPitch += GetTurnRate() * deltaTimeMs * GetTargetPitchDelta();
 
         // Reset keyboard movement inputs decided on the previous frame
         movementController.m_forwardDown = false;
@@ -76,7 +89,7 @@ namespace MultiplayerSample
         movementController.m_jumping = false;
         movementController.m_crouching = false;
 
-        switch (m_action)
+        switch (GetAction())
         {
         case Action::Default:
             movementController.m_forwardDown = true;
@@ -94,7 +107,7 @@ namespace MultiplayerSample
             movementController.m_crouching = true;
             break;
         case Action::Strafing:
-            if (m_strafingRight)
+            if (GetStrafingRight())
             {
                 movementController.m_rightDown = true;
             }
@@ -108,34 +121,34 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkAiComponent::TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime)
+    void NetworkAiComponentController::TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
-        m_timeToNextShot -= deltaTime * SecondsToMs;
-        if (m_timeToNextShot <= 0)
+        ModifyTimeToNextShot() -= deltaTime * SecondsToMs;
+        if (GetTimeToNextShot() <= 0)
         {
-            if (m_shotFired)
+            if (GetShotFired())
             {
                 // Fire weapon between 100 and 10000 ms from now
-                m_timeToNextShot = m_lcg.GetRandomFloat() * (m_fireIntervalMaxMs - m_fireIntervalMinMs) + m_fireIntervalMinMs;
-                m_shotFired = false;
+                SetTimeToNextShot(m_lcg.GetRandomFloat() * (GetFireIntervalMaxMs() - GetFireIntervalMinMs()) + GetFireIntervalMinMs());
+                SetShotFired(false);
                 weaponsController.m_weaponFiring = false;
             }
             else
             {
                 weaponsController.m_weaponFiring = true;
-                m_shotFired = true;
+                SetShotFired(true);
             }
         }
     }
 
-    void NetworkAiComponent::ConfigureAi(
+    void NetworkAiComponentController::ConfigureAi(
             float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed)
     {
-        m_fireIntervalMinMs = fireIntervalMinMs;
-        m_fireIntervalMaxMs = fireIntervalMaxMs;
-        m_actionIntervalMinMs = actionIntervalMinMs;
-        m_actionIntervalMaxMs = actionIntervalMaxMs;
+        SetFireIntervalMinMs(fireIntervalMinMs);
+        SetFireIntervalMaxMs(fireIntervalMaxMs);
+        SetActionIntervalMinMs(actionIntervalMinMs);
+        SetActionIntervalMaxMs(actionIntervalMaxMs);
         m_lcg.SetSeed(seed);
     }
 }

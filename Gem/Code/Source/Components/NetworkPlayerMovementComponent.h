@@ -42,7 +42,7 @@ namespace MultiplayerSample
         //! @}
     
     private:
-        friend class NetworkAiComponent;
+        friend class NetworkAiComponentController;
 
         void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput);
         float NormalizeHeading(float heading) const;
@@ -57,6 +57,12 @@ namespace MultiplayerSample
         void UpdateAI();
 
         AZ::ScheduledEvent m_updateAI;
+        NetworkAiComponentController* m_networkAiComponentController = nullptr;
+
+        // Technically these values should never migrate hosts since they are maintained by the autonomous client
+        // But due to how the stress test chaos monkey operates, it puppets these values on the server to mimic a client
+        // This means these values can and will migrate between hosts (and lose any stored state)
+        // We will need to consider moving these values to Authority to Server network properties if the design doesn't change
         float m_forwardWeight = 0.0f;
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;
@@ -65,14 +71,13 @@ namespace MultiplayerSample
         float m_viewYaw = 0.0f;
         float m_viewPitch = 0.0f;
 
-        bool  m_forwardDown = false;
-        bool  m_leftDown = false;
-        bool  m_backwardDown = false;
-        bool  m_rightDown = false;
-        bool  m_sprinting = false;
-        bool  m_jumping = false;
-        bool  m_crouching = false;
-
+        bool m_forwardDown = false;
+        bool m_leftDown = false;
+        bool m_backwardDown = false;
+        bool m_rightDown = false;
+        bool m_sprinting = false;
+        bool m_jumping = false;
+        bool m_crouching = false;
         bool m_aiEnabled = false;
     };
 }

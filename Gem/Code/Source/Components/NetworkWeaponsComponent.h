@@ -79,7 +79,7 @@ namespace MultiplayerSample
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
     private:
-        friend class NetworkAiComponent;
+        friend class NetworkAiComponentController;
 
         void UpdateAI();
 
@@ -99,6 +99,12 @@ namespace MultiplayerSample
         //! @}
 
         AZ::ScheduledEvent m_updateAI;
+        NetworkAiComponentController* m_networkAiComponentController = nullptr;
+
+        // Technically these values should never migrate hosts since they are maintained by the autonomous client
+        // But due to how the stress test chaos monkey operates, it puppets these values on the server to mimick a client
+        // This means these values can and will migrate between hosts (and lose any stored state)
+        // We will need to consider moving these values to Authority to Server network properties if the design doesn't change
         bool m_aiEnabled = false;
         bool m_weaponDrawn = false;
         WeaponActivationBitset m_weaponFiring;
