@@ -9,6 +9,7 @@
 
 #include <Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
+#include "NetworkAiComponent.h"
 
 namespace MultiplayerSample
 {
