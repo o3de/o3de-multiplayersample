@@ -8,9 +8,9 @@
 #pragma once
 
 #include <Source/AutoGen/NetworkWeaponsComponent.AutoComponent.h>
+#include <Source/Components/NetworkAiComponent.h>
 #include <Source/Weapons/IWeapon.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
-#include "NetworkAiComponent.h"
 
 namespace DebugDraw { class DebugDrawRequests; }
 
