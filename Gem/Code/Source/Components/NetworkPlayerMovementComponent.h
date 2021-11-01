@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.h>
+#include <Source/Components/NetworkAiComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
 namespace MultiplayerSample
