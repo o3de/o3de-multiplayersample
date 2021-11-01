@@ -187,7 +187,7 @@ namespace MultiplayerSample
             AZLOG
             (
                 NET_Weapons,
-                "Predicted hit on entity %u at position %f x %f x %f",
+                "Predicted hit on entity %" PRIu64 " at position %f x %f x %f",
                 hitEntity.m_hitNetEntityId,
                 hitEntity.m_hitPosition.GetX(),
                 hitEntity.m_hitPosition.GetY(),
@@ -256,7 +256,7 @@ namespace MultiplayerSample
             AZLOG
             (
                 NET_Weapons,
-                "Confirmed hit on entity %u at position %f x %f x %f",
+                "Confirmed hit on entity %" PRIu64 " at position %f x %f x %f",
                 hitEntity.m_hitNetEntityId,
                 hitEntity.m_hitPosition.GetX(),
                 hitEntity.m_hitPosition.GetY(),
