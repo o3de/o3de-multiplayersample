@@ -46,7 +46,9 @@ namespace MultiplayerSample
         {
         case Multiplayer::MultiplayerAgentType::DedicatedServer:
         case Multiplayer::MultiplayerAgentType::ClientServer:
+#ifdef IMGUI_ENABLED
             m_isServer = true;
+#endif
             break;
         default:
             break;
