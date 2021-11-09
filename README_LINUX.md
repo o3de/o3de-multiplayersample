@@ -1,7 +1,7 @@
 # MultiplayerSample Project for Linux
 ## Download and Install
 
-This README covers installation and running MultiplayerSample project on Ubuntu Linux. 
+This README covers installation and running MultiplayerSample project on Ubuntu Linux.
 Refer [Open 3D Engine on Linux](https://o3de.org/docs/user-guide/platforms/linux/) for setting up the engine on Linux.
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
@@ -14,9 +14,9 @@ You will need your personal access token credentials to authenticate when you cl
 [Create a personal access token with the 'repo' scope.](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 
 
-### (Recommended) Verify you have a credential manager installed to store your credentials 
+### (Recommended) Verify you have a credential manager installed to store your credentials
 
-Recent versions of Git install a credential manager to store your credentials so you don't have to put in the credentials for every request.  
+Recent versions of Git install a credential manager to store your credentials so you don't have to put in the credentials for every request.
 It is highly recommended you check that you have a [credential manager installed and configured](https://github.com/microsoft/Git-Credential-Manager-Core#linux)
 
 
@@ -39,7 +39,7 @@ Cloning into 'o3de-multiplayersample'...
 ```
 
 
-### Step 2. Register the engine and project 
+### Step 2. Register the engine and project
 
 ```shell
 # Register the engine (only need to do this once).
@@ -50,7 +50,7 @@ Cloning into 'o3de-multiplayersample'...
 > ./scripts/o3de.sh register -p ~/git/o3de-multiplayersample
 ```
 
-### Step 3. Configure and build with Project-centric approach 
+### Step 3. Configure and build with Project-centric approach
 
 This option will output all the project binaries in the project's build folder e.g. **~/git/o3de-multiplayersample/build**.
 
@@ -63,18 +63,16 @@ This option will output all the project binaries in the project's build folder e
 > cmake .. -G "Ninja Multi-Config" -DCMAKE_BUILD_TYPE=profile -DLY_3RDPARTY_PATH=~/ws/3rdParty -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DLY_PROJECTS="~/git/o3de-multiplayersample"
 
 # Build the Editor, game launcher and server launcher.
-> cmake --build . --config profile --target Editor
-> cmake --build . --config profile --target MultiplayerSample.GameLauncher
-> cmake --build . --config profile --target MultiplayerSample.ServerLauncher
+> cmake --build . --config profile --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher
 ```
 
-#### Step 3b. (Optional) Build and Run Multiplayer Unittests
+#### Step 3b. (Optional) Build and Run Multiplayer Unit Tests
 
 ```shell
 > cd ~/git/o3de-multiplayersample/build
 
 > cmake --build . --config profile --target Multiplayer.Tests
-# Run unittests and benchmarks
+# Run unit tests and benchmarks
 > ./bin/profile/AzTestRunner ./bin/profile/libMultiplayer.Tests.so AzRunBenchmarks
 > ./bin/profile/AzTestRunner ./bin/profile/libMultiplayer.Tests.so AzRunUnitTests
 ```
@@ -94,12 +92,12 @@ host
 LoadLevel Levels/SampleBase/SampleBase.spawnable
 ```
 
-### Step 5. Verify Asset Processor 
+### Step 5. Verify Asset Processor
 
 ```shell
 > cd ~/git/o3de-multiplayersample/build
 > cmake --build . --config profile --target AssetProcessor
-# launch Asset Processor and verify MultiplayerSample assets are good
+# Launch Asset Processor and verify that MultiplayerSample assets are good.
 > ./bin/profile/AssetProcessor &
 ```
 
@@ -127,5 +125,3 @@ This will connect a client to the local server and start a multiplayer session.
 ## License
 
 For terms please see the LICENSE*.TXT file at the root of this distribution.
-
-
