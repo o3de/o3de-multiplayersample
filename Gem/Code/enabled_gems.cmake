@@ -40,9 +40,6 @@ set(ENABLED_GEMS
     LyShine
     HttpRequestor
     Atom_AtomBridge
-    AWSCore
-    AWSClientAuth
-    AWSMetrics
     Presence
     LocalUser
     SaveData

@@ -5,6 +5,8 @@
 #
 #
 
+set(GAMELIFT_INTEGRATION OFF CACHE BOOL "Indicates if the game will be built with the GameLift integration features")
+
 ly_get_list_relative_pal_filename(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME})
 
 ly_add_target(
@@ -60,11 +62,95 @@ ly_add_target(
             Gem::Atom_AtomBridge.Static
 )
 
+ly_add_target(
+    NAME MultiplayerSample.GameLiftServer.Static STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_gamelift_server_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
+            AZ::AzNetworking
+            Gem::Multiplayer
+            Gem::AWSGameLift.Servers
+)
+
+ly_add_target(
+    NAME MultiplayerSample.GameLiftServer ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_gamelift_server_shared_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PRIVATE
+            Gem::MultiplayerSample.Static
+            Gem::MultiplayerSample.GameLiftServer.Static
+    RUNTIME_DEPENDENCIES
+            Gem::AWSGameLift.Servers
+)
+
+ly_add_target(
+    NAME MultiplayerSample.GameLiftClient.Static STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_gamelift_client_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
+            Gem::AWSCore
+            Gem::AWSGameLift.Clients
+)
+
+ly_add_target(
+    NAME MultiplayerSample.GameLiftClient ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_gamelift_client_shared_files.cmake
+        ../../multiplayersample_asset_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PRIVATE
+            Gem::MultiplayerSample.Static
+            Gem::MultiplayerSample.GameLiftClient.Static
+    RUNTIME_DEPENDENCIES
+            Gem::AWSGameLift.Clients
+)
+
 # if enabled, MultiplayerSample is used by all kinds of applications
 ly_create_alias(NAME MultiplayerSample.Builders NAMESPACE Gem TARGETS Gem::MultiplayerSample)
 ly_create_alias(NAME MultiplayerSample.Tools    NAMESPACE Gem TARGETS Gem::MultiplayerSample)
-ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
-ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+
+if(GAMELIFT_INTEGRATION)
+    ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample.GameLiftClient)
+    ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample.GameLiftServer)
+else()
+    ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+    ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+endif()
 
 ################################################################################
 # Gem dependencies
