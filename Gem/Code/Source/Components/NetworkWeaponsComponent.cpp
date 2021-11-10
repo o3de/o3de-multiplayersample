@@ -296,23 +296,19 @@ namespace MultiplayerSample
 
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
-        , m_updateAI{ [this]
-                      {
-                          UpdateAI();
-                      },
-                      AZ::Name{ "WeaponsControllerAI" } }
+        , m_updateAI{[this] { UpdateAI(); }, AZ::Name{ "WeaponsControllerAI" } }
     {
         ;
     }
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        NetworkAiComponent* networkAiComponent = FindComponent<NetworkAiComponent>();
+        NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
         m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
         if (m_aiEnabled)
         {
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
-            m_networkAiComponentController = static_cast<NetworkAiComponentController*>(networkAiComponent->GetController());
+            m_networkAiComponentController = GetNetworkAiComponentController();
         }
         else if (IsAutonomous())
         {
