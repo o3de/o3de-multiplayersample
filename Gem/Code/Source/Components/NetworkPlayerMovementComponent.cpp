@@ -23,23 +23,19 @@ namespace MultiplayerSample
 
     NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
         : NetworkPlayerMovementComponentControllerBase(parent)
-        , m_updateAI{ [this]
-                      {
-                          UpdateAI();
-                      },
-                      AZ::Name{ "MovementControllerAi" } }
+        , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
     {
         ;
     }
 
     void NetworkPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        NetworkAiComponent* networkAiComponent = FindComponent<NetworkAiComponent>();
+        NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
         m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
         if (m_aiEnabled)
         {
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
-            m_networkAiComponentController = static_cast<NetworkAiComponentController*>(networkAiComponent->GetController());
+            m_networkAiComponentController = GetNetworkAiComponentController();
         }
         else if (IsAutonomous())
         {
@@ -52,6 +48,8 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomInEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomOutEventId);
         }
     }
 
@@ -68,6 +66,8 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomInEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomOutEventId);
         }
     }
 

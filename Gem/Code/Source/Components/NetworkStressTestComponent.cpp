@@ -152,8 +152,7 @@ namespace MultiplayerSample
 
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
         // Drive inputs from AI instead of user inputs and disable camera following
-        NetworkAiComponent* aiComponent = createdEntity.FindComponent<NetworkAiComponent>();
-        NetworkAiComponentController* networkAiController = reinterpret_cast<NetworkAiComponentController*>(aiComponent->GetController());
+        NetworkAiComponentController* networkAiController = createdEntity.FindController<NetworkAiComponentController>();
         networkAiController->ConfigureAi(fireIntervalMinMs, fireIntervalMaxMs, actionIntervalMinMs, actionIntervalMaxMs, seed);
         networkAiController->SetEnabled(true);
         if (invokingConnection)
