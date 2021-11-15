@@ -1,4 +1,8 @@
 # MultiplayerSample Project
+A simple third-person multiplayer sample for O3DE.
+
+> **_NOTE:_** For Linux, see the Linux specific setup in [README_LINUX](./README_LINUX.md).
+
 ## Download and Install
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
@@ -15,8 +19,6 @@ You will need your personal access token credentials to authenticate when you cl
 
 Recent versions of Git install a credential manager to store your credentials so you don't have to put in the credentials for every request.
 It is highly recommended you check that you have a [credential manager installed and configured](https://github.com/microsoft/Git-Credential-Manager-Core)
-
-
 
 ### Step 1. Clone the repository
 
@@ -97,12 +99,20 @@ LoadLevel Levels/SampleBase/SampleBase.spawnable
 
 If these cfg files are not present, create them as they will be used to when launching server and client launchers.
 
-A server can be run as follows:
+#### Running the Server
+
+A server can be run as follows
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg
+MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
 ```
 
+#### Running the Server in the Editor
+
+Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial]((https://o3de.org/docs/user-guide/engine/cvars/#using-the-cvar)) for more details on setting and using cvars.
+
+
+#### Running the Client
 A client can be run with:
 
 ```shell
@@ -112,6 +122,9 @@ MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
 This will connect a client to the local server and start a multiplayer session.
 
 
+## More Information
+* [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
+* [Multiplayer Tutorials](https://o3de.org/docs/learning-guide/tutorials/multiplayer/)
 
 ## License
 
