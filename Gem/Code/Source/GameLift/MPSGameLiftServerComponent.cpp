@@ -6,7 +6,7 @@
  *
  */
 
-#include "GameLiftServerComponent.h"
+#include "MPSGameLiftServerComponent.h"
 
 #include <AzCore/Console/ILogger.h>
 #include <AzCore/Serialization/EditContext.h>
@@ -25,15 +25,15 @@ namespace MultiplayerSample
 
     AZ_CVAR(bool, sv_manualBackfill, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Whether to start manual backfill");
 
-    void GameLiftServerSystemComponent::Reflect(AZ::ReflectContext* context)
+    void MPSGameLiftServerSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<GameLiftServerSystemComponent, AZ::Component>()->Version(0);
+            serialize->Class<MPSGameLiftServerSystemComponent, AZ::Component>()->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
-                ec->Class<GameLiftServerSystemComponent>(
+                ec->Class<MPSGameLiftServerSystemComponent>(
                       "MultiplayerSampleGameLiftServer", "System Component for the GameLift dedicated server")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
@@ -42,78 +42,78 @@ namespace MultiplayerSample
         }
     }
 
-    void GameLiftServerSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    void MPSGameLiftServerSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
         provided.push_back(AZ_CRC_CE("MultiplayerSampleGameLiftServerService"));
     }
 
-    void GameLiftServerSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    void MPSGameLiftServerSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
         incompatible.push_back(AZ_CRC_CE("MultiplayerSampleGameLiftServerService"));
     }
 
-    void GameLiftServerSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    void MPSGameLiftServerSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC_CE("NetworkingService"));
         required.push_back(AZ_CRC_CE("MultiplayerService"));
         required.push_back(AZ_CRC_CE("AWSGameLiftServerService"));
     }
 
-    void GameLiftServerSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    void MPSGameLiftServerSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
         AZ_UNUSED(dependent);
     }
 
-    void GameLiftServerSystemComponent::Init()
+    void MPSGameLiftServerSystemComponent::Init()
     {
         m_backfillProcessTerminated = true;
         m_backfillComplete = true;
     }
 
-    void GameLiftServerSystemComponent::Activate()
+    void MPSGameLiftServerSystemComponent::Activate()
     {
         AzFramework::SessionNotificationBus::Handler::BusConnect();
 
         AWSGameLift::AWSGameLiftServerRequestBus::Broadcast(&AWSGameLift::AWSGameLiftServerRequestBus::Events::NotifyGameLiftProcessReady);
     }
 
-    void GameLiftServerSystemComponent::Deactivate()
+    void MPSGameLiftServerSystemComponent::Deactivate()
     {
         StopBackfillProcess();
 
         AzFramework::SessionNotificationBus::Handler::BusDisconnect();
     }
 
-    bool GameLiftServerSystemComponent::OnSessionHealthCheck()
+    bool MPSGameLiftServerSystemComponent::OnSessionHealthCheck()
     {
         return true;
     }
 
-    bool GameLiftServerSystemComponent::OnCreateSessionBegin(const AzFramework::SessionConfig& sessionConfig)
+    bool MPSGameLiftServerSystemComponent::OnCreateSessionBegin(const AzFramework::SessionConfig& sessionConfig)
     {
         m_maxPlayer = sessionConfig.m_maxPlayer;
 
         return true;
     }
 
-    void GameLiftServerSystemComponent::OnCreateSessionEnd()
+    void MPSGameLiftServerSystemComponent::OnCreateSessionEnd()
     {
         StartBackfillProcess();
     }
 
-    bool GameLiftServerSystemComponent::OnDestroySessionBegin()
+    bool MPSGameLiftServerSystemComponent::OnDestroySessionBegin()
     {
         StopBackfillProcess();
 
         return true;
     }
 
-    void GameLiftServerSystemComponent::OnDestroySessionEnd()
+    void MPSGameLiftServerSystemComponent::OnDestroySessionEnd()
     {
         m_maxPlayer = 0;
     }
 
-    void GameLiftServerSystemComponent::OnUpdateSessionBegin(
+    void MPSGameLiftServerSystemComponent::OnUpdateSessionBegin(
         const AzFramework::SessionConfig& sessionConfig, const AZStd::string& updateReason)
     {
         AZ_UNUSED(sessionConfig);
@@ -124,14 +124,14 @@ namespace MultiplayerSample
         }
     }
 
-    void GameLiftServerSystemComponent::OnUpdateSessionEnd()
+    void MPSGameLiftServerSystemComponent::OnUpdateSessionEnd()
     {
         AZ_TracePrintf("MultiplayerSample", "Multiplayer sample server manual backfill has completed");
 
         m_backfillComplete = true;
     }
 
-    void GameLiftServerSystemComponent::StartBackfillProcess()
+    void MPSGameLiftServerSystemComponent::StartBackfillProcess()
     {
         bool manualBackfill = false;
         const auto console = AZ::Interface<AZ::IConsole>::Get();
@@ -143,15 +143,17 @@ namespace MultiplayerSample
 
         if (!manualBackfill || !m_backfillProcessTerminated)
         {
+            // Either manual backfill is not enabled or there's a backfill request in progress.
             return;
         }
 
+        // Launch a background thread to do the manual backfill periodically if there're empty slots in the session.
         AZ_TracePrintf("MultiplayerSample", "Start multiplayer sample server manual backfill");
         m_backfillProcessTerminated = false;
-        m_backfillThread = AZStd::thread(AZStd::bind(&GameLiftServerSystemComponent::BackfillProcess, this));
+        m_backfillThread = AZStd::thread(AZStd::bind(&MPSGameLiftServerSystemComponent::BackfillProcess, this));
     }
 
-    void GameLiftServerSystemComponent::StopBackfillProcess()
+    void MPSGameLiftServerSystemComponent::StopBackfillProcess()
     {
         bool manualBackfill = false;
         const auto console = AZ::Interface<AZ::IConsole>::Get();
@@ -163,6 +165,7 @@ namespace MultiplayerSample
 
         if (!manualBackfill || m_backfillProcessTerminated)
         {
+            // Either manual backfill is not enabled or there's no backfill request in progress.
             return;
         }
 
@@ -174,7 +177,7 @@ namespace MultiplayerSample
         }
     }
 
-    void GameLiftServerSystemComponent::BackfillProcess()
+    void MPSGameLiftServerSystemComponent::BackfillProcess()
     {
         while (!m_backfillProcessTerminated)
         {
@@ -182,7 +185,7 @@ namespace MultiplayerSample
 
             if (!m_backfillComplete || !HasEmptySlots())
             {
-                // The previous backfill request hasn't been completed or there's no available slots for backfill
+                // Either the previous backfill request hasn't been completed or there's no available slots for backfill
                 continue;
             }
 
@@ -202,7 +205,7 @@ namespace MultiplayerSample
         }
     }
 
-    bool GameLiftServerSystemComponent::HasEmptySlots()
+    bool MPSGameLiftServerSystemComponent::HasEmptySlots()
     {
         AzNetworking::INetworking* networking = AZ::Interface<AzNetworking::INetworking>::Get();
         AzNetworking::INetworkInterface* clientNetworkInterface = networking->RetrieveNetworkInterface(AZ::Name(Multiplayer::MpNetworkInterfaceName));

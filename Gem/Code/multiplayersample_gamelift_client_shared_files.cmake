@@ -6,5 +6,5 @@
 #
 
 set(FILES
-    Source/GameLift/MultiplayerSampleGameLiftClientModule.cpp
+    Source/GameLift/MPSGameLiftClientModule.cpp
 )

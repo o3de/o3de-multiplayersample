@@ -12,7 +12,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzFramework/Session/SessionConfig.h>
 
-#include "GameLiftClientComponent.h"
+#include "MPSGameLiftClientComponent.h"
 #include <AWSGameLiftPlayer.h>
 #include <Request/AWSGameLiftAcceptMatchRequest.h>
 #include <Request/AWSGameLiftCreateSessionOnQueueRequest.h>
@@ -30,16 +30,16 @@ namespace MultiplayerSample
     AZ_CVAR(bool, cl_acceptmatch, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
         "Whether to accept the match automatically");
 
-    void GameLiftClientSystemComponent::Reflect(AZ::ReflectContext* context)
+    void MPSGameLiftClientSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<GameLiftClientSystemComponent, AZ::Component>()->Version(0);
+            serialize->Class<MPSGameLiftClientSystemComponent, AZ::Component>()->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
-                ec->Class<GameLiftClientSystemComponent>(
-                      "GameLiftClientSystemComponent", "System Component for the GameLift client")
+                ec->Class<MPSGameLiftClientSystemComponent>(
+                      "MPSGameLiftClientSystemComponent", "System Component for the GameLift client")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true);
@@ -47,32 +47,32 @@ namespace MultiplayerSample
         }
     }
 
-    void GameLiftClientSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    void MPSGameLiftClientSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
         provided.push_back(AZ_CRC_CE("MultiplayerSampleGameLiftService"));
     }
 
-    void GameLiftClientSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    void MPSGameLiftClientSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
         incompatible.push_back(AZ_CRC_CE("MultiplayerSampleGameLiftService"));
     }
 
-    void GameLiftClientSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    void MPSGameLiftClientSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC_CE("AWSGameLiftClientService"));
     }
 
-    void GameLiftClientSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    void MPSGameLiftClientSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
         AZ_UNUSED(dependent);
     }
 
-    void GameLiftClientSystemComponent::Init()
+    void MPSGameLiftClientSystemComponent::Init()
     {
         m_playerId = AZ::Uuid().Create().ToString<AZStd::string>();
     }
 
-    void GameLiftClientSystemComponent::Activate()
+    void MPSGameLiftClientSystemComponent::Activate()
     {
         AzFramework::SessionAsyncRequestNotificationBus::Handler::BusConnect();
         AzFramework::MatchmakingAsyncRequestNotificationBus::Handler::BusConnect();
@@ -80,7 +80,7 @@ namespace MultiplayerSample
         AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
     }
 
-    void GameLiftClientSystemComponent::Deactivate()
+    void MPSGameLiftClientSystemComponent::Deactivate()
     {
         m_ticketId = "";
 
@@ -88,11 +88,11 @@ namespace MultiplayerSample
         AzFramework::SessionAsyncRequestNotificationBus::Handler::BusDisconnect();
     }
 
-    void GameLiftClientSystemComponent::HostSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::HostSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() != 2)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use HostSession <session-id> <max-player>");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use HostSession <session-id> <max-player>");
             return;
         }
 
@@ -104,7 +104,7 @@ namespace MultiplayerSample
             &AWSCore::AWSResourceMappingRequestBus::Events::GetResourceNameId, "MultiplayerSampleFleetId");
         if (request.m_fleetId.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get GameLift fleet Id from resource mapping file");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Failed to get GameLift fleet Id from resource mapping file");
             return;
         }
 
@@ -112,11 +112,11 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::CreateSessionAsync, request);
     }
 
-    void GameLiftClientSystemComponent::HostSessionOnQueue(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::HostSessionOnQueue(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() != 2)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use HostSessionOnQueue <placement-id> <max-player>");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use HostSessionOnQueue <placement-id> <max-player>");
             return;
         }
 
@@ -128,7 +128,7 @@ namespace MultiplayerSample
             &AWSCore::AWSResourceMappingRequestBus::Events::GetResourceNameId, "MultiplayerSampleQueueName");
         if (request.m_queueName.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get GameLift queue name from resource mapping file");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Failed to get GameLift queue name from resource mapping file");
             return;
         }
 
@@ -136,22 +136,22 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::CreateSessionAsync, request);
     }
 
-    void GameLiftClientSystemComponent::JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() != 1)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use JoinSession <session-id>");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use JoinSession <session-id>");
             return;
         }
 
         JoinSessionInternal(consoleFunctionParameters[0], m_playerId);
     }
 
-    void GameLiftClientSystemComponent::SearchSessions(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::SearchSessions(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() > 0)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use SearchSessions");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use SearchSessions");
             return;
         }
 
@@ -162,7 +162,7 @@ namespace MultiplayerSample
             &AWSCore::AWSResourceMappingRequestBus::Events::GetResourceNameId, "MultiplayerSampleFleetId");
         if (request.m_fleetId.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get GameLift fleet Id from resource mapping file");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Failed to get GameLift fleet Id from resource mapping file");
             return;
         }
         
@@ -170,11 +170,11 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::SearchSessionsAsync, request);
     }
 
-    void GameLiftClientSystemComponent::LeaveSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::LeaveSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() > 1)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use LeaveSession");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use LeaveSession");
             return;
         }
 
@@ -182,11 +182,11 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::LeaveSessionAsync);
     }
 
-    void GameLiftClientSystemComponent::StartMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::StartMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() > 1)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use StartMatchmaking <ticket-id> or StartMatchmaking");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use StartMatchmaking <ticket-id> or StartMatchmaking");
             return;
         }
 
@@ -204,7 +204,7 @@ namespace MultiplayerSample
             &AWSCore::AWSResourceMappingRequestBus::Events::GetResourceNameId, "MultiplayerSampleConfigurationName");
         if (request.m_configurationName.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get GameLift matchmaking configuration name from resource mapping file");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Failed to get GameLift matchmaking configuration name from resource mapping file");
             return;
         }
 
@@ -212,17 +212,17 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftMatchmakingAsyncRequestBus::Events::StartMatchmakingAsync, request);
     }
 
-    void GameLiftClientSystemComponent::StopMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::StopMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() > 0)
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Invalid console command. Use StopMatchmaking");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "Invalid console command. Use StopMatchmaking");
             return;
         }
 
         if (m_ticketId.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "No active matchmaking ticket to stop");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "No active matchmaking ticket to stop");
             return;
         }
 
@@ -233,12 +233,12 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftMatchmakingAsyncRequestBus::Events::StopMatchmakingAsync, request);
     }
 
-    void GameLiftClientSystemComponent::OnCreateSessionAsyncComplete(const AZStd::string& createSessionReponse)
+    void MPSGameLiftClientSystemComponent::OnCreateSessionAsyncComplete(const AZStd::string& createSessionReponse)
     {
-        AZ_TracePrintf("GameLiftClientSystemComponent", "CreateSessionAsync complete with result: %s", createSessionReponse.c_str());
+        AZ_TracePrintf("MPSGameLiftClientSystemComponent", "CreateSessionAsync complete with result: %s", createSessionReponse.c_str());
     }
 
-    void GameLiftClientSystemComponent::JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId)
+    void MPSGameLiftClientSystemComponent::JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId)
     {
         AWSGameLift::AWSGameLiftJoinSessionRequest request;
         request.m_sessionId = sessionId;
@@ -248,7 +248,7 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::JoinSessionAsync, request);
     }
 
-    void GameLiftClientSystemComponent::OnSearchSessionsAsyncComplete(const AzFramework::SearchSessionsResponse& searchSessionsResponse)
+    void MPSGameLiftClientSystemComponent::OnSearchSessionsAsyncComplete(const AzFramework::SearchSessionsResponse& searchSessionsResponse)
     {
         AZStd::vector<AZStd::string> searchResults;
         AZStd::string sessionIds = "";
@@ -262,63 +262,55 @@ namespace MultiplayerSample
             sessionIds = sessionIds.substr(0, sessionIds.size() - 2);
         }
 
-        AZ_TracePrintf("GameLiftClientSystemComponent", "SearchSessionsAsync complete with result: %s",
+        AZ_TracePrintf("MPSGameLiftClientSystemComponent", "SearchSessionsAsync complete with result: %s",
             AZStd::string::format("[%s]", sessionIds.c_str()).c_str());
 
-        const auto console = AZ::Interface<AZ::IConsole>::Get();
-        bool joinaftersearch = false;
-        if (console->GetCvarValue("cl_joinaftersearch", joinaftersearch) != AZ::GetValueResult::Success)
+        if (cl_joinaftersearch && !sessionIds.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get cl_joinaftersearch");
-            return;
-        }
-
-        if (joinaftersearch && !sessionIds.empty())
-        {
-            AZ_TracePrintf("GameLiftClientSystemComponent", "Start joining session: %s", searchResults[0].c_str());
+            AZ_TracePrintf("MPSGameLiftClientSystemComponent", "Start joining session: %s", searchResults[0].c_str());
 
             JoinSessionInternal(searchResults[0], m_playerId);
         }
         else
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "No existing session to join");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "No existing session to join");
         }
     }
 
-    void GameLiftClientSystemComponent::OnJoinSessionAsyncComplete(bool joinSessionsResponse)
+    void MPSGameLiftClientSystemComponent::OnJoinSessionAsyncComplete(bool joinSessionsResponse)
     {
         if (joinSessionsResponse)
         {
-            AZ_TracePrintf("GameLiftClientSystemComponent", "JoinSessionAsync complete with result: success");
+            AZ_TracePrintf("MPSGameLiftClientSystemComponent", "JoinSessionAsync complete with result: success");
         }
         else
         {
-            AZ_TracePrintf("GameLiftClientSystemComponent", "JoinSessionAsync complete with result: fail");
+            AZ_TracePrintf("MPSGameLiftClientSystemComponent", "JoinSessionAsync complete with result: fail");
         }
     }
 
-    void GameLiftClientSystemComponent::OnLeaveSessionAsyncComplete()
+    void MPSGameLiftClientSystemComponent::OnLeaveSessionAsyncComplete()
     {
-        AZ_TracePrintf("GameLiftClientSystemComponent", "LeaveSessionAsync complete");
+        AZ_TracePrintf("MPSGameLiftClientSystemComponent", "LeaveSessionAsync complete");
 
         m_ticketId = "";
     }
 
-    void GameLiftClientSystemComponent::OnAcceptMatchAsyncComplete()
+    void MPSGameLiftClientSystemComponent::OnAcceptMatchAsyncComplete()
     {
-        AZ_TracePrintf("GameLiftClientSystemComponent", "AcceptMatchAsync complete");
+        AZ_TracePrintf("MPSGameLiftClientSystemComponent", "AcceptMatchAsync complete");
     }
 
-    void GameLiftClientSystemComponent::OnStartMatchmakingAsyncComplete(const AZStd::string& matchmakingTicketId)
+    void MPSGameLiftClientSystemComponent::OnStartMatchmakingAsyncComplete(const AZStd::string& matchmakingTicketId)
     {
-        AZ_TracePrintf("GameLiftClientSystemComponent", "StartMatchmakingAsync complete with ticket ID: %s", matchmakingTicketId.c_str());
+        AZ_TracePrintf("MPSGameLiftClientSystemComponent", "StartMatchmakingAsync complete with ticket ID: %s", matchmakingTicketId.c_str());
 
         m_ticketId = matchmakingTicketId;
         AWSGameLift::AWSGameLiftMatchmakingEventRequestBus::Broadcast(
             &AWSGameLift::AWSGameLiftMatchmakingEventRequestBus::Events::StartPolling, m_ticketId, m_playerId);
     }
 
-    void GameLiftClientSystemComponent::OnStopMatchmakingAsyncComplete()
+    void MPSGameLiftClientSystemComponent::OnStopMatchmakingAsyncComplete()
     {
         AZ_TracePrintf("MultiplayerSample", "StopMatchmakingAsync complete");
 
@@ -327,30 +319,23 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftMatchmakingEventRequestBus::Events::StopPolling);
     }
 
-    void GameLiftClientSystemComponent::OnMatchAcceptance()
+    void MPSGameLiftClientSystemComponent::OnMatchAcceptance()
     {
-        const auto console = AZ::Interface<AZ::IConsole>::Get();
-        bool acceptmatch = false;
-        if (console->GetCvarValue("cl_acceptmatch", acceptmatch) != AZ::GetValueResult::Success)
-        {
-            AZ_Error("GameLiftClientSystemComponent", false, "Failed to get cl_acceptmatch");
-        }
-
-        if (acceptmatch)
+        if (cl_acceptmatch)
         {
             AcceptMatch();
         }
         else
         {
-            AZ_TracePrintf("GameLiftClientSystemComponent", "A match is found. Please accept or reject it");
+            AZ_TracePrintf("MPSGameLiftClientSystemComponent", "A match is found. Please accept or reject it");
         }       
     }
 
-    void GameLiftClientSystemComponent::AcceptMatch(bool accept)
+    void MPSGameLiftClientSystemComponent::AcceptMatch(bool accept)
     {
         if (m_ticketId.empty())
         {
-            AZ_Error("GameLiftClientSystemComponent", false, "No active matchmaking ticket to accept");
+            AZ_Error("MPSGameLiftClientSystemComponent", false, "No active matchmaking ticket to accept");
             return;
         }
 
@@ -363,15 +348,15 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftMatchmakingAsyncRequestBus::Events::AcceptMatchAsync, request);
     }
 
-    void GameLiftClientSystemComponent::OnMatchComplete()
+    void MPSGameLiftClientSystemComponent::OnMatchComplete()
     {
     }
 
-    void GameLiftClientSystemComponent::OnMatchError()
+    void MPSGameLiftClientSystemComponent::OnMatchError()
     {
     }
 
-    void GameLiftClientSystemComponent::OnMatchFailure()
+    void MPSGameLiftClientSystemComponent::OnMatchFailure()
     {
     }
 } // namespace MultiplayerSample

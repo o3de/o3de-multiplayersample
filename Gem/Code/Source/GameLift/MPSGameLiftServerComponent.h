@@ -19,12 +19,13 @@ namespace AzNetworking
 
 namespace MultiplayerSample
 {
-    class GameLiftServerSystemComponent
+    //! System component for handling GameLift server notifications and manual backfill process.
+    class MPSGameLiftServerSystemComponent
         : public AZ::Component
         , public AzFramework::SessionNotificationBus::Handler
     {
     public:
-        AZ_COMPONENT(GameLiftServerSystemComponent, "{5768429C-65CE-47B2-854F-3D1BECEB9D0C}");
+        AZ_COMPONENT(MPSGameLiftServerSystemComponent, "{5768429C-65CE-47B2-854F-3D1BECEB9D0C}");
 
         static void Reflect(AZ::ReflectContext* context);
 

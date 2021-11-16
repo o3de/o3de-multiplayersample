@@ -6,6 +6,6 @@
 #
 
 set(FILES
-    Source/GameLift/GameLiftClientComponent.cpp
-    Source/GameLift/GameLiftClientComponent.h
+    Source/GameLift/MPSGameLiftClientComponent.cpp
+    Source/GameLift/MPSGameLiftClientComponent.h
 )

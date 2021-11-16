@@ -17,14 +17,15 @@
 
 namespace MultiplayerSample
 {
-    class GameLiftClientSystemComponent
+    //! System component for exposing GameLift client APIs as console functions and handling client notifications.
+    class MPSGameLiftClientSystemComponent
         : public AZ::Component
         , public AzFramework::SessionAsyncRequestNotificationBus::Handler
         , public AzFramework::MatchmakingNotificationBus::Handler
         , public AzFramework::MatchmakingAsyncRequestNotificationBus::Handler
     {
     public:
-        AZ_COMPONENT(GameLiftClientSystemComponent, "{F83C5B49-3E33-4BB9-B536-0232D310C298}");
+        AZ_COMPONENT(MPSGameLiftClientSystemComponent, "{F83C5B49-3E33-4BB9-B536-0232D310C298}");
 
         static void Reflect(AZ::ReflectContext* context);
 
@@ -40,26 +41,40 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
+        //! Create a new game session on the GameLift fleet specified in the resource mapping configuration file directly
+        //! Use console command MPSGameLiftClientSystemComponent.HostSession <session-id> <max-player>
         void HostSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, HostSession, AZ::ConsoleFunctorFlags::DontReplicate, "Host and join a new session");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, HostSession, AZ::ConsoleFunctorFlags::DontReplicate, "Host a new session");
 
+        //! Create a new game session via the game session queue specified in the resource mapping configuration file
+        //! Use console command MPSGameLiftClientSystemComponent.HostSessionOnQueue <placement-id> <max-player>
         void HostSessionOnQueue(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, HostSessionOnQueue, AZ::ConsoleFunctorFlags::DontReplicate, "Host and join a new session on queue");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, HostSessionOnQueue, AZ::ConsoleFunctorFlags::DontReplicate, "Host a new session on queue");
 
+        //! Join an existing game session via the provided session Id
+        //! Use console command MPSGameLiftClientSystemComponent.JoinSession <session-id>
         void JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing session");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing session");
 
+        //! Search for all the existing game sessions on the GameLift fleet specified in the resource mapping configuration file
+        //! Use console command MPSGameLiftClientSystemComponent.SearchSessions
         void SearchSessions(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, SearchSessions, AZ::ConsoleFunctorFlags::DontReplicate, "Search for existing sessions");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, SearchSessions, AZ::ConsoleFunctorFlags::DontReplicate, "Search for existing sessions");
 
+        //! Leave the current game session
+        //! Use console command MPSGameLiftClientSystemComponent.LeaveSession
         void LeaveSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, LeaveSession, AZ::ConsoleFunctorFlags::DontReplicate, "Leave the current session");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, LeaveSession, AZ::ConsoleFunctorFlags::DontReplicate, "Leave the current session");
 
+        //! Start a matchmaking request using the matchmaking configuration specified in the resource mapping configuration file
+        //! Use console command MPSGameLiftClientSystemComponent.StartMatchmaking <ticket-id> or MPSGameLiftClientSystemComponent.StartMatchmaking
         void StartMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, StartMatchmaking, AZ::ConsoleFunctorFlags::DontReplicate, "Start a matchmaking request");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, StartMatchmaking, AZ::ConsoleFunctorFlags::DontReplicate, "Start a matchmaking request");
 
+        //! Stop the current matchmaking request
+        //! Use console command MPSGameLiftClientSystemComponent.StopMatchmaking
         void StopMatchmaking(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(GameLiftClientSystemComponent, StopMatchmaking, AZ::ConsoleFunctorFlags::DontReplicate, "Stop a matchmaking request");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, StopMatchmaking, AZ::ConsoleFunctorFlags::DontReplicate, "Stop a matchmaking request");
 
         ////////////////////////////////////////////////////////////////////////
         // SessionAsyncRequestNotificationBus handler implementation
@@ -93,6 +108,6 @@ namespace MultiplayerSample
         void JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId);
 
         AZStd::string m_ticketId;
-        AZStd::string m_playerId;
+        AZStd::string m_playerId; //!< Unique identifier for the current player inside the game session that can be replaced with any other suitable id.
     };
 } // namespace MultiplayerSample#pragma once

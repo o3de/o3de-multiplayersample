@@ -7,29 +7,27 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
-#include <Components/ExampleFilteredEntityComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
-#include "GameLift/GameLiftClientComponent.h"
+#include "GameLift/MPSGameLiftServerComponent.h"
 
 namespace MultiplayerSample
 {
-    class GameLiftClientModule
+    class MPSGameLiftServerModule
         : public AZ::Module
     {
     public:
-        AZ_RTTI(GameLiftClientModule, "{7D696A0B-8405-4D60-AC33-6AE24BD00F38}", AZ::Module);
-        AZ_CLASS_ALLOCATOR(GameLiftClientModule, AZ::SystemAllocator, 0);
+        AZ_RTTI(MPSGameLiftServerModule, "{C70DF768-3BB1-46BC-9F96-DE86B53610D2}", AZ::Module);
+        AZ_CLASS_ALLOCATOR(MPSGameLiftServerModule, AZ::SystemAllocator, 0);
 
-        GameLiftClientModule()
+        MPSGameLiftServerModule()
             : AZ::Module()
         {
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
-                ExampleFilteredEntityComponent::CreateDescriptor(),
-                GameLiftClientSystemComponent::CreateDescriptor(),
+                    MPSGameLiftServerSystemComponent::CreateDescriptor(),
             });
 
             CreateComponentDescriptors(m_descriptors);
@@ -42,7 +40,7 @@ namespace MultiplayerSample
         {
             return AZ::ComponentTypeList{
                 azrtti_typeid<MultiplayerSampleSystemComponent>(),
-                azrtti_typeid<GameLiftClientSystemComponent>(),
+                azrtti_typeid<MPSGameLiftServerSystemComponent>(),
             };
         }
     };
@@ -51,4 +49,4 @@ namespace MultiplayerSample
 // DO NOT MODIFY THIS LINE UNLESS YOU RENAME THE GEM
 // The first parameter should be GemName_GemIdLower
 // The second should be the fully qualified name of the class above
-AZ_DECLARE_MODULE_CLASS(Gem_MultiplayerSample_GameLiftClient, MultiplayerSample::GameLiftClientModule)
+AZ_DECLARE_MODULE_CLASS(Gem_MPSMultiplayerSample_GameLiftServer, MultiplayerSample::MPSGameLiftServerModule)
