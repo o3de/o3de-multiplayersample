@@ -1,0 +1,43 @@
+{
+    "values": [
+        {
+            "$type": "MotionGroup",
+            "name": "Shoot",
+            "selectedRootBone": "RootNode.Reference",
+            "id": "{F69091E5-675E-5DAF-B592-1EB7953100B7}",
+            "rules": {
+                "rules": [
+                    {
+                        "$type": "MotionSamplingRule"
+                    },
+                    {
+                        "$type": "EMotionFX::Pipeline::Rule::MotionMetaDataRule",
+                        "data": {
+                            "motionEventTable": {
+                                "tracks": [
+                                    {
+                                        "$type": "AnimGraphSyncTrack",
+                                        "name": "Sync",
+                                        "deletable": false,
+                                        "events": [
+                                            {
+                                                "eventDatas": [
+                                                    {
+                                                        "$type": "TwoStringEventData",
+                                                        "subject": "Shoot"
+                                                    }
+                                                ],
+                                                "startTime": 0.0006489999941550195,
+                                                "endTime": 0.0006489999941550195
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

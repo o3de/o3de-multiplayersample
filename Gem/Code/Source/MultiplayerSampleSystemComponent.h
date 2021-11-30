@@ -10,11 +10,6 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 
-namespace AzNetworking
-{
-    class INetworkInterface;
-}
-
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
@@ -30,7 +25,6 @@ namespace MultiplayerSample
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
-
     protected:
         ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
@@ -43,8 +37,5 @@ namespace MultiplayerSample
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         int GetTickOrder() override;
         ////////////////////////////////////////////////////////////////////////
-
-    private:
-        AzNetworking::INetworkInterface* m_networkInterface = nullptr;
     };
 }

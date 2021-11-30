@@ -1,4 +1,8 @@
-# MultiplayerSample Project 
+# MultiplayerSample Project
+A simple third-person multiplayer sample for O3DE.
+
+> **_NOTE:_** For Linux, see the Linux specific setup in [README_LINUX](./README_LINUX.md).
+
 ## Download and Install
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
@@ -11,14 +15,12 @@ You will need your personal access token credentials to authenticate when you cl
 [Create a personal access token with the 'repo' scope.](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 
 
-### (Recommended) Verify you have a credential manager installed to store your credentials 
+### (Recommended) Verify you have a credential manager installed to store your credentials
 
-Recent versions of Git install a credential manager to store your credentials so you don't have to put in the credentials for every request.  
+Recent versions of Git install a credential manager to store your credentials so you don't have to put in the credentials for every request.
 It is highly recommended you check that you have a [credential manager installed and configured](https://github.com/microsoft/Git-Credential-Manager-Core)
 
-
-
-### Step 1. Clone the repository 
+### Step 1. Clone the repository
 
 You can clone the project to any folder locally, including inside the engine folder. If you clone the project inside an existing Git repository (e.g. o3de) you should add the project folder to the Git exclude file for the existing repository.
 
@@ -43,31 +45,31 @@ Cloning into 'o3de-multiplayersample'...
 
 If you have a Git credential helper configured, you should not be prompted for your credentials anymore.
 
-### Step 2. Register the engine and project 
+### Step 2. Register the engine and project
 
 ```shell
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
-# register the project 
+# register the project
 > c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
 ```
 
-### Step 3. Configure and build 
+### Step 3. Configure and build
 
-#### Option #1 (Recommended) -  Project-centric approach 
+#### Option #1 (Recommended) -  Project-centric approach
 
 This option will output all the project binaries in the project's build folder e.g. c:/path/to/o3de-multiplayersample/build
 
 ```shell
 # example configure command
-> cmake c:/path/to/o3de -B c:/path/to/o3de-multiplayersample/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample" 
+> cmake c:/path/to/o3de -B c:/path/to/o3de-multiplayersample/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
 # example build command
-> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo 
+> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
 ```
 
-#### Option #2 - Engine-centric approach to building a project 
+#### Option #2 - Engine-centric approach to building a project
 
 This option will output all the project and engine binaries in the engine's build folder e.g. c:/path/to/o3de/build
 
@@ -76,14 +78,54 @@ This option will output all the project and engine binaries in the engine's buil
 > cmake c:/path/to/o3de -B c:/path/to/o3de/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
 # example build command
-> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo 
+> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
 
 ```
 
+### Step 4. Setup Client and Server
 
+Under project root, there should be 2 files: client.cfg and server.cfg. File client.cfg should contain:
+
+```shell
+connect
+```
+
+File server.cfg should contain:
+
+```shell
+host
+LoadLevel Levels/SampleBase/SampleBase.spawnable
+```
+
+If these cfg files are not present, create them as they will be used to when launching server and client launchers.
+
+#### Running the Server
+
+A server can be run as follows
+
+```shell
+MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
+```
+
+#### Running the Server in the Editor
+
+Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial]((https://o3de.org/docs/user-guide/engine/cvars/#using-the-cvar)) for more details on setting and using cvars.
+
+
+#### Running the Client
+A client can be run with:
+
+```shell
+MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
+```
+
+This will connect a client to the local server and start a multiplayer session.
+
+
+## More Information
+* [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
+* [Multiplayer Tutorials](https://o3de.org/docs/learning-guide/tutorials/multiplayer/)
 
 ## License
 
 For terms please see the LICENSE*.TXT file at the root of this distribution.
-
-

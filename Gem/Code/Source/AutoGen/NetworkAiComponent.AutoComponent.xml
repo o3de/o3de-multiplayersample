@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkAiComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/NetworkAiComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Include File="Source/MultiplayerSampleTypes.h"/>
+
+    <!-- Our "AI" is really just a chaos monkey. Every N ms, we choose a cardinal direction to move towards, -->
+    <!-- and flip coins to determine if we should shoot, or perform some other action. -->
+
+    <NetworkProperty Type="bool" Name="Enabled" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />
+
+    <NetworkProperty Type="float" Name="remainingTimeMs" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="fireIntervalMinMs" Init="100.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="fireIntervalMaxMs" Init="10000.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="actionIntervalMinMs" Init="500.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="actionIntervalMaxMs" Init="10000.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+
+    <NetworkProperty Type="float" Name="turnRate" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="targetYawDelta" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="targetPitchDelta" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+
+    <NetworkProperty Type="MultiplayerSample::Action" Name="action" Init="MultiplayerSample::Action::Default" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+
+    <NetworkProperty Type="bool" Name="strafingRight" Init="false" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="bool" Name="shotFired" Init="true" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <NetworkProperty Type="float" Name="timeToNextShot" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+</Component>

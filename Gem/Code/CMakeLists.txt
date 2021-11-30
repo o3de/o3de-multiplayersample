@@ -28,9 +28,13 @@ ly_add_target(
             Gem::EMotionFXStaticLib
             Gem::PhysX
             Gem::StartingPointInput
+            Gem::DebugDraw
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Static
+            Gem::PhysX.Static
+            Gem::DebugDraw.Static
+            Gem::ImGui.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
@@ -66,31 +70,10 @@ ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::Multi
 # Gem dependencies
 ################################################################################
 
-# The GameLauncher uses "Clients" gem variants:
-ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
-    TARGETS MultiplayerSample.GameLauncher
-    VARIANTS Clients)
+# Maps the MultiplayerSample Project with the specified list of enabled gems
+ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake)
 
-# If we build a server, then apply the gems to the server
+# If we build a server, then add the project name to the list of server launcher projects
 if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
-    # if we're making a server, then add the "Server" gem variants to it:
-    ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
-        TARGETS MultiplayerSample.ServerLauncher
-        VARIANTS Servers)
-    
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
-endif()
-
-if (PAL_TRAIT_BUILD_HOST_TOOLS)
-    # The Editor uses "Tools" gem variants:
-    ly_enable_gems(
-        PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
-        TARGETS Editor
-        VARIANTS Tools)
-
-    # The pipeline tools use "Builders" gem variants:
-    ly_enable_gems(
-        PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake
-        TARGETS Editor AssetBuilder AssetProcessor AssetProcessorBatch
-        VARIANTS Builders)
 endif()

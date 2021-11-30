@@ -5,7 +5,9 @@
  *
  */
 
-#include <Source/Components/SimplePlayerCameraComponent.h>
+#include <AzCore/Component/ComponentApplicationBus.h>
+#include <Source/Components/NetworkAiComponent.h>
+#include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Components/CameraBus.h>
 
@@ -14,48 +16,52 @@ namespace MultiplayerSample
     AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.0f, -5.0f, 3.0f), nullptr, AZ::ConsoleFunctorFlags::Null, "Offset to use for the player camera");
     AZ_CVAR(float, cl_cameraBlendSpeed, 0.25f, nullptr, AZ::ConsoleFunctorFlags::Null, "Rate to blend camera to latest transform");
 
-    SimplePlayerCameraComponentController::SimplePlayerCameraComponentController(SimplePlayerCameraComponent& parent)
-        : SimplePlayerCameraComponentControllerBase(parent)
+    NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
+        : NetworkSimplePlayerCameraComponentControllerBase(parent)
     {
         ;
     }
 
-    void SimplePlayerCameraComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkSimplePlayerCameraComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         if (IsAutonomous())
         {
-            AZ::EntityId activeCameraId;
-            Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
-            m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
+            m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
+            if (!m_aiEnabled)
+            {
+                AZ::EntityId activeCameraId;
+                Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
+                m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
 
-            AZ::TickBus::Handler::BusConnect();
+                AZ::TickBus::Handler::BusConnect();
+            }
         }
     }
 
-    void SimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkSimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
+        if (IsAutonomous() && !m_aiEnabled)
         {
             AZ::TickBus::Handler::BusDisconnect();
         }
     }
 
-    float SimplePlayerCameraComponentController::GetCameraYaw() const
+    float NetworkSimplePlayerCameraComponentController::GetCameraYaw() const
     {
         return GetAimAngles().GetZ();
     }
 
-    float SimplePlayerCameraComponentController::GetCameraPitch() const
+    float NetworkSimplePlayerCameraComponentController::GetCameraPitch() const
     {
         return GetAimAngles().GetX();
     }
 
-    float SimplePlayerCameraComponentController::GetCameraRoll() const
+    float NetworkSimplePlayerCameraComponentController::GetCameraRoll() const
     {
         return GetAimAngles().GetY();
     }
 
-    void SimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkSimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         if (m_activeCameraEntity != nullptr && m_activeCameraEntity->GetState() == AZ::Entity::State::Active)
         {
@@ -69,7 +75,7 @@ namespace MultiplayerSample
         }
     }
 
-    int SimplePlayerCameraComponentController::GetTickOrder()
+    int NetworkSimplePlayerCameraComponentController::GetTickOrder()
     {
         return AZ::TICK_PRE_RENDER;
     }
