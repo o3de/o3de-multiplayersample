@@ -6,9 +6,9 @@
  */
 
 #include <Source/Components/NetworkAnimationComponent.h>
-#include <Source/Components/CharacterComponent.h>
-#include <Source/Components/SimplePlayerCameraComponent.h>
-#include <Source/Components/WasdPlayerMovementComponent.h>
+#include <Multiplayer/Components/NetworkCharacterComponent.h>
+#include <Source/Components/NetworkSimplePlayerCameraComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Integration/AnimGraphComponentBus.h>
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
@@ -28,7 +28,7 @@ namespace MultiplayerSample
     }
 
     NetworkAnimationComponent::NetworkAnimationComponent()
-        : m_preRenderEventHandler([this](float deltaTime, float blendFactor) {OnPreRender(deltaTime, blendFactor); })
+        : m_preRenderEventHandler([this](float deltaTime) {OnPreRender(deltaTime); })
     {
         ;
     }
@@ -59,7 +59,7 @@ namespace MultiplayerSample
     {
         if (m_actorRequests != nullptr)
         {
-            return m_actorRequests->GetJointIndexByName(boneName);
+            return static_cast<int32_t>(m_actorRequests->GetJointIndexByName(boneName));
         }
         return InvalidBoneId;
     }
@@ -70,7 +70,7 @@ namespace MultiplayerSample
         {
             return false;
         }
-        const int32_t jointId = m_actorRequests->GetJointIndexByName(jointName);
+        const int32_t jointId = static_cast<int32_t>(m_actorRequests->GetJointIndexByName(jointName));
         return GetJointTransformById(jointId, outJointTransform);
     }
 
@@ -84,7 +84,7 @@ namespace MultiplayerSample
         return true;
     }
 
-    void NetworkAnimationComponent::OnPreRender([[maybe_unused]] float deltaTime, [[maybe_unused]] float blendFactor)
+    void NetworkAnimationComponent::OnPreRender(float deltaTime)
     {
         if (m_animationGraph == nullptr || m_networkRequests == nullptr)
         {
@@ -114,67 +114,68 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 velocity = GetWasdPlayerMovementComponent()->GetVelocity();
+            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetVelocity();
             const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
-            const float maxSpeed = GetCharacterComponent()->GetSprintSpeed();
+            const float maxSpeed = GetNetworkPlayerMovementComponent()->GetSprintSpeed();
             m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 aimAngles = GetSimplePlayerCameraComponent()->GetAimAngles();
+            const AZ::Vector3 aimAngles = GetNetworkSimplePlayerCameraComponent()->GetAimAngles();
             const AZ::Quaternion aimRotation = AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
             const AZ::Transform worldTm = GetEntity()->GetTransform()->GetWorldTM();
             // TODO: This should probably be a physx raycast out to some maxDistance
-            const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(AZ::Vector3(5.0f));
+            const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
+            const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
             m_animationGraph->SetParameterVector3(m_aimTargetParamId, aimTarget);
         }
 
         if (m_crouchParamId != InvalidParamIndex)
         {
-            const bool crouching = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Crouching));
+            const bool crouching = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Crouching));
             m_animationGraph->SetParameterBool(m_crouchParamId, crouching);
         }
 
         if (m_aimingParamId != InvalidParamIndex)
         {
-            const bool aiming = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Aiming));
+            const bool aiming = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming));
             m_animationGraph->SetParameterBool(m_aimingParamId, aiming);
         }
 
         if (m_shootParamId != InvalidParamIndex)
         {
-            const bool shooting = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Shooting));
+            const bool shooting = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Shooting));
             m_animationGraph->SetParameterBool(m_shootParamId, shooting);
         }
 
         if (m_jumpParamId != InvalidParamIndex)
         {
-            const bool jumping = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Jumping));
+            const bool jumping = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Jumping));
             m_animationGraph->SetParameterBool(m_jumpParamId, jumping);
         }
 
         if (m_fallParamId != InvalidParamIndex)
         {
-            const bool falling = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Falling));
+            const bool falling = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Falling));
             m_animationGraph->SetParameterBool(m_fallParamId, falling);
         }
 
         if (m_landParamId != InvalidParamIndex)
         {
-            const bool landing = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Landing));
+            const bool landing = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Landing));
             m_animationGraph->SetParameterBool(m_landParamId, landing);
         }
 
         if (m_hitParamId != InvalidParamIndex)
         {
-            const bool hit = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Hit));
+            const bool hit = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Hit));
             m_animationGraph->SetParameterBool(m_hitParamId, hit);
         }
 
         if (m_deathParamId != InvalidParamIndex)
         {
-            const bool dead = GetActiveAnimStates().GetBit(aznumeric_cast<AZStd::size_t>(CharacterAnimState::Dying));
+            const bool dead = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Dying));
             m_animationGraph->SetParameterBool(m_deathParamId, dead);
         }
     }

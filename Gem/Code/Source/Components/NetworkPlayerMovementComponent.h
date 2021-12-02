@@ -7,7 +7,8 @@
 
 #pragma once
 
-#include <Source/AutoGen/WasdPlayerMovementComponent.AutoComponent.h>
+#include <Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.h>
+#include <Source/Components/NetworkAiComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
 namespace MultiplayerSample
@@ -25,21 +26,26 @@ namespace MultiplayerSample
     const StartingPointInput::InputEventNotificationId LookLeftRightEventId("lookLeftRight");
     const StartingPointInput::InputEventNotificationId LookUpDownEventId("lookUpDown");
 
-    class WasdPlayerMovementComponentController
-        : public WasdPlayerMovementComponentControllerBase
+    class NetworkPlayerMovementComponentController
+        : public NetworkPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
     {
     public:
-        WasdPlayerMovementComponentController(WasdPlayerMovementComponent& parent);
+        NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent);
 
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating);
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating);
+        //! NetworkPlayerMovementComponentControllerBase
+        //! @{
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void CreateInput(Multiplayer::NetworkInput& input, float deltaTime) override;
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
-
+        //! @}
+    
     private:
-        void UpdateVelocity(const WasdPlayerMovementComponentNetworkInput& wasdInput);
+        friend class NetworkAiComponentController;
+
+        void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput);
         float NormalizeHeading(float heading) const;
 
         //! AZ::InputEventNotificationBus interface
@@ -49,6 +55,15 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
+        void UpdateAI();
+
+        AZ::ScheduledEvent m_updateAI;
+        NetworkAiComponentController* m_networkAiComponentController = nullptr;
+
+        // Technically these values should never migrate hosts since they are maintained by the autonomous client
+        // But due to how the stress test chaos monkey operates, it puppets these values on the server to mimic a client
+        // This means these values can and will migrate between hosts (and lose any stored state)
+        // We will need to consider moving these values to Authority to Server network properties if the design doesn't change
         float m_forwardWeight = 0.0f;
         float m_leftWeight = 0.0f;
         float m_backwardWeight = 0.0f;
@@ -57,12 +72,13 @@ namespace MultiplayerSample
         float m_viewYaw = 0.0f;
         float m_viewPitch = 0.0f;
 
-        bool  m_forwardDown = false;
-        bool  m_leftDown = false;
-        bool  m_backwardDown = false;
-        bool  m_rightDown = false;
-        bool  m_sprinting = false;
-        bool  m_jumping = false;
-        bool  m_crouching = false;
+        bool m_forwardDown = false;
+        bool m_leftDown = false;
+        bool m_backwardDown = false;
+        bool m_rightDown = false;
+        bool m_sprinting = false;
+        bool m_jumping = false;
+        bool m_crouching = false;
+        bool m_aiEnabled = false;
     };
 }
