@@ -150,6 +150,11 @@ namespace MultiplayerSample
             AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
                 prefabId, Multiplayer::NetEntityRole::Authority, AZ::Transform::CreateIdentity(), Multiplayer::AutoActivate::DoNotActivate);
 
+        for (const Multiplayer::NetworkEntityHandle& entityItem : entityList)
+        {
+            entityItem.GetNetBindComponent()->SetAllowAutonomy(true);
+        }
+
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
         // Drive inputs from AI instead of user inputs and disable camera following
         NetworkAiComponentController* networkAiController = createdEntity.FindController<NetworkAiComponentController>();
