@@ -101,7 +101,17 @@ If these cfg files are not present, create them as they will be used to when lau
 
 #### Running the Server
 
-A server can be run as follows
+First, make sure the server target has been built
+
+```shell
+# example command for Project-centric approach
+> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+
+# example command for Engine-centric approach
+> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+```
+
+A server can then be run as follows
 
 ```shell
 MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
@@ -109,7 +119,7 @@ MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg
 
 #### Running the Server in the Editor
 
-Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial]((https://o3de.org/docs/user-guide/engine/cvars/#using-the-cvar)) for more details on setting and using cvars.
+Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial](https://o3de.org/docs/user-guide/engine/cvars) for more details on setting and using cvars.
 
 
 #### Running the Client
