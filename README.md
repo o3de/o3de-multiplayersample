@@ -65,8 +65,10 @@ This option will output all the project binaries in the project's build folder e
 # example configure command
 > cmake c:/path/to/o3de -B c:/path/to/o3de-multiplayersample/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
-# example build command
+# example build commands
 > cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
+
+> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 #### Option #2 - Engine-centric approach to building a project
@@ -77,9 +79,10 @@ This option will output all the project and engine binaries in the engine's buil
 # example configure command
 > cmake c:/path/to/o3de -B c:/path/to/o3de/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
-# example build command
+# example build commands
 > cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
 
+> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 ### Step 4. Setup Client and Server
@@ -101,17 +104,7 @@ If these cfg files are not present, create them as they will be used to when lau
 
 #### Running the Server
 
-First, make sure the server target has been built
-
-```shell
-# example command for Project-centric approach
-> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
-
-# example command for Engine-centric approach
-> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.ServerLauncher --config profile -- /m /nologo
-```
-
-A server can then be run as follows
+A server can be run as follows
 
 ```shell
 MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
