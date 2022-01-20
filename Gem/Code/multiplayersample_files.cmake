@@ -6,6 +6,7 @@
 #
 
 set(FILES
+    Include/NetworkPrefabSpawnerInterface.h
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
@@ -31,6 +32,12 @@ set(FILES
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp
     Source/Components/NetworkSimplePlayerCameraComponent.h
+    Source/Components/PerfTest/NetworkPrefabSpawnerComponent.cpp
+    Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h
+    Source/Components/PerfTest/NetworkTestComponent.cpp
+    Source/Components/PerfTest/NetworkTestComponent.h
+    Source/Components/PerfTest/NetworkTestSpawnerComponent.cpp
+    Source/Components/PerfTest/NetworkTestSpawnerComponent.h
     Source/Components/NetworkStressTestComponent.cpp
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp

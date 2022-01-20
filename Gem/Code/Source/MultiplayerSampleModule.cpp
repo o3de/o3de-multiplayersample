@@ -8,6 +8,9 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
 #include <Components/ExampleFilteredEntityComponent.h>
+#include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
+#include <Components/PerfTest/NetworkTestComponent.h>
+#include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -28,6 +31,9 @@ namespace MultiplayerSample
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
+                NetworkTestComponent::CreateDescriptor(),
+                NetworkPrefabSpawnerComponent::CreateDescriptor(),
+                NetworkTestSpawnerComponent::CreateDescriptor(),
             });
 
             CreateComponentDescriptors(m_descriptors);
