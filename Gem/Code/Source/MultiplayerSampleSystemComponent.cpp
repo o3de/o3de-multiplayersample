@@ -20,6 +20,7 @@
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 #include <Multiplayer/ConnectionData/IConnectionData.h>
+#include <Multiplayer/ReplicationWindows/IReplicationWindow.h>
 
 namespace MultiplayerSample
 {
@@ -121,7 +122,8 @@ namespace MultiplayerSample
         return AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform>(playerPrefabEntityId, transform);
     }
 
-    void MultiplayerSampleSystemComponent::OnPlayerLeave(Multiplayer::ConstNetworkEntityHandle entityHandle)
+    void MultiplayerSampleSystemComponent::OnPlayerLeave(
+        Multiplayer::ConstNetworkEntityHandle entityHandle, [[maybe_unused]] const Multiplayer::ReplicationSet& replicationSet, [[maybe_unused]] AzNetworking::DisconnectReason reason)
     {
         AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->MarkForRemoval(entityHandle);
     }

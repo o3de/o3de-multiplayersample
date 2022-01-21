@@ -12,6 +12,12 @@
 
 #include <Multiplayer/IMultiplayerSpawner.h>
 
+namespace Multiplayer
+{
+    struct EntityReplicationData;
+    using ReplicationSet = AZStd::map<ConstNetworkEntityHandle, EntityReplicationData>;
+}
+
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
@@ -45,7 +51,10 @@ namespace MultiplayerSample
         ////////////////////////////////////////////////////////////////////////
         // IMultiplayerSpawner overrides
         AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> OnPlayerJoin(uint64_t userId) override;
-        void OnPlayerLeave(Multiplayer::ConstNetworkEntityHandle entityHandle) override;
+        void OnPlayerLeave(
+            Multiplayer::ConstNetworkEntityHandle entityHandle,
+            const Multiplayer::ReplicationSet& replicationSet,
+            AzNetworking::DisconnectReason reason) override;
         ////////////////////////////////////////////////////////////////////////
     };
 }
