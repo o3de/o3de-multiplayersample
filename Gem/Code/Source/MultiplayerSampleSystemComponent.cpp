@@ -25,6 +25,9 @@ namespace MultiplayerSample
 {
     using namespace AzNetworking;
 
+    AZ_CVAR(AZ::CVarFixedString, sv_playerSpawnAsset, "prefabs/player.network.spawnable", nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
+        "The spawnable to use when a new player connects");
+
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         ReflectWeaponEnums(context);
@@ -82,10 +85,13 @@ namespace MultiplayerSample
 
         //! Register our gems multiplayer components to assign NetComponentIds
         RegisterMultiplayerComponents();
+
+        AZ::Interface<Multiplayer::IMultiplayerSpawner>::Register(this);
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()
     {
+        AZ::Interface<Multiplayer::IMultiplayerSpawner>::Unregister(this);
         AZ::TickBus::Handler::BusDisconnect();
     }
 
@@ -100,5 +106,19 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
+    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::SpawnPlayerPrefab(uint64_t userId)
+    {
+        auto sv_playerSpawnAssetLowerCase = static_cast<AZ::CVarFixedString>(sv_playerSpawnAsset);
+        AZStd::to_lower(sv_playerSpawnAssetLowerCase.begin(), sv_playerSpawnAssetLowerCase.end());
+        Multiplayer::PrefabEntityId playerPrefabEntityId(AZ::Name(sv_playerSpawnAssetLowerCase.c_str()));
+
+        // Assuming userIds increase linearly (which is naive), spawn in rows of a prescribed size
+        const uint8_t spawnRowSize = 8;
+        AZ::Transform transform = AZ::Transform::CreateIdentity();
+        transform.SetTranslation(
+            AZ::Vector3(aznumeric_cast<float>(userId % spawnRowSize) * 32.f, aznumeric_cast<float>(userId / spawnRowSize) * 32.f, 0));
+
+        return AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform>(playerPrefabEntityId, transform);
+    }
 }
 

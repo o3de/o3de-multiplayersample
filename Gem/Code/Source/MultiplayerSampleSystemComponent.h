@@ -10,11 +10,14 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 
+#include <Multiplayer/IMultiplayerSpawner.h>
+
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
         : public AZ::Component
         , public AZ::TickBus::Handler
+        , public Multiplayer::IMultiplayerSpawner
     {
     public:
         AZ_COMPONENT(MultiplayerSampleSystemComponent, "{7BF68D79-E870-44B5-853A-BA68FF4F0B90}");
@@ -32,10 +35,16 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
-    
+
+        ////////////////////////////////////////////////////////////////////////
         // AZ::TickBus::Handler overrides
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         int GetTickOrder() override;
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // IMultiplayerSpawner overrides
+        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> SpawnPlayerPrefab(uint64_t userId) override;
         ////////////////////////////////////////////////////////////////////////
     };
 }
