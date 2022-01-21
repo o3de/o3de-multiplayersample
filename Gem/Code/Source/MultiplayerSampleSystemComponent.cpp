@@ -11,6 +11,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
+#include <AzFramework/Session/ISessionHandlingRequests.h>
 
 #include <Source/AutoGen/AutoComponentTypes.h>
 #include <Source/Weapons/WeaponTypes.h>
@@ -107,7 +108,10 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(uint64_t userId)
+    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(
+        uint64_t userId,
+        [[maybe_unused]] AzFramework::PlayerConnectionConfig config,
+        [[maybe_unused]] Multiplayer::LongNetworkString ticket)
     {
         auto sv_playerSpawnAssetLowerCase = static_cast<AZ::CVarFixedString>(sv_playerSpawnAsset);
         AZStd::to_lower(sv_playerSpawnAssetLowerCase.begin(), sv_playerSpawnAssetLowerCase.end());
