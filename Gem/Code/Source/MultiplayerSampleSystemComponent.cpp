@@ -106,7 +106,7 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::SpawnPlayerPrefab(uint64_t userId)
+    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(uint64_t userId)
     {
         auto sv_playerSpawnAssetLowerCase = static_cast<AZ::CVarFixedString>(sv_playerSpawnAsset);
         AZStd::to_lower(sv_playerSpawnAssetLowerCase.begin(), sv_playerSpawnAssetLowerCase.end());
@@ -119,6 +119,11 @@ namespace MultiplayerSample
             AZ::Vector3(aznumeric_cast<float>(userId % spawnRowSize) * 32.f, aznumeric_cast<float>(userId / spawnRowSize) * 32.f, 0));
 
         return AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform>(playerPrefabEntityId, transform);
+    }
+
+    void MultiplayerSampleSystemComponent::OnPlayerLeave(Multiplayer::ConstNetworkEntityHandle entityHandle)
+    {
+        AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->MarkForRemoval(entityHandle);
     }
 }
 

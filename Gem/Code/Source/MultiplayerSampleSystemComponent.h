@@ -44,7 +44,8 @@ namespace MultiplayerSample
 
         ////////////////////////////////////////////////////////////////////////
         // IMultiplayerSpawner overrides
-        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> SpawnPlayerPrefab(uint64_t userId) override;
+        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> OnPlayerJoin(uint64_t userId) override;
+        void OnPlayerLeave(Multiplayer::ConstNetworkEntityHandle entityHandle) override;
         ////////////////////////////////////////////////////////////////////////
     };
 }
