@@ -17,6 +17,7 @@
 #include <Source/Weapons/WeaponTypes.h>
 #include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
+#include <Source/Spawners/RoundRobinSpawner.h>
 
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Components/NetBindComponent.h>
@@ -89,10 +90,13 @@ namespace MultiplayerSample
         RegisterMultiplayerComponents();
 
         AZ::Interface<Multiplayer::IMultiplayerSpawner>::Register(this);
+        m_playerSpawner = AZStd::make_unique<RoundRobinSpawner>();
+        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Register(m_playerSpawner.get());
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()
     {
+        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Unregister(m_playerSpawner.get());
         AZ::Interface<Multiplayer::IMultiplayerSpawner>::Unregister(this);
         AZ::TickBus::Handler::BusDisconnect();
     }

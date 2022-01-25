@@ -11,6 +11,7 @@
 #include <AzCore/Component/TickBus.h>
 
 #include <Multiplayer/IMultiplayerSpawner.h>
+#include <Source/Spawners/IPlayerSpawner.h>
 
 namespace AzFramework
 {
@@ -64,5 +65,7 @@ namespace MultiplayerSample
             const Multiplayer::ReplicationSet& replicationSet,
             AzNetworking::DisconnectReason reason) override;
         ////////////////////////////////////////////////////////////////////////
+
+        AZStd::unique_ptr<MultiplayerSample::IPlayerSpawner> m_playerSpawner;
     };
 }
