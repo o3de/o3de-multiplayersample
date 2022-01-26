@@ -1,6 +1,6 @@
 #
 # Copyright (c) Contributors to the Open 3D Engine Project
-# 
+#
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 #
 #
@@ -16,6 +16,7 @@ set(FILES
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp

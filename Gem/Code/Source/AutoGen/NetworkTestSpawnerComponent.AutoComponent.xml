@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<Component
+	Name="NetworkTestSpawnerComponent"
+	Namespace="MultiplayerSample"
+	OverrideComponent="false"
+	OverrideController="true"
+	OverrideInclude="Source/Components/PerfTest/NetworkTestSpawnerComponent.h"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Source/Components/NetworkRandomComponent.h" />
+	<ComponentRelation Constraint="Required" HasController="false" Name="NetworkPrefabSpawnerComponent" Namespace="MultiplayerSample" Include="Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h" />
+
+	<ArchetypeProperty Type="bool" Name="Enabled" Init="true" ExposeToEditor="true" Description="Enables spawning of test prefabs." />
+	<ArchetypeProperty Type="int" Name="MaxLiveCount" Init="100" ExposeToEditor="true" Description="Maximum objects to keep alive, will delete older objects when the count goes above this value." />
+	<ArchetypeProperty Type="int" Name="SpawnPerSecond" Init="10" ExposeToEditor="true" Description="How many prefabs to spawn per second." />
+
+</Component>

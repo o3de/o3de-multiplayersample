@@ -519,6 +519,16 @@
                         ]
                     }
                 },
+                "Component_[11734110005037668943]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11734110005037668943,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkTestSpawnerComponent",
+                        "Enabled": true,
+                        "MaxLiveCount": 100,
+                        "SpawnPerSecond": 10
+                    }
+                },
                 "Component_[12075594064273029366]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 12075594064273029366
@@ -565,14 +575,11 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 16930831424390780459
                 },
-                "Component_[1766674680697458302]": {
+                "Component_[17854143994569306422]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 1766674680697458302,
+                    "Id": 17854143994569306422,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkTestSpawnerComponent",
-                        "Enabled": true,
-                        "Max Objects": 1000,
-                        "Spawn Period": 0.009999999776482582
+                        "$type": "MultiplayerSample::NetworkRandomComponent"
                     }
                 },
                 "Component_[194809454864350389]": {
@@ -615,9 +622,9 @@
                         "Default Prefab": {
                             "assetId": {
                                 "guid": "{997E5003-6C9F-56BA-BB11-97A228F4B888}",
-                                "subId": 3333583332
+                                "subId": 2739063657
                             },
-                            "assetHint": "prefabs/test_net_object.network.spawnable"
+                            "assetHint": "prefabs/test_net_object.spawnable"
                         }
                     }
                 }

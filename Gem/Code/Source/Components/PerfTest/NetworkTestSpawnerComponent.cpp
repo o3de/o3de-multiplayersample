@@ -5,94 +5,67 @@
  *
  */
 
+#include <NetworkPrefabSpawnerInterface.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Math/Random.h>
-#include <AzCore/Serialization/EditContext.h>
+#include <Components/NetworkRandomComponent.h>
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Components/NetBindComponent.h>
-
+#include <Source/AutoGen/NetworkRandomComponent.AutoComponent.h>
 #include "NetworkPrefabSpawnerComponent.h"
 
 #pragma optimize("", off)
 
-namespace LmbrCentral
-{
-    class BoxShapeComponent;
-}
-
 namespace MultiplayerSample
 {
-    void NetworkTestSpawnerComponent::Reflect(AZ::ReflectContext* context)
+    NetworkTestSpawnerComponentController::NetworkTestSpawnerComponentController(NetworkTestSpawnerComponent& parent)
+        : NetworkTestSpawnerComponentControllerBase(parent)
     {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<NetworkTestSpawnerComponent, AZ::Component>()
-                ->Field("Enabled", &NetworkTestSpawnerComponent::m_enabled)
-                ->Field("Max Objects", &NetworkTestSpawnerComponent::m_maximumLiveCount)
-                ->Field("Spawn Period", &NetworkTestSpawnerComponent::m_spawnPeriod)
-                ->Version(1);
-
-            if (AZ::EditContext* editContext = serializeContext->GetEditContext())
-            {
-                using namespace AZ::Edit;
-                editContext->Class<NetworkTestSpawnerComponent>("Network Prefab Spawn Tester",
-                    "Various helpful test tools and behaviors to test multiplayer logic and performance.")
-                    ->ClassElement(ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
-                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
-                    ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_enabled, "Enabled", "Enables spawning of test prefabs")
-                    ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_spawnPeriod, "Spawn Period", "How often to spawn new prefab instance, in seconds")
-                        ->Attribute(AZ::Edit::Attributes::Suffix, " seconds")
-                    ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_maximumLiveCount, "Max Objects", 
-                        "Maximum objects to keep alive, will delete older objects when the count goes above this value.")
-                    ;
-            }
-        }
     }
 
-    void NetworkTestSpawnerComponent::Activate()
+    void NetworkTestSpawnerComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_randomDistribution = std::uniform_real_distribution<double>(-1000.f, 1000.f);
+        AZ::TickBus::Handler::BusConnect();
 
-        if (const Multiplayer::NetBindComponent* netBindComponent = GetEntity()->FindComponent<Multiplayer::NetBindComponent>())
-        {
-            if (netBindComponent->IsNetEntityRoleAuthority())
-            {
-                AZ::TickBus::Handler::BusConnect();
-                
-                m_currentCount = 0;
-                m_accumulatedTime = 0.f;
-                m_sinceLastSpawn = 0.f;
-            }
-        }
+        m_currentCount = 0;
+        m_accumulatedTime = 0.f;
+        m_sinceLastSpawn = 0.f;
     }
 
-    void NetworkTestSpawnerComponent::Deactivate()
+    void NetworkTestSpawnerComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         AZ::TickBus::Handler::BusDisconnect();
     }
 
-    void NetworkTestSpawnerComponent::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkTestSpawnerComponentController::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         m_accumulatedTime += deltaTime;
 
-        if (m_accumulatedTime > m_spawnPeriod)
+        if (m_accumulatedTime > 1.0f / aznumeric_cast<float>(GetParent().GetSpawnPerSecond()))
         {
             m_accumulatedTime = 0.f;
 
-            if (NetworkPrefabSpawnerComponent* spawner = GetEntity()->FindComponent<NetworkPrefabSpawnerComponent>())
+            if (NetworkPrefabSpawnerComponent* spawner = GetParent().GetNetworkPrefabSpawnerComponent())
             {
-                AZ::Transform t = GetEntity()->GetTransform()->GetWorldTM();
-
                 AZ::Vector3 randomPoint = AZ::Vector3::CreateZero();
+                // ShapeComponentRequestsBus is designed in such a way that it's very difficult to use direct component interface instead of the EBus
                 using ShapeBus = LmbrCentral::ShapeComponentRequestsBus;
-                ShapeBus::EventResult(randomPoint, GetEntityId(), &ShapeBus::Events::GenerateRandomPointInside, AZ::RandomDistributionType::UniformReal);
+                ShapeBus::EventResult(randomPoint, GetParent().GetEntityId(), &ShapeBus::Events::GenerateRandomPointInside,
+                    AZ::RandomDistributionType::UniformReal);
+
+                AZ::Transform t = GetEntity()->GetTransform()->GetWorldTM();
                 if (!randomPoint.IsZero())
                 {
                     t.SetTranslation(randomPoint);
+
+                    // Create a random orientation for fun.
+                    float randomAngles[3];
+                    randomAngles[0] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                    randomAngles[1] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                    randomAngles[2] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                    t.SetRotation(AZ::Quaternion::CreateFromEulerAnglesDegrees(AZ::Vector3::CreateFromFloat3(randomAngles)));
                 }
 
                 PrefabCallbacks callbacks;
@@ -108,10 +81,10 @@ namespace MultiplayerSample
 
             m_currentCount++;
 
-            if (m_currentCount > m_maximumLiveCount)
+            if (m_currentCount > GetParent().GetMaxLiveCount())
             {
-                m_spawnedObjects.pop_front();
-                m_currentCount--;
+                m_spawnedObjects.pop_front(); // this destroys the prefab instance for this ticket
+                --m_currentCount;
             }
         }
     }

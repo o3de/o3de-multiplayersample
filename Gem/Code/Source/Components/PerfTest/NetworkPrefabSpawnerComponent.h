@@ -18,11 +18,11 @@ namespace MultiplayerSample
     {
     public:
         AZ_COMPONENT(NetworkPrefabSpawnerComponent, "{7E48961B-7E39-4FBC-95E4-74B712229E9B}", Component);
-        
+
         static void Reflect(AZ::ReflectContext* reflection);
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
         {
-            provided.push_back(AZ_CRC_CE("NetworkPrefabSpawnerService"));
+            provided.push_back(AZ_CRC_CE("NetworkPrefabSpawnerComponent"));
         }
 
         void Activate() override;
