@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <random>
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
@@ -51,5 +52,7 @@ namespace MultiplayerSample
         float m_sinceLastSpawn = 0.f;
 
         AZStd::deque<AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedObjects;
+
+        std::uniform_real_distribution<double> m_randomDistribution;
     };
 }

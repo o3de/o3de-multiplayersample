@@ -20,8 +20,7 @@
                 "Id": 14126657869720434043,
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
-                    "Entity_[947961075516]",
-                    "Instance_[420009386512]/ContainerEntity"
+                    "Entity_[947961075516]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -572,7 +571,8 @@
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkTestSpawnerComponent",
                         "Enabled": true,
-                        "Max Objects": 10
+                        "Max Objects": 1000,
+                        "Spawn Period": 0.009999999776482582
                     }
                 },
                 "Component_[194809454864350389]": {
@@ -584,6 +584,19 @@
                     "Id": 3262769293713077991,
                     "m_template": {
                         "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4324228238802776895]": {
+                    "$type": "EditorBoxShapeComponent",
+                    "Id": 4324228238802776895,
+                    "BoxShape": {
+                        "Configuration": {
+                            "Dimensions": [
+                                50.0,
+                                50.0,
+                                1.0
+                            ]
+                        }
                     }
                 },
                 "Component_[4995577444629330118]": {
@@ -609,37 +622,6 @@
                     }
                 }
             }
-        }
-    },
-    "Instances": {
-        "Instance_[420009386512]": {
-            "Source": "Prefabs/Test_Net_Object.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Parent Entity",
-                    "value": "../Entity_[1146574390643]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Transform Data/Translate/0",
-                    "value": 2.2419509887695313
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Transform Data/Translate/1",
-                    "value": 3.4806900024414063
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Transform Data/Translate/2",
-                    "value": 3.210494041442871
-                },
-                {
-                    "op": "remove",
-                    "path": "/LinkId"
-                }
-            ]
         }
     }
 }

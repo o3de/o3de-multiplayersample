@@ -6,14 +6,21 @@
  */
 
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Math/Random.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
+#include <LmbrCentral/Shape/ShapeComponentBus.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 
 #include "NetworkPrefabSpawnerComponent.h"
 
 #pragma optimize("", off)
+
+namespace LmbrCentral
+{
+    class BoxShapeComponent;
+}
 
 namespace MultiplayerSample
 {
@@ -38,6 +45,7 @@ namespace MultiplayerSample
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_enabled, "Enabled", "Enables spawning of test prefabs")
                     ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_spawnPeriod, "Spawn Period", "How often to spawn new prefab instance, in seconds")
+                        ->Attribute(AZ::Edit::Attributes::Suffix, " seconds")
                     ->DataElement(nullptr, &NetworkTestSpawnerComponent::m_maximumLiveCount, "Max Objects", 
                         "Maximum objects to keep alive, will delete older objects when the count goes above this value.")
                     ;
@@ -47,6 +55,8 @@ namespace MultiplayerSample
 
     void NetworkTestSpawnerComponent::Activate()
     {
+        m_randomDistribution = std::uniform_real_distribution<double>(-1000.f, 1000.f);
+
         if (const Multiplayer::NetBindComponent* netBindComponent = GetEntity()->FindComponent<Multiplayer::NetBindComponent>())
         {
             if (netBindComponent->IsNetEntityRoleAuthority())
@@ -76,6 +86,14 @@ namespace MultiplayerSample
             if (NetworkPrefabSpawnerComponent* spawner = GetEntity()->FindComponent<NetworkPrefabSpawnerComponent>())
             {
                 AZ::Transform t = GetEntity()->GetTransform()->GetWorldTM();
+
+                AZ::Vector3 randomPoint = AZ::Vector3::CreateZero();
+                using ShapeBus = LmbrCentral::ShapeComponentRequestsBus;
+                ShapeBus::EventResult(randomPoint, GetEntityId(), &ShapeBus::Events::GenerateRandomPointInside, AZ::RandomDistributionType::UniformReal);
+                if (!randomPoint.IsZero())
+                {
+                    t.SetTranslation(randomPoint);
+                }
 
                 PrefabCallbacks callbacks;
                 callbacks.m_onActivateCallback = [this](

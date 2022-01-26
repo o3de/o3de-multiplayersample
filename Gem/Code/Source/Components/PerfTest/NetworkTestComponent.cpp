@@ -10,6 +10,7 @@
 #include <Components/PerfTest/NetworkTestComponent.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Components/NetBindComponent.h>
+#include <Multiplayer/Physics/PhysicsUtils.h>
 
 namespace MultiplayerSample
 {
