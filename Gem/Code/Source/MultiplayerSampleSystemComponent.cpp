@@ -113,9 +113,7 @@ namespace MultiplayerSample
     }
 
     AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(
-        uint64_t userId,
-        [[maybe_unused]] AzFramework::PlayerConnectionConfig config,
-        [[maybe_unused]] Multiplayer::LongNetworkString ticket)
+        uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
     {
         auto sv_playerSpawnAssetLowerCase = static_cast<AZ::CVarFixedString>(sv_playerSpawnAsset);
         AZStd::to_lower(sv_playerSpawnAssetLowerCase.begin(), sv_playerSpawnAssetLowerCase.end());

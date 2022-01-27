@@ -22,7 +22,7 @@ namespace MultiplayerSample
             s_networkPlayerSpawnerComponentConcreteUuid,
             MultiplayerSample::NetworkPlayerSpawnerComponentBase);
 
-        NetworkPlayerSpawnerComponent();
+        NetworkPlayerSpawnerComponent(){};
 
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;

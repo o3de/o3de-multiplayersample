@@ -22,6 +22,7 @@ namespace Multiplayer
 {
     struct EntityReplicationData;
     using ReplicationSet = AZStd::map<ConstNetworkEntityHandle, EntityReplicationData>;
+    struct MultiplayerAgentDatum;
 }
 
 namespace MultiplayerSample
@@ -56,10 +57,7 @@ namespace MultiplayerSample
 
         ////////////////////////////////////////////////////////////////////////
         // IMultiplayerSpawner overrides
-        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> OnPlayerJoin(
-            uint64_t userId,
-            AzFramework::PlayerConnectionConfig config,
-            Multiplayer::LongNetworkString ticket) override;
+        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum) override;
         void OnPlayerLeave(
             Multiplayer::ConstNetworkEntityHandle entityHandle,
             const Multiplayer::ReplicationSet& replicationSet,
