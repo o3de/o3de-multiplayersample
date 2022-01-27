@@ -172,8 +172,9 @@ namespace MultiplayerSample
 
     void NetworkPrefabSpawnerComponent::CreateInstance(const SpawnRequest& request, const AssetItem* asset)
     {
-        AZ::Transform world = request.m_whereToSpawn;
+        AZ_Assert(asset, "AssetMap didn't contain the asset id for prefab spawning");
 
+        AZ::Transform world = request.m_whereToSpawn;
         if (asset)
         {
             auto ticket = AZStd::make_shared<AzFramework::EntitySpawnTicket>(asset->m_spawnableAsset);
@@ -200,6 +201,7 @@ namespace MultiplayerSample
                 }
             };
 
+            AZ_Assert(ticket->IsValid(), "Unable to instantiate spawnable asset");
             if (ticket->IsValid())
             {
                 AzFramework::SpawnAllEntitiesOptionalArgs optionalArgs;
@@ -207,14 +209,6 @@ namespace MultiplayerSample
                 optionalArgs.m_completionCallback = AZStd::move(onSpawnedCallback);
                 AzFramework::SpawnableEntitiesInterface::Get()->SpawnAllEntities(*ticket, AZStd::move(optionalArgs));
             }
-            else
-            {
-                AZ_Assert(ticket->IsValid(), "Unable to instantiate spawnable asset");
-            }
-        }
-        else
-        {
-            AZ_Assert(asset, "AssetMap didn't contain the asset id for prefab spawning");
         }
     }
 
