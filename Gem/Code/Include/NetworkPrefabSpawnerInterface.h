@@ -29,7 +29,7 @@ namespace MultiplayerSample
     class NetworkPrefabSpawnerRequests
     {
     public:
-        AZ_RTTI(RecastO3DEGemRequests, "{82e5cfb5-6a1a-4bd1-b48d-cd817474d611}");
+        AZ_RTTI(NetworkPrefabSpawnerRequests, "{82e5cfb5-6a1a-4bd1-b48d-cd817474d611}");
         virtual ~NetworkPrefabSpawnerRequests() = default;
 
         virtual void SpawnPrefab(const AZ::Transform& worldTm, const char* assetPath, PrefabCallbacks callbacks) = 0;
