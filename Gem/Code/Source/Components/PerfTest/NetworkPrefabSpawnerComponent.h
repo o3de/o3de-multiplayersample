@@ -35,15 +35,6 @@ namespace MultiplayerSample
 
         // AssetBus
         void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetCanceled(AZ::Data::AssetId assetId) override;
-        void OnAssetContainerReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetError(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetMoved(AZ::Data::Asset<AZ::Data::AssetData> asset, void* oldDataPointer) override;
-        void OnAssetPreReload(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetReloadError(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-        void OnAssetSaved(AZ::Data::Asset<AZ::Data::AssetData> asset, bool isSuccessful) override;
-        void OnAssetUnloaded(const AZ::Data::AssetId assetId, const AZ::Data::AssetType assetType) override;
 
     private:
         AZ::Data::Asset<AzFramework::Spawnable> m_defaultSpawnableAsset;

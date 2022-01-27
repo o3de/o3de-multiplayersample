@@ -209,7 +209,6 @@ namespace MultiplayerSample
         else
         {
             AZ_Assert(asset, "AssetMap didn't contain the asset id for prefab spawning");
-
         }
     }
 
@@ -236,50 +235,5 @@ namespace MultiplayerSample
                 }
             }
         }
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetCanceled(AZ::Data::AssetId assetId)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetId.ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetContainerReady(AZ::Data::Asset<AZ::Data::AssetData> assetData)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetError(AZ::Data::Asset<AZ::Data::AssetData> assetData)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetMoved(AZ::Data::Asset<AZ::Data::AssetData> assetData, [[maybe_unused]] void* oldDataPointer)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetPreReload(AZ::Data::Asset<AZ::Data::AssetData> assetData)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetReloadError(AZ::Data::Asset<AZ::Data::AssetData> assetData)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> assetData)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetSaved(AZ::Data::Asset<AZ::Data::AssetData> assetData, [[maybe_unused]] bool isSuccessful)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetData.GetId().ToString<AZStd::string>().c_str());
-    }
-
-    void NetworkPrefabSpawnerComponent::OnAssetUnloaded(const AZ::Data::AssetId assetId, [[maybe_unused]] const AZ::Data::AssetType asset)
-    {
-        AZ_Printf("TEST", "%s %s", __FUNCTION__, assetId.ToString<AZStd::string>().c_str());
     }
 }
