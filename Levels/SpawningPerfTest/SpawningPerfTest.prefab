@@ -525,7 +525,7 @@
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkTestSpawnerComponent",
                         "Enabled": true,
-                        "MaxLiveCount": 100,
+                        "MaxLiveCount": 1000,
                         "SpawnPerSecond": 10
                     }
                 },
@@ -573,7 +573,10 @@
                 },
                 "Component_[16930831424390780459]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 16930831424390780459
+                    "Id": 16930831424390780459,
+                    "Child Entity Order": [
+                        "Instance_[414131786087]/ContainerEntity"
+                    ]
                 },
                 "Component_[17854143994569306422]": {
                     "$type": "GenericComponentWrapper",
@@ -629,6 +632,18 @@
                     }
                 }
             }
+        }
+    },
+    "Instances": {
+        "Instance_[414131786087]": {
+            "Source": "Prefabs/Test_Net_Object.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Parent Entity",
+                    "value": "../Entity_[947961075516]"
+                }
+            ]
         }
     }
 }

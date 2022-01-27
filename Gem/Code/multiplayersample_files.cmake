@@ -17,6 +17,7 @@ set(FILES
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTestComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp

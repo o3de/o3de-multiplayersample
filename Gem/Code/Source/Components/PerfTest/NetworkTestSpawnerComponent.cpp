@@ -16,8 +16,6 @@
 #include <Source/AutoGen/NetworkRandomComponent.AutoComponent.h>
 #include "NetworkPrefabSpawnerComponent.h"
 
-#pragma optimize("", off)
-
 namespace MultiplayerSample
 {
     NetworkTestSpawnerComponentController::NetworkTestSpawnerComponentController(NetworkTestSpawnerComponent& parent)
