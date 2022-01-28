@@ -6,11 +6,23 @@
  *
  */
 
+#include <AzCore/Serialization/SerializeContext.h>
+
 #include <Source/Components/NetworkPlayerSpawnerComponent.h>
 #include <Source/Spawners/IPlayerSpawner.h>
 
 namespace MultiplayerSample
 {
+    void NetworkPlayerSpawnerComponent::NetworkPlayerSpawnerComponent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<NetworkPlayerSpawnerComponent, NetworkPlayerSpawnerComponentBase>()->Version(1);
+        }
+        NetworkPlayerSpawnerComponentBase::Reflect(context);
+    }
+
     void NetworkPlayerSpawnerComponent::OnInit()
     {
         ;

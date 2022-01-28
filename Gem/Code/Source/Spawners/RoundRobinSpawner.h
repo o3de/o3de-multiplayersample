@@ -38,5 +38,6 @@ namespace MultiplayerSample
 
     private:
         AZStd::vector<NetworkPlayerSpawnerComponent*> m_spawners;
+        uint8_t m_spawnIndex = 0;
     };
 } // namespace MultiplayerSample

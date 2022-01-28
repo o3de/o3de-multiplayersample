@@ -22,6 +22,8 @@ namespace MultiplayerSample
             s_networkPlayerSpawnerComponentConcreteUuid,
             MultiplayerSample::NetworkPlayerSpawnerComponentBase);
 
+        static void Reflect(AZ::ReflectContext* context);
+
         NetworkPlayerSpawnerComponent(){};
 
         void OnInit() override;

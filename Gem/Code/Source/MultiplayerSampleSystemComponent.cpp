@@ -113,19 +113,9 @@ namespace MultiplayerSample
     }
 
     AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(
-        uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
+        [[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
     {
-        auto sv_playerSpawnAssetLowerCase = static_cast<AZ::CVarFixedString>(sv_playerSpawnAsset);
-        AZStd::to_lower(sv_playerSpawnAssetLowerCase.begin(), sv_playerSpawnAssetLowerCase.end());
-        Multiplayer::PrefabEntityId playerPrefabEntityId(AZ::Name(sv_playerSpawnAssetLowerCase.c_str()));
-
-        // Assuming userIds increase linearly (which is naive), spawn in rows of a prescribed size
-        const uint8_t spawnRowSize = 8;
-        AZ::Transform transform = AZ::Transform::CreateIdentity();
-        transform.SetTranslation(
-            AZ::Vector3(aznumeric_cast<float>(userId % spawnRowSize) * 32.f, aznumeric_cast<float>(userId / spawnRowSize) * 32.f, 0));
-
-        return AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform>(playerPrefabEntityId, transform);
+        return AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
     }
 
     void MultiplayerSampleSystemComponent::OnPlayerLeave(
