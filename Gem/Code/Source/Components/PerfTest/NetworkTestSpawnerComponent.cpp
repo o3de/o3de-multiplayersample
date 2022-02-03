@@ -20,12 +20,13 @@ namespace MultiplayerSample
 {
     NetworkTestSpawnerComponentController::NetworkTestSpawnerComponentController(NetworkTestSpawnerComponent& parent)
         : NetworkTestSpawnerComponentControllerBase(parent)
+        , m_tickEvent{ [this] { TickEvent(); }, AZ::Name{ "NetworkTestSpawnerComponent" } }
     {
     }
 
     void NetworkTestSpawnerComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusConnect();
+        m_tickEvent.Enqueue(AZ::TimeMs{ 0 }, true);
 
         m_currentCount = 0;
         m_accumulatedTime = 0.f;
@@ -34,11 +35,11 @@ namespace MultiplayerSample
 
     void NetworkTestSpawnerComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusDisconnect();
     }
 
-    void NetworkTestSpawnerComponentController::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkTestSpawnerComponentController::TickEvent()
     {
+        const float deltaTime = static_cast<float>(m_tickEvent.TimeInQueueMs()) / 1000.f;
         m_accumulatedTime += deltaTime;
 
         if (m_accumulatedTime > 1.0f / aznumeric_cast<float>(GetParent().GetSpawnPerSecond()))

@@ -9,7 +9,7 @@
 #include <AzCore/Module/Module.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
-#include <Components/PerfTest/NetworkTestComponent.h>
+#include <Components/PerfTest/NetworkRandomImpulseComponent.h>
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
