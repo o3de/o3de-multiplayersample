@@ -205,7 +205,8 @@ namespace MultiplayerSample
     //! Structure containing details for a single fire event.
     struct FireParams
     {
-        AZ::Vector3 m_targetPosition = AZ::Vector3::CreateZero(); // Location of the activate event.
+        AZ::Vector3 m_sourcePosition = AZ::Vector3::CreateZero(); // Source location of the activate event
+        AZ::Vector3 m_targetPosition = AZ::Vector3::CreateZero(); // Target location of the activate event.
         Multiplayer::NetEntityId m_targetId = Multiplayer::InvalidNetEntityId; // Entity Id of the target (for homing weapons)
 
         bool operator!=(const FireParams& rhs) const;

@@ -13,6 +13,7 @@
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/NetworkEntity/INetworkEntityManager.h>
 #include <Multiplayer/NetworkTime/INetworkTime.h>
+#include <PhysX/NativeTypeIdentifiers.h>
 
 namespace MultiplayerSample
 {
@@ -79,8 +80,9 @@ namespace MultiplayerSample
             auto ignoreEntitiesFilterCallback =
                 [&filter, networkEntityManager](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
             {
-                // Exclude the bodies from another rewind frame
-                if ((filter.m_rewindFrameId != Multiplayer::InvalidHostFrameId)
+                // Exclude the dynamic bodies from another rewind frame
+                if (filter.m_rewindFrameId != Multiplayer::InvalidHostFrameId
+                    && body->GetNativeType() != PhysX::NativeTypeIdentifiers::RigidBodyStatic
                      && (body->GetFrameId() != static_cast<uint32_t>(filter.m_rewindFrameId)))
                 {
                     return AzPhysics::SceneQuery::QueryHitType::None;
