@@ -109,12 +109,11 @@ namespace MultiplayerSample
 
         float currSegmentStartTime = inOutActiveShot.m_lifetimeSeconds;
         AZ::Vector3 currSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + (segmentStepOffset * currSegmentStartTime) + (gravity * 0.5f * currSegmentStartTime * currSegmentStartTime);
-
         for (uint32_t segment = 0; segment < bg_MultitraceNumTraceSegments; ++segment)
         {
             float nextSegmentStartTime = currSegmentStartTime + segmentTickSize;
             AZ::Vector3 travelDistance = (segmentStepOffset * nextSegmentStartTime); // Total distance our shot has traveled as of this cast, ignoring arc-length due to gravity
-            AZ::Vector3 nextSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + travelDistance + (gravity * 0.5f * nextSegmentStartTime * nextSegmentStartTime);         
+            AZ::Vector3 nextSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + travelDistance + (gravity * 0.5f * nextSegmentStartTime * nextSegmentStartTime);
 
             const AZ::Transform currSegTransform = AZ::Transform::CreateFromQuaternionAndTranslation(inOutActiveShot.m_initialTransform.GetRotation(), currSegmentPosition);
             const AZ::Vector3 segSweep = nextSegmentPosition - currSegmentPosition;
