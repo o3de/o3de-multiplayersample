@@ -363,7 +363,7 @@ namespace MultiplayerSample
                 // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
-                FireParams fireParams{ aimTarget, weaponInput->m_fireTranslation, Multiplayer::InvalidNetEntityId };
+                FireParams fireParams{ weaponInput->m_fireTranslation, aimTarget, Multiplayer::InvalidNetEntityId };
                 TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndexInt), fireParams);
             }
         }
