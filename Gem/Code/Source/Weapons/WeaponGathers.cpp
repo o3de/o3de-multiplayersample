@@ -129,7 +129,7 @@ namespace MultiplayerSample
                     &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
                     currSegmentPosition,
                     nextSegmentPosition,
-                    AZ::Colors::Red,
+                    segment % 2 == 0 ? AZ::Colors::Red : AZ::Colors::Yellow,
                     10.0f
                 );
             }
