@@ -322,6 +322,7 @@ namespace MultiplayerSample
         weaponInput->m_draw = m_weaponDrawn;
         weaponInput->m_firing = m_weaponFiring;
 
+        // All weapon indices point to the same bone so only send one instance
         uint32_t weaponIndexInt = 0;
         if (weaponInput->m_firing.GetBit(weaponIndexInt))
         {
@@ -334,7 +335,7 @@ namespace MultiplayerSample
             {
                 AZLOG_WARN("Failed to get transform for fire bone joint Id %u", boneIdx);
             }
-            weaponInput->m_fireTranslation = fireBoneTransform.GetTranslation();
+            weaponInput->m_shotStartPosition = fireBoneTransform.GetTranslation();
         }
     }
 
@@ -363,7 +364,17 @@ namespace MultiplayerSample
                 // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
-                FireParams fireParams{ weaponInput->m_fireTranslation, aimTarget, Multiplayer::InvalidNetEntityId };
+                AZ::Vector3 aimSource = weaponInput->m_shotStartPosition;
+                const float startPositionClampRange = 2.f;
+                AZ::Vector3 sourcePosDelta = (aimSource - worldTm.GetTranslation());
+                if (sourcePosDelta.GetLength() > startPositionClampRange)
+                {
+                    // Clamp the proposed source position to our tolerance                  
+                    sourcePosDelta.Normalize();
+                    aimSource = worldTm.GetTranslation() + (sourcePosDelta * startPositionClampRange);
+                    AZLOG_WARN("Shot origin was outside of clamp range, clamping to range extent");
+                }
+                FireParams fireParams{ weaponInput->m_shotStartPosition, aimTarget, Multiplayer::InvalidNetEntityId };
                 TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndexInt), fireParams);
             }
         }
