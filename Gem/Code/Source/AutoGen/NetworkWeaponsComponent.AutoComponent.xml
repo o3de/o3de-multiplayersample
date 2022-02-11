@@ -16,6 +16,7 @@
 
     <NetworkInput Type="bool" Name="Draw" Init="false" />
     <NetworkInput Type="WeaponActivationBitset" Name="Firing"  Init="" />
+	<NetworkInput Type="AZ::Vector3" Name="ShotStartPosition" Init="" />
 
     <NetworkProperty Type="FireParams"  Name="ActivationParams" Init=""  Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="false" Description="Parameters for the current weapon activation" />
     <NetworkProperty Type="uint8_t"     Name="ActivationCounts" Init="0" Container="Array" Count="MaxWeaponsPerComponent" ReplicateFrom="Authority" ReplicateTo="Client"     IsPublic="false" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" GenerateEventBindings="true"  Description="The number of activations" />

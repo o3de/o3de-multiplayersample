@@ -91,24 +91,10 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations)
     {
-        const uint32_t weaponIndexInt = aznumeric_cast<uint32_t>(weaponIndex);
-
-        // Temp hack for weapon firing due to late ebus binding in 1.14
-        if (m_fireBoneJointIds[weaponIndexInt] == InvalidBoneId)
-        {
-            const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
-            m_fireBoneJointIds[weaponIndexInt] = GetNetworkAnimationComponent()->GetBoneIdByName(fireBoneName);
-        }
-
-        AZ::Transform fireBoneTransform;
-        if (!GetNetworkAnimationComponent()->GetJointTransformById(m_fireBoneJointIds[weaponIndexInt], fireBoneTransform))
-        {
-            AZLOG_WARN("Failed to get transform for fire bone %s, joint Id %u", GetFireBoneNames(weaponIndexInt).c_str(), m_fireBoneJointIds[weaponIndexInt]);
-        }
-
-        const AZ::Vector3    position = fireBoneTransform.GetTranslation();
+        const AZ::Vector3    position = fireParams.m_sourcePosition;
         const AZ::Quaternion orientation = AZ::Quaternion::CreateShortestArc(AZ::Vector3::CreateAxisX(), (fireParams.m_targetPosition - position).GetNormalized());
         const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
+
         ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
 
         IWeapon* weapon = GetWeapon(weaponIndex);
@@ -335,6 +321,21 @@ namespace MultiplayerSample
 
         weaponInput->m_draw = m_weaponDrawn;
         weaponInput->m_firing = m_weaponFiring;
+
+        // All weapon indices point to the same bone so only send one instance
+        uint32_t weaponIndexInt = 0;
+        if (weaponInput->m_firing.GetBit(weaponIndexInt))
+        {
+            const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
+            int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
+
+            AZ::Transform fireBoneTransform;
+            if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(boneIdx, fireBoneTransform))
+            {
+                AZLOG_WARN("Failed to get transform for fire bone joint Id %u", boneIdx);
+            }
+            weaponInput->m_shotStartPosition = fireBoneTransform.GetTranslation();
+        }
     }
 
     void NetworkWeaponsComponentController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
@@ -362,7 +363,25 @@ namespace MultiplayerSample
                 // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
-                FireParams fireParams{ aimTarget, Multiplayer::InvalidNetEntityId };
+                AZ::Vector3 aimSource = weaponInput->m_shotStartPosition;
+
+                const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
+                int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
+
+                AZ::Transform fireBoneTransform;
+                if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(boneIdx, fireBoneTransform))
+                {
+                    AZLOG_WARN("Failed to get transform for fire bone joint Id %u", boneIdx);
+                }
+
+                // Validate the proposed start position is reasonably close to the related bone
+                float startPositionClampRange = .5f;
+                if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > startPositionClampRange)
+                {              
+                    aimSource = fireBoneTransform.GetTranslation();
+                    AZLOG_WARN("Shot origin was outside of clamp range, resetting to bone position");
+                }
+                FireParams fireParams{ weaponInput->m_shotStartPosition, aimTarget, Multiplayer::InvalidNetEntityId };
                 TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndexInt), fireParams);
             }
         }

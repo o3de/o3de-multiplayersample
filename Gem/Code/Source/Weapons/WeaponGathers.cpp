@@ -116,7 +116,7 @@ namespace MultiplayerSample
             AZ::Vector3 nextSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + travelDistance + (gravity * 0.5f * nextSegmentStartTime * nextSegmentStartTime);
 
             const AZ::Transform currSegTransform = AZ::Transform::CreateFromQuaternionAndTranslation(inOutActiveShot.m_initialTransform.GetRotation(), currSegmentPosition);
-            const AZ::Vector3   segSweep = nextSegmentPosition - currSegmentPosition;
+            const AZ::Vector3 segSweep = nextSegmentPosition - currSegmentPosition;
 
             IntersectFilter filter(currSegTransform, segSweep, AzPhysics::SceneQuery::QueryType::StaticAndDynamic,
                 hitMultiple, collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
@@ -129,7 +129,7 @@ namespace MultiplayerSample
                     &DebugDraw::DebugDrawRequests::DrawLineLocationToLocation,
                     currSegmentPosition,
                     nextSegmentPosition,
-                    AZ::Colors::Red,
+                    segment % 2 == 0 ? AZ::Colors::Red : AZ::Colors::Yellow,
                     10.0f
                 );
             }
