@@ -326,7 +326,6 @@ namespace MultiplayerSample
         uint32_t weaponIndexInt = 0;
         if (weaponInput->m_firing.GetBit(weaponIndexInt))
         {
-            // Temp hack for weapon firing due to late ebus binding in 1.14
             const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
             int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
 
@@ -365,14 +364,22 @@ namespace MultiplayerSample
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
                 AZ::Vector3 aimSource = weaponInput->m_shotStartPosition;
-                const float startPositionClampRange = 2.f;
-                AZ::Vector3 sourcePosDelta = (aimSource - worldTm.GetTranslation());
-                if (sourcePosDelta.GetLength() > startPositionClampRange)
+
+                const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
+                int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
+
+                AZ::Transform fireBoneTransform;
+                if (!GetNetworkAnimationComponentController()->GetParent().GetJointTransformById(boneIdx, fireBoneTransform))
                 {
-                    // Clamp the proposed source position to our tolerance                  
-                    sourcePosDelta.Normalize();
-                    aimSource = worldTm.GetTranslation() + (sourcePosDelta * startPositionClampRange);
-                    AZLOG_WARN("Shot origin was outside of clamp range, clamping to range extent");
+                    AZLOG_WARN("Failed to get transform for fire bone joint Id %u", boneIdx);
+                }
+
+                // Validate the proposed start position is reasonably close to the related bone
+                float startPositionClampRange = .5f;
+                if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > startPositionClampRange)
+                {              
+                    aimSource = fireBoneTransform.GetTranslation();
+                    AZLOG_WARN("Shot origin was outside of clamp range, resetting to bone position");
                 }
                 FireParams fireParams{ weaponInput->m_shotStartPosition, aimTarget, Multiplayer::InvalidNetEntityId };
                 TryStartFire(aznumeric_cast<WeaponIndex>(weaponIndexInt), fireParams);
