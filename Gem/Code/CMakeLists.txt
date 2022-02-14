@@ -77,3 +77,6 @@ ly_enable_gems(PROJECT_NAME MultiplayerSample GEM_FILE enabled_gems.cmake)
 if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
 endif()
+
+set_property(GLOBAL APPEND PROPERTY MultiplayerSample_GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"client.cfg\"")
+set_property(GLOBAL APPEND PROPERTY MultiplayerSample_SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
