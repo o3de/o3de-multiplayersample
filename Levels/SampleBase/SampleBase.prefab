@@ -55,18 +55,15 @@
                 "$type": "EditorEntitySortComponent",
                 "Id": 8247764638131379605,
                 "Child Entity Order": [
-                    "Entity_[1863191303392]",
-                    "Entity_[14030996048227]",
-                    "Instance_[2915620686179]/ContainerEntity",
                     "Instance_[2834016307555]/ContainerEntity",
-                    "Entity_[412839637138]",
-                    "Instance_[785316907363]/ContainerEntity",
+                    "Instance_[2915620686179]/ContainerEntity",
                     "Instance_[3293577808227]/ContainerEntity",
+                    "Instance_[785316907363]/ContainerEntity",
                     "Entity_[830977005898]",
-                    "Entity_[522980195737]",
-                    "Entity_[600289607065]",
-                    "Entity_[527275163033]",
-                    "Entity_[673304051097]"
+                    "Entity_[611359903594]",
+                    "Entity_[412839637138]",
+                    "Entity_[1863191303392]",
+                    "Entity_[14030996048227]"
                 ]
             }
         }
@@ -165,7 +162,8 @@
                     "m_name": "SpawnIfAuthority",
                     "runtimeDataIsValid": true,
                     "sourceHandle": {
-                        "id": "{B605AD71-0689-5650-B3F5-558D471B6351}"
+                        "id": "{B605AD71-0689-5650-B3F5-558D471B6351}",
+                        "path": "scriptcanvas/spawnifauthority.scriptcanvas"
                     }
                 },
                 "Component_[15194128185768259769]": {
@@ -219,30 +217,8 @@
         },
         "Entity_[412839637138]": {
             "Id": "Entity_[412839637138]",
-            "Name": "Ground and Sky",
+            "Name": "Ground",
             "Components": {
-                "Component_[13700729619015137843]": {
-                    "$type": "AZ::Render::EditorImageBasedLightComponent",
-                    "Id": 13700729619015137843,
-                    "Controller": {
-                        "Configuration": {
-                            "diffuseImageAsset": {
-                                "assetId": {
-                                    "guid": "{4CF4C63C-B317-5E0B-B523-44167A02F81E}",
-                                    "subId": 3000
-                                },
-                                "assetHint": "testdata/lightingpresets/beach_parking_1k_iblglobalcm_ibldiffuse.exr.streamingimage"
-                            },
-                            "specularImageAsset": {
-                                "assetId": {
-                                    "guid": "{4CF4C63C-B317-5E0B-B523-44167A02F81E}",
-                                    "subId": 2000
-                                },
-                                "assetHint": "testdata/lightingpresets/beach_parking_1k_iblglobalcm_iblspecular.exr.streamingimage"
-                            }
-                        }
-                    }
-                },
                 "Component_[14576502551830180300]": {
                     "$type": "EditorColliderComponent",
                     "Id": 14576502551830180300,
@@ -279,7 +255,10 @@
                 },
                 "Component_[15840258338216491819]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 15840258338216491819
+                    "Id": 15840258338216491819,
+                    "Child Entity Order": [
+                        "Entity_[611359903594]"
+                    ]
                 },
                 "Component_[16611535888956034510]": {
                     "$type": "EditorMaterialComponent",
@@ -346,298 +325,116 @@
                     "$type": "EditorVisibilityComponent",
                     "Id": 3412423409421084023
                 },
-                "Component_[6818347252800527841]": {
-                    "$type": "AZ::Render::EditorPhysicalSkyComponent",
-                    "Id": 6818347252800527841,
-                    "Controller": {
-                        "Configuration": {
-                            "SkyIntensity": 5.0
-                        }
-                    }
-                },
                 "Component_[7297856704634960860]": {
                     "$type": "SelectionComponent",
                     "Id": 7297856704634960860
                 }
             }
         },
-        "Entity_[522980195737]": {
-            "Id": "Entity_[522980195737]",
-            "Name": "Spawner",
+        "Entity_[611359903594]": {
+            "Id": "Entity_[611359903594]",
+            "Name": "Sky",
             "Components": {
-                "Component_[10620106518871193371]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 10620106518871193371
+                "Component_[12020387915929175314]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 12020387915929175314
                 },
-                "Component_[12065531007728318804]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 12065531007728318804
+                "Component_[12113168580323165094]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 12113168580323165094
                 },
-                "Component_[12288490232492385366]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 12288490232492385366,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerSpawnerComponent",
-                        "SnapToGround": true,
-                        "AssetPath": "prefabs/player.network.spawnable"
+                "Component_[13428084923771247637]": {
+                    "$type": "SelectionComponent",
+                    "Id": 13428084923771247637
+                },
+                "Component_[15868007870507055798]": {
+                    "$type": "AZ::Render::EditorPhysicalSkyComponent",
+                    "Id": 15868007870507055798,
+                    "Controller": {
+                        "Configuration": {
+                            "FogSettings": {
+                                "Enable": true
+                            }
+                        }
                     }
                 },
-                "Component_[12447752996362612657]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 12447752996362612657
-                },
-                "Component_[12847596421026527364]": {
-                    "$type": "SelectionComponent",
-                    "Id": 12847596421026527364
-                },
-                "Component_[13598691711255464741]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 13598691711255464741
-                },
-                "Component_[13899657516076530251]": {
+                "Component_[16939772704288602141]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 13899657516076530251,
+                    "Id": 16939772704288602141,
                     "Parent Entity": "Entity_[356758116574]",
                     "Transform Data": {
                         "Translate": [
-                            0.0,
-                            10.0,
-                            0.0
+                            -4.764087677001953,
+                            12.970443725585938,
+                            19.850555419921875
+                        ],
+                        "Rotate": [
+                            -69.53874206542969,
+                            -4.26886799687054e-7,
+                            -12.672529220581055
                         ]
                     }
                 },
-                "Component_[14573817142533140072]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 14573817142533140072
-                },
-                "Component_[1549015690346168429]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 1549015690346168429
-                },
-                "Component_[15944498823917725657]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 15944498823917725657
-                },
-                "Component_[5869030238385945252]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 5869030238385945252,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[6432406141729708226]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 6432406141729708226
-                }
-            }
-        },
-        "Entity_[527275163033]": {
-            "Id": "Entity_[527275163033]",
-            "Name": "Spawner",
-            "Components": {
-                "Component_[10620106518871193371]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 10620106518871193371
-                },
-                "Component_[12065531007728318804]": {
+                "Component_[181484920425426795]": {
                     "$type": "EditorDisabledCompositionComponent",
-                    "Id": 12065531007728318804
+                    "Id": 181484920425426795
                 },
-                "Component_[12288490232492385366]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 12288490232492385366,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerSpawnerComponent",
-                        "SnapToGround": true,
-                        "AssetPath": "prefabs/player.network.spawnable"
-                    }
-                },
-                "Component_[12447752996362612657]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 12447752996362612657
-                },
-                "Component_[12847596421026527364]": {
-                    "$type": "SelectionComponent",
-                    "Id": 12847596421026527364
-                },
-                "Component_[13598691711255464741]": {
+                "Component_[1924698028746237056]": {
                     "$type": "EditorOnlyEntityComponent",
-                    "Id": 13598691711255464741
+                    "Id": 1924698028746237056
                 },
-                "Component_[13899657516076530251]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 13899657516076530251,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            10.0,
-                            0.0,
-                            0.0
-                        ]
+                "Component_[3097249092599449156]": {
+                    "$type": "AZ::Render::EditorDirectionalLightComponent",
+                    "Id": 3097249092599449156,
+                    "Controller": {
+                        "Configuration": {
+                            "Color": [
+                                0.26219576597213745,
+                                0.4600900411605835,
+                                0.5198748707771301
+                            ],
+                            "Intensity": 0.0,
+                            "CameraEntityId": ""
+                        }
                     }
                 },
-                "Component_[14573817142533140072]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 14573817142533140072
-                },
-                "Component_[1549015690346168429]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 1549015690346168429
-                },
-                "Component_[15944498823917725657]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 15944498823917725657
-                },
-                "Component_[5869030238385945252]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 5869030238385945252,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[6432406141729708226]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 6432406141729708226
-                }
-            }
-        },
-        "Entity_[600289607065]": {
-            "Id": "Entity_[600289607065]",
-            "Name": "Spawner",
-            "Components": {
-                "Component_[10620106518871193371]": {
+                "Component_[3991835182627485406]": {
                     "$type": "EditorLockComponent",
-                    "Id": 10620106518871193371
+                    "Id": 3991835182627485406
                 },
-                "Component_[12065531007728318804]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 12065531007728318804
-                },
-                "Component_[12288490232492385366]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 12288490232492385366,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerSpawnerComponent",
-                        "SnapToGround": true,
-                        "AssetPath": "prefabs/player.network.spawnable"
+                "Component_[5074029630700212404]": {
+                    "$type": "AZ::Render::EditorImageBasedLightComponent",
+                    "Id": 5074029630700212404,
+                    "Controller": {
+                        "Configuration": {
+                            "diffuseImageAsset": {
+                                "assetId": {
+                                    "guid": "{A5767C6B-5DB4-5999-A717-4587BEDF5CDE}",
+                                    "subId": 3000
+                                },
+                                "assetHint": "lightingpresets/default_iblskyboxcm_ibldiffuse.exr.streamingimage"
+                            },
+                            "specularImageAsset": {
+                                "assetId": {
+                                    "guid": "{FF892EA4-60B2-5E14-8610-CA2A793C86A7}",
+                                    "subId": 2000
+                                },
+                                "assetHint": "engineassets/textures/cubemap/default_level_cubemap_iblspecular.tif.streamingimage"
+                            }
+                        }
                     }
                 },
-                "Component_[12447752996362612657]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 12447752996362612657
-                },
-                "Component_[12847596421026527364]": {
-                    "$type": "SelectionComponent",
-                    "Id": 12847596421026527364
-                },
-                "Component_[13598691711255464741]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 13598691711255464741
-                },
-                "Component_[13899657516076530251]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 13899657516076530251,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            0.0,
-                            -10.0,
-                            0.0
-                        ]
-                    }
-                },
-                "Component_[14573817142533140072]": {
+                "Component_[8034472642282561588]": {
                     "$type": "EditorInspectorComponent",
-                    "Id": 14573817142533140072
+                    "Id": 8034472642282561588
                 },
-                "Component_[1549015690346168429]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 1549015690346168429
-                },
-                "Component_[15944498823917725657]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 15944498823917725657
-                },
-                "Component_[5869030238385945252]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 5869030238385945252,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[6432406141729708226]": {
+                "Component_[8915786006739025830]": {
                     "$type": "EditorVisibilityComponent",
-                    "Id": 6432406141729708226
-                }
-            }
-        },
-        "Entity_[673304051097]": {
-            "Id": "Entity_[673304051097]",
-            "Name": "Spawner",
-            "Components": {
-                "Component_[10620106518871193371]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 10620106518871193371
+                    "Id": 8915786006739025830
                 },
-                "Component_[12065531007728318804]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 12065531007728318804
-                },
-                "Component_[12288490232492385366]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 12288490232492385366,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerSpawnerComponent",
-                        "SnapToGround": true,
-                        "AssetPath": "prefabs/player.network.spawnable"
-                    }
-                },
-                "Component_[12447752996362612657]": {
+                "Component_[9242372134971919133]": {
                     "$type": "EditorEntityIconComponent",
-                    "Id": 12447752996362612657
-                },
-                "Component_[12847596421026527364]": {
-                    "$type": "SelectionComponent",
-                    "Id": 12847596421026527364
-                },
-                "Component_[13598691711255464741]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 13598691711255464741
-                },
-                "Component_[13899657516076530251]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 13899657516076530251,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            -10.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "Component_[14573817142533140072]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 14573817142533140072
-                },
-                "Component_[1549015690346168429]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 1549015690346168429
-                },
-                "Component_[15944498823917725657]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 15944498823917725657
-                },
-                "Component_[5869030238385945252]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 5869030238385945252,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[6432406141729708226]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 6432406141729708226
+                    "Id": 9242372134971919133
                 }
             }
         },
@@ -695,7 +492,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 15523728147827078032
+                            "EditorEntityId": 4798108558725889184
                         }
                     }
                 },
@@ -718,6 +515,326 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Name",
                     "value": "4x4x4x4BoxGrid"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/0",
+                    "value": "Entity_[596338346339]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/1",
+                    "value": "Entity_[763842070883]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/2",
+                    "value": "Entity_[510439000419]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/3",
+                    "value": "Entity_[725187365219]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/4",
+                    "value": "Entity_[519028935011]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/5",
+                    "value": "Entity_[506144033123]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/6",
+                    "value": "Entity_[549093706083]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/7",
+                    "value": "Entity_[630698084707]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/8",
+                    "value": "Entity_[609223248227]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/9",
+                    "value": "Entity_[613518215523]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/10",
+                    "value": "Entity_[557683640675]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/11",
+                    "value": "Entity_[772432005475]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/12",
+                    "value": "Entity_[720892397923]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/13",
+                    "value": "Entity_[673647757667]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/14",
+                    "value": "Entity_[669352790371]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/15",
+                    "value": "Entity_[768137038179]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/16",
+                    "value": "Entity_[540503771491]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/17",
+                    "value": "Entity_[652172921187]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/18",
+                    "value": "Entity_[750957168995]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/19",
+                    "value": "Entity_[695122594147]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/20",
+                    "value": "Entity_[579158477155]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/21",
+                    "value": "Entity_[531913836899]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/22",
+                    "value": "Entity_[583453444451]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/23",
+                    "value": "Entity_[755252136291]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/24",
+                    "value": "Entity_[617813182819]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/25",
+                    "value": "Entity_[634993052003]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/26",
+                    "value": "Entity_[553388673379]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/27",
+                    "value": "Entity_[622108150115]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/28",
+                    "value": "Entity_[639288019299]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/29",
+                    "value": "Entity_[570568542563]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/30",
+                    "value": "Entity_[643582986595]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/31",
+                    "value": "Entity_[647877953891]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/32",
+                    "value": "Entity_[729482332515]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/33",
+                    "value": "Entity_[626403117411]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/34",
+                    "value": "Entity_[536208804195]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/35",
+                    "value": "Entity_[665057823075]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/36",
+                    "value": "Entity_[527618869603]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/37",
+                    "value": "Entity_[592043379043]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/38",
+                    "value": "Entity_[781021940067]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/39",
+                    "value": "Entity_[566273575267]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/40",
+                    "value": "Entity_[561978607971]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/41",
+                    "value": "Entity_[682237692259]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/42",
+                    "value": "Entity_[660762855779]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/43",
+                    "value": "Entity_[523323902307]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/44",
+                    "value": "Entity_[738072267107]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/45",
+                    "value": "Entity_[699417561443]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/46",
+                    "value": "Entity_[574863509859]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/47",
+                    "value": "Entity_[604928280931]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/48",
+                    "value": "Entity_[600633313635]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/49",
+                    "value": "Entity_[544798738787]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/50",
+                    "value": "Entity_[776726972771]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/51",
+                    "value": "Entity_[677942724963]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/52",
+                    "value": "Entity_[716597430627]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/53",
+                    "value": "Entity_[746662201699]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/54",
+                    "value": "Entity_[514733967715]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/55",
+                    "value": "Entity_[759547103587]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/56",
+                    "value": "Entity_[656467888483]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/57",
+                    "value": "Entity_[742367234403]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/58",
+                    "value": "Entity_[587748411747]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/59",
+                    "value": "Entity_[686532659555]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/60",
+                    "value": "Entity_[712302463331]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/61",
+                    "value": "Entity_[703712528739]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/62",
+                    "value": "Entity_[733777299811]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/63",
+                    "value": "Entity_[708007496035]"
                 },
                 {
                     "op": "replace",
@@ -754,6 +871,326 @@
                     "value": "4x4x4x4BoxGrid"
                 },
                 {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/0",
+                    "value": "Entity_[596338346339]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/1",
+                    "value": "Entity_[763842070883]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/2",
+                    "value": "Entity_[510439000419]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/3",
+                    "value": "Entity_[725187365219]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/4",
+                    "value": "Entity_[519028935011]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/5",
+                    "value": "Entity_[506144033123]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/6",
+                    "value": "Entity_[549093706083]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/7",
+                    "value": "Entity_[630698084707]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/8",
+                    "value": "Entity_[609223248227]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/9",
+                    "value": "Entity_[613518215523]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/10",
+                    "value": "Entity_[557683640675]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/11",
+                    "value": "Entity_[772432005475]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/12",
+                    "value": "Entity_[720892397923]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/13",
+                    "value": "Entity_[673647757667]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/14",
+                    "value": "Entity_[669352790371]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/15",
+                    "value": "Entity_[768137038179]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/16",
+                    "value": "Entity_[540503771491]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/17",
+                    "value": "Entity_[652172921187]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/18",
+                    "value": "Entity_[750957168995]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/19",
+                    "value": "Entity_[695122594147]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/20",
+                    "value": "Entity_[579158477155]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/21",
+                    "value": "Entity_[531913836899]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/22",
+                    "value": "Entity_[583453444451]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/23",
+                    "value": "Entity_[755252136291]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/24",
+                    "value": "Entity_[617813182819]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/25",
+                    "value": "Entity_[634993052003]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/26",
+                    "value": "Entity_[553388673379]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/27",
+                    "value": "Entity_[622108150115]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/28",
+                    "value": "Entity_[639288019299]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/29",
+                    "value": "Entity_[570568542563]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/30",
+                    "value": "Entity_[643582986595]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/31",
+                    "value": "Entity_[647877953891]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/32",
+                    "value": "Entity_[729482332515]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/33",
+                    "value": "Entity_[626403117411]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/34",
+                    "value": "Entity_[536208804195]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/35",
+                    "value": "Entity_[665057823075]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/36",
+                    "value": "Entity_[527618869603]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/37",
+                    "value": "Entity_[592043379043]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/38",
+                    "value": "Entity_[781021940067]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/39",
+                    "value": "Entity_[566273575267]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/40",
+                    "value": "Entity_[561978607971]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/41",
+                    "value": "Entity_[682237692259]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/42",
+                    "value": "Entity_[660762855779]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/43",
+                    "value": "Entity_[523323902307]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/44",
+                    "value": "Entity_[738072267107]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/45",
+                    "value": "Entity_[699417561443]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/46",
+                    "value": "Entity_[574863509859]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/47",
+                    "value": "Entity_[604928280931]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/48",
+                    "value": "Entity_[600633313635]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/49",
+                    "value": "Entity_[544798738787]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/50",
+                    "value": "Entity_[776726972771]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/51",
+                    "value": "Entity_[677942724963]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/52",
+                    "value": "Entity_[716597430627]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/53",
+                    "value": "Entity_[746662201699]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/54",
+                    "value": "Entity_[514733967715]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/55",
+                    "value": "Entity_[759547103587]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/56",
+                    "value": "Entity_[656467888483]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/57",
+                    "value": "Entity_[742367234403]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/58",
+                    "value": "Entity_[587748411747]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/59",
+                    "value": "Entity_[686532659555]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/60",
+                    "value": "Entity_[712302463331]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/61",
+                    "value": "Entity_[703712528739]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/62",
+                    "value": "Entity_[733777299811]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/63",
+                    "value": "Entity_[708007496035]"
+                },
+                {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[4107956514252411312]/Parent Entity",
                     "value": "../Entity_[356758116574]"
@@ -788,6 +1225,326 @@
                     "value": "4x4x4x4BoxGrid"
                 },
                 {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/0",
+                    "value": "Entity_[596338346339]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/1",
+                    "value": "Entity_[763842070883]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/2",
+                    "value": "Entity_[510439000419]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/3",
+                    "value": "Entity_[725187365219]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/4",
+                    "value": "Entity_[519028935011]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/5",
+                    "value": "Entity_[506144033123]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/6",
+                    "value": "Entity_[549093706083]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/7",
+                    "value": "Entity_[630698084707]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/8",
+                    "value": "Entity_[609223248227]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/9",
+                    "value": "Entity_[613518215523]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/10",
+                    "value": "Entity_[557683640675]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/11",
+                    "value": "Entity_[772432005475]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/12",
+                    "value": "Entity_[720892397923]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/13",
+                    "value": "Entity_[673647757667]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/14",
+                    "value": "Entity_[669352790371]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/15",
+                    "value": "Entity_[768137038179]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/16",
+                    "value": "Entity_[540503771491]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/17",
+                    "value": "Entity_[652172921187]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/18",
+                    "value": "Entity_[750957168995]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/19",
+                    "value": "Entity_[695122594147]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/20",
+                    "value": "Entity_[579158477155]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/21",
+                    "value": "Entity_[531913836899]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/22",
+                    "value": "Entity_[583453444451]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/23",
+                    "value": "Entity_[755252136291]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/24",
+                    "value": "Entity_[617813182819]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/25",
+                    "value": "Entity_[634993052003]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/26",
+                    "value": "Entity_[553388673379]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/27",
+                    "value": "Entity_[622108150115]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/28",
+                    "value": "Entity_[639288019299]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/29",
+                    "value": "Entity_[570568542563]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/30",
+                    "value": "Entity_[643582986595]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/31",
+                    "value": "Entity_[647877953891]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/32",
+                    "value": "Entity_[729482332515]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/33",
+                    "value": "Entity_[626403117411]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/34",
+                    "value": "Entity_[536208804195]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/35",
+                    "value": "Entity_[665057823075]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/36",
+                    "value": "Entity_[527618869603]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/37",
+                    "value": "Entity_[592043379043]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/38",
+                    "value": "Entity_[781021940067]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/39",
+                    "value": "Entity_[566273575267]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/40",
+                    "value": "Entity_[561978607971]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/41",
+                    "value": "Entity_[682237692259]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/42",
+                    "value": "Entity_[660762855779]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/43",
+                    "value": "Entity_[523323902307]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/44",
+                    "value": "Entity_[738072267107]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/45",
+                    "value": "Entity_[699417561443]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/46",
+                    "value": "Entity_[574863509859]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/47",
+                    "value": "Entity_[604928280931]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/48",
+                    "value": "Entity_[600633313635]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/49",
+                    "value": "Entity_[544798738787]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/50",
+                    "value": "Entity_[776726972771]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/51",
+                    "value": "Entity_[677942724963]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/52",
+                    "value": "Entity_[716597430627]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/53",
+                    "value": "Entity_[746662201699]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/54",
+                    "value": "Entity_[514733967715]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/55",
+                    "value": "Entity_[759547103587]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/56",
+                    "value": "Entity_[656467888483]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/57",
+                    "value": "Entity_[742367234403]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/58",
+                    "value": "Entity_[587748411747]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/59",
+                    "value": "Entity_[686532659555]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/60",
+                    "value": "Entity_[712302463331]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/61",
+                    "value": "Entity_[703712528739]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/62",
+                    "value": "Entity_[733777299811]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/63",
+                    "value": "Entity_[708007496035]"
+                },
+                {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[4107956514252411312]/Parent Entity",
                     "value": "../Entity_[356758116574]"
@@ -820,6 +1577,326 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Name",
                     "value": "4x4x4x4BoxGrid"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/0",
+                    "value": "Entity_[596338346339]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/1",
+                    "value": "Entity_[763842070883]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/2",
+                    "value": "Entity_[510439000419]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/3",
+                    "value": "Entity_[725187365219]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/4",
+                    "value": "Entity_[519028935011]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/5",
+                    "value": "Entity_[506144033123]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/6",
+                    "value": "Entity_[549093706083]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/7",
+                    "value": "Entity_[630698084707]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/8",
+                    "value": "Entity_[609223248227]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/9",
+                    "value": "Entity_[613518215523]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/10",
+                    "value": "Entity_[557683640675]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/11",
+                    "value": "Entity_[772432005475]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/12",
+                    "value": "Entity_[720892397923]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/13",
+                    "value": "Entity_[673647757667]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/14",
+                    "value": "Entity_[669352790371]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/15",
+                    "value": "Entity_[768137038179]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/16",
+                    "value": "Entity_[540503771491]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/17",
+                    "value": "Entity_[652172921187]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/18",
+                    "value": "Entity_[750957168995]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/19",
+                    "value": "Entity_[695122594147]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/20",
+                    "value": "Entity_[579158477155]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/21",
+                    "value": "Entity_[531913836899]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/22",
+                    "value": "Entity_[583453444451]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/23",
+                    "value": "Entity_[755252136291]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/24",
+                    "value": "Entity_[617813182819]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/25",
+                    "value": "Entity_[634993052003]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/26",
+                    "value": "Entity_[553388673379]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/27",
+                    "value": "Entity_[622108150115]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/28",
+                    "value": "Entity_[639288019299]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/29",
+                    "value": "Entity_[570568542563]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/30",
+                    "value": "Entity_[643582986595]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/31",
+                    "value": "Entity_[647877953891]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/32",
+                    "value": "Entity_[729482332515]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/33",
+                    "value": "Entity_[626403117411]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/34",
+                    "value": "Entity_[536208804195]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/35",
+                    "value": "Entity_[665057823075]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/36",
+                    "value": "Entity_[527618869603]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/37",
+                    "value": "Entity_[592043379043]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/38",
+                    "value": "Entity_[781021940067]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/39",
+                    "value": "Entity_[566273575267]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/40",
+                    "value": "Entity_[561978607971]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/41",
+                    "value": "Entity_[682237692259]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/42",
+                    "value": "Entity_[660762855779]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/43",
+                    "value": "Entity_[523323902307]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/44",
+                    "value": "Entity_[738072267107]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/45",
+                    "value": "Entity_[699417561443]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/46",
+                    "value": "Entity_[574863509859]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/47",
+                    "value": "Entity_[604928280931]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/48",
+                    "value": "Entity_[600633313635]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/49",
+                    "value": "Entity_[544798738787]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/50",
+                    "value": "Entity_[776726972771]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/51",
+                    "value": "Entity_[677942724963]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/52",
+                    "value": "Entity_[716597430627]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/53",
+                    "value": "Entity_[746662201699]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/54",
+                    "value": "Entity_[514733967715]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/55",
+                    "value": "Entity_[759547103587]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/56",
+                    "value": "Entity_[656467888483]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/57",
+                    "value": "Entity_[742367234403]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/58",
+                    "value": "Entity_[587748411747]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/59",
+                    "value": "Entity_[686532659555]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/60",
+                    "value": "Entity_[712302463331]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/61",
+                    "value": "Entity_[703712528739]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/62",
+                    "value": "Entity_[733777299811]"
+                },
+                {
+                    "op": "add",
+                    "path": "/ContainerEntity/Components/Component_[2180669853693886392]/Child Entity Order/63",
+                    "value": "Entity_[708007496035]"
                 },
                 {
                     "op": "replace",

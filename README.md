@@ -66,7 +66,7 @@ This option will output all the project binaries in the project's build folder e
 > cmake c:/path/to/o3de -B c:/path/to/o3de-multiplayersample/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
 # example build command
-> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
+> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 #### Option #2 - Engine-centric approach to building a project
@@ -78,8 +78,7 @@ This option will output all the project and engine binaries in the engine's buil
 > cmake c:/path/to/o3de -B c:/path/to/o3de/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
 # example build command
-> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher --config profile -- /m /nologo
-
+> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 ### Step 4. Setup Client and Server
@@ -109,7 +108,7 @@ MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg
 
 #### Running the Server in the Editor
 
-Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial]((https://o3de.org/docs/user-guide/engine/cvars/#using-the-cvar)) for more details on setting and using cvars.
+Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/), to set up required console variables (cvar) to support play in editor with servers. Ensure you configure ```editorsv_enabled``` and ```editorsv_launch``` as required. See the [Console Variable Tutorial](https://o3de.org/docs/user-guide/engine/cvars) for more details on setting and using cvars.
 
 
 #### Running the Client
