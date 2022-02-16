@@ -27,9 +27,6 @@ namespace MultiplayerSample
 {
     using namespace AzNetworking;
 
-    AZ_CVAR(AZ::CVarFixedString, sv_playerSpawnAsset, "prefabs/player.network.spawnable", nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
-        "The spawnable to use when a new player connects");
-
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         ReflectWeaponEnums(context);

@@ -32,9 +32,8 @@ namespace MultiplayerSample
 
         NetworkPlayerSpawnerComponent* spawner = m_spawners[m_spawnIndex];
         m_spawnIndex = m_spawnIndex + 1 == m_spawners.size() ? 0 : m_spawnIndex + 1;
-        AZStd::string assetPath = spawner->GetAssetPath();
-        AZStd::to_lower(assetPath.begin(), assetPath.end());
-        Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(assetPath.c_str()));
+        // NetworkEntityManager currently operates against/validates AssetId or Path, opt for Path via Hint
+        Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(spawner->GetSpawnableAsset().GetHint().c_str()));
 
         return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(
             prefabEntityId, spawner->GetEntity()->GetTransform()->GetWorldTM());
