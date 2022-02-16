@@ -18,9 +18,9 @@ namespace MultiplayerSample
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(
-            MultiplayerSample::NetworkPlayerSpawnerComponent,
+            NetworkPlayerSpawnerComponent,
             s_networkPlayerSpawnerComponentConcreteUuid,
-            MultiplayerSample::NetworkPlayerSpawnerComponentBase);
+            NetworkPlayerSpawnerComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
 
