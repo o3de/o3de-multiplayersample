@@ -11,7 +11,6 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
-#include <AzFramework/Session/ISessionHandlingRequests.h>
 
 #include <Source/AutoGen/AutoComponentTypes.h>
 #include <Source/Weapons/WeaponTypes.h>

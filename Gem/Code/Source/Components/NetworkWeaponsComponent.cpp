@@ -375,7 +375,7 @@ namespace MultiplayerSample
                 }
 
                 // Validate the proposed start position is reasonably close to the related bone
-                float startPositionClampRange = .5f;
+                float startPositionClampRange = 1.f;
                 if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > startPositionClampRange)
                 {              
                     aimSource = fireBoneTransform.GetTranslation();
