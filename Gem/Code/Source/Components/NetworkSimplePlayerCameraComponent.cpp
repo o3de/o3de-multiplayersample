@@ -24,6 +24,10 @@ namespace MultiplayerSample
 
     void NetworkSimplePlayerCameraComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+	    // Synchronize aim angles with initial transform
+        AZ::Vector3& aimAngles = ModifyAimAngles();
+        aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
+
         if (IsAutonomous())
         {
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
