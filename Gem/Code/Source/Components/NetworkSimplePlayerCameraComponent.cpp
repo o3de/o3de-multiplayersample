@@ -27,6 +27,7 @@ namespace MultiplayerSample
 	    // Synchronize aim angles with initial transform
         AZ::Vector3& aimAngles = ModifyAimAngles();
         aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
+        m_syncOrientationImmediate = true;
 
         if (IsAutonomous())
         {
@@ -71,11 +72,13 @@ namespace MultiplayerSample
         {
             const AZ::Quaternion targetRotation = AZ::Quaternion::CreateRotationZ(GetCameraYaw()) * AZ::Quaternion::CreateRotationX(GetCameraPitch());
             const AZ::Quaternion currentRotation = m_activeCameraEntity->GetTransform()->GetWorldTM().GetRotation();
-            const AZ::Quaternion aimRotation = currentRotation.Slerp(targetRotation, cl_cameraBlendSpeed).GetNormalized();
+            const AZ::Quaternion aimRotation = m_syncOrientationImmediate ?
+                targetRotation : currentRotation.Slerp(targetRotation, cl_cameraBlendSpeed).GetNormalized();
             const AZ::Vector3 targetTranslation = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
             const AZ::Vector3 cameraOffset = aimRotation.TransformVector(cl_cameraOffset);
             const AZ::Transform cameraTransform = AZ::Transform::CreateFromQuaternionAndTranslation(aimRotation, targetTranslation + cameraOffset);
             m_activeCameraEntity->GetTransform()->SetWorldTM(cameraTransform);
+            m_syncOrientationImmediate = false;
         }
     }
 
