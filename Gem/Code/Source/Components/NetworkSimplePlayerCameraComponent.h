@@ -35,6 +35,5 @@ namespace MultiplayerSample
 
         AZ::Entity* m_activeCameraEntity = nullptr;
         bool m_aiEnabled = false;
-        bool m_syncOrientationImmediate = false;
     };
 }

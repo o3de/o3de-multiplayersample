@@ -108,10 +108,32 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> MultiplayerSampleSystemComponent::OnPlayerJoin(
+    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin(
         [[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
     {
-        return AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+
+        Multiplayer::INetworkEntityManager::EntityList entityList =
+            AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
+            entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second, Multiplayer::AutoActivate::DoNotActivate);
+
+        for (Multiplayer::NetworkEntityHandle subEntity : entityList)
+        {
+            subEntity.Activate();
+        }
+
+        Multiplayer::NetworkEntityHandle controlledEntity;
+        if (!entityList.empty())
+        {
+            controlledEntity = entityList[0];
+        }
+        else
+        {
+            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.",
+                entityParams.first.m_prefabName.GetCStr());
+        }
+
+        return controlledEntity;
     }
 
     void MultiplayerSampleSystemComponent::OnPlayerLeave(
