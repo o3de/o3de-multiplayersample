@@ -43,12 +43,12 @@ namespace MultiplayerSample
 
     void ExampleFilteredEntityComponent::Activate()
     {
-        Multiplayer::GetMultiplayer()->SetFilterEntityManager( this );
+        AZ::Interface<IFilterEntityManager>::Register(this);
     }
 
     void ExampleFilteredEntityComponent::Deactivate()
     {
-        Multiplayer::GetMultiplayer()->SetFilterEntityManager( nullptr );
+        AZ::Interface<IFilterEntityManager>::Unregister(this);
     }
 
     bool ExampleFilteredEntityComponent::IsEntityFiltered(

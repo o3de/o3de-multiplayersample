@@ -22,7 +22,7 @@ namespace MultiplayerSample
     AZ_CVAR(float, cl_WeaponsDrawDebugSize, 0.25f, nullptr, AZ::ConsoleFunctorFlags::Null, "The size of sphere to debug draw during weapon events");
     AZ_CVAR(float, cl_WeaponsDrawDebugDurationSec, 10.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of seconds to display debug draw data");
     AZ_CVAR(float, sv_WeaponsImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
-
+    AZ_CVAR(float, sv_WeaponsStartPositionClampRange, 1.f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor between the where the client and server say a shot started");
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -375,8 +375,7 @@ namespace MultiplayerSample
                 }
 
                 // Validate the proposed start position is reasonably close to the related bone
-                float startPositionClampRange = .5f;
-                if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > startPositionClampRange)
+                if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > sv_WeaponsStartPositionClampRange)
                 {              
                     aimSource = fireBoneTransform.GetTranslation();
                     AZLOG_WARN("Shot origin was outside of clamp range, resetting to bone position");
