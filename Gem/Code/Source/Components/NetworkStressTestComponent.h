@@ -39,8 +39,12 @@ namespace MultiplayerSample
     public:
         using NetworkStressTestComponentControllerBase::NetworkStressTestComponentControllerBase;
 
+        NetworkStressTestComponentController(NetworkStressTestComponent& owner);
+
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        void HandleSpawnAiEntity();
 
         void HandleSpawnAIEntity(
             AzNetworking::IConnection* invokingConnection,
@@ -61,6 +65,7 @@ namespace MultiplayerSample
         void DrawEntitySpawner();
 
         bool m_displayEntitySpawner = false;
+#endif
         bool m_isServer = false;
         int m_quantity = 1;
         float m_fireIntervalMinMs = 100.f;
@@ -69,6 +74,6 @@ namespace MultiplayerSample
         float m_actionIntervalMaxMs = 10000.f;
         uint64_t m_seed = 0;
         int m_teamID = 0;
-#endif
+        AZ::ScheduledEvent m_autoSpawnTimer;
     };
 } // namespace MultiplayerSample
