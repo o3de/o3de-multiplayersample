@@ -36,6 +36,13 @@ namespace MultiplayerSample
     {
     }
 
+    NetworkStressTestComponentController::NetworkStressTestComponentController(NetworkStressTestComponent& owner)
+        : NetworkStressTestComponentControllerBase(owner)
+        , m_autoSpawnTimer([this]() { HandleSpawnAiEntity(); }, AZ::Name("StressTestSpawner Event"))
+    {
+        ;
+    }
+
     void NetworkStressTestComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #ifdef IMGUI_ENABLED
@@ -53,6 +60,11 @@ namespace MultiplayerSample
         default:
             break;
         }
+
+        if (GetAutoSpawnIntervalMs() > AZ::Time::ZeroTimeMs)
+        {
+            m_autoSpawnTimer.Enqueue(GetAutoSpawnIntervalMs(), true);
+        }
     }
 
     void NetworkStressTestComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -60,6 +72,12 @@ namespace MultiplayerSample
 #ifdef IMGUI_ENABLED
         ImGui::ImGuiUpdateListenerBus::Handler::BusDisconnect();
 #endif
+    }
+
+    void NetworkStressTestComponentController::HandleSpawnAiEntity()
+    {
+        const uint64_t seed = m_seed == 0 ? static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) : m_seed;
+        HandleSpawnAIEntity(nullptr, m_fireIntervalMinMs, m_fireIntervalMaxMs, m_actionIntervalMinMs, m_actionIntervalMaxMs, seed, m_teamID);
     }
 
 #if defined(IMGUI_ENABLED)
@@ -144,6 +162,12 @@ namespace MultiplayerSample
         const uint64_t& seed,
         [[maybe_unused]] const int& teamId)
     {
+        if (GetSpawnCount() > GetMaxSpawns())
+        {
+            return;
+        }
+        ModifySpawnCount()++;
+
         static Multiplayer::PrefabEntityId prefabId(AZ::Name{ "prefabs/player.network.spawnable" });
 
         Multiplayer::INetworkEntityManager::EntityList entityList =
