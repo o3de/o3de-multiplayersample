@@ -26,7 +26,10 @@ namespace MultiplayerSample
 
     void NetworkTestSpawnerComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_tickEvent.Enqueue(AZ::TimeMs{ 0 }, true);
+        if (GetParent().GetNetworkPrefabSpawnerComponent())
+        {
+            m_tickEvent.Enqueue(AZ::TimeMs{ 0 }, true);
+        }
 
         m_currentCount = 0;
         m_accumulatedTime = 0.f;
@@ -46,44 +49,48 @@ namespace MultiplayerSample
         {
             m_accumulatedTime = 0.f;
 
-            if (NetworkPrefabSpawnerComponent* spawner = GetParent().GetNetworkPrefabSpawnerComponent())
+            AZ::Vector3 randomPoint = AZ::Vector3::CreateZero();
+            // ShapeComponentRequestsBus is designed in such a way that it's very difficult to use direct component interface instead of the EBus
+            using ShapeBus = LmbrCentral::ShapeComponentRequestsBus;
+            ShapeBus::EventResult(randomPoint, GetParent().GetEntityId(), &ShapeBus::Events::GenerateRandomPointInside,
+                AZ::RandomDistributionType::UniformReal);
+
+            AZ::Transform t = GetEntity()->GetTransform()->GetWorldTM();
+            if (!randomPoint.IsZero())
             {
-                AZ::Vector3 randomPoint = AZ::Vector3::CreateZero();
-                // ShapeComponentRequestsBus is designed in such a way that it's very difficult to use direct component interface instead of the EBus
-                using ShapeBus = LmbrCentral::ShapeComponentRequestsBus;
-                ShapeBus::EventResult(randomPoint, GetParent().GetEntityId(), &ShapeBus::Events::GenerateRandomPointInside,
-                    AZ::RandomDistributionType::UniformReal);
+                t.SetTranslation(randomPoint);
 
-                AZ::Transform t = GetEntity()->GetTransform()->GetWorldTM();
-                if (!randomPoint.IsZero())
-                {
-                    t.SetTranslation(randomPoint);
-
-                    // Create a random orientation for fun.
-                    float randomAngles[3];
-                    randomAngles[0] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
-                    randomAngles[1] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
-                    randomAngles[2] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
-                    t.SetRotation(AZ::Quaternion::CreateFromEulerAnglesDegrees(AZ::Vector3::CreateFromFloat3(randomAngles)));
-                }
-
-                PrefabCallbacks callbacks;
-                callbacks.m_onActivateCallback = [this](
-                    AZStd::shared_ptr<AzFramework::EntitySpawnTicket>&& ticket,
-                    [[maybe_unused]] AzFramework::SpawnableConstEntityContainerView view)
-                {
-                    m_spawnedObjects.push_back(move(ticket));
-                };
-
-                spawner->SpawnDefaultPrefab(t, callbacks);
+                // Create a random orientation for fun.
+                float randomAngles[3];
+                randomAngles[0] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                randomAngles[1] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                randomAngles[2] = aznumeric_cast<float>(GetNetworkRandomComponentController()->GetRandomUint64() % 180);
+                t.SetRotation(AZ::Quaternion::CreateFromEulerAnglesDegrees(AZ::Vector3::CreateFromFloat3(randomAngles)));
             }
+
+            PrefabCallbacks callbacks;
+            callbacks.m_onActivateCallback = [this](
+                AZStd::shared_ptr<AzFramework::EntitySpawnTicket>&& ticket,
+                [[maybe_unused]] AzFramework::SpawnableConstEntityContainerView view)
+            {
+                m_spawnedObjects.push_back(move(ticket));
+            };
+
+            GetParent().GetNetworkPrefabSpawnerComponent()->SpawnDefaultPrefab(t, callbacks);
 
             m_currentCount++;
 
-            if (m_currentCount > GetParent().GetMaxLiveCount())
+            if (m_currentCount >= GetParent().GetMaxLiveCount())
             {
-                m_spawnedObjects.pop_front(); // this destroys the prefab instance for this ticket
-                --m_currentCount;
+                if (GetParent().GetRespawnEnabled())
+                {
+                    m_spawnedObjects.pop_front(); // this destroys the prefab instance for this ticket
+                    --m_currentCount;
+                }
+                else
+                {
+                    m_tickEvent.RemoveFromQueue();
+                }
             }
         }
     }

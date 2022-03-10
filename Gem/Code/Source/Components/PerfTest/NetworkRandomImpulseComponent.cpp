@@ -40,7 +40,8 @@ namespace MultiplayerSample
 
             if (PhysX::RigidBodyComponent* body = GetEntity()->FindComponent<PhysX::RigidBodyComponent>())
             {
-                body->ApplyLinearImpulse(AZ::Vector3::CreateAxisZ(GetParent().GetHopForce()));
+                const AZ::Quaternion rotation = GetEntity()->GetTransform()->GetWorldRotationQuaternion();
+                body->ApplyLinearImpulse(rotation.TransformVector(AZ::Vector3::CreateAxisZ(GetParent().GetHopForce())));
             }
         }
     }
