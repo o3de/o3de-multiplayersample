@@ -63,10 +63,10 @@ This option will output all the project binaries in the project's build folder e
 
 ```shell
 # example configure command
-> cmake c:/path/to/o3de -B c:/path/to/o3de-multiplayersample/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
+> cmake -S c:/path/to/o3de-multiplayersample -B c:/path/to/o3de-multiplayersample/build/windows_vs2019 -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty"
 
 # example build command
-> cmake --build c:/path/to/o3de-multiplayersample/build --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+> cmake --build c:/path/to/o3de-multiplayersample/build/windows_vs2019 --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 #### Option #2 - Engine-centric approach to building a project
@@ -75,10 +75,10 @@ This option will output all the project and engine binaries in the engine's buil
 
 ```shell
 # example configure command
-> cmake c:/path/to/o3de -B c:/path/to/o3de/build -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
+> cmake -S c:/path/to/o3de -B c:/path/to/o3de/build/windows_vs2019 -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty" -DLY_PROJECTS="c:/path/to/o3de-multiplayersample"
 
 # example build command
-> cmake --build c:/path/to/o3de/build --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+> cmake --build c:/path/to/o3de/build/windows_vs2019 --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 ### Step 4. Setup Client and Server
