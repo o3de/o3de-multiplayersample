@@ -50,4 +50,6 @@ set(ENABLED_GEMS
     StartingPointInput
     EditorPythonBindings
     PrefabBuilder
+    MaterialEditor
+    UiBasics
 )
