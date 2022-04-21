@@ -106,6 +106,16 @@ A server can be run as follows
 MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
 ```
 
+#### (Optional) Running the Server Headless
+
+If you do not need to see rendered output on your servers, you can reduce resource usage by using the null renderer.
+
+Note: Parameters to use null renderer must be passed on the command line as the console-command-file is parsed after rendering is configured.
+
+```shell
+MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg -rhi=null -NullRenderer
+```
+
 #### Running the Server in the Editor
 
 By default, launching a local server from the editor during Play Mode is enabled. To disable this behavior, update the `editorsv_enabled` value in the `editor.cfg` file to `false`.
