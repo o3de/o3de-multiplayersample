@@ -36,6 +36,13 @@ namespace MultiplayerSample
     {
     }
 
+    NetworkStressTestComponentController::NetworkStressTestComponentController(NetworkStressTestComponent& owner)
+        : NetworkStressTestComponentControllerBase(owner)
+        , m_autoSpawnTimer([this]() { HandleSpawnAiEntity(); }, AZ::Name("StressTestSpawner Event"))
+    {
+        ;
+    }
+
     void NetworkStressTestComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #ifdef IMGUI_ENABLED
@@ -46,10 +53,17 @@ namespace MultiplayerSample
         {
         case Multiplayer::MultiplayerAgentType::DedicatedServer:
         case Multiplayer::MultiplayerAgentType::ClientServer:
+#ifdef IMGUI_ENABLED
             m_isServer = true;
+#endif
             break;
         default:
             break;
+        }
+
+        if (GetAutoSpawnIntervalMs() > AZ::Time::ZeroTimeMs)
+        {
+            m_autoSpawnTimer.Enqueue(GetAutoSpawnIntervalMs(), true);
         }
     }
 
@@ -58,6 +72,12 @@ namespace MultiplayerSample
 #ifdef IMGUI_ENABLED
         ImGui::ImGuiUpdateListenerBus::Handler::BusDisconnect();
 #endif
+    }
+
+    void NetworkStressTestComponentController::HandleSpawnAiEntity()
+    {
+        const uint64_t seed = m_seed == 0 ? static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) : m_seed;
+        HandleSpawnAIEntity(nullptr, m_fireIntervalMinMs, m_fireIntervalMaxMs, m_actionIntervalMinMs, m_actionIntervalMaxMs, seed, m_teamID);
     }
 
 #if defined(IMGUI_ENABLED)
@@ -142,16 +162,26 @@ namespace MultiplayerSample
         const uint64_t& seed,
         [[maybe_unused]] const int& teamId)
     {
+        if (GetSpawnCount() > GetMaxSpawns())
+        {
+            return;
+        }
+        ModifySpawnCount()++;
+
         static Multiplayer::PrefabEntityId prefabId(AZ::Name{ "prefabs/player.network.spawnable" });
 
         Multiplayer::INetworkEntityManager::EntityList entityList =
             AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
                 prefabId, Multiplayer::NetEntityRole::Authority, AZ::Transform::CreateIdentity(), Multiplayer::AutoActivate::DoNotActivate);
 
+        for (const Multiplayer::NetworkEntityHandle& entityItem : entityList)
+        {
+            entityItem.GetNetBindComponent()->SetAllowAutonomy(true);
+        }
+
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
         // Drive inputs from AI instead of user inputs and disable camera following
-        NetworkAiComponent* aiComponent = createdEntity.FindComponent<NetworkAiComponent>();
-        NetworkAiComponentController* networkAiController = reinterpret_cast<NetworkAiComponentController*>(aiComponent->GetController());
+        NetworkAiComponentController* networkAiController = createdEntity.FindController<NetworkAiComponentController>();
         networkAiController->ConfigureAi(fireIntervalMinMs, fireIntervalMaxMs, actionIntervalMinMs, actionIntervalMaxMs, seed);
         networkAiController->SetEnabled(true);
         if (invokingConnection)

@@ -13,6 +13,8 @@
     <!-- Our "AI" is really just a chaos monkey. Every N ms, we choose a cardinal direction to move towards, -->
     <!-- and flip coins to determine if we should shoot, or perform some other action. -->
 
+    <ComponentRelation Constraint="Required" HasController="true" Name="LocalPredictionPlayerInputComponent" Namespace="Multiplayer" Include="Multiplayer/Components/LocalPredictionPlayerInputComponent.h" />
+
     <NetworkProperty Type="bool" Name="Enabled" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />
 
     <NetworkProperty Type="float" Name="remainingTimeMs" Init="0.f" ReplicateFrom="Authority" ReplicateTo="Server" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />

@@ -27,10 +27,7 @@ namespace MultiplayerSample
     {
         if (GetEnabled())
         {
-            Multiplayer::LocalPredictionPlayerInputComponent* playerInputComponent = FindComponent<Multiplayer::LocalPredictionPlayerInputComponent>();
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = (playerInputComponent != nullptr) ?
-                static_cast<Multiplayer::LocalPredictionPlayerInputComponentController*>(playerInputComponent->GetController()) : nullptr;
-
+            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
             if (playerInputController != nullptr)
             {
                 playerInputController->ForceEnableAutonomousUpdate();
@@ -42,10 +39,7 @@ namespace MultiplayerSample
     {
         if (GetEnabled())
         {
-            Multiplayer::LocalPredictionPlayerInputComponent* playerInputComponent = FindComponent<Multiplayer::LocalPredictionPlayerInputComponent>();
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = (playerInputComponent != nullptr) ?
-                static_cast<Multiplayer::LocalPredictionPlayerInputComponentController*>(playerInputComponent->GetController()) : nullptr;
-
+            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
             if (playerInputController != nullptr)
             {
                 playerInputController->ForceDisableAutonomousUpdate();

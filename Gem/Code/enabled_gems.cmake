@@ -39,7 +39,7 @@ set(ENABLED_GEMS
     LmbrCentral
     LyShine
     HttpRequestor
-    Atom_AtomBridge
+    Atom
     AWSCore
     AWSClientAuth
     AWSMetrics
@@ -50,4 +50,6 @@ set(ENABLED_GEMS
     StartingPointInput
     EditorPythonBindings
     PrefabBuilder
+    MaterialEditor
+    UiBasics
 )
