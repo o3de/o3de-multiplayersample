@@ -26,6 +26,9 @@ namespace MultiplayerSample
     const StartingPointInput::InputEventNotificationId LookLeftRightEventId("lookLeftRight");
     const StartingPointInput::InputEventNotificationId LookUpDownEventId("lookUpDown");
 
+    const StartingPointInput::InputEventNotificationId ZoomInEventId("zoomIn");
+    const StartingPointInput::InputEventNotificationId ZoomOutEventId("zoomOut");
+
     class NetworkPlayerMovementComponentController
         : public NetworkPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler

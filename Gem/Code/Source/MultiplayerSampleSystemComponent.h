@@ -10,11 +10,27 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 
+#include <Multiplayer/IMultiplayerSpawner.h>
+#include <Source/Spawners/IPlayerSpawner.h>
+
+namespace AzFramework
+{
+    struct PlayerConnectionConfig;
+}
+
+namespace Multiplayer
+{
+    struct EntityReplicationData;
+    using ReplicationSet = AZStd::map<ConstNetworkEntityHandle, EntityReplicationData>;
+    struct MultiplayerAgentDatum;
+}
+
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
         : public AZ::Component
         , public AZ::TickBus::Handler
+        , public Multiplayer::IMultiplayerSpawner
     {
     public:
         AZ_COMPONENT(MultiplayerSampleSystemComponent, "{7BF68D79-E870-44B5-853A-BA68FF4F0B90}");
@@ -32,10 +48,22 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
-    
+
+        ////////////////////////////////////////////////////////////////////////
         // AZ::TickBus::Handler overrides
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         int GetTickOrder() override;
         ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // IMultiplayerSpawner overrides
+        Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum) override;
+        void OnPlayerLeave(
+            Multiplayer::ConstNetworkEntityHandle entityHandle,
+            const Multiplayer::ReplicationSet& replicationSet,
+            AzNetworking::DisconnectReason reason) override;
+        ////////////////////////////////////////////////////////////////////////
+
+        AZStd::unique_ptr<MultiplayerSample::IPlayerSpawner> m_playerSpawner;
     };
 }

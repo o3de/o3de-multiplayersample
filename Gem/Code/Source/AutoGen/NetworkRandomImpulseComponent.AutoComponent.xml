@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<Component
+	Name="NetworkRandomImpulseComponent"
+	Namespace="MultiplayerSample"
+	OverrideComponent="false"
+	OverrideController="true"
+	OverrideInclude="Source/Components/PerfTest/NetworkRandomImpulseComponent.h"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ArchetypeProperty Type="bool" Name="EnableHopping" Init="true" ExposeToEditor="true" Description="Enables occasional hops." />
+	<ArchetypeProperty Type="float" Name="HopPeriod" Init="2.f" ExposeToEditor="true" Description="Number of seconds between vertical hopping." />
+	<ArchetypeProperty Type="float" Name="HopForce" Init="200.f" ExposeToEditor="true" Description="Force of a hop." />
+
+</Component>
