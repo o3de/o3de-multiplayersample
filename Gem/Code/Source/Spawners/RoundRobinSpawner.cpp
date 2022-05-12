@@ -22,21 +22,18 @@ namespace MultiplayerSample
         return false;
     }
 
-    AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> RoundRobinSpawner::GetNextPlayerSpawn()
+    AZStd::pair<AZ::Data::Asset<AzFramework::Spawnable>, AZ::Transform> RoundRobinSpawner::GetNextPlayerSpawn()
     {
         if (m_spawners.empty())
         {
             AZLOG_WARN("No active NetworkPlayerSpawnerComponents were found on player spawn request.")
-            return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(Multiplayer::PrefabEntityId(), AZ::Transform::CreateIdentity());
+            return AZStd::make_pair(AZ::Data::Asset<AzFramework::Spawnable>(), AZ::Transform::CreateIdentity());
         }
 
-        NetworkPlayerSpawnerComponent* spawner = m_spawners[m_spawnIndex];
+        const NetworkPlayerSpawnerComponent* spawner = m_spawners[m_spawnIndex];
         m_spawnIndex = m_spawnIndex + 1 == m_spawners.size() ? 0 : m_spawnIndex + 1;
-        // NetworkEntityManager currently operates against/validates AssetId or Path, opt for Path via Hint
-        Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(spawner->GetSpawnableAsset().GetHint().c_str()));
 
-        return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(
-            prefabEntityId, spawner->GetEntity()->GetTransform()->GetWorldTM());
+        return AZStd::make_pair(spawner->GetSpawnableAsset(), spawner->GetEntity()->GetTransform()->GetWorldTM());
     }
 
     bool RoundRobinSpawner::UnregisterPlayerSpawner(NetworkPlayerSpawnerComponent* spawner)

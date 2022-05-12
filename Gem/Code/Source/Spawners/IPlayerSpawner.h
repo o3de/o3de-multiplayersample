@@ -34,7 +34,7 @@ namespace MultiplayerSample
         virtual ~IPlayerSpawner() = default;
 
         virtual bool RegisterPlayerSpawner(NetworkPlayerSpawnerComponent* spawner) = 0;
-        virtual AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> GetNextPlayerSpawn() = 0;
+        virtual AZStd::pair<AZ::Data::Asset<AzFramework::Spawnable>, AZ::Transform> GetNextPlayerSpawn() = 0;
         virtual bool UnregisterPlayerSpawner(NetworkPlayerSpawnerComponent* spawner) = 0;
     };
 } // namespace MultiplayerSample

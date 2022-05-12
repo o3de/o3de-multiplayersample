@@ -32,7 +32,7 @@ namespace MultiplayerSample
         ////////////////////////////////////////////////////////////////////////
         // IPlayerSpawner overrides
         bool RegisterPlayerSpawner(NetworkPlayerSpawnerComponent* spawner) override;
-        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> GetNextPlayerSpawn() override;
+        AZStd::pair<AZ::Data::Asset<AzFramework::Spawnable>, AZ::Transform> GetNextPlayerSpawn() override;
         bool UnregisterPlayerSpawner(NetworkPlayerSpawnerComponent* spawner) override;
         ////////////////////////////////////////////////////////////////////////
 

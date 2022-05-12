@@ -22,6 +22,7 @@
 #include <Multiplayer/Components/NetBindComponent.h>
 #include <Multiplayer/ConnectionData/IConnectionData.h>
 #include <Multiplayer/ReplicationWindows/IReplicationWindow.h>
+#include "AzCore/Component/TransformBus.h"
 
 namespace MultiplayerSample
 {
@@ -87,12 +88,12 @@ namespace MultiplayerSample
 
         AZ::Interface<Multiplayer::IMultiplayerSpawner>::Register(this);
         m_playerSpawner = AZStd::make_unique<RoundRobinSpawner>();
-        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Register(m_playerSpawner.get());
+        AZ::Interface<IPlayerSpawner>::Register(m_playerSpawner.get());
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()
     {
-        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Unregister(m_playerSpawner.get());
+        AZ::Interface<IPlayerSpawner>::Unregister(m_playerSpawner.get());
         AZ::Interface<Multiplayer::IMultiplayerSpawner>::Unregister(this);
         AZ::TickBus::Handler::BusDisconnect();
     }
@@ -108,32 +109,33 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin(
-        [[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
+    void MultiplayerSampleSystemComponent::OnPlayerJoin(
+        [[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum, AzFramework::EntitySpawnCallback playerSpawnedCallback)
     {
-        AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+        AZStd::pair<AZ::Data::Asset<AzFramework::Spawnable>, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
 
-        Multiplayer::INetworkEntityManager::EntityList entityList =
-            AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
-            entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second, Multiplayer::AutoActivate::DoNotActivate);
-
-        for (Multiplayer::NetworkEntityHandle subEntity : entityList)
+        // Callback to move the player to the desired position before it's spawned into the world
+        auto preSpawnCallback = [entityParams](
+            AzFramework::EntitySpawnTicket::Id /*ticketId*/,
+            AzFramework::SpawnableEntityContainerView entities
+            )
         {
-            subEntity.Activate();
-        }
+            const AZ::Entity* e = *entities.begin();
+            if (AZ::TransformInterface* transform = e->GetTransform())
+            {
+                transform->SetWorldTM(entityParams.second);
+            }
+        };
 
-        Multiplayer::NetworkEntityHandle controlledEntity;
-        if (!entityList.empty())
+        auto ticket = AZStd::make_unique<AzFramework::EntitySpawnTicket>(entityParams.first);
+        if (ticket->IsValid())
         {
-            controlledEntity = entityList[0];
+            AzFramework::SpawnAllEntitiesOptionalArgs optionalArgs;
+            optionalArgs.m_preInsertionCallback = AZStd::move(preSpawnCallback);
+            optionalArgs.m_completionCallback = AZStd::move(playerSpawnedCallback);
+            AzFramework::SpawnableEntitiesInterface::Get()->SpawnAllEntities(*ticket, AZStd::move(optionalArgs));
+            m_playerSpawnTickets.push_back(AZStd::move(ticket));
         }
-        else
-        {
-            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.",
-                entityParams.first.m_prefabName.GetCStr());
-        }
-
-        return controlledEntity;
     }
 
     void MultiplayerSampleSystemComponent::OnPlayerLeave(
