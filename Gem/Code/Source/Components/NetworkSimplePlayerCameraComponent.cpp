@@ -27,28 +27,25 @@ namespace MultiplayerSample
         // Synchronize aim angles with initial transform
         AZ::Vector3& aimAngles = ModifyAimAngles();
         aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
+        SetSyncAimImmediate(true);
 
         if (IsAutonomous())
         {
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
             if (!m_aiEnabled)
             {
-                SetSyncAimImmediate(true);
                 AZ::EntityId activeCameraId;
                 Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
                 m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
-
-                AZ::TickBus::Handler::BusConnect();
             }
         }
+
+        AZ::TickBus::Handler::BusConnect();
     }
 
     void NetworkSimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous() && !m_aiEnabled)
-        {
-            AZ::TickBus::Handler::BusDisconnect();
-        }
+        AZ::TickBus::Handler::BusDisconnect();
     }
 
     float NetworkSimplePlayerCameraComponentController::GetCameraYaw() const
