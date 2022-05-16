@@ -37,18 +37,15 @@ namespace MultiplayerSample
                 AZ::EntityId activeCameraId;
                 Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
                 m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
-
-                AZ::TickBus::Handler::BusConnect();
             }
         }
+
+        AZ::TickBus::Handler::BusConnect();
     }
 
     void NetworkSimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous() && !m_aiEnabled)
-        {
-            AZ::TickBus::Handler::BusDisconnect();
-        }
+        AZ::TickBus::Handler::BusDisconnect();
     }
 
     float NetworkSimplePlayerCameraComponentController::GetCameraYaw() const
