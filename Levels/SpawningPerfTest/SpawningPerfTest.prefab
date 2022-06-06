@@ -20,7 +20,8 @@
                 "Id": 14126657869720434043,
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
-                    "Entity_[947961075516]"
+                    "Entity_[947961075516]",
+                    "Entity_[448371574594]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -205,7 +206,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 9615948867337072083
+                            "EditorEntityId": 14617233715992192339
                         }
                     }
                 },
@@ -500,6 +501,75 @@
                 "Component_[931091830724002070]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 931091830724002070
+                }
+            }
+        },
+        "Entity_[448371574594]": {
+            "Id": "Entity_[448371574594]",
+            "Name": "Player Spawn",
+            "Components": {
+                "Component_[10530615535325605593]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 10530615535325605593
+                },
+                "Component_[10855051608461697301]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 10855051608461697301
+                },
+                "Component_[15361295135880606727]": {
+                    "$type": "SelectionComponent",
+                    "Id": 15361295135880606727
+                },
+                "Component_[3346704004848312807]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3346704004848312807,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[3464738006358913673]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 3464738006358913673
+                },
+                "Component_[3475019708768143726]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 3475019708768143726
+                },
+                "Component_[4409150392817723261]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4409150392817723261
+                },
+                "Component_[6071936040921528375]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6071936040921528375,
+                    "m_template": {
+                        "$type": "NetworkPlayerSpawnerComponent",
+                        "SnapToGround": true,
+                        "SpawnableAsset": {
+                            "assetId": {
+                                "guid": "{997E5003-6C9F-56BA-BB11-97A228F4B888}",
+                                "subId": 3333583332
+                            },
+                            "assetHint": "prefabs/test_net_object.network.spawnable"
+                        }
+                    }
+                },
+                "Component_[692896640486832901]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 692896640486832901,
+                    "Parent Entity": "Entity_[1146574390643]"
+                },
+                "Component_[7797673296654102123]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7797673296654102123
+                },
+                "Component_[8735865813636879623]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 8735865813636879623
+                },
+                "Component_[9627187347301095278]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9627187347301095278
                 }
             }
         },
