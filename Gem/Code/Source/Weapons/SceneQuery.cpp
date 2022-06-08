@@ -9,7 +9,7 @@
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
 #include <AzFramework/Physics/PhysicsScene.h>
-#include <AzFramework/Physics/Material.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialId.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/NetworkEntity/INetworkEntityManager.h>
 #include <Multiplayer/NetworkTime/INetworkTime.h>
@@ -57,7 +57,7 @@ namespace MultiplayerSample
                 IntersectResult intersectResult;
                 intersectResult.m_position = hit.m_position;
                 intersectResult.m_normal = hit.m_normal;
-                intersectResult.m_materialName = hit.m_material->GetSurfaceTypeName();
+                intersectResult.m_materialName = hit.m_physicsMaterialId.ToString<AZStd::string>();
                 intersectResult.m_netEntityId = networkEntityManager->GetNetEntityIdById(hit.m_entityId);
                 outResults.emplace_back(intersectResult);
             }
