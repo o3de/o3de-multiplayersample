@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<Component
+	Name="NetworkRandomTranslateComponent"
+	Namespace="MultiplayerSample"
+	OverrideComponent="false"
+	OverrideController="true"
+	OverrideInclude="Source/Components/PerfTest/NetworkRandomTranslateComponent.h"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <ComponentRelation Constraint="Required" HasController="false" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+	<ArchetypeProperty Type="float" Name="MovementDuration" Init="2.f" ExposeToEditor="true" Description="The number of seconds it takes to make a move."/>
+	<ArchetypeProperty Type="float" Name="MaxMoveDistance" Init="10.f" ExposeToEditor="true" Description="The max distance to move in a period."/>
+
+</Component>
