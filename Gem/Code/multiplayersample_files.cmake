@@ -44,6 +44,8 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
+    Source/Components/AWSMetricsSubmissionComponent.cpp
+    Source/Components/AWSMetricsSubmissionComponent.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp

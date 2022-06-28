@@ -29,12 +29,14 @@ ly_add_target(
             Gem::PhysX
             Gem::StartingPointInput
             Gem::DebugDraw
-        PRIVATE
+            Gem::AWSMetrics
+        PRIVATE       
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Static
             Gem::PhysX.Static
             Gem::DebugDraw.Static
             Gem::ImGui.Static
+            Gem::AWSMetrics.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp

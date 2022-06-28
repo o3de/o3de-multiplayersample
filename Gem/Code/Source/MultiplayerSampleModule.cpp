@@ -11,6 +11,7 @@
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/PerfTest/NetworkRandomImpulseComponent.h>
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
+#include <Components/AWSMetricsSubmissionComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -32,6 +33,7 @@ namespace MultiplayerSample
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
+                AWSMetricsSubmissionComponent::CreateDescriptor()
             });
 
             CreateComponentDescriptors(m_descriptors);
