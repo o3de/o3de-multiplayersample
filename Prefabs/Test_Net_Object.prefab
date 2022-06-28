@@ -70,37 +70,11 @@
                     "$type": "EditorVisibilityComponent",
                     "Id": 13213110774758686394
                 },
-                "Component_[14022225546352237038]": {
-                    "$type": "EditorRigidBodyComponent",
-                    "Id": 14022225546352237038,
-                    "Configuration": {
-                        "entityId": "",
-                        "Mass": 999.9999389648438,
-                        "Centre of mass offset": [
-                            0.0,
-                            0.0,
-                            0.5
-                        ],
-                        "Inertia tensor": {
-                            "roll": 0.0,
-                            "pitch": 0.0,
-                            "yaw": 0.0,
-                            "scale": 0.0059999991208314896
-                        }
-                    }
-                },
                 "Component_[15076020362360634866]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 15076020362360634866,
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
-                    }
-                },
-                "Component_[15397597781278882914]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 15397597781278882914,
-                    "m_template": {
-                        "$type": "Multiplayer::NetworkRigidBodyComponent"
                     }
                 },
                 "Component_[15646219890037406725]": {
@@ -140,14 +114,13 @@
                         }
                     ]
                 },
-                "Component_[2176242692874007681]": {
+                "Component_[2160433012867593070]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 2176242692874007681,
+                    "Id": 2160433012867593070,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkRandomImpulseComponent",
-                        "EnableHopping": true,
-                        "HopPeriod": 4.0,
-                        "HopForce": 10000.0
+                        "$type": "MultiplayerSample::NetworkRandomTranslateComponent",
+                        "MovementDuration": 5.0,
+                        "MaxMoveDistance": 5.0
                     }
                 },
                 "Component_[2286851697353605533]": {
@@ -159,25 +132,6 @@
                     "Id": 2310691145575538810,
                     "m_template": {
                         "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[2512731683353439569]": {
-                    "$type": "EditorColliderComponent",
-                    "Id": 2512731683353439569,
-                    "ColliderConfiguration": {
-                        "Position": [
-                            0.0,
-                            0.0,
-                            0.5
-                        ],
-                        "MaterialSelection": {
-                            "MaterialIds": [
-                                {}
-                            ]
-                        }
-                    },
-                    "ShapeConfiguration": {
-                        "ShapeType": 1
                     }
                 },
                 "Component_[307488191766036503]": {
