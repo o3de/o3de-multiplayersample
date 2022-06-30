@@ -6,6 +6,7 @@
  */
 
 #include <Components/PerfTest/NetworkRandomTranslateComponent.h>
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/std/time.h>
 
 namespace MultiplayerSample
