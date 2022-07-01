@@ -47,8 +47,8 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
-    Source/Components/UiCanvasDemoPlacardComponent.cpp
-    Source/Components/UiCanvasDemoPlacardComponent.h
+    Source/Components/UI/UiCanvasDemoPlacardComponent.cpp
+    Source/Components/UI/UiCanvasDemoPlacardComponent.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp

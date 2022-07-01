@@ -6,7 +6,7 @@
  *
  */
 
-#include <Source/Components/UiCanvasDemoPlacardComponent.h>
+#include <Source/Components/UI/UiCanvasDemoPlacardComponent.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>

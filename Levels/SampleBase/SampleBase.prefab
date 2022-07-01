@@ -170,7 +170,7 @@
                     "Id": 17461824293227247700,
                     "m_template": {
                         "$type": "MultiplayerSample::UiCanvasDemoPlacardComponent",
-                        "Text": "Non-Networked Static Collider in the Level",
+                        "Text": "Non-Networked Static Collider",
                         "TextboxUiId": 3
                     }
                 },
@@ -308,7 +308,7 @@
                     "Id": 17461824293227247700,
                     "m_template": {
                         "$type": "MultiplayerSample::UiCanvasDemoPlacardComponent",
-                        "Text": "Prefab of Nested Network Entities in the Level",
+                        "Text": "Prefab of Nested Network Entities",
                         "TextboxUiId": 3
                     }
                 },
@@ -478,6 +478,10 @@
                                                     0.08099488914012909,
                                                     1.0
                                                 ]
+                                            },
+                                            "general.doubleSided": {
+                                                "$type": "bool",
+                                                "Value": true
                                             }
                                         }
                                     }
@@ -790,6 +794,107 @@
                 }
             }
         },
+        "Entity_[218912573525109]": {
+            "Id": "Entity_[218912573525109]",
+            "Name": "ParticleFx",
+            "Components": {
+                "Component_[1081237748441298056]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 1081237748441298056
+                },
+                "Component_[11216887171796495829]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11216887171796495829
+                },
+                "Component_[16452504819099518150]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 16452504819099518150
+                },
+                "Component_[17596114369670733307]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17596114369670733307
+                },
+                "Component_[3710752804473727545]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 3710752804473727545,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 1803671422
+                                    },
+                                    "Value": {
+                                        "PropertyOverrides": {
+                                            "baseColor.color": {
+                                                "$type": "Color",
+                                                "Value": [
+                                                    0.027908751741051674,
+                                                    0.48299381136894226,
+                                                    0.08099488914012909,
+                                                    1.0
+                                                ]
+                                            },
+                                            "general.doubleSided": {
+                                                "$type": "bool",
+                                                "Value": true
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[4066033160078355562]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4066033160078355562
+                },
+                "Component_[4536896907644442920]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 4536896907644442920
+                },
+                "Component_[4608910444563065321]": {
+                    "$type": "SelectionComponent",
+                    "Id": 4608910444563065321
+                },
+                "Component_[6646359010016832696]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 6646359010016832696
+                },
+                "Component_[8154059186082421813]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 8154059186082421813,
+                    "Parent Entity": "Entity_[37677838535797]",
+                    "Transform Data": {
+                        "Rotate": [
+                            0.0,
+                            -86.88057708740234,
+                            0.0
+                        ]
+                    }
+                },
+                "Component_[9186732160580009404]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 9186732160580009404,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{767B3209-EDF7-503A-BF3D-6A69DAABC966}",
+                                    "subId": 285003870
+                                },
+                                "assetHint": "materialeditor/viewportmodels/plane_1x1.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[939429558173407653]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 939429558173407653
+                }
+            }
+        },
         "Entity_[32726940402596]": {
             "Id": "Entity_[32726940402596]",
             "Name": "Placard - Player Spawner",
@@ -1052,7 +1157,8 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 9717622753391867483,
                     "Child Entity Order": [
-                        "Entity_[150339125677173]"
+                        "Entity_[150339125677173]",
+                        "Entity_[218912573525109]"
                     ]
                 },
                 "Component_[981514129882235647]": {
