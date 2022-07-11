@@ -52,4 +52,5 @@ set(ENABLED_GEMS
     PrefabBuilder
     MaterialEditor
     UiBasics
+    PopcornFX
 )
