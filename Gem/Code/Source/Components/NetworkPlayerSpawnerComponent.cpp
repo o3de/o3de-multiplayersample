@@ -13,7 +13,7 @@
 
 namespace MultiplayerSample
 {
-    void NetworkPlayerSpawnerComponent::NetworkPlayerSpawnerComponent::Reflect(AZ::ReflectContext* context)
+    void NetworkPlayerSpawnerComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
         if (serializeContext)
