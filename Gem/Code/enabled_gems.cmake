@@ -52,4 +52,11 @@ set(ENABLED_GEMS
     PrefabBuilder
     MaterialEditor
     UiBasics
+    character_mps
+    props_mps
+    landscape_mps
+    kb3d_mps
+    level_art_mps
+    particlefx_mps
+    pbr_material_pack_mps
 )

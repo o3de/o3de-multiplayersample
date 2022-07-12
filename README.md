@@ -1,4 +1,5 @@
 # MultiplayerSample Project
+
 A simple third-person multiplayer sample for O3DE.
 
 > **_NOTE:_** For Linux, see the Linux specific setup in [README_LINUX](./README_LINUX.md).
@@ -7,13 +8,11 @@ A simple third-person multiplayer sample for O3DE.
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
 
-
 ### Create a Git Personal Access Token
 
 You will need your personal access token credentials to authenticate when you clone the repository.
 
 [Create a personal access token with the 'repo' scope.](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-
 
 ### (Recommended) Verify you have a credential manager installed to store your credentials
 
@@ -32,6 +31,12 @@ You can clone the project to any folder locally, including inside the engine fol
 Cloning into 'o3de-multiplayersample'...
 ```
 
+```shell
+# clone the assets into an external folder
+> git clone https://github.com/o3de/o3de-multiplayersample-assets.git
+Cloning into 'o3de-multiplayersample-assets'...
+```
+
 #### Option #2 - cloning into the engine repository folder
 
 ```shell
@@ -39,20 +44,28 @@ Cloning into 'o3de-multiplayersample'...
 > git clone https://github.com/o3de/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
 Cloning into 'o3de-multiplayersample'...
 
+# clone the asset gems into a folder named 'o3de-multiplayersample-assets' in your existing engine gems folder
+> git clone https://github.com/o3de/o3de-multiplayersample-assets.git c:/path/to/o3de/gems/o3de-multiplayersample-assets
+Cloning into 'o3de-multiplayersample-assets'...
+
 # modify the local engine git exclude file to ignore the project folder
 > echo o3de-multiplayersample > c:/path/to/o3de/.git/info/exclude
+> echo o3de-multiplayersample-assets > c:/path/to/o3de/.git/info/exclude
 ```
 
 If you have a Git credential helper configured, you should not be prompted for your credentials anymore.
 
-### Step 2. Register the engine and project
+### Step 2. Register the engine, the project, and the gems
 
 ```shell
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
-# register the project
+# register the project (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
+
+# register the asset gems (only need to do this once)
+> c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
 ```
 
 ### Step 3. Configure and build
@@ -122,8 +135,8 @@ By default, launching a local server from the editor during Play Mode is enabled
 
 Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/) for the complete list of console variables (cvar) which support play in the editor with servers.
 
-
 #### Running the Client
+
 A client can be run with:
 
 ```shell
@@ -132,8 +145,8 @@ MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
 
 This will connect a client to the local server and start a multiplayer session.
 
-
 ## More Information
+
 * [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
 * [Multiplayer Tutorials](https://o3de.org/docs/learning-guide/tutorials/multiplayer/)
 
