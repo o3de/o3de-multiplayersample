@@ -26,6 +26,10 @@ namespace MultiplayerSample
         float GetCameraPitch() const;
         float GetCameraRoll() const;
 
+        float GetCameraYawPrevious() const;
+        float GetCameraPitchPrevious() const;
+        float GetCameraRollPrevious() const;
+
     private:
         //! AZ::TickBus interface
         //! @{
