@@ -59,4 +59,5 @@ set(ENABLED_GEMS
     level_art_mps
     particlefx_mps
     pbr_material_pack_mps
+    PopcornFX
 )
