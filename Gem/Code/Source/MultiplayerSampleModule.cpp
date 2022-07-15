@@ -7,7 +7,6 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
-#include <Components/CannonComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/PerfTest/NetworkRandomImpulseComponent.h>
@@ -34,8 +33,7 @@ namespace MultiplayerSample
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
-                UiCanvasDemoPlacardComponent::CreateDescriptor(),
-                CannonComponent::CreateDescriptor()
+                UiCanvasDemoPlacardComponent::CreateDescriptor()
             });
 
             CreateComponentDescriptors(m_descriptors);
