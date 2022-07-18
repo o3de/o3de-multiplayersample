@@ -14,8 +14,8 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Interface/Interface.h>
-#include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
+#include <AzFramework/Physics/PhysicsSystem.h>
 
 namespace MultiplayerSample
 {
@@ -44,51 +44,39 @@ namespace MultiplayerSample
 	}
 
 	NetworkTeleportComponent::NetworkTeleportComponent()
-		: m_trigger([this](
-			AzPhysics::SceneHandle,
-			const AzPhysics::TriggerEventList& eventList)
+		: m_enterTrigger([this](
+			AzPhysics::SimulatedBodyHandle bodyHandle, 
+			const AzPhysics::TriggerEvent& triggerEvent)
 			{
-				OnTriggerEvents(eventList);
+				this->OnTriggerEnter(bodyHandle, triggerEvent);
 			})
 	{
 	}
 
 	void NetworkTeleportComponent::Activate()
 	{
-		auto* si = AZ::Interface<AzPhysics::SceneInterface>::Get();
-		if (si != nullptr)
+		auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get();
+		if (physicsSystem)
 		{
-			AzPhysics::SceneHandle sh = si->GetSceneHandle(
-				AzPhysics::DefaultPhysicsSceneName);
-			si->RegisterSceneTriggersEventHandler(sh, m_trigger);
+			auto [sceneHandle, bodyHandle] = physicsSystem->FindAttachedBodyHandleFromEntityId(GetEntityId());
+			AzPhysics::SimulatedBodyEvents::RegisterOnTriggerEnterHandler(
+				sceneHandle, bodyHandle, m_enterTrigger);
 		}
 	}
 
-	void NetworkTeleportComponent::OnTriggerEvents(
-		const AzPhysics::TriggerEventList& eventList)
+	void NetworkTeleportComponent::OnTriggerEnter(
+		[[maybe_unused]] AzPhysics::SimulatedBodyHandle bodyHandle, const AzPhysics::TriggerEvent& triggerEvent)
 	{
-		for (const AzPhysics::TriggerEvent& event : eventList)
+
+		if (triggerEvent.m_otherBody)
 		{
-			if (!event.m_triggerBody || (event.m_triggerBody->GetEntityId() != GetEntityId()))
-			{
-				continue;
-			}
+			// TODO: validate it's a player entity
+			AZ::Vector3 teleportLocation = GetDestination();
+			AZ_Printf("Teleporter", "destination point X is: %f\n",
+				teleportLocation.GetX());
 
-			if (event.m_type == AzPhysics::TriggerEvent::Type::Enter)
-			{
-				AZ_Printf("Teleporter", "physics event: %s\n", "Enter");
-
-				if (event.m_otherBody)
-				{
-					// TODO: validate it's a player entity
-					AZ::Vector3 teleportLocation = GetDestination();
-					AZ_Printf("Teleporter", "destination point X is: %f\n",
-						teleportLocation.GetX());
-
-					AZ::Entity* otherEntity = GetCollidingEntity(event.m_otherBody);
-					TeleportPlayer(teleportLocation, otherEntity);
-				}
-			}
+			AZ::Entity* otherEntity = GetCollidingEntity(triggerEvent.m_otherBody);
+			TeleportPlayer(teleportLocation, otherEntity);
 		}
 	}
 

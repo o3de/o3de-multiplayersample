@@ -8,7 +8,8 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AzFramework/Physics/Common/PhysicsEvents.h>
+#include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
+#include <AzFramework/Physics/Common/PhysicsSimulatedBodyEvents.h>
 
 namespace MultiplayerSample
 {
@@ -31,9 +32,9 @@ namespace MultiplayerSample
         void Deactivate() override {};
 
     private:
-        AzPhysics::SceneEvents::
-            OnSceneTriggersEvent::Handler m_trigger;
-        void OnTriggerEvents(const AzPhysics::TriggerEventList& eventList);
+        AzPhysics::SimulatedBodyEvents::OnTriggerEnter::Handler m_enterTrigger;
+        void OnTriggerEnter(
+            AzPhysics::SimulatedBodyHandle bodyHandle, const AzPhysics::TriggerEvent& triggerEvent);
 
         AZ::EntityId m_reset;
 
