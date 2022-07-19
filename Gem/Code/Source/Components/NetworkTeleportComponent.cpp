@@ -108,7 +108,7 @@ namespace MultiplayerSample
         {
             AZ::EntityId playerToTeleport = entity->GetId();
 
-            AZ_Printf(
+            AZ_TracePrintf(
                 "Teleporter", "Attempting to teleport entity: %s\n", entity->GetName().c_str());
 
             // disable physics so we can move entity
