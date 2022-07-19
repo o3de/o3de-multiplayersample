@@ -72,7 +72,7 @@ namespace MultiplayerSample
         {
             // TODO: validate it's a player entity
             AZ::Vector3 teleportLocation = GetDestination();
-            AZ_Printf("Teleporter", "destination point X is: %f\n",
+            AZ_TracePrintf("Teleporter", "destination point X is: %f\n",
                 teleportLocation.GetX());
 
             AZ::Entity* otherEntity = GetCollidingEntity(triggerEvent.m_otherBody);
@@ -109,7 +109,7 @@ namespace MultiplayerSample
             AZ::EntityId playerToTeleport = entity->GetId();
 
             AZ_Printf(
-                "Teleporter", "attempting to fling entity: %s\n", "PLAYER");
+                "Teleporter", "Attempting to teleport entity: %s\n", entity->GetName().c_str());
 
             // disable physics so we can move entity
             Physics::RigidBodyRequestBus::Event(playerToTeleport,
@@ -127,7 +127,7 @@ namespace MultiplayerSample
                 auto controller = 
                     static_cast<Multiplayer::NetworkTransformComponentController*>(netTransform->GetController());
 
-                AZ_Printf(
+                AZ_TracePrintf(
                     "Teleporter", "updating resetCount to : %u\n", (controller->GetResetCount() + 1));
 
                 controller->SetResetCount(controller->GetResetCount() + 1);
