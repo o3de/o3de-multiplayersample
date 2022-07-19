@@ -123,7 +123,8 @@ namespace MultiplayerSample
             Multiplayer::NetworkTransformComponent* netTransform =
                 entity->FindComponent<Multiplayer::NetworkTransformComponent>();
 
-            if (netTransform) {
+            if (netTransform && netTransform->GetController()) 
+            {
                 auto controller = 
                     static_cast<Multiplayer::NetworkTransformComponentController*>(netTransform->GetController());
 
