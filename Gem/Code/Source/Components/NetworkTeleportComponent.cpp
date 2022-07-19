@@ -72,7 +72,7 @@ namespace MultiplayerSample
         {
             // TODO: validate it's a player entity
             AZ::Vector3 teleportLocation = GetDestination();
-            AZ_TracePrintf("Teleporter", "destination point X is: %f\n",
+            AZ_TracePrintf("Teleporter", "Destination point X is: %f\n",
                 teleportLocation.GetX());
 
             AZ::Entity* otherEntity = GetCollidingEntity(triggerEvent.m_otherBody);
