@@ -31,6 +31,8 @@ set(FILES
     Source/Components/NetworkPlayerSpawnerComponent.h
     Source/Components/NetworkRandomComponent.cpp
     Source/Components/NetworkRandomComponent.h
+    Source/Components/NetworkTeleportComponent.cpp
+    Source/Components/NetworkTeleportComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp
