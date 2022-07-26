@@ -19,6 +19,8 @@ set(FILES
     Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -33,6 +35,8 @@ set(FILES
     Source/Components/NetworkRandomComponent.h
     Source/Components/NetworkTeleportComponent.cpp
     Source/Components/NetworkTeleportComponent.h
+    Source/Components/NetworkTeleportCompatibleComponent.cpp 
+    Source/Components/NetworkTeleportCompatibleComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp

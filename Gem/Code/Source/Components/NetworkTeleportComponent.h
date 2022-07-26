@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <AzCore/Component/Component.h>
+#include <Source/AutoGen/NetworkTeleportComponent.AutoComponent.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBodyEvents.h>
 
@@ -18,28 +18,36 @@ namespace MultiplayerSample
      * 
      */
     class NetworkTeleportComponent
-        : public AZ::Component
+        : public NetworkTeleportComponentBase
     {
     public:
-        AZ_COMPONENT(NetworkTeleportComponent,
-            "{917a6318-e047-4ec5-b6ed-bc95f74bd287}");
+        AZ_COMPONENT(NetworkTeleportComponent, "{917a6318-e047-4ec5-b6ed-bc95f74bd287}", 
+            NetworkTeleportComponentBase);
 
         static void Reflect(AZ::ReflectContext* reflection);
 
-        NetworkTeleportComponent();
+        void OnInit() override {};
+        void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+    };
 
-        void Activate() override;
-        void Deactivate() override {};
+    class NetworkTeleportComponentController
+        : public NetworkTeleportComponentControllerBase
+    {
+    public:
+        NetworkTeleportComponentController(NetworkTeleportComponent& parent);
+
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
 
     private:
         AzPhysics::SimulatedBodyEvents::OnTriggerEnter::Handler m_enterTrigger;
         void OnTriggerEnter(
             AzPhysics::SimulatedBodyHandle bodyHandle, const AzPhysics::TriggerEvent& triggerEvent);
 
-        AZ::EntityId m_reset;
-
         AZ::Entity* GetCollidingEntity(AzPhysics::SimulatedBody* collidingBody) const;
-        AZ::Vector3 GetDestination() const;
+        AZ::Vector3 GetDestinationVector() const;
         void TeleportPlayer(const AZ::Vector3& vector, AZ::Entity* entity);
     };
-}
+
+} // namespace MultiplayerSample

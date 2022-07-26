@@ -34,8 +34,7 @@ namespace MultiplayerSample
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
-                UiCanvasDemoPlacardComponent::CreateDescriptor(),
-                NetworkTeleportComponent::CreateDescriptor()
+                UiCanvasDemoPlacardComponent::CreateDescriptor()
             });
 
             CreateComponentDescriptors(m_descriptors);

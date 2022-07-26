@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkTeleportCompatibleComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/NetworkTeleportCompatibleComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" 
+                       Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <RemoteProcedure
+        Name="Teleport" 
+        InvokeFrom="Server" 
+        HandleOn="Authority" 
+        IsPublic="true" 
+        IsReliable="true" 
+        GenerateEventBindings="true"
+        Description="Teleport occured RPC">
+        <Param Type="AZ::Vector3" Name="TeleportedLocation"/>
+    </RemoteProcedure>
+</Component>
