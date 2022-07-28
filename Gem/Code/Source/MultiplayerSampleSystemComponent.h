@@ -57,15 +57,12 @@ namespace MultiplayerSample
 
         ////////////////////////////////////////////////////////////////////////
         // IMultiplayerSpawner overrides
-        Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum) override;
+        Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum, EntityPreActivationCallback preActivationCallback) override;
         void OnPlayerLeave(
             Multiplayer::ConstNetworkEntityHandle entityHandle,
             const Multiplayer::ReplicationSet& replicationSet,
             AzNetworking::DisconnectReason reason) override;
         ////////////////////////////////////////////////////////////////////////
-
-        void EnableAutonomousControl(Multiplayer::NetworkEntityHandle entityHandle, AzNetworking::ConnectionId connectionId);
-
 
         AZStd::unique_ptr<MultiplayerSample::IPlayerSpawner> m_playerSpawner;
     };

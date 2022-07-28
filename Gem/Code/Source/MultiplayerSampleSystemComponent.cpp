@@ -108,43 +108,7 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    void MultiplayerSampleSystemComponent::EnableAutonomousControl(Multiplayer::NetworkEntityHandle entityHandle, AzNetworking::ConnectionId connectionId)
-    {
-        if (!entityHandle.Exists())
-        {
-            AZLOG_WARN("Attempting to enable autonomous control for an invalid entity");
-            return;
-        }
-
-        entityHandle.GetNetBindComponent()->SetOwningConnectionId(connectionId);
-        if (connectionId == InvalidConnectionId)
-        {
-            entityHandle.GetNetBindComponent()->SetAllowAutonomy(true);
-        }
-
-        /*auto* hierarchyComponent = entityHandle.FindComponent<NetworkHierarchyRootComponent>();
-        if (hierarchyComponent != nullptr)
-        {
-            for (AZ::Entity* subEntity : hierarchyComponent->GetHierarchicalEntities())
-            {
-                NetworkEntityHandle subEntityHandle = NetworkEntityHandle(subEntity);
-                NetBindComponent* subEntityNetBindComponent = subEntityHandle.GetNetBindComponent();
-
-                if (subEntityNetBindComponent != nullptr)
-                {
-                    subEntityNetBindComponent->SetOwningConnectionId(connectionId);
-                    if (connectionId == InvalidConnectionId)
-                    {
-                        subEntityNetBindComponent->SetAllowAutonomy(true);
-                    }
-                }
-            }
-        }*/
-    }
-
-
-    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin(
-        [[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
+    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin([[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum, EntityPreActivationCallback preActivationCallback)
     {
         AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
 
@@ -152,9 +116,10 @@ namespace MultiplayerSample
             AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
             entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second, Multiplayer::AutoActivate::DoNotActivate);
 
+        preActivationCallback(entityList);
+
         for (Multiplayer::NetworkEntityHandle subEntity : entityList)
         {
-            EnableAutonomousControl(subEntity, AzNetworking::InvalidConnectionId);
             subEntity.Activate();
         }
 
