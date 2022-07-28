@@ -1,0 +1,1 @@
+.\build\windows\bin\profile\MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg

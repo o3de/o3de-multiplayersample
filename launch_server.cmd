@@ -1,0 +1,1 @@
+.\build\windows\bin\profile\MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg
