@@ -64,6 +64,9 @@ namespace MultiplayerSample
             AzNetworking::DisconnectReason reason) override;
         ////////////////////////////////////////////////////////////////////////
 
+        void EnableAutonomousControl(Multiplayer::NetworkEntityHandle entityHandle, AzNetworking::ConnectionId connectionId);
+
+
         AZStd::unique_ptr<MultiplayerSample::IPlayerSpawner> m_playerSpawner;
     };
 }
