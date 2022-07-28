@@ -37,13 +37,6 @@ Cloning into 'o3de-multiplayersample'...
 Cloning into 'o3de-multiplayersample-assets'...
 ```
 
-```shell
-# clone the PopcornFX gem into an external folder 
-# (Alternatively, you might need to get a different version of the PopcornFX gem to match what is compatible with your version of O3DE)
-> git clone https://github.com/PopcornFX/O3DEPopcornFXPlugin.git
-Cloning into 'O3DEPopcornFXPlugin'...
-```
-
 #### Option #2 - cloning into the engine repository folder
 
 ```shell
@@ -54,11 +47,6 @@ Cloning into 'o3de-multiplayersample'...
 # clone the asset gems into a folder named 'o3de-multiplayersample-assets' in your existing engine gems folder
 > git clone https://github.com/o3de/o3de-multiplayersample-assets.git c:/path/to/o3de/gems/o3de-multiplayersample-assets
 Cloning into 'o3de-multiplayersample-assets'...
-
-# clone the PopcornFX gem into a folder named 'PopcornFX' in your existing engine gems folder
-# (Alternatively, you might need to get a different version of the PopcornFX gem to match what is compatible with your version of O3DE)
-> git clone https://github.com/PopcornFX/O3DEPopcornFXPlugin.git c:/path/to/o3de/gems/O3DEPopcornFXPlugin
-Cloning into 'O3DEPopcornFXPlugin'...
 
 # modify the local engine git exclude file to ignore the project folder
 > echo o3de-multiplayersample > c:/path/to/o3de/.git/info/exclude
@@ -78,9 +66,6 @@ If you have a Git credential helper configured, you should not be prompted for y
 
 # register the asset gems (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
-
-# register the PopcornFX gem (only need to do this once)
-> c:/path/to/o3de/scripts/o3de register --gem-path c:/path/to/O3DEPopcornFXPlugin
 ```
 
 ### Step 3. Configure and build
