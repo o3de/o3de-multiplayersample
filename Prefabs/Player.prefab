@@ -114,6 +114,13 @@
                     "Id": 14925070260434397195,
                     "Configuration": {
                         "entityId": "",
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        },
                         "Material": {
                             "MaterialIds": [
                                 {}
@@ -157,6 +164,13 @@
                     "Id": 3191544009700536030,
                     "m_template": {
                         "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
+                    }
+                },
+                "Component_[3651951460255600248]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3651951460255600248,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent"
                     }
                 },
                 "Component_[3873700008294568875]": {
@@ -325,11 +339,7 @@
                     "$type": "GenericComponentWrapper",
                     "Id": 5387953310772448141,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerMovementComponent",
-                        "WalkSpeed": 3.0,
-                        "SprintSpeed": 5.0,
-                        "ReverseSpeed": 2.0,
-                        "CrouchSpeed": 1.5
+                        "$type": "MultiplayerSample::NetworkPlayerMovementComponent"
                     }
                 },
                 "Component_[6252367322126438780]": {
@@ -424,94 +434,7 @@
                                 }
                             ]
                         }
-                    },
-                    "materialSlots": [
-                        {
-                            "id": {
-                                "materialSlotStableId": 3026370142
-                            },
-                            "materialAsset": {
-                                "assetId": {
-                                    "guid": "{665C08D7-6D4F-5D00-BE83-66F147764D44}"
-                                },
-                                "assetHint": "burt/burtactor.azmaterial"
-                            },
-                            "defaultMaterialAsset": {
-                                "assetId": {
-                                    "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                    "subId": 3026370142
-                                },
-                                "loadBehavior": "PreLoad",
-                                "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                            }
-                        }
-                    ],
-                    "materialSlotsByLod": [
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 0,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 1,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 2,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 3,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ]
-                    ]
+                    }
                 }
             }
         }
