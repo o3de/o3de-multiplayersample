@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkMatchComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="true"
+	OverrideInclude="Source/Components/NetworkMatchComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <NetworkProperty Type="float" Name="RoundTime" Init="120.0f" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round" />
+    <NetworkProperty Type="uint16_t" Name="RoundNumber" Init="1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The current round number" />
+
+    <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.0f" ExposeToEditor="true" Description="Total time of a round" />
+    <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
+</Component>

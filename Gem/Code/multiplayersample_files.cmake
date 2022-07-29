@@ -10,17 +10,20 @@ set(FILES
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
+    Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
     Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
+    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -29,6 +32,8 @@ set(FILES
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
+    Source/Components/NetworkMatchComponent.cpp
+    Source/Components/NetworkMatchComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
     Source/Components/NetworkPlayerSpawnerComponent.h
     Source/Components/NetworkRandomComponent.cpp
@@ -53,6 +58,8 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
+    Source/Components/UI/HUDComponent.cpp
+    Source/Components/UI/HUDComponent.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp
