@@ -38,6 +38,7 @@ set(ENABLED_GEMS
     TextureAtlas
     LmbrCentral
     LyShine
+    LyShineExamples
     HttpRequestor
     Atom
     AWSCore

@@ -64,7 +64,6 @@
                     "Instance_[785316907363]/ContainerEntity",
                     "Entity_[830977005898]",
                     "Entity_[611359903594]",
-                    "Entity_[612267476908]",
                     "Entity_[412839637138]",
                     "Entity_[1863191303392]",
                     "Entity_[14030996048227]",
@@ -77,7 +76,8 @@
                     "Entity_[37677838535797]",
                     "Entity_[30454303071499]",
                     "Entity_[59174749379851]",
-                    "Instance_[59332693509213]/ContainerEntity"
+                    "Instance_[59332693509213]/ContainerEntity",
+                    "Entity_[727777302952]"
                 ]
             }
         }
@@ -5116,96 +5116,92 @@
                 }
             }
         },
-        "Entity_[612267476908]": {
-            "Id": "Entity_[612267476908]",
+        "Entity_[727777302952]": {
+            "Id": "Entity_[727777302952]",
             "Name": "MatchController",
             "Components": {
-                "Component_[11062316497816448966]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11062316497816448966
-                },
-                "Component_[11641917428874637451]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 11641917428874637451
-                },
-                "Component_[13005385262602996004]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 13005385262602996004
-                },
-                "Component_[13428489482186355]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 13428489482186355
-                },
-                "Component_[13442028985855289554]": {
+                "Component_[11044208504869032248]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 13442028985855289554,
+                    "Id": 11044208504869032248,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkMatchComponent"
+                        "$type": "MultiplayerSample::NetworkMatchComponent",
+                        "RoundDuration": 60.0
                     }
                 },
-                "Component_[14435868710318598385]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14435868710318598385,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            -4.764087677001953,
-                            12.970443725585938,
-                            19.850555419921875
-                        ],
-                        "Rotate": [
-                            -69.53874206542969,
-                            -4.26886799687054e-7,
-                            -12.672529220581055
-                        ]
-                    }
+                "Component_[11582545100212439853]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11582545100212439853
                 },
-                "Component_[14624032728588170442]": {
+                "Component_[14478429868711242326]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 14478429868711242326
+                },
+                "Component_[15954001209187179655]": {
                     "$type": "EditorPendingCompositionComponent",
-                    "Id": 14624032728588170442
+                    "Id": 15954001209187179655
                 },
-                "Component_[1527621523507383126]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 1527621523507383126
-                },
-                "Component_[16156961288390766364]": {
+                "Component_[16952898907599562589]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 16156961288390766364,
+                    "Id": 16952898907599562589,
                     "m_template": {
                         "$type": "NetBindComponent"
                     }
                 },
-                "Component_[16725578225582550]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 16725578225582550
+                "Component_[17083415778652839230]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17083415778652839230
                 },
-                "Component_[2554553698676773252]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 2554553698676773252
-                },
-                "Component_[468901700350755637]": {
+                "Component_[17163718511096577681]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 468901700350755637,
+                    "Id": 17163718511096577681,
                     "m_template": {
                         "$type": "MultiplayerSample::HUDComponent",
-                        "RoundNumberId": 43,
-                        "RoundTimerId": 11
+                        "RoundNumberId": 8,
+                        "RoundTimerId": 4
                     }
                 },
-                "Component_[5734278598803405847]": {
+                "Component_[17500813252784751517]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 17500813252784751517
+                },
+                "Component_[2827181128407867340]": {
+                    "$type": "SelectionComponent",
+                    "Id": 2827181128407867340
+                },
+                "Component_[3709937876037180985]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 5734278598803405847,
+                    "Id": 3709937876037180985,
                     "m_template": {
                         "$type": "UiCanvasAssetRefComponent",
                         "CanvasAssetRef": {
-                            "AssetPath": "uicanvases/hud.uicanvas"
+                            "AssetPath": "uicanvases/basichud.uicanvas"
                         },
                         "IsAutoLoad": true
                     }
                 },
-                "Component_[9958629529203368226]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 9958629529203368226
+                "Component_[5143246854913296527]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 5143246854913296527,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            28.328922271728516,
+                            26.445276260375977,
+                            0.0
+                        ]
+                    }
+                },
+                "Component_[5932985006849230681]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 5932985006849230681
+                },
+                "Component_[6432885729127046056]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 6432885729127046056
+                },
+                "Component_[6533115235637337163]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6533115235637337163
                 }
             }
         },
@@ -5263,7 +5259,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 2368365507369927159
+                            "EditorEntityId": 12535297021930662402
                         }
                     }
                 },

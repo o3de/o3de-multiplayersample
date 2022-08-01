@@ -88,7 +88,7 @@ namespace MultiplayerSample
             if (textBoxEntity != nullptr)
             {
                 NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>();
-                m_roundNumberText = AZStd::string::format("Round: %d/%d", round, netMatchComponent->GetTotalRounds());
+                m_roundNumberText = AZStd::string::format("%d/%d", round, netMatchComponent->GetTotalRounds());
                 UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundNumberText);
             }
         }
@@ -103,7 +103,7 @@ namespace MultiplayerSample
 
             if (textBoxEntity != nullptr)
             {
-                m_roundTimerText = AZStd::string::format("Time: %d", aznumeric_cast<int>(time));
+                m_roundTimerText = AZStd::string::format("%d", aznumeric_cast<int>(time));
                 UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundTimerText);
             }
         }
