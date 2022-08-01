@@ -7,30 +7,28 @@
 
 #pragma once
 
-#include <AzCore/Component/TickBus.h>
-#include <Multiplayer/Components/NetBindComponent.h>
-
+#include <AzCore/EBus/ScheduledEvent.h>
 #include <Source/AutoGen/NetworkMatchComponent.AutoComponent.h>
 
 namespace MultiplayerSample
 {
     class NetworkMatchComponentController
         : public NetworkMatchComponentControllerBase
-        , private AZ::TickBus::Handler
     {
     public:
-        NetworkMatchComponentController(NetworkMatchComponent& parent);
+        explicit NetworkMatchComponentController(NetworkMatchComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void EndMatch();
         void EndRound();
+
     private:
-        //! AZ::TickBus interface
-        //! @{
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
-        int GetTickOrder() override;
-        //! @}
+        void RoundTickOnceASecond();
+        AZ::ScheduledEvent m_roundTickEvent{[this]()
+        {
+            RoundTickOnceASecond();
+        }, AZ::Name("NetworkMatchComponentController")};
     };
 }

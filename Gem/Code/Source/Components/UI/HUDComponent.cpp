@@ -31,7 +31,7 @@ namespace MultiplayerSample
         m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { this->SetRoundNumberText(value); });
         netMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
 
-        m_roundTimerHandler = AZ::EventHandler<float>([this](float value) { this->SetRoundTimerText(value); });
+        m_roundTimerHandler = AZ::EventHandler<int16_t>([this](float value) { this->SetRoundTimerText(value); });
         netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
     }
 

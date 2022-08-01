@@ -53,6 +53,6 @@ namespace MultiplayerSample
         AZStd::string m_roundNumberText = "";
         AZStd::string m_roundTimerText = "";
         AZ::EventHandler<uint16_t> m_roundNumberHandler; 
-        AZ::EventHandler<float> m_roundTimerHandler;
+        AZ::EventHandler<int16_t> m_roundTimerHandler;
     };
 } // namespace MultiplayerSample
