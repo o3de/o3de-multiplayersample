@@ -25,14 +25,15 @@ namespace MultiplayerSample
             UiCanvasAssetRefNotificationBus::Handler::BusConnect(GetEntityId());
         }
 
-        NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>();
+        if (NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>())
+        {
+            SetRoundNumberText(netMatchComponent->GetRoundNumber());
+            m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
+            netMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
 
-        SetRoundNumberText(netMatchComponent->GetRoundNumber());
-        m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { this->SetRoundNumberText(value); });
-        netMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
-
-        m_roundTimerHandler = AZ::EventHandler<int16_t>([this](float value) { this->SetRoundTimerText(value); });
-        netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
+            m_roundTimerHandler = AZ::EventHandler<int16_t>([this](int16_t value) { SetRoundTimerText(value); });
+            netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
+        }
     }
 
     void HUDComponent::Deactivate()
@@ -67,7 +68,7 @@ namespace MultiplayerSample
         }
     }
     
-    void HUDComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
+    void HUDComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC("UiCanvasRefService"));
         required.push_back(AZ_CRC("NetworkMatchComponent"));
@@ -82,19 +83,21 @@ namespace MultiplayerSample
     {
         if (m_uiCanvasId.IsValid())
         {
-            AZ::Entity* textBoxEntity;
+            AZ::Entity* textBoxEntity = nullptr;
             UiCanvasBus::EventResult(textBoxEntity, m_uiCanvasId, &UiCanvasBus::Events::FindElementById, m_roundNumberId);
 
             if (textBoxEntity != nullptr)
             {
-                NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>();
-                m_roundNumberText = AZStd::string::format("%d/%d", round, netMatchComponent->GetTotalRounds());
-                UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundNumberText);
+                if (const NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>())
+                {
+                    m_roundNumberText = AZStd::string::format("%d/%d", round, netMatchComponent->GetTotalRounds());
+                    UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundNumberText);
+                }
             }
         }
     }
 
-    void HUDComponent::SetRoundTimerText(float time)
+    void HUDComponent::SetRoundTimerText(int16_t time)
     {
         if (m_uiCanvasId.IsValid())
         {
@@ -103,7 +106,7 @@ namespace MultiplayerSample
 
             if (textBoxEntity != nullptr)
             {
-                m_roundTimerText = AZStd::string::format("%d", aznumeric_cast<int>(time));
+                m_roundTimerText = AZStd::string::format("%d", time);
                 UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundTimerText);
             }
         }

@@ -44,14 +44,13 @@ namespace MultiplayerSample
         void OnCanvasLoadedIntoEntity(AZ::EntityId uiCanvasEntity) override;
 
         void SetRoundNumberText(uint16_t round);
-        void SetRoundTimerText(float time);
+        void SetRoundTimerText(int16_t time);
     
-    private:
         AZ::EntityId m_uiCanvasId;
         int m_roundNumberId = 0;
         int m_roundTimerId = 0;
-        AZStd::string m_roundNumberText = "";
-        AZStd::string m_roundTimerText = "";
+        AZStd::string m_roundNumberText;
+        AZStd::string m_roundTimerText;
         AZ::EventHandler<uint16_t> m_roundNumberHandler; 
         AZ::EventHandler<int16_t> m_roundTimerHandler;
     };
