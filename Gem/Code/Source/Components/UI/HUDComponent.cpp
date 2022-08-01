@@ -31,7 +31,7 @@ namespace MultiplayerSample
             m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
             netMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
 
-            m_roundTimerHandler = AZ::EventHandler<int16_t>([this](int16_t value) { SetRoundTimerText(value); });
+            m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
             netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
         }
     }
@@ -97,7 +97,7 @@ namespace MultiplayerSample
         }
     }
 
-    void HUDComponent::SetRoundTimerText(int16_t time)
+    void HUDComponent::SetRoundTimerText(RoundTimeSec time)
     {
         if (m_uiCanvasId.IsValid())
         {
@@ -106,7 +106,7 @@ namespace MultiplayerSample
 
             if (textBoxEntity != nullptr)
             {
-                m_roundTimerText = AZStd::string::format("%d", time);
+                m_roundTimerText = AZStd::string::format("%d", aznumeric_cast<int>(time));
                 UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundTimerText);
             }
         }

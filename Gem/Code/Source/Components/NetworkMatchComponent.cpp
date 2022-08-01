@@ -16,7 +16,7 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        SetRoundTime(GetRoundDuration());
+        SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         SetRoundNumber(1);
 
         // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
@@ -41,7 +41,7 @@ namespace MultiplayerSample
         {
             //Signal event to reset everything
             ++roundNumber;
-            SetRoundTime(GetRoundDuration());
+            SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         }
         else
         {
@@ -52,9 +52,10 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::RoundTickOnceASecond()
     {
-        int16_t& roundTime = ModifyRoundTime();
-        roundTime--; // m_roundTickEvent is configured to tick once a second
-        if (roundTime <= 0)
+        // m_roundTickEvent is configured to tick once a second
+        SetRoundTime(RoundTimeSec(GetRoundTime() - 1.f));
+        
+        if (GetRoundTime() <= RoundTimeSec(0.f))
         {
             EndRound();
         }
