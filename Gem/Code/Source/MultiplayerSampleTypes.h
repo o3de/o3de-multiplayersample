@@ -42,6 +42,8 @@ namespace MultiplayerSample
         Crouching,
         COUNT = Crouching + 1
     };
+
+    using RoundTimeSec = AzNetworking::QuantizedValues<1, 2, 0, 3600>; // 1 hour max round duration
 }
 
 namespace AZ
