@@ -13,6 +13,7 @@ set(FILES
     Source/AutoGen/NetworkCoinSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerCoinCollectorComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
@@ -40,6 +41,8 @@ set(FILES
     Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkMatchComponent.cpp
     Source/Components/NetworkMatchComponent.h
+    Source/Components/NetworkPlayerCoinCollectorComponent.cpp
+    Source/Components/NetworkPlayerCoinCollectorComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
     Source/Components/NetworkPlayerSpawnerComponent.h
     Source/Components/NetworkRandomComponent.cpp

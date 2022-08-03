@@ -18,4 +18,7 @@
                        Description="How quickly coin turns in place." />
 
     <NetworkProperty Type="int" Name="RandomPeriodOffset" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="Randomize the bouncing of coins" />
+
+
+    <RemoteProcedure Name="CollectedByPlayer" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="On coin collected by a player" />
 </Component>
