@@ -9,6 +9,8 @@ set(FILES
     Include/NetworkPrefabSpawnerInterface.h
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
+    Source/AutoGen/NetworkCoinComponent.AutoComponent.xml
+    Source/AutoGen/NetworkCoinSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
@@ -30,6 +32,10 @@ set(FILES
     Source/Components/NetworkAiComponent.h
     Source/Components/NetworkAnimationComponent.cpp
     Source/Components/NetworkAnimationComponent.h
+    Source/Components/NetworkCoinComponent.cpp
+    Source/Components/NetworkCoinComponent.h
+    Source/Components/NetworkCoinSpawnerComponent.cpp
+    Source/Components/NetworkCoinSpawnerComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkMatchComponent.cpp
@@ -40,7 +46,7 @@ set(FILES
     Source/Components/NetworkRandomComponent.h
     Source/Components/NetworkTeleportComponent.cpp
     Source/Components/NetworkTeleportComponent.h
-    Source/Components/NetworkTeleportCompatibleComponent.cpp 
+    Source/Components/NetworkTeleportCompatibleComponent.cpp
     Source/Components/NetworkTeleportCompatibleComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
     Source/Components/NetworkWeaponsComponent.h

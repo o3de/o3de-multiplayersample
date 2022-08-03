@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkCoinComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/NetworkCoinComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <ArchetypeProperty Type="float" Name="AngularTurnSpeed" ExposeToEditor="true" Init="5.f" 
+                       Description="How quickly coin turns in place." />
+	<ArchetypeProperty Type="float" Name="VerticalAmplitude" ExposeToEditor="true" Init="1.f" 
+	                   Description="How quickly coin turns in place." />
+	<ArchetypeProperty Type="float" Name="VerticalBouncePeriod" ExposeToEditor="true" Init="3.f"
+	                   Description="How quickly coin turns in place." />
+</Component>

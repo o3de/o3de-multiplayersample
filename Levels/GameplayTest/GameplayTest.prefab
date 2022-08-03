@@ -77,7 +77,9 @@
                     "Entity_[30454303071499]",
                     "Entity_[59174749379851]",
                     "Instance_[59332693509213]/ContainerEntity",
-                    "Entity_[727777302952]"
+                    "Entity_[727777302952]",
+                    "Entity_[605362165710]",
+                    "Instance_[5994660872920]/ContainerEntity"
                 ]
             }
         }
@@ -4928,6 +4930,95 @@
                 }
             }
         },
+        "Entity_[605362165710]": {
+            "Id": "Entity_[605362165710]",
+            "Name": "Coin Spawner",
+            "Components": {
+                "Component_[11136814635140410438]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11136814635140410438
+                },
+                "Component_[12132006563258693566]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 12132006563258693566
+                },
+                "Component_[13556088967327722189]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 13556088967327722189
+                },
+                "Component_[15983473992788352089]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 15983473992788352089
+                },
+                "Component_[16713033283639906948]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 16713033283639906948
+                },
+                "Component_[17089265220326194689]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 17089265220326194689,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            9.703819274902344,
+                            -0.3937044143676758,
+                            1.2134294509887695
+                        ]
+                    }
+                },
+                "Component_[1749217498459743295]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 1749217498459743295
+                },
+                "Component_[18187513243842658387]": {
+                    "$type": "SelectionComponent",
+                    "Id": 18187513243842658387
+                },
+                "Component_[18280610137451388009]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 18280610137451388009,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkCoinSpawnerComponent",
+                        "CoinSpawnable": {
+                            "assetId": {
+                                "guid": "{6E1FA3D9-3A3E-54B7-810D-A13F4332820F}",
+                                "subId": 2974450781
+                            },
+                            "assetHint": "prefabs/coin.spawnable"
+                        }
+                    }
+                },
+                "Component_[2156298721657154818]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 2156298721657154818
+                },
+                "Component_[3309163171957512308]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 3309163171957512308
+                },
+                "Component_[3618239487372672372]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3618239487372672372,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[5955260678983813918]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 5955260678983813918,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9052295144577886244]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9052295144577886244,
+                    "m_template": {
+                        "$type": "NetworkPrefabSpawnerComponent"
+                    }
+                }
+            }
+        },
         "Entity_[6070312681563]": {
             "Id": "Entity_[6070312681563]",
             "Name": "Player Spawner 4",
@@ -5259,7 +5350,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 12535297021930662402
+                            "EditorEntityId": 11393594724081106302
                         }
                     }
                 },
@@ -5646,6 +5737,31 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Transform Data/Translate/1",
                     "value": -4.538150787353516
+                }
+            ]
+        },
+        "Instance_[5994660872920]": {
+            "Source": "Prefabs/Coin.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8188222295139453401]/Parent Entity",
+                    "value": "../Entity_[356758116574]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8188222295139453401]/Transform Data/Translate/0",
+                    "value": 7.549341201782227
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8188222295139453401]/Transform Data/Translate/1",
+                    "value": -11.177734375
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8188222295139453401]/Transform Data/Translate/2",
+                    "value": 1.2998325824737549
                 }
             ]
         },
