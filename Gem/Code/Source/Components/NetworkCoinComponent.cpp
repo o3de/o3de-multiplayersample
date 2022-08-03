@@ -46,10 +46,11 @@ namespace MultiplayerSample
 
         auto updatedLocation = m_rootLocation;
         updatedLocation.SetZ(updatedLocation.GetZ() + 0.5f * GetVerticalAmplitude() * AZStd::sin(
-            AZ::TimeMsToSeconds(m_lifetime) * AZ::Constants::TwoPi / GetVerticalBouncePeriod()));
+            AZ::TimeMsToSeconds(m_lifetime + AZ::TimeMs{ GetRandomPeriodOffset() }) * AZ::Constants::TwoPi / GetVerticalBouncePeriod()));
         GetEntity()->GetTransform()->SetWorldTranslation(updatedLocation);
 
-        const AZ::Quaternion rotation = AZ::Quaternion::CreateRotationZ(AZ::TimeMsToSeconds(m_lifetime) * GetAngularTurnSpeed());
+        const AZ::Quaternion rotation = AZ::Quaternion::CreateRotationZ(AZ::TimeMsToSeconds(
+            m_lifetime + AZ::TimeMs{ GetRandomPeriodOffset() }) * GetAngularTurnSpeed());
         GetEntity()->GetTransform()->SetWorldRotationQuaternion(rotation);
     }
 

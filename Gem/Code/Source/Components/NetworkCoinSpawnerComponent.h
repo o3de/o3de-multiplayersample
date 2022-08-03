@@ -11,6 +11,25 @@
 
 namespace MultiplayerSample
 {
+    class NetworkCoinSpawnerComponent
+        : public NetworkCoinSpawnerComponentBase
+    {
+    public:
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkCoinSpawnerComponent, s_networkCoinSpawnerComponentConcreteUuid, MultiplayerSample::NetworkCoinSpawnerComponentBase);
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+        {
+            required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
+            NetworkCoinSpawnerComponentBase::GetRequiredServices(required);
+        }
+        
+        void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {}
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {}
+    };
+
+
     class NetworkCoinSpawnerComponentController
         : public NetworkCoinSpawnerComponentControllerBase
     {
@@ -22,5 +41,7 @@ namespace MultiplayerSample
         
     private:
         AZStd::unordered_map<const AZ::Entity*, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedCoins;
+
+        void SpawnCoin(const AZ::Vector3& location);
     };
 }
