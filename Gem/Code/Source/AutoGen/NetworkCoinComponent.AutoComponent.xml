@@ -8,14 +8,14 @@
     OverrideInclude="Source/Components/NetworkCoinComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
 
-    <ArchetypeProperty Type="float" Name="AngularTurnSpeed" ExposeToEditor="true" Init="5.f" 
+    <ArchetypeProperty Type="float" Name="AngularTurnSpeed" ExposeToEditor="true" Init="5.f"
                        Description="How quickly coin turns in place." />
-	<ArchetypeProperty Type="float" Name="VerticalAmplitude" ExposeToEditor="true" Init="1.f" 
-	                   Description="How quickly coin turns in place." />
-	<ArchetypeProperty Type="float" Name="VerticalBouncePeriod" ExposeToEditor="true" Init="3.f"
-	                   Description="How quickly coin turns in place." />
+    <ArchetypeProperty Type="float" Name="VerticalAmplitude" ExposeToEditor="true" Init="1.f"
+                       Description="How quickly coin turns in place." />
+    <ArchetypeProperty Type="float" Name="VerticalBouncePeriod" ExposeToEditor="true" Init="3.f"
+                       Description="How quickly coin turns in place." />
 
-	<NetworkProperty Type="int" Name="RandomPeriodOffset" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="Randomize the bouncing of coins" />
+    <NetworkProperty Type="int" Name="RandomPeriodOffset" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="Randomize the bouncing of coins" />
 </Component>

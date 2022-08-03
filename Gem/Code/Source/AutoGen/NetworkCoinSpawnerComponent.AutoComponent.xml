@@ -7,17 +7,17 @@
     OverrideController="true"
     OverrideInclude="Source/Components/NetworkCoinSpawnerComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	
-	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
-	<ComponentRelation Constraint="Required" HasController="false" HasComponent="true" Name="NetworkPrefabSpawnerComponent" Namespace="MultiplayerSample" Include="Components/PerfTest/NetworkPrefabSpawnerComponent.h" />
-	<ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Components/NetworkRandomComponent.h" />
 
-	<Include File="AzCore/Asset/AssetSerializer.h"/>
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="false" HasComponent="true" Name="NetworkPrefabSpawnerComponent" Namespace="MultiplayerSample" Include="Components/PerfTest/NetworkPrefabSpawnerComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Components/NetworkRandomComponent.h" />
+
+    <Include File="AzCore/Asset/AssetSerializer.h"/>
     <Include File="AzFramework/Spawnable/Spawnable.h"/>
 
     <ArchetypeProperty Type="AZ::Data::Asset&lt;AzFramework::Spawnable&gt;" Name="CoinSpawnable"
                        ExposeToEditor="true" Description="Prefab to use for coins" />
 
-	<ArchetypeProperty Type="int" Name="CoinCountToSpawn" Init="20"
-	                   ExposeToEditor="true" Description="How many coins to spawn within defined area" />
+    <ArchetypeProperty Type="int" Name="CoinCountToSpawn" Init="20"
+                       ExposeToEditor="true" Description="How many coins to spawn within defined area" />
 </Component>
