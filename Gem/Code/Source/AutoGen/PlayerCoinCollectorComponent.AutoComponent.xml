@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
 <Component
-    Name="NetworkPlayerCoinCollectorComponent"
+    Name="PlayerCoinCollectorComponent"
     Namespace="MultiplayerSample"
-    OverrideComponent="true"
+    OverrideComponent="false"
     OverrideController="true"
-    OverrideInclude="Source/Components/NetworkPlayerCoinCollectorComponent.h"
+    OverrideInclude="Source/Components/Multiplayer/PlayerCoinCollectorComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
