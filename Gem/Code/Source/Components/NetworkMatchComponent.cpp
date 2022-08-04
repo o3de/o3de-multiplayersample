@@ -16,20 +16,22 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        SetRoundTime(GetRoundDuration());
+        SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         SetRoundNumber(1);
-        AZ::TickBus::Handler::BusConnect();
+
+        // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
+        m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
     }
 
     void NetworkMatchComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusDisconnect();
+        m_roundTickEvent.RemoveFromQueue();
     }
 
     void NetworkMatchComponentController::EndMatch()
     {
         //Signal event to end the match
-        ;
+        m_roundTickEvent.RemoveFromQueue();
     }
 
     void NetworkMatchComponentController::EndRound()
@@ -39,7 +41,7 @@ namespace MultiplayerSample
         {
             //Signal event to reset everything
             ++roundNumber;
-            SetRoundTime(GetRoundDuration());
+            SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         }
         else
         {
@@ -48,18 +50,14 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkMatchComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void NetworkMatchComponentController::RoundTickOnceASecond()
     {
-        float& roundTime = ModifyRoundTime();
-        roundTime -= deltaTime;
-        if (roundTime < 0)
+        // m_roundTickEvent is configured to tick once a second
+        SetRoundTime(RoundTimeSec(GetRoundTime() - 1.f));
+        
+        if (GetRoundTime() <= RoundTimeSec(0.f))
         {
             EndRound();
         }
-    }
-
-    int NetworkMatchComponentController::GetTickOrder()
-    {
-        return AZ::TICK_PRE_RENDER;
     }
 }
