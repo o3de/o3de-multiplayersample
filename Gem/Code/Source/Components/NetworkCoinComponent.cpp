@@ -30,6 +30,7 @@ namespace MultiplayerSample
             m_rootLocation = GetEntity()->GetTransform()->GetWorldTranslation();
             GetNetworkTransformComponent()->TranslationAddEvent(m_networkLocationHandler);
 
+            // Tick on every frame.
             m_clientAnimationEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
         }
     }
