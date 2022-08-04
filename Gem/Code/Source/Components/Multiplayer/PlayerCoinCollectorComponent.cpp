@@ -9,6 +9,7 @@
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <Components/NetworkCoinComponent.h>
 #include <Source/Components/Multiplayer/PlayerCoinCollectorComponent.h>
+#include <UiCoinCountBus.h>
 
 namespace MultiplayerSample
 {
@@ -48,6 +49,7 @@ namespace MultiplayerSample
                         {
                             coin->CollectedByPlayer();
                             ModifyCoinsCollected()++;
+                            UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, GetCoinsCollected());
                         }
                     }
                 }
