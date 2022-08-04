@@ -60,6 +60,8 @@ set(FILES
     Source/Components/NetworkPlayerMovementComponent.h
     Source/Components/UI/HUDComponent.cpp
     Source/Components/UI/HUDComponent.h
+    Source/Components/UI/MatchOverComponent.cpp 
+    Source/Components/UI/MatchOverComponent.h 
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp

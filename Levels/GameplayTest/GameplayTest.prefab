@@ -5125,7 +5125,8 @@
                     "Id": 11044208504869032248,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "RoundDuration": 60.0
+                        "RoundDuration": 15.0,
+                        "TotalRounds": 1
                     }
                 },
                 "Component_[11582545100212439853]": {
@@ -5163,6 +5164,15 @@
                 "Component_[17500813252784751517]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 17500813252784751517
+                },
+                "Component_[2611635554152261154]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 2611635554152261154,
+                    "m_template": {
+                        "$type": "MatchOverComponent",
+                        "GameOverElementId": 11,
+                        "HudElementId": 10
+                    }
                 },
                 "Component_[2827181128407867340]": {
                     "$type": "SelectionComponent",
@@ -5259,7 +5269,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 12535297021930662402
+                            "EditorEntityId": 12299741056352151721
                         }
                     }
                 },
