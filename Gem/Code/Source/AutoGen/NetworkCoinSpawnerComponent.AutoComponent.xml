@@ -15,7 +15,7 @@
     <Include File="AzCore/Asset/AssetSerializer.h"/>
     <Include File="AzFramework/Spawnable/Spawnable.h"/>
 
-    <ArchetypeProperty Type="AZ::Data::Asset&lt;AzFramework::Spawnable&gt;" Name="CoinSpawnable"
+    <ArchetypeProperty Type="AzFramework::SpawnableAsset" Name="CoinSpawnable"
                        ExposeToEditor="true" Description="Prefab to use for coins" />
 
     <ArchetypeProperty Type="int" Name="CoinCountToSpawn" Init="20"
