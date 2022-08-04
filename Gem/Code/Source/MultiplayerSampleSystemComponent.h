@@ -57,7 +57,7 @@ namespace MultiplayerSample
 
         ////////////////////////////////////////////////////////////////////////
         // IMultiplayerSpawner overrides
-        Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum, EntityPreActivationCallback preActivationCallback) override;
+        Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum) override;
         void OnPlayerLeave(
             Multiplayer::ConstNetworkEntityHandle entityHandle,
             const Multiplayer::ReplicationSet& replicationSet,
