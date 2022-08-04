@@ -30,6 +30,7 @@ namespace MultiplayerSample
             m_rootLocation = GetEntity()->GetTransform()->GetWorldTranslation();
             GetNetworkTransformComponent()->TranslationAddEvent(m_networkLocationHandler);
 
+            // Tick on every frame.
             m_clientAnimationEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
         }
     }
@@ -70,5 +71,12 @@ namespace MultiplayerSample
 
     void NetworkCoinComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+    }
+
+    void NetworkCoinComponentController::HandleCollectedByPlayer([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        // Hide the coin by moving it far away from the players' interest area.
+        // This removes the coin from the clients' view.
+        GetNetworkTransformComponentController()->SetTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
     }
 }
