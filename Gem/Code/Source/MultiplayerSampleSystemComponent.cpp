@@ -108,12 +108,12 @@ namespace MultiplayerSample
         return AZ::TICK_PLACEMENT + 2;
     }
 
-    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin([[maybe_unused]] uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum)
+    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin([[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
     {
         const AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
 
-        Multiplayer::INetworkEntityManager::EntityList entityList = Multiplayer::GetNetworkEntityManager()->CreateAutomonousPlayerImmediate(
-            entityParams.first, entityParams.second, agentDatum.m_id, Multiplayer::AutoActivate::Activate);
+        Multiplayer::INetworkEntityManager::EntityList entityList = Multiplayer::GetNetworkEntityManager()->CreateEntitiesImmediate(
+            entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second);
 
         Multiplayer::NetworkEntityHandle controlledEntity;
         if (!entityList.empty())
