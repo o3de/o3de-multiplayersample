@@ -85,6 +85,7 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiCoinCountComponent::m_coinTextColorEffectDuration,
                         "Coin Color Effect Duration",
                         "The duration of the color change effect when a coin count changes.")
+                    ->Attribute(AZ::Edit::Attributes::Suffix, " milliseconds")
                     ;
             }
         }
