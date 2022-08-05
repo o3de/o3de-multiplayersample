@@ -60,10 +60,10 @@ namespace MultiplayerSample
         {
             serializeContext->Class<UiCoinCountComponent, AZ::Component>()
                 ->Version(1)
-                ->Field("Coins Text For Local Player", &UiCoinCountComponent::m_coinsTextForLocalPlayer)
-                ->Field("Coin Count Changed Color", &UiCoinCountComponent::m_recentlyChangedCoinTextColor)
+                ->Field("Coin Count Text", &UiCoinCountComponent::m_coinsTextForLocalPlayer)
+                ->Field("Just Changed Color", &UiCoinCountComponent::m_recentlyChangedCoinTextColor)
                 ->Field("Coin Color", &UiCoinCountComponent::m_coinTextColor)
-                ->Field("Coin Color Effect Duration", &UiCoinCountComponent::m_coinTextColorEffectDuration)
+                ->Field("Effect Duration", &UiCoinCountComponent::m_coinTextColorEffectDuration)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -74,16 +74,16 @@ namespace MultiplayerSample
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("CanvasUI"))
 
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiCoinCountComponent::m_coinsTextForLocalPlayer,
-                        "Coins Text For Local Player",
+                        "Coin Count Text",
                         "The text element for the count of coins collected by the local player.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiCoinCountComponent::m_recentlyChangedCoinTextColor,
-                        "Coin Count Changed Color",
+                        "Just Changed Color",
                         "Briefly show the coin count in this color whenever a coin count changes.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiCoinCountComponent::m_coinTextColor,
                         "Coin Color",
                         "The common text color to use for coin count.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiCoinCountComponent::m_coinTextColorEffectDuration,
-                        "Coin Color Effect Duration",
+                        "Effect Duration",
                         "The duration of the color change effect when a coin count changes.")
                     ->Attribute(AZ::Edit::Attributes::Suffix, " milliseconds")
                     ;
