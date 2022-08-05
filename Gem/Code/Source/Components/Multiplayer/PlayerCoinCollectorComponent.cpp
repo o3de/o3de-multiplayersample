@@ -19,10 +19,13 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
+        if (IsAuthority())
         {
-            const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
-            si->RegisterSceneTriggersEventHandler(sh, m_trigger);
+            if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
+            {
+                const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+                si->RegisterSceneTriggersEventHandler(sh, m_trigger);
+            }
         }
     }
 
