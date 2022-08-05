@@ -26,10 +26,10 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
-        // UiCoinCountNotificationBus overrides ...
-        // @{
+        //! UiCoinCountNotificationBus overrides ...
+        //! @{
         void OnCoinCountChanged(uint16_t totalCoinsCollectedByLocalPlayer) override;
-        // }@
+        //! }@
 
     private:
         AZ::EntityId m_coinsTextForLocalPlayer;
