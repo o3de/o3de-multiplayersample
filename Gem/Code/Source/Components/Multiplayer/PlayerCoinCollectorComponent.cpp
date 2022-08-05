@@ -6,6 +6,7 @@
  */
 
 #include <UiCoinCountBus.h>
+#include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <Components/NetworkCoinComponent.h>
@@ -13,6 +14,40 @@
 
 namespace MultiplayerSample
 {
+    void PlayerCoinCollectorComponent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<PlayerCoinCollectorComponent, PlayerCoinCollectorComponentBase>()
+                ->Version(1);
+        }
+        PlayerCoinCollectorComponentBase::Reflect(context);
+    }
+
+    void PlayerCoinCollectorComponent::OnInit()
+    {
+    }
+
+    void PlayerCoinCollectorComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        if (IsNetEntityRoleAutonomous())
+        {
+            CoinsCollectedAddEvent(m_coinCountChangedHandler);
+        }
+    }
+
+    void PlayerCoinCollectorComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        m_coinCountChangedHandler.Disconnect();
+    }
+
+    void PlayerCoinCollectorComponent::OnCoinsChanged(uint16_t coins)
+    {
+        UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, coins);
+    }
+
+
     PlayerCoinCollectorComponentController::PlayerCoinCollectorComponentController(PlayerCoinCollectorComponent& parent)
         : PlayerCoinCollectorComponentControllerBase(parent)
     {
@@ -52,7 +87,6 @@ namespace MultiplayerSample
                         {
                             coin->CollectedByPlayer();
                             ModifyCoinsCollected()++;
-                            UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, GetCoinsCollected());
                         }
                     }
                 }
