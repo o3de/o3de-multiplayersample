@@ -10,6 +10,7 @@
 
 #include <UiCoinCountBus.h>
 #include <AzCore/Component/Component.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 
 namespace MultiplayerSample
 {
@@ -32,5 +33,18 @@ namespace MultiplayerSample
 
     private:
         AZ::EntityId m_coinsTextForLocalPlayer;
+
+        // Color change effect
+        // @{
+        void OnTick(AZ::TimeMs delta);
+        AZ::ScheduledEvent m_gameFrameTick{[this]()
+        {
+            OnTick(m_gameFrameTick.TimeInQueueMs());
+        }, AZ::Name("UiCoinCountComponent")};
+        AZ::Color m_recentlyChangedCoinTextColor = AZ::Colors::Green;
+        AZ::Color m_coinTextColor = AZ::Colors::White;
+        AZ::TimeMs m_coinTextColorEffectDuration{ 300 };
+        AZ::TimeMs m_coinTextColorEffect = AZ::Time::ZeroTimeMs;
+        // }@
     };
 } // namespace MultiplayerSample

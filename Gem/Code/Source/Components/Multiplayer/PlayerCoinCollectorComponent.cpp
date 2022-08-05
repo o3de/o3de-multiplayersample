@@ -5,11 +5,11 @@
  *
  */
 
+#include <UiCoinCountBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <Components/NetworkCoinComponent.h>
 #include <Source/Components/Multiplayer/PlayerCoinCollectorComponent.h>
-#include <UiCoinCountBus.h>
 
 namespace MultiplayerSample
 {
@@ -20,10 +20,13 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
+        if (IsAuthority())
         {
-            const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
-            si->RegisterSceneTriggersEventHandler(sh, m_trigger);
+            if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
+            {
+                const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+                si->RegisterSceneTriggersEventHandler(sh, m_trigger);
+            }
         }
     }
 
