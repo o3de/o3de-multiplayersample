@@ -12,26 +12,6 @@
 
 namespace MultiplayerSample
 {
-    class PlayerCoinCollectorComponent
-        : public PlayerCoinCollectorComponentBase
-    {
-    public:
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::PlayerCoinCollectorComponent, s_playerCoinCollectorComponentConcreteUuid, MultiplayerSample::PlayerCoinCollectorComponentBase);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        void OnInit() override;
-        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-
-    private:
-        void OnCoinsChanged(uint16_t coins);
-        AZ::Event<uint16_t>::Handler m_coinCountChangedHandler{ [this](uint16_t coins)
-        {
-            OnCoinsChanged(coins);
-        } };
-    };
-
     class PlayerCoinCollectorComponentController
         : public PlayerCoinCollectorComponentControllerBase
     {
@@ -47,6 +27,12 @@ namespace MultiplayerSample
             AzPhysics::SceneHandle, const AzPhysics::TriggerEventList& tel)
         {
             OnTriggerEvents(tel);
+        } };
+
+        void OnCoinsChanged(uint16_t coins);
+        AZ::Event<uint16_t>::Handler m_coinCountChangedHandler{ [this](uint16_t coins)
+        {
+            OnCoinsChanged(coins);
         } };
     };
 }
