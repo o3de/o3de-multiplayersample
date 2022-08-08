@@ -83,28 +83,28 @@ This option will output all the project and engine binaries in the engine's buil
 
 ### Step 4. Setup Client and Server
 
-Under project root, there should be 2 files: client.cfg and server.cfg. File client.cfg should contain:
+Under project root, there should be 2 files: launch_client.cfg and launch_server.cfg. File launch_client.cfg should contain:
 
 ```shell
 connect
 ```
 
-File server.cfg should contain:
+File launch_server.cfg should contain:
 
 ```shell
 host
 LoadLevel Levels/SampleBase/SampleBase.spawnable
 ```
 
-If these cfg files are not present, create them as they will be used to when launching server and client launchers.
-
 #### Running the Server
 
 A server can be run as follows
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
+MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg 
 ```
+Notice the launch_server.cfg is passed into the commandline. Any file passed into the console-command-file argument will be used when starting up the application.
+For convenience you can run launch_server.cmd (Windows) or launch_server.sh (Unix) directly. 
 
 #### (Optional) Running the Server Headless
 
@@ -113,7 +113,7 @@ If you do not need to see rendered output on your servers, you can reduce resour
 Note: Parameters to use null renderer must be passed on the command line as the console-command-file is parsed after rendering is configured.
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg -rhi=null -NullRenderer
+MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg -rhi=null -NullRenderer
 ```
 
 #### Running the Server in the Editor
@@ -127,11 +127,14 @@ Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o
 A client can be run with:
 
 ```shell
-MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
+MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg
 ```
 
 This will connect a client to the local server and start a multiplayer session.
+For convenience you can run launch_client.cmd (Windows) or launch_client.sh (Unix) directly.
 
+#### Debugging in Visual Studio
+When debugging MultiplayerSample.GameLauncher and MultiplayerSample.ServerLauncher from Visual Studio it's helpful to automatically host and connect; thereby avoiding having to open the console (~) once the application opens and explicitly executing the 'host' and 'loadlevel' command on server, or the 'connect' command on client. For convenience, Gem/Code/CMakeLists.txt defines ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS which allows Visual Studio to automatically populate the debugger with command arguments. By default, launch_client.cfg is used when debugging the GameLauncher and launch_server.cfg is used when debugging the ServerLauncher.
 
 ## More Information
 * [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
