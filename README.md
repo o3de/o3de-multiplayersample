@@ -103,7 +103,7 @@ A server can be run as follows
 ```shell
 MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg 
 ```
-Notice the launch_server.cfg is passed into the commandline. Any file passed into the console-command-file argument will used when starting up the application.
+Notice the launch_server.cfg is passed into the commandline. Any file passed into the console-command-file argument will be used when starting up the application.
 For convenience you can run launch_server.cmd (Windows) or launch_server.sh (Unix) directly. 
 
 #### (Optional) Running the Server Headless
