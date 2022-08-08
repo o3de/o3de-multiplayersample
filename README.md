@@ -134,7 +134,7 @@ This will connect a client to the local server and start a multiplayer session.
 For convenience you can run launch_client.cmd (Windows) or launch_client.sh (Unix) directly.
 
 #### Debugging in Visual Studio
-When debugging MultiplayerSample.GameLauncher and MultiplayerSample.ServerLauncher from Visual Studio it's helpful to automatically host and connect; thereby avoiding having to open the console (~) once the application opens and explicitly execute the 'host' and 'loadlevel' command on server, or the 'connect' command on client. For convience, Gem/Code/CMakeLists.txt defines ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS which allows Visual Studio to automatically populate the debugger with command arguments. By default, launch_client.cfg is used when debugging the GameLauncher and launch_server.cfg is used when debugging the ServerLauncher.
+When debugging MultiplayerSample.GameLauncher and MultiplayerSample.ServerLauncher from Visual Studio it's helpful to automatically host and connect; thereby avoiding having to open the console (~) once the application opens and explicitly executing the 'host' and 'loadlevel' command on server, or the 'connect' command on client. For convience, Gem/Code/CMakeLists.txt defines ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS which allows Visual Studio to automatically populate the debugger with command arguments. By default, launch_client.cfg is used when debugging the GameLauncher and launch_server.cfg is used when debugging the ServerLauncher.
 
 ## More Information
 * [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
