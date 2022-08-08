@@ -5,6 +5,8 @@
  *
  */
 
+#include <UiCoinCountBus.h>
+#include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <Components/NetworkCoinComponent.h>
@@ -27,11 +29,16 @@ namespace MultiplayerSample
                 si->RegisterSceneTriggersEventHandler(sh, m_trigger);
             }
         }
+        if (IsAutonomous())
+        {
+            CoinsCollectedAddEvent(m_coinCountChangedHandler);
+        }
     }
 
     void PlayerCoinCollectorComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         m_trigger.Disconnect();
+        m_coinCountChangedHandler.Disconnect();
     }
 
     void PlayerCoinCollectorComponentController::OnTriggerEvents(const AzPhysics::TriggerEventList& tel)
@@ -56,5 +63,10 @@ namespace MultiplayerSample
                 }
             }
         }
+    }
+
+    void PlayerCoinCollectorComponentController::OnCoinsChanged(uint16_t coins)
+    {
+        UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, coins);
     }
 }
