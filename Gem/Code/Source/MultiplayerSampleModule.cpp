@@ -14,6 +14,7 @@
 #include <Components/UI/HUDComponent.h>
 #include <Components/UI/MatchOverComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
+#include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -38,6 +39,7 @@ namespace MultiplayerSample
                 MatchOverComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
+                UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
             });
 
             CreateComponentDescriptors(m_descriptors);

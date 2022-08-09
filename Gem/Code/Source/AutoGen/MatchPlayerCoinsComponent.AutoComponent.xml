@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="MatchPlayerCoinsComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+	OverrideInclude="Source/Components/Multiplayer/MatchPlayerCoinsComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Include File="MultiplayerSampleTypes.h" />
+
+	<NetworkProperty Type="PlayerCoinState" Name="CoinsPerPlayer" Init="PlayerCoinState()" ReplicateFrom="Authority" ReplicateTo="Client"
+	                 Container="Array" Count="8" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false"
+	                 ExposeToScript="false" GenerateEventBindings="true"
+	                 Description="The amount of coins collected by each player." />
+</Component>
