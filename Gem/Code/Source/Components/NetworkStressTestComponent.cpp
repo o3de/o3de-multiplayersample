@@ -176,7 +176,7 @@ namespace MultiplayerSample
 
         for (const Multiplayer::NetworkEntityHandle& entityItem : entityList)
         {
-            entityItem.GetNetBindComponent()->SetAllowAutonomy(true);
+            entityItem.GetNetBindComponent()->EnablePlayerHostAutonomy(true);
         }
 
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
