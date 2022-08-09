@@ -6,8 +6,11 @@
 #
 
 set(FILES
+    Include/MatchPlayerCoinsBus.h
     Include/NetworkPrefabSpawnerInterface.h
+    Include/PlayerCoinCollectorBus.h
     Include/UiCoinCountBus.h
+    Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkCoinComponent.AutoComponent.xml
@@ -72,7 +75,11 @@ set(FILES
     Source/Components/UI/MatchOverComponent.h
     Source/Components/UI/UiCoinCountComponent.cpp
     Source/Components/UI/UiCoinCountComponent.h
+    Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
+    Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
 
+    Source/Components/Multiplayer/MatchPlayerCoinsComponent.cpp
+    Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.cpp
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
 

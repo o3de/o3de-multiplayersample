@@ -5,6 +5,7 @@
  *
  */
 
+#include <PlayerCoinCollectorBus.h>
 #include <UiCoinCountBus.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
@@ -28,6 +29,7 @@ namespace MultiplayerSample
                 const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
                 si->RegisterSceneTriggersEventHandler(sh, m_trigger);
             }
+            PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorActivated, GetNetEntityId());
         }
         if (IsAutonomous())
         {
@@ -37,6 +39,11 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        if (IsAuthority())
+        {
+            PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorDeactivated, GetNetEntityId());
+        }
+
         m_trigger.Disconnect();
         m_coinCountChangedHandler.Disconnect();
     }
@@ -58,6 +65,8 @@ namespace MultiplayerSample
                         {
                             coin->CollectedByPlayer();
                             ModifyCoinsCollected()++;
+                            PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged, 
+                                GetNetEntityId(), GetCoinsCollected());
                         }
                     }
                 }

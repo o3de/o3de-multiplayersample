@@ -44,6 +44,31 @@ namespace MultiplayerSample
     };
 
     using RoundTimeSec = AzNetworking::QuantizedValues<1, 2, 0, 3600>; // 1 hour max round duration
+
+    static constexpr int MaxSupportedPlayers = 8;
+
+    // Temporary match player state.
+    struct PlayerCoinState
+    {
+        Multiplayer::NetEntityId m_playerId = Multiplayer::InvalidNetEntityId;
+        uint16_t m_coins = 0;
+
+        friend bool operator==(const PlayerCoinState& lhs, const PlayerCoinState& rhs)
+        {
+            return lhs.m_playerId == rhs.m_playerId
+                && lhs.m_coins == rhs.m_coins;
+        }
+
+        friend bool operator!=(const PlayerCoinState& lhs, const PlayerCoinState& rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        bool Serialize(AzNetworking::ISerializer& serializer)
+        {
+            return serializer.Serialize(m_playerId, "PlayerId") && serializer.Serialize(m_coins, "Coins");
+        }
+    };
 }
 
 namespace AZ

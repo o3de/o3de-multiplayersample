@@ -1,10 +1,10 @@
 <ObjectStream version="3">
 	<Class name="InputEventBindingsAsset" type="{25971C7A-26E2-4D08-A146-2EFCC1C36B0C}">
 		<Class name="InputEventBindings" field="Bindings" version="1" type="{14FFD4A8-AE46-4E23-B45B-6A7C4F787A91}">
-			<Class name="AZStd::vector" field="Input Event Groups" type="{E7A38039-E414-5322-B384-210475DA7732}">
+			<Class name="AZStd::vector&lt;InputEventGroup, allocator&gt;" field="Input Event Groups" type="{E7A38039-E414-5322-B384-210475DA7732}">
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="move_fwd" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_alphanumeric_W" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -16,7 +16,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="move_back" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_alphanumeric_S" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -28,7 +28,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="move_left" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_alphanumeric_A" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -40,7 +40,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="move_right" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_alphanumeric_D" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -52,7 +52,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="firePrimaryWeapon" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_button_left" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -64,7 +64,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="fireSecondaryWeapon" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_button_right" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -76,7 +76,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="lookLeftRight" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_delta_x" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -88,7 +88,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="lookUpDown" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_delta_y" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -100,7 +100,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="sprint" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_modifier_shift_l" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -112,7 +112,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="jump" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_edit_space" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -124,7 +124,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="crouch" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_modifier_ctrl_l" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -136,7 +136,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="drawWeapon" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="keyboard_key_alphanumeric_E" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -148,7 +148,7 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="zoomIn" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_button_other1" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
@@ -160,10 +160,22 @@
 				</Class>
 				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
 					<Class name="AZStd::string" field="Event Name" value="zoomOut" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
-					<Class name="AZStd::vector" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
 						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
 							<Class name="AZStd::string" field="Input Device Type" value="mouse" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="AZStd::string" field="Input Name" value="mouse_button_other2" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+							<Class name="float" field="Event Value Multiplier" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+							<Class name="float" field="Dead Zone" value="0.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+						</Class>
+					</Class>
+					<Class name="bool" field="Exclude From Release" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+				</Class>
+				<Class name="InputEventGroup" field="element" version="1" type="{25143B7E-2FEC-4CC5-92FE-270B67E79734}">
+					<Class name="AZStd::string" field="Event Name" value="show_player_coin_counts" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+					<Class name="AZStd::vector&lt;InputSubComponent*, allocator&gt;" field="Event Generators" type="{7B0B6F41-794A-5CFF-8275-91A3137E747D}">
+						<Class name="InputEventMap" field="element" version="2" type="{A14EA0A3-F053-469D-840E-A70002F51384}">
+							<Class name="AZStd::string" field="Input Device Type" value="keyboard" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+							<Class name="AZStd::string" field="Input Name" value="keyboard_key_edit_tab" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 							<Class name="float" field="Event Value Multiplier" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 							<Class name="float" field="Dead Zone" value="0.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 						</Class>
