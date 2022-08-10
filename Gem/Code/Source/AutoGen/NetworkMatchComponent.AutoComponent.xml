@@ -3,7 +3,7 @@
 <Component
     Name="NetworkMatchComponent" 
     Namespace="MultiplayerSample" 
-    OverrideComponent="false" 
+    OverrideComponent="true"
     OverrideController="true"
 	OverrideInclude="Source/Components/NetworkMatchComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -13,7 +13,16 @@
     <!-- Round time is in seconds and is quantized to 2 bytes to reduce network traffic	-->
     <NetworkProperty Type="RoundTimeSec" Name="RoundTime" Init="RoundTimeSec{120}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round in seconds" />
     <NetworkProperty Type="uint16_t" Name="RoundNumber" Init="1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The current round number" />
+    <NetworkProperty Type="PlayerState" Name="PlayerStates" Init="" ReplicateFrom="Authority" ReplicateTo="Client" Container="Array"
+                     Count="MaxSupportedPlayers" IsPublic="true" IsRewindable="false" IsPredictable="true"
+                     ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true"
+                     Description="The current states of players in-game resources"/>
 
     <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.f" ExposeToEditor="true" Description="Total time of a round in seconds" />
     <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
+
+    <RemoteProcedure Name="RPC_EndMatch" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true"
+                    GenerateEventBindings="" Description="Send match over event and results">
+        <Param Type="MatchResultsSummary" Name="Results"/>
+    </RemoteProcedure>
 </Component>

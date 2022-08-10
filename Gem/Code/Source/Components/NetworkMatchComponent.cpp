@@ -6,9 +6,34 @@
  */
 
 #include <Source/Components/NetworkMatchComponent.h>
+#include <MultiplayerSampleTypes.h>
+#include <UiGameOverBus.h>
 
 namespace MultiplayerSample
 {
+    void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<NetworkMatchComponent, NetworkMatchComponentBase>()
+                ->Version(1);
+        }
+        NetworkMatchComponentBase::Reflect(context);
+    }
+
+    void NetworkMatchComponent::HandleRPC_EndMatch(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const MatchResultsSummary& results)
+    {
+        if (IsNetEntityRoleClient())
+        {
+            UiGameOverBus::Broadcast(&UiGameOverBus::Events::SetGameOverScreenEnabled, true);
+            UiGameOverBus::Broadcast(&UiGameOverBus::Events::DisplayResults, results);
+        }
+    }
+
+    // Controller methods
+
     NetworkMatchComponentController::NetworkMatchComponentController(NetworkMatchComponent& parent)
         : NetworkMatchComponentControllerBase(parent)
     {
@@ -32,6 +57,18 @@ namespace MultiplayerSample
     {
         //Signal event to end the match
         m_roundTickEvent.RemoveFromQueue();
+
+        // TODO: continuously populate player state base on coins, etc.
+        PlayerState jackState = PlayerState{ "Jack", 25, 80 };
+        PlayerState allieState = PlayerState{ "Allie", 23, 70 };
+        PlayerState olexState = PlayerState{ "Olex", 5, 42 };
+
+        SetPlayerStates(0, jackState);
+        SetPlayerStates(1, allieState);
+        SetPlayerStates(2, olexState);
+
+        // TODO: formulate and send real results
+        RPC_EndMatch(MatchResultsSummary{ "Jack", {jackState, allieState, olexState} });
     }
 
     void NetworkMatchComponentController::EndRound()

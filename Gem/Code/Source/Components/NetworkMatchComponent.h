@@ -12,6 +12,25 @@
 
 namespace MultiplayerSample
 {
+    class NetworkMatchComponent
+        : public NetworkMatchComponentBase
+    {
+    public:
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkMatchComponent, s_networkMatchComponentConcreteUuid, MultiplayerSample::NetworkMatchComponentBase);
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        void OnInit() override {};
+        void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+
+        void HandleRPC_EndMatch(
+            AzNetworking::IConnection* invokingConnection, const MatchResultsSummary& results) override;
+
+    protected:
+
+    };
+
     class NetworkMatchComponentController
         : public NetworkMatchComponentControllerBase
     {
