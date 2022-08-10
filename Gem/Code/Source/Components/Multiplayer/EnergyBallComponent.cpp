@@ -50,6 +50,15 @@ namespace MultiplayerSample
         RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::SetLinearVelocity, direction * GetSpeed());
     }
 
+    void EnergyBallComponentController::HideEnergyBall()
+    {
+        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::DisablePhysics);
+
+        // move self and increment resetCount to prevent transform interpolation
+        AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
+        GetNetworkTransformComponentController()->ModifyResetCount()++;
+    }
+
     void EnergyBallComponentController::OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent)
     {
         if (collisionEvent.m_body2)
@@ -64,6 +73,8 @@ namespace MultiplayerSample
                     health->SendHealthDelta(-GetDamageOnHit());
                 }
             }
+
+            HideEnergyBall();
         }
     }
 }

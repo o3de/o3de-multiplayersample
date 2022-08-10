@@ -11,6 +11,8 @@ set(FILES
     Include/PlayerCoinCollectorBus.h
     Include/UiCoinCountBus.h
     Include/UiGameOverBus.h
+    Include/UiPlayerArmorBus.h
+
     Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/EnergyBallComponent.AutoComponent.xml
     Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
@@ -33,6 +35,7 @@ set(FILES
     Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
     Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
+    Source/AutoGen/PlayerArmorComponent.AutoComponent.xml
     Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
 
     Source/Components/ExampleFilteredEntityComponent.h
@@ -73,16 +76,22 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
+
     Source/Components/UI/HUDComponent.cpp
     Source/Components/UI/HUDComponent.h
     Source/Components/UI/UiCoinCountComponent.cpp
     Source/Components/UI/UiCoinCountComponent.h
-    Source/Components/UI/UiGameOverComponent.cpp 
+    Source/Components/UI/UiGameOverComponent.cpp
     Source/Components/UI/UiGameOverComponent.h
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
+    Source/Components/UI/UiPlayerArmorComponent.cpp
+    Source/Components/UI/UiPlayerArmorComponent.h
+
     Source/Components/Multiplayer/MatchPlayerCoinsComponent.cpp
     Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
+    Source/Components/Multiplayer/PlayerArmorComponent.cpp
+    Source/Components/Multiplayer/PlayerArmorComponent.h
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.cpp
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
     Source/Components/Multiplayer/EnergyBallComponent.cpp

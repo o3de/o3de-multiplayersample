@@ -8,6 +8,7 @@
 
 #include <MatchPlayerCoinsBus.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
 

@@ -24,6 +24,8 @@ namespace MultiplayerSample
         void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction) override;
 
     private:
+        void HideEnergyBall();
+
         void OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent);
         AzPhysics::SimulatedBodyEvents::OnCollisionBegin::Handler m_collisionHandler{ [this](
             AzPhysics::SimulatedBodyHandle, const AzPhysics::CollisionEvent& collisionEvent)
