@@ -79,7 +79,8 @@
                     "Instance_[59332693509213]/ContainerEntity",
                     "Entity_[727777302952]",
                     "Entity_[605362165710]",
-                    "Instance_[5994660872920]/ContainerEntity"
+                    "Instance_[5994660872920]/ContainerEntity",
+                    "Entity_[38397922475797]"
                 ]
             }
         }
@@ -2166,6 +2167,71 @@
                 "Component_[981514129882235647]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 981514129882235647
+                }
+            }
+        },
+        "Entity_[38397922475797]": {
+            "Id": "Entity_[38397922475797]",
+            "Name": "Cannons",
+            "Components": {
+                "Component_[10114331099235653655]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 10114331099235653655
+                },
+                "Component_[10898675255955552330]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10898675255955552330
+                },
+                "Component_[11122911235429202974]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 11122911235429202974
+                },
+                "Component_[12389149049822343474]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12389149049822343474
+                },
+                "Component_[13171834653934335218]": {
+                    "$type": "SelectionComponent",
+                    "Id": 13171834653934335218
+                },
+                "Component_[16688989241268222228]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 16688989241268222228,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            -0.6414408683776855,
+                            -5.2460432052612305,
+                            0.0
+                        ],
+                        "Rotate": [
+                            0.0,
+                            0.0,
+                            -87.41812133789063
+                        ]
+                    }
+                },
+                "Component_[16695006838361472829]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 16695006838361472829
+                },
+                "Component_[17915040554651443034]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 17915040554651443034
+                },
+                "Component_[4475586573568726403]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 4475586573568726403
+                },
+                "Component_[7536371931398163254]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 7536371931398163254,
+                    "Child Entity Order": [
+                        "Instance_[647671905620]/ContainerEntity",
+                        "Instance_[14784192282389]/ContainerEntity",
+                        "Instance_[38372152672021]/ContainerEntity",
+                        "Instance_[38376447639317]/ContainerEntity"
+                    ]
                 }
             }
         },
@@ -5003,8 +5069,10 @@
                 "Component_[3100161181283689811]": {
                     "$type": "EditorAxisAlignedBoxShapeComponent",
                     "Id": 3100161181283689811,
+                    "DisplayFilled": false,
                     "AxisAlignedBoxShape": {
                         "Configuration": {
+                            "IsFilled": false,
                             "Dimensions": [
                                 27.733196258544922,
                                 28.316869735717773,
@@ -5237,7 +5305,7 @@
                     "Id": 11044208504869032248,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "RoundDuration": 15.0,
+                        "RoundDuration": 100000.0,
                         "TotalRounds": 1
                     }
                 },
@@ -5388,7 +5456,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 12299741056352151721
+                            "EditorEntityId": 14446012695748497796
                         }
                     }
                 },
@@ -5404,6 +5472,36 @@
         }
     },
     "Instances": {
+        "Instance_[14784192282389]": {
+            "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
+                    "value": "../Entity_[38397922475797]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
+                    "value": 10.123248100280762
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
+                    "value": 0.2572441101074219
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
+                    "value": 1.8678436279296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
+                    "value": -67.35868072509766
+                }
+            ]
+        },
         "Instance_[3293577808227]": {
             "Source": "Prefabs/4x4x4BoxGrid.prefab",
             "Patches": [
@@ -5758,6 +5856,66 @@
                 }
             ]
         },
+        "Instance_[38372152672021]": {
+            "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
+                    "value": "../Entity_[38397922475797]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
+                    "value": 13.476240158081055
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
+                    "value": -8.122275352478027
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
+                    "value": 1.8678436279296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
+                    "value": -120.13463592529297
+                }
+            ]
+        },
+        "Instance_[38376447639317]": {
+            "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
+                    "value": "../Entity_[38397922475797]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
+                    "value": 13.45130443572998
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
+                    "value": -1.0992637872695923
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
+                    "value": 1.8678436279296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
+                    "value": -67.35868072509766
+                }
+            ]
+        },
         "Instance_[59332693509213]": {
             "Source": "Prefabs/Teleporter0.prefab",
             "Patches": [
@@ -5800,6 +5958,36 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8188222295139453401]/Transform Data/Translate/2",
                     "value": 1.2998325824737549
+                }
+            ]
+        },
+        "Instance_[647671905620]": {
+            "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
+                    "value": "../Entity_[38397922475797]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
+                    "value": 9.826455116271973
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
+                    "value": -8.958072662353516
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
+                    "value": 1.8678436279296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
+                    "value": -120.13463592529297
                 }
             ]
         },

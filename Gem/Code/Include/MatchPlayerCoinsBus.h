@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <AzCore/Component/EntityId.h>
+#include <MultiplayerSampleTypes.h>
 #include <AzCore/EBus/EBus.h>
 
 namespace MultiplayerSample

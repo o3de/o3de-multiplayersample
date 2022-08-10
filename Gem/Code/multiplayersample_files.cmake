@@ -11,6 +11,9 @@ set(FILES
     Include/PlayerCoinCollectorBus.h
     Include/UiCoinCountBus.h
     Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
+
+    Source/AutoGen/EnergyBallComponent.AutoComponent.xml
+    Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkCoinComponent.AutoComponent.xml
@@ -31,6 +34,7 @@ set(FILES
     Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
+
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -82,6 +86,10 @@ set(FILES
     Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.cpp
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
+    Source/Components/Multiplayer/EnergyBallComponent.cpp
+    Source/Components/Multiplayer/EnergyBallComponent.h
+    Source/Components/Multiplayer/EnergyCannonComponent.cpp
+    Source/Components/Multiplayer/EnergyCannonComponent.h
 
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h

@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include <AzNetworking/Utilities/QuantizedValues.h>
 #include <AzNetworking/DataStructures/FixedSizeBitset.h>
+#include <AzNetworking/Utilities/QuantizedValues.h>
+#include <Multiplayer/MultiplayerTypes.h>
 
 namespace MultiplayerSample
 {
