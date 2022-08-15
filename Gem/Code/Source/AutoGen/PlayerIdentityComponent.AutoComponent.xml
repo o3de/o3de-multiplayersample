@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="PlayerIdentityComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/PlayerIdentityComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Include File="MultiplayerSampleTypes.h" />
+
+    <NetworkProperty Type="PlayerNameString" Name="PlayerName" Init="{}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The name of the player." />
+
+    <!-- This is an example of setting a player name but in practice one should be using an identity service instead. -->
+    <RemoteProcedure Name="RPC_AssignPlayerName" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
+                     GenerateEventBindings="false" Description="Sets the name of this player">
+        <Param Type="PlayerNameString" Name="NewPlayerName"/>
+    </RemoteProcedure>
+</Component>

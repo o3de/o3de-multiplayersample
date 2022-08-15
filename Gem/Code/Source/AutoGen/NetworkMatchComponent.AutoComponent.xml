@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 
 <Component
-    Name="NetworkMatchComponent" 
-    Namespace="MultiplayerSample" 
+    Name="NetworkMatchComponent"
+    Namespace="MultiplayerSample"
     OverrideComponent="true"
     OverrideController="true"
-	OverrideInclude="Source/Components/NetworkMatchComponent.h"
+    OverrideInclude="Source/Components/NetworkMatchComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="MatchPlayerCoinsComponent" Namespace="MultiplayerSample" Include="Components/Multiplayer/MatchPlayerCoinsComponent.h" />
 
     <Include File="MultiplayerSampleTypes.h"/>
 
@@ -24,5 +26,15 @@
     <RemoteProcedure Name="RPC_EndMatch" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true"
                     GenerateEventBindings="" Description="Send match over event and results">
         <Param Type="MatchResultsSummary" Name="Results"/>
+    </RemoteProcedure>
+
+    <!-- Using server to authority RPCs to handle players activating on a server that is different from the one hosting NetworkMatchComponent -->
+    <RemoteProcedure Name="RPC_PlayerActivated" InvokeFrom="Server" HandleOn="Authority" IsPublic="false" IsReliable="true"
+                     GenerateEventBindings="false" Description="Handles players activation">
+        <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
+    </RemoteProcedure>
+    <RemoteProcedure Name="RPC_PlayerDeactivated" InvokeFrom="Server" HandleOn="Authority" IsPublic="false" IsReliable="true"
+                     GenerateEventBindings="false" Description="Handles players deactivation">
+        <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
     </RemoteProcedure>
 </Component>

@@ -8,6 +8,7 @@
 
 #include <MatchPlayerCoinsBus.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <Components/Multiplayer/PlayerIdentityComponent.h>
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
@@ -55,8 +56,8 @@ namespace MultiplayerSample
                     UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
                     if (children.size() >= 2)
                     {
-                        UiTextBus::Event(children[0], &UiTextBus::Events::SetText,
-                            AZStd::string::format("%llu", aznumeric_cast<uint64_t>(state.m_playerId)));
+                        const PlayerNameString name = GetPlayerName(state.m_playerId);
+                        UiTextBus::Event(children[0], &UiTextBus::Events::SetText, AZStd::string::format("%s", name.c_str()));
                         UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
                     }
                     elementIndex++;
@@ -90,6 +91,20 @@ namespace MultiplayerSample
         {
             UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, false);
         }
+    }
+
+    PlayerNameString UiMatchPlayerCoinCountsComponent::GetPlayerName(Multiplayer::NetEntityId playerEntity)
+    {
+        const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity);
+        if (playerHandle.Exists())
+        {
+            if (const PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
+            {
+                return identity->GetPlayerName();
+            }
+        }
+
+        return "Unknown Player";
     }
 
     void UiMatchPlayerCoinCountsComponent::Reflect(AZ::ReflectContext* context)

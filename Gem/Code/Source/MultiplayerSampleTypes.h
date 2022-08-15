@@ -1,6 +1,6 @@
 /*
  * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
@@ -70,48 +70,50 @@ namespace MultiplayerSample
             return serializer.Serialize(m_playerId, "PlayerId") && serializer.Serialize(m_coins, "Coins");
         }
     };
-}
 
-struct PlayerState
-{
-    AZStd::string m_playerName = "";
-    uint32_t m_score = 0;          // coins collected
-    uint8_t m_remainingShield = 0; // % of shield left, max of ~200% allowed for buffs
-    bool operator!=(const PlayerState& rhs) const;
-    bool Serialize(AzNetworking::ISerializer& serializer);
-};
+    using PlayerNameString = AZStd::fixed_string<50>;
 
-inline bool PlayerState::Serialize(AzNetworking::ISerializer& serializer)
-{
-    return serializer.Serialize(m_playerName, "playerName")
-        && serializer.Serialize(m_score, "score")
-        && serializer.Serialize(m_remainingShield, "remainingShield");
-}
+    struct PlayerState
+    {
+        PlayerNameString m_playerName;
+        uint32_t m_score = 0;          // coins collected
+        uint8_t m_remainingShield = 0; // % of shield left, max of ~200% allowed for buffs
+        bool operator!=(const PlayerState& rhs) const;
+        bool Serialize(AzNetworking::ISerializer& serializer);
+    };
 
-inline bool PlayerState::operator!=(const PlayerState& rhs) const
-{
-    return m_playerName != rhs.m_playerName
-        || m_score != rhs.m_score
-        || m_remainingShield != rhs.m_remainingShield;
-}
+    inline bool PlayerState::Serialize(AzNetworking::ISerializer& serializer)
+    {
+        return serializer.Serialize(m_playerName, "playerName")
+            && serializer.Serialize(m_score, "score")
+            && serializer.Serialize(m_remainingShield, "remainingShield");
+    }
 
-struct MatchResultsSummary
-{
-    AZStd::string m_winningPlayerName;
-    AZStd::vector<PlayerState> m_playerStates;
-    bool operator!=(const MatchResultsSummary& rhs) const;
-    bool Serialize(AzNetworking::ISerializer& serializer);
-};
+    inline bool PlayerState::operator!=(const PlayerState& rhs) const
+    {
+        return m_playerName != rhs.m_playerName
+            || m_score != rhs.m_score
+            || m_remainingShield != rhs.m_remainingShield;
+    }
 
-inline bool MatchResultsSummary::Serialize(AzNetworking::ISerializer& serializer)
-{
-    return serializer.Serialize(m_winningPlayerName, "winningPlayerName")
-        && serializer.Serialize(m_playerStates, "playerStates");
-}
+    struct MatchResultsSummary
+    {
+        PlayerNameString m_winningPlayerName;
+        AZStd::vector<PlayerState> m_playerStates;
+        bool operator!=(const MatchResultsSummary& rhs) const;
+        bool Serialize(AzNetworking::ISerializer& serializer);
+    };
 
-inline bool MatchResultsSummary::operator!=(const MatchResultsSummary& rhs) const
-{
-    return m_winningPlayerName != rhs.m_winningPlayerName;
+    inline bool MatchResultsSummary::Serialize(AzNetworking::ISerializer& serializer)
+    {
+        return serializer.Serialize(m_winningPlayerName, "winningPlayerName")
+            && serializer.Serialize(m_playerStates, "playerStates");
+    }
+
+    inline bool MatchResultsSummary::operator!=(const MatchResultsSummary& rhs) const
+    {
+        return m_winningPlayerName != rhs.m_winningPlayerName;
+    }
 }
 
 namespace AZ

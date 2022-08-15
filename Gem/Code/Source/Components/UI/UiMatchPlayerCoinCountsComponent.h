@@ -35,5 +35,7 @@ namespace MultiplayerSample
     private:
         AZ::EntityId m_rootElementId;
         AZStd::vector<AZ::EntityId> m_playerRowElement;
+
+        PlayerNameString GetPlayerName(Multiplayer::NetEntityId playerEntity);
     };
 } // namespace MultiplayerSample
