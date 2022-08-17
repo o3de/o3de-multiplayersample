@@ -7,9 +7,14 @@
 
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
+#include <GameState/GameStateMatchEnded.h>
+#include <GameState/GameStateMatchInProgress.h>
+#include <GameState/GameStatePreparingMatch.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
+#include <GameState/GameStateRequestBus.h>
+#include <GameState/GameStateWaitingForPlayers.h>
 
 namespace MultiplayerSample
 {
@@ -66,16 +71,45 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
+            {
+                return AZStd::make_shared<GameStateWaitingForPlayers>(this);
+            });
+        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStatePreparingMatch>([this]()
+            {
+                return AZStd::make_shared<GameStatePreparingMatch>(this);
+            });
+        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchInProgress>([this]()
+            {
+                return AZStd::make_shared<GameStateMatchInProgress>(this);
+            });
+        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchEnded>([this]()
+            {
+                return AZStd::make_shared<GameStateMatchEnded>(this);
+            });
+
+        GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
+    }
+
+    void NetworkMatchComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::PopAllGameStates);
+
+        GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateWaitingForPlayers>();
+        GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStatePreparingMatch>();
+        GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchInProgress>();
+        GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchEnded>();
+
+        m_roundTickEvent.RemoveFromQueue();
+    }
+
+    void NetworkMatchComponentController::StartMatch()
+    {
         SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         SetRoundNumber(1);
 
         // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
         m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
-    }
-
-    void NetworkMatchComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        m_roundTickEvent.RemoveFromQueue();
     }
 
     void NetworkMatchComponentController::EndMatch()
@@ -129,18 +163,8 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::EndRound()
     {
-        uint16_t& roundNumber = ModifyRoundNumber();
-        if (roundNumber < GetTotalRounds())
-        {
-            //Signal event to reset everything
-            ++roundNumber;
-            SetRoundTime(RoundTimeSec{ GetRoundDuration() });
-        }
-        else
-        {
-            //Signal event to end match
-            EndMatch();
-        }
+        ModifyRoundNumber()++;
+        SetRoundTime(RoundTimeSec{ GetRoundDuration() });
     }
 
     void NetworkMatchComponentController::HandleRPC_PlayerActivated([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
@@ -172,7 +196,7 @@ namespace MultiplayerSample
     {
         // m_roundTickEvent is configured to tick once a second
         SetRoundTime(RoundTimeSec(GetRoundTime() - 1.f));
-        
+
         if (GetRoundTime() <= RoundTimeSec(0.f))
         {
             EndRound();

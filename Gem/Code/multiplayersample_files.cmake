@@ -103,6 +103,15 @@ set(FILES
     Source/Components/Multiplayer/EnergyCannonComponent.cpp
     Source/Components/Multiplayer/EnergyCannonComponent.h
 
+    Source/GameState/GameStateMatchEnded.h
+    Source/GameState/GameStateMatchEnded.cpp
+    Source/GameState/GameStateMatchInProgress.h
+    Source/GameState/GameStateMatchInProgress.cpp
+    Source/GameState/GameStatePreparingMatch.h
+    Source/GameState/GameStatePreparingMatch.cpp
+    Source/GameState/GameStateWaitingForPlayers.h
+    Source/GameState/GameStateWaitingForPlayers.cpp
+
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp

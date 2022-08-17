@@ -44,6 +44,8 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+        void StartMatch();
+
         void EndMatch();
         void EndRound();
 
