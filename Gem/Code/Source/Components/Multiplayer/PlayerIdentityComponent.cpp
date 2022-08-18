@@ -68,4 +68,11 @@ namespace MultiplayerSample
     {
         SetPlayerName(newPlayerName);
     }
+
+    void PlayerIdentityComponentController::HandleRPC_ResetPlayerState([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        GetNetworkHealthComponentController()->SetHealth(GetNetworkHealthComponentController()->GetMaxHealth());
+        GetPlayerCoinCollectorComponentController()->SetCoinsCollected(0);
+        PlayerIdentityComponentControllerBase::HandleRPC_ResetPlayerState(invokingConnection);
+    }
 }

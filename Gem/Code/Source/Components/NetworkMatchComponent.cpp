@@ -130,9 +130,10 @@ namespace MultiplayerSample
             const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerNetEntity);
             if (playerHandle.Exists())
             {
-                if (const PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
+                if (PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
                 {
                     state.m_playerName = identity->GetPlayerName();
+                    identity->RPC_ResetPlayerState();
                 }
                 if (const NetworkHealthComponent* armor = playerHandle.GetEntity()->FindComponent<NetworkHealthComponent>())
                 {

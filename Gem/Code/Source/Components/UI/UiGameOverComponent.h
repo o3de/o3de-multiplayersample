@@ -9,12 +9,14 @@
 
 #include <UiGameOverBus.h>
 #include <AzCore/Component/Component.h>
+#include <LyShine/Bus/UiButtonBus.h>
 
 namespace MultiplayerSample
 {
     class UiGameOverComponent
         : public AZ::Component
         , public UiGameOverBus::Handler
+        , public UiButtonNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(UiGameOverComponent, "{37a2de13-a8fa-4ee1-8652-e17253137f62}");
@@ -24,15 +26,23 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
-        // GameOverDisplayBus overrides
+        //! UiGameOverBus overrides
+        //! @{
         void SetGameOverScreenEnabled(bool enabled) override;
         void DisplayResults(MatchResultsSummary results) override;
+        //! }@
+
+        //! UiButtonNotificationBus
+        //! @{
+        void OnButtonClick() override;
+        //! }@
 
     private:
         AZ::EntityId m_gameOverRootElement;
         AZ::EntityId m_winnerNameElement;
         AZ::EntityId m_matchResultsElement;
+        AZ::EntityId m_closeResultsButton;
 
-        AZStd::string BuildResultsSummary(AZStd::vector<PlayerState> playerStates);
+        AZStd::string BuildResultsSummary(const AZStd::vector<PlayerState>& playerStates);
     };
 }
