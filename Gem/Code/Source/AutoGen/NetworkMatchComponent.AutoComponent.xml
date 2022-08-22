@@ -22,6 +22,7 @@
 
     <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.f" ExposeToEditor="true" Description="Total time of a round in seconds" />
     <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
+    <ArchetypeProperty Type="uint16_t"  Name="RespawnPenaltyPercent" Init="50" ExposeToEditor="true" Description="Percent of score to deduct on armor depletion"/>
 
     <RemoteProcedure Name="RPC_EndMatch" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true"
                     GenerateEventBindings="" Description="Send match over event and results">
@@ -38,3 +39,4 @@
         <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
     </RemoteProcedure>
 </Component>
+ 

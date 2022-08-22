@@ -37,6 +37,6 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void HandleRPC_AssignPlayerName(AzNetworking::IConnection* invokingConnection, const PlayerNameString& newPlayerName) override;
-        void HandleRPC_ResetPlayerState(AzNetworking::IConnection* invokingConnection) override;
+        void HandleRPC_ResetPlayerState(AzNetworking::IConnection* invokingConnection, const PlayerResetOptions& resetOptions) override;
     };
 }

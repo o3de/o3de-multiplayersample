@@ -12,7 +12,10 @@
 #include <GameState/GameStatePreparingMatch.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
+#include <Source/Components/NetworkTeleportCompatibleComponent.h>
+#include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
+#include <Source/Spawners/IPlayerSpawner.h>
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>
 
@@ -89,10 +92,14 @@ namespace MultiplayerSample
             });
 
         GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
+
+        PlayerMatchLifecycleBus::Handler::BusConnect();
     }
 
     void NetworkMatchComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        PlayerMatchLifecycleBus::Handler::BusDisconnect();
+
         GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::PopAllGameStates);
 
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateWaitingForPlayers>();
@@ -133,7 +140,7 @@ namespace MultiplayerSample
                 if (PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
                 {
                     state.m_playerName = identity->GetPlayerName();
-                    identity->RPC_ResetPlayerState();
+                    RespawnPlayer(playerNetEntity, PlayerResetOptions{ true, 100 });
                 }
                 if (const NetworkHealthComponent* armor = playerHandle.GetEntity()->FindComponent<NetworkHealthComponent>())
                 {
@@ -193,6 +200,23 @@ namespace MultiplayerSample
         }
     }
 
+    void NetworkMatchComponentController::OnPlayerArmorZero(Multiplayer::NetEntityId playerEntity)
+    {
+        const auto playerIterator = AZStd::find(m_players.begin(), m_players.end(), playerEntity);
+        if (playerIterator != m_players.end())
+        {
+            if (Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity))
+            {
+                RespawnPlayer(playerEntity, PlayerResetOptions{ true, GetRespawnPenaltyPercent() });
+            }
+        }
+        else
+        {
+            AZ_Warning("NetworkMatchComponentController", false, "An unknown player reported depleted armor: %llu", aznumeric_cast<AZ::u64>(playerEntity));
+        }
+        
+    }
+
     void NetworkMatchComponentController::RoundTickOnceASecond()
     {
         // m_roundTickEvent is configured to tick once a second
@@ -221,4 +245,31 @@ namespace MultiplayerSample
 
         m_nextPlayerId++;
     }
+
+    void NetworkMatchComponentController::RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets)
+    {
+        const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity);
+        if (playerHandle.Exists())
+        {
+            // reset state
+            if (PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
+            {
+                identity->RPC_ResetPlayerState(resets);
+            }
+
+            // move to valid respawn point
+            if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
+            {
+                AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = 
+                    AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+
+                teleport->Teleport(entityParams.second.GetTranslation());
+            }
+        }
+        else
+        {
+            AZ_Warning("NetworkMatchComponentController", false, "Attempted respawn of an unknown player: %llu", aznumeric_cast<AZ::u64>(playerEntity));
+        }
+    }
+
 }

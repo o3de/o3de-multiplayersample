@@ -10,6 +10,7 @@ set(FILES
     Include/NetworkPrefabSpawnerInterface.h
     Include/PlayerCoinCollectorBus.h
     Include/PlayerIdentityBus.h
+    Include/PlayerMatchLifecycleBus.h
     Include/UiCoinCountBus.h
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h

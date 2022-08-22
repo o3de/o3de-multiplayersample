@@ -114,6 +114,19 @@ namespace MultiplayerSample
     {
         return m_winningPlayerName != rhs.m_winningPlayerName;
     }
+
+    struct PlayerResetOptions
+    {
+        bool m_resetArmor = false;
+        uint16_t m_coinPenalty = 0;
+        bool Serialize(AzNetworking::ISerializer& serializer);
+    };
+
+    inline bool PlayerResetOptions::Serialize(AzNetworking::ISerializer& serializer)
+    {
+        return serializer.Serialize(m_resetArmor, "resetArmor")
+            && serializer.Serialize(m_coinPenalty, "coinPenalty");
+    }
 }
 
 namespace AZ

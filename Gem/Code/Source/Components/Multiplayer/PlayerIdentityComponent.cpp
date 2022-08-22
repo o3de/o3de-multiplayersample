@@ -69,10 +69,16 @@ namespace MultiplayerSample
         SetPlayerName(newPlayerName);
     }
 
-    void PlayerIdentityComponentController::HandleRPC_ResetPlayerState([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    void PlayerIdentityComponentController::HandleRPC_ResetPlayerState([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const PlayerResetOptions& resetOptions)
     {
-        GetNetworkHealthComponentController()->SetHealth(GetNetworkHealthComponentController()->GetMaxHealth());
-        GetPlayerCoinCollectorComponentController()->SetCoinsCollected(0);
-        PlayerIdentityComponentControllerBase::HandleRPC_ResetPlayerState(invokingConnection);
+        if (resetOptions.m_resetArmor)
+        {
+            GetNetworkHealthComponentController()->SetHealth(GetNetworkHealthComponentController()->GetMaxHealth());
+        }
+        auto currentCoins = GetPlayerCoinCollectorComponentController()->GetCoinsCollected();
+        float coinsToDeduct = currentCoins * (resetOptions.m_coinPenalty * 0.01f);
+
+        GetPlayerCoinCollectorComponentController()->SetCoinsCollected(currentCoins - aznumeric_cast<uint16_t>(coinsToDeduct));
+        PlayerIdentityComponentControllerBase::HandleRPC_ResetPlayerState(invokingConnection, resetOptions);
     }
 }

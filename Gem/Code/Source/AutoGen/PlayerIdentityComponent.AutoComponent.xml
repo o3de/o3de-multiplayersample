@@ -25,5 +25,6 @@
 
     <RemoteProcedure Name="RPC_ResetPlayerState" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
                      GenerateEventBindings="false" Description="Resets the player's state.">
+        <Param Type="PlayerResetOptions" Name="ResetOptions"/>
     </RemoteProcedure>
 </Component>

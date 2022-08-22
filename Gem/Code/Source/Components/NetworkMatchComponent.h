@@ -8,6 +8,7 @@
 #pragma once
 
 #include <PlayerIdentityBus.h>
+#include <PlayerMatchLifecycleBus.h>
 #include <AzCore/EBus/ScheduledEvent.h>
 #include <Source/AutoGen/NetworkMatchComponent.AutoComponent.h>
 
@@ -21,7 +22,7 @@ namespace MultiplayerSample
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkMatchComponent, s_networkMatchComponentConcreteUuid, MultiplayerSample::NetworkMatchComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
-        
+
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
@@ -37,12 +38,18 @@ namespace MultiplayerSample
 
     class NetworkMatchComponentController
         : public NetworkMatchComponentControllerBase
+        , public PlayerMatchLifecycleBus::Handler
     {
     public:
         explicit NetworkMatchComponentController(NetworkMatchComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        //! PlayerMatchLifecycleBus overrides
+        //! @{
+        void OnPlayerArmorZero(Multiplayer::NetEntityId playerEntity) override;
+        //! )@
 
         void StartMatch();
 
@@ -65,5 +72,7 @@ namespace MultiplayerSample
         //! A temporary way to assign player identities, such as player names.
         void AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity);
         int m_nextPlayerId = 1;
+
+        void RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets);
     };
 }

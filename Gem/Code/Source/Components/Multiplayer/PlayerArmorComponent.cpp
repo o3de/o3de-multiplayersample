@@ -6,6 +6,7 @@
  */
 
 #include <UiPlayerArmorBus.h>
+#include <PlayerMatchLifecycleBus.h>
 #include <Components/NetworkHealthComponent.h>
 #include <Source/Components/Multiplayer/PlayerArmorComponent.h>
 
@@ -18,10 +19,7 @@ namespace MultiplayerSample
 
     void PlayerArmorComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous())
-        {
-            GetNetworkHealthComponentController()->GetParent().HealthAddEvent(m_changedHandler);
-        }
+        GetNetworkHealthComponentController()->GetParent().HealthAddEvent(m_changedHandler);
 
         if (IsAuthority())
         {
@@ -37,5 +35,9 @@ namespace MultiplayerSample
     void PlayerArmorComponentController::OnAmountChanged(float armor)
     {
         UiPlayerArmorNotificationBus::Broadcast(&UiPlayerArmorNotificationBus::Events::OnPlayerArmorChanged, armor, GetStartingArmor());
+        if (armor <= 0)
+        {
+            PlayerMatchLifecycleBus::Broadcast(&PlayerMatchLifecycleNotifications::OnPlayerArmorZero, GetNetEntityId());
+        }
     }
 }
