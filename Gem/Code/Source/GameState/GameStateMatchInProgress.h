@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <PlayerCoinCollectorBus.h>
 #include <Components/NetworkMatchComponent.h>
 #include <GameState/GameState.h>
 
@@ -14,6 +15,7 @@ namespace MultiplayerSample
 {
     class GameStateMatchInProgress
         : public GameState::IGameState
+        , public PlayerCoinCollectorNotificationBus::Handler
     {
     public:
         AZ_CLASS_ALLOCATOR(GameStateMatchInProgress, AZ::SystemAllocator, 0);
@@ -28,6 +30,12 @@ namespace MultiplayerSample
         void OnExit() override;
         //! }@
 
+        //! PlayerCoinCollectorNotificationBus overrides
+        //! @{
+        void OnPlayerCollectedCoinCountChanged(Multiplayer::NetEntityId playerEntity, uint16_t coinsCollected) override;
+        int GetNotificationOrder() override;
+        //! )@
+
     private:
         NetworkMatchComponentController* m_controller = nullptr;
 
@@ -36,5 +44,7 @@ namespace MultiplayerSample
         {
             OnRoundChanged(round);
         }};
+
+        AZ::u64 m_winningCoinCount = 10;
     };
 }

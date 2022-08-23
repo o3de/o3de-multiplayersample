@@ -13,6 +13,8 @@
 
 namespace MultiplayerSample
 {
+    constexpr AZStd::string_view WinningCoinCountSetting = "/MultiplayerSample/Settings/WinningCoinCount";
+
     using StickAxis = AzNetworking::QuantizedValues<1, 1, -1, 1>;
     using MouseAxis = AzNetworking::QuantizedValues<1, 2, -1, 1>;
 

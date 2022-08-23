@@ -52,10 +52,6 @@
                 "$type": "EditorInspectorComponent",
                 "Id": 5457951959748258208
             },
-            "Component_[7447529568620179076]": {
-                "$type": "SelectionComponent",
-                "Id": 7447529568620179076
-            },
             "Component_[8247764638131379605]": {
                 "$type": "EditorEntitySortComponent",
                 "Id": 8247764638131379605,
@@ -65,7 +61,6 @@
                     "Entity_[830977005898]",
                     "Entity_[611359903594]",
                     "Entity_[412839637138]",
-                    "Entity_[1863191303392]",
                     "Entity_[14030996048227]",
                     "Entity_[5919988826203]",
                     "Entity_[5924283793499]",
@@ -90,10 +85,6 @@
             "Id": "Entity_[115072692692507]",
             "Name": "Placard - Non-Networked Static Collider",
             "Components": {
-                "Component_[11457023573376145491]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11457023573376145491
-                },
                 "Component_[1221971212384525398]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 1221971212384525398,
@@ -200,10 +191,6 @@
             "Id": "Entity_[1234584512027]",
             "Name": "Placard - Nested Prefab of Network Entities",
             "Components": {
-                "Component_[11457023573376145491]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11457023573376145491
-                },
                 "Component_[1221971212384525398]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 1221971212384525398,
@@ -309,10 +296,6 @@
                 "Component_[11071255408563586395]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 11071255408563586395
-                },
-                "Component_[1271454470034210481]": {
-                    "$type": "SelectionComponent",
-                    "Id": 1271454470034210481
                 },
                 "Component_[13137916724228702403]": {
                     "$type": "EditorPendingCompositionComponent",
@@ -439,10 +422,6 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 4536896907644442920
                 },
-                "Component_[4608910444563065321]": {
-                    "$type": "SelectionComponent",
-                    "Id": 4608910444563065321
-                },
                 "Component_[6646359010016832696]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 6646359010016832696
@@ -477,10 +456,6 @@
             "Id": "Entity_[163168192990325]",
             "Name": "Placard - Net-Ball with Non-Net ParticleFx",
             "Components": {
-                "Component_[11457023573376145491]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11457023573376145491
-                },
                 "Component_[1221971212384525398]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 1221971212384525398,
@@ -579,132 +554,6 @@
                 }
             }
         },
-        "Entity_[1863191303392]": {
-            "Id": "Entity_[1863191303392]",
-            "Name": "Spawn On Server",
-            "Components": {
-                "Component_[11694963092145732257]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 11694963092145732257
-                },
-                "Component_[12168972718315127051]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 12168972718315127051
-                },
-                "Component_[12802329719955739455]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 12802329719955739455,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{B605AD71-0689-5650-B3F5-558D471B6351}",
-                            "path": "scriptcanvas/SpawnIfAuthority.scriptcanvas"
-                        },
-                        "sourceName": "SpawnIfAuthority.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{B605AD71-0689-5650-B3F5-558D471B6351}",
-                                "path": "scriptcanvas/SpawnIfAuthority.scriptcanvas"
-                            },
-                            "variables": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef"
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{DA8B04C5-A23C-40E0-8577-56A74B6B2086}"
-                                    },
-                                    "VariableName": "Prefab",
-                                    "InitialValueSource": 1
-                                }
-                            ],
-                            "overrides": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
-                                        "value": {
-                                            "asset": {
-                                                "assetId": {
-                                                    "guid": "{F6990C4F-540A-56EF-8C07-3ECECB09BBE7}",
-                                                    "subId": 2960582392
-                                                },
-                                                "assetHint": "prefabs/filteredgroup.spawnable"
-                                            }
-                                        }
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{DA8B04C5-A23C-40E0-8577-56A74B6B2086}"
-                                    },
-                                    "VariableName": "Prefab",
-                                    "InitialValueSource": 1
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[15194128185768259769]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 15194128185768259769
-                },
-                "Component_[15807254068344673462]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 15807254068344673462
-                },
-                "Component_[16123618383967744353]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 16123618383967744353
-                },
-                "Component_[17552782890585275482]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 17552782890585275482
-                },
-                "Component_[495949337740718080]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 495949337740718080,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            0.0,
-                            0.0,
-                            9.633794784545898
-                        ]
-                    }
-                },
-                "Component_[6471614284017878558]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 6471614284017878558
-                },
-                "Component_[8728229503371540755]": {
-                    "$type": "SelectionComponent",
-                    "Id": 8728229503371540755
-                },
-                "Component_[92855489511868459]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 92855489511868459,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[9871950863787101514]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 9871950863787101514
-                }
-            }
-        },
         "Entity_[218912573525109]": {
             "Id": "Entity_[218912573525109]",
             "Name": "ParticleFx",
@@ -764,10 +613,6 @@
                 "Component_[4536896907644442920]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 4536896907644442920
-                },
-                "Component_[4608910444563065321]": {
-                    "$type": "SelectionComponent",
-                    "Id": 4608910444563065321
                 },
                 "Component_[6646359010016832696]": {
                     "$type": "EditorVisibilityComponent",
@@ -1327,10 +1172,6 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 7604742128885307369
                 },
-                "Component_[7648092961390193680]": {
-                    "$type": "SelectionComponent",
-                    "Id": 7648092961390193680
-                },
                 "Component_[765374813580191237]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 765374813580191237
@@ -1858,10 +1699,6 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 7604742128885307369
                 },
-                "Component_[7648092961390193680]": {
-                    "$type": "SelectionComponent",
-                    "Id": 7648092961390193680
-                },
                 "Component_[765374813580191237]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 765374813580191237
@@ -1909,10 +1746,6 @@
                         ]
                     }
                 },
-                "Component_[2263050148604898275]": {
-                    "$type": "SelectionComponent",
-                    "Id": 2263050148604898275
-                },
                 "Component_[3090053879741023230]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 3090053879741023230
@@ -1931,10 +1764,6 @@
             "Id": "Entity_[32726940402596]",
             "Name": "Placard - Player Spawner",
             "Components": {
-                "Component_[11457023573376145491]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11457023573376145491
-                },
                 "Component_[1221971212384525398]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 1221971212384525398,
@@ -2037,10 +1866,6 @@
             "Id": "Entity_[37677838535797]",
             "Name": "Ball Net-Entity with Non-Net Child",
             "Components": {
-                "Component_[11735870288175062181]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11735870288175062181
-                },
                 "Component_[12367515919186104091]": {
                     "$type": "AZ::Render::EditorMeshComponent",
                     "Id": 12367515919186104091,
@@ -2191,10 +2016,6 @@
                 "Component_[12389149049822343474]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 12389149049822343474
-                },
-                "Component_[13171834653934335218]": {
-                    "$type": "SelectionComponent",
-                    "Id": 13171834653934335218
                 },
                 "Component_[16688989241268222228]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -2353,10 +2174,6 @@
                 "Component_[3412423409421084023]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 3412423409421084023
-                },
-                "Component_[7297856704634960860]": {
-                    "$type": "SelectionComponent",
-                    "Id": 7297856704634960860
                 }
             }
         },
@@ -2893,10 +2710,6 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 6736058160609348578
                 },
-                "Component_[6945801057488076768]": {
-                    "$type": "SelectionComponent",
-                    "Id": 6945801057488076768
-                },
                 "Component_[7705145080652826821]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 7705145080652826821
@@ -2957,10 +2770,6 @@
                             ]
                         }
                     }
-                },
-                "Component_[13123673913682959349]": {
-                    "$type": "SelectionComponent",
-                    "Id": 13123673913682959349
                 },
                 "Component_[13144559215878829395]": {
                     "$type": "EditorCapsuleShapeComponent",
@@ -3080,10 +2889,6 @@
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 5742617148984903511
                 },
-                "Component_[6908672858059846726]": {
-                    "$type": "SelectionComponent",
-                    "Id": 6908672858059846726
-                },
                 "Component_[7244139806392340775]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 7244139806392340775,
@@ -3136,10 +2941,6 @@
                             0.0
                         ]
                     }
-                },
-                "Component_[2263050148604898275]": {
-                    "$type": "SelectionComponent",
-                    "Id": 2263050148604898275
                 },
                 "Component_[3090053879741023230]": {
                     "$type": "EditorDisabledCompositionComponent",
@@ -3675,10 +3476,6 @@
                 "Component_[7604742128885307369]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 7604742128885307369
-                },
-                "Component_[7648092961390193680]": {
-                    "$type": "SelectionComponent",
-                    "Id": 7648092961390193680
                 },
                 "Component_[765374813580191237]": {
                     "$type": "EditorOnlyEntityComponent",
@@ -4219,10 +4016,6 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 6736058160609348578
                 },
-                "Component_[6945801057488076768]": {
-                    "$type": "SelectionComponent",
-                    "Id": 6945801057488076768
-                },
                 "Component_[7705145080652826821]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 7705145080652826821
@@ -4750,10 +4543,6 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 7604742128885307369
                 },
-                "Component_[7648092961390193680]": {
-                    "$type": "SelectionComponent",
-                    "Id": 7648092961390193680
-                },
                 "Component_[765374813580191237]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 765374813580191237
@@ -4818,10 +4607,6 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 2794843823854361819
                 },
-                "Component_[3595403615987753683]": {
-                    "$type": "SelectionComponent",
-                    "Id": 3595403615987753683
-                },
                 "Component_[6068793232317605117]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 6068793232317605117
@@ -4883,10 +4668,6 @@
                 "Component_[2794843823854361819]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 2794843823854361819
-                },
-                "Component_[3595403615987753683]": {
-                    "$type": "SelectionComponent",
-                    "Id": 3595403615987753683
                 },
                 "Component_[6068793232317605117]": {
                     "$type": "EditorEntityIconComponent",
@@ -4980,10 +4761,6 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 2794843823854361819
                 },
-                "Component_[3595403615987753683]": {
-                    "$type": "SelectionComponent",
-                    "Id": 3595403615987753683
-                },
                 "Component_[6068793232317605117]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 6068793232317605117
@@ -5044,10 +4821,6 @@
                 "Component_[1749217498459743295]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 1749217498459743295
-                },
-                "Component_[18187513243842658387]": {
-                    "$type": "SelectionComponent",
-                    "Id": 18187513243842658387
                 },
                 "Component_[18280610137451388009]": {
                     "$type": "GenericComponentWrapper",
@@ -5173,10 +4946,6 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 2794843823854361819
                 },
-                "Component_[3595403615987753683]": {
-                    "$type": "SelectionComponent",
-                    "Id": 3595403615987753683
-                },
                 "Component_[6068793232317605117]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 6068793232317605117
@@ -5202,10 +4971,6 @@
                 "Component_[12113168580323165094]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 12113168580323165094
-                },
-                "Component_[13428084923771247637]": {
-                    "$type": "SelectionComponent",
-                    "Id": 13428084923771247637
                 },
                 "Component_[15868007870507055798]": {
                     "$type": "AZ::Render::EditorPhysicalSkyComponent",
@@ -5354,10 +5119,6 @@
                         "$type": "MultiplayerSample::MatchPlayerCoinsComponent"
                     }
                 },
-                "Component_[2827181128407867340]": {
-                    "$type": "SelectionComponent",
-                    "Id": 2827181128407867340
-                },
                 "Component_[3709937876037180985]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3709937876037180985,
@@ -5445,10 +5206,6 @@
                             "EditorEntityId": 14446012695748497796
                         }
                     }
-                },
-                "Component_[761453845518378274]": {
-                    "$type": "SelectionComponent",
-                    "Id": 761453845518378274
                 },
                 "Component_[9321193093942328270]": {
                     "$type": "EditorEntitySortComponent",

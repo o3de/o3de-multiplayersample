@@ -6,7 +6,9 @@
  *
  */
 
+#include <MultiplayerSampleTypes.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Settings/SettingsRegistry.h>
 #include <LyShine/Bus/UiTextBus.h>
 #include <Source/Components/UI/UiCoinCountComponent.h>
 
@@ -24,7 +26,13 @@ namespace MultiplayerSample
 
     void UiCoinCountComponent::OnCoinCountChanged(uint16_t totalCoinsCollectedByLocalPlayer)
     {
-        const AZStd::string message = AZStd::string::format("%d", totalCoinsCollectedByLocalPlayer);
+        AZ::u64 winningCoinCount = 10;
+        if (const auto registry = AZ::SettingsRegistry::Get())
+        {
+            registry->Get(winningCoinCount, WinningCoinCountSetting);
+        }
+
+        const AZStd::string message = AZStd::string::format("%d out of %llu", totalCoinsCollectedByLocalPlayer, winningCoinCount);
         UiTextBus::Event(m_coinsTextForLocalPlayer, &UiTextBus::Events::SetText, message);
 
         if (m_coinTextColorEffectDuration > AZ::Time::ZeroTimeMs) // sanity check

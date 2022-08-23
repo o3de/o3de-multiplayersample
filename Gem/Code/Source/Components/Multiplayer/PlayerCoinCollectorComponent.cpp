@@ -34,6 +34,8 @@ namespace MultiplayerSample
         if (IsAutonomous())
         {
             CoinsCollectedAddEvent(m_coinCountChangedHandler);
+
+            UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, GetCoinsCollected());
         }
     }
 
