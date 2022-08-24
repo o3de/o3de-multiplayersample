@@ -11,11 +11,6 @@
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkRigidBodyComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkRigidBodyComponent.h" />
 
-    <ArchetypeProperty Type="float" Name="Speed" Init="15.f" ExposeToEditor="true" Suffix="world units per second"
-                       Description="The speed of the energy ball" />
-    <ArchetypeProperty Type="float" Name="DamageOnHit" Init="5.f" ExposeToEditor="true" Suffix="armor units"
-                       Description="Reduces a player hit by the energy ball by a specified armor unit amount." />
-
     <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
         GenerateEventBindings="true" Description="Launching an energy from a specified position in a specified direction.">
         <Param Type="AZ::Vector3" Name="StartingPosition"/>

@@ -25,6 +25,7 @@ namespace MultiplayerSample
 
     private:
         void HideEnergyBall();
+        void TryKnockbackPlayer(AZ::Entity* target);
 
         void OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent);
         AzPhysics::SimulatedBodyEvents::OnCollisionBegin::Handler m_collisionHandler{ [this](
@@ -32,5 +33,11 @@ namespace MultiplayerSample
         {
             OnCollisionBegin(collisionEvent);
         } };
+
+        void LoadEnergyBallSettings();
+        AZ::Vector3 m_direction = AZ::Vector3::CreateZero();
+        double m_knockbackDistance = 0.0;
+        double m_speed = 0.0;
+        AZ::s64 m_armorDamage = 0;
     };
 }

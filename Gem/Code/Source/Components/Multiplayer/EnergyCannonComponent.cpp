@@ -5,6 +5,7 @@
  *
  */
 
+#include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/Component/TransformBus.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
@@ -19,7 +20,15 @@ namespace MultiplayerSample
 
     void EnergyCannonComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_firingEvent.Enqueue(GetFiringPeriod(), true);
+        if (const auto registry = AZ::SettingsRegistry::Get())
+        {
+            AZ::s64 firingPeriod = 0;
+            registry->Get(firingPeriod, EnergyCannonFiringPeriodSetting);
+            if (firingPeriod > 0)
+            {
+                m_firingEvent.Enqueue(AZ::TimeMs{ firingPeriod }, true);
+            }
+        }
     }
 
     void EnergyCannonComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)

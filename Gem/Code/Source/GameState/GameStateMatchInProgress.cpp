@@ -6,6 +6,7 @@
  */
 
 #include <AzCore/Settings/SettingsRegistry.h>
+#include <GameState/GameStateMatchEnded.h>
 #include <GameState/GameStateRequestBus.h>
 #include <Source/GameState/GameStateMatchInProgress.h>
 

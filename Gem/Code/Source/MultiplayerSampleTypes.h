@@ -14,6 +14,10 @@
 namespace MultiplayerSample
 {
     constexpr AZStd::string_view WinningCoinCountSetting = "/MultiplayerSample/Settings/WinningCoinCount";
+    constexpr AZStd::string_view KnockbackDistanceByEnergyBallSetting = "/MultiplayerSample/Settings/EnergyBall/KnockbackDistanceMeters";
+    constexpr AZStd::string_view EnergyBallSpeedSetting = "/MultiplayerSample/Settings/EnergyBall/Speed";
+    constexpr AZStd::string_view EnergyBallArmorDamageSetting = "/MultiplayerSample/Settings/EnergyBall/ArmorDamage";
+    constexpr AZStd::string_view EnergyCannonFiringPeriodSetting = "/MultiplayerSample/Settings/EnergyCannon/FiringPeriodMilliseconds";
 
     using StickAxis = AzNetworking::QuantizedValues<1, 1, -1, 1>;
     using MouseAxis = AzNetworking::QuantizedValues<1, 2, -1, 1>;

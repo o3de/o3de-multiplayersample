@@ -6,6 +6,7 @@
 #
 
 set(FILES
+    Include/PlayerKnockbackBus.h
     Include/MatchPlayerCoinsBus.h
     Include/NetworkPrefabSpawnerInterface.h
     Include/PlayerCoinCollectorBus.h
@@ -15,9 +16,9 @@ set(FILES
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h
 
-    Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/EnergyBallComponent.AutoComponent.xml
     Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
+    Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkCoinComponent.AutoComponent.xml
@@ -28,18 +29,19 @@ set(FILES
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
     Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/PlayerArmorComponent.AutoComponent.xml
     Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
     Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
+    Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
 
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
@@ -99,6 +101,8 @@ set(FILES
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
     Source/Components/Multiplayer/PlayerIdentityComponent.cpp
     Source/Components/Multiplayer/PlayerIdentityComponent.h
+    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.cpp
+    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h
     Source/Components/Multiplayer/EnergyBallComponent.cpp
     Source/Components/Multiplayer/EnergyBallComponent.h
     Source/Components/Multiplayer/EnergyCannonComponent.cpp

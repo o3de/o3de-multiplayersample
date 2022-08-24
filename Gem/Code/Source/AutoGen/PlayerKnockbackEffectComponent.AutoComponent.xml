@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="PlayerKnockbackEffectComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="false"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
+
+    <RemoteProcedure Name="RPC_Knockback" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
+                     GenerateEventBindings="false" Description="Shoves an object in a specified direction.">\
+	    <Param Type="AZ::Vector3" Name="Direction"/>
+    </RemoteProcedure>
+</Component>
