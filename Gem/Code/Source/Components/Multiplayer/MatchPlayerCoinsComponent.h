@@ -41,6 +41,8 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+        void ResetAllCoins();
+
         //! PlayerCoinCollectorNotificationBus overrides ...
         //! @{
         void OnPlayerCollectedCoinCountChanged(Multiplayer::NetEntityId playerEntity, uint16_t coinsCollected) override;

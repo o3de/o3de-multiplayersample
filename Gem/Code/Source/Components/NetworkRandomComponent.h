@@ -9,15 +9,13 @@
 
 #include <Source/AutoGen/NetworkRandomComponent.AutoComponent.h>
 
-#include <AzCore/Math/Random.h>
-
 namespace MultiplayerSample
 {
     class NetworkRandomComponentController
         : public NetworkRandomComponentControllerBase
     {
     public:
-        NetworkRandomComponentController(NetworkRandomComponent& parent);
+        explicit NetworkRandomComponentController(NetworkRandomComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;

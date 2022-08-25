@@ -9,6 +9,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <ComponentRelation Constraint="Required" HasController="true" Name="MatchPlayerCoinsComponent" Namespace="MultiplayerSample" Include="Components/Multiplayer/MatchPlayerCoinsComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Components/NetworkRandomComponent.h" />
 
     <Include File="MultiplayerSampleTypes.h"/>
 
@@ -39,4 +40,3 @@
         <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
     </RemoteProcedure>
 </Component>
- 

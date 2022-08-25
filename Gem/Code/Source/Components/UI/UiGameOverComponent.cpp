@@ -94,7 +94,7 @@ namespace MultiplayerSample
         {
             resultTable.append(
                 AZStd::string::format("%s :  score  %i, armor %i\n",
-                    result.m_playerName.c_str(), result.m_score, result.m_remainingShield));
+                    result.m_playerName.c_str(), result.m_score, result.m_remainingArmor));
         }
         return resultTable;
     }

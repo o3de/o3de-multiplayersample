@@ -131,6 +131,8 @@ namespace MultiplayerSample
 
         int highestCoins = -1;
 
+        AZStd::vector<PlayerState> potentialWinners;
+
         for (const Multiplayer::NetEntityId playerNetEntity : m_players)
         {
             PlayerState state;
@@ -145,8 +147,12 @@ namespace MultiplayerSample
                 if (const NetworkHealthComponent* armor = playerHandle.GetEntity()->FindComponent<NetworkHealthComponent>())
                 {
                     // Treating health as armor
-                    state.m_remainingShield = aznumeric_cast<uint8_t>(armor->GetHealth());
+                    state.m_remainingArmor = aznumeric_cast<uint8_t>(armor->GetHealth());
                 }
+            }
+            else
+            {
+                continue;
             }
 
             const auto coinStateIterator = AZStd::find_if(coinStates.begin(), coinStates.end(), [playerNetEntity](const PlayerCoinState& state)
@@ -159,14 +165,68 @@ namespace MultiplayerSample
                 if (highestCoins < aznumeric_cast<int>(state.m_score))
                 {
                     highestCoins = aznumeric_cast<int>(state.m_score);
-                    results.m_winningPlayerName = state.m_playerName;
+
+                    // There is no tie so far.
+                    potentialWinners.clear();
+                    potentialWinners.push_back(state);
+                }
+                else if (highestCoins == aznumeric_cast<int>(state.m_score))
+                {
+                    // A potential tie - decide based on remaining armor later.
+                    potentialWinners.push_back(state);                    
                 }
             }
 
             results.m_playerStates.push_back(state);
         }
 
+        FindWinner(results, potentialWinners);
+
         RPC_EndMatch(results);
+        GetMatchPlayerCoinsComponentController()->ResetAllCoins();
+    }
+
+    void NetworkMatchComponentController::FindWinner(MatchResultsSummary& results,
+        const AZStd::vector<PlayerState>& potentialWinners)
+    {
+        if (potentialWinners.empty())
+        {
+            results.m_winningPlayerName = "No players in the match";
+        }
+        else if (potentialWinners.size() == 1)
+        {
+            results.m_winningPlayerName = potentialWinners.front().m_playerName;
+        }
+        else if (potentialWinners.size() > 1)
+        {
+            // A tie - find the player with the largest armor remaining.
+            AZStd::vector<const PlayerState*> playersTiedByArmor;
+            playersTiedByArmor.push_back(&potentialWinners.front());
+
+            for (const PlayerState& potential : potentialWinners)
+            {
+                if (potential.m_remainingArmor == playersTiedByArmor.front()->m_remainingArmor)
+                {
+                    playersTiedByArmor.push_back(&potential);
+                }
+                else if (potential.m_remainingArmor > playersTiedByArmor.front()->m_remainingArmor)
+                {
+                    playersTiedByArmor.clear();
+                    playersTiedByArmor.push_back(&potential);
+                }
+            }
+
+            if (playersTiedByArmor.size() > 1)
+            {
+                // If multiple players are still tied on armor, randomly choose a player
+                const AZ::u64 randomlyChosenWinnerIndex = GetNetworkRandomComponentController()->GetRandomUint64() % playersTiedByArmor.size();
+                results.m_winningPlayerName = playersTiedByArmor[randomlyChosenWinnerIndex]->m_playerName;
+            }
+            else
+            {
+                results.m_winningPlayerName = playersTiedByArmor.front()->m_playerName;
+            }
+        }
     }
 
     void NetworkMatchComponentController::EndRound()
@@ -271,5 +331,4 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "Attempted respawn of an unknown player: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
     }
-
 }

@@ -5,6 +5,7 @@
  *
  */
 
+#include <AzCore/Math/Random.h>
 #include <Source/Components/NetworkRandomComponent.h>
 
 namespace MultiplayerSample

@@ -74,5 +74,7 @@ namespace MultiplayerSample
         int m_nextPlayerId = 1;
 
         void RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets);
+
+        void FindWinner(MatchResultsSummary& results, const AZStd::vector<PlayerState>& potentialWinners);
     };
 }
