@@ -6,6 +6,8 @@
  */
 
 #include <PlayerIdentityBus.h>
+#include <Source/Components/NetworkHealthComponent.h>
+#include <Source/Components/Multiplayer/PlayerCoinCollectorComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 
 namespace MultiplayerSample
@@ -49,7 +51,7 @@ namespace MultiplayerSample
 
     void PlayerIdentityComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotificationBus::Events::OnPlayerActivated, GetNetEntityId());
         }
@@ -57,7 +59,7 @@ namespace MultiplayerSample
 
     void PlayerIdentityComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotificationBus::Events::OnPlayerDeactivated, GetNetEntityId());
         }

@@ -6,6 +6,7 @@
  */
 
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
+#include <Source/Components/NetworkCoinComponent.h>
 #include <Source/Components/NetworkCoinSpawnerComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
 #include <Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h>

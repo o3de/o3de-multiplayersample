@@ -22,7 +22,7 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
             {
@@ -31,7 +31,7 @@ namespace MultiplayerSample
             }
             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorActivated, GetNetEntityId());
         }
-        if (IsAutonomous())
+        if (IsNetEntityRoleAutonomous())
         {
             CoinsCollectedAddEvent(m_coinCountChangedHandler);
 
@@ -41,7 +41,7 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorDeactivated, GetNetEntityId());
         }

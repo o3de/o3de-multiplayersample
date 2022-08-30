@@ -15,6 +15,7 @@
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <Source/AutoGen/NetworkHealthComponent.AutoComponent.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
+#include <Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h>
 
 namespace MultiplayerSample
 {

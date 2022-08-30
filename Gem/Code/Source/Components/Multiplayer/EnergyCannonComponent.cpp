@@ -8,6 +8,7 @@
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Settings/SettingsRegistry.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
 #include <Source/Components/Multiplayer/EnergyCannonComponent.h>
 

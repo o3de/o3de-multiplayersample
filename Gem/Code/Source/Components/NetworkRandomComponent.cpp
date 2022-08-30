@@ -42,7 +42,7 @@ namespace MultiplayerSample
     NetworkRandomComponentController::NetworkRandomComponentController(NetworkRandomComponent& parent)
         : NetworkRandomComponentControllerBase(parent)
     {
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             // Setup seed on authority for proxies to pull
             AZ::BetterPseudoRandom seedGenerator;
