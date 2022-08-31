@@ -37,7 +37,7 @@ namespace MultiplayerSample
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             m_networkAiComponentController = GetNetworkAiComponentController();
         }
-        else if (IsAutonomous())
+        else if (IsNetEntityRoleAutonomous())
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
@@ -55,7 +55,7 @@ namespace MultiplayerSample
 
     void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous() && !m_aiEnabled)
+        if (IsNetEntityRoleAutonomous() && !m_aiEnabled)
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);

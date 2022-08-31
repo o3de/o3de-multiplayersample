@@ -29,7 +29,7 @@ namespace MultiplayerSample
         aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
         SetSyncAimImmediate(true);
 
-        if (IsAutonomous())
+        if (IsNetEntityRoleAutonomous())
         {
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
             if (!m_aiEnabled)
