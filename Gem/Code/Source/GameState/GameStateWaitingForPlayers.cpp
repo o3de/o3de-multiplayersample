@@ -6,6 +6,7 @@
  */
 
 #include <GameState/GameStateRequestBus.h>
+#include <Source/GameState/GameStatePreparingMatch.h>
 #include <Source/GameState/GameStateWaitingForPlayers.h>
 
 namespace MultiplayerSample

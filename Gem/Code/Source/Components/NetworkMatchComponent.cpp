@@ -15,6 +15,7 @@
 #include <Source/Components/NetworkTeleportCompatibleComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
+#include <Source/Components/NetworkRandomComponent.h>
 #include <Source/Spawners/IPlayerSpawner.h>
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>

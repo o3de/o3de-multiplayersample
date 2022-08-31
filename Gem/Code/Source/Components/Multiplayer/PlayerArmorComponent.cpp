@@ -21,7 +21,7 @@ namespace MultiplayerSample
     {
         GetNetworkHealthComponentController()->GetParent().HealthAddEvent(m_changedHandler);
 
-        if (IsAuthority())
+        if (IsNetEntityRoleAuthority())
         {
             GetNetworkHealthComponentController()->SetHealth(GetStartingArmor());
         }

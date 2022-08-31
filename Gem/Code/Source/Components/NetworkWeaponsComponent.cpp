@@ -296,7 +296,7 @@ namespace MultiplayerSample
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             m_networkAiComponentController = GetNetworkAiComponentController();
         }
-        else if (IsAutonomous())
+        else if (IsNetEntityRoleAutonomous())
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(DrawEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(FirePrimaryEventId);
@@ -306,7 +306,7 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsAutonomous() && !m_aiEnabled)
+        if (IsNetEntityRoleAutonomous() && !m_aiEnabled)
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(DrawEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(FirePrimaryEventId);
@@ -409,7 +409,7 @@ namespace MultiplayerSample
                 GetParent().ActivateWeaponWithParams(
                     aznumeric_cast<WeaponIndex>(weaponIndexInt), weaponState, fireParams, validateActivations);
 
-                if (IsAuthority())
+                if (IsNetEntityRoleAuthority())
                 {
                     SetActivationParams(weaponIndexInt, fireParams);
                     SetActivationCounts(weaponIndexInt, weaponState.m_activationCount);
