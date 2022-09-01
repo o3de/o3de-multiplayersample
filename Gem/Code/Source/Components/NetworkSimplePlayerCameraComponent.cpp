@@ -14,7 +14,7 @@
 
 namespace MultiplayerSample
 {
-    AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.0f, -5.0f, 3.0f), nullptr, AZ::ConsoleFunctorFlags::Null, "Offset to use for the player camera");
+    AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.5f, -2.0f, 1.5f), nullptr, AZ::ConsoleFunctorFlags::Null, "Offset to use for the player camera");
 
     NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
         : NetworkSimplePlayerCameraComponentControllerBase(parent)

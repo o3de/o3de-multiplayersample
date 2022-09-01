@@ -362,7 +362,10 @@ namespace MultiplayerSample
                     AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
                 // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
-                const AZ::Vector3 aimTarget = worldTm.GetTranslation() + aimRotation.TransformVector(fwd * 5.0f);
+                AZ::Vector3 baseCameraOffset;
+                AZ::Interface<AZ::IConsole>::Get()->GetCvarValue("cl_cameraOffset", baseCameraOffset);
+                const AZ::Vector3 cameraOffset = aimRotation.TransformVector(baseCameraOffset);
+                const AZ::Vector3 aimTarget = worldTm.GetTranslation() + cameraOffset + aimRotation.TransformVector(fwd * 25.0f);
                 AZ::Vector3 aimSource = weaponInput->m_shotStartPosition;
 
                 const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
