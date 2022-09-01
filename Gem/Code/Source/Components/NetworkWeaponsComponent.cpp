@@ -14,6 +14,8 @@
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzFramework/Physics/PhysicsScene.h>
+#include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 #include <DebugDraw/DebugDrawBus.h>
 
 namespace MultiplayerSample
@@ -23,6 +25,7 @@ namespace MultiplayerSample
     AZ_CVAR(float, cl_WeaponsDrawDebugDurationSec, 10.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of seconds to display debug draw data");
     AZ_CVAR(float, sv_WeaponsImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
     AZ_CVAR(float, sv_WeaponsStartPositionClampRange, 1.f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor between the where the client and server say a shot started");
+    AZ_CVAR(float, sv_WeaponsMaxRange, 25.f, nullptr, AZ::ConsoleFunctorFlags::Null, "Max range a weapon shot will travel during physics raycast.");
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -360,13 +363,34 @@ namespace MultiplayerSample
                 const AZ::Vector3& aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
                 const AZ::Quaternion aimRotation =
                     AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
-                // TODO: This should probably be a physx raycast out to some maxDistance
                 const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
                 AZ::Vector3 baseCameraOffset;
                 AZ::Interface<AZ::IConsole>::Get()->GetCvarValue("cl_cameraOffset", baseCameraOffset);
                 const AZ::Vector3 cameraOffset = aimRotation.TransformVector(baseCameraOffset);
-                const AZ::Vector3 aimTarget = worldTm.GetTranslation() + cameraOffset + aimRotation.TransformVector(fwd * 25.0f);
-                AZ::Vector3 aimSource = weaponInput->m_shotStartPosition;
+                
+                // Setup a default aim target
+                AZ::Vector3 aimTarget = worldTm.GetTranslation() + cameraOffset + aimRotation.TransformVector(fwd * sv_WeaponsMaxRange);
+
+                // Cast the ray in the physics system from the center of the camera forward
+                if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+                {
+                    if (AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+                        sceneHandle != AzPhysics::InvalidSceneHandle)
+                    {
+                        AzPhysics::RayCastRequest physicsRayRequest;
+                        physicsRayRequest.m_start = worldTm.GetTranslation() + cameraOffset;
+                        physicsRayRequest.m_direction = aimRotation.TransformVector(fwd);
+                        physicsRayRequest.m_distance = sv_WeaponsMaxRange;
+                        physicsRayRequest.m_queryType = AzPhysics::SceneQuery::QueryType::StaticAndDynamic;
+
+                        AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &physicsRayRequest);
+                        if (result)
+                        {
+                            // Set target to first found intersect, if any
+                            aimTarget = result.m_hits[0].m_position;
+                        }
+                    }
+                }             
 
                 const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
                 int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
@@ -378,9 +402,9 @@ namespace MultiplayerSample
                 }
 
                 // Validate the proposed start position is reasonably close to the related bone
-                if ((fireBoneTransform.GetTranslation() - aimSource).GetLength() > sv_WeaponsStartPositionClampRange)
+                if ((fireBoneTransform.GetTranslation() - weaponInput->m_shotStartPosition).GetLength() > sv_WeaponsStartPositionClampRange)
                 {              
-                    aimSource = fireBoneTransform.GetTranslation();
+                    weaponInput->m_shotStartPosition = fireBoneTransform.GetTranslation();
                     AZLOG_WARN("Shot origin was outside of clamp range, resetting to bone position");
                 }
                 FireParams fireParams{ weaponInput->m_shotStartPosition, aimTarget, Multiplayer::InvalidNetEntityId };
