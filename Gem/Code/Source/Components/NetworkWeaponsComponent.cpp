@@ -399,6 +399,7 @@ namespace MultiplayerSample
                         physicsRayRequest.m_direction = aimRotation.TransformVector(fwd);
                         physicsRayRequest.m_distance = weaponParams.m_weaponMaxAimDistance;
                         physicsRayRequest.m_queryType = AzPhysics::SceneQuery::QueryType::StaticAndDynamic;
+                        physicsRayRequest.m_reportMultipleHits = true;
 
                         AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &physicsRayRequest);
                         if (result)
