@@ -274,8 +274,9 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<WeaponParams>()
-                ->Version(1)
+                ->Version(2)
                 ->Field("WeaponType", &WeaponParams::m_weaponType)
+                ->Field("WeaponMaxAimDistance", &WeaponParams::m_weaponMaxAimDistance)
                 ->Field("CooldownTimeMs", &WeaponParams::m_cooldownTimeMs)
                 ->Field("AnimFlag", &WeaponParams::m_animFlag)
                 ->Field("ActivateFx", &WeaponParams::m_activateFx)
@@ -293,6 +294,7 @@ namespace MultiplayerSample
                 editContext->Class<WeaponParams>("WeaponParams", "Parameters that control the behaviour of a weapon")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_weaponType, "WeaponType", "The basic type of weapon")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_weaponMaxAimDistance, "WeaponMaxAimDistance", "The maximum distance of a raycast to locate a target when firing.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_cooldownTimeMs, "CooldownTimeMs", "The number of milliseconds needed before the weapon can activate again")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_animFlag, "AnimFlag", "The animation flag to raise on the character when starting a fire sequence")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateFx, "ActivateFx", "The effect to play upon weapon activation")

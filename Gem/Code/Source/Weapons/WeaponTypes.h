@@ -131,6 +131,7 @@ namespace MultiplayerSample
 
         WeaponType m_weaponType = WeaponType::None; // The type of this weapon
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again
+        float m_weaponMaxAimDistance = 1.0f; // The max range of a raycast when searching for a target
         CharacterAnimState m_animFlag = CharacterAnimState::Shooting; // The animation flag to raise on the network animation when firing this weapon
         AssetStringType m_activateFx;       // The effect to play upon weapon activation
         AssetStringType m_impactFx;         // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
