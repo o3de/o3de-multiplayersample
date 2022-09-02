@@ -1,54 +1,25 @@
 {
     "materialType": "Materials/Types/StandardPBR.materialtype",
-    "propertyLayoutVersion": 1,
-    "properties": {
-        "general": {
-        },
-        "baseColor": {
-            "color": [
-                0.79910284,
-                0.79910284,
-                0.79910284
-            ],
-            "factor": 1.0,
-            "useTexture": true,
-            "textureMap": "burt/textures/burt_diff.tif"
-        },
-        "emissive": {
-            "color": [
-                0.74540436,
-                0.0,
-                0.0
-            ],
-            "intensity": 6.742737111526946,
-            "useTexture": true,
-            "textureMap": "burt/textures/burt_emis.tif",
-            "enable": true
-        },
-        "metallic": {
-            "factor": 0.0,
-            "useTexture": false,
-            "textureMap": ""
-        },
-        "roughness": {
-            "factor": 0.0,
-            "useTexture": false,
-            "textureMap": ""
-        },
-        "specularF0": {
-            "factor": 0.49102089,
-            "useTexture": false,
-            "textureMap": ""
-        },
-        "normal": {
-            "factor": 1.0,
-            "useTexture": true,
-            "textureMap": "burt/textures/burt_ddn.tif"
-        },
-        "opacity": {
-            "doubleSided": false,
-            "factor": 1.0,
-            "textureMap": ""
-        }
+    "materialTypeVersion": 5,
+    "propertyValues": {
+        "baseColor.textureMap": "BURT/Textures/BURT_diff.tif",
+        "baseColor.textureMapUv": "Unwrapped",
+        "clearCoat.factor": 0.3799999952316284,
+        "emissive.color": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "emissive.enable": true,
+        "emissive.intensity": 6.199999809265137,
+        "emissive.textureMap": "BURT/Textures/BURT_emis.tif",
+        "emissive.textureMapUv": "Unwrapped",
+        "metallic.factor": 0.5,
+        "normal.textureMap": "BURT/Textures/BURT_ddn.tif",
+        "opacity.factor": 1.0,
+        "roughness.factor": 0.6100000143051147,
+        "roughness.textureMapUv": "Unwrapped",
+        "specularF0.factor": 0.6200000047683716
     }
 }
