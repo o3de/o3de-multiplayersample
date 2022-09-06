@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="GemComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/GemComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <ArchetypeProperty Type="float" Name="AngularTurnSpeed" ExposeToEditor="true" Init="5.f"
+                       Description="How quickly a gem turns in place, in radians per second." />
+    <ArchetypeProperty Type="float" Name="VerticalAmplitude" ExposeToEditor="true" Init="1.f"
+                       Description="How far a gem travels up and down while spinning in place, in world units." />
+    <ArchetypeProperty Type="float" Name="VerticalBouncePeriod" ExposeToEditor="true" Init="3.f"
+                       Description="How quickly a gem moves through the vertical amplitude following a sine function." />
+
+    <NetworkProperty Type="int" Name="RandomPeriodOffset" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="Randomize the bouncing of gems" />
+
+
+    <RemoteProcedure Name="CollectedByPlayer" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="On gem collected by a player" />
+</Component>

@@ -35,6 +35,10 @@ namespace MultiplayerSample
         HitEffect::Reflect(context);
         WeaponParams::Reflect(context);
 
+        GemSpawnable::Reflect(context);
+        GemWeightChance::Reflect(context);
+        RoundSpawnTable::Reflect(context);
+
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<MultiplayerSampleSystemComponent, AZ::Component>()

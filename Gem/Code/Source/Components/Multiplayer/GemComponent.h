@@ -7,31 +7,31 @@
 
 #pragma once
 
-#include <Source/AutoGen/NetworkCoinComponent.AutoComponent.h>
+#include <Source/AutoGen/GemComponent.AutoComponent.h>
 
 namespace MultiplayerSample
 {
-    class NetworkCoinComponent
-        : public NetworkCoinComponentBase
+    class GemComponent
+        : public GemComponentBase
     {
     public:
-        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::NetworkCoinComponent, s_networkCoinComponentConcreteUuid, MultiplayerSample::NetworkCoinComponentBase);
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::GemComponent, s_gemComponentConcreteUuid, MultiplayerSample::GemComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
-        
+
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-    protected:
-        // Animate the coin on clients without spending network traffic. (The coin will not spin on the authority server.)
+    private:
+        // Animate the gem on clients without spending network traffic. (The gem will not spin on the authority server.)
         void ClientAnimationTick();
         AZ::ScheduledEvent m_clientAnimationEvent{ [this]()
         {
             ClientAnimationTick();
-        }, AZ::Name("NetworkCoinComponent") };
+        }, AZ::Name("GemComponent") };
 
         void OnNetworkLocationChanged(const AZ::Vector3& location);
-        AZ::Event<AZ::Vector3>::Handler m_networkLocationHandler{ [this](AZ::Vector3 location)
+        AZ::Event<AZ::Vector3>::Handler m_networkLocationHandler{ [this](const AZ::Vector3& location)
         {
             OnNetworkLocationChanged(location);
         } };
@@ -40,15 +40,15 @@ namespace MultiplayerSample
         AZ::TimeMs m_lifetime = AZ::Time::ZeroTimeMs;
     };
 
-    class NetworkCoinComponentController
-        : public NetworkCoinComponentControllerBase
+    class GemComponentController
+        : public GemComponentControllerBase
     {
     public:
-        explicit NetworkCoinComponentController(NetworkCoinComponent& parent);
+        explicit GemComponentController(GemComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void HandleCollectedByPlayer(AzNetworking::IConnection* invokingConnection) override;
+        void HandleCollectedByPlayer(AzNetworking::IConnection* invokingConnection) override;        
     };
 }

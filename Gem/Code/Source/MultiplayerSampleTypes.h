@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <AzCore/Asset/AssetSerializer.h>
+#include <AzFramework/Spawnable/Spawnable.h>
 #include <AzNetworking/DataStructures/FixedSizeBitset.h>
 #include <AzNetworking/Utilities/QuantizedValues.h>
 #include <Multiplayer/MultiplayerTypes.h>
@@ -133,6 +135,48 @@ namespace MultiplayerSample
         return serializer.Serialize(m_resetArmor, "resetArmor")
             && serializer.Serialize(m_coinPenalty, "coinPenalty");
     }
+
+    //! Defines a gem type with an asset and a tag name.
+    class GemSpawnable
+    {
+    public:
+        AZ_RTTI(GemSpawnable, "{393888AE-F158-40CB-9AA0-46767BDA5694}");
+        virtual ~GemSpawnable() = default;
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        AZStd::string m_tag;
+        AzFramework::SpawnableAsset m_gemAsset;
+    };
+
+    using GemSpawnableVector = AZStd::vector<GemSpawnable>;
+
+    //! Defines a weighted chance for a gem type to spawn in a given round.
+    class GemWeightChance
+    {
+    public:
+        AZ_RTTI(GemWeightChance, "{B9B5C6A7-895D-407A-90B7-26FB10C6DA22}");
+        virtual ~GemWeightChance() = default;
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        AZStd::string m_tag;
+        float m_weight = 1.f;
+    };
+
+    //! Defines chances for gem types to spawn in a given round.
+    class RoundSpawnTable
+    {
+    public:
+        AZ_RTTI(RoundSpawnTable, "{3AB30950-F71A-4F96-9BB0-C1C44B2A53CC}");
+        virtual ~RoundSpawnTable() = default;
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        AZStd::vector<GemWeightChance> m_gemWeights;
+    };
+
+    using RoundSpawnTableVector = AZStd::vector<RoundSpawnTable>;
 }
 
 namespace AZ

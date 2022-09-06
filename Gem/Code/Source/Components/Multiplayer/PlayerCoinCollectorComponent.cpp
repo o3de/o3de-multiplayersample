@@ -10,7 +10,7 @@
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
-#include <Components/NetworkCoinComponent.h>
+#include <Components/Multiplayer/GemComponent.h>
 #include <Source/Components/Multiplayer/PlayerCoinCollectorComponent.h>
 
 namespace MultiplayerSample
@@ -63,9 +63,9 @@ namespace MultiplayerSample
                         &AZ::ComponentApplicationBus::Events::FindEntity, te.m_triggerBody->GetEntityId());
                     if (coinEntity)
                     {
-                        if (NetworkCoinComponent* coin = coinEntity->FindComponent<NetworkCoinComponent>())
+                        if (GemComponent* gem = coinEntity->FindComponent<GemComponent>())
                         {
-                            coin->CollectedByPlayer();
+                            gem->CollectedByPlayer();
                             ModifyCoinsCollected()++;
                             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged, 
                                 GetNetEntityId(), GetCoinsCollected());

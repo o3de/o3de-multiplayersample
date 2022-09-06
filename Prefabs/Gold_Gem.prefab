@@ -1,62 +1,58 @@
 {
     "ContainerEntity": {
         "Id": "ContainerEntity",
-        "Name": "Coin",
+        "Name": "Gold_Gem",
         "Components": {
-            "Component_[10764576352363784827]": {
-                "$type": "EditorLockComponent",
-                "Id": 10764576352363784827
-            },
-            "Component_[11471537475505948784]": {
+            "Component_[10733918258682901989]": {
                 "$type": "EditorEntitySortComponent",
-                "Id": 11471537475505948784,
+                "Id": 10733918258682901989,
                 "Child Entity Order": [
-                    "Entity_[6003250807512]"
+                    "Entity_[3747099433025]"
                 ]
             },
-            "Component_[13383232616306559550]": {
-                "$type": "EditorPrefabComponent",
-                "Id": 13383232616306559550
-            },
-            "Component_[15930192787393973434]": {
-                "$type": "SelectionComponent",
-                "Id": 15930192787393973434
-            },
-            "Component_[2341057870995046358]": {
-                "$type": "EditorVisibilityComponent",
-                "Id": 2341057870995046358
-            },
-            "Component_[2615428409177552632]": {
+            "Component_[10789544900496185392]": {
                 "$type": "EditorDisabledCompositionComponent",
-                "Id": 2615428409177552632
+                "Id": 10789544900496185392
             },
-            "Component_[2881479148934205380]": {
-                "$type": "EditorPendingCompositionComponent",
-                "Id": 2881479148934205380
-            },
-            "Component_[390935924894162204]": {
-                "$type": "EditorOnlyEntityComponent",
-                "Id": 390935924894162204
-            },
-            "Component_[5090387166453391046]": {
-                "$type": "EditorInspectorComponent",
-                "Id": 5090387166453391046
-            },
-            "Component_[5440389237404606130]": {
-                "$type": "EditorEntityIconComponent",
-                "Id": 5440389237404606130
-            },
-            "Component_[8188222295139453401]": {
+            "Component_[13733325515080958445]": {
                 "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                "Id": 8188222295139453401,
+                "Id": 13733325515080958445,
                 "Parent Entity": ""
+            },
+            "Component_[13930010863869083672]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 13930010863869083672
+            },
+            "Component_[14045746262568238196]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 14045746262568238196
+            },
+            "Component_[15394443391190989021]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 15394443391190989021
+            },
+            "Component_[15677334530748724904]": {
+                "$type": "EditorLockComponent",
+                "Id": 15677334530748724904
+            },
+            "Component_[17990747893549997441]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 17990747893549997441
+            },
+            "Component_[4808860046459995737]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 4808860046459995737
+            },
+            "Component_[6028706616873575636]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 6028706616873575636
             }
         }
     },
     "Entities": {
-        "Entity_[6003250807512]": {
-            "Id": "Entity_[6003250807512]",
-            "Name": "Coin",
+        "Entity_[3747099433025]": {
+            "Id": "Entity_[3747099433025]",
+            "Name": "Gold Gem",
             "Components": {
                 "Component_[10824307280319942103]": {
                     "$type": "EditorMaterialComponent",
@@ -67,9 +63,9 @@
                                 "{}": {
                                     "MaterialAsset": {
                                         "assetId": {
-                                            "guid": "{FE52E7C8-064D-506A-9C26-433EB93747DE}"
+                                            "guid": "{82FD41F3-1BD4-5A4F-8EA2-DDEFC1B0F2CD}"
                                         },
-                                        "assetHint": "materials/presets/pbr/metal_gold.azmaterial"
+                                        "assetHint": "materials/presets/macbeth/16_yellow_tex.azmaterial"
                                     }
                                 }
                             }
@@ -91,10 +87,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{9D0B19C3-4443-5BE2-9578-0EFBA89A5623}",
-                                    "subId": 275355485
+                                    "guid": "{6F60A708-58B3-5A78-9BD2-FAA3FE9ED85B}",
+                                    "subId": 273712816
                                 },
-                                "assetHint": "objects/coin.azmodel"
+                                "assetHint": "objects/gem.azmodel"
                             }
                         }
                     }
@@ -102,15 +98,6 @@
                 "Component_[13644541024230291784]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 13644541024230291784
-                },
-                "Component_[14339500284610058585]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 14339500284610058585,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkCoinComponent",
-                        "VerticalAmplitude": 0.5,
-                        "VerticalBouncePeriod": 1.5
-                    }
                 },
                 "Component_[14439860670826727286]": {
                     "$type": "EditorEntitySortComponent",
@@ -139,7 +126,7 @@
                             "SortIndex": 2
                         },
                         {
-                            "ComponentId": 14339500284610058585,
+                            "ComponentId": 6047658345822598543,
                             "SortIndex": 3
                         },
                         {
@@ -149,6 +136,10 @@
                         {
                             "ComponentId": 10824307280319942103,
                             "SortIndex": 5
+                        },
+                        {
+                            "ComponentId": 4709323619022222983,
+                            "SortIndex": 6
                         }
                     ]
                 },
@@ -157,6 +148,11 @@
                     "Id": 4709323619022222983,
                     "ColliderConfiguration": {
                         "Trigger": true,
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.6499999761581421
+                        ],
                         "MaterialSlots": {
                             "Slots": [
                                 {
@@ -175,6 +171,17 @@
                             ],
                             "Radius": 1.0
                         }
+                    },
+                    "DebugDrawSettings": {
+                        "LocallyEnabled": false
+                    }
+                },
+                "Component_[6047658345822598543]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6047658345822598543,
+                    "m_template": {
+                        "$type": "MultiplayerSample::GemComponent",
+                        "VerticalAmplitude": 0.5
                     }
                 },
                 "Component_[6627174300642616873]": {
@@ -195,10 +202,6 @@
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
-                },
-                "Component_[8497455082063306699]": {
-                    "$type": "SelectionComponent",
-                    "Id": 8497455082063306699
                 },
                 "Component_[9503189652770780952]": {
                     "$type": "EditorDisabledCompositionComponent",

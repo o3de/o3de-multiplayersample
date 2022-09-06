@@ -21,8 +21,8 @@ set(FILES
     Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/NetworkCoinComponent.AutoComponent.xml
-    Source/AutoGen/NetworkCoinSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/GemComponent.AutoComponent.xml
+    Source/AutoGen/GemSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
@@ -49,10 +49,6 @@ set(FILES
     Source/Components/NetworkAiComponent.h
     Source/Components/NetworkAnimationComponent.cpp
     Source/Components/NetworkAnimationComponent.h
-    Source/Components/NetworkCoinComponent.cpp
-    Source/Components/NetworkCoinComponent.h
-    Source/Components/NetworkCoinSpawnerComponent.cpp
-    Source/Components/NetworkCoinSpawnerComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkMatchComponent.cpp
@@ -93,6 +89,10 @@ set(FILES
     Source/Components/UI/UiPlayerArmorComponent.cpp
     Source/Components/UI/UiPlayerArmorComponent.h
 
+    Source/Components/Multiplayer/GemComponent.cpp
+    Source/Components/Multiplayer/GemComponent.h
+    Source/Components/Multiplayer/GemSpawnerComponent.cpp
+    Source/Components/Multiplayer/GemSpawnerComponent.h
     Source/Components/Multiplayer/MatchPlayerCoinsComponent.cpp
     Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
     Source/Components/Multiplayer/PlayerArmorComponent.cpp

@@ -5,25 +5,25 @@
  *
  */
 
-#include <Source/Components/NetworkCoinComponent.h>
-
 #include <AzCore/Serialization/SerializeContext.h>
+#include <Components/Multiplayer/GemSpawnerComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <Source/Components/Multiplayer/GemComponent.h>
 
 namespace MultiplayerSample
 {
-    void NetworkCoinComponent::Reflect(AZ::ReflectContext* context)
+    void GemComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
         if (serializeContext)
         {
-            serializeContext->Class<NetworkCoinComponent, NetworkCoinComponentBase>()
+            serializeContext->Class<GemComponent, GemComponentBase>()
                 ->Version(1);
         }
-        NetworkCoinComponentBase::Reflect(context);
+        GemComponentBase::Reflect(context);
     }
 
-    void NetworkCoinComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void GemComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         if (IsNetEntityRoleClient())
         {
@@ -35,13 +35,13 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkCoinComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void GemComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         m_clientAnimationEvent.RemoveFromQueue();
         m_networkLocationHandler.Disconnect();
     }
 
-    void NetworkCoinComponent::ClientAnimationTick()
+    void GemComponent::ClientAnimationTick()
     {
         m_lifetime += m_clientAnimationEvent.TimeInQueueMs();
 
@@ -55,28 +55,28 @@ namespace MultiplayerSample
         GetEntity()->GetTransform()->SetWorldRotationQuaternion(rotation);
     }
 
-    void NetworkCoinComponent::OnNetworkLocationChanged(const AZ::Vector3& location)
+    void GemComponent::OnNetworkLocationChanged(const AZ::Vector3& location)
     {
         m_rootLocation = location;
     }
 
-    NetworkCoinComponentController::NetworkCoinComponentController(NetworkCoinComponent& parent)
-        : NetworkCoinComponentControllerBase(parent)
+    GemComponentController::GemComponentController(GemComponent& parent)
+        : GemComponentControllerBase(parent)
     {
     }
 
-    void NetworkCoinComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void GemComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
     }
 
-    void NetworkCoinComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void GemComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
     }
 
-    void NetworkCoinComponentController::HandleCollectedByPlayer([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    void GemComponentController::HandleCollectedByPlayer([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
-        // Hide the coin by moving it far away from the players' interest area.
-        // This removes the coin from the clients' view. See @sv_ClientAwarenessRadius.
+        // Hide the gem by moving it far away from the players' interest area.
+        // This removes the gem from the clients' view. See @sv_ClientAwarenessRadius.
         GetNetworkTransformComponentController()->SetTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
     }
 }

@@ -20,6 +20,9 @@
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>
 
+#include "NetworkRandomComponent.h"
+#include "Multiplayer/GemSpawnerComponent.h"
+
 namespace MultiplayerSample
 {
     void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
@@ -115,6 +118,7 @@ namespace MultiplayerSample
     {
         SetRoundTime(RoundTimeSec{ GetRoundDuration() });
         SetRoundNumber(1);
+        GetGemSpawnerComponentController()->SpawnGems();
 
         // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
         m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);

@@ -22,6 +22,8 @@ namespace MultiplayerSample
 
         uint64_t GetRandomUint64();
         int GetRandomInt();
+
+        //! Returns a float in the range of [0,1)
         float GetRandomFloat();
     };
 }
