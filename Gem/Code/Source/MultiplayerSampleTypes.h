@@ -147,6 +147,7 @@ namespace MultiplayerSample
 
         AZStd::string m_tag;
         AzFramework::SpawnableAsset m_gemAsset;
+        AZ::u16 m_scoreValue = 1;
     };
 
     using GemSpawnableVector = AZStd::vector<GemSpawnable>;

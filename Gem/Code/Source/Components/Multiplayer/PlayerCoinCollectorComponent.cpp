@@ -65,8 +65,8 @@ namespace MultiplayerSample
                     {
                         if (GemComponent* gem = coinEntity->FindComponent<GemComponent>())
                         {
-                            gem->CollectedByPlayer();
-                            ModifyCoinsCollected()++;
+                            gem->RPC_CollectedByPlayer();
+                            ModifyCoinsCollected() += gem->GetGemScoreValue();
                             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged, 
                                 GetNetEntityId(), GetCoinsCollected());
                         }

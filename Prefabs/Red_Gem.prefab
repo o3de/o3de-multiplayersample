@@ -1,58 +1,58 @@
 {
     "ContainerEntity": {
         "Id": "ContainerEntity",
-        "Name": "Blue_Gem",
+        "Name": "Red_Gem",
         "Components": {
-            "Component_[10518291555049438123]": {
-                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                "Id": 10518291555049438123,
-                "Parent Entity": ""
+            "Component_[11085102009537457197]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 11085102009537457197
             },
-            "Component_[10648260435733757336]": {
-                "$type": "EditorLockComponent",
-                "Id": 10648260435733757336
+            "Component_[13326759889941104130]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 13326759889941104130
             },
-            "Component_[11435054092760279467]": {
+            "Component_[13333271428222898034]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 13333271428222898034
+            },
+            "Component_[1333721382131909463]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 1333721382131909463
+            },
+            "Component_[15680849471949933332]": {
                 "$type": "EditorEntitySortComponent",
-                "Id": 11435054092760279467,
+                "Id": 15680849471949933332,
                 "Child Entity Order": [
-                    "Entity_[3566710806593]"
+                    "Entity_[1021293295971]"
                 ]
             },
-            "Component_[11842331671619234976]": {
-                "$type": "EditorPendingCompositionComponent",
-                "Id": 11842331671619234976
-            },
-            "Component_[12614019861731337817]": {
-                "$type": "EditorEntityIconComponent",
-                "Id": 12614019861731337817
-            },
-            "Component_[12650050411237232006]": {
-                "$type": "EditorOnlyEntityComponent",
-                "Id": 12650050411237232006
-            },
-            "Component_[145180209643586393]": {
-                "$type": "EditorDisabledCompositionComponent",
-                "Id": 145180209643586393
-            },
-            "Component_[18228427961078694188]": {
-                "$type": "EditorPrefabComponent",
-                "Id": 18228427961078694188
-            },
-            "Component_[8337279307807201770]": {
-                "$type": "EditorVisibilityComponent",
-                "Id": 8337279307807201770
-            },
-            "Component_[9461878751304185335]": {
+            "Component_[2983676778216818137]": {
                 "$type": "EditorInspectorComponent",
-                "Id": 9461878751304185335
+                "Id": 2983676778216818137
+            },
+            "Component_[5043732247111264204]": {
+                "$type": "EditorLockComponent",
+                "Id": 5043732247111264204
+            },
+            "Component_[6247793021475898903]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 6247793021475898903
+            },
+            "Component_[8566727461087459675]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 8566727461087459675
+            },
+            "Component_[8875781117888677262]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 8875781117888677262,
+                "Parent Entity": ""
             }
         }
     },
     "Entities": {
-        "Entity_[3566710806593]": {
-            "Id": "Entity_[3566710806593]",
-            "Name": "Blue Gem",
+        "Entity_[1021293295971]": {
+            "Id": "Entity_[1021293295971]",
+            "Name": "Red Gem",
             "Components": {
                 "Component_[10824307280319942103]": {
                     "$type": "EditorMaterialComponent",
@@ -71,18 +71,18 @@
                                         "baseColor.color": {
                                             "$type": "Color",
                                             "Value": [
-                                                0.01361104752868414,
-                                                0.11337453126907349,
-                                                0.6122377514839172,
+                                                0.8571450114250183,
+                                                0.13333334028720856,
+                                                0.13333334028720856,
                                                 1.0
                                             ]
                                         },
                                         "emissive.color": {
                                             "$type": "Color",
                                             "Value": [
-                                                0.0,
-                                                0.018371863290667534,
-                                                0.41960784792900085,
+                                                0.9115586876869202,
+                                                0.1886625438928604,
+                                                0.09318684786558151,
                                                 1.0
                                             ]
                                         },
@@ -92,7 +92,7 @@
                                         },
                                         "emissive.intensity": {
                                             "$type": "float",
-                                            "Value": 6.320000171661377
+                                            "Value": 3.680000066757202
                                         },
                                         "irradiance.factor": {
                                             "$type": "float",
@@ -229,6 +229,11 @@
                     "Id": 6627174300642616873,
                     "Parent Entity": "ContainerEntity",
                     "Transform Data": {
+                        "Translate": [
+                            0.0005631446838378906,
+                            0.0,
+                            0.0
+                        ],
                         "UniformScale": 0.5
                     }
                 },

@@ -2697,9 +2697,9 @@
                     "Parent Entity": "Entity_[356758116574]",
                     "Transform Data": {
                         "Translate": [
-                            4.4708452224731445,
-                            1.2024502754211426,
-                            0.0
+                            -1.6816198825836182,
+                            -0.03527677059173584,
+                            2.200000047683716
                         ]
                     }
                 },
@@ -2707,6 +2707,9 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 4664568107226397913,
                     "Child Entity Order": [
+                        "Instance_[1154437282147]/ContainerEntity",
+                        "Instance_[1012703361379]/ContainerEntity",
+                        "Instance_[879559375203]/ContainerEntity",
                         "Instance_[3738509498433]/ContainerEntity",
                         "Instance_[3558120872001]/ContainerEntity"
                     ]
@@ -5732,6 +5735,8 @@
                     "Id": 15868007870507055798,
                     "Controller": {
                         "Configuration": {
+                            "SkyIntensity": 0.5,
+                            "SunIntensity": 5.599999904632568,
                             "FogSettings": {
                                 "Enable": true
                             }
@@ -5959,7 +5964,41 @@
                                         "subId": 2978055772
                                     },
                                     "assetHint": "prefabs/blue_gem.spawnable"
-                                }
+                                },
+                                "Score": 3
+                            },
+                            {
+                                "Tag": "Green Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{60CC9A11-93CF-50A1-B2FA-4DA2AAA23151}",
+                                        "subId": 2831178280
+                                    },
+                                    "assetHint": "prefabs/green_gem.spawnable"
+                                },
+                                "Score": 2
+                            },
+                            {
+                                "Tag": "Red Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{A63F9843-2632-521C-9A96-569BE4081FBD}",
+                                        "subId": 1199407584
+                                    },
+                                    "assetHint": "prefabs/red_gem.spawnable"
+                                },
+                                "Score": 4
+                            },
+                            {
+                                "Tag": "Diamond Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{EEBE82AD-4B06-517C-9036-2EF633DBDA7B}",
+                                        "subId": 4122414694
+                                    },
+                                    "assetHint": "prefabs/diamond_gem.spawnable"
+                                },
+                                "Score": 5
                             }
                         ],
                         "SpawnTablesPerRound": [
@@ -6097,6 +6136,15 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 13707688659030262739
                 },
+                "Component_[14557570787500416175]": {
+                    "$type": "AZ::Render::EditorBloomComponent",
+                    "Id": 14557570787500416175,
+                    "Controller": {
+                        "Configuration": {
+                            "Enabled": true
+                        }
+                    }
+                },
                 "Component_[15209981873132626600]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 15209981873132626600
@@ -6158,6 +6206,10 @@
                         }
                     }
                 },
+                "Component_[9004585884070611256]": {
+                    "$type": "AZ::Render::EditorPostFxLayerComponent",
+                    "Id": 9004585884070611256
+                },
                 "Component_[9321193093942328270]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 9321193093942328270
@@ -6166,6 +6218,56 @@
         }
     },
     "Instances": {
+        "Instance_[1012703361379]": {
+            "Source": "Prefabs/Red_Gem.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Parent Entity",
+                    "value": "../Entity_[3691264858177]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Transform Data/Translate/0",
+                    "value": 0.6033124923706055
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Transform Data/Translate/1",
+                    "value": -0.00846242904663086
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Transform Data/Translate/2",
+                    "value": 0.8977532386779785
+                }
+            ]
+        },
+        "Instance_[1154437282147]": {
+            "Source": "Prefabs/Diamond_Gem.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14420415435941492777]/Parent Entity",
+                    "value": "../Entity_[3691264858177]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14420415435941492777]/Transform Data/Translate/0",
+                    "value": 1.2893424034118652
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14420415435941492777]/Transform Data/Translate/1",
+                    "value": -0.9028081893920898
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14420415435941492777]/Transform Data/Translate/2",
+                    "value": 0.8977532386779785
+                }
+            ]
+        },
         "Instance_[14784192282389]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
@@ -6566,12 +6668,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10518291555049438123]/Transform Data/Translate/1",
-                    "value": -4.886253356933594
+                    "value": 1.013746738433838
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10518291555049438123]/Transform Data/Translate/2",
-                    "value": 3.775726318359375
+                    "value": 0.8977532386779785
                 }
             ]
         },
@@ -6591,12 +6693,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/1",
-                    "value": -4.879915714263916
+                    "value": 1.0200843811035156
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/2",
-                    "value": 3.7891688346862793
+                    "value": 0.8891687393188477
                 }
             ]
         },
@@ -7057,6 +7159,31 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[4107956514252411312]/Transform Data/Translate/2",
                     "value": 0.5
+                }
+            ]
+        },
+        "Instance_[879559375203]": {
+            "Source": "Prefabs/Green_Gem.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Parent Entity",
+                    "value": "../Entity_[3691264858177]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/0",
+                    "value": 1.7177467346191406
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/1",
+                    "value": -0.014746665954589844
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/2",
+                    "value": 0.8977532386779785
                 }
             ]
         }

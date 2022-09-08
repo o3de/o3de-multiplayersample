@@ -49,6 +49,6 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void HandleCollectedByPlayer(AzNetworking::IConnection* invokingConnection) override;        
+        void HandleRPC_CollectedByPlayer(AzNetworking::IConnection* invokingConnection) override;
     };
 }

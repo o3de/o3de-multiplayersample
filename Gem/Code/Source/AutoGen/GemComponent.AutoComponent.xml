@@ -18,7 +18,8 @@
                        Description="How quickly a gem moves through the vertical amplitude following a sine function." />
 
     <NetworkProperty Type="int" Name="RandomPeriodOffset" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="true" Description="Randomize the bouncing of gems" />
+    <NetworkProperty Type="uint16_t" Name="GemScoreValue" Init="1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="Gem's game score value" />
 
 
-    <RemoteProcedure Name="CollectedByPlayer" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="On gem collected by a player" />
+    <RemoteProcedure Name="RPC_CollectedByPlayer" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="On gem collected by a player" />
 </Component>

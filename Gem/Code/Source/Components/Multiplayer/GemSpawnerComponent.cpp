@@ -20,9 +20,10 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<GemSpawnable>()
-                ->Version(1)
+                ->Version(2)
                 ->Field("Tag", &GemSpawnable::m_tag)
                 ->Field("Asset", &GemSpawnable::m_gemAsset)
+                ->Field("Score", &GemSpawnable::m_scoreValue)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -31,6 +32,7 @@ namespace MultiplayerSample
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GemSpawnable::m_tag, "Tag", "Assigned tag for this gem type")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &GemSpawnable::m_gemAsset, "Asset", "Spawnable for the gem")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &GemSpawnable::m_scoreValue, "Score", "Gem's value")
                     ;
             }
         }
@@ -150,15 +152,18 @@ namespace MultiplayerSample
         }
 
         PrefabCallbacks callbacks;
-        callbacks.m_onActivateCallback = [this](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
+        callbacks.m_onActivateCallback = [this, spawnable](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
             AzFramework::SpawnableConstEntityContainerView view)
         {
             for (const AZ::Entity* entity : view)
             {
                 if (GemComponent* gem = entity->FindComponent<GemComponent>())
                 {
-                    static_cast<GemComponentController*>(gem->GetController())->SetRandomPeriodOffset(
-                        GetNetworkRandomComponentController()->GetRandomInt() % 1000);
+                    if (GemComponentController* gemController = static_cast<GemComponentController*>(gem->GetController()))
+                    {
+                        gemController->SetRandomPeriodOffset(GetNetworkRandomComponentController()->GetRandomInt() % 1000);
+                        gemController->SetGemScoreValue(spawnable->m_scoreValue);
+                    }
 
                     // Save the gem spawn ticket, otherwise the gem will de-spawn
                     m_spawnedGems.emplace(entity->GetId(), AZStd::move(ticket));
