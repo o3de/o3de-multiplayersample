@@ -32,7 +32,7 @@ namespace MultiplayerSample
 
         if (m_spawnIndex >= m_spawners.size())
         {
-            AZLOG_WARN("RoundRobinSpawner has an out-of-bounds spawner index. Resetting spawn index to 0.")
+            AZLOG_WARN("RoundRobinSpawner has an out-of-bounds spawner index. Resetting spawn index to 0. Did you forget to call UnregisterPlayerSpawner?")
             m_spawnIndex = 0;
         }
 
