@@ -1,0 +1,75 @@
+Version = 2.13.0.13591;
+CParticleRendererFeatureSet	$6B70D015
+{
+	RendererFeatures = {
+		"$191F1761",
+		"$D857A09F",
+		"$0F57EEAC",
+		"$3D324B43",
+		"$D851A09F",
+		"$35A36C4E",
+		"$7FB4AB5F",
+		"$CAD62F46",
+		"$1DB717AE",
+		"$EAC726E3",
+	};
+}
+CParticleRendererFeatureDesc	$191F1761
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "GeometryDecal";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$3D324B43
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "Diffuse";
+}
+CParticleRendererFeatureDesc	$D851A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "DiffuseRamp";
+}
+CParticleRendererFeatureDesc	$35A36C4E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "Emissive";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$7FB4AB5F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$CAD62F46
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$1DB717AE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "BasicTransformUVs";
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	VertexShader = "Library/PopcornFXCore/Shaders/Experimental/Decal_Default.vert";
+	FragmentShader = "Library/PopcornFXCore/Shaders/Experimental/Particle_Master.frag";
+}
+CParticleRendererFeatureDesc	$0F57EEAC
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "Decal";
+	Mandatory = true;
+}

@@ -1,0 +1,4365 @@
+Version = 2.13.0.13591;
+CEngineRendererInterface	$6B70D015
+{
+	InterfaceName = "Experimental material features";
+	RendererFeatures = {
+		"$D6EEA348",
+		"$81861AB7",
+		"$B660FBF9",
+		"$42E16C02",
+		"$D734A95F",
+		"$8F7A985A",
+		"$B53F5A68",
+		"$1E5C8DCF",
+		"$0798FEE6",
+		"$E749E042",
+		"$41EED1A4",
+		"$5CBB6243",
+		"$1838F4AE",
+		"$52697627",
+		"$123456AC",
+		"$D857A09F",
+		"$047497F3",
+		"$D6BEA348",
+		"$55289D1E",
+		"$0CD860BD",
+		"$E191BFCB",
+		"$DADBF2F1",
+		"$D481D29F",
+		"$4B99796F",
+		"$23F9C093",
+		"$62BCE275",
+		"$E7A7BE8E",
+		"$9154DFA0",
+		"$71D528E3",
+		"$F50D7FD2",
+		"$8A93EEE1",
+		"$1BDFA32C",
+		"$A9934228",
+		"$A2277B6B",
+		"$D834E0C1",
+		"$EABBAE94",
+		"$0E3ACA6C",
+		"$61D82A82",
+	};
+}
+CParticleRendererFeature	$81861AB7
+{
+	FeatureName = "GeometryBillboard";
+	Properties = {
+		"$48E2E8B7",
+		"$41E5AFE7",
+		"$3B3DDE67",
+		"$BEEF8936",
+		"$F02495CD",
+		"$CE8CC02E",
+		"$6AD0A593",
+		"$125C39DB",
+	};
+}
+CParticleNodeTemplateExport	$48E2E8B7
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$48E2E8BF",
+	};
+	OutputPins = {
+		"$1A05FF77",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$48E2E8BF
+{
+	SelfName = "DefaultValue";
+	Owner = "$48E2E8B7";
+}
+CParticleNodeTemplateExport	$3B3DDE67
+{
+	Description = {
+		"@eng:Radius of the billboard in world units",
+	};
+	InputPins = {
+		"$3B3DDE6F",
+	};
+	OutputPins = {
+		"$0C954798",
+	};
+	ExportedName = "General.Size";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(5.0000001e-02, 4.9999997e-02, 4.9999997e-02, 4.9999997e-02);
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "General.EnableSize2D";
+	RuleFunction = NotEqual;
+}
+CParticleNodePinIn	$3B3DDE6F
+{
+	SelfName = "DefaultValue";
+	Owner = "$3B3DDE67";
+}
+CParticleNodeTemplateExport	$F02495CD
+{
+	Description = {
+		"@eng:Billboard rotation angle in degrees",
+	};
+	InputPins = {
+		"$F02495CF",
+	};
+	OutputPins = {
+		"$7837C3E5",
+	};
+	ExportedName = "General.Rotation";
+	ExportedType = float;
+	Semantic = Angle;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MinValueF4 = float4(-1.8000000e+02, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.8000000e+02, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	PinRules = Rule1_AND_Rule2;
+	RuleResult = Hidden;
+	DependentProperty = "General.BillboardingMode";
+	RuleFunction = Greater;
+	RuleValue = "1";
+	DependentProperty2 = "General.BillboardingMode";
+	RuleFunction2 = Lower;
+	RuleValue2 = "5";
+}
+CParticleNodePinIn	$F02495CF
+{
+	SelfName = "DefaultValue";
+	Owner = "$F02495CD";
+}
+CParticleNodeTemplateExport	$CE8CC02E
+{
+	Description = {
+		"@eng:Principal axis of the billboard when <c>BillboardingMode</c> is set to <c>AxisAligned*</c>\\nSide axis of the billboard when <c>BillboardingMode</c> is set to <c>PlaneAligned</c>",
+	};
+	InputPins = {
+		"$CE8CC02F",
+	};
+	OutputPins = {
+		"$2FB70E0C",
+	};
+	ExportedName = "General.Axis";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Direction;
+	CategoryName = {
+		"@eng:General",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "General.BillboardingMode";
+	RuleFunction = Lower;
+	RuleValue = "2";
+}
+CParticleNodePinIn	$CE8CC02F
+{
+	SelfName = "DefaultValue";
+	Owner = "$CE8CC02E";
+}
+CParticleNodeTemplateExport	$6AD0A593
+{
+	Description = {
+		"@eng:Normal of the billboard when <c>BillboardingMode</c> is set to <c>PlaneAligned</c>",
+	};
+	InputPins = {
+		"$6AD0A59F",
+	};
+	OutputPins = {
+		"$36207FBF",
+	};
+	ExportedName = "General.NormalAxis";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Direction;
+	CategoryName = {
+		"@eng:General",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "General.BillboardingMode";
+	RuleFunction = NotEqual;
+	RuleValue = "5";
+}
+CParticleNodePinIn	$6AD0A59F
+{
+	SelfName = "DefaultValue";
+	Owner = "$6AD0A593";
+}
+CParticleNodeTemplateExport	$125C39DB
+{
+	Description = {
+		"@eng:Specifies how the billboard geometry should be build & aligned.\\nUnless mentioned otherwise, the generated geometry will be a quad: 2 triangles, 4 vertices.\\n<ul>\\n<li><b>ScreenAligned</b>: Oriented to always face the camera screen plane</li>\\n<li><b>ViewposAligned</b>: Oriented to always face the camera position</li>\\n<li><b>AxisAligned</b>: Constrained along the <c>Axis</c> vector, tries facing the screen by rotating around the axis</li>\\n<li><b>AxisAlignedSpheroid</b>: Same as <c>AxisAligned</c>, but vertices will always enclose a spheroid, preventing the billboard from looking like a thin slice when looking along the direction of <c>Axis</c></li>\\n<li><b>AxisAlignedCapsule</b>: Similar to <c>AxisAlignedSpheroid</c>, but the geometry has 4 triangles and 6 vertices, resembling a stretched cylinder instead of a spheroid</li>\\n<li><b>PlaneAligned</b>: Constrained on two axes, does not depend on the camera, will appear as a 3D plane</li>\\n</ul>",
+	};
+	InputPins = {
+		"$125C39DF",
+	};
+	OutputPins = {
+		"$E54029EE",
+	};
+	ExportedName = "General.BillboardingMode";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"ScreenAligned",
+		"ViewposAligned",
+		"AxisAligned",
+		"AxisAlignedSpheroid",
+		"AxisAlignedCapsule",
+		"PlaneAligned",
+	};
+}
+CParticleNodePinIn	$125C39DF
+{
+	SelfName = "DefaultValue";
+	Owner = "$125C39DB";
+}
+CParticleRendererFeature	$B660FBF9
+{
+	FeatureName = "GeometryRibbon";
+	Properties = {
+		"$ECEE2C92",
+		"$C71A50C8",
+		"$4703F6C7",
+		"$6B1D589C",
+	};
+}
+CParticleNodeTemplateExport	$ECEE2C92
+{
+	InputPins = {
+		"$ECEE2C9F",
+	};
+	OutputPins = {
+		"$5209F849",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$ECEE2C9F
+{
+	SelfName = "DefaultValue";
+	Owner = "$ECEE2C92";
+}
+CParticleNodeTemplateExport	$C71A50C8
+{
+	InputPins = {
+		"$C71A50CF",
+	};
+	OutputPins = {
+		"$A913E2D6",
+	};
+	ExportedName = "General.Size";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(4.9999997e-02, 4.9999997e-02, 4.9999997e-02, 4.9999997e-02);
+}
+CParticleNodePinIn	$C71A50CF
+{
+	SelfName = "DefaultValue";
+	Owner = "$C71A50C8";
+}
+CParticleNodeTemplateExport	$4703F6C7
+{
+	InputPins = {
+		"$4703F6CF",
+	};
+	OutputPins = {
+		"$17E22F51",
+	};
+	ExportedName = "General.Axis";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Direction;
+	CategoryName = {
+		"@eng:General",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "General.BillboardingMode";
+	RuleFunction = Lower;
+	RuleValue = "1";
+}
+CParticleNodePinIn	$4703F6CF
+{
+	SelfName = "DefaultValue";
+	Owner = "$4703F6C7";
+}
+CParticleNodeTemplateExport	$6B1D589C
+{
+	InputPins = {
+		"$6B1D589F",
+	};
+	OutputPins = {
+		"$8EAEE7E8",
+	};
+	ExportedName = "General.BillboardingMode";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"ViewposAligned",
+		"NormalAxisAligned",
+		"SideAxisAligned",
+	};
+}
+CParticleNodePinIn	$6B1D589F
+{
+	SelfName = "DefaultValue";
+	Owner = "$6B1D589C";
+}
+CParticleRendererFeature	$42E16C02
+{
+	FeatureName = "GeometryMesh";
+	Properties = {
+		"$B6F5CC16",
+		"$49145BE4",
+		"$D4309EA4",
+		"$8B66367E",
+	};
+}
+CParticleNodeTemplateExport	$B6F5CC16
+{
+	Description = {
+		"@eng:Mesh position in world coordinates",
+	};
+	InputPins = {
+		"$B6F5CC1F",
+	};
+	OutputPins = {
+		"$125230CB",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$B6F5CC1F
+{
+	SelfName = "DefaultValue";
+	Owner = "$B6F5CC16";
+}
+CParticleNodeTemplateExport	$49145BE4
+{
+	Description = {
+		"@eng:Mesh scale",
+	};
+	InputPins = {
+		"$49145BEF",
+	};
+	OutputPins = {
+		"$F527E9EA",
+	};
+	ExportedName = "General.Scale";
+	ExportedType = float3;
+	Semantic = 3D_Scale;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Direction;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$49145BEF
+{
+	SelfName = "DefaultValue";
+	Owner = "$49145BE4";
+}
+CParticleNodeTemplateExport	$D4309EA4
+{
+	Description = {
+		"@eng:Mesh orientation",
+	};
+	InputPins = {
+		"$D4309EAF",
+	};
+	OutputPins = {
+		"$E7F879F5",
+	};
+	ExportedName = "General.Orientation";
+	ExportedType = orientation;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(0.0000000e+00, 0.0000000e+00, 0.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$D4309EAF
+{
+	SelfName = "DefaultValue";
+	Owner = "$D4309EA4";
+}
+CParticleNodeTemplateExport	$8B66367E
+{
+	Description = {
+		"@eng:Mesh resource",
+	};
+	InputPins = {
+		"$8B66367F",
+	};
+	OutputPins = {
+		"$C45BF55C",
+	};
+	ExportedName = "General.Mesh";
+	ExportedType = dataGeometry;
+	Type = Input;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$8B66367F
+{
+	SelfName = "DefaultValue";
+	Owner = "$8B66367E";
+}
+CParticleRendererFeature	$D734A95F
+{
+	FeatureName = "GeometryLight";
+	Properties = {
+		"$E2583104",
+	};
+}
+CParticleNodeTemplateExport	$E2583104
+{
+	Description = {
+		"@eng:Light position in world coordinates",
+	};
+	InputPins = {
+		"$E258310F",
+	};
+	OutputPins = {
+		"$22B8D14F",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$E258310F
+{
+	SelfName = "DefaultValue";
+	Owner = "$E2583104";
+}
+CParticleRendererFeature	$8F7A985A
+{
+	FeatureName = "GeometrySound";
+	Properties = {
+		"$203CAA66",
+	};
+}
+CParticleNodeTemplateExport	$203CAA66
+{
+	Description = {
+		"@eng:Sound source position in world coordinates",
+	};
+	InputPins = {
+		"$203CAA6F",
+	};
+	OutputPins = {
+		"$AAFF12BE",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$203CAA6F
+{
+	SelfName = "DefaultValue";
+	Owner = "$203CAA66";
+}
+CParticleRendererFeature	$0798FEE6
+{
+	FeatureName = "Transparent";
+	Feature = "$BE4E302C";
+	Properties = {
+		"$353B08E3",
+		"$9AA9404E",
+		"$E6F904E6",
+		"$20D13232",
+	};
+}
+CParticleNodeTemplateExport	$BE4E302C
+{
+	InputPins = {
+		"$BE4E302F",
+	};
+	OutputPins = {
+		"$1A488438",
+	};
+	ExportedName = "Transparent";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$BE4E302F
+{
+	SelfName = "DefaultValue";
+	Owner = "$BE4E302C";
+}
+CParticleNodeTemplateExport	$353B08E3
+{
+	Description = {
+		"@eng:Allows to specify a custom sorting key. By default sorts based on the distance to the camera.",
+	};
+	InputPins = {
+		"$353B08EF",
+	};
+	OutputPins = {
+		"$55F99FBA",
+	};
+	ExportedName = "Transparent.SortMode";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Transparent",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"CameraDistance",
+		"ByCustomValue",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "Transparent.Type";
+	RuleFunction = Lower;
+	RuleValue = "2";
+}
+CParticleNodePinIn	$353B08EF
+{
+	SelfName = "DefaultValue";
+	Owner = "$353B08E3";
+}
+CParticleNodeTemplateExport	$9AA9404E
+{
+	Description = {
+		"@eng:Value to be used for sorting when <c>SortMode</c> is set to <c>ByCustomValue</c>",
+	};
+	InputPins = {
+		"$9AA9404F",
+	};
+	OutputPins = {
+		"$C73E7C05",
+	};
+	ExportedName = "Transparent.SortKey";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Transparent",
+	};
+	PinRules = Rule1_OR_Rule2;
+	RuleResult = Hidden;
+	DependentProperty = "Transparent.SortMode";
+	DependentProperty2 = "Transparent.Type";
+	RuleFunction2 = Lower;
+	RuleValue2 = "2";
+}
+CParticleNodePinIn	$9AA9404F
+{
+	SelfName = "DefaultValue";
+	Owner = "$9AA9404E";
+}
+CParticleRendererFeature	$E749E042
+{
+	FeatureName = "Opaque";
+	Feature = "$0755FA7C";
+	Properties = {
+		"$6887733F",
+		"$41B5AFE7",
+		"$CE2F5487",
+		"$6C08EBFF",
+		"$168DB3A8",
+	};
+}
+CParticleNodeTemplateExport	$0755FA7C
+{
+	InputPins = {
+		"$0755FA7F",
+	};
+	OutputPins = {
+		"$ED0A18AC",
+	};
+	ExportedName = "Opaque";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$0755FA7F
+{
+	SelfName = "DefaultValue";
+	Owner = "$0755FA7C";
+}
+CParticleNodeTemplateExport	$6887733F
+{
+	Description = {
+		"@eng:Opaque mode\\n<ul>\\n<li><b>Solid</b>: Fully opaque, ignores the texture & color alpha channel</li>\\n<li><b>Masked</b>: When the final pixel\'s alpha value is lower than <c>MaskThreshold</c>, the pixel is not drawn</li>\\n<li><b>Dithered</b>: Dithering pattern applied based on pixel\'s alpha value</li>\\n</ul>",
+	};
+	InputPins = {
+		"$6887733A",
+	};
+	OutputPins = {
+		"$CF350EDF",
+	};
+	ExportedName = "Opaque.Type";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Opaque",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"Solid",
+		"Masked",
+		"Dithered",
+	};
+}
+CParticleNodePinIn	$6887733A
+{
+	SelfName = "DefaultValue";
+	Owner = "$6887733F";
+}
+CParticleRendererFeature	$1838F4AE
+{
+	FeatureName = "Diffuse";
+	Feature = "$3FB45D67";
+	Properties = {
+		"$E32FF502",
+		"$89BB54AC",
+	};
+}
+CParticleNodeTemplateExport	$3FB45D67
+{
+	InputPins = {
+		"$3FB45D6F",
+	};
+	OutputPins = {
+		"$1BDBE0E0",
+	};
+	ExportedName = "Diffuse";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$3FB45D6F
+{
+	SelfName = "DefaultValue";
+	Owner = "$3FB45D67";
+}
+CParticleNodeTemplateExport	$E32FF502
+{
+	Description = {
+		"@eng:Texture map used for the diffuse lighting component",
+	};
+	InputPins = {
+		"$E32FF50F",
+	};
+	OutputPins = {
+		"$84ADA123",
+	};
+	ExportedName = "Diffuse.DiffuseMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:Diffuse",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleNodePinIn	$E32FF50F
+{
+	SelfName = "DefaultValue";
+	Owner = "$E32FF502";
+}
+CParticleNodeTemplateExport	$89BB54AC
+{
+	Description = {
+		"@eng:Diffuse color, multiplied with the diffuse texture",
+	};
+	InputPins = {
+		"$89BB54AF",
+	};
+	OutputPins = {
+		"$946D7522",
+	};
+	ExportedName = "Diffuse.DiffuseColor";
+	ExportedType = float4;
+	Semantic = Color;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Diffuse",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$89BB54AF
+{
+	SelfName = "DefaultValue";
+	Owner = "$89BB54AC";
+}
+CParticleRendererFeature	$E191BFCB
+{
+	FeatureName = "SoftParticles";
+	Feature = "$82F1B3B1";
+	Properties = {
+		"$3F05660E",
+	};
+}
+CParticleNodeTemplateExport	$82F1B3B1
+{
+	InputPins = {
+		"$82F1B3BF",
+	};
+	OutputPins = {
+		"$C072C98D",
+	};
+	ExportedName = "SoftParticles";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$82F1B3BF
+{
+	SelfName = "DefaultValue";
+	Owner = "$82F1B3B1";
+}
+CParticleNodeTemplateExport	$3F05660E
+{
+	Description = {
+		"@eng:Fade distance of particles in world units",
+	};
+	InputPins = {
+		"$3F05660F",
+	};
+	OutputPins = {
+		"$F8EE30D4",
+	};
+	ExportedName = "SoftParticles.SoftnessDistance";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:SoftParticles",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$3F05660F
+{
+	SelfName = "DefaultValue";
+	Owner = "$3F05660E";
+}
+CParticleRendererFeature	$41EED1A4
+{
+	FeatureName = "Distortion";
+	Feature = "$9E526218";
+	Properties = {
+		"$0E4E8810",
+		"$BDABEA0C",
+	};
+}
+CParticleNodeTemplateExport	$9E526218
+{
+	InputPins = {
+		"$9E52621F",
+	};
+	OutputPins = {
+		"$4092CA15",
+	};
+	ExportedName = "Distortion";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$9E52621F
+{
+	SelfName = "DefaultValue";
+	Owner = "$9E526218";
+}
+CParticleNodeTemplateExport	$0E4E8810
+{
+	Description = {
+		"@eng:Distortion texture map:\\n<ul>\\n<li><b>RG</b>: 2D screenspace distortion vector for the side & up screen axes. The zero vector is <c>{0.5, 0.5}</c>, like a normalmap</li>\\n<li><b>B</b>: Blur factor (not all integrations support this)</li>\\n<li><b>A</b>: Unused</li>\\n</ul>\\n",
+	};
+	InputPins = {
+		"$0E4E881F",
+	};
+	OutputPins = {
+		"$727E77FC",
+	};
+	ExportedName = "Distortion.DistortionMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:Distortion",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/Distort.dds";
+}
+CParticleNodePinIn	$0E4E881F
+{
+	SelfName = "DefaultValue";
+	Owner = "$0E4E8810";
+}
+CParticleNodeTemplateExport	$BDABEA0C
+{
+	Description = {
+		"@eng:Distortion coefficient. It gets multiplied with the distortion texture to get the final distortion vectors.",
+	};
+	InputPins = {
+		"$BDABEA0F",
+	};
+	OutputPins = {
+		"$2496386F",
+	};
+	ExportedName = "Distortion.DistortionColor";
+	ExportedType = float4;
+	Semantic = Color;
+	Type = Input;
+	CategoryName = {
+		"@eng:Distortion",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$BDABEA0F
+{
+	SelfName = "DefaultValue";
+	Owner = "$BDABEA0C";
+}
+CParticleRendererFeature	$62BCE275
+{
+	FeatureName = "CorrectDeformation";
+	Feature = "$7CB97F8A";
+}
+CParticleNodeTemplateExport	$7CB97F8A
+{
+	InputPins = {
+		"$7CB97F8F",
+	};
+	OutputPins = {
+		"$F686F85E",
+	};
+	ExportedName = "CorrectDeformation";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$7CB97F8F
+{
+	SelfName = "DefaultValue";
+	Owner = "$7CB97F8A";
+}
+CParticleRendererFeature	$0CD860BD
+{
+	FeatureName = "AlphaRemap";
+	Feature = "$FF1A9FA2";
+	Properties = {
+		"$371F2116",
+		"$C861FC98",
+	};
+}
+CParticleNodeTemplateExport	$FF1A9FA2
+{
+	InputPins = {
+		"$FF1A9FAF",
+	};
+	OutputPins = {
+		"$0208AF79",
+	};
+	ExportedName = "AlphaRemap";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$FF1A9FAF
+{
+	SelfName = "DefaultValue";
+	Owner = "$FF1A9FA2";
+}
+CParticleNodeTemplateExport	$371F2116
+{
+	Description = {
+		"@eng:Texture map used as the alpha remap lookup.\\nThe <c>X</c> lookup coordinate is the diffuse texture alpha.\\nThe <c>Y</c> lookup coordinate is the <c>AlphaRemapCursor</c> value.",
+	};
+	InputPins = {
+		"$371F211F",
+	};
+	OutputPins = {
+		"$9AA1D730",
+	};
+	ExportedName = "AlphaRemap.AlphaMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:AlphaRemap",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/Default_AlphaMap.dds";
+}
+CParticleNodePinIn	$371F211F
+{
+	SelfName = "DefaultValue";
+	Owner = "$371F2116";
+}
+CParticleNodeTemplateExport	$C861FC98
+{
+	Description = {
+		"@eng:<c>Y</c> coordinate used to sample the <c>AlphaMap</c> texture.",
+	};
+	InputPins = {
+		"$C861FC9F",
+	};
+	OutputPins = {
+		"$6964ADB3",
+	};
+	ExportedName = "AlphaRemap.AlphaRemapCursor";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:AlphaRemap",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$C861FC9F
+{
+	SelfName = "DefaultValue";
+	Owner = "$C861FC98";
+}
+CParticleRendererFeature	$DADBF2F1
+{
+	FeatureName = "Atlas";
+	Feature = "$E22E94DB";
+	Properties = {
+		"$2D8A7741",
+		"$2E215ABC",
+		"$F580CA43",
+		"$63EBE82E",
+		"$BEDF8936",
+		"$D6DEA348",
+		"$2D0B2651",
+	};
+}
+CParticleNodeTemplateExport	$E22E94DB
+{
+	InputPins = {
+		"$E22E94DF",
+	};
+	OutputPins = {
+		"$100434F2",
+	};
+	ExportedName = "Atlas";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$E22E94DF
+{
+	SelfName = "DefaultValue";
+	Owner = "$E22E94DB";
+}
+CParticleNodeTemplateExport	$2D8A7741
+{
+	Description = {
+		"@eng:Atlas source type\\n<ul>\\n<li><b>External</b>: Use a .pkat file to specify the corners of each atlas sub-rectangle in UV space</li>\\n<li><b>Procedural</b>: Specify the number of tiles along the U and V axes</li>\\n</ul>\\n",
+	};
+	InputPins = {
+		"$2D8A774F",
+	};
+	OutputPins = {
+		"$41FD9D9D",
+	};
+	ExportedName = "Atlas.Source";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"External",
+		"Procedural",
+	};
+	DefaultValueI4 = int4(1, 0, 0, 0);
+}
+CParticleNodePinIn	$2D8A774F
+{
+	SelfName = "DefaultValue";
+	Owner = "$2D8A7741";
+}
+CParticleNodeTemplateExport	$2E215ABC
+{
+	Description = {
+		"@eng:Atlas definition (.pkat)",
+	};
+	InputPins = {
+		"$2E215ABF",
+	};
+	OutputPins = {
+		"$45F88E24",
+	};
+	ExportedName = "Atlas.Definition";
+	ExportedType = dataImageAtlas;
+	Type = Input;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "Atlas.Source";
+	RuleFunction = NotEqual;
+}
+CParticleNodePinIn	$2E215ABF
+{
+	SelfName = "DefaultValue";
+	Owner = "$2E215ABC";
+}
+CParticleNodeTemplateExport	$F580CA43
+{
+	Description = {
+		"@eng:Subdivision count on the U and V axes",
+	};
+	InputPins = {
+		"$F580CA4F",
+	};
+	OutputPins = {
+		"$81F975B7",
+	};
+	ExportedName = "Atlas.SubDiv";
+	ExportedType = int2;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	DefaultValueI4 = int4(1, 1, 1, 1);
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "Atlas.Source";
+	RuleFunction = NotEqual;
+	RuleValue = "1";
+}
+CParticleNodePinIn	$F580CA4F
+{
+	SelfName = "DefaultValue";
+	Owner = "$F580CA43";
+}
+CParticleNodeTemplateExport	$63EBE82E
+{
+	Description = {
+		"@eng:Frame blending type\\n<ul>\\n<li><b>None</b>: No interpolation between frames</li>\\n<li><b>Linear</b>: Linear blending</li>\\n<li><b>MotionVectors</b>: Use the <c>MotionVectorsMap</c> texture as the interpolation vectors to blend between frames</li>\\n</ul>",
+	};
+	InputPins = {
+		"$63EBE82F",
+	};
+	OutputPins = {
+		"$3E88DB46",
+	};
+	ExportedName = "Atlas.Blending";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"None",
+		"Linear",
+		"Motion vectors (optical flow)",
+	};
+}
+CParticleNodePinIn	$63EBE82F
+{
+	SelfName = "DefaultValue";
+	Owner = "$63EBE82E";
+}
+CParticleNodeTemplateExport	$2D0B2651
+{
+	Description = {
+		"@eng:Index of the sub-rect to use inside the atlas",
+	};
+	InputPins = {
+		"$2D0B265F",
+	};
+	OutputPins = {
+		"$113E6425",
+	};
+	ExportedName = "Atlas.TextureID";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+}
+CParticleNodePinIn	$2D0B265F
+{
+	SelfName = "DefaultValue";
+	Owner = "$2D0B2651";
+}
+CParticleRendererFeature	$A9934228
+{
+	FeatureName = "Light";
+	Feature = "$D10978FE";
+	Properties = {
+		"$1795DE47",
+		"$D65CBB1F",
+	};
+}
+CParticleNodeTemplateExport	$D10978FE
+{
+	InputPins = {
+		"$D10978FF",
+	};
+	OutputPins = {
+		"$C736134C",
+	};
+	ExportedName = "Light";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D10978FF
+{
+	SelfName = "DefaultValue";
+	Owner = "$D10978FE";
+}
+CParticleNodeTemplateExport	$1795DE47
+{
+	Description = {
+		"@eng:Light color",
+	};
+	InputPins = {
+		"$1795DE4F",
+	};
+	OutputPins = {
+		"$189D4DFF",
+	};
+	ExportedName = "Light.Color";
+	ExportedType = float4;
+	Semantic = Color;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Light",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$1795DE4F
+{
+	SelfName = "DefaultValue";
+	Owner = "$1795DE47";
+}
+CParticleRendererFeature	$A2277B6B
+{
+	FeatureName = "LightAttenuation";
+	Feature = "$C62A1F73";
+	Properties = {
+		"$1EADE0D1",
+		"$761783D3",
+	};
+}
+CParticleNodeTemplateExport	$C62A1F73
+{
+	InputPins = {
+		"$C62A1F7F",
+	};
+	OutputPins = {
+		"$8139F52E",
+	};
+	ExportedName = "LightAttenuation";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$C62A1F7F
+{
+	SelfName = "DefaultValue";
+	Owner = "$C62A1F73";
+}
+CParticleNodeTemplateExport	$1EADE0D1
+{
+	Description = {
+		"@eng:Controls how fast the light intensity falls off from the center of the light",
+	};
+	InputPins = {
+		"$1EADE0DF",
+	};
+	OutputPins = {
+		"$0F960489",
+	};
+	ExportedName = "LightAttenuation.AttenuationSteepness";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:LightAttenuation",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(5.0000000e-01, 5.0000000e-01, 5.0000000e-01, 5.0000000e-01);
+	MaxValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$1EADE0DF
+{
+	SelfName = "DefaultValue";
+	Owner = "$1EADE0D1";
+}
+CParticleNodeTemplateExport	$761783D3
+{
+	Description = {
+		"@eng:Radius of the light sphere, in world units. Light intensity falls down to zero on the sphere edge, <c>Radius</c> units away from the light <c>Position</c>",
+	};
+	InputPins = {
+		"$761783DF",
+	};
+	OutputPins = {
+		"$17B04980",
+	};
+	ExportedName = "LightAttenuation.Range";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:LightAttenuation",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$761783DF
+{
+	SelfName = "DefaultValue";
+	Owner = "$761783D3";
+}
+CParticleRendererFeature	$EABBAE94
+{
+	FeatureName = "Sound";
+	Feature = "$7CFB103C";
+	Properties = {
+		"$6818E968",
+		"$725E6552",
+	};
+}
+CParticleNodeTemplateExport	$7CFB103C
+{
+	InputPins = {
+		"$7CFB103F",
+	};
+	OutputPins = {
+		"$C0CC90C2",
+	};
+	ExportedName = "Sound";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$7CFB103F
+{
+	SelfName = "DefaultValue";
+	Owner = "$7CFB103C";
+}
+CParticleNodeTemplateExport	$6818E968
+{
+	Description = {
+		"@eng:Path to the sound to be played",
+	};
+	InputPins = {
+		"$6818E96F",
+	};
+	OutputPins = {
+		"$8D8C3DAD",
+	};
+	ExportedName = "Sound.SoundData";
+	ExportedType = dataAudio;
+	Type = Input;
+	Order = 9;
+	CategoryName = {
+		"@eng:Sound",
+	};
+}
+CParticleNodePinIn	$6818E96F
+{
+	SelfName = "DefaultValue";
+	Owner = "$6818E968";
+}
+CParticleNodeTemplateExport	$725E6552
+{
+	Description = {
+		"@eng:Sound playback volume coefficient",
+	};
+	InputPins = {
+		"$725E655F",
+	};
+	OutputPins = {
+		"$BC2CA774",
+	};
+	ExportedName = "Sound.Volume";
+	ExportedType = float;
+	Type = Input;
+	Order = 10;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Sound",
+	};
+	DefaultValueF4 = float4(5.0000000e-01, 5.0000000e-01, 5.0000000e-01, 5.0000000e-01);
+}
+CParticleNodePinIn	$725E655F
+{
+	SelfName = "DefaultValue";
+	Owner = "$725E6552";
+}
+CParticleRendererFeature	$0E3ACA6C
+{
+	FeatureName = "SoundAttenuation";
+	Feature = "$86A6D721";
+	Properties = {
+		"$C0425F45",
+		"$F158603E",
+	};
+}
+CParticleNodeTemplateExport	$86A6D721
+{
+	InputPins = {
+		"$86A6D72F",
+	};
+	OutputPins = {
+		"$A4D7E147",
+	};
+	ExportedName = "SoundAttenuation";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$86A6D72F
+{
+	SelfName = "DefaultValue";
+	Owner = "$86A6D721";
+}
+CParticleNodeTemplateExport	$C0425F45
+{
+	Description = {
+		"@eng:Controls how fast the sound intensity falls off from the source",
+	};
+	InputPins = {
+		"$C0425F4F",
+	};
+	OutputPins = {
+		"$089AE616",
+	};
+	ExportedName = "SoundAttenuation.AttenuationModel";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:SoundAttenuation",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"Linear",
+		"InverseLinear",
+	};
+}
+CParticleNodePinIn	$C0425F4F
+{
+	SelfName = "DefaultValue";
+	Owner = "$C0425F45";
+}
+CParticleNodeTemplateExport	$F158603E
+{
+	Description = {
+		"@eng:Radius of the sound sphere, in world units. Sound volume falls down to zero on the sphere edge, <c>Radius</c> units away from the sound <c>Position</c>",
+	};
+	InputPins = {
+		"$F158603F",
+	};
+	OutputPins = {
+		"$C4E7D391",
+	};
+	ExportedName = "SoundAttenuation.Range";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:SoundAttenuation",
+	};
+	DefaultValueF4 = float4(1.0000000e+03, 1.0000000e+03, 1.0000000e+03, 1.0000000e+03);
+}
+CParticleNodePinIn	$F158603F
+{
+	SelfName = "DefaultValue";
+	Owner = "$F158603E";
+}
+CParticleRendererFeature	$61D82A82
+{
+	FeatureName = "Doppler";
+	Feature = "$D1AFAA07";
+	Properties = {
+		"$DE4AF925",
+		"$8F92C16F",
+	};
+}
+CParticleNodeTemplateExport	$D1AFAA07
+{
+	InputPins = {
+		"$D1AFAA0F",
+	};
+	OutputPins = {
+		"$EED74128",
+	};
+	ExportedName = "Doppler";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D1AFAA0F
+{
+	SelfName = "DefaultValue";
+	Owner = "$D1AFAA07";
+}
+CParticleNodeTemplateExport	$DE4AF925
+{
+	Description = {
+		"@eng:Controls the strength of the doppler effect",
+	};
+	InputPins = {
+		"$DE4AF92F",
+	};
+	OutputPins = {
+		"$EF48E30B",
+	};
+	ExportedName = "Doppler.DopplerFactor";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Doppler",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$DE4AF92F
+{
+	SelfName = "DefaultValue";
+	Owner = "$DE4AF925";
+}
+CParticleNodeTemplateExport	$8F92C16F
+{
+	Description = {
+		"@eng:Sound source velocity vector in worldspace",
+	};
+	InputPins = {
+		"$8F92C16A",
+	};
+	OutputPins = {
+		"$126F692A",
+	};
+	ExportedName = "Doppler.Velocity";
+	ExportedType = float3;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:Doppler",
+	};
+}
+CParticleNodePinIn	$8F92C16A
+{
+	SelfName = "DefaultValue";
+	Owner = "$8F92C16F";
+}
+CParticleRendererFeature	$D481D29F
+{
+	FeatureName = "CustomTextureU";
+	Feature = "$AF3DCC22";
+	Properties = {
+		"$704F64D6",
+	};
+}
+CParticleNodeTemplateExport	$AF3DCC22
+{
+	InputPins = {
+		"$AF3DCC2F",
+	};
+	OutputPins = {
+		"$994A4A35",
+	};
+	ExportedName = "CustomTextureU";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$AF3DCC2F
+{
+	SelfName = "DefaultValue";
+	Owner = "$AF3DCC22";
+}
+CParticleNodeTemplateExport	$704F64D6
+{
+	Description = {
+		"@eng:<c>U</c> texture coordinate of the ribbon particle.\\n\\nUsually set to <c>self.lifeRatio</c>\\n",
+	};
+	InputPins = {
+		"$704F64DF",
+	};
+	OutputPins = {
+		"$576DEA9C",
+	};
+	ExportedName = "CustomTextureU.TextureU";
+	ExportedType = float;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:CustomTextureU",
+	};
+}
+CParticleNodePinIn	$704F64DF
+{
+	SelfName = "DefaultValue";
+	Owner = "$704F64D6";
+}
+CParticleRendererFeature	$4B99796F
+{
+	FeatureName = "BasicTransformUVs";
+	Feature = "$37DC024B";
+	Properties = {
+		"$88F8E019",
+		"$C43F52A5",
+		"$0FB78BF6",
+	};
+}
+CParticleNodeTemplateExport	$37DC024B
+{
+	InputPins = {
+		"$37DC024F",
+	};
+	OutputPins = {
+		"$3DCB4F8F",
+	};
+	ExportedName = "BasicTransformUVs";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$37DC024F
+{
+	SelfName = "DefaultValue";
+	Owner = "$37DC024B";
+}
+CParticleNodeTemplateExport	$C43F52A5
+{
+	Description = {
+		"@eng:Flips the texture UVs horizontally",
+	};
+	InputPins = {
+		"$C43F52AF",
+	};
+	OutputPins = {
+		"$EB684DFE",
+	};
+	ExportedName = "BasicTransformUVs.FlipU";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:BasicTransformUVs",
+	};
+}
+CParticleNodePinIn	$C43F52AF
+{
+	SelfName = "DefaultValue";
+	Owner = "$C43F52A5";
+}
+CParticleNodeTemplateExport	$0FB78BF6
+{
+	Description = {
+		"@eng:Flips the texture UVs vertically",
+	};
+	InputPins = {
+		"$0FB78BFF",
+	};
+	OutputPins = {
+		"$1653E599",
+	};
+	ExportedName = "BasicTransformUVs.FlipV";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:BasicTransformUVs",
+	};
+}
+CParticleNodePinIn	$0FB78BFF
+{
+	SelfName = "DefaultValue";
+	Owner = "$0FB78BF6";
+}
+CParticleNodeTemplateExport	$88F8E019
+{
+	Description = {
+		"@eng:Rotates texcoords 90 degrees clockwise (<c>TextureU</c>, <c>FlipU</c>, and <c>FlipV</c> are rotated too)",
+	};
+	InputPins = {
+		"$88F8E01F",
+	};
+	OutputPins = {
+		"$923437D0",
+	};
+	ExportedName = "BasicTransformUVs.RotateUV";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:BasicTransformUVs",
+	};
+}
+CParticleNodePinIn	$88F8E01F
+{
+	SelfName = "DefaultValue";
+	Owner = "$88F8E019";
+}
+CParticleRendererFeature	$E7A7BE8E
+{
+	FeatureName = "TextureRepeat";
+	Feature = "$FC4DE60A";
+}
+CParticleNodeTemplateExport	$FC4DE60A
+{
+	InputPins = {
+		"$FC4DE60F",
+	};
+	OutputPins = {
+		"$EA4B8892",
+	};
+	ExportedName = "TextureRepeat";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$FC4DE60F
+{
+	SelfName = "DefaultValue";
+	Owner = "$FC4DE60A";
+}
+CParticleRendererFeature	$123456AC
+{
+	FeatureName = "Lit";
+	Feature = "$FAFAFAB0";
+	Properties = {
+		"$6CCCA72B",
+		"$C7760457",
+		"$C7760456",
+		"$43290D5D",
+		"$5928161E",
+		"$E31D7A62",
+	};
+}
+CParticleNodeTemplateExport	$FAFAFAB0
+{
+	InputPins = {
+		"$862FBE70",
+	};
+	OutputPins = {
+		"$53613D1F",
+	};
+	ExportedName = "Lit";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$862FBE70
+{
+	SelfName = "DefaultValue";
+	Owner = "$FAFAFAB0";
+}
+CParticleNodeTemplateExport	$6CCCA72B
+{
+	Description = {
+		"@eng:Texture map representing tangent-space normals to be used for lighting",
+	};
+	InputPins = {
+		"$6CCCA72E",
+	};
+	OutputPins = {
+		"$54E702CE",
+	};
+	ExportedName = "Lit.NormalMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/NMap_Flat.dds";
+}
+CParticleNodePinIn	$6CCCA72E
+{
+	SelfName = "DefaultValue";
+	Owner = "$6CCCA72B";
+}
+CParticleNodeTemplateExport	$C7760456
+{
+	Description = {
+		"@eng:Material metalness (PBR). A metalness of <c>0.0</c> represents a pure nonmetal, a metalness of <c>1.0</c> represents a pure metal.\\n\\nAffects the color of the reflections.",
+	};
+	InputPins = {
+		"$FF012345",
+	};
+	OutputPins = {
+		"$EFC61C62",
+	};
+	ExportedName = "Lit.Metalness";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$FF012345
+{
+	SelfName = "DefaultValue";
+	Owner = "$C7760456";
+}
+CParticleNodeTemplateExport	$C7760457
+{
+	Description = {
+		"@eng:Material roughness (PBR). A roughness of <c>0.0</c> represents a mirror, a roughness of <c>1.0</c> represents a purely diffuse surface.",
+	};
+	InputPins = {
+		"$FF012346",
+	};
+	OutputPins = {
+		"$ADC6DB63",
+	};
+	ExportedName = "Lit.Roughness";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(1.0000000e+00, 5.0000000e-01, 5.0000000e-01, 5.0000000e-01);
+	MinValueF4 = float4(0.0000000e+00, 4.9999997e-02, 4.9999997e-02, 4.9999997e-02);
+	MaxValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$FF012346
+{
+	SelfName = "DefaultValue";
+	Owner = "$C7760457";
+}
+CParticleNodeTemplateExport	$43290D5D
+{
+	Description = {
+		"@eng:Roughness (R) and Metalness (G) packed in an RGBA texture",
+	};
+	InputPins = {
+		"$43290FFF",
+	};
+	OutputPins = {
+		"$9B18E1CD",
+	};
+	ExportedName = "Lit.RoughMetalMap";
+	ExportedType = dataImage;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleNodePinIn	$43290FFF
+{
+	SelfName = "DefaultValue";
+	Owner = "$43290D5D";
+}
+CParticleRendererFeature	$D834E0C1
+{
+	FeatureName = "LightTranslucent";
+	Feature = "$D4A7787E";
+}
+CParticleNodeTemplateExport	$D4A7787E
+{
+	InputPins = {
+		"$D4A7787F",
+	};
+	OutputPins = {
+		"$D98FE643",
+	};
+	ExportedName = "LightTranslucent";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D4A7787F
+{
+	SelfName = "DefaultValue";
+	Owner = "$D4A7787E";
+}
+CParticleRendererFeature	$D857A09F
+{
+	FeatureName = "NormalWrap";
+	Feature = "$35A36C4E";
+	Properties = {
+		"$EAC726E3",
+	};
+}
+CParticleNodeTemplateExport	$35A36C4E
+{
+	InputPins = {
+		"$4B933A29",
+	};
+	OutputPins = {
+		"$32460E14",
+	};
+	ExportedName = "NormalWrap";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$4B933A29
+{
+	SelfName = "DefaultValue";
+	Owner = "$35A36C4E";
+}
+CParticleNodeTemplateExport	$EAC726E3
+{
+	Description = {
+		"@eng:Fake sub-surface scattering on the particles by remapping the <c>N.L</c> in the lighting equation",
+	};
+	InputPins = {
+		"$14C3FC67",
+	};
+	OutputPins = {
+		"$633D8FB6",
+	};
+	ExportedName = "NormalWrap.WrapFactor";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:NormalWrap",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(1.0000000e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CRHIRenderingSettings	$6DF50834
+{
+	RenderingFeatures = {
+		"$EA67A6E3",
+		"$3B49B5AD",
+		"$5DB3D227",
+		"$18A9F8AD",
+		"$85A347AD",
+		"$43951B1E",
+		"$8BECA4C6",
+		"$C9C644C8",
+		"$7FCFBFA6",
+		"$0B924B6C",
+		"$255BA3AA",
+		"$255BA3AB",
+		"$255BA3AC",
+		"$255BA3AD",
+		"$00269EC3",
+		"$69D57342",
+		"$F57D922D",
+		"$AA1655F4",
+		"$AB93F1C7",
+		"$CF880096",
+		"$B34D67A8",
+		"$28CECB8B",
+		"$347F3BAA",
+		"$0A554EB5",
+		"$029B091C",
+		"$F551587E",
+		"$200E5E3D",
+		"$22142957",
+		"$1DB9C766",
+		"$FDD3ABF7",
+		"$1749C465",
+		"$05539FDC",
+		"$AF299513",
+		"$FB490026",
+		"$81E53C85",
+		"$16512360",
+		"$DD26542E",
+		"$A2DFDBD4",
+	};
+}
+CRHIRenderingFeature	$EA67A6E3
+{
+	FeatureName = "Lit";
+	UseUV = true;
+	UseNormal = true;
+	UseTangent = true;
+	UseSceneLightingInfo = true;
+	PropertiesAsShaderConstants = {
+		"RoughMetalMap",
+		"NormalMap",
+		"LitMaskMap",
+		"Metalness",
+		"Roughness",
+		"Type",
+	};
+	TexturesUsedAsLookUp = {
+		"RoughMetalMap",
+		"NormalMap",
+	};
+}
+CRHIRenderingFeature	$3B49B5AD
+{
+	FeatureName = "NormalWrap";
+	PropertiesAsShaderConstants = {
+		"WrapFactor",
+	};
+}
+CRHIRenderingFeature	$5DB3D227
+{
+	FeatureName = "Opaque";
+	UseUV = true;
+	UseNormal = true;
+	UseTangent = true;
+	PropertiesAsShaderConstants = {
+		"Type",
+		"MaskThreshold",
+		"DitheringMode",
+	};
+}
+CRHIRenderingFeature	$18A9F8AD
+{
+	FeatureName = "Diffuse";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"DiffuseMap",
+	};
+}
+CRHIRenderingFeature	$85A347AD
+{
+	FeatureName = "Atlas";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"Blending",
+		"MotionVectorsMap",
+		"DistortionStrength",
+		"SubDiv",
+	};
+}
+CRHIRenderingFeature	$43951B1E
+{
+	FeatureName = "SoftParticles";
+	SampleDepth = true;
+	PropertiesAsShaderConstants = {
+		"SoftnessDistance",
+	};
+}
+CRHIRenderingFeature	$8BECA4C6
+{
+	FeatureName = "Distortion";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"DistortionMap",
+	};
+	TexturesUsedAsLookUp = {
+		"DistortionMap",
+	};
+}
+CRHIRenderingFeature	$C9C644C8
+{
+	FeatureName = "AlphaRemap";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"AlphaMap",
+	};
+	TexturesUsedAsLookUp = {
+		"AlphaMap",
+	};
+}
+CRHIRenderingFeature	$7FCFBFA6
+{
+	FeatureName = "BasicTransformUVs";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"RotateUV",
+	};
+}
+CRHIRenderingFeature	$0B924B6C
+{
+	FeatureName = "Light";
+	SampleDepth = true;
+	SampleNormalRoughMetal = true;
+	SampleDiffuse = true;
+}
+CRHIRenderingFeature	$255BA3AA
+{
+	FeatureName = "LightAttenuation";
+	PropertiesAsShaderConstants = {
+		"AttenuationSteepness",
+	};
+}
+CRHIRenderingFeature	$EBBBBB52
+{
+	FeatureName = "SphereLight";
+	PropertiesAsShaderConstants = {
+		"SphereRadius",
+	};
+}
+CRHIRenderingFeature	$255BA3AB
+{
+	FeatureName = "DiffuseRamp";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"RampMap",
+	};
+}
+CRHIRenderingFeature	$255BA3AC
+{
+	FeatureName = "Emissive";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"Color",
+		"EmissiveMap",
+	};
+}
+CRHIRenderingFeature	$255BA3AD
+{
+	FeatureName = "EmissiveRamp";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"RampMap",
+	};
+}
+CParticleRendererFeature	$9154DFA0
+{
+	FeatureName = "MeshAtlas";
+	Feature = "$4ADE8DE2";
+	Properties = {
+		"$2909A531",
+	};
+}
+CParticleNodeTemplateExport	$4ADE8DE2
+{
+	InputPins = {
+		"$D279714D",
+	};
+	OutputPins = {
+		"$5F621394",
+	};
+	ExportedName = "MeshAtlas";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D279714D
+{
+	SelfName = "DefaultValue";
+	Owner = "$4ADE8DE2";
+}
+CParticleNodePinOut	$5F621394
+{
+	SelfName = "Value";
+	Owner = "$4ADE8DE2";
+}
+CParticleNodeTemplateExport	$2909A531
+{
+	Description = {
+		"@eng:Index of the sub-mesh to draw when the mesh resource contains multiple sub-meshes.",
+	};
+	InputPins = {
+		"$AAA4EDB1",
+	};
+	OutputPins = {
+		"$0E0F55C8",
+	};
+	ExportedName = "General.MeshID";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+}
+CParticleNodeTemplateExport	$41B5AFE7
+{
+	Description = {
+		"@eng:Opacity mask threshold value.\\nIf the alpha value is below this value, the pixel is discarded.",
+	};
+	InputPins = {
+		"$773A578E",
+	};
+	OutputPins = {
+		"$4272E669",
+	};
+	ExportedName = "Opaque.MaskThreshold";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Opaque",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(6.9999999e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "Opaque.Type";
+	RuleValue = "1";
+}
+CParticleNodeTemplateExport	$41E5AFE7
+{
+	Description = {
+		"@eng:When enabled, the billboard size is specified as a <c>float2</c> value, through the <c>Size2</c> property, instead of the <c>Size</c> property.",
+	};
+	InputPins = {
+		"$78A74806",
+	};
+	OutputPins = {
+		"$AF09E441",
+	};
+	ExportedName = "General.EnableSize2D";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodeTemplateExport	$BEEF8936
+{
+	Description = {
+		"@eng:2D side/up radius of the billboard in world units.\\nOnly available when <c>EnableSize2D</c> is enabled.",
+	};
+	InputPins = {
+		"$B4F3323B",
+	};
+	OutputPins = {
+		"$1EA3501A",
+	};
+	ExportedName = "General.Size2";
+	ExportedType = float2;
+	Type = Input;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(5.0000001e-02, 5.0000001e-02, 0.0000000e+00, 0.0000000e+00);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "General.EnableSize2D";
+	RuleFunction = NotEqual;
+}
+CParticleNodePinOut	$F1356840
+{
+	SelfName = "Value";
+}
+CParticleNodePinOut	$D0980C03
+{
+	SelfName = "Value";
+}
+CParticleNodePinOut	$ED80C982
+{
+	SelfName = "Value";
+}
+CParticleNodePinOut	$0384856D
+{
+	SelfName = "Value";
+}
+CParticleNodePinOut	$96A2AA34
+{
+	SelfName = "Value";
+}
+CParticleNodePinOut	$D970BB07
+{
+	SelfName = "Value";
+}
+CParticleRendererFeature	$52697627
+{
+	FeatureName = "DiffuseRamp";
+	Feature = "$256FAC76";
+	Properties = {
+		"$CB2631EB",
+	};
+}
+CParticleNodeTemplateExport	$256FAC76
+{
+	InputPins = {
+		"$173EE971",
+	};
+	OutputPins = {
+		"$122F1C88",
+	};
+	ExportedName = "DiffuseRamp";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$173EE971
+{
+	SelfName = "DefaultValue";
+	Owner = "$256FAC76";
+}
+CParticleNodePinOut	$122F1C88
+{
+	SelfName = "Value";
+	Owner = "$256FAC76";
+}
+CParticleNodeTemplateExport	$CB2631EB
+{
+	Description = {
+		"@eng:1D texture map used tor for diffuse color remap.\\nSampled with the <c>Red<c> channel of the <c>DiffuseMap</c> texture.",
+	};
+	InputPins = {
+		"$7042442B",
+	};
+	OutputPins = {
+		"$AEE5D0CA",
+	};
+	ExportedName = "DiffuseRamp.RampMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:DiffuseRamp",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleRendererFeature	$D6BEA348
+{
+	FeatureName = "Emissive";
+	Feature = "$5F44DAAB";
+	Properties = {
+		"$C01E68BC",
+		"$9D2B1A2F",
+	};
+}
+CParticleRendererFeature	$D6EEA348
+{
+	FeatureName = "EnableRendering";
+	Feature = "$5F44DFAB";
+	Properties = {
+		"$C01E62BC",
+	};
+}
+CParticleNodeTemplateExport	$5F44DAAB
+{
+	InputPins = {
+		"$D809D24A",
+	};
+	OutputPins = {
+		"$D03459D5",
+	};
+	ExportedName = "Emissive";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D809D24A
+{
+	SelfName = "DefaultValue";
+	Owner = "$5F44DAAB";
+}
+CParticleNodePinOut	$D03459D5
+{
+	SelfName = "Value";
+	Owner = "$5F44DAAB";
+}
+CParticleNodeTemplateExport	$5F44DFAB
+{
+	InputPins = {
+		"$D806D24A",
+	};
+	OutputPins = {
+		"$D03359D5",
+	};
+	ExportedName = "EnableRendering";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$D806D24A
+{
+	SelfName = "DefaultValue";
+	Owner = "$5F44DFAB";
+}
+CParticleNodePinOut	$D03359D5
+{
+	SelfName = "Value";
+	Owner = "$5F44DFAB";
+}
+CParticleNodeTemplateExport	$C01E68BC
+{
+	Description = {
+		"@eng:Texture map used for the emissive lighting component",
+	};
+	InputPins = {
+		"$DD66FA55",
+	};
+	OutputPins = {
+		"$9C124D3C",
+	};
+	ExportedName = "Emissive.EmissiveMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:Emissive",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleNodeTemplateExport	$9D2B1A2F
+{
+	Description = {
+		"@eng:Emissive color, multiplied with the emissive texture",
+	};
+	InputPins = {
+		"$D56016AF",
+	};
+	OutputPins = {
+		"$F94B139E",
+	};
+	ExportedName = "Emissive.EmissiveColor";
+	ExportedType = float3;
+	Semantic = Color;
+	Type = Input;
+	CategoryName = {
+		"@eng:Emissive",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleRendererFeature	$55289D1E
+{
+	FeatureName = "EmissiveRamp";
+	Feature = "$EC84D339";
+	Properties = {
+		"$89E0DDB2",
+	};
+}
+CParticleNodeTemplateExport	$EC84D339
+{
+	InputPins = {
+		"$2BBAE5F0",
+	};
+	OutputPins = {
+		"$14978373",
+	};
+	ExportedName = "EmissiveRamp";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$2BBAE5F0
+{
+	SelfName = "DefaultValue";
+	Owner = "$EC84D339";
+}
+CParticleNodePinOut	$14978373
+{
+	SelfName = "Value";
+	Owner = "$EC84D339";
+}
+CParticleNodeTemplateExport	$89E0DDB2
+{
+	Description = {
+		"@eng:1D texture map used tor for emissive color remap.\\nSampled with the <c>Red<c> channel of the <c>EmissiveMap</c> texture.",
+	};
+	InputPins = {
+		"$7E054BB9",
+	};
+	OutputPins = {
+		"$81108870",
+	};
+	ExportedName = "EmissiveRamp.RampMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:EmissiveRamp",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleNodeTemplateExport	$C01E62BC
+{
+	Description = {
+		"@eng:Controls if the renderer is enabled or disabled.\\nIf <c>true</c>, the particle will be drawn, if <c>false</c>, it won\'t.",
+	};
+	InputPins = {
+		"$AF0F155D",
+	};
+	OutputPins = {
+		"$DBE780E4",
+	};
+	ExportedName = "General.Enabled";
+	ExportedType = bool;
+	Semantic = Visibility;
+	Type = Input;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueB4 = bool4(true, false, false, false);
+}
+CRHIRenderingFeature	$00269EC3
+{
+	FeatureName = "GeometryBillboard";
+}
+CRHIRenderingFeature	$69D57342
+{
+	FeatureName = "GeometryRibbon";
+}
+CRHIRenderingFeature	$F57D922D
+{
+	FeatureName = "GeometryMesh";
+}
+CRHIRenderingFeature	$AA1655F4
+{
+	FeatureName = "GeometryLight";
+}
+CRHIRenderingFeature	$AB93F1C7
+{
+	FeatureName = "GeometrySound";
+}
+CRHIRenderingFeature	$CF880096
+{
+	FeatureName = "Transparent";
+}
+CRHIRenderingFeature	$B34D67A8
+{
+	FeatureName = "CorrectDeformation";
+}
+CRHIRenderingFeature	$28CECB8B
+{
+	FeatureName = "Sound";
+}
+CRHIRenderingFeature	$347F3BAA
+{
+	FeatureName = "SoundAttenuation";
+}
+CRHIRenderingFeature	$0A554EB5
+{
+	FeatureName = "Doppler";
+}
+CRHIRenderingFeature	$029B091C
+{
+	FeatureName = "CustomTextureU";
+}
+CRHIRenderingFeature	$F551587E
+{
+	FeatureName = "TextureRepeat";
+}
+CRHIRenderingFeature	$200E5E3D
+{
+	FeatureName = "LightTranslucent";
+}
+CRHIRenderingFeature	$22142957
+{
+	FeatureName = "MeshAtlas";
+}
+CRHIRenderingFeature	$1DB9C766
+{
+	FeatureName = "EnableRendering";
+}
+CParticleNodeTemplateExport	$BEDF8936
+{
+	Description = {
+		"@eng:Motion vectors texture, used to blend between frames when <c>Blending</c> is set to <c>MotionVectors</c>",
+	};
+	InputPins = {
+		"$8D355881",
+	};
+	OutputPins = {
+		"$CEEFB0D8",
+	};
+	ExportedName = "Atlas.MotionVectorsMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/Distort.dds";
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "Atlas.Blending";
+	RuleValue = "2";
+}
+CParticleNodeTemplateExport	$D6DEA348
+{
+	Description = {
+		"@eng:Multiplier over the uv distortion\\nDistortion strength to apply for Houdini exported maps is: <c>-(1.0 / FPS / ColRow)</c>.",
+	};
+	InputPins = {
+		"$77FD347B",
+	};
+	OutputPins = {
+		"$56D85F5A",
+	};
+	ExportedName = "Atlas.DistortionStrength";
+	ExportedType = float2;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Atlas",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "Atlas.Blending";
+	RuleValue = "2";
+}
+CParticleNodePinIn	$AF0F155D
+{
+	SelfName = "DefaultValue";
+	Owner = "$C01E62BC";
+}
+CParticleNodePinOut	$DBE780E4
+{
+	SelfName = "Value";
+	Owner = "$C01E62BC";
+}
+CParticleNodePinOut	$1A05FF77
+{
+	SelfName = "Value";
+	Owner = "$48E2E8B7";
+}
+CParticleNodePinIn	$78A74806
+{
+	SelfName = "DefaultValue";
+	Owner = "$41E5AFE7";
+}
+CParticleNodePinOut	$AF09E441
+{
+	SelfName = "Value";
+	Owner = "$41E5AFE7";
+}
+CParticleNodePinOut	$0C954798
+{
+	SelfName = "Value";
+	Owner = "$3B3DDE67";
+}
+CParticleNodePinIn	$B4F3323B
+{
+	SelfName = "DefaultValue";
+	Owner = "$BEEF8936";
+}
+CParticleNodePinOut	$1EA3501A
+{
+	SelfName = "Value";
+	Owner = "$BEEF8936";
+}
+CParticleNodePinOut	$7837C3E5
+{
+	SelfName = "Value";
+	Owner = "$F02495CD";
+}
+CParticleNodePinOut	$2FB70E0C
+{
+	SelfName = "Value";
+	Owner = "$CE8CC02E";
+}
+CParticleNodePinOut	$36207FBF
+{
+	SelfName = "Value";
+	Owner = "$6AD0A593";
+}
+CParticleNodePinOut	$E54029EE
+{
+	SelfName = "Value";
+	Owner = "$125C39DB";
+}
+CParticleNodePinOut	$5209F849
+{
+	SelfName = "Value";
+	Owner = "$ECEE2C92";
+}
+CParticleNodePinOut	$A913E2D6
+{
+	SelfName = "Value";
+	Owner = "$C71A50C8";
+}
+CParticleNodePinOut	$17E22F51
+{
+	SelfName = "Value";
+	Owner = "$4703F6C7";
+}
+CParticleNodePinOut	$8EAEE7E8
+{
+	SelfName = "Value";
+	Owner = "$6B1D589C";
+}
+CParticleNodePinOut	$125230CB
+{
+	SelfName = "Value";
+	Owner = "$B6F5CC16";
+}
+CParticleNodePinOut	$F527E9EA
+{
+	SelfName = "Value";
+	Owner = "$49145BE4";
+}
+CParticleNodePinOut	$E7F879F5
+{
+	SelfName = "Value";
+	Owner = "$D4309EA4";
+}
+CParticleNodePinOut	$C45BF55C
+{
+	SelfName = "Value";
+	Owner = "$8B66367E";
+}
+CParticleNodePinOut	$22B8D14F
+{
+	SelfName = "Value";
+	Owner = "$E2583104";
+}
+CParticleNodePinOut	$AAFF12BE
+{
+	SelfName = "Value";
+	Owner = "$203CAA66";
+}
+CParticleNodePinOut	$1A488438
+{
+	SelfName = "Value";
+	Owner = "$BE4E302C";
+}
+CParticleNodePinOut	$55F99FBA
+{
+	SelfName = "Value";
+	Owner = "$353B08E3";
+}
+CParticleNodePinOut	$C73E7C05
+{
+	SelfName = "Value";
+	Owner = "$9AA9404E";
+}
+CParticleNodePinOut	$ED0A18AC
+{
+	SelfName = "Value";
+	Owner = "$0755FA7C";
+}
+CParticleNodePinOut	$CF350EDF
+{
+	SelfName = "Value";
+	Owner = "$6887733F";
+}
+CParticleNodePinIn	$773A578E
+{
+	SelfName = "DefaultValue";
+	Owner = "$41B5AFE7";
+}
+CParticleNodePinOut	$4272E669
+{
+	SelfName = "Value";
+	Owner = "$41B5AFE7";
+}
+CParticleNodePinOut	$1BDBE0E0
+{
+	SelfName = "Value";
+	Owner = "$3FB45D67";
+}
+CParticleNodePinOut	$84ADA123
+{
+	SelfName = "Value";
+	Owner = "$E32FF502";
+}
+CParticleNodePinOut	$946D7522
+{
+	SelfName = "Value";
+	Owner = "$89BB54AC";
+}
+CParticleNodePinOut	$C072C98D
+{
+	SelfName = "Value";
+	Owner = "$82F1B3B1";
+}
+CParticleNodePinOut	$F8EE30D4
+{
+	SelfName = "Value";
+	Owner = "$3F05660E";
+}
+CParticleNodePinOut	$4092CA15
+{
+	SelfName = "Value";
+	Owner = "$9E526218";
+}
+CParticleNodePinOut	$727E77FC
+{
+	SelfName = "Value";
+	Owner = "$0E4E8810";
+}
+CParticleNodePinOut	$2496386F
+{
+	SelfName = "Value";
+	Owner = "$BDABEA0C";
+}
+CParticleNodePinOut	$F686F85E
+{
+	SelfName = "Value";
+	Owner = "$7CB97F8A";
+}
+CParticleNodePinOut	$0208AF79
+{
+	SelfName = "Value";
+	Owner = "$FF1A9FA2";
+}
+CParticleNodePinOut	$9AA1D730
+{
+	SelfName = "Value";
+	Owner = "$371F2116";
+}
+CParticleNodePinOut	$6964ADB3
+{
+	SelfName = "Value";
+	Owner = "$C861FC98";
+}
+CParticleNodePinOut	$100434F2
+{
+	SelfName = "Value";
+	Owner = "$E22E94DB";
+}
+CParticleNodePinOut	$41FD9D9D
+{
+	SelfName = "Value";
+	Owner = "$2D8A7741";
+}
+CParticleNodePinOut	$45F88E24
+{
+	SelfName = "Value";
+	Owner = "$2E215ABC";
+}
+CParticleNodePinOut	$81F975B7
+{
+	SelfName = "Value";
+	Owner = "$F580CA43";
+}
+CParticleNodePinOut	$3E88DB46
+{
+	SelfName = "Value";
+	Owner = "$63EBE82E";
+}
+CParticleNodePinIn	$8D355881
+{
+	SelfName = "DefaultValue";
+	Owner = "$BEDF8936";
+}
+CParticleNodePinOut	$CEEFB0D8
+{
+	SelfName = "Value";
+	Owner = "$BEDF8936";
+}
+CParticleNodePinIn	$77FD347B
+{
+	SelfName = "DefaultValue";
+	Owner = "$D6DEA348";
+}
+CParticleNodePinOut	$56D85F5A
+{
+	SelfName = "Value";
+	Owner = "$D6DEA348";
+}
+CParticleNodePinOut	$113E6425
+{
+	SelfName = "Value";
+	Owner = "$2D0B2651";
+}
+CParticleNodePinOut	$C736134C
+{
+	SelfName = "Value";
+	Owner = "$D10978FE";
+}
+CParticleNodePinOut	$189D4DFF
+{
+	SelfName = "Value";
+	Owner = "$1795DE47";
+}
+CParticleNodePinOut	$8139F52E
+{
+	SelfName = "Value";
+	Owner = "$C62A1F73";
+}
+CParticleNodePinOut	$0F960489
+{
+	SelfName = "Value";
+	Owner = "$1EADE0D1";
+}
+CParticleNodePinOut	$17B04980
+{
+	SelfName = "Value";
+	Owner = "$761783D3";
+}
+CParticleNodePinOut	$D98FE643
+{
+	SelfName = "Value";
+	Owner = "$D4A7787E";
+}
+CParticleNodePinOut	$C0CC90C2
+{
+	SelfName = "Value";
+	Owner = "$7CFB103C";
+}
+CParticleNodePinOut	$8D8C3DAD
+{
+	SelfName = "Value";
+	Owner = "$6818E968";
+}
+CParticleNodePinOut	$BC2CA774
+{
+	SelfName = "Value";
+	Owner = "$725E6552";
+}
+CParticleNodePinOut	$A4D7E147
+{
+	SelfName = "Value";
+	Owner = "$86A6D721";
+}
+CParticleNodePinOut	$089AE616
+{
+	SelfName = "Value";
+	Owner = "$C0425F45";
+}
+CParticleNodePinOut	$C4E7D391
+{
+	SelfName = "Value";
+	Owner = "$F158603E";
+}
+CParticleNodePinOut	$EED74128
+{
+	SelfName = "Value";
+	Owner = "$D1AFAA07";
+}
+CParticleNodePinOut	$EF48E30B
+{
+	SelfName = "Value";
+	Owner = "$DE4AF925";
+}
+CParticleNodePinOut	$126F692A
+{
+	SelfName = "Value";
+	Owner = "$8F92C16F";
+}
+CParticleNodePinOut	$994A4A35
+{
+	SelfName = "Value";
+	Owner = "$AF3DCC22";
+}
+CParticleNodePinOut	$576DEA9C
+{
+	SelfName = "Value";
+	Owner = "$704F64D6";
+}
+CParticleNodePinOut	$3DCB4F8F
+{
+	SelfName = "Value";
+	Owner = "$37DC024B";
+}
+CParticleNodePinOut	$EB684DFE
+{
+	SelfName = "Value";
+	Owner = "$C43F52A5";
+}
+CParticleNodePinOut	$1653E599
+{
+	SelfName = "Value";
+	Owner = "$0FB78BF6";
+}
+CParticleNodePinOut	$923437D0
+{
+	SelfName = "Value";
+	Owner = "$88F8E019";
+}
+CParticleNodePinOut	$EA4B8892
+{
+	SelfName = "Value";
+	Owner = "$FC4DE60A";
+}
+CParticleNodePinOut	$53613D1F
+{
+	SelfName = "Value";
+	Owner = "$FAFAFAB0";
+}
+CParticleNodePinOut	$54E702CE
+{
+	SelfName = "Value";
+	Owner = "$6CCCA72B";
+}
+CParticleNodePinOut	$ADC6DB63
+{
+	SelfName = "Value";
+	Owner = "$C7760457";
+}
+CParticleNodePinOut	$EFC61C62
+{
+	SelfName = "Value";
+	Owner = "$C7760456";
+}
+CParticleNodePinOut	$9B18E1CD
+{
+	SelfName = "Value";
+	Owner = "$43290D5D";
+}
+CParticleNodePinOut	$32460E14
+{
+	SelfName = "Value";
+	Owner = "$35A36C4E";
+}
+CParticleNodePinIn	$14C3FC67
+{
+	SelfName = "DefaultValue";
+	Owner = "$EAC726E3";
+}
+CParticleNodePinOut	$633D8FB6
+{
+	SelfName = "Value";
+	Owner = "$EAC726E3";
+}
+CParticleNodePinIn	$AAA4EDB1
+{
+	SelfName = "DefaultValue";
+	Owner = "$2909A531";
+}
+CParticleNodePinOut	$0E0F55C8
+{
+	SelfName = "Value";
+	Owner = "$2909A531";
+}
+CParticleNodePinIn	$7042442B
+{
+	SelfName = "DefaultValue";
+	Owner = "$CB2631EB";
+}
+CParticleNodePinOut	$AEE5D0CA
+{
+	SelfName = "Value";
+	Owner = "$CB2631EB";
+}
+CParticleNodePinIn	$DD66FA55
+{
+	SelfName = "DefaultValue";
+	Owner = "$C01E68BC";
+}
+CParticleNodePinOut	$9C124D3C
+{
+	SelfName = "Value";
+	Owner = "$C01E68BC";
+}
+CParticleNodePinIn	$D56016AF
+{
+	SelfName = "DefaultValue";
+	Owner = "$9D2B1A2F";
+}
+CParticleNodePinOut	$F94B139E
+{
+	SelfName = "Value";
+	Owner = "$9D2B1A2F";
+}
+CParticleNodePinIn	$7E054BB9
+{
+	SelfName = "DefaultValue";
+	Owner = "$89E0DDB2";
+}
+CParticleNodePinOut	$81108870
+{
+	SelfName = "Value";
+	Owner = "$89E0DDB2";
+}
+CParticleRendererFeature	$047497F3
+{
+	FeatureName = "NormalBend";
+	Feature = "$24414C32";
+	Properties = {
+		"$DEF82E86",
+	};
+}
+CParticleNodeTemplateExport	$24414C32
+{
+	InputPins = {
+		"$CC28E5DD",
+	};
+	OutputPins = {
+		"$E5A55B64",
+	};
+	ExportedName = "NormalBend";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$CC28E5DD
+{
+	SelfName = "DefaultValue";
+	Owner = "$24414C32";
+}
+CParticleNodePinOut	$E5A55B64
+{
+	SelfName = "Value";
+	Owner = "$24414C32";
+}
+CRHIRenderingFeature	$FDD3ABF7
+{
+	FeatureName = "NormalBend";
+}
+CParticleNodeTemplateExport	$DEF82E86
+{
+	Description = {
+		"@eng:Bending factor to apply to the billboard normals.\\n\\n<c>0.0</c> means no bending, the normals will be perpendicular to the billboard quad plane.\\n<c>1.0</c> means fully bent, the normals will be tangent to the billboard quad plane, pointing outwards.",
+	};
+	InputPins = {
+		"$AE218CC1",
+	};
+	OutputPins = {
+		"$76B9DA18",
+	};
+	ExportedName = "NormalBend.NormalBendingFactor";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:NormalBend",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(5.0000000e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$AE218CC1
+{
+	SelfName = "DefaultValue";
+	Owner = "$DEF82E86";
+}
+CParticleNodePinOut	$76B9DA18
+{
+	SelfName = "Value";
+	Owner = "$DEF82E86";
+}
+CParticleRendererFeature	$23F9C093
+{
+	FeatureName = "TransformUVs";
+	Feature = "$183B52A9";
+	Properties = {
+		"$D9B8D88C",
+		"$9A821802",
+		"$272AD0C9",
+		"$3235C787",
+	};
+}
+CParticleNodeTemplateExport	$183B52A9
+{
+	InputPins = {
+		"$1151F6BB",
+	};
+	OutputPins = {
+		"$69CF2E9A",
+	};
+	ExportedName = "TransformUVs";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$1151F6BB
+{
+	SelfName = "DefaultValue";
+	Owner = "$183B52A9";
+}
+CParticleNodePinOut	$69CF2E9A
+{
+	SelfName = "Value";
+	Owner = "$183B52A9";
+}
+CRHIRenderingFeature	$1749C465
+{
+	FeatureName = "TransformUVs";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"UVOffset",
+		"UVRotate",
+		"UVScale",
+		"RGBOnly",
+	};
+}
+CParticleNodeTemplateExport	$D9B8D88C
+{
+	Description = {
+		"@eng:UV offset",
+	};
+	InputPins = {
+		"$8C88DC3F",
+	};
+	OutputPins = {
+		"$FFE9806E",
+	};
+	ExportedName = "TransformUVs.UVOffset";
+	ExportedType = float2;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TransformUVs",
+	};
+}
+CParticleNodePinIn	$8C88DC3F
+{
+	SelfName = "DefaultValue";
+	Owner = "$D9B8D88C";
+}
+CParticleNodePinOut	$FFE9806E
+{
+	SelfName = "Value";
+	Owner = "$D9B8D88C";
+}
+CParticleNodeTemplateExport	$272AD0C9
+{
+	Description = {
+		"@eng:UV scale",
+	};
+	InputPins = {
+		"$E882EAC0",
+	};
+	OutputPins = {
+		"$EBDA8083",
+	};
+	ExportedName = "TransformUVs.UVScale";
+	ExportedType = float2;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TransformUVs",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$E882EAC0
+{
+	SelfName = "DefaultValue";
+	Owner = "$272AD0C9";
+}
+CParticleNodePinOut	$EBDA8083
+{
+	SelfName = "Value";
+	Owner = "$272AD0C9";
+}
+CParticleNodeTemplateExport	$9A821802
+{
+	Description = {
+		"@eng:UV rotation angle",
+	};
+	InputPins = {
+		"$C560B5ED",
+	};
+	OutputPins = {
+		"$C92264B4",
+	};
+	ExportedName = "TransformUVs.UVRotate";
+	ExportedType = float;
+	Semantic = Angle;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TransformUVs",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MinValueF4 = float4(-1.8000000e+02, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.8000000e+02, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$C560B5ED
+{
+	SelfName = "DefaultValue";
+	Owner = "$9A821802";
+}
+CParticleNodePinOut	$C92264B4
+{
+	SelfName = "Value";
+	Owner = "$9A821802";
+}
+CParticleNodeTemplateExport	$3235C787
+{
+	Description = {
+		"@eng:When enabled, does not transform the UVs used to sample the alpha channel.",
+	};
+	InputPins = {
+		"$81FFA956",
+	};
+	OutputPins = {
+		"$3E3E37D1",
+	};
+	ExportedName = "TransformUVs.RGBOnly";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:TransformUVs",
+	};
+}
+CParticleNodePinIn	$81FFA956
+{
+	SelfName = "DefaultValue";
+	Owner = "$3235C787";
+}
+CParticleNodePinOut	$3E3E37D1
+{
+	SelfName = "Value";
+	Owner = "$3235C787";
+}
+CParticleRendererFeature	$B53F5A68
+{
+	FeatureName = "GeometryTriangle";
+	Feature = "$CB9A554B";
+	Properties = {
+		"$8A52D5A3",
+		"$0AA9AB54",
+		"$E17BB1F1",
+	};
+}
+CParticleNodeTemplateExport	$CB9A554B
+{
+	InputPins = {
+		"$E0C8A86A",
+	};
+	OutputPins = {
+		"$2430DA75",
+	};
+	ExportedName = "GeometryTriangle";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$E0C8A86A
+{
+	SelfName = "DefaultValue";
+	Owner = "$CB9A554B";
+}
+CParticleNodePinOut	$2430DA75
+{
+	SelfName = "Value";
+	Owner = "$CB9A554B";
+}
+CRHIRenderingFeature	$05539FDC
+{
+	FeatureName = "GeometryTriangle";
+}
+CParticleRendererFeature	$1E5C8DCF
+{
+	FeatureName = "GeometryDecal";
+	Feature = "$4BD7493E";
+	Properties = {
+		"$2C3FF00A",
+		"$17C8B4EF",
+		"$D246F9B0",
+	};
+}
+CParticleNodeTemplateExport	$4BD7493E
+{
+	InputPins = {
+		"$79E4E1D9",
+	};
+	OutputPins = {
+		"$D39EC910",
+	};
+	ExportedName = "GeometryDecal";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$79E4E1D9
+{
+	SelfName = "DefaultValue";
+	Owner = "$4BD7493E";
+}
+CParticleNodePinOut	$D39EC910
+{
+	SelfName = "Value";
+	Owner = "$4BD7493E";
+}
+CRHIRenderingFeature	$AF299513
+{
+	FeatureName = "GeometryDecal";
+	SampleDepth = true;
+}
+CParticleRendererFeature	$F50D7FD2
+{
+	FeatureName = "Decal";
+	Feature = "$E92951FD";
+	Properties = {
+		"$2FD0EE1D",
+		"$BF3541C6",
+		"$6D3178FB",
+	};
+}
+CParticleNodeTemplateExport	$E92951FD
+{
+	InputPins = {
+		"$4ADA2A04",
+	};
+	OutputPins = {
+		"$7BCB4F17",
+	};
+	ExportedName = "Decal";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$4ADA2A04
+{
+	SelfName = "DefaultValue";
+	Owner = "$E92951FD";
+}
+CParticleNodePinOut	$7BCB4F17
+{
+	SelfName = "Value";
+	Owner = "$E92951FD";
+}
+CRHIRenderingFeature	$FB490026
+{
+	FeatureName = "Decal";
+	PropertiesAsShaderConstants = {
+		"FadeTop",
+		"FadeBottom",
+		"FadeAngle",
+	};
+}
+CParticleRendererFeature	$8A93EEE1
+{
+	FeatureName = "TriangleCustomNormals";
+	Feature = "$74ACD6B8";
+	Properties = {
+		"$8E7F5DCC",
+		"$9F085D09",
+		"$33E15F42",
+		"$423262DF",
+	};
+}
+CParticleNodeTemplateExport	$74ACD6B8
+{
+	InputPins = {
+		"$F0AC5FDB",
+	};
+	OutputPins = {
+		"$0C373E3A",
+	};
+	ExportedName = "TriangleCustomNormals";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$F0AC5FDB
+{
+	SelfName = "DefaultValue";
+	Owner = "$74ACD6B8";
+}
+CParticleNodePinOut	$0C373E3A
+{
+	SelfName = "Value";
+	Owner = "$74ACD6B8";
+}
+CRHIRenderingFeature	$81E53C85
+{
+	FeatureName = "TriangleCustomNormals";
+	PropertiesAsShaderConstants = {
+		"DoubleSided",
+	};
+}
+CParticleRendererFeature	$1BDFA32C
+{
+	FeatureName = "TriangleCustomUVs";
+	Feature = "$9D1C2B5F";
+	Properties = {
+		"$31CA6DC7",
+		"$7D2733A8",
+		"$F2EC2AB5",
+	};
+}
+CParticleNodeTemplateExport	$9D1C2B5F
+{
+	InputPins = {
+		"$4BE96E0E",
+	};
+	OutputPins = {
+		"$732C7EE9",
+	};
+	ExportedName = "TriangleCustomUVs";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$4BE96E0E
+{
+	SelfName = "DefaultValue";
+	Owner = "$9D1C2B5F";
+}
+CParticleNodePinOut	$732C7EE9
+{
+	SelfName = "Value";
+	Owner = "$9D1C2B5F";
+}
+CRHIRenderingFeature	$16512360
+{
+	FeatureName = "TriangleCustomUVs";
+}
+CParticleNodeTemplateExport	$8A52D5A3
+{
+	Description = {
+		"@eng:Position of the first triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$362883A2",
+	};
+	OutputPins = {
+		"$94ABBA0D",
+	};
+	ExportedName = "General.Position1";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$362883A2
+{
+	SelfName = "DefaultValue";
+	Owner = "$8A52D5A3";
+}
+CParticleNodePinOut	$94ABBA0D
+{
+	SelfName = "Value";
+	Owner = "$8A52D5A3";
+}
+CParticleNodeTemplateExport	$0AA9AB54
+{
+	Description = {
+		"@eng:Position of the second triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$D93542A7",
+	};
+	OutputPins = {
+		"$ED8932F6",
+	};
+	ExportedName = "General.Position2";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$D93542A7
+{
+	SelfName = "DefaultValue";
+	Owner = "$0AA9AB54";
+}
+CParticleNodePinOut	$ED8932F6
+{
+	SelfName = "Value";
+	Owner = "$0AA9AB54";
+}
+CParticleNodeTemplateExport	$E17BB1F1
+{
+	Description = {
+		"@eng:Position of the third triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$85CF4F08",
+	};
+	OutputPins = {
+		"$0AD9166B",
+	};
+	ExportedName = "General.Position3";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$85CF4F08
+{
+	SelfName = "DefaultValue";
+	Owner = "$E17BB1F1";
+}
+CParticleNodePinOut	$0AD9166B
+{
+	SelfName = "Value";
+	Owner = "$E17BB1F1";
+}
+CParticleNodeTemplateExport	$2C3FF00A
+{
+	Description = {
+		"@eng:Decal projection box center in world coordinates",
+	};
+	InputPins = {
+		"$B0EFEA95",
+	};
+	OutputPins = {
+		"$F419E27C",
+	};
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$B0EFEA95
+{
+	SelfName = "DefaultValue";
+	Owner = "$2C3FF00A";
+}
+CParticleNodePinOut	$F419E27C
+{
+	SelfName = "Value";
+	Owner = "$2C3FF00A";
+}
+CParticleNodeTemplateExport	$17C8B4EF
+{
+	Description = {
+		"@eng:Decal projection box size",
+	};
+	InputPins = {
+		"$CAB4EEDE",
+	};
+	OutputPins = {
+		"$B6BAA7F9",
+	};
+	ExportedName = "General.Scale";
+	ExportedType = float3;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 1.0000000e+00, 1.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$CAB4EEDE
+{
+	SelfName = "DefaultValue";
+	Owner = "$17C8B4EF";
+}
+CParticleNodePinOut	$B6BAA7F9
+{
+	SelfName = "Value";
+	Owner = "$17C8B4EF";
+}
+CParticleNodeTemplateExport	$D246F9B0
+{
+	Description = {
+		"@eng:Decal projection box orientation",
+	};
+	InputPins = {
+		"$3A074233",
+	};
+	OutputPins = {
+		"$8FD82372",
+	};
+	ExportedName = "General.Orientation";
+	ExportedType = orientation;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$3A074233
+{
+	SelfName = "DefaultValue";
+	Owner = "$D246F9B0";
+}
+CParticleNodePinOut	$8FD82372
+{
+	SelfName = "Value";
+	Owner = "$D246F9B0";
+}
+CParticleNodeTemplateExport	$2FD0EE1D
+{
+	Description = {
+		"@eng:Start of the fade on the top section of the decal box volume.\\n<ul>\\n<li><c>1.0</c> starts fading linearly at the box center, all the way to the top.</li>\\n<li><c>0.5</c> starts fading linearly halfway between the center and the top.</li>\\n<li><c>0.0</c> has no fade and the decal abruptly stops at the top of the box.</li>\\n</ul>",
+	};
+	InputPins = {
+		"$2A2DE8A4",
+	};
+	OutputPins = {
+		"$0DD4A237",
+	};
+	ExportedName = "Decal.FadeTop";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Decal",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(5.0000000e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$2A2DE8A4
+{
+	SelfName = "DefaultValue";
+	Owner = "$2FD0EE1D";
+}
+CParticleNodePinOut	$0DD4A237
+{
+	SelfName = "Value";
+	Owner = "$2FD0EE1D";
+}
+CParticleNodeTemplateExport	$BF3541C6
+{
+	Description = {
+		"@eng:Start of the fade on the bottom section of the decal box volume.\\n<ul>\\n<li><c>1.0</c> starts fading linearly at the box center, all the way to the bottom.</li>\\n<li><c>0.5</c> starts fading linearly halfway between the center and the bottom.</li>\\n<li><c>0.0</c> has no fade and the decal abruptly stops at the bottom of the box.</li>\\n</ul>",
+	};
+	InputPins = {
+		"$C00E8101",
+	};
+	OutputPins = {
+		"$2F33C358",
+	};
+	ExportedName = "Decal.FadeBottom";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Decal",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueF4 = float4(5.0000000e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$C00E8101
+{
+	SelfName = "DefaultValue";
+	Owner = "$BF3541C6";
+}
+CParticleNodePinOut	$2F33C358
+{
+	SelfName = "Value";
+	Owner = "$BF3541C6";
+}
+CParticleNodeTemplateExport	$6D3178FB
+{
+	Description = {
+		"@eng:Reserved, not yet implemented",
+	};
+	InputPins = {
+		"$98C7BDDA",
+	};
+	OutputPins = {
+		"$4499E4A5",
+	};
+	ExportedName = "Decal.FadeAngle";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Decal",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$98C7BDDA
+{
+	SelfName = "DefaultValue";
+	Owner = "$6D3178FB";
+}
+CParticleNodePinOut	$4499E4A5
+{
+	SelfName = "Value";
+	Owner = "$6D3178FB";
+}
+CParticleNodeTemplateExport	$8E7F5DCC
+{
+	Description = {
+		"@eng:Normal of the first triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$2A232A7F",
+	};
+	OutputPins = {
+		"$BE8ECBAE",
+	};
+	ExportedName = "TriangleCustomNormals.Normal1";
+	ExportedType = float3;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomNormals",
+	};
+}
+CParticleNodePinIn	$2A232A7F
+{
+	SelfName = "DefaultValue";
+	Owner = "$8E7F5DCC";
+}
+CParticleNodePinOut	$BE8ECBAE
+{
+	SelfName = "Value";
+	Owner = "$8E7F5DCC";
+}
+CParticleNodeTemplateExport	$9F085D09
+{
+	Description = {
+		"@eng:Normal of the second triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$C6ED4C00",
+	};
+	OutputPins = {
+		"$8BB7DAC3",
+	};
+	ExportedName = "TriangleCustomNormals.Normal2";
+	ExportedType = float3;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomNormals",
+	};
+}
+CParticleNodePinIn	$C6ED4C00
+{
+	SelfName = "DefaultValue";
+	Owner = "$9F085D09";
+}
+CParticleNodePinOut	$8BB7DAC3
+{
+	SelfName = "Value";
+	Owner = "$9F085D09";
+}
+CParticleNodeTemplateExport	$33E15F42
+{
+	Description = {
+		"@eng:Normal of the third triangle vertex in world coordinates",
+	};
+	InputPins = {
+		"$3D41EE2D",
+	};
+	OutputPins = {
+		"$9CC3E1F4",
+	};
+	ExportedName = "TriangleCustomNormals.Normal3";
+	ExportedType = float3;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomNormals",
+	};
+}
+CParticleNodePinIn	$3D41EE2D
+{
+	SelfName = "DefaultValue";
+	Owner = "$33E15F42";
+}
+CParticleNodePinOut	$9CC3E1F4
+{
+	SelfName = "Value";
+	Owner = "$33E15F42";
+}
+CParticleNodeTemplateExport	$31CA6DC7
+{
+	Description = {
+		"@eng:UV of the first triangle vertex",
+	};
+	InputPins = {
+		"$6A822C96",
+	};
+	OutputPins = {
+		"$E2255C11",
+	};
+	ExportedName = "TriangleCustomUVs.UV1";
+	ExportedType = float2;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomUVs",
+	};
+}
+CParticleNodePinIn	$6A822C96
+{
+	SelfName = "DefaultValue";
+	Owner = "$31CA6DC7";
+}
+CParticleNodePinOut	$E2255C11
+{
+	SelfName = "Value";
+	Owner = "$31CA6DC7";
+}
+CParticleNodeTemplateExport	$7D2733A8
+{
+	Description = {
+		"@eng:UV of the second triangle vertex",
+	};
+	InputPins = {
+		"$C386878B",
+	};
+	OutputPins = {
+		"$9173A7AA",
+	};
+	ExportedName = "TriangleCustomUVs.UV2";
+	ExportedType = float2;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomUVs",
+	};
+}
+CParticleNodePinIn	$C386878B
+{
+	SelfName = "DefaultValue";
+	Owner = "$7D2733A8";
+}
+CParticleNodePinOut	$9173A7AA
+{
+	SelfName = "Value";
+	Owner = "$7D2733A8";
+}
+CParticleNodeTemplateExport	$F2EC2AB5
+{
+	Description = {
+		"@eng:UV of the third triangle vertex",
+	};
+	InputPins = {
+		"$654D151C",
+	};
+	OutputPins = {
+		"$8CAC8C0F",
+	};
+	ExportedName = "TriangleCustomUVs.UV3";
+	ExportedType = float2;
+	Type = Input;
+	VisibleByDefault = true;
+	CategoryName = {
+		"@eng:TriangleCustomUVs",
+	};
+}
+CParticleNodePinIn	$654D151C
+{
+	SelfName = "DefaultValue";
+	Owner = "$F2EC2AB5";
+}
+CParticleNodePinOut	$8CAC8C0F
+{
+	SelfName = "Value";
+	Owner = "$F2EC2AB5";
+}
+CParticleRendererFeature	$5CBB6243
+{
+	FeatureName = "Tint";
+	Feature = "$1C055142";
+	Properties = {
+		"$1810889B",
+		"$835BB7A2",
+	};
+}
+CParticleNodeTemplateExport	$1C055142
+{
+	InputPins = {
+		"$3E911FBB",
+	};
+	OutputPins = {
+		"$9A13A2A4",
+	};
+	ExportedName = "Tint";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$3E911FBB
+{
+	SelfName = "DefaultValue";
+	Owner = "$1C055142";
+}
+CParticleNodePinOut	$9A13A2A4
+{
+	SelfName = "Value";
+	Owner = "$1C055142";
+}
+CRHIRenderingFeature	$DD26542E
+{
+	FeatureName = "Tint";
+	UseUV = true;
+	PropertiesAsShaderConstants = {
+		"TintColor",
+		"TintMap",
+	};
+}
+CParticleNodeTemplateExport	$5928161E
+{
+	InputPins = {
+		"$AAD9158D",
+	};
+	OutputPins = {
+		"$21472E15",
+	};
+	ExportedName = "Lit.Type";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"Solid",
+		"Transparent",
+	};
+}
+CParticleNodePinIn	$AAD9158D
+{
+	SelfName = "DefaultValue";
+	Owner = "$5928161E";
+}
+CParticleNodePinOut	$21472E15
+{
+	SelfName = "Value";
+	Owner = "$5928161E";
+}
+CParticleNodeTemplateExport	$E31D7A62
+{
+	InputPins = {
+		"$23C05B6B",
+	};
+	OutputPins = {
+		"$B2F13921",
+	};
+	ExportedName = "Lit.LitMaskMap";
+	ExportedType = dataImage;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Lit",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "Lit.Type";
+	RuleValue = "1";
+}
+CParticleNodePinIn	$23C05B6B
+{
+	SelfName = "DefaultValue";
+	Owner = "$E31D7A62";
+}
+CParticleNodePinOut	$B2F13921
+{
+	SelfName = "Value";
+	Owner = "$E31D7A62";
+}
+CParticleNodeTemplateExport	$835BB7A2
+{
+	Description = {
+		"@eng:Tint color, multiplied with the tint texture",
+	};
+	InputPins = {
+		"$247C7B76",
+	};
+	OutputPins = {
+		"$A5761DE0",
+	};
+	ExportedName = "Tint.TintColor";
+	ExportedType = float4;
+	Semantic = Color;
+	Type = Input;
+	CategoryName = {
+		"@eng:Tint",
+	};
+	DefaultValueF4 = float4(2.1404114e-01, 1.0000000e+00, 1.0000000e+00, 1.0000000e+00);
+}
+CParticleNodePinIn	$247C7B76
+{
+	SelfName = "DefaultValue";
+	Owner = "$835BB7A2";
+}
+CParticleNodePinOut	$A5761DE0
+{
+	SelfName = "Value";
+	Owner = "$835BB7A2";
+}
+CParticleNodeTemplateExport	$1810889B
+{
+	Description = {
+		"@eng:Texture map used for the tint",
+	};
+	InputPins = {
+		"$A8F184F2",
+	};
+	OutputPins = {
+		"$2C0DB175",
+	};
+	ExportedName = "Tint.TintMap";
+	ExportedType = dataImage;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Tint",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/White.dds";
+}
+CParticleNodePinIn	$A8F184F2
+{
+	SelfName = "DefaultValue";
+	Owner = "$1810889B";
+}
+CParticleNodePinOut	$2C0DB175
+{
+	SelfName = "Value";
+	Owner = "$1810889B";
+}
+CParticleNodeTemplateExport	$E6F904E6
+{
+	Description = {
+		"@eng:Global sort order of the draw calls.\\nDifferent values for 2 renderers will separate their draw call.\\nSmaller values are drawn first (visually behind higher values). The value can be negative.",
+	};
+	InputPins = {
+		"$6E73C722",
+	};
+	OutputPins = {
+		"$21567356",
+	};
+	ExportedName = "Transparent.GlobalSortOverride";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Transparent",
+	};
+	RuleResult = Hidden;
+	DependentProperty = "Transparent.Type";
+	RuleFunction = Lower;
+	RuleValue = "2";
+}
+CParticleNodePinIn	$6E73C722
+{
+	SelfName = "DefaultValue";
+	Owner = "$E6F904E6";
+}
+CParticleNodePinOut	$21567356
+{
+	SelfName = "Value";
+	Owner = "$E6F904E6";
+}
+CParticleNodeTemplateExport	$20D13232
+{
+	Description = {
+		"@eng:The depth bias allows to offset the draw call bbox along the camera axis (in world units).\\nDifferent values for 2 renderers will separate their drawcall.",
+	};
+	InputPins = {
+		"$EB41CFF7",
+	};
+	OutputPins = {
+		"$240C664B",
+	};
+	ExportedName = "Transparent.CameraSortOffset";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Transparent",
+	};
+	RuleResult = Hidden;
+	DependentProperty = "Transparent.SortMode";
+	RuleValue = "1";
+	DependentProperty2 = "Transparent.Type";
+	RuleFunction2 = Lower;
+	RuleValue2 = "2";
+}
+CParticleNodePinIn	$EB41CFF7
+{
+	SelfName = "DefaultValue";
+	Owner = "$20D13232";
+}
+CParticleNodePinOut	$240C664B
+{
+	SelfName = "Value";
+	Owner = "$20D13232";
+}
+CParticleRendererFeature	$71D528E3
+{
+	FeatureName = "UseVertexColors";
+	Feature = "$AD0617FC";
+}
+CParticleNodeTemplateExport	$AD0617FC
+{
+	InputPins = {
+		"$187D07DC",
+	};
+	OutputPins = {
+		"$0307D62D",
+	};
+	ExportedName = "UseVertexColors";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$187D07DC
+{
+	SelfName = "DefaultValue";
+	Owner = "$AD0617FC";
+}
+CParticleNodePinOut	$0307D62D
+{
+	SelfName = "Value";
+	Owner = "$AD0617FC";
+}
+CRHIRenderingFeature	$A2DFDBD4
+{
+	FeatureName = "UseVertexColors";
+	UseMeshVertexColor0 = true;
+}
+CParticleNodeTemplateExport	$423262DF
+{
+	Description = {
+		"@eng:When enabled, the triangle will be treated as double-sided, producing proper lighting on both faces.",
+	};
+	InputPins = {
+		"$50093A59",
+	};
+	OutputPins = {
+		"$6BA68CBE",
+	};
+	ExportedName = "TriangleCustomNormals.DoubleSided";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:TriangleCustomNormals",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"False",
+		"True",
+	};
+}
+CParticleNodePinIn	$50093A59
+{
+	SelfName = "DefaultValue";
+	Owner = "$423262DF";
+}
+CParticleNodePinOut	$6BA68CBE
+{
+	SelfName = "Value";
+	Owner = "$423262DF";
+}
+CParticleNodeTemplateExport	$D65CBB1F
+{
+	Description = {
+		"@eng:When enabled, the light will cast shadows onto the scene.\\n(Not yet implemented in the PopcornFX editor)",
+	};
+	InputPins = {
+		"$EC185DF6",
+	};
+	OutputPins = {
+		"$D1C0CF87",
+	};
+	ExportedName = "Light.CastShadows";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Light",
+	};
+}
+CParticleNodePinIn	$EC185DF6
+{
+	SelfName = "DefaultValue";
+	Owner = "$D65CBB1F";
+}
+CParticleNodePinOut	$D1C0CF87
+{
+	SelfName = "Value";
+	Owner = "$D65CBB1F";
+}
+CParticleNodeTemplateExport	$168DB3A8
+{
+	Description = {
+		"@eng:When enabled, the material will cast shadows onto the scene.\\n(Not yet implemented in the PopcornFX editor)",
+	};
+	InputPins = {
+		"$37398ADE",
+	};
+	OutputPins = {
+		"$D2F92C33",
+	};
+	ExportedName = "Opaque.CastShadows";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Opaque",
+	};
+}
+CParticleNodePinIn	$37398ADE
+{
+	SelfName = "DefaultValue";
+	Owner = "$168DB3A8";
+}
+CParticleNodePinOut	$D2F92C33
+{
+	SelfName = "Value";
+	Owner = "$168DB3A8";
+}
+CParticleNodeTemplateExport	$CE2F5487
+{
+	Description = {
+		"@eng:Dithering texture UVs offset (only taken into account if <c>Type</c> is <c>Dithered</c>).\\nUsed to introduce variation in overlayed pixels.",
+	};
+	InputPins = {
+		"$C2F0317F",
+	};
+	OutputPins = {
+		"$4F10E4A2",
+	};
+	ExportedName = "Opaque.DitheringOffset";
+	ExportedType = float2;
+	Type = Input;
+	CategoryName = {
+		"@eng:Opaque",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 1.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	BaseVisibility = Disabled;
+	RuleResult = Visible;
+	DependentProperty = "Opaque.Type";
+	RuleValue = "2";
+}
+CParticleNodePinIn	$C2F0317F
+{
+	SelfName = "DefaultValue";
+	Owner = "$CE2F5487";
+}
+CParticleNodePinOut	$4F10E4A2
+{
+	SelfName = "Value";
+	Owner = "$CE2F5487";
+}
+CParticleNodeTemplateExport	$6C08EBFF
+{
+	Description = {
+		"@eng:Dithering mode\\n<ul>\\n<li><b>Regular</b>: pixels are visible when alpha = 1, not drawn when alpha = 0</li>\\n<li><b>InversedAlpha</b>: pixels are visible when alpha = 0, not drawn when alpha = 1 (can be used for cross-fading between two renderers)</li>\\n</ul>",
+	};
+	InputPins = {
+		"$54594687",
+	};
+	OutputPins = {
+		"$FD26D29C",
+	};
+	ExportedName = "Opaque.DitheringMode";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:Opaque",
+	};
+	DropDownMode = SingleSelect;
+	EnumList = {
+		"Regular",
+		"InversedAlpha",
+	};
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "Opaque.Type";
+	RuleValue = "2";
+}
+CParticleNodePinIn	$54594687
+{
+	SelfName = "DefaultValue";
+	Owner = "$6C08EBFF";
+}
+CParticleNodePinOut	$FD26D29C
+{
+	SelfName = "Value";
+	Owner = "$6C08EBFF";
+}

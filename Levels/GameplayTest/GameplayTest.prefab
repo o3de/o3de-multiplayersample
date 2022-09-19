@@ -74,7 +74,8 @@
                     "Instance_[59332693509213]/ContainerEntity",
                     "Entity_[727777302952]",
                     "Entity_[38397922475797]",
-                    "Entity_[3691264858177]"
+                    "Entity_[3691264858177]",
+                    "Entity_[859737656967]"
                 ]
             }
         }
@@ -6023,7 +6024,6 @@
                     "Id": 11044208504869032248,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "RoundDuration": 15.0,
                         "TotalRounds": 1
                     }
                 },
@@ -6213,6 +6213,67 @@
                 "Component_[9321193093942328270]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 9321193093942328270
+                }
+            }
+        },
+        "Entity_[859737656967]": {
+            "Id": "Entity_[859737656967]",
+            "Name": "Particle Test",
+            "Components": {
+                "Component_[11499189283403104994]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 11499189283403104994
+                },
+                "Component_[12308728640089059649]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 12308728640089059649
+                },
+                "Component_[12708337189716391962]": {
+                    "$type": "PopcornFXEmitterEditorComponent",
+                    "Id": 12708337189716391962,
+                    "ParticleSystem": {
+                        "assetId": {
+                            "guid": "{3232F653-BCBC-5B47-9E66-054B6F7C337C}"
+                        },
+                        "assetHint": "popcornfx/library/test_simple.pkfx"
+                    },
+                    "PrewarmTime": 0.0
+                },
+                "Component_[18329296791514352145]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 18329296791514352145
+                },
+                "Component_[4418069827793789936]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4418069827793789936
+                },
+                "Component_[6496304588954394694]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6496304588954394694
+                },
+                "Component_[6658045304086479518]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 6658045304086479518
+                },
+                "Component_[7552886479903804280]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 7552886479903804280,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            5.57946252822876,
+                            -6.316013336181641,
+                            3.7844066619873047
+                        ]
+                    }
+                },
+                "Component_[8923354923331209918]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 8923354923331209918
+                },
+                "Component_[9914289529455341679]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 9914289529455341679
                 }
             }
         }

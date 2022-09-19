@@ -1,0 +1,45 @@
+Version = 2.13.0.13591;
+CParticleRendererFeatureSet	$6B70D015
+{
+	RendererFeatures = {
+		"$409FF19E",
+		"$BFFD5E01",
+		"$27D7F2E5",
+		"$D857A09F",
+		"$2FB0C593",
+	};
+}
+CParticleRendererFeatureDesc	$409FF19E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "GeometryLight";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$BFFD5E01
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "Light";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$27D7F2E5
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "LightAttenuation";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$2FB0C593
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Experimental.pkri";
+	RendererFeatureName = "LightTranslucent";
+}
+CRHIMaterialShaders	$73ED6589
+{
+	VertexShader = "Library/PopcornFXCore/Shaders/Experimental/Light_Default.vert";
+	FragmentShader = "Library/PopcornFXCore/Shaders/Experimental/Light_Default.frag";
+}
