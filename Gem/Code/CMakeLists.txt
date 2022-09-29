@@ -8,12 +8,10 @@
 o3de_pal_dir(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME} "${gem_restricted_path}" "${gem_path}" "${gem_parent_relative_path}")
 
 ly_add_target(
-    NAME MultiplayerSample.Static STATIC
+    NAME MultiplayerSample.AutoGen.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
-        multiplayersample_files.cmake
         multiplayersample_autogen_files.cmake
-        ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
             Source
@@ -28,20 +26,44 @@ ly_add_target(
             Gem::EMotionFXStaticLib
             Gem::PhysX
             Gem::StartingPointInput
-            Gem::DebugDraw
-            Gem::LyShine
         PRIVATE
             Gem::LmbrCentral.Static
-            Gem::Multiplayer.Static
+            Gem::Multiplayer.Unified.Static
             Gem::PhysX.Static
-            Gem::DebugDraw.Static
-            Gem::ImGui.Static
-            Gem::LyShine.Static
+            Gem::GameState.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
         *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
         *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
+)
+
+ly_add_target(
+    NAME MultiplayerSample.Unified.Static STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_files.cmake
+        ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PUBLIC
+            Gem::DebugDraw
+            Gem::LyShine
+            Gem::Multiplayer
+            Gem::MultiplayerSample.AutoGen.Static
+        PRIVATE
+            Gem::LmbrCentral.Static
+            Gem::Multiplayer.Unified.Static
+            Gem::PhysX.Static
+            Gem::DebugDraw.Static
+            Gem::ImGui.Static
+            Gem::LyShine.Static
+            Gem::GameState.Static
 )
 
 ly_add_target(
@@ -58,7 +80,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            Gem::MultiplayerSample.Static
+            Gem::MultiplayerSample.Unified.Static
             Gem::Atom_AtomBridge.Static
 )
 

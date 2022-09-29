@@ -11,4 +11,16 @@ set(FILES
     ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Include/Multiplayer/AutoGen/AutoComponent_Source.jinja
     ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Include/Multiplayer/AutoGen/AutoComponentTypes_Header.jinja
     ${LY_ROOT_FOLDER}/Gems/Multiplayer/Code/Include/Multiplayer/AutoGen/AutoComponentTypes_Source.jinja
+    Source/AutoGen/NetworkAiComponent.AutoComponent.xml
+    Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
+    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
+    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
+    Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
+    Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
+    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
+    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
 )
