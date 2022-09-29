@@ -46,10 +46,6 @@
             "Component_[7418299210056750657]": {
                 "$type": "EditorDisabledCompositionComponent",
                 "Id": 7418299210056750657
-            },
-            "Component_[8238034828511115950]": {
-                "$type": "SelectionComponent",
-                "Id": 8238034828511115950
             }
         }
     },
@@ -58,6 +54,22 @@
             "Id": "Entity_[428599321104]",
             "Name": "Test Net Object",
             "Components": {
+                "Component_[10244293896443560808]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 10244293896443560808,
+                    "ColliderConfiguration": {
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1
+                    }
+                },
                 "Component_[11149569005424291664]": {
                     "$type": "EditorLockComponent",
                     "Id": 11149569005424291664
@@ -70,16 +82,38 @@
                     "$type": "EditorVisibilityComponent",
                     "Id": 13213110774758686394
                 },
+                "Component_[13279390163899580207]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13279390163899580207,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkRigidBodyComponent"
+                    }
+                },
+                "Component_[14803423139446020098]": {
+                    "$type": "EditorRigidBodyComponent",
+                    "Id": 14803423139446020098,
+                    "Configuration": {
+                        "entityId": "",
+                        "Mass": 999.9999389648438,
+                        "Inertia tensor": [
+                            166.6666717529297,
+                            0.0,
+                            0.0,
+                            0.0,
+                            166.6666717529297,
+                            0.0,
+                            0.0,
+                            0.0,
+                            166.6666717529297
+                        ]
+                    }
+                },
                 "Component_[15076020362360634866]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 15076020362360634866,
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
-                },
-                "Component_[15646219890037406725]": {
-                    "$type": "SelectionComponent",
-                    "Id": 15646219890037406725
                 },
                 "Component_[2148707257337573835]": {
                     "$type": "EditorInspectorComponent",
@@ -113,15 +147,6 @@
                             "SortIndex": 6
                         }
                     ]
-                },
-                "Component_[2160433012867593070]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 2160433012867593070,
-                    "m_template": {
-                        "$type": "MultiplayerSample::NetworkRandomTranslateComponent",
-                        "MovementDuration": 5.0,
-                        "MaxMoveDistance": 5.0
-                    }
                 },
                 "Component_[2286851697353605533]": {
                     "$type": "EditorPendingCompositionComponent",
@@ -171,9 +196,9 @@
                                 "{}": {
                                     "MaterialAsset": {
                                         "assetId": {
-                                            "guid": "{5BC13D95-377E-53EA-9A93-156384BE8B04}"
+                                            "guid": "{4BFE2AC3-2AC4-5B81-BD9C-DF147E59C6D3}"
                                         },
-                                        "assetHint": "materials/presets/pbr/metal_gold_matte.azmaterial"
+                                        "assetHint": "materials/presets/macbeth/10_purple_tex.azmaterial"
                                     }
                                 }
                             }
