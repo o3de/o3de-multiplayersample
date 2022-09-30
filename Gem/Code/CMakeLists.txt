@@ -8,27 +8,71 @@
 o3de_pal_dir(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME} "${gem_restricted_path}" "${gem_path}" "${gem_parent_relative_path}")
 
 ly_add_target(
-    NAME MultiplayerSample.AutoGen.Static STATIC
+    NAME MultiplayerSample.Client.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
         multiplayersample_autogen_files.cmake
+        multiplayersample_files.cmake
+        ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
             Source
             .
         PUBLIC
             Include
+    COMPILE_DEFINITIONS
+        PUBLIC
+            AZ_TRAIT_CLIENT_ENABLED=1
+            AZ_TRAIT_SERVER_ENABLED=0
     BUILD_DEPENDENCIES
         PUBLIC
-            AZ::AzGameFramework
-            AZ::AzNetworking
-            Gem::Multiplayer
+            Gem::DebugDraw
+            Gem::LyShine
+            Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
-            Gem::StartingPointInput
+            Gem::Multiplayer
         PRIVATE
             Gem::LmbrCentral.Static
-            Gem::Multiplayer.Unified.Static
+            Gem::Multiplayer.Client.Static
+            Gem::PhysX.Static
+            Gem::DebugDraw.Static
+            Gem::ImGui.Static
+            Gem::LyShine.Static
+            Gem::GameState.Static
+    AUTOGEN_RULES
+        *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
+        *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
+        *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
+        *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
+)
+
+ly_add_target(
+    NAME MultiplayerSample.Server.Static STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_autogen_files.cmake
+        multiplayersample_files.cmake
+        ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    COMPILE_DEFINITIONS
+        PUBLIC
+            AZ_TRAIT_CLIENT_ENABLED=0
+            AZ_TRAIT_SERVER_ENABLED=1
+    BUILD_DEPENDENCIES
+        PUBLIC
+            Gem::StartingPointInput
+            Gem::EMotionFXStaticLib
+            Gem::PhysX
+            Gem::Multiplayer
+        PRIVATE
+            Gem::LmbrCentral.Static
+            Gem::Multiplayer.Server.Static
             Gem::PhysX.Static
             Gem::GameState.Static
     AUTOGEN_RULES
@@ -42,6 +86,7 @@ ly_add_target(
     NAME MultiplayerSample.Unified.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
+        multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
@@ -50,12 +95,18 @@ ly_add_target(
             .
         PUBLIC
             Include
+    COMPILE_DEFINITIONS
+        PUBLIC
+            AZ_TRAIT_CLIENT_ENABLED=1
+            AZ_TRAIT_SERVER_ENABLED=1
     BUILD_DEPENDENCIES
         PUBLIC
             Gem::DebugDraw
             Gem::LyShine
+            Gem::StartingPointInput
+            Gem::EMotionFXStaticLib
+            Gem::PhysX
             Gem::Multiplayer
-            Gem::MultiplayerSample.AutoGen.Static
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Unified.Static
@@ -64,6 +115,47 @@ ly_add_target(
             Gem::ImGui.Static
             Gem::LyShine.Static
             Gem::GameState.Static
+    AUTOGEN_RULES
+        *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
+        *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
+        *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
+        *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
+)
+
+ly_add_target(
+    NAME MultiplayerSample.Client ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_shared_files.cmake
+        ../../multiplayersample_asset_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PRIVATE
+            Gem::MultiplayerSample.Client.Static
+            Gem::Atom_AtomBridge.Static
+)
+
+ly_add_target(
+    NAME MultiplayerSample.Server ${PAL_TRAIT_MONOLITHIC_DRIVEN_MODULE_TYPE}
+    NAMESPACE Gem
+    FILES_CMAKE
+        multiplayersample_shared_files.cmake
+        ../../multiplayersample_asset_files.cmake
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Source
+            .
+        PUBLIC
+            Include
+    BUILD_DEPENDENCIES
+        PRIVATE
+            Gem::MultiplayerSample.Server.Static
+            Gem::Atom_AtomBridge.Static
 )
 
 ly_add_target(
@@ -87,8 +179,8 @@ ly_add_target(
 # if enabled, MultiplayerSample is used by all kinds of applications
 ly_create_alias(NAME MultiplayerSample.Builders NAMESPACE Gem TARGETS Gem::MultiplayerSample)
 ly_create_alias(NAME MultiplayerSample.Tools    NAMESPACE Gem TARGETS Gem::MultiplayerSample)
-ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
-ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
+ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Client)
+ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Server)
 
 ################################################################################
 # Gem dependencies

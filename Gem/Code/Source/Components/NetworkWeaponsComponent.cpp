@@ -14,7 +14,10 @@
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
+
+#if AZ_TRAIT_CLIENT_ENABLED
 #include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -66,10 +69,12 @@ namespace MultiplayerSample
             ActivationCountsAddEvent(m_activationCountHandler);
         }
 
+#if AZ_TRAIT_CLIENT_ENABLED
         if (m_debugDraw == nullptr)
         {
             m_debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler();
         }
+#endif
     }
 
     void NetworkWeaponsComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -77,6 +82,7 @@ namespace MultiplayerSample
         ;
     }
 
+#if AZ_TRAIT_CLIENT_ENABLED
     void NetworkWeaponsComponent::HandleSendConfirmHit([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const WeaponIndex& weaponIndex, const HitEvent& hitEvent)
     {
         if (GetWeapon(weaponIndex) == nullptr)
@@ -88,6 +94,7 @@ namespace MultiplayerSample
         WeaponHitInfo weaponHitInfo(*GetWeapon(weaponIndex), hitEvent);
         OnWeaponConfirmHit(weaponHitInfo);
     }
+#endif
 
     void NetworkWeaponsComponent::ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations)
     {
@@ -114,6 +121,7 @@ namespace MultiplayerSample
             return;
         }
 
+#if AZ_TRAIT_CLIENT_ENABLED
         if (cl_WeaponsDrawDebug && m_debugDraw)
         {
             m_debugDraw->DrawSphereAtLocation
@@ -132,6 +140,7 @@ namespace MultiplayerSample
                 cl_WeaponsDrawDebugDurationSec
             );
         }
+#endif
     }
 
     void NetworkWeaponsComponent::OnWeaponHit(const WeaponHitInfo& hitInfo)
@@ -159,6 +168,7 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
+#if AZ_TRAIT_CLIENT_ENABLED
             if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
@@ -169,6 +179,7 @@ namespace MultiplayerSample
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
+#endif
 
             AZLOG
             (
@@ -228,6 +239,7 @@ namespace MultiplayerSample
         {
             const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
 
+#if AZ_TRAIT_CLIENT_ENABLED
             if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
@@ -238,6 +250,7 @@ namespace MultiplayerSample
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
+#endif
 
             AZLOG
             (

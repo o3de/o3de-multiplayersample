@@ -39,7 +39,9 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_CLIENT_ENABLED
         void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& weaponIndex, const HitEvent& hitEvent) override;
+#endif
         void ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations);
 
         IWeapon* GetWeapon(WeaponIndex weaponIndex) const;

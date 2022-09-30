@@ -10,8 +10,11 @@
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzCore/Component/Component.h>
 #include <AzCore/Console/ILogger.h>
-#include <DebugDraw/DebugDrawBus.h>
 #include <Source/Weapons/SceneQuery.h>
+
+#if AZ_TRAIT_CLIENT_ENABLED
+#include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -61,6 +64,7 @@ namespace MultiplayerSample
             collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
         SceneQuery::WorldIntersect(intersectShape, filter, outResults);
 
+#if AZ_TRAIT_CLIENT_ENABLED
         if (bg_DrawPhysicsRaycasts)
         {
             DebugDraw::DebugDrawRequestBus::Broadcast
@@ -72,6 +76,7 @@ namespace MultiplayerSample
                 10.0f
             );
         }
+#endif
 
         return true;
     }
@@ -122,6 +127,7 @@ namespace MultiplayerSample
                 hitMultiple, collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
             SceneQuery::WorldIntersect(gatherParams.m_gatherShape, filter, outResults);
 
+#if AZ_TRAIT_CLIENT_ENABLED
             if (bg_DrawPhysicsRaycasts)
             {
                 DebugDraw::DebugDrawRequestBus::Broadcast
@@ -133,6 +139,7 @@ namespace MultiplayerSample
                     10.0f
                 );
             }
+#endif
 
             // Terminate the loop if we hit something
             if (((outResults.size() > 0) && !gatherParams.m_multiHit) || (travelDistance.GetLengthSq() > maxTravelDistanceSq))
