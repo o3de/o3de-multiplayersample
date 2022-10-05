@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="RpcTesterComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/RpcTesterComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Include File="Atom/RPI.Reflect/Material/MaterialAsset.h"/>
+	<Include File="AzCore/Asset/AssetSerializer.h"/>
+	<ArchetypeProperty Type="AZ::Data::Asset&lt;AZ::RPI::MaterialAsset&gt;" Name="TestPassedMaterial"
+	                   ExposeToEditor="true" Description="Material to apply when a test passes" />
+	<ArchetypeProperty Type="AZ::Data::Asset&lt;AZ::RPI::MaterialAsset&gt;" Name="TestWaitingMaterial"
+	                   ExposeToEditor="true" Description="Material to apply when a test is in progress" />
+
+	<RemoteProcedure Name="RPC_TestPassed" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Test passed" />
+
+    <RemoteProcedure Name="RPC_AutonomousToAuthority" InvokeFrom="Autonomous" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Auto to auth test" />
+</Component>

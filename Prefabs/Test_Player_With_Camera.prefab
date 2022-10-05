@@ -1,0 +1,132 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Test_Player_With_Camera",
+        "Components": {
+            "Component_[12854492934122716985]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 12854492934122716985
+            },
+            "Component_[14527964186544794375]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 14527964186544794375
+            },
+            "Component_[14754313809101707989]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 14754313809101707989
+            },
+            "Component_[16097294230130929200]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 16097294230130929200
+            },
+            "Component_[17973855586176927312]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 17973855586176927312,
+                "Child Entity Order": [
+                    "Entity_[420717706211]"
+                ]
+            },
+            "Component_[18017702742403351050]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 18017702742403351050,
+                "Parent Entity": ""
+            },
+            "Component_[2655879581605271580]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 2655879581605271580
+            },
+            "Component_[3412097482053323096]": {
+                "$type": "EditorLockComponent",
+                "Id": 3412097482053323096
+            },
+            "Component_[5909110961034980092]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 5909110961034980092
+            },
+            "Component_[9041166537915973458]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 9041166537915973458
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[420717706211]": {
+            "Id": "Entity_[420717706211]",
+            "Name": "Test Player With Camera",
+            "Components": {
+                "Component_[1045286677001677404]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 1045286677001677404
+                },
+                "Component_[1343483745306738467]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 1343483745306738467,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 13626424472239345338
+                        },
+                        {
+                            "ComponentId": 13661912278527625172,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 8958656459360240742,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 1919866107288916413,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 2698789176170706344,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[13626424472239345338]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 13626424472239345338,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[13661912278527625172]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13661912278527625172,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[15670657439486336381]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 15670657439486336381
+                },
+                "Component_[17284595416203694777]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 17284595416203694777
+                },
+                "Component_[1850833223492899472]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 1850833223492899472
+                },
+                "Component_[5093008530147167052]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 5093008530147167052
+                },
+                "Component_[7801825083475107719]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7801825083475107719
+                },
+                "Component_[8958656459360240742]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8958656459360240742,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[9683030762159869668]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9683030762159869668
+                }
+            }
+        }
+    }
+}

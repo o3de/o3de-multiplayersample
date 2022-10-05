@@ -19,6 +19,7 @@ set(FILES
     Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
+    Source/AutoGen/RpcTesterComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -47,6 +48,8 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
+    Source/Components/RpcTesterComponent.cpp
+    Source/Components/RpcTesterComponent.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp
