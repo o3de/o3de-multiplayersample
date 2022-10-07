@@ -59,14 +59,14 @@ If you have a Git credential helper configured, you should not be prompted for y
 
 #### Option #1 (Recommended) -  Project-centric approach
 
-This option will output all the project binaries in the project's build folder e.g. c:/path/to/o3de-multiplayersample/build
+This option will output all the project binaries in the project's build folder e.g. c:/path/to/o3de-multiplayersample/build/windows_vs2019 using Visual Studio 2019. Refer to the [project configuration](https://www.o3de.org/docs/user-guide/build/configure-and-build/#configuring-projects) documentation for more details and options.
 
 ```shell
 # example configure command
-> cmake -S c:/path/to/o3de-multiplayersample -B c:/path/to/o3de-multiplayersample/build/windows_vs2019 -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty"
+> cmake --build build/windows_vs2019 -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/3rdparty"
 
 # example build command
-> cmake --build c:/path/to/o3de-multiplayersample/build/windows_vs2019 --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+> cmake --build build/windows_vs2019 --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
 ```
 
 #### Option #2 - Engine-centric approach to building a project
