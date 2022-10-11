@@ -18,6 +18,7 @@ set(FILES
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
+    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -40,6 +41,8 @@ set(FILES
     Source/Components/PerfTest/NetworkRandomImpulseComponent.h
     Source/Components/PerfTest/NetworkTestSpawnerComponent.cpp
     Source/Components/PerfTest/NetworkTestSpawnerComponent.h
+    Source/Components/PerfTest/NetworkRandomTranslateComponent.cpp
+    Source/Components/PerfTest/NetworkRandomTranslateComponent.h
     Source/Components/NetworkStressTestComponent.cpp
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp

@@ -29,12 +29,14 @@ ly_add_target(
             Gem::PhysX
             Gem::StartingPointInput
             Gem::DebugDraw
+            Gem::LyShine
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Static
             Gem::PhysX.Static
             Gem::DebugDraw.Static
             Gem::ImGui.Static
+            Gem::LyShine.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
@@ -78,5 +80,5 @@ if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
 endif()
 
-set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"client.cfg\"")
-set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_client.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")

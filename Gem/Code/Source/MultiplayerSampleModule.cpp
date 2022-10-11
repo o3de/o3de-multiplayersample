@@ -31,7 +31,7 @@ namespace MultiplayerSample
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
-                NetworkPrefabSpawnerComponent::CreateDescriptor(),
+                NetworkPrefabSpawnerComponent::CreateDescriptor()
             });
 
             CreateComponentDescriptors(m_descriptors);

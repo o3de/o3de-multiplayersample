@@ -8,7 +8,7 @@
     OverrideInclude="Source/Components/NetworkStressTestComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <ArchetypeProperty Type="AZ::TimeMs" Name="AutoSpawnIntervalMs" Init="0" ExposeToEditor="true" Description="If > 0, will autospawn an AI using the provided interval" />
+    <ArchetypeProperty Type="AZ::TimeMs" Name="AutoSpawnIntervalMs" Init="AZ::Time::ZeroTimeMs" ExposeToEditor="true" Description="If > 0, will autospawn an AI using the provided interval" />
     <ArchetypeProperty Type="uint32_t" Name="MaxSpawns" Init="0" ExposeToEditor="true" Description="If > 0, will cap the total number of spawned AI to the provided value" />
 
     <NetworkProperty Type="bool" Name="Enabled" Init="true" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />

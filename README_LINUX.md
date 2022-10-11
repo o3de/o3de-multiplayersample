@@ -103,6 +103,7 @@ LoadLevel Levels/SampleBase/SampleBase.spawnable
 
 ### Step 6. Run a Server and a Client
 
+#### Running the Server
 
 A server can be run as follows:
 
@@ -110,7 +111,19 @@ A server can be run as follows:
 > cd ~/git/o3de-multiplayersample/build
 > ./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=server.cfg
 ```
+ 
+#### (Optional) Running the Server Headless
 
+If you do not need to see rendered output on your servers, you can reduce resource usage by using the null renderer.
+
+Note: Parameters to use null renderer must be passed on the commandline as the console-command-file is parsed after rendering is configured.
+
+```shell
+> cd ~/git/o3de-multiplayersample/build
+> ./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=server.cfg -rhi=null -NullRenderer
+```
+
+#### Running the Client
 A client can be run with:
 
 ```shell
