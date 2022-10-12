@@ -8,6 +8,7 @@
 #include "MultiplayerSampleSystemComponent.h"
 
 #include <AzCore/Console/ILogger.h>
+#include <AzCore/Console/IConsole.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
@@ -22,10 +23,14 @@
 #include <Multiplayer/Components/NetBindComponent.h>
 #include <Multiplayer/ConnectionData/IConnectionData.h>
 #include <Multiplayer/ReplicationWindows/IReplicationWindow.h>
+#include <Source/Components/NetworkAiComponent.h>
 
 namespace MultiplayerSample
 {
     using namespace AzNetworking;
+
+    // CVar: cl_npcMode
+    AZ_CVAR(bool, mps_npcMode, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If true enable NPC mode for MultiplayerSample.");
 
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -119,7 +124,7 @@ namespace MultiplayerSample
 
         Multiplayer::INetworkEntityManager::EntityList entityList =
             AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->CreateEntitiesImmediate(
-            entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second, Multiplayer::AutoActivate::DoNotActivate);
+                entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second, Multiplayer::AutoActivate::DoNotActivate);
 
         for (Multiplayer::NetworkEntityHandle subEntity : entityList)
         {
@@ -137,6 +142,16 @@ namespace MultiplayerSample
                 entityParams.first.m_prefabName.GetCStr());
         }
 
+        // See if we make client NPC
+        if (mps_npcMode)
+        {
+            uint64_t seed = static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) + static_cast<uint64_t>(controlledEntity.GetNetEntityId());
+
+            NetworkAiComponentController* networkAiController = controlledEntity.FindController<NetworkAiComponentController>();
+            // Best guess options to create activity for NPC clients
+            networkAiController->ConfigureAi(1000, 10000, 150, 1000, seed);
+            networkAiController->SetEnabled(true);
+        }
         return controlledEntity;
     }
 

@@ -32,6 +32,8 @@ namespace MultiplayerSample
 
     private:
         friend class NetworkStressTestComponentController;
+        friend class MultiplayerSampleSystemComponent;
+
         void ConfigureAi(
             float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed);
 
