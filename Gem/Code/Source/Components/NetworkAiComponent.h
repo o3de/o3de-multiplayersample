@@ -16,8 +16,8 @@ namespace MultiplayerSample
     class NetworkWeaponsComponentController;
     class NetworkPlayerMovementComponentController;
 
-    // The NetworkAiComponent, when active, can execute behaviors and produce synthetic inputs to drive the
-    // NetworkPlayerMovementComponentController and NetworkWeaponsComponentController.
+    //! The NetworkAiComponent, when active, can execute behaviors and produce synthetic inputs to drive the
+    //! NetworkPlayerMovementComponentController and NetworkWeaponsComponentController.
     class NetworkAiComponentController
         : public NetworkAiComponentControllerBase
     {

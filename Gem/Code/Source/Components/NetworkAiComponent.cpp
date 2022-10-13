@@ -16,6 +16,8 @@
 
 namespace MultiplayerSample
 {
+    AZ_CVAR(bool, mps_botMode, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If true, enable bot (AI) mode for client.");
+
     constexpr static float SecondsToMs = 1000.f;
 
     NetworkAiComponentController::NetworkAiComponentController(NetworkAiComponent& parent)
@@ -25,6 +27,11 @@ namespace MultiplayerSample
 
     void NetworkAiComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        if (IsNetEntityRoleAutonomous() && mps_botMode)
+        {
+            SetEnabled(true);
+        }
+
         if (GetEnabled())
         {
             Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
@@ -137,7 +144,7 @@ namespace MultiplayerSample
     }
 
     void NetworkAiComponentController::ConfigureAi(
-            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed)
+        float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed)
     {
         SetFireIntervalMinMs(fireIntervalMinMs);
         SetFireIntervalMaxMs(fireIntervalMaxMs);
