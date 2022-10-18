@@ -20,10 +20,6 @@ ly_add_target(
             .
         PUBLIC
             Include
-    COMPILE_DEFINITIONS
-        PUBLIC
-            AZ_TRAIT_CLIENT_ENABLED=1
-            AZ_TRAIT_SERVER_ENABLED=0
     BUILD_DEPENDENCIES
         PUBLIC
             Gem::DebugDraw
@@ -60,10 +56,6 @@ ly_add_target(
             .
         PUBLIC
             Include
-    COMPILE_DEFINITIONS
-        PUBLIC
-            AZ_TRAIT_CLIENT_ENABLED=0
-            AZ_TRAIT_SERVER_ENABLED=1
     BUILD_DEPENDENCIES
         PUBLIC
             Gem::StartingPointInput
@@ -95,10 +87,6 @@ ly_add_target(
             .
         PUBLIC
             Include
-    COMPILE_DEFINITIONS
-        PUBLIC
-            AZ_TRAIT_CLIENT_ENABLED=1
-            AZ_TRAIT_SERVER_ENABLED=1
     BUILD_DEPENDENCIES
         PUBLIC
             Gem::DebugDraw
@@ -181,6 +169,7 @@ ly_create_alias(NAME MultiplayerSample.Builders NAMESPACE Gem TARGETS Gem::Multi
 ly_create_alias(NAME MultiplayerSample.Tools    NAMESPACE Gem TARGETS Gem::MultiplayerSample)
 ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Client)
 ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Server)
+ly_create_alias(NAME MultiplayerSample.Unified  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
 
 ################################################################################
 # Gem dependencies
@@ -194,5 +183,11 @@ if(PAL_TRAIT_BUILD_SERVER_SUPPORTED)
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_SERVER_PROJECTS MultiplayerSample)
 endif()
 
+# If we build a server, then add the project name to the list of server launcher projects
+if(PAL_TRAIT_BUILD_UNIFIED_SUPPORTED)
+    set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_UNIFIED_PROJECTS MultiplayerSample)
+endif()
+
 set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_client.cfg\"")
 set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY UNIFIEDLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")

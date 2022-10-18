@@ -84,7 +84,9 @@ namespace MultiplayerSample
     private:
         friend class NetworkAiComponentController;
 
+#if AZ_TRAIT_SERVER_ENABLED
         void UpdateAI();
+#endif
 
         //! Update pump for player controlled weapons
         //! @param deltaTime the time in seconds since last tick

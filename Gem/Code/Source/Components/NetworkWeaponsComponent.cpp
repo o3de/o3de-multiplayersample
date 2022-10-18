@@ -147,8 +147,10 @@ namespace MultiplayerSample
     {
         if (IsNetEntityRoleAuthority())
         {
+#if AZ_TRAIT_SERVER_ENABLED
             OnWeaponConfirmHit(hitInfo);
             static_cast<NetworkWeaponsComponentController*>(GetController())->SendConfirmHit(hitInfo.m_weapon.GetWeaponIndex(), hitInfo.m_hitEvent);
+#endif
         }
         else
         {
@@ -195,6 +197,8 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponConfirmHit(const WeaponHitInfo& hitInfo)
     {
+
+#if AZ_TRAIT_SERVER_ENABLED
         if (IsNetEntityRoleAuthority())
         {
             for (const HitEntity& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
@@ -231,6 +235,7 @@ namespace MultiplayerSample
                 }
             }
         }
+#endif
 
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
         [[maybe_unused]] bool shouldIssueMaterialEffects = !HasController() || !hitInfo.m_weapon.GetParams().m_locallyPredicted;
@@ -295,7 +300,9 @@ namespace MultiplayerSample
 
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
+#if AZ_TRAIT_SERVER_ENABLED
         , m_updateAI{[this] { UpdateAI(); }, AZ::Name{ "WeaponsControllerAI" } }
+#endif
     {
         ;
     }
@@ -422,11 +429,13 @@ namespace MultiplayerSample
                 GetParent().ActivateWeaponWithParams(
                     aznumeric_cast<WeaponIndex>(weaponIndexInt), weaponState, fireParams, validateActivations);
 
+#if AZ_TRAIT_SERVER_ENABLED
                 if (IsNetEntityRoleAuthority())
                 {
                     SetActivationParams(weaponIndexInt, fireParams);
                     SetActivationCounts(weaponIndexInt, weaponState.m_activationCount);
                 }
+#endif
             }
             weapon->UpdateWeaponState(weaponState, deltaTime);
         }
@@ -502,6 +511,7 @@ namespace MultiplayerSample
         ;
     }
 
+#if AZ_TRAIT_SERVER_ENABLED
     void NetworkWeaponsComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
@@ -510,4 +520,5 @@ namespace MultiplayerSample
             m_networkAiComponentController->TickWeapons(*this, deltaTime);
         }
     }
+#endif
 } // namespace MultiplayerSample
