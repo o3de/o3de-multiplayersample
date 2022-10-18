@@ -9,8 +9,6 @@
 #include <DebugDraw/DebugDrawBus.h>
 #include <Source/Components/RpcTesterComponent.h>
 
-#pragma optimize("", off)
-
 namespace MultiplayerSample
 {
     void RpcTesterComponent::Reflect(AZ::ReflectContext* context)
@@ -26,8 +24,26 @@ namespace MultiplayerSample
 
     void RpcTesterComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        DebugDraw::DebugDrawRequestBus::Broadcast(&DebugDraw::DebugDrawRequestBus::Events::DrawTextOnEntity, 
-            GetEntityId(), AZStd::string("Autonomous to Authority"), AZ::Colors::Black, -1.f);
+        AZStd::string testType;
+        if (GetTestAutoToAuthorityRPC())
+        {
+            testType = "Auto->Auth";
+        }
+        else if (GetTestServerToAuthorityRPC())
+        {
+            testType = "Server->Auth";
+        }
+        else if (GetTestAuthorityToAutoRPC())
+        {
+            testType = "Auth->Auto";
+        }
+        else if (GetTestAuthorityToClientRPC())
+        {
+            testType = "Auth->Client";
+        }
+
+        DebugDraw::DebugDrawRequestBus::Broadcast(&DebugDraw::DebugDrawRequestBus::Events::DrawTextOnEntity,
+            GetEntityId(), testType, AZ::Colors::White, -1.f);
 
         if (AZ::Render::MaterialComponentRequests* material =
             AZ::Render::MaterialComponentRequestBus::FindFirstHandler(GetEntityId()))
@@ -52,9 +68,25 @@ namespace MultiplayerSample
 
     void RpcTesterComponent::RunTests()
     {
-        if (GetController() && IsNetEntityRoleAutonomous())
+        if (GetController())
         {
-            static_cast<RpcTesterComponentController*>(GetController())->RPC_AutonomousToAuthority();
+            auto controller = static_cast<RpcTesterComponentController*>(GetController());
+            if (GetTestAutoToAuthorityRPC())
+            {
+                controller->RPC_AutonomousToAuthority();
+            }
+            else if (GetTestServerToAuthorityRPC())
+            {
+                RPC_ServerToAuthority();
+            }
+            else if (GetTestAuthorityToAutoRPC())
+            {
+                controller->RPC_AuthorityToAutonomous();
+            }
+            else if (GetTestAuthorityToClientRPC())
+            {
+                controller->RPC_TestPassed();
+            }
         }
     }
 
@@ -66,10 +98,7 @@ namespace MultiplayerSample
 
     void RpcTesterComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsNetEntityRoleAutonomous())
-        {
-            GetParent().m_delayTestRun.Enqueue(AZ::TimeMs{ 2000 }, false);
-        }
+        GetParent().m_delayTestRun.Enqueue(AZ::TimeMs{ 2000 }, false);
     }
 
     void RpcTesterComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -80,6 +109,14 @@ namespace MultiplayerSample
     {
         RPC_TestPassed();
     }
-}
 
-#pragma optimize("", on)
+    void RpcTesterComponentController::HandleRPC_AuthorityToAutonomous([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        RPC_TestPassed();
+    }
+
+    void RpcTesterComponentController::HandleRPC_ServerToAuthority([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        RPC_TestPassed();
+    }
+}

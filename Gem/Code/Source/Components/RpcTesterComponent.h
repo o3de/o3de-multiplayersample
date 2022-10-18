@@ -50,5 +50,7 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
         void HandleRPC_AutonomousToAuthority(AzNetworking::IConnection* invokingConnection) override;
+        void HandleRPC_AuthorityToAutonomous(AzNetworking::IConnection* invokingConnection) override;
+        void HandleRPC_ServerToAuthority(AzNetworking::IConnection* invokingConnection) override;
     };
 }
