@@ -23,34 +23,6 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkAiComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-#if AZ_TRAIT_CLIENT_ENABLED
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceEnableAutonomousUpdate();
-            }
-        }
-#endif
-    }
-
-    void NetworkAiComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-#if AZ_TRAIT_CLIENT_ENABLED
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceDisableAutonomousUpdate();
-            }
-        }
-#endif
-    }
-
 #if AZ_TRAIT_SERVER_ENABLED
     void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {

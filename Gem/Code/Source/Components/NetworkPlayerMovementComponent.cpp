@@ -23,9 +23,7 @@ namespace MultiplayerSample
 
     NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
         : NetworkPlayerMovementComponentControllerBase(parent)
-#if AZ_TRAIT_SERVER_ENABLED
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
-#endif
     {
         ;
     }
@@ -305,14 +303,14 @@ namespace MultiplayerSample
         }
     }
 
-#if AZ_TRAIT_SERVER_ENABLED
     void NetworkPlayerMovementComponentController::UpdateAI()
     {
+#if AZ_TRAIT_SERVER_ENABLED
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         if (m_networkAiComponentController != nullptr)
         {
             m_networkAiComponentController->TickMovement(*this, deltaTime);
         }
-    }
 #endif
+    }
 } // namespace MultiplayerSample

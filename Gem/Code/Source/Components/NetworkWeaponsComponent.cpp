@@ -300,9 +300,7 @@ namespace MultiplayerSample
 
     NetworkWeaponsComponentController::NetworkWeaponsComponentController(NetworkWeaponsComponent& parent)
         : NetworkWeaponsComponentControllerBase(parent)
-#if AZ_TRAIT_SERVER_ENABLED
         , m_updateAI{[this] { UpdateAI(); }, AZ::Name{ "WeaponsControllerAI" } }
-#endif
     {
         ;
     }
@@ -511,14 +509,14 @@ namespace MultiplayerSample
         ;
     }
 
-#if AZ_TRAIT_SERVER_ENABLED
     void NetworkWeaponsComponentController::UpdateAI()
     {
+#if AZ_TRAIT_SERVER_ENABLED
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         if (m_networkAiComponentController != nullptr)
         {
             m_networkAiComponentController->TickWeapons(*this, deltaTime);
         }
-    }
 #endif
+    }
 } // namespace MultiplayerSample
