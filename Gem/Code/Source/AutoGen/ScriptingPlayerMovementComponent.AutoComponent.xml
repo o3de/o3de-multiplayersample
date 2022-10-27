@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="ScriptingPlayerMovementComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="false" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Current velocity of this player"/>
+
+    <NetworkInput Type="float" Name="ForwardAxis" Init="0.0f" ExposeToScript="true" />
+    <NetworkInput Type="float" Name="LookLeftRight" Init="0.0f" ExposeToScript="true" />
+</Component>

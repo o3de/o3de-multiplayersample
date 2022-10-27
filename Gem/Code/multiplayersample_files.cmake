@@ -7,6 +7,10 @@
 
 set(FILES
     Include/NetworkPrefabSpawnerInterface.h
+
+    # Scripting samples
+    Source/AutoGen/ScriptingPlayerMovementComponent.AutoComponent.xml
+
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml

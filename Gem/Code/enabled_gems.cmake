@@ -22,6 +22,7 @@ set(ENABLED_GEMS
     PhysX
     CameraFramework
     ScriptCanvas
+    ScriptCanvasMultiplayer
     ScriptCanvasPhysics
     ScriptCanvasTesting
     PhysXDebug
@@ -52,4 +53,5 @@ set(ENABLED_GEMS
     PrefabBuilder
     MaterialEditor
     UiBasics
+    DiffuseProbeGrid
 )

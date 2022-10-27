@@ -71,7 +71,8 @@
                     "Entity_[6070312681563]",
                     "Entity_[527570584484]",
                     "Entity_[58245980399131]",
-                    "Entity_[37677838535797]"
+                    "Entity_[37677838535797]",
+                    "Entity_[12012701685669]"
                 ]
             }
         }
@@ -176,6 +177,176 @@
                 "Component_[8328462562183634271]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 8328462562183634271
+                }
+            }
+        },
+        "Entity_[12012701685669]": {
+            "Id": "Entity_[12012701685669]",
+            "Name": "Moving Entity Server Authoritative",
+            "Components": {
+                "Component_[10856388891738710390]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 10856388891738710390
+                },
+                "Component_[11321992161640085460]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 11321992161640085460,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{8F438EDB-D9D4-541D-9B71-872F491831D0}",
+                            "path": "scriptcanvas/MovebyAuthority.scriptcanvas"
+                        },
+                        "sourceName": "MovebyAuthority.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{8F438EDB-D9D4-541D-9B71-872F491831D0}",
+                                "path": "scriptcanvas/MovebyAuthority.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{A64378A8-73D1-475C-A850-0FFD2D648E8D}"
+                                    },
+                                    "VariableName": "Life",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{D4761D15-1554-4A22-9355-5278CE0271C6}"
+                                    },
+                                    "VariableName": "Speed",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{A64378A8-73D1-475C-A850-0FFD2D648E8D}"
+                                    },
+                                    "VariableName": "Life",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{D4761D15-1554-4A22-9355-5278CE0271C6}"
+                                    },
+                                    "VariableName": "Speed",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[14611628551741154800]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 14611628551741154800
+                },
+                "Component_[16519942847201178578]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 16519942847201178578
+                },
+                "Component_[5127193808072040974]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 5127193808072040974
+                },
+                "Component_[617258081139752102]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 617258081139752102
+                },
+                "Component_[7123993611788144622]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 7123993611788144622
+                },
+                "Component_[7362085025621719463]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 7362085025621719463,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[7406750070891147304]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7406750070891147304
+                },
+                "Component_[8093265847323404819]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 8093265847323404819,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            -18.702051162719727,
+                            -13.384523391723633,
+                            1.4463756084442139
+                        ]
+                    }
+                },
+                "Component_[8795747671725940263]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8795747671725940263,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[8800279657294875862]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 8800279657294875862,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{593006BE-FE73-5A4B-A0A6-06C02EFFE458}",
+                                    "subId": 285127096
+                                },
+                                "assetHint": "objects/cube.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[996278616793051474]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 996278616793051474
                 }
             }
         },
@@ -1696,6 +1867,20 @@
                                 "assetHint": "engineassets/textures/cubemap/default_level_cubemap_iblspecular.tif.streamingimage"
                             }
                         }
+                    },
+                    "diffuseImageAsset": {
+                        "assetId": {
+                            "guid": "{A5767C6B-5DB4-5999-A717-4587BEDF5CDE}",
+                            "subId": 3000
+                        },
+                        "assetHint": "lightingpresets/default_iblskyboxcm_ibldiffuse.exr.streamingimage"
+                    },
+                    "specularImageAsset": {
+                        "assetId": {
+                            "guid": "{FF892EA4-60B2-5E14-8610-CA2A793C86A7}",
+                            "subId": 2000
+                        },
+                        "assetHint": "engineassets/textures/cubemap/default_level_cubemap_iblspecular.tif.streamingimage"
                     }
                 },
                 "Component_[8034472642282561588]": {
@@ -1766,7 +1951,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 9888856721517959420
+                            "EditorEntityId": 17481019623012890176
                         }
                     }
                 },
