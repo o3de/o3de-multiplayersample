@@ -21,7 +21,10 @@
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
                     "Entity_[32137299649746]",
-                    "Entity_[53358429054215]"
+                    "Entity_[53358429054215]",
+                    "Entity_[161940130415202]",
+                    "Instance_[181112659157219]/ContainerEntity",
+                    "Instance_[407698473479861]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -230,7 +233,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 5778930090089399813
+                            "EditorEntityId": 8008457495588106049
                         }
                     }
                 },
@@ -481,6 +484,135 @@
                 }
             }
         },
+        "Entity_[161940130415202]": {
+            "Id": "Entity_[161940130415202]",
+            "Name": "Projectile Spawner",
+            "Components": {
+                "Component_[12600561307045069877]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 12600561307045069877
+                },
+                "Component_[13070910721658842301]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13070910721658842301
+                },
+                "Component_[13278287653737121594]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 13278287653737121594
+                },
+                "Component_[13554721422425338761]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 13554721422425338761
+                },
+                "Component_[1356818093389185563]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 1356818093389185563
+                },
+                "Component_[1401042642149525960]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 1401042642149525960,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{FFE9D3CF-FEEE-5B7C-9C8C-0AD05AD95969}",
+                            "path": "Levels/MultiplayerScriptingSample/projectile_spawner.scriptcanvas"
+                        },
+                        "sourceName": "projectile_spawner.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{FFE9D3CF-FEEE-5B7C-9C8C-0AD05AD95969}",
+                                "path": "Levels/MultiplayerScriptingSample/projectile_spawner.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef"
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{88D42D1C-E4E6-4370-AA0C-FBCDB448535F}"
+                                    },
+                                    "VariableName": "Projectile Prefab",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
+                                        "value": {
+                                            "asset": {
+                                                "assetId": {
+                                                    "guid": "{5C1850AF-61DE-542A-B1E9-3563643316EE}",
+                                                    "subId": 1929060263
+                                                },
+                                                "assetHint": "levels/multiplayerscriptingsample/multiplayer_projectile.spawnable"
+                                            }
+                                        }
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{88D42D1C-E4E6-4370-AA0C-FBCDB448535F}"
+                                    },
+                                    "VariableName": "Projectile Prefab",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[16167253351094176229]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 16167253351094176229
+                },
+                "Component_[18359536273797662051]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 18359536273797662051
+                },
+                "Component_[3857005000366296193]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3857005000366296193,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[6212615233737287300]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6212615233737287300,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[757460412136017846]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 757460412136017846,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            5.5,
+                            5.0,
+                            2.799999952316284
+                        ]
+                    }
+                },
+                "Component_[7973905786013228850]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 7973905786013228850
+                }
+            }
+        },
         "Entity_[32137299649746]": {
             "Id": "Entity_[32137299649746]",
             "Name": "Player Spawner",
@@ -600,6 +732,48 @@
                     "Id": 9586460623969081969
                 }
             }
+        }
+    },
+    "Instances": {
+        "Instance_[181112659157219]": {
+            "Source": "Levels/MultiplayerScriptingSample/Multiplayer_Projectile.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Transform Data/Translate/2",
+                    "value": 2.684659957885742
+                }
+            ]
+        },
+        "Instance_[407698473479861]": {
+            "Source": "Prefabs/PlayerInScripting.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[6684584573292999048]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[6684584573292999048]/Transform Data/Translate/0",
+                    "value": 3.3378124237060547
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[6684584573292999048]/Transform Data/Translate/1",
+                    "value": -2.3356552124023438
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[6684584573292999048]/Transform Data/Translate/2",
+                    "value": 1.3987274169921875
+                }
+            ]
         }
     }
 }
