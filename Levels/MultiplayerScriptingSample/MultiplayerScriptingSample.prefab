@@ -22,7 +22,11 @@
                     "Entity_[1176639161715]",
                     "Entity_[32137299649746]",
                     "Entity_[53358429054215]",
-                    "Entity_[161940130415202]"
+                    "Entity_[161940130415202]",
+                    "Entity_[316720413438829]",
+                    "Entity_[317622356570989]",
+                    "Entity_[368852726477677]",
+                    "Instance_[299802731775778]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -231,7 +235,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 5799685035907181947
+                            "EditorEntityId": 18405315466027729592
                         }
                     }
                 },
@@ -519,55 +523,7 @@
                             "source": {
                                 "id": "{FFE9D3CF-FEEE-5B7C-9C8C-0AD05AD95969}",
                                 "path": "Levels/MultiplayerScriptingSample/projectile_spawner.scriptcanvas"
-                            },
-                            "variables": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef"
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{88D42D1C-E4E6-4370-AA0C-FBCDB448535F}"
-                                    },
-                                    "VariableName": "Projectile Prefab",
-                                    "InitialValueSource": 1
-                                }
-                            ],
-                            "overrides": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
-                                        "value": {
-                                            "asset": {
-                                                "assetId": {
-                                                    "guid": "{5C1850AF-61DE-542A-B1E9-3563643316EE}",
-                                                    "subId": 1929060263
-                                                },
-                                                "assetHint": "levels/multiplayerscriptingsample/multiplayer_projectile.spawnable"
-                                            }
-                                        }
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{88D42D1C-E4E6-4370-AA0C-FBCDB448535F}"
-                                    },
-                                    "VariableName": "Projectile Prefab",
-                                    "InitialValueSource": 1
-                                }
-                            ]
+                            }
                         }
                     }
                 },
@@ -608,6 +564,206 @@
                 "Component_[7973905786013228850]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 7973905786013228850
+                }
+            }
+        },
+        "Entity_[316720413438829]": {
+            "Id": "Entity_[316720413438829]",
+            "Name": "Obstacle",
+            "Components": {
+                "Component_[11533263361782952832]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11533263361782952832
+                },
+                "Component_[2379775448271128582]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 2379775448271128582
+                },
+                "Component_[3744986849686564615]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3744986849686564615,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[4209661968013520620]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 4209661968013520620,
+                    "ColliderConfiguration": {
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.5
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1
+                    }
+                },
+                "Component_[4359509050153721746]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4359509050153721746
+                },
+                "Component_[5426140991145363755]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 5426140991145363755
+                },
+                "Component_[6290349232246475196]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 6290349232246475196,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            2.299999952316284,
+                            7.700000286102295,
+                            0.0
+                        ]
+                    }
+                },
+                "Component_[6499266875948317006]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 6499266875948317006,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{8F19FB6D-DF18-5CC0-B921-6755089004D7}",
+                                    "subId": 275006192
+                                },
+                                "assetHint": "materialeditor/viewportmodels/beveledcube.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[7457490421508836601]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7457490421508836601
+                },
+                "Component_[7477730162211838733]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7477730162211838733
+                },
+                "Component_[9017206101099697396]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9017206101099697396,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9386912263690643336]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 9386912263690643336
+                },
+                "Component_[9971546217680940636]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 9971546217680940636
+                }
+            }
+        },
+        "Entity_[317622356570989]": {
+            "Id": "Entity_[317622356570989]",
+            "Name": "Obstacle",
+            "Components": {
+                "Component_[11533263361782952832]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11533263361782952832
+                },
+                "Component_[2379775448271128582]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 2379775448271128582
+                },
+                "Component_[3744986849686564615]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3744986849686564615,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[4209661968013520620]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 4209661968013520620,
+                    "ColliderConfiguration": {
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.5
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1
+                    }
+                },
+                "Component_[4359509050153721746]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4359509050153721746
+                },
+                "Component_[5426140991145363755]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 5426140991145363755
+                },
+                "Component_[6290349232246475196]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 6290349232246475196,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            5.599999904632568,
+                            2.700000286102295,
+                            0.0
+                        ]
+                    }
+                },
+                "Component_[6499266875948317006]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 6499266875948317006,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{8F19FB6D-DF18-5CC0-B921-6755089004D7}",
+                                    "subId": 275006192
+                                },
+                                "assetHint": "materialeditor/viewportmodels/beveledcube.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[7457490421508836601]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7457490421508836601
+                },
+                "Component_[7477730162211838733]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7477730162211838733
+                },
+                "Component_[9017206101099697396]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9017206101099697396,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9386912263690643336]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 9386912263690643336
+                },
+                "Component_[9971546217680940636]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 9971546217680940636
                 }
             }
         },
@@ -675,6 +831,106 @@
                 }
             }
         },
+        "Entity_[368852726477677]": {
+            "Id": "Entity_[368852726477677]",
+            "Name": "Obstacle",
+            "Components": {
+                "Component_[11533263361782952832]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11533263361782952832
+                },
+                "Component_[2379775448271128582]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 2379775448271128582
+                },
+                "Component_[3744986849686564615]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3744986849686564615,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[4209661968013520620]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 4209661968013520620,
+                    "ColliderConfiguration": {
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.5
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1
+                    }
+                },
+                "Component_[4359509050153721746]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4359509050153721746
+                },
+                "Component_[5426140991145363755]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 5426140991145363755
+                },
+                "Component_[6290349232246475196]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 6290349232246475196,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            9.600000381469727,
+                            38.10000228881836,
+                            0.0
+                        ]
+                    }
+                },
+                "Component_[6499266875948317006]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 6499266875948317006,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{8F19FB6D-DF18-5CC0-B921-6755089004D7}",
+                                    "subId": 275006192
+                                },
+                                "assetHint": "materialeditor/viewportmodels/beveledcube.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[7457490421508836601]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 7457490421508836601
+                },
+                "Component_[7477730162211838733]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7477730162211838733
+                },
+                "Component_[9017206101099697396]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9017206101099697396,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9386912263690643336]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 9386912263690643336
+                },
+                "Component_[9971546217680940636]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 9971546217680940636
+                }
+            }
+        },
         "Entity_[53358429054215]": {
             "Id": "Entity_[53358429054215]",
             "Name": "Input",
@@ -730,6 +986,38 @@
                     "Id": 9586460623969081969
                 }
             }
+        }
+    },
+    "Instances": {
+        "Instance_[299802731775778]": {
+            "Source": "Levels/MultiplayerScriptingSample/Multiplayer_Projectile.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Transform Data/Translate/0",
+                    "value": 24.53943252563477
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Transform Data/Translate/1",
+                    "value": 6.97650146484375
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[12074117758628948042]/Transform Data/Translate/2",
+                    "value": -4.304106712341309
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[146705676148963]/Components/Component_[2065255244093004566]/Controller/Configuration/materials/0/Value/MaterialAsset/assetHint",
+                    "value": "materials/presets/macbeth/15_red_tex.azmaterial"
+                }
+            ]
         }
     }
 }

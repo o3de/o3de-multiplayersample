@@ -9,7 +9,8 @@
     
     <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Current velocity of this player"/>
 
-    <NetworkInput Type="float" Name="ForwardAxis"   Init="0.0f"  ExposeToScript="true" />
-    <NetworkInput Type="float" Name="LookLeftRight" Init="0.0f"  ExposeToScript="true" />
-    <NetworkInput Type="bool"  Name="Firing"        Init="false" ExposeToScript="true" />
+    <NetworkInput Type="float"     Name="ForwardAxis"   Init="0.0f"  ExposeToScript="true" />
+    <NetworkInput Type="float"     Name="LookLeftRight" Init="0.0f"  ExposeToScript="true" />
+    <NetworkInput Type="bool"      Name="Firing"        Init="false" ExposeToScript="true" />
+    <NetworkInput Type="uint8_t"   Name="ResetCount"    Init="0"     ExposeToScript="true"  />
 </Component>

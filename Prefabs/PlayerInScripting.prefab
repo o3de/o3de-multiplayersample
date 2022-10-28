@@ -160,7 +160,7 @@
                                         "$type": "Vector3",
                                         "value": [
                                             0.0,
-                                            -5.0,
+                                            -6.5,
                                             3.0
                                         ]
                                     },
@@ -181,7 +181,7 @@
                                         },
                                         "isNullPointer": false,
                                         "$type": "double",
-                                        "value": 15.0
+                                        "value": 7.0
                                     },
                                     "InputControlVisibility": {
                                         "Value": 850104567
@@ -193,6 +193,27 @@
                                     "InitialValueSource": 1
                                 }
                             ]
+                        }
+                    }
+                },
+                "Component_[13156193626241553850]": {
+                    "$type": "EditorCharacterControllerComponent",
+                    "Id": 13156193626241553850,
+                    "Configuration": {
+                        "entityId": "",
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        },
+                        "ScaleCoeff": 1.5
+                    },
+                    "ShapeConfig": {
+                        "Capsule": {
+                            "Height": 0.800000011920929,
+                            "Radius": 0.30000001192092896
                         }
                     }
                 },
@@ -288,6 +309,13 @@
                 "Component_[9439770997198325425]": {
                     "$type": "EditorLockComponent",
                     "Id": 9439770997198325425
+                },
+                "Component_[9920179095585270294]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9920179095585270294,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkCharacterComponent"
+                    }
                 }
             }
         }
