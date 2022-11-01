@@ -16,7 +16,7 @@ set(ENABLED_GEMS
     SceneProcessing
     GraphCanvas
     Multiplayer
-    Multiplayer.ScriptCanvas
+    Multiplayer_ScriptCanvas
     AudioSystem
     Camera
     EMotionFX
