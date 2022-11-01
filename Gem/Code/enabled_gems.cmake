@@ -16,13 +16,13 @@ set(ENABLED_GEMS
     SceneProcessing
     GraphCanvas
     Multiplayer
+    Multiplayer.ScriptCanvas
     AudioSystem
     Camera
     EMotionFX
     PhysX
     CameraFramework
     ScriptCanvas
-    ScriptCanvasMultiplayer
     ScriptCanvasPhysics
     ScriptCanvasTesting
     PhysXDebug
