@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="ScriptingPlayerMovementComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="false" 
+    OverrideController="false" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <NetworkInput Type="float"     Name="ForwardAxis"   Init="0.0f"  ExposeToScript="true" />
+    <NetworkInput Type="float"     Name="LookLeftRight" Init="0.0f"  ExposeToScript="true" />
+    <NetworkInput Type="bool"      Name="Firing"        Init="false" ExposeToScript="true" />
+    <NetworkInput Type="uint8_t"   Name="ResetCount"    Init="0"     ExposeToScript="true"  />
+</Component>

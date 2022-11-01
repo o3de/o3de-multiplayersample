@@ -16,6 +16,7 @@ set(ENABLED_GEMS
     SceneProcessing
     GraphCanvas
     Multiplayer
+    Multiplayer_ScriptCanvas
     AudioSystem
     Camera
     EMotionFX
@@ -52,4 +53,5 @@ set(ENABLED_GEMS
     PrefabBuilder
     MaterialEditor
     UiBasics
+    DiffuseProbeGrid
 )
