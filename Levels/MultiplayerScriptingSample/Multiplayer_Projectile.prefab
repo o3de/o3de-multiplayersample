@@ -1,0 +1,270 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Multiplayer_Projectile",
+        "Components": {
+            "Component_[10891814385576645151]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 10891814385576645151
+            },
+            "Component_[12074117758628948042]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 12074117758628948042,
+                "Parent Entity": "",
+                "Transform Data": {
+                    "Translate": [
+                        15.380411148071289,
+                        -11.146204948425293,
+                        -2.1706149578094482
+                    ]
+                }
+            },
+            "Component_[13220640129705581810]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 13220640129705581810
+            },
+            "Component_[1364160906657072847]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 1364160906657072847
+            },
+            "Component_[16018849950500572581]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 16018849950500572581
+            },
+            "Component_[17927394180417627765]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 17927394180417627765
+            },
+            "Component_[4312189910095948534]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 4312189910095948534
+            },
+            "Component_[5494465642865839270]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 5494465642865839270
+            },
+            "Component_[6432618136513776561]": {
+                "$type": "EditorLockComponent",
+                "Id": 6432618136513776561
+            },
+            "Component_[6811260103864388193]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 6811260103864388193,
+                "Child Entity Order": [
+                    "Entity_[146705676148963]"
+                ]
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[146705676148963]": {
+            "Id": "Entity_[146705676148963]",
+            "Name": "Projectile",
+            "Components": {
+                "Component_[13877197300514215377]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13877197300514215377
+                },
+                "Component_[15153862710113510636]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 15153862710113510636,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[15319460701534328346]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 15319460701534328346,
+                    "Parent Entity": "ContainerEntity",
+                    "Transform Data": {
+                        "UniformScale": 0.5
+                    }
+                },
+                "Component_[17151148025915427114]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 17151148025915427114
+                },
+                "Component_[18406006772345252210]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 18406006772345252210,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[2065255244093004566]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 2065255244093004566,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": {
+                                "{}": {
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{DACD7759-791A-596C-9ABD-418D85CF8067}"
+                                        },
+                                        "assetHint": "materials/presets/macbeth/15_red_tex.azmaterial"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "Component_[3891816112175038238]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 3891816112175038238,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{7153BCE2-6604-535A-B52E-3C9CBDF278CD}",
+                            "path": "Levels/MultiplayerScriptingSample/projectile.scriptcanvas"
+                        },
+                        "sourceName": "projectile.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{7153BCE2-6604-535A-B52E-3C9CBDF278CD}",
+                                "path": "Levels/MultiplayerScriptingSample/projectile.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{E3102710-FB28-492C-88EC-ED7A8FBC331E}"
+                                    },
+                                    "VariableName": "MaxFlightTime",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 3.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{E35A8775-D21A-4EC7-8586-3F1E4A244C22}"
+                                    },
+                                    "VariableName": "Projectile Speed",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 5.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{E3102710-FB28-492C-88EC-ED7A8FBC331E}"
+                                    },
+                                    "VariableName": "MaxFlightTime",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 15.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{E35A8775-D21A-4EC7-8586-3F1E4A244C22}"
+                                    },
+                                    "VariableName": "Projectile Speed",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[4471870585422165269]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 4471870585422165269
+                },
+                "Component_[5466843646802291861]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 5466843646802291861
+                },
+                "Component_[5656780749974541836]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 5656780749974541836,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{01D1BB2F-D8F8-5670-92EB-6A42C40DB760}",
+                                    "subId": 284890816
+                                },
+                                "assetHint": "objects/ico_sphere.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[6634963704786914422]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 6634963704786914422
+                },
+                "Component_[7466069880956867665]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 7466069880956867665
+                },
+                "Component_[930954503322810393]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 930954503322810393,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 15319460701534328346
+                        },
+                        {
+                            "ComponentId": 18406006772345252210,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 15153862710113510636,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 5656780749974541836,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 16532294612287799302,
+                            "SortIndex": 4
+                        },
+                        {
+                            "ComponentId": 6522683987475079498,
+                            "SortIndex": 5
+                        }
+                    ]
+                },
+                "Component_[9715216634811007912]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9715216634811007912
+                }
+            }
+        }
+    }
+}
