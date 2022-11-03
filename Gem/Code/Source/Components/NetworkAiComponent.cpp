@@ -23,7 +23,7 @@ namespace MultiplayerSample
     {
     }
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
     void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)

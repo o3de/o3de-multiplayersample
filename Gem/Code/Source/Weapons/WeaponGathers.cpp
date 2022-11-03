@@ -12,7 +12,7 @@
 #include <AzCore/Console/ILogger.h>
 #include <Source/Weapons/SceneQuery.h>
 
-#if AZ_TRAIT_CLIENT_ENABLED
+#if AZ_TRAIT_CLIENT
 #include <DebugDraw/DebugDrawBus.h>
 #endif
 
@@ -64,7 +64,7 @@ namespace MultiplayerSample
             collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
         SceneQuery::WorldIntersect(intersectShape, filter, outResults);
 
-#if AZ_TRAIT_CLIENT_ENABLED
+#if AZ_TRAIT_CLIENT
         if (bg_DrawPhysicsRaycasts)
         {
             DebugDraw::DebugDrawRequestBus::Broadcast
@@ -127,7 +127,7 @@ namespace MultiplayerSample
                 hitMultiple, collisionGroup, filteredNetEntityIds, gatherParams.GetCurrentShapeConfiguration());
             SceneQuery::WorldIntersect(gatherParams.m_gatherShape, filter, outResults);
 
-#if AZ_TRAIT_CLIENT_ENABLED
+#if AZ_TRAIT_CLIENT
             if (bg_DrawPhysicsRaycasts)
             {
                 DebugDraw::DebugDrawRequestBus::Broadcast

@@ -29,7 +29,9 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_CLIENT
         void HandleRPC_TestPassed(AzNetworking::IConnection* invokingConnection) override;
+#endif
 
     private:
         void RunTests();
@@ -49,8 +51,13 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void HandleRPC_AutonomousToAuthority(AzNetworking::IConnection* invokingConnection) override;
+#if AZ_TRAIT_CLIENT
         void HandleRPC_AuthorityToAutonomous(AzNetworking::IConnection* invokingConnection) override;
+#endif
+
+#if AZ_TRAIT_SERVER
+        void HandleRPC_AutonomousToAuthority(AzNetworking::IConnection* invokingConnection) override;
         void HandleRPC_ServerToAuthority(AzNetworking::IConnection* invokingConnection) override;
+#endif
     };
 }

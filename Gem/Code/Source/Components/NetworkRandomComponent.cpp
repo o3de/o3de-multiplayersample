@@ -41,7 +41,7 @@ namespace MultiplayerSample
     NetworkRandomComponentController::NetworkRandomComponentController(NetworkRandomComponent& parent)
         : NetworkRandomComponentControllerBase(parent)
     {
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleAuthority())
         {
             // Setup seed on authority for proxies to pull

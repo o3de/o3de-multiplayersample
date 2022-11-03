@@ -6,8 +6,11 @@
  */
 
 #include <AtomLyIntegration/CommonFeatures/Material/MaterialComponentBus.h>
-#include <DebugDraw/DebugDrawBus.h>
 #include <Source/Components/RpcTesterComponent.h>
+
+#if AZ_TRAIT_CLIENT
+#include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -42,8 +45,10 @@ namespace MultiplayerSample
             testType = "Auth->Client";
         }
 
+#if AZ_TRAIT_CLIENT
         DebugDraw::DebugDrawRequestBus::Broadcast(&DebugDraw::DebugDrawRequestBus::Events::DrawTextOnEntity,
             GetEntityId(), testType, AZ::Colors::White, -1.f);
+#endif
 
         if (AZ::Render::MaterialComponentRequests* material =
             AZ::Render::MaterialComponentRequestBus::FindFirstHandler(GetEntityId()))
@@ -57,6 +62,7 @@ namespace MultiplayerSample
         m_delayTestRun.RemoveFromQueue();
     }
 
+#if AZ_TRAIT_CLIENT
     void RpcTesterComponent::HandleRPC_TestPassed([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         if (AZ::Render::MaterialComponentRequests* material =
@@ -65,17 +71,24 @@ namespace MultiplayerSample
             material->SetMaterialAssetIdOnDefaultSlot(GetTestPassedMaterial().GetId());
         }
     }
+#endif
 
     void RpcTesterComponent::RunTests()
     {
         if (GetController())
         {
             auto controller = static_cast<RpcTesterComponentController*>(GetController());
+            
+#if AZ_TRAIT_CLIENT
             if (GetTestAutoToAuthorityRPC())
             {
                 controller->RPC_AutonomousToAuthority();
+                return;
             }
-            else if (GetTestServerToAuthorityRPC())
+#endif
+
+#if AZ_TRAIT_SERVER
+            if (GetTestServerToAuthorityRPC())
             {
                 RPC_ServerToAuthority();
             }
@@ -87,6 +100,7 @@ namespace MultiplayerSample
             {
                 controller->RPC_TestPassed();
             }
+#endif
         }
     }
 
@@ -105,12 +119,15 @@ namespace MultiplayerSample
     {
     }
 
-    void RpcTesterComponentController::HandleRPC_AutonomousToAuthority([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
-    {
-        RPC_TestPassed();
-    }
-
+#if AZ_TRAIT_CLIENT
     void RpcTesterComponentController::HandleRPC_AuthorityToAutonomous([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        ;
+    }
+#endif
+
+#if AZ_TRAIT_SERVER
+    void RpcTesterComponentController::HandleRPC_AutonomousToAuthority([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         RPC_TestPassed();
     }
@@ -119,4 +136,5 @@ namespace MultiplayerSample
     {
         RPC_TestPassed();
     }
+#endif
 }

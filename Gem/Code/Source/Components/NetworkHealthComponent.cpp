@@ -24,7 +24,7 @@ namespace MultiplayerSample
         ;
     }
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
     void NetworkHealthComponentController::HandleSendHealthDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const float& healthDelta)
     {
         float health = GetHealth();

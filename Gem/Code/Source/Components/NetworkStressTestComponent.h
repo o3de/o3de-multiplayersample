@@ -44,7 +44,7 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
         void HandleSpawnAiEntity();
 
         void HandleSpawnAIEntity(
@@ -77,7 +77,7 @@ namespace MultiplayerSample
         uint64_t m_seed = 0;
         int m_teamID = 0;
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
         AZ::ScheduledEvent m_autoSpawnTimer;
 #endif
     };

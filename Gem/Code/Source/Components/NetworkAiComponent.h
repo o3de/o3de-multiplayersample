@@ -27,7 +27,7 @@ namespace MultiplayerSample
         void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
         void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
         void TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime);
         void TickWeapons(NetworkWeaponsComponentController& weaponsController, float deltaTime);
 #endif
@@ -35,7 +35,7 @@ namespace MultiplayerSample
     private:
         friend class NetworkStressTestComponentController;
 
-#if AZ_TRAIT_SERVER_ENABLED
+#if AZ_TRAIT_SERVER
         void ConfigureAi(
             float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed);
 
