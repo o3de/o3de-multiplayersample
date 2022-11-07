@@ -7,7 +7,7 @@ A simple third-person multiplayer sample for O3DE.
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service. As the project uses an external LFS server, you will need to clone the repository. 
 
-**Do not download the zip** because [GitHub repository archives](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-git-lfs-objects-in-archives-of-your-repository) do not support external LFS content.
+> **Do not download the zip** because [GitHub repository archives](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-git-lfs-objects-in-archives-of-your-repository) do not support external LFS content.
 
 
 ### Create a Git Personal Access Token
