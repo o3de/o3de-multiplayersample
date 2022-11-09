@@ -5,18 +5,22 @@ CParticleRendererFeatureSet	$6B70D015
 		"$A8FC2215",
 		"$18565271",
 		"$8F7B32AE",
-		"$9154DFA0",
 		"$35A36C4E",
+		"$48A1612A",
+		"$889B8BF4",
+		"$E0B8480E",
+		"$9B409ABD",
+		"$9154DFA0",
 		"$8BF32864",
 		"$ECD07C82",
-		"$1C9B3978",
+		"$B408CF5C",
 		"$D857A09F",
 		"$4B933A29",
 		"$4B954A29",
 		"$EAC726E3",
 		"$3BE1856D",
 		"$1A35A1FF",
-		"$D72B521A",
+		"$F22CBF26",
 	};
 }
 CParticleRendererFeatureDesc	$A8FC2215
@@ -80,6 +84,7 @@ CParticleRendererFeatureDesc	$EAC726E3
 }
 CRHIMaterialShaders	$00269EC3
 {
+	VertexShader = "Library/PopcornFXCore/Shaders/AnimatedMesh.vert";
 	FragmentShader = "Library/PopcornFXCore/Shaders/Default_Mesh.frag";
 }
 CParticleRendererFeatureDesc	$3BE1856D
@@ -92,13 +97,34 @@ CParticleRendererFeatureDesc	$1A35A1FF
 	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
 	RendererFeatureName = "UseVertexColors";
 }
-CParticleRendererFeatureDesc	$D72B521A
+CParticleRendererFeatureDesc	$48A1612A
 {
-	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
-	RendererFeatureName = "MeshLOD";
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimation";
+	Mandatory = true;
 }
-CParticleRendererFeatureDesc	$1C9B3978
+CParticleRendererFeatureDesc	$E0B8480E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationInterpolate";
+}
+CParticleRendererFeatureDesc	$9B409ABD
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationInterpolateTracks";
+}
+CParticleRendererFeatureDesc	$889B8BF4
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationUseBonesScale";
+}
+CParticleRendererFeatureDesc	$B408CF5C
 {
 	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
 	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$F22CBF26
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "MeshLOD";
 }

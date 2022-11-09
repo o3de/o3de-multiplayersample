@@ -83,6 +83,7 @@ vec3	toCubemapSpace(vec3 value FS_ARGS)
 {
 	vec3	valueLHZ = mul(GET_CONSTANT(SceneInfo, UserToLHZ), vec4(value, 0.0f)).xyz;
 	vec3	valueRHY = vec3(valueLHZ.x, valueLHZ.z, valueLHZ.y);
+	valueRHY.xz = mul(GET_CONSTANT(EnvironmentMapInfo, Rotation), valueRHY.xz);
 	return valueRHY;
 }
 

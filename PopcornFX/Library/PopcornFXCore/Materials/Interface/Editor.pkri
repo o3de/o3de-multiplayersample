@@ -1,4 +1,4 @@
-Version = 2.13.0.13591;
+Version = 2.14.0.14607;
 CEngineRendererInterface	$6B70D015
 {
 	InterfaceName = "Editor features";
@@ -49,6 +49,7 @@ CEngineRendererInterface	$6B70D015
 		"$1BDFA32C",
 		"$5CBB6243",
 		"$71D528E3",
+		"$E75E73C7",
 	};
 }
 CParticleRendererFeature	$81861AB7
@@ -2059,7 +2060,6 @@ CParticleNodeTemplateExport	$43290D5A
 	ExportedName = "LegacyLit.SpecularMap";
 	ExportedType = dataImage;
 	Type = Input;
-	InputType = Property;
 	CategoryName = {
 		"@eng:LegacyLit",
 	};
@@ -2378,7 +2378,6 @@ CParticleNodeTemplateExport	$43290D5D
 	ExportedName = "Lit.RoughMetalMap";
 	ExportedType = dataImage;
 	Type = Input;
-	InputType = Property;
 	CategoryName = {
 		"@eng:Lit",
 	};
@@ -2562,6 +2561,7 @@ CRHIRenderingSettings	$6DF50834
 		"$16512360",
 		"$DD26542E",
 		"$A2DFDBD4",
+		"$DBCFAF80",
 	};
 }
 CRHIRenderingFeature	$EA67A6E3
@@ -4764,7 +4764,6 @@ CParticleNodeTemplateExport	$E31D7A62
 	ExportedName = "Lit.LitMaskMap";
 	ExportedType = dataImage;
 	Type = Input;
-	InputType = Property;
 	CategoryName = {
 		"@eng:Lit",
 	};
@@ -4829,7 +4828,6 @@ CParticleNodeTemplateExport	$1810889B
 	ExportedName = "Tint.TintMap";
 	ExportedType = dataImage;
 	Type = Input;
-	InputType = Property;
 	CategoryName = {
 		"@eng:Tint",
 	};
@@ -4945,4 +4943,68 @@ CRHIRenderingFeature	$A2DFDBD4
 {
 	FeatureName = "UseVertexColors";
 	UseMeshVertexColor0 = true;
+}
+CParticleRendererFeature	$E75E73C7
+{
+	FeatureName = "MeshLOD";
+	Feature = "$D8754C52";
+	Properties = {
+		"$B5B5302A",
+	};
+}
+CParticleNodeTemplateExport	$D8754C52
+{
+	InputPins = {
+		"$B22FDB79",
+	};
+	OutputPins = {
+		"$53975DDA",
+	};
+	ExportedName = "MeshLOD";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$B22FDB79
+{
+	SelfName = "DefaultValue";
+	Owner = "$D8754C52";
+}
+CParticleNodePinOut	$53975DDA
+{
+	SelfName = "Value";
+	Owner = "$D8754C52";
+}
+CRHIRenderingFeature	$DBCFAF80
+{
+	FeatureName = "MeshLOD";
+}
+CParticleNodeTemplateExport	$B5B5302A
+{
+	Description = {
+		"@eng:Index of the level of detail to render",
+	};
+	InputPins = {
+		"$4CC1A594",
+	};
+	OutputPins = {
+		"$87008ABA",
+	};
+	ExportedName = "MeshLOD.LOD";
+	ExportedType = int;
+	Type = Input;
+	CategoryName = {
+		"@eng:MeshLOD",
+	};
+	HasMin = true;
+}
+CParticleNodePinIn	$4CC1A594
+{
+	SelfName = "DefaultValue";
+	Owner = "$B5B5302A";
+}
+CParticleNodePinOut	$87008ABA
+{
+	SelfName = "Value";
+	Owner = "$B5B5302A";
 }

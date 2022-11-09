@@ -1,0 +1,392 @@
+Version = 2.14.0.14607;
+CEngineRendererInterface	$6B70D015
+{
+	InterfaceName = "Mesh Anim";
+	RendererFeatures = {
+		"$07502AB6",
+		"$85A52676",
+		"$657972C1",
+		"$B4745F99",
+	};
+}
+CRHIRenderingSettings	$6DF50834
+{
+	RenderingFeatures = {
+		"$691E0A5C",
+		"$FBB54BD2",
+		"$F560428A",
+		"$21F97218",
+	};
+}
+CParticleRendererFeature	$07502AB6
+{
+	FeatureName = "SkeletalAnimation";
+	Feature = "$D860242F";
+	Properties = {
+		"$8FED53BE",
+		"$FC06E279",
+		"$811D3FC7",
+		"$4D9DD5F2",
+		"$E0FEB178",
+	};
+}
+CParticleNodeTemplateExport	$D860242F
+{
+	InputPins = {
+		"$F51BABD9",
+	};
+	OutputPins = {
+		"$BA393FB8",
+	};
+	ExportedName = "SkeletalAnimation";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$F51BABD9
+{
+	SelfName = "DefaultValue";
+	Owner = "$D860242F";
+}
+CParticleNodePinOut	$BA393FB8
+{
+	SelfName = "Value";
+	Owner = "$D860242F";
+}
+CRHIRenderingFeature	$691E0A5C
+{
+	FeatureName = "SkeletalAnimation";
+	UseMeshVertexBonesIndicesAndWeights = true;
+	PropertiesAsShaderConstants = {
+		"AnimTextureResolution",
+		"AnimationTexture",
+		"AnimTracksCount",
+	};
+	TexturesUsedAsLookUp = {
+		"AnimationTexture",
+	};
+}
+CParticleNodeTemplateExport	$8FED53BE
+{
+	InputPins = {
+		"$51F00EE5",
+	};
+	OutputPins = {
+		"$B8E044B6",
+	};
+	ExportedName = "SkeletalAnimation.AnimationTexture";
+	ExportedType = dataImage;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:SkeletalAnimation",
+	};
+}
+CParticleNodePinIn	$51F00EE5
+{
+	SelfName = "DefaultValue";
+	Owner = "$8FED53BE";
+}
+CParticleNodePinOut	$B8E044B6
+{
+	SelfName = "Value";
+	Owner = "$8FED53BE";
+}
+CParticleNodeTemplateExport	$FC06E279
+{
+	InputPins = {
+		"$70FB0232",
+	};
+	OutputPins = {
+		"$6AED2119",
+	};
+	ExportedName = "SkeletalAnimation.AnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:SkeletalAnimation",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$70FB0232
+{
+	SelfName = "DefaultValue";
+	Owner = "$FC06E279";
+}
+CParticleNodePinOut	$6AED2119
+{
+	SelfName = "Value";
+	Owner = "$FC06E279";
+}
+CParticleNodeTemplateExport	$811D3FC7
+{
+	InputPins = {
+		"$3B8615E2",
+	};
+	OutputPins = {
+		"$4DA235CB",
+	};
+	ExportedName = "SkeletalAnimation.AnimTextureResolution";
+	ExportedType = int2;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:SkeletalAnimation",
+	};
+	DefaultValueI4 = int4(1024, 32, 0, 0);
+}
+CParticleNodePinIn	$3B8615E2
+{
+	SelfName = "DefaultValue";
+	Owner = "$811D3FC7";
+}
+CParticleNodePinOut	$4DA235CB
+{
+	SelfName = "Value";
+	Owner = "$811D3FC7";
+}
+CParticleRendererFeature	$85A52676
+{
+	FeatureName = "SkeletalAnimationInterpolate";
+	Feature = "$8501FD98";
+}
+CParticleNodeTemplateExport	$8501FD98
+{
+	InputPins = {
+		"$3FFF929C",
+	};
+	OutputPins = {
+		"$81C8B393",
+	};
+	ExportedName = "SkeletalAnimationInterpolate";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$3FFF929C
+{
+	SelfName = "DefaultValue";
+	Owner = "$8501FD98";
+}
+CParticleNodePinOut	$81C8B393
+{
+	SelfName = "Value";
+	Owner = "$8501FD98";
+}
+CRHIRenderingFeature	$FBB54BD2
+{
+	FeatureName = "SkeletalAnimationInterpolate";
+}
+CParticleNodeTemplateExport	$4D9DD5F2
+{
+	InputPins = {
+		"$2F228D2D",
+	};
+	OutputPins = {
+		"$EDD49B7E",
+	};
+	ExportedName = "SkeletalAnimation.AnimTracksCount";
+	ExportedType = float;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:SkeletalAnimation",
+	};
+	HasMin = true;
+	DefaultValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	DefaultValueI4 = int4(1, 0, 0, 0);
+	MinValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	MinValueI4 = int4(1, 0, 0, 0);
+}
+CParticleNodePinIn	$2F228D2D
+{
+	SelfName = "DefaultValue";
+	Owner = "$4D9DD5F2";
+}
+CParticleNodePinOut	$EDD49B7E
+{
+	SelfName = "Value";
+	Owner = "$4D9DD5F2";
+}
+CParticleNodeTemplateExport	$E0FEB178
+{
+	InputPins = {
+		"$D93FEB8E",
+	};
+	OutputPins = {
+		"$0CFC3D9B",
+	};
+	ExportedName = "SkeletalAnimation.CurrentAnimTrack";
+	ExportedType = int;
+	Type = Input;
+	CategoryName = {
+		"@eng:SkeletalAnimation",
+	};
+	HasMin = true;
+}
+CParticleNodePinIn	$D93FEB8E
+{
+	SelfName = "DefaultValue";
+	Owner = "$E0FEB178";
+}
+CParticleNodePinOut	$0CFC3D9B
+{
+	SelfName = "Value";
+	Owner = "$E0FEB178";
+}
+CParticleRendererFeature	$657972C1
+{
+	FeatureName = "SkeletalAnimationInterpolateTracks";
+	Feature = "$E7833CC2";
+	Properties = {
+		"$F0BC969B",
+		"$E8EF58FF",
+		"$FEC61C9C",
+	};
+}
+CParticleNodeTemplateExport	$E7833CC2
+{
+	InputPins = {
+		"$98B1DEC4",
+	};
+	OutputPins = {
+		"$5E2A0AF4",
+	};
+	ExportedName = "SkeletalAnimationInterpolateTracks";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$98B1DEC4
+{
+	SelfName = "DefaultValue";
+	Owner = "$E7833CC2";
+}
+CParticleNodePinOut	$5E2A0AF4
+{
+	SelfName = "Value";
+	Owner = "$E7833CC2";
+}
+CRHIRenderingFeature	$F560428A
+{
+	FeatureName = "SkeletalAnimationInterpolateTracks";
+}
+CParticleNodeTemplateExport	$F0BC969B
+{
+	InputPins = {
+		"$44AEAB2B",
+	};
+	OutputPins = {
+		"$11E97D9F",
+	};
+	ExportedName = "SkeletalAnimationInterpolateTracks.NextAnimTrack";
+	ExportedType = int;
+	Type = Input;
+	CategoryName = {
+		"@eng:SkeletalAnimationInterpolateTracks",
+	};
+	HasMin = true;
+}
+CParticleNodePinIn	$44AEAB2B
+{
+	SelfName = "DefaultValue";
+	Owner = "$F0BC969B";
+}
+CParticleNodePinOut	$11E97D9F
+{
+	SelfName = "Value";
+	Owner = "$F0BC969B";
+}
+CParticleNodeTemplateExport	$E8EF58FF
+{
+	InputPins = {
+		"$40B88C2E",
+	};
+	OutputPins = {
+		"$E41A2064",
+	};
+	ExportedName = "SkeletalAnimationInterpolateTracks.TransitionRatio";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:SkeletalAnimationInterpolateTracks",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$40B88C2E
+{
+	SelfName = "DefaultValue";
+	Owner = "$E8EF58FF";
+}
+CParticleNodePinOut	$E41A2064
+{
+	SelfName = "Value";
+	Owner = "$E8EF58FF";
+}
+CParticleRendererFeature	$B4745F99
+{
+	FeatureName = "SkeletalAnimationUseBonesScale";
+	Feature = "$178648F9";
+}
+CParticleNodeTemplateExport	$178648F9
+{
+	InputPins = {
+		"$E9A438AD",
+	};
+	OutputPins = {
+		"$46ADF64A",
+	};
+	ExportedName = "SkeletalAnimationUseBonesScale";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$E9A438AD
+{
+	SelfName = "DefaultValue";
+	Owner = "$178648F9";
+}
+CParticleNodePinOut	$46ADF64A
+{
+	SelfName = "Value";
+	Owner = "$178648F9";
+}
+CRHIRenderingFeature	$21F97218
+{
+	FeatureName = "SkeletalAnimationUseBonesScale";
+}
+CParticleNodeTemplateExport	$FEC61C9C
+{
+	InputPins = {
+		"$FE746319",
+	};
+	OutputPins = {
+		"$6EC7EEC8",
+	};
+	ExportedName = "SkeletalAnimationInterpolateTracks.NextAnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:SkeletalAnimationInterpolateTracks",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$FE746319
+{
+	SelfName = "DefaultValue";
+	Owner = "$FEC61C9C";
+}
+CParticleNodePinOut	$6EC7EEC8
+{
+	SelfName = "Value";
+	Owner = "$FEC61C9C";
+}
