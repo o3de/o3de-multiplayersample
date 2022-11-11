@@ -30,6 +30,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::DebugDraw
             Gem::LyShine
+            Gem::PopcornFX.Static
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Static

@@ -24,6 +24,10 @@ namespace MultiplayerSample
     const WeaponIndex PrimaryWeaponIndex   = WeaponIndex{ 0 };
     const WeaponIndex SecondaryWeaponIndex = WeaponIndex{ 1 };
 
+    using OnWeaponActivateEvent = AZ::Event<const WeaponActivationInfo&>;
+    using OnWeaponPredictHitEvent = AZ::Event<const WeaponHitInfo&>;
+    using OnWeaponConfirmHitEvent = AZ::Event<const WeaponHitInfo&>;
+
     class NetworkWeaponsComponent
         : public NetworkWeaponsComponentBase
         , private WeaponListener
@@ -43,6 +47,12 @@ namespace MultiplayerSample
         void ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations);
 
         IWeapon* GetWeapon(WeaponIndex weaponIndex) const;
+
+        void AddOnWeaponActivateEventHandler(OnWeaponActivateEvent::Handler& handler);
+        void AddOnWeaponPredictHitEventHandler(OnWeaponPredictHitEvent::Handler& handler);
+        void AddOnWeaponConfirmHitEventHandler(OnWeaponConfirmHitEvent::Handler& handler);
+
+        AZ::Vector3 GetCurrentShotStartPosition();
 
     private:
         //! WeaponListener interface
@@ -64,6 +74,10 @@ namespace MultiplayerSample
         AZStd::array<int32_t, MaxWeaponsPerComponent> m_fireBoneJointIds;
 
         DebugDraw::DebugDrawRequests* m_debugDraw = nullptr;
+
+        OnWeaponActivateEvent m_onWeaponActivateEvent;
+        OnWeaponPredictHitEvent m_onWeaponPredictHitEvent;
+        OnWeaponConfirmHitEvent m_onWeaponConfirmHitEvent;
     };
 
     class NetworkWeaponsComponentController

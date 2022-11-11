@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="WeaponEffectComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="true" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/Multiplayer/WeaponEffectComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkWeaponsComponent" Namespace="MultiplayerSample" Include="Source/Components/NetworkWeaponsComponent.h" />
+</Component>

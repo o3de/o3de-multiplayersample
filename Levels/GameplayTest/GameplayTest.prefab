@@ -5808,6 +5808,20 @@
                                 "assetHint": "engineassets/textures/cubemap/default_level_cubemap_iblspecular.tif.streamingimage"
                             }
                         }
+                    },
+                    "diffuseImageAsset": {
+                        "assetId": {
+                            "guid": "{A5767C6B-5DB4-5999-A717-4587BEDF5CDE}",
+                            "subId": 3000
+                        },
+                        "assetHint": "lightingpresets/default_iblskyboxcm_ibldiffuse.exr.streamingimage"
+                    },
+                    "specularImageAsset": {
+                        "assetId": {
+                            "guid": "{FF892EA4-60B2-5E14-8610-CA2A793C86A7}",
+                            "subId": 2000
+                        },
+                        "assetHint": "engineassets/textures/cubemap/default_level_cubemap_iblspecular.tif.streamingimage"
                     }
                 },
                 "Component_[8034472642282561588]": {
@@ -6042,10 +6056,6 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 14478429868711242326
                 },
-                "Component_[15954001209187179655]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 15954001209187179655
-                },
                 "Component_[16952898907599562589]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 16952898907599562589,
@@ -6202,7 +6212,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 14446012695748497796
+                            "EditorEntityId": 13496205700727491362
                         }
                     }
                 },
@@ -6708,8 +6718,964 @@
                     "value": 0.5
                 },
                 {
-                    "op": "remove",
-                    "path": "/LinkId"
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
                 }
             ]
         },
@@ -7220,6 +8186,966 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[4107956514252411312]/Transform Data/Translate/2",
                     "value": 0.5
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[506144033123]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[510439000419]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[514733967715]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[519028935011]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[523323902307]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[527618869603]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[531913836899]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[536208804195]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[540503771491]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[544798738787]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[549093706083]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[553388673379]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[557683640675]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[561978607971]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[566273575267]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[570568542563]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[574863509859]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[579158477155]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[583453444451]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[587748411747]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[592043379043]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[596338346339]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[600633313635]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[604928280931]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[609223248227]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[613518215523]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[617813182819]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[622108150115]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[626403117411]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[630698084707]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[634993052003]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[639288019299]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[643582986595]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[647877953891]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[652172921187]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[656467888483]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660762855779]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[665057823075]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[669352790371]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[673647757667]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[677942724963]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[682237692259]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[686532659555]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[695122594147]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[699417561443]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[703712528739]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[708007496035]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[712302463331]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[716597430627]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[720892397923]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[725187365219]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[729482332515]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[733777299811]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[738072267107]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[742367234403]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[746662201699]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[750957168995]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[755252136291]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[759547103587]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[763842070883]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[768137038179]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[772432005475]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[776726972771]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/0",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/4",
+                    "value": 166.6666717529297
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[781021940067]/Components/Component_[14564562245168579615]/Configuration/Inertia tensor/8",
+                    "value": 166.6666717529297
                 }
             ]
         },
