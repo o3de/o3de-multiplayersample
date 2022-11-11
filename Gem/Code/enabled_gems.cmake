@@ -17,6 +17,7 @@ set(ENABLED_GEMS
     GraphCanvas
     Multiplayer
     AudioSystem
+    AudioEngineWwise
     Camera
     EMotionFX
     PhysX

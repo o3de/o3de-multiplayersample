@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}" SchemaVersion="103">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="Sound_Gun_Firing" ID="{3E5770AB-FCF8-4648-9120-389A6011FB0A}" ShortID="424958082">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-8</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1F6AC909-331F-49F5-B6D6-1405F4C25E74}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="AMZ_sfx_CHR_wpn_plasma_pistol_fire001" ID="{AF6E7584-89BF-4CAA-9AB8-91C812EEB060}">
+							<Language>SFX</Language>
+							<AudioFile>AMZ_sfx_CHR_wpn_plasma_pistol_fire001.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="970756583"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="AMZ_sfx_CHR_wpn_plasma_pistol_fire001" ID="{AF6E7584-89BF-4CAA-9AB8-91C812EEB060}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

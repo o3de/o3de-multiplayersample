@@ -39,6 +39,7 @@ ly_add_target(
             Gem::ImGui.Static
             Gem::LyShine.Static
             Gem::GameState.Static
+            Gem::LmbrCentral.API
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
