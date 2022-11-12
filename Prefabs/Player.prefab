@@ -97,6 +97,7 @@
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkAnimationComponent",
                         "VelocityParamName": "movement_direction",
+                        "TurningEnabled": true,
                         "AimTargetParamName": "target_position",
                         "CrouchParamName": "crouch",
                         "AimingParamName": "aiming",
@@ -132,12 +133,13 @@
                                 {}
                             ]
                         },
-                        "ApplyMoveOnPhysicsTick": false
+                        "ApplyMoveOnPhysicsTick": false,
+                        "ScaleCoeff": 1.0
                     },
                     "ShapeConfig": {
                         "Capsule": {
-                            "Height": 2.0,
-                            "Radius": 0.5
+                            "Height": 1.7999999523162842,
+                            "Radius": 0.30000001192092896
                         }
                     }
                 },
@@ -232,7 +234,8 @@
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 1084884419,
-                                "name": "aiming"
+                                "name": "aiming",
+                                "value": true
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
@@ -274,8 +277,7 @@
                             {
                                 "$type": "AzFramework::ScriptPropertyNumber",
                                 "id": 2553848132,
-                                "name": "land_type_index",
-                                "value": 1.0
+                                "name": "land_type_index"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
@@ -301,14 +303,12 @@
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 671657505,
-                                "name": "lock_feet",
-                                "value": true
+                                "name": "lock_feet"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 3470154576,
-                                "name": "foot_ik_weight",
-                                "value": true
+                                "name": "foot_ik_weight"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
@@ -318,10 +318,16 @@
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 420668671,
-                                "name": "game_entry",
-                                "value": true
+                                "name": "game_entry"
                             }
                         ]
+                    }
+                },
+                "Component_[4325721995654492049]": {
+                    "$type": "EditorCharacterGameplayComponent",
+                    "Id": 4325721995654492049,
+                    "GameplayConfig": {
+                        "GravityMultiplier": 0.0
                     }
                 },
                 "Component_[5250619091527933772]": {
@@ -365,7 +371,9 @@
                     "$type": "GenericComponentWrapper",
                     "Id": 5387953310772448141,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkPlayerMovementComponent"
+                        "$type": "MultiplayerSample::NetworkPlayerMovementComponent",
+                        "SprintSpeed": 6.0,
+                        "JumpVelocity": 8.0
                     }
                 },
                 "Component_[6252367322126438780]": {

@@ -14,12 +14,19 @@
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
+#include <AzFramework/Physics/SystemBus.h>
+#include <AzFramework/Physics/PhysicsScene.h>
+#include <AzFramework/Physics/Common/PhysicsTypes.h>
+#include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
+#include <PhysX/CharacterGameplayBus.h>
+
 
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
     AZ_CVAR(float, cl_AimStickScaleZ, 0.1f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
     AZ_CVAR(float, cl_AimStickScaleX, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_MaxMouseDelta, 1024.f, nullptr, AZ::ConsoleFunctorFlags::Null, "Mouse deltas will be clamped to this maximum");
 
     NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
         : NetworkPlayerMovementComponentControllerBase(parent)
@@ -50,6 +57,16 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomInEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomOutEventId);
+        }
+
+        AzPhysics::SimulatedBody* worldBody = nullptr;
+        AzPhysics::SimulatedBodyComponentRequestsBus::EventResult(worldBody, GetEntityId(), &AzPhysics::SimulatedBodyComponentRequests::GetSimulatedBody);
+        if (worldBody)
+        {
+            if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+            {
+                m_gravity = sceneInterface->GetGravity(worldBody->m_sceneOwner).GetZ();
+            }
         }
     }
 
@@ -87,14 +104,21 @@ namespace MultiplayerSample
         playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
         playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
-        // View Axis
-        playerInput->m_viewYaw = MouseAxis(m_viewYaw);
-        playerInput->m_viewPitch = MouseAxis(m_viewPitch);
+        // View Axis are clamped and brought into the -1,1 range for transport across the network 
+        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
 
         // Strafe input
         playerInput->m_sprint = m_sprinting;
         playerInput->m_jump = m_jumping;
         playerInput->m_crouch = m_crouching;
+
+        // reset jumping until next press
+        m_jumping = false;
+
+        // reset accumulated amounts
+        m_viewYaw = 0.f;
+        m_viewPitch = 0.f;
 
         // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client
         // through correction packets
@@ -116,14 +140,28 @@ namespace MultiplayerSample
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), playerInput->m_sprint);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), playerInput->m_jump);
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), playerInput->m_crouch);
+
+        bool onGround = true;
+        PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
+        if (onGround)
+        {
+            if (m_wasOnGround)
+            {
+                // the Landing anim state will automatically turn off
+                GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit( 
+                    aznumeric_cast<uint32_t>(CharacterAnimState::Landing), true);
+            }
+
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), playerInput->m_jump);
+        }
+
 
         // Update orientation
         AZ::Vector3 aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
-        aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - playerInput->m_viewYaw * cl_AimStickScaleZ));
-        aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - playerInput->m_viewPitch * cl_AimStickScaleX));
+        aimAngles.SetZ(NormalizeHeading(aimAngles.GetZ() - playerInput->m_viewYaw * cl_AimStickScaleZ * cl_MaxMouseDelta));
+        aimAngles.SetX(NormalizeHeading(aimAngles.GetX() - playerInput->m_viewPitch * cl_AimStickScaleX * cl_MaxMouseDelta));
         aimAngles.SetX(
             NormalizeHeading(AZ::GetClamp(aimAngles.GetX(), -AZ::Constants::QuarterPi * 0.75f, AZ::Constants::QuarterPi * 0.75f)));
         GetNetworkSimplePlayerCameraComponentController()->SetAimAngles(aimAngles);
@@ -132,16 +170,55 @@ namespace MultiplayerSample
         GetEntity()->GetTransform()->SetLocalRotationQuaternion(newOrientation);
 
         // Update velocity
-        UpdateVelocity(*playerInput);
+        UpdateVelocity(*playerInput, deltaTime);
 
-        GetNetworkCharacterComponentController()->TryMoveWithVelocity(GetVelocity(), deltaTime);
+        // absolute velocity is based on velocity generated by the player and other sources
+        const AZ::Vector3 absoluteVelocity = GetBaseVelocity() + GetLocalVelocity();
+
+        // if we're not moving down on a platform and have a negative velocity we're falling
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Falling), !onGround && absoluteVelocity.GetZ() < 0.f);
+
+        GetNetworkCharacterComponentController()->TryMoveWithVelocity(absoluteVelocity, deltaTime);
+
+        m_wasOnGround = onGround;
     }
 
-    void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput)
+    void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime)
     {
+        AZ::Vector3 baseVelocity = GetBaseVelocity(); // non-player generated (jump pads, explosions etc.)
+        AZ::Vector3 localVelocity = GetLocalVelocity(); // player generated
+
+        bool onGround = true;
+        PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
+        if (onGround)
+        {
+            if (playerInput.m_jump)
+            {
+                localVelocity.SetZ(GetJumpVelocity());
+            }
+            else
+            {
+                localVelocity.SetZ(0);
+            }
+
+            // prevent downward base velocity when on the ground
+            if (baseVelocity.GetZ() < 0.f)
+            {
+                baseVelocity.SetZ(0.f);
+            }
+        }
+        else
+        {
+            // apply gravity
+            baseVelocity.SetZ(baseVelocity.GetZ() + m_gravity * deltaTime);
+            localVelocity.SetZ(localVelocity.GetZ() + m_gravity * deltaTime);
+        }
+
         const float fwdBack = playerInput.m_forwardAxis;
         const float leftRight = playerInput.m_strafeAxis;
 
+        // TODO break out into air/water/ground speeds
         float speed = 0.0f;
         if (playerInput.m_crouch)
         {
@@ -163,20 +240,27 @@ namespace MultiplayerSample
             }
         }
 
-        // Not moving?
-        if (fwdBack == 0.0f && leftRight == 0.0f)
-        {
-            SetVelocity(AZ::Vector3::CreateZero());
-        }
-        else
+        if (fwdBack != 0.0f || leftRight != 0.0f)
         {
             const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
             const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
-            const float targetHeading =
-                NormalizeHeading(currentHeading + stickInputAngle); // Update current heading with stick input angles
+            const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle);
             const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
-            SetVelocity(AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed);
+
+            // instant acceleration for now
+            const AZ::Vector3 moveVelocity = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed;
+            localVelocity.SetX(moveVelocity.GetX());
+            localVelocity.SetY(moveVelocity.GetY());
         }
+        else
+        {
+            // instant deceleration for now
+            localVelocity.SetX(0.f);
+            localVelocity.SetY(0.f);
+        }
+
+        SetBaseVelocity(baseVelocity);
+        SetLocalVelocity(localVelocity);
     }
 
     float NetworkPlayerMovementComponentController::NormalizeHeading(float heading) const
@@ -239,7 +323,7 @@ namespace MultiplayerSample
         }
     }
 
-    void NetworkPlayerMovementComponentController::OnReleased(float value)
+    void NetworkPlayerMovementComponentController::OnReleased([[maybe_unused]]float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
 
@@ -275,14 +359,6 @@ namespace MultiplayerSample
         {
             m_crouching = false;
         }
-        else if (*inputId == LookLeftRightEventId)
-        {
-            m_viewYaw = value;
-        }
-        else if (*inputId == LookUpDownEventId)
-        {
-            m_viewPitch = value;
-        }
     }
 
     void NetworkPlayerMovementComponentController::OnHeld(float value)
@@ -295,11 +371,13 @@ namespace MultiplayerSample
         }
         else if (*inputId == LookLeftRightEventId)
         {
-            m_viewYaw = value;
+            // accumulate input to be processed in CreateInput()
+            m_viewYaw += value;
         }
         else if (*inputId == LookUpDownEventId)
         {
-            m_viewPitch = value;
+            // accumulate input to be processed in CreateInput()
+            m_viewPitch += value;
         }
     }
 
