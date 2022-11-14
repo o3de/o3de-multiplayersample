@@ -162,6 +162,16 @@
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 17057124452563381137
                 },
+                "Component_[17263204639576784355]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 17263204639576784355,
+                    "Play Trigger": {
+                        "controlName": "Play_Sound_Gun_Firing"
+                    },
+                    "Stop Trigger": {
+                        "controlName": "Stop_Sound_Gun_Firing"
+                    }
+                },
                 "Component_[17993245065130330388]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 17993245065130330388
@@ -171,6 +181,139 @@
                     "Id": 1825823955420198768,
                     "m_template": {
                         "$type": "MultiplayerSample::PlayerKnockbackEffectComponent"
+                    }
+                },
+                "Component_[1987329644401848864]": {
+                    "$type": "PopcornFXEmitterEditorComponent",
+                    "Id": 1987329644401848864,
+                    "ParticleSystem": {
+                        "assetId": {
+                            "guid": "{4AB84876-46BB-56C9-9276-E29296924243}"
+                        },
+                        "assetHint": "popcornfx/library/straight_shot_effect.pkfx"
+                    },
+                    "PrewarmTime": 0.0,
+                    "AttributeList": {
+                        "Attributes": [
+                            {
+                                "Name": "Start",
+                                "Type": 33
+                            },
+                            {
+                                "Name": "End",
+                                "Type": 33
+                            },
+                            {
+                                "Name": "Trace_Color",
+                                "Type": 34
+                            },
+                            {
+                                "Name": "GlobalScale",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Core_Size",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Brightness_Global",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Brightness_Core",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Light_Range",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Light_Intensity",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Color",
+                                "Type": 34
+                            },
+                            {
+                                "Name": "Sparks_SpawnCount",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Hue_Var",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Brightness_Sparks",
+                                "Type": 31
+                            }
+                        ],
+                        "AttributesRawData": "AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAABzuVw/0QZCP/CAcT0AAIA/AAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACBBAAAAAAAAAAAAAAAAAADIQgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAc7lcP9EGQj/wgHE9AACAPwAAoEIAAAAAAAAAAAAAAADNzEw9AAAAAAAAAAAAAAAAAAAgQQAAAAAAAAAAAAAAAA=="
+                    },
+                    "EditorAttributeList": {
+                        "AttributeCategories": [
+                            {
+                                "Attributes": [
+                                    {},
+                                    {
+                                        "ValueFY": 3.0
+                                    },
+                                    {
+                                        "Color": [
+                                            0.8622047305107117,
+                                            0.7579165101051331,
+                                            0.05896085500717163
+                                        ]
+                                    },
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 80.0
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 10.0
+                                    },
+                                    {
+                                        "ValueFX": 100.0
+                                    },
+                                    {
+                                        "ValueFX": 10.0
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "Color": [
+                                            0.8622047305107117,
+                                            0.7579165101051331,
+                                            0.05896085500717163
+                                        ]
+                                    },
+                                    {
+                                        "ValueFX": 0.05000000074505806
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 1.0
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 "Component_[2596368806843971783]": {
@@ -383,6 +526,13 @@
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
                 },
+                "Component_[695007936360450055]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 695007936360450055,
+                    "m_template": {
+                        "$type": "MultiplayerSample::WeaponEffectComponent"
+                    }
+                },
                 "Component_[7398251875150394377]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 7398251875150394377,
@@ -477,6 +627,13 @@
                                 }
                             ]
                         }
+                    }
+                },
+                "Component_[9435594912102554786]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9435594912102554786,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
                     }
                 }
             }

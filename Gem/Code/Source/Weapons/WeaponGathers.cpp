@@ -16,7 +16,7 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(uint32_t, bg_MultitraceNumTraceSegments, 3, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of segments to use when performing multitrace casts");
-    AZ_CVAR(bool, bg_DrawPhysicsRaycasts, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, will debug draw physics raycasts");
+    AZ_CVAR(bool, bg_DrawPhysicsRaycasts, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, will debug draw physics raycasts");
 
     IntersectFilter::IntersectFilter
     (

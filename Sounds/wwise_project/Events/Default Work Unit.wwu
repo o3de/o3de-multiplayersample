@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0566E170-B00C-43ED-9207-35F37FE8B969}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{0566E170-B00C-43ED-9207-35F37FE8B969}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_Sound_Gun_Firing" ID="{63C45C11-B9BD-4FC0-9C38-2924864C9E04}">
+					<ChildrenList>
+						<Action Name="" ID="{9ED88BFA-37ED-4823-AC3C-7FD58D21DFDA}" ShortID="560356255">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Sound_Gun_Firing" ID="{3E5770AB-FCF8-4648-9120-389A6011FB0A}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Sound_Gun_Firing" ID="{2FAF19B7-7F60-48AA-AC97-33DD9FA4C54D}">
+					<ChildrenList>
+						<Action Name="" ID="{AE51E087-8667-4C0F-A967-63370308A505}" ShortID="402949924">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Sound_Gun_Firing" ID="{3E5770AB-FCF8-4648-9120-389A6011FB0A}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

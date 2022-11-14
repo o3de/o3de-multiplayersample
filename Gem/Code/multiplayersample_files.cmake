@@ -42,6 +42,7 @@ set(FILES
     Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
     Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
     Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
+    Source/AutoGen/WeaponEffectComponent.AutoComponent.xml
 
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
@@ -107,6 +108,8 @@ set(FILES
     Source/Components/Multiplayer/EnergyBallComponent.h
     Source/Components/Multiplayer/EnergyCannonComponent.cpp
     Source/Components/Multiplayer/EnergyCannonComponent.h
+    Source/Components/Multiplayer/WeaponEffectComponent.cpp
+    Source/Components/Multiplayer/WeaponEffectComponent.h
 
     Source/GameState/GameStateMatchEnded.h
     Source/GameState/GameStateMatchEnded.cpp
