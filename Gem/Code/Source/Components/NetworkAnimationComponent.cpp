@@ -114,9 +114,8 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            // base the movement velocity on the player's movement velocity, not the base velocity 
-            // which comes from other sources
-            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetLocalVelocity();
+            // base the anim on the player's generated velocity, not velocity from external sources
+            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetSelfGeneratedVelocity();
             const float maxSpeed = GetNetworkPlayerMovementComponent()->GetSprintSpeed();
 
             if (GetVelocityIsLocal())
