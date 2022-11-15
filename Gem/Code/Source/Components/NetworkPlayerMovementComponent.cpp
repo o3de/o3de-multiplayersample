@@ -16,9 +16,11 @@
 #include <AzFramework/Components/CameraBus.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
+#include <AzFramework/Physics/CharacterBus.h>
 #include <AzFramework/Physics/Common/PhysicsTypes.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <PhysX/CharacterGameplayBus.h>
+#include <PhysX/CharacterControllerBus.h>
 
 
 namespace MultiplayerSample
@@ -68,6 +70,10 @@ namespace MultiplayerSample
                 m_gravity = sceneInterface->GetGravity(worldBody->m_sceneOwner).GetZ();
             }
         }
+
+
+        Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
+        PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
     }
 
     void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -245,12 +251,12 @@ namespace MultiplayerSample
             const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
             const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
             const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle);
-            const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
-
+            
             // instant acceleration for now
-            const AZ::Vector3 moveVelocity = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(fwd) * speed;
+            const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeading, onGround) * speed;
             selfGeneratedVelocity.SetX(moveVelocity.GetX());
             selfGeneratedVelocity.SetY(moveVelocity.GetY());
+            selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + moveVelocity.GetZ());
         }
         else
         {
@@ -261,6 +267,54 @@ namespace MultiplayerSample
 
         SetVelocityFromExternalSources(velocityFromExternalSources);
         SetSelfGeneratedVelocity(selfGeneratedVelocity);
+    }
+
+    AZ::Vector3 NetworkPlayerMovementComponentController::GetSlopeHeading(float targetHeading, bool onGround) const
+    {
+        const AZ::Vector3 fwd = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(AZ::Vector3::CreateAxisY());
+        if (!onGround)
+        {
+            return fwd;
+        }
+
+        const AZ::Vector3 origin = GetEntity()->GetTransform()->GetWorldTranslation();
+        constexpr float epsilon = 0.01f;
+
+        // start the trace in front of the player at the step height plus some epsilon
+        const AZ::Vector3 start = origin + fwd * (m_radius + epsilon) + AZ::Vector3(0.f, 0.f, m_stepHeight + epsilon);
+
+        AzPhysics::RayCastRequest request;
+        request.m_start = start;
+        request.m_direction = AZ::Vector3::CreateAxisZ(-1.f);
+        request.m_distance = (m_stepHeight + epsilon) * 2.f;
+        AZ::EntityId ignore = GetEntityId();
+        request.m_queryType = AzPhysics::SceneQuery::QueryType::Static;
+        request.m_filterCallback = [ignore](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
+        {
+            return body->GetEntityId() != ignore ? AzPhysics::SceneQuery::QueryHitType::Block
+                                                 : AzPhysics::SceneQuery::QueryHitType::None;
+        };
+
+        AzPhysics::SceneQueryHits result;
+        if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+        {
+            if (AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+                sceneHandle != AzPhysics::InvalidSceneHandle)
+            {
+                result = sceneInterface->QueryScene(sceneHandle, &request);
+            }
+        }
+        if (result)
+        {
+            // we use epsilon here to avoid the case where we are pushing up against an object and become slightly
+            // elevated
+            if (result.m_hits[0].IsValid() && result.m_hits[0].m_position.GetZ() < origin.GetZ() - epsilon)
+            {
+                const AZ::Vector3 delta = result.m_hits[0].m_position - origin;
+                return delta.GetNormalized();
+            }
+        }
+        return fwd;
     }
 
     float NetworkPlayerMovementComponentController::NormalizeHeading(float heading) const

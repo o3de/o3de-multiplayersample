@@ -51,6 +51,8 @@ namespace MultiplayerSample
         void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime);
         float NormalizeHeading(float heading) const;
 
+        AZ::Vector3 GetSlopeHeading(float targetHeading, bool onGround) const;
+
         //! AZ::InputEventNotificationBus interface
         //! @{
         void OnPressed(float value) override;
@@ -85,5 +87,7 @@ namespace MultiplayerSample
         bool m_aiEnabled = false;
         bool m_wasOnGround = true;
         float m_gravity = -9.81f;
+        float m_stepHeight = 0.1f;
+        float m_radius = 0.3f;
     };
 }
