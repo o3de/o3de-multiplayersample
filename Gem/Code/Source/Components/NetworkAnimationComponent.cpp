@@ -114,10 +114,34 @@ namespace MultiplayerSample
 
         if (m_velocityParamId != InvalidParamIndex)
         {
-            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetVelocity();
-            const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
+            // base the anim on the player's generated velocity, not velocity from external sources
+            const AZ::Vector3 velocity = GetNetworkPlayerMovementComponent()->GetSelfGeneratedVelocity();
             const float maxSpeed = GetNetworkPlayerMovementComponent()->GetSprintSpeed();
-            m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
+
+            if (GetVelocityIsLocal())
+            {
+                // animgraph expects velocity relative to player
+                const AZ::Transform worldTm = GetEntity()->GetTransform()->GetWorldTM();
+                const AZ::Vector3 localRelativeVelocity = worldTm.GetInverse().TransformVector(velocity);
+                const AZ::Vector2 localRelativeVelocity2d = AZ::Vector2(localRelativeVelocity.GetX(), localRelativeVelocity.GetY());
+                const bool aiming = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming));
+                if(GetTurningEnabled() && !aiming)
+                { 
+                    const float speed = localRelativeVelocity2d.GetLength() / maxSpeed;
+                    const float turnAmount = localRelativeVelocity2d.GetX();
+                    m_animationGraph->SetParameterVector2(m_velocityParamId, AZ::Vector2(turnAmount, speed));
+                }
+                else
+                {
+                    m_animationGraph->SetParameterVector2(m_velocityParamId, localRelativeVelocity2d / maxSpeed);
+                }
+            }
+            else
+            { 
+                // animgraph expects velocity relative to world
+                const AZ::Vector2 velocity2d = AZ::Vector2(velocity.GetX(), velocity.GetY());
+                m_animationGraph->SetParameterVector2(m_velocityParamId, velocity2d / maxSpeed);
+            }
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
