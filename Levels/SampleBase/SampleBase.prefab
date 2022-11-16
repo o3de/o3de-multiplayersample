@@ -1717,92 +1717,190 @@
                 }
             }
         },
-        "Entity_[612267476908]": {
-            "Id": "Entity_[612267476908]",
+        "Entity_[727777302952]": {
+            "Id": "Entity_[727777302952]",
             "Name": "MatchController",
             "Components": {
-                "Component_[11641917428874637451]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 11641917428874637451
-                },
-                "Component_[13005385262602996004]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 13005385262602996004
-                },
-                "Component_[13428489482186355]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 13428489482186355
-                },
-                "Component_[13442028985855289554]": {
+                "Component_[10815511516873400869]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 13442028985855289554,
+                    "Id": 10815511516873400869,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkMatchComponent"
-                    }
-                },
-                "Component_[14435868710318598385]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14435868710318598385,
-                    "Parent Entity": "Entity_[356758116574]",
-                    "Transform Data": {
-                        "Translate": [
-                            -4.764087677001953,
-                            12.970443725585938,
-                            19.850555419921875
+                        "$type": "MultiplayerSample::GemSpawnerComponent",
+                        "GemSpawnables": [
+                            {
+                                "Tag": "Gold Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{878A68F4-3E7B-5418-BB80-96EEFA6574F3}",
+                                        "subId": 3800375621
+                                    },
+                                    "assetHint": "prefabs/gold_gem.spawnable"
+                                }
+                            },
+                            {
+                                "Tag": "Blue Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{CC18AC5B-59FC-5BC0-ABAC-1FD20DF3A6D0}",
+                                        "subId": 2978055772
+                                    },
+                                    "assetHint": "prefabs/blue_gem.spawnable"
+                                },
+                                "Score": 3
+                            },
+                            {
+                                "Tag": "Green Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{60CC9A11-93CF-50A1-B2FA-4DA2AAA23151}",
+                                        "subId": 2831178280
+                                    },
+                                    "assetHint": "prefabs/green_gem.spawnable"
+                                },
+                                "Score": 2
+                            },
+                            {
+                                "Tag": "Red Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{A63F9843-2632-521C-9A96-569BE4081FBD}",
+                                        "subId": 1199407584
+                                    },
+                                    "assetHint": "prefabs/red_gem.spawnable"
+                                },
+                                "Score": 4
+                            },
+                            {
+                                "Tag": "Diamond Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{EEBE82AD-4B06-517C-9036-2EF633DBDA7B}",
+                                        "subId": 4122414694
+                                    },
+                                    "assetHint": "prefabs/diamond_gem.spawnable"
+                                },
+                                "Score": 5
+                            }
                         ],
-                        "Rotate": [
-                            -69.53874206542969,
-                            -4.26886799687054e-7,
-                            -12.672529220581055
-                        ]
+                        "SpawnTablesPerRound": [
+                            {},
+                            {
+                                "Gem Weights": [
+                                    {
+                                        "Gem Tag Type": "Gold Gem"
+                                    },
+                                    {
+                                        "Gem Tag Type": "Blue Gem",
+                                        "Gem Weight": 0.5
+                                    }
+                                ]
+                            }
+                        ],
+                        "GemSpawnTag": "Gem Spawn"
                     }
                 },
-                "Component_[14624032728588170442]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 14624032728588170442
-                },
-                "Component_[1527621523507383126]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 1527621523507383126
-                },
-                "Component_[16156961288390766364]": {
+                "Component_[11044208504869032248]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 16156961288390766364,
+                    "Id": 11044208504869032248,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkMatchComponent",
+                        "TotalRounds": 1
+                    }
+                },
+                "Component_[11582545100212439853]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11582545100212439853
+                },
+                "Component_[13299105916626157805]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13299105916626157805,
+                    "m_template": {
+                        "$type": "NetworkPrefabSpawnerComponent"
+                    }
+                },
+                "Component_[14478429868711242326]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 14478429868711242326
+                },
+                "Component_[16952898907599562589]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 16952898907599562589,
                     "m_template": {
                         "$type": "NetBindComponent"
                     }
                 },
-                "Component_[16725578225582550]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 16725578225582550
+                "Component_[17083415778652839230]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17083415778652839230
                 },
-                "Component_[2554553698676773252]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 2554553698676773252
-                },
-                "Component_[468901700350755637]": {
+                "Component_[17163718511096577681]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 468901700350755637,
+                    "Id": 17163718511096577681,
                     "m_template": {
                         "$type": "MultiplayerSample::HUDComponent",
-                        "RoundNumberId": 43,
-                        "RoundTimerId": 11
+                        "RoundNumberId": 8,
+                        "RoundTimerId": 4
                     }
                 },
-                "Component_[5734278598803405847]": {
+                "Component_[17414909752872705959]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 5734278598803405847,
+                    "Id": 17414909752872705959,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[17500813252784751517]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 17500813252784751517
+                },
+                "Component_[18093579538353675715]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 18093579538353675715,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkRandomComponent"
+                    }
+                },
+                "Component_[18116832539607953979]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 18116832539607953979,
+                    "m_template": {
+                        "$type": "MultiplayerSample::MatchPlayerCoinsComponent"
+                    }
+                },
+                "Component_[3709937876037180985]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3709937876037180985,
                     "m_template": {
                         "$type": "UiCanvasAssetRefComponent",
                         "CanvasAssetRef": {
-                            "AssetPath": "uicanvases/hud.uicanvas"
+                            "AssetPath": "uicanvases/basichud.uicanvas"
                         },
                         "IsAutoLoad": true
                     }
                 },
-                "Component_[9958629529203368226]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 9958629529203368226
+                "Component_[5143246854913296527]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 5143246854913296527,
+                    "Parent Entity": "Entity_[356758116574]"
+                },
+                "Component_[5932985006849230681]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 5932985006849230681
+                },
+                "Component_[6432885729127046056]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 6432885729127046056
+                },
+                "Component_[6533115235637337163]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6533115235637337163,
+                    "Child Entity Order": [
+                        "Entity_[7143983125664]"
+                    ]
+                },
+                "Component_[7686939683724604717]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 7686939683724604717
                 }
             }
         },
