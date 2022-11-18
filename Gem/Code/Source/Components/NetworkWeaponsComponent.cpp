@@ -94,10 +94,7 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations)
     {
-        const AZ::Vector3    position = fireParams.m_sourcePosition;
-        const AZ::Quaternion orientation = AZ::Quaternion::CreateShortestArc(AZ::Vector3::CreateAxisX(), (fireParams.m_targetPosition - position).GetNormalized());
-        const AZ::Transform  transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
-
+        const AZ::Transform transform = AZ::Transform::CreateLookAt(fireParams.m_sourcePosition, fireParams.m_targetPosition);
         ActivateEvent activateEvent{ transform, fireParams.m_targetPosition, GetNetEntityId(), Multiplayer::InvalidNetEntityId };
 
         IWeapon* weapon = GetWeapon(weaponIndex);
@@ -229,8 +226,8 @@ namespace MultiplayerSample
                     if (Multiplayer::NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<Multiplayer::NetworkRigidBodyComponent>())
                     {
                         const AZ::Vector3 hitLocation = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
-                        const AZ::Vector3 hitDelta = hitEntity.m_hitPosition - hitLocation;
-                        const AZ::Vector3 impulse = hitDelta.GetNormalized() * damage * sv_WeaponsImpulseScalar;
+                        // IMPORTANT this impulse is for directional/traced hits only, not suitable for explosions
+                        const AZ::Vector3 impulse = hitInfo.m_hitEvent.m_hitTransform.GetBasisY() * damage * sv_WeaponsImpulseScalar;
                         rigidBodyComponent->SendApplyImpulse(impulse, hitLocation);
                     }
 
@@ -381,20 +378,12 @@ namespace MultiplayerSample
                 aznumeric_cast<uint32_t>(animState), weaponInput->m_firing.GetBit(static_cast<uint32_t>(weaponIndex)));
         }
 
-        const AZ::Transform worldTm = GetParent().GetEntity()->GetTransform()->GetWorldTM();
+        const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 
         for (uint32_t weaponIndexInt = 0; weaponIndexInt < MaxWeaponsPerComponent; ++weaponIndexInt)
         {
             if (weaponInput->m_firing.GetBit(weaponIndexInt))
             {
-                const AZ::Vector3& aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
-                const AZ::Quaternion aimRotation =
-                    AZ::Quaternion::CreateRotationZ(aimAngles.GetZ()) * AZ::Quaternion::CreateRotationX(aimAngles.GetX());
-                const AZ::Vector3 fwd = AZ::Vector3::CreateAxisY();
-                AZ::Vector3 baseCameraOffset;
-                AZ::Interface<AZ::IConsole>::Get()->GetCvarValue("cl_cameraOffset", baseCameraOffset);
-                const AZ::Vector3 cameraOffset = aimRotation.TransformVector(baseCameraOffset);
-                
                 const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
                 int32_t boneIdx = GetNetworkAnimationComponentController()->GetParent().GetBoneIdByName(fireBoneName);
 
@@ -413,7 +402,18 @@ namespace MultiplayerSample
 
                 // Setup a default aim target
                 const WeaponParams weaponParams = GetWeaponParams(weaponIndexInt);
-                AZ::Vector3 aimTarget = worldTm.GetTranslation() + cameraOffset + aimRotation.TransformVector(fwd * weaponParams.m_weaponMaxAimDistance);
+                AZ::Vector3 aimTarget = cameraTransform.GetTranslation() + cameraTransform.GetBasisY() * weaponParams.m_weaponMaxAimDistance;
+
+                // Given a plane centered on the shot start position with the orientation of the camera
+                // find the intersection of the camera ray with this plane and use it as the 
+                // start position for the trace to avoid any hits behind the weapon 
+                const AZ::Plane weaponPlane = AZ::Plane::CreateFromNormalAndPoint(cameraTransform.GetBasisY(), weaponInput->m_shotStartPosition);
+                AZ::Vector3 rayStart = cameraTransform.GetTranslation();
+                // on success, rayStart will contain the intersection point, on false we'll fallback to the camera translation
+                if (!weaponPlane.CastRay(cameraTransform.GetTranslation(), cameraTransform.GetBasisY(), rayStart))
+                {
+                    AZLOG_WARN("Falling back to detect aim target based on camera origin");
+                }
 
                 // Cast the ray in the physics system from the center of the camera forward
                 if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
@@ -422,8 +422,8 @@ namespace MultiplayerSample
                         sceneHandle != AzPhysics::InvalidSceneHandle)
                     {
                         AzPhysics::RayCastRequest physicsRayRequest;
-                        physicsRayRequest.m_start = worldTm.GetTranslation() + cameraOffset;
-                        physicsRayRequest.m_direction = aimRotation.TransformVector(fwd);
+                        physicsRayRequest.m_start = rayStart;
+                        physicsRayRequest.m_direction = cameraTransform.GetBasisY();
                         physicsRayRequest.m_distance = weaponParams.m_weaponMaxAimDistance;
                         physicsRayRequest.m_queryType = AzPhysics::SceneQuery::QueryType::StaticAndDynamic;
                         physicsRayRequest.m_reportMultipleHits = true;
