@@ -121,7 +121,8 @@ namespace MultiplayerSample
         // This means these values can and will migrate between hosts (and lose any stored state)
         // We will need to consider moving these values to Authority to Server network properties if the design doesn't change
         bool m_aiEnabled = false;
-        bool m_weaponDrawn = false;
+        bool m_weaponDrawn = true;
+        bool m_weaponDrawnChanged = false;
         WeaponActivationBitset m_weaponFiring;
     };
 }

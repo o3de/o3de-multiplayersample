@@ -20,6 +20,8 @@ namespace MultiplayerSample
     AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.5f, 0.f, 1.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Offset to use for the player camera");
     AZ_CVAR(AZ::Vector3, cl_cameraColliderSize, AZ::Vector3(0.7f, 0.1f, 0.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Temporary collider size for player camera");
     AZ_CVAR(bool, cl_drawCameraCollider, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Draw the camera collider");
+    AZ_CVAR(bool, cl_cameraBlendingEnabled, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When active, blends the camera aim angles.");
+
 
     NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
         : NetworkSimplePlayerCameraComponentControllerBase(parent)
@@ -99,7 +101,7 @@ namespace MultiplayerSample
         const AZ::Quaternion targetRotation = targetYaw * AZ::Quaternion::CreateRotationX(GetCameraPitch());
         AZ::Quaternion aimRotation = targetRotation;
 
-        if (IsNetEntityRoleAutonomous())
+        if (IsNetEntityRoleAutonomous() && cl_cameraBlendingEnabled)
         {
             const float blendFactor = Multiplayer::GetMultiplayer()->GetCurrentBlendFactor();
 

@@ -96,15 +96,15 @@
                     "Id": 11996978980717063697,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkAnimationComponent",
-                        "VelocityParamName": "movement_direction",
-                        "TurningEnabled": true,
-                        "AimTargetParamName": "target_position",
-                        "CrouchParamName": "crouch",
+                        "MovementDirectionParamName": "movement_direction",
+                        "MovementSpeedParamName": "movement_speed",
+                        "AimTargetParamName": "aim_target",
+                        "CrouchParamName": "crouching",
                         "AimingParamName": "aiming",
-                        "ShootParamName": "shoot",
-                        "JumpParamName": "jump",
-                        "FallParamName": "fall",
-                        "LandParamName": "land",
+                        "ShootParamName": "attacking",
+                        "JumpParamName": "jumping",
+                        "FallParamName": "falling",
+                        "LandParamName": "landing",
                         "HitParamName": "hit",
                         "DeathParamName": "death_state_index"
                     }
@@ -133,6 +133,7 @@
                                 {}
                             ]
                         },
+                        "MaximumSlopeAngle": 45.0,
                         "StepHeight": 0.30000001192092896,
                         "ApplyMoveOnPhysicsTick": false,
                         "SlopeBehaviour": 1,
@@ -348,90 +349,54 @@
                     "Id": 4186588317358117667,
                     "AnimGraphAsset": {
                         "assetId": {
-                            "guid": "{46F677B6-0C57-50DE-BA38-2CC3079FDFC9}"
+                            "guid": "{BC61EACA-A8E6-5436-AE96-EF52288EB574}"
                         },
-                        "assetHint": "burt/humanoidcharacter.animgraph"
+                        "assetHint": "mixamo/ybot/ybot.animgraph"
                     },
                     "MotionSetAsset": {
                         "assetId": {
-                            "guid": "{0FA6D069-A122-57F5-BF54-A66AC8BE58A5}"
+                            "guid": "{A703856B-7290-5458-B7D8-7589EBD4F538}"
                         },
-                        "assetHint": "burt/burt.motionset"
+                        "assetHint": "mixamo/ybot/ybot.motionset"
                     },
-                    "ActiveMotionSetName": "BURTMotionSet",
+                    "ActiveMotionSetName": "YBotMotionSet",
                     "ParameterDefaults": {
                         "Parameters": [
                             {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 958518102,
-                                "name": "desired_angle"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 182703473,
-                                "name": "slope_angle"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2155279128,
-                                "name": "crouch"
-                            },
-                            {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 1084884419,
-                                "name": "aiming"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1883569342,
-                                "name": "shoot"
+                                "name": "aiming",
+                                "value": true
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 1720552084,
-                                "name": "lateral_adjustment",
-                                "value": 0.03500000014901161
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 819414243,
-                                "name": "height_adjustment",
-                                "value": -0.05000000074505806
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 2672514538,
-                                "name": "forward_adjustment"
+                                "id": 4070320611,
+                                "name": "movement_speed"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2813527574,
-                                "name": "jump"
+                                "id": 2356543930,
+                                "name": "jumping"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 4216381196,
-                                "name": "fall"
+                                "id": 60754182,
+                                "name": "attacking"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2818627032,
-                                "name": "land"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 2553848132,
-                                "name": "land_type_index"
+                                "id": 70061904,
+                                "name": "crouching"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1523721793,
-                                "name": "hit"
+                                "id": 4097764052,
+                                "name": "falling"
                             },
                             {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 4154523292,
-                                "name": "hit_axis_index"
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 4013608469,
+                                "name": "landing"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyNumber",
@@ -439,30 +404,19 @@
                                 "name": "death_state_index"
                             },
                             {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2469366193,
-                                "name": "adjust_hip",
-                                "value": true
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 3656193794,
+                                "name": "hit_direction_index"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 671657505,
-                                "name": "lock_feet"
+                                "id": 713582873,
+                                "name": "stunned"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 3470154576,
-                                "name": "foot_ik_weight"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1891303514,
-                                "name": "victory"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 420668671,
-                                "name": "game_entry"
+                                "id": 1523721793,
+                                "name": "hit"
                             }
                         ]
                     }
@@ -487,22 +441,13 @@
                     "Id": 5329091026602047821,
                     "ActorAsset": {
                         "assetId": {
-                            "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                            "subId": 526701631
+                            "guid": "{49D8DCD0-7383-5AC7-8A87-CE6267605407}",
+                            "subId": 196688939
                         },
                         "loadBehavior": "QueueLoad",
-                        "assetHint": "burt/burtactor.actor"
+                        "assetHint": "mixamo/ybot/ybot.actor"
                     },
                     "MaterialPerLOD": [
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
                         {
                             "AssetPath": "burt/burtactor.mtl"
                         }
@@ -603,8 +548,8 @@
                             }
                         ],
                         "FireBoneNames": [
-                            "RightShoulder",
-                            "RightShoulder"
+                            "mixamorig:RightHand",
+                            "mixamorig:RightHand"
                         ]
                     }
                 },

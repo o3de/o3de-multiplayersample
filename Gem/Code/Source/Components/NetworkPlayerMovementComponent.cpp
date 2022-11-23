@@ -150,19 +150,14 @@ namespace MultiplayerSample
 
         bool onGround = true;
         PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
-        if (onGround)
-        {
-            if (m_wasOnGround)
-            {
-                // the Landing anim state will automatically turn off
-                GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit( 
-                    aznumeric_cast<uint32_t>(CharacterAnimState::Landing), true);
-            }
 
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-                aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), playerInput->m_jump);
-        }
+        // the Landing anim state will automatically turn off
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit( 
+            aznumeric_cast<uint32_t>(CharacterAnimState::Landing), onGround && !m_wasOnGround);
 
+        // always set the jump state or you might get ghost jump animations
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+            aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), playerInput->m_jump);
 
         // Update orientation
         AZ::Vector3 aimAngles = GetNetworkSimplePlayerCameraComponentController()->GetAimAngles();
@@ -183,7 +178,7 @@ namespace MultiplayerSample
 
         // if we're not moving down on a platform and have a negative velocity we're falling
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Falling), !onGround && absoluteVelocity.GetZ() < 0.f);
+            aznumeric_cast<uint32_t>(CharacterAnimState::Falling), !onGround && !m_wasOnGround && absoluteVelocity.GetZ() < 0.f);
 
         GetNetworkCharacterComponentController()->TryMoveWithVelocity(absoluteVelocity, deltaTime);
 

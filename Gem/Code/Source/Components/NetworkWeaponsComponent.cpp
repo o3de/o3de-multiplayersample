@@ -354,6 +354,15 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
 
+        // draw weapon automatically if firing
+        // use simple debounce for weapon draw to prevent multiple inputs between frames 
+        // TODO add cooldown timer
+        if (m_weaponDrawnChanged || (m_weaponFiring.AnySet() && !m_weaponDrawn))
+        {
+            m_weaponDrawn = !m_weaponDrawn;
+            m_weaponDrawnChanged = false;
+        }
+
         weaponInput->m_draw = m_weaponDrawn;
         weaponInput->m_firing = m_weaponFiring;
 
@@ -518,7 +527,7 @@ namespace MultiplayerSample
         }
         else if (*inputId == DrawEventId)
         {
-            m_weaponDrawn = !m_weaponDrawn;
+            m_weaponDrawnChanged = true;
         }
         else if (*inputId == FirePrimaryEventId)
         {
