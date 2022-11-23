@@ -14,6 +14,8 @@
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
+#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
+#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/CharacterBus.h>
@@ -94,8 +96,33 @@ namespace MultiplayerSample
         }
     }
 
+    bool NetworkPlayerMovementComponentController::ShouldProcessInput() const
+    {
+        AzFramework::SystemCursorState systemCursorState{AzFramework::SystemCursorState::Unknown};
+        AzFramework::InputSystemCursorRequestBus::EventResult( systemCursorState, AzFramework::InputDeviceMouse::Id,
+            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
+
+        // only process input when the system cursor isn't unconstrainted and visible a.k.a console mode
+        return systemCursorState != AzFramework::SystemCursorState::UnconstrainedAndVisible;
+    }
+
     void NetworkPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
+        if (!ShouldProcessInput())
+        {
+            // clear our input  
+            m_forwardWeight = 0.f;
+            m_leftWeight = 0.f;
+            m_backwardWeight = 0.f;
+            m_rightWeight = 0.f;
+            m_viewYaw = 0.f;
+            m_viewPitch = 0.f;
+            m_sprinting = false;
+            m_jumping = false;
+            m_crouching = false;
+            return;
+        }
+
         // Movement axis
         // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
         // This is so that tapping the keyboard moves the virtual stick less than just holding it down

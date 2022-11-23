@@ -61,6 +61,7 @@ namespace MultiplayerSample
         //! @}
 
         void UpdateAI();
+        bool ShouldProcessInput() const;
 
         AZ::ScheduledEvent m_updateAI;
         NetworkAiComponentController* m_networkAiComponentController = nullptr;
