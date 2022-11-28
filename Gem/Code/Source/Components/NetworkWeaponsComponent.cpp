@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#include <AzCore/Math/Plane.h>
 #include <Source/Components/NetworkWeaponsComponent.h>
 
 #include <Source/Components/NetworkAiComponent.h>
@@ -28,6 +28,7 @@ namespace MultiplayerSample
     AZ_CVAR(float, sv_WeaponsImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
     AZ_CVAR(float, sv_WeaponsStartPositionClampRange, 1.f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor between the where the client and server say a shot started");
     AZ_CVAR(float, sv_WeaponsDotClamp, 0.35f, nullptr, AZ::ConsoleFunctorFlags::Null, "Acceptable dot product range for a shot between the camera raycast and weapon raycast.");
+
     void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -176,11 +177,9 @@ namespace MultiplayerSample
 
         m_onWeaponPredictHitEvent.Signal(hitInfo);
 
-        for (uint32_t i = 0; i < hitInfo.m_hitEvent.m_hitEntities.size(); ++i)
+        for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
-            const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
-
-            if (cl_WeaponsDrawDebug && m_debugDraw)
+	        if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
                 (
@@ -247,11 +246,9 @@ namespace MultiplayerSample
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
         [[maybe_unused]] bool shouldIssueMaterialEffects = !HasController() || !hitInfo.m_weapon.GetParams().m_locallyPredicted;
 
-        for (uint32_t i = 0; i < hitInfo.m_hitEvent.m_hitEntities.size(); ++i)
+        for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
-            const HitEntity& hitEntity = hitInfo.m_hitEvent.m_hitEntities[i];
-
-            if (cl_WeaponsDrawDebug && m_debugDraw)
+	        if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
                 (
@@ -297,7 +294,7 @@ namespace MultiplayerSample
 
         while (weaponState.m_activationCount != value)
         {
-            const bool validateActivations = false;
+            constexpr bool validateActivations = false;
             ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(index), weaponState, fireParams, validateActivations);
         }
     }
@@ -312,7 +309,7 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
+        const NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
         m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
         if (m_aiEnabled)
         {
@@ -349,7 +346,7 @@ namespace MultiplayerSample
 
     AZ::Vector3 NetworkWeaponsComponent::GetCurrentShotStartPosition()
     {
-        const uint32_t weaponIndexInt = 0;
+        constexpr uint32_t weaponIndexInt = 0;
         const char* fireBoneName = GetFireBoneNames(weaponIndexInt).c_str();
         const int32_t boneIdx = GetNetworkAnimationComponent()->GetBoneIdByName(fireBoneName);
 
@@ -385,7 +382,7 @@ namespace MultiplayerSample
         weaponInput->m_firing = m_weaponFiring;
 
         // All weapon indices point to the same bone so only send one instance
-        const uint32_t weaponIndexInt = 0;
+        constexpr uint32_t weaponIndexInt = 0;
         if (weaponInput->m_firing.GetBit(weaponIndexInt))
         {
             weaponInput->m_shotStartPosition = GetParent().GetCurrentShotStartPosition();
@@ -451,10 +448,9 @@ namespace MultiplayerSample
                         physicsRayRequest.m_queryType = AzPhysics::SceneQuery::QueryType::StaticAndDynamic;
                         physicsRayRequest.m_reportMultipleHits = true;
 
-                        AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &physicsRayRequest);
-                        if (result)
+                        if (AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &physicsRayRequest))
                         {
-                            for (AzPhysics::SceneQueryHit hit : result.m_hits)
+                            for (const AzPhysics::SceneQueryHit& hit : result.m_hits)
                             {
                                 // Set target to first found intersect within dot tolerance, if any
                                 AZ::Vector3 targetDirection = hit.m_position - weaponInput->m_shotStartPosition;
