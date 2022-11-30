@@ -5,6 +5,8 @@
  *
  */
 
+#include <AzCore/Component/TransformBus.h>
+#include <Components/NetworkMatchComponent.h>
 #include <LmbrCentral/Scripting/TagComponentBus.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
 #include <Source/Components/NetworkRandomComponent.h>

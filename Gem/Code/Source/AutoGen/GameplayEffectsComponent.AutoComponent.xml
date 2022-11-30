@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="GameplayEffectsComponent" 
+    Namespace="MultiplayerSample" 
+    OverrideComponent="true" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/Multiplayer/GameplayEffectsComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Include File="Include/GameplayEffectsNotificationBus.h" />
+
+	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+	<ComponentRelation Constraint="Required" HasController="false" Name="NetworkPrefabSpawnerComponent" Namespace="MultiplayerSample" Include="Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h" />
+
+	<!-- Player Effects -->
+	<ArchetypeProperty Type="AZStd::string" Name="PlayerFootSteps" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="PlayerExertion" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="PlayerKnockedDown" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="ArmorBreaking" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="ArmorMend" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="PlayerOuch" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="LadderClimb" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="ShutDown" ExposeToEditor="true" Description="Audio trigger name" />
+	<!-- Game Event Sounds -->
+	<ArchetypeProperty Type="AZStd::string" Name="CountDown" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="GemPickup" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="VictoryFanfare" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="LosingFanfare" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="RoundStart" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="RoundEnd" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="GameEnd" ExposeToEditor="true" Description="Audio trigger name" />
+	<!-- Laser Pistol -->
+	<ArchetypeProperty Type="AZStd::string" Name="LaserPistolMuzzleFlash" Init="&quot;Play_Sound_Gun_Firing&quot;" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="LaserPistolImpact" ExposeToEditor="true" Description="Audio trigger name" />
+	<!-- Bubble Gun -->
+	<ArchetypeProperty Type="AZStd::string" Name="BubbleGunBuildup" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="BubbleGunMuzzleFlash" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="BubbleGunProjectile" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="BubbleGunImpact" ExposeToEditor="true" Description="Audio trigger name" />
+	<!-- Jump Pad -->
+	<ArchetypeProperty Type="AZStd::string" Name="JumpPadLaunch" ExposeToEditor="true" Description="Audio trigger name" />
+	<!-- Energy Ball Trap -->
+	<ArchetypeProperty Type="AZStd::string" Name="EnergyBallTrapRisingOutOfTheGround" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="EnergyBallTrapBuildup" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="EnergyBallTrapProjectile" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="EnergyBallTrapImpact" ExposeToEditor="true" Description="Audio trigger name" />
+	<ArchetypeProperty Type="AZStd::string" Name="EnergyBallTrapOnCooldown" ExposeToEditor="true" Description="Audio trigger name" />
+	
+
+    <RemoteProcedure
+	    Name="RPC_OnPositionalEffect" InvokeFrom="Authority" HandleOn="Client"
+	    IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="On gameplay sound effect requested at a specific world position">
+	    <Param Type="SoundEffect" Name="Effect"/>
+	    <Param Type="AZ::Vector3" Name="SoundLocation"/>
+    </RemoteProcedure>
+
+    <RemoteProcedure
+	    Name="RPC_OnEffect" InvokeFrom="Authority" HandleOn="Client"
+	    IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="On gameplay sound effect requested, not positional">
+	    <Param Type="SoundEffect" Name="Effect"/>
+    </RemoteProcedure>
+</Component>

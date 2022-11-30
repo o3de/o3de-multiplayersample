@@ -62,7 +62,6 @@
                     "Instance_[785316907363]/ContainerEntity",
                     "Entity_[830977005898]",
                     "Entity_[611359903594]",
-                    "Entity_[612267476908]",
                     "Entity_[412839637138]",
                     "Entity_[1863191303392]",
                     "Entity_[14030996048227]",
@@ -72,7 +71,9 @@
                     "Entity_[6070312681563]",
                     "Entity_[527570584484]",
                     "Entity_[58245980399131]",
-                    "Entity_[37677838535797]"
+                    "Entity_[37677838535797]",
+                    "Entity_[727777302952]",
+                    "Entity_[8440541907060]"
                 ]
             }
         }
@@ -1895,7 +1896,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 6533115235637337163,
                     "Child Entity Order": [
-                        "Entity_[7143983125664]"
+                        ""
                     ]
                 },
                 "Component_[7686939683724604717]": {
@@ -1965,6 +1966,84 @@
                 "Component_[9321193093942328270]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 9321193093942328270
+                }
+            }
+        },
+        "Entity_[8440541907060]": {
+            "Id": "Entity_[8440541907060]",
+            "Name": "Gameplay Effects",
+            "Components": {
+                "Component_[10519414627446930062]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 10519414627446930062,
+                    "m_template": {
+                        "$type": "MultiplayerSample::GameplayEffectsComponent"
+                    }
+                },
+                "Component_[11146800572928503187]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11146800572928503187,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[11286261382443498146]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11286261382443498146,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[12124360204533255950]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 12124360204533255950,
+                    "Parent Entity": "Entity_[356758116574]"
+                },
+                "Component_[14792296517461794529]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 14792296517461794529
+                },
+                "Component_[15261982368054892655]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 15261982368054892655
+                },
+                "Component_[4376962397463059097]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4376962397463059097
+                },
+                "Component_[5177879965300445012]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 5177879965300445012
+                },
+                "Component_[6454395299046730612]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 6454395299046730612
+                },
+                "Component_[7651281242290606097]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 7651281242290606097
+                },
+                "Component_[8572344744478696430]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8572344744478696430
+                },
+                "Component_[9247155822556805267]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9247155822556805267,
+                    "m_template": {
+                        "$type": "NetworkPrefabSpawnerComponent",
+                        "Default Prefab": {
+                            "assetId": {
+                                "guid": "{35EE7939-1A13-5B58-B05C-5D90DB3ACC0E}",
+                                "subId": 2091499493
+                            },
+                            "assetHint": "prefabs/sound_effect.spawnable"
+                        }
+                    }
+                },
+                "Component_[9806521808333451005]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 9806521808333451005
                 }
             }
         }

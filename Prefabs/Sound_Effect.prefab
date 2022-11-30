@@ -1,0 +1,132 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Sound_Effect",
+        "Components": {
+            "Component_[10194278879912893296]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 10194278879912893296,
+                "Parent Entity": ""
+            },
+            "Component_[1077826456136822489]": {
+                "$type": "EditorLockComponent",
+                "Id": 1077826456136822489
+            },
+            "Component_[13214823913505399227]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 13214823913505399227,
+                "Child Entity Order": [
+                    "Entity_[627996395636]"
+                ]
+            },
+            "Component_[13628882059733897983]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 13628882059733897983
+            },
+            "Component_[14801006999186609348]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 14801006999186609348
+            },
+            "Component_[15139846429193177296]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 15139846429193177296
+            },
+            "Component_[3867292851385511683]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 3867292851385511683
+            },
+            "Component_[5356979311112415713]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 5356979311112415713
+            },
+            "Component_[6440150844135264209]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 6440150844135264209
+            },
+            "Component_[9332580645102098601]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 9332580645102098601
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[627996395636]": {
+            "Id": "Entity_[627996395636]",
+            "Name": "Sound Effect",
+            "Components": {
+                "Component_[10879372759749386713]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 10879372759749386713,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[11227126571421730399]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 11227126571421730399
+                },
+                "Component_[11520756974763499858]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11520756974763499858
+                },
+                "Component_[1401617247651911590]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 1401617247651911590
+                },
+                "Component_[1430915571700889447]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 1430915571700889447
+                },
+                "Component_[15599980302086952376]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 15599980302086952376
+                },
+                "Component_[3837808650005779453]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 3837808650005779453
+                },
+                "Component_[4931407726414060251]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 4931407726414060251,
+                    "m_template": {
+                        "$type": "SoundEffectComponent"
+                    }
+                },
+                "Component_[6440024378055697204]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6440024378055697204,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
+                "Component_[6692634354635008772]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6692634354635008772
+                },
+                "Component_[8755797797273060119]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8755797797273060119,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 10879372759749386713
+                        },
+                        {
+                            "ComponentId": 6440024378055697204,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 11227126571421730399,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 4931407726414060251,
+                            "SortIndex": 3
+                        }
+                    ]
+                },
+                "Component_[9126097727659602882]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9126097727659602882
+                }
+            }
+        }
+    }
+}

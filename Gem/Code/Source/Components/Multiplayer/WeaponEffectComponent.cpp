@@ -5,6 +5,8 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
+#include <AzCore/Component/TransformBus.h>
 #include <LmbrCentral/Audio/AudioTriggerComponentBus.h>
 #include <PopcornFX/PopcornFXBus.h>
 #include <Source/Components/Multiplayer/WeaponEffectComponent.h>
@@ -54,7 +56,8 @@ namespace MultiplayerSample
             particle->Restart(true);
         }
 
-        LmbrCentral::AudioTriggerComponentRequestBus::Event(GetEntityId(), &LmbrCentral::AudioTriggerComponentRequestBus::Events::Play);
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect, 
+            SoundEffect::LaserPistolMuzzleFlash, GetEntity()->GetTransform()->GetWorldTranslation());
     }
 
     void WeaponEffectComponent::OnWeaponActivate(const WeaponActivationInfo& info)
@@ -67,6 +70,9 @@ namespace MultiplayerSample
 
     void WeaponEffectComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& info)
     {
+        const AZ::Vector3& hitCenter = info.m_hitEvent.m_hitTransform.GetTranslation();
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::LaserPistolImpact, hitCenter);
     }
 
 
