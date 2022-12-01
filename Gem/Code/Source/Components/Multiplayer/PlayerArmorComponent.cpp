@@ -6,8 +6,9 @@
  */
 
 #include <GameplayEffectsNotificationBus.h>
-#include <UiPlayerArmorBus.h>
 #include <PlayerMatchLifecycleBus.h>
+#include <UiPlayerArmorBus.h>
+#include <AzCore/Component/TransformBus.h>
 #include <Components/NetworkHealthComponent.h>
 #include <Source/Components/Multiplayer/PlayerArmorComponent.h>
 

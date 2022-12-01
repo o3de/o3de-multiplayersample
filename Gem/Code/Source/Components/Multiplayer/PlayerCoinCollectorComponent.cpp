@@ -5,9 +5,11 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <PlayerCoinCollectorBus.h>
 #include <UiCoinCountBus.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
+#include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <Components/Multiplayer/GemComponent.h>

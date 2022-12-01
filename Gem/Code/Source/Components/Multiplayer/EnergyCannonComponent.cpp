@@ -5,6 +5,7 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/Component/TransformBus.h>

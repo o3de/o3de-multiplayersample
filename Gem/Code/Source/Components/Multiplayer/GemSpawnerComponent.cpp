@@ -5,7 +5,9 @@
  *
  */
 
+#include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Serialization/EditContext.h>
 #include <Components/NetworkMatchComponent.h>
 #include <LmbrCentral/Scripting/TagComponentBus.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>

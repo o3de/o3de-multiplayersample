@@ -5,7 +5,9 @@
  *
  */
 
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzFramework/Components/CameraBus.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <LmbrCentral/Audio/AudioTriggerComponentBus.h>
 #include <Source/Components/Multiplayer/GameplayEffectsComponent.h>

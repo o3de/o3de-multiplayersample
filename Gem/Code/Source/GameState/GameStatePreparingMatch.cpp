@@ -5,6 +5,7 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <GameState/GameStateRequestBus.h>
 #include <Source/GameState/GameStateMatchInProgress.h>
 #include <Source/GameState/GameStatePreparingMatch.h>
