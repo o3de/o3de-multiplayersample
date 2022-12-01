@@ -22,4 +22,14 @@ namespace MultiplayerSample
     };
 
     using PlayerIdentityNotificationBus = AZ::EBus<PlayerIdentityNotifications>;
+
+    class PlayerIdentityRequests : public AZ::EBusTraits
+    {
+    public:
+        virtual ~PlayerIdentityRequests() = default;
+        
+        virtual const char* GetPlayerIdentityName() = 0;
+    };
+
+    using PlayerIdentityRequestBus = AZ::EBus<PlayerIdentityRequests>;
 }

@@ -21,6 +21,8 @@ namespace MultiplayerSample
         m_controller->EndMatch();
         m_finishingTime = AZ::TimeMs{ 3000 };
         m_finishingEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
+
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::GameEnd);
     }
 
     void GameStateMatchEnded::OnExit()

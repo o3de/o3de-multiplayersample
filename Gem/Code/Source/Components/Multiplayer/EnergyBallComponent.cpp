@@ -55,6 +55,9 @@ namespace MultiplayerSample
 
         RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::EnablePhysics);
         RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::SetLinearVelocity, direction * aznumeric_cast<float>(m_speed));
+
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::EnergyBallTrapProjectile, GetEntity()->GetTransform()->GetWorldTranslation());
     }
 
     void EnergyBallComponentController::HideEnergyBall()
@@ -82,6 +85,9 @@ namespace MultiplayerSample
 
                 TryKnockbackPlayer(target);
             }
+
+            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                SoundEffect::EnergyBallTrapImpact, GetEntity()->GetTransform()->GetWorldTranslation());
 
             HideEnergyBall();
         }

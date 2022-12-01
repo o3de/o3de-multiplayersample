@@ -5,6 +5,7 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <UiPlayerArmorBus.h>
 #include <PlayerMatchLifecycleBus.h>
 #include <Components/NetworkHealthComponent.h>
@@ -19,6 +20,7 @@ namespace MultiplayerSample
 
     void PlayerArmorComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_previousArmorAmount = GetNetworkHealthComponentController()->GetParent().GetHealth();
         GetNetworkHealthComponentController()->GetParent().HealthAddEvent(m_changedHandler);
 
         if (IsNetEntityRoleAuthority())
@@ -34,6 +36,26 @@ namespace MultiplayerSample
 
     void PlayerArmorComponentController::OnAmountChanged(float armor)
     {
+        if (armor > m_previousArmorAmount)
+        {
+            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                SoundEffect::ArmorMend, GetEntity()->GetTransform()->GetWorldTranslation());
+        }
+        else if (armor < m_previousArmorAmount)
+        {
+            const float halfArmor = GetNetworkHealthComponentController()->GetParent().GetMaxHealth() / 2.f;
+            if (armor < halfArmor && m_previousArmorAmount > halfArmor)
+            {
+                // Armor breaking defined as going below 50% of armor
+                GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                    SoundEffect::ArmorBreaking, GetEntity()->GetTransform()->GetWorldTranslation());
+            }
+
+            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                SoundEffect::PlayerOuch, GetEntity()->GetTransform()->GetWorldTranslation());
+        }
+        m_previousArmorAmount = armor;
+
         UiPlayerArmorNotificationBus::Broadcast(&UiPlayerArmorNotificationBus::Events::OnPlayerArmorChanged, armor, GetStartingArmor());
         if (armor <= 0)
         {

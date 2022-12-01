@@ -55,6 +55,11 @@ namespace MultiplayerSample
         {
             PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotificationBus::Events::OnPlayerActivated, GetNetEntityId());
         }
+
+        if (IsNetEntityRoleAutonomous())
+        {
+            PlayerIdentityRequestBus::Handler::BusConnect();
+        }
     }
 
     void PlayerIdentityComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -63,6 +68,8 @@ namespace MultiplayerSample
         {
             PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotificationBus::Events::OnPlayerDeactivated, GetNetEntityId());
         }
+
+        PlayerIdentityRequestBus::Handler::BusDisconnect();
     }
 
     void PlayerIdentityComponentController::HandleRPC_AssignPlayerName([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
@@ -82,5 +89,10 @@ namespace MultiplayerSample
 
         GetPlayerCoinCollectorComponentController()->SetCoinsCollected(currentCoins - aznumeric_cast<uint16_t>(coinsToDeduct));
         PlayerIdentityComponentControllerBase::HandleRPC_ResetPlayerState(invokingConnection, resetOptions);
+    }
+
+    const char* PlayerIdentityComponentController::GetPlayerIdentityName()
+    {
+        return GetParent().GetPlayerName().c_str();
     }
 }

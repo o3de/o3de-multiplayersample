@@ -26,5 +26,7 @@ namespace MultiplayerSample
         {
             OnAmountChanged(armor);
         } };
+
+        float m_previousArmorAmount = 0.f;
     };
 }

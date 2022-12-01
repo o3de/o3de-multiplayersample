@@ -20,6 +20,8 @@ namespace MultiplayerSample
     {
         m_preparationTime = AZ::TimeMs{ 3000 };
         m_preparingEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
+
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::CountDown);
     }
 
     void GameStatePreparingMatch::OnExit()

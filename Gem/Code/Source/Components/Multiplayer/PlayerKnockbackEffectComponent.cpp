@@ -5,6 +5,7 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <PlayerKnockbackBus.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
@@ -42,5 +43,8 @@ namespace MultiplayerSample
                 GetNetworkCharacterComponentController()->TryMoveWithVelocity(direction, deltaTime);
             }
         }
+
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::PlayerKnockedDown, GetEntity()->GetTransform()->GetWorldTranslation());
     }
 }

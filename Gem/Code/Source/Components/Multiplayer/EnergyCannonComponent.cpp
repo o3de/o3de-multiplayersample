@@ -50,6 +50,9 @@ namespace MultiplayerSample
                 const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
                 const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
                 ballComponent->RPC_LaunchBall(cannonTm.GetTranslation(), forward);
+
+                GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                    SoundEffect::EnergyBallTrapBuildup, GetEntity()->GetTransform()->GetWorldTranslation());
             }
         }
     }

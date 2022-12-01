@@ -10,6 +10,9 @@
 #include <LmbrCentral/Audio/AudioTriggerComponentBus.h>
 #include <Source/Components/Multiplayer/GameplayEffectsComponent.h>
 
+AZ_CVAR(bool, mps_enableMissingAudioTriggerWarnings, false, nullptr, AZ::ConsoleFunctorFlags::Null,
+    "Reports warnings whenever a game effect is missing an audio trigger defined in Game Playe Effects component.");
+
 namespace MultiplayerSample
 {
     void GameplayEffectsComponent::Reflect(AZ::ReflectContext* context)
@@ -25,6 +28,11 @@ namespace MultiplayerSample
 
     void GameplayEffectsComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        if (IsNetEntityRoleClient())
+        {
+            LocalOnlyGameplayEffectsNotificationBus::Handler::BusConnect();
+        }
+
         m_soundTriggerNames.clear();
         m_soundTriggerNames.resize(SoundEffectNamespace::SoundEffectCount);
         
@@ -65,6 +73,7 @@ namespace MultiplayerSample
     void GameplayEffectsComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         Audio::AudioTriggerNotificationBus::MultiHandler::BusDisconnect();
+        LocalOnlyGameplayEffectsNotificationBus::Handler::BusDisconnect();
     }
 
     void GameplayEffectsComponent::HandleRPC_OnEffect([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
@@ -102,10 +111,37 @@ namespace MultiplayerSample
         }
     }
 
+    void GameplayEffectsComponent::OnPositionalEffect(SoundEffect effect, const AZ::Vector3& position)
+    {
+        HandleRPC_OnPositionalEffect(nullptr, effect, position);
+    }
+
+    void GameplayEffectsComponent::OnEffect(SoundEffect effect)
+    {
+        HandleRPC_OnEffect(nullptr, effect);
+    }
+
     void GameplayEffectsComponent::SpawnEffect(SoundEffect effect, const AZ::Vector3& position)
     {
+        const char* triggerName = nullptr;
+        const AZStd::size_t effectId = aznumeric_cast<AZStd::size_t>(effect);
+        if (effectId < m_soundTriggerNames.size())
+        {
+            triggerName = m_soundTriggerNames[effectId].c_str();
+        }
+
+        if (!triggerName || strlen(triggerName) == 0)
+        {
+            if (mps_enableMissingAudioTriggerWarnings)
+            {
+                const AZStd::string eventName(SoundEffectNamespace::ToString(effect));
+                AZ_Warning("MultiplayerSample", false, "Audio trigger wasn't specified for effect [%s] on GameplayEffectsComponent", eventName.c_str());
+            }
+            return;
+        }
+
         PrefabCallbacks callbacks;
-        callbacks.m_onActivateCallback = [this, effect](
+        callbacks.m_onActivateCallback = [this, triggerName](
             AZStd::shared_ptr<AzFramework::EntitySpawnTicket>&& ticket,
             [[maybe_unused]] AzFramework::SpawnableConstEntityContainerView view)
         {            
@@ -115,13 +151,9 @@ namespace MultiplayerSample
                     LmbrCentral::AudioTriggerComponentRequestBus::FindFirstHandler(entity->GetId());
                 if (audioTrigger)
                 {
-                    const AZStd::size_t effectId = aznumeric_cast<AZStd::size_t>(effect);
-                    if (effectId < m_soundTriggerNames.size())
-                    {
-                        Audio::AudioTriggerNotificationBus::MultiHandler::BusConnect(Audio::TriggerNotificationIdType{ entity->GetId() });
-                        m_spawnedEffects.emplace(entity->GetId(), move(ticket));
-                        audioTrigger->ExecuteTrigger(m_soundTriggerNames[effectId].c_str());
-                    }
+                    Audio::AudioTriggerNotificationBus::MultiHandler::BusConnect(Audio::TriggerNotificationIdType{ entity->GetId() });
+                    m_spawnedEffects.emplace(entity->GetId(), move(ticket));
+                    audioTrigger->ExecuteTrigger(triggerName);
                     break;
                 }
             }

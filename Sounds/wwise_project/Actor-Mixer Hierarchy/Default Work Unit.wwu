@@ -33,6 +33,120 @@
 						<ActiveSource Name="AMZ_sfx_CHR_wpn_plasma_pistol_fire001" ID="{AF6E7584-89BF-4CAA-9AB8-91C812EEB060}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
+				<Sound Name="Round_Begin" ID="{F98AB3A3-17FB-428D-AF90-1250DED53315}" ShortID="473337408">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-8</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1F6AC909-331F-49F5-B6D6-1405F4C25E74}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="AMZN_sfx_env_TPort_Begin_Stereo_001" ID="{C1EB6895-A003-44F5-8AD6-BB339E47E95F}">
+							<Language>SFX</Language>
+							<AudioFile>AMZN_sfx_env_TPort_Begin_Stereo_001.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="248331551"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="AMZN_sfx_env_TPort_Begin_Stereo_001" ID="{C1EB6895-A003-44F5-8AD6-BB339E47E95F}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="Round_End" ID="{7A88D693-7E85-42F8-AEB1-C34A52F28E71}" ShortID="610343362">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-8</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1F6AC909-331F-49F5-B6D6-1405F4C25E74}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="AMZN_sfx_env_TPort_End_Stereo_001" ID="{46BFEB26-1FA0-49B6-B280-604B97F5FD82}">
+							<Language>SFX</Language>
+							<AudioFile>AMZN_sfx_env_TPort_End_Stereo_001.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="579495553"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="AMZN_sfx_env_TPort_End_Stereo_001" ID="{46BFEB26-1FA0-49B6-B280-604B97F5FD82}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="Laser_Gun_Impact" ID="{3D2AAE26-21FE-45B2-8E94-61156D870DAB}" ShortID="50850744">
+					<PropertyList>
+						<Property Name="3DSpatialization" Type="int16" Value="1"/>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-5</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1F6AC909-331F-49F5-B6D6-1405F4C25E74}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="AMZ_sfx_CHR_wpn_plasma_pistol_hit003" ID="{86AE6CCE-C5F9-42C2-8F7D-516D236C7FBE}">
+							<Language>SFX</Language>
+							<AudioFile>AMZ_sfx_CHR_wpn_plasma_pistol_hit003.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="74130157"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="AMZ_sfx_CHR_wpn_plasma_pistol_hit003" ID="{86AE6CCE-C5F9-42C2-8F7D-516D236C7FBE}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="Gem_Pickup" ID="{1FA8804D-E4F4-4A97-9B04-66134712F5C0}" ShortID="437799555">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1F6AC909-331F-49F5-B6D6-1405F4C25E74}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="gun_no_ammo" ID="{543C9961-68EB-404E-9DA0-6BE0C8B91268}">
+							<Language>SFX</Language>
+							<AudioFile>gun_no_ammo.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="897021678"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="gun_no_ammo" ID="{543C9961-68EB-404E-9DA0-6BE0C8B91268}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
 			</ChildrenList>
 		</WorkUnit>
 	</AudioObjects>

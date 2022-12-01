@@ -66,4 +66,6 @@ namespace MultiplayerSample
     };
 
     using GameplayEffectsNotificationBus = AZ::EBus<GameplayEffectsNotifications>;
+
+    using LocalOnlyGameplayEffectsNotificationBus = AZ::EBus<GameplayEffectsNotifications>;
 }

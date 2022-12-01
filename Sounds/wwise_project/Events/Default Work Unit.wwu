@@ -28,6 +28,106 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_Round_End" ID="{5CE012D9-FD3B-4E65-9B10-7D2E307E920C}">
+					<ChildrenList>
+						<Action Name="" ID="{764887F9-204E-431C-B65E-9367DAD9C7C6}" ShortID="669036695">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Round_End" ID="{7A88D693-7E85-42F8-AEB1-C34A52F28E71}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Round_End" ID="{849C8BCC-3C50-4B88-A9F9-AE56E05213F2}">
+					<ChildrenList>
+						<Action Name="" ID="{1275B966-4A2F-4C32-A85E-15C3561CD42E}" ShortID="24411205">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Round_End" ID="{7A88D693-7E85-42F8-AEB1-C34A52F28E71}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Round_Begin" ID="{D684C934-FF22-44B3-B8FE-5BD601B2CA67}">
+					<ChildrenList>
+						<Action Name="" ID="{03BBECCB-B89F-4B6E-A3FC-6C31A1C5D27C}" ShortID="75497347">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Round_Begin" ID="{F98AB3A3-17FB-428D-AF90-1250DED53315}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Round_Begin" ID="{875FE9AB-B735-45E4-8A0B-5C07A56FE68C}">
+					<ChildrenList>
+						<Action Name="" ID="{4F2ED058-00BE-493B-A1B0-3D7ABB847F32}" ShortID="946072774">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Round_Begin" ID="{F98AB3A3-17FB-428D-AF90-1250DED53315}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Laser_Gun_Impact" ID="{CC2C8A46-1F06-46D8-968A-BF4FEFCBF059}">
+					<ChildrenList>
+						<Action Name="" ID="{60C5DEA2-67ED-411E-A03B-CC4ADF40709F}" ShortID="37288913">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Laser_Gun_Impact" ID="{3D2AAE26-21FE-45B2-8E94-61156D870DAB}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Laser_Gun_Impact" ID="{66A03A99-F283-4A56-A7A6-9E4DAACF6D0E}">
+					<ChildrenList>
+						<Action Name="" ID="{CA3C27E2-BC54-4006-8374-997A5E8C773D}" ShortID="563489653">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Laser_Gun_Impact" ID="{3D2AAE26-21FE-45B2-8E94-61156D870DAB}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Gem_Pickup" ID="{71E57F3C-D599-41C4-8809-E1B12C333CD6}">
+					<ChildrenList>
+						<Action Name="" ID="{F0CC3DD1-BA86-449B-96FE-0FB923243920}" ShortID="797184731">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Gem_Pickup" ID="{1FA8804D-E4F4-4A97-9B04-66134712F5C0}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Gem_Pickup" ID="{A092F014-CD71-4BB3-A74A-C19A5F677392}">
+					<ChildrenList>
+						<Action Name="" ID="{291F72BD-953E-457E-B935-34C2721A1EB8}" ShortID="430319041">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Gem_Pickup" ID="{1FA8804D-E4F4-4A97-9B04-66134712F5C0}" WorkUnitID="{C0C67A39-4BC0-4EBF-94ED-C01D16939EBC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

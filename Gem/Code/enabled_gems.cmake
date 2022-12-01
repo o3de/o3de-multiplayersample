@@ -62,4 +62,5 @@ set(ENABLED_GEMS
     particlefx_mps
     pbr_material_pack_mps
     PopcornFX
+    DiffuseProbeGrid
 )

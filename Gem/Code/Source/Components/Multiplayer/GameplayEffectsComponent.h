@@ -16,6 +16,7 @@ namespace MultiplayerSample
     class GameplayEffectsComponent
         : public GameplayEffectsComponentBase
         , public Audio::AudioTriggerNotificationBus::MultiHandler
+        , public LocalOnlyGameplayEffectsNotificationBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::GameplayEffectsComponent, s_gameplayEffectsComponentConcreteUuid, MultiplayerSample::GameplayEffectsComponentBase);
@@ -30,6 +31,10 @@ namespace MultiplayerSample
         
         // AudioTriggerNotificationBus overrides ...
         void ReportTriggerFinished(Audio::TAudioControlID triggerId) override;
+
+        // LocalOnlyGameplayEffectsNotificationBus overrides ...
+        void OnPositionalEffect(SoundEffect effect, const AZ::Vector3& position) override;
+        void OnEffect(SoundEffect effect) override;
 
     private:        
         AZStd::vector<AZStd::string> m_soundTriggerNames;

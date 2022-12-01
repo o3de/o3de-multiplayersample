@@ -65,6 +65,9 @@ namespace MultiplayerSample
                     {
                         if (GemComponent* gem = coinEntity->FindComponent<GemComponent>())
                         {
+                            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+                                SoundEffect::GemPickup, GetEntity()->GetTransform()->GetWorldTranslation());
+
                             gem->RPC_CollectedByPlayer();
                             ModifyCoinsCollected() += gem->GetGemScoreValue();
                             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged, 

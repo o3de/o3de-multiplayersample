@@ -28,6 +28,8 @@ namespace MultiplayerSample
         {
             m_controller->RoundNumberAddEvent(m_roundChangedHandler);
             m_controller->StartMatch();
+
+            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::RoundStart);
         }
     }
 
@@ -55,6 +57,8 @@ namespace MultiplayerSample
 
     void GameStateMatchInProgress::OnRoundChanged(AZ::u16 round)
     {
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::RoundEnd);
+
         if (round > m_controller->GetTotalRounds())
         {
             const auto state = GameState::GameStateRequests::CreateNewOverridableGameStateOfType<GameStateMatchEnded>();

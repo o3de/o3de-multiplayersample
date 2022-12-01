@@ -5,6 +5,7 @@
  *
  */
 
+#include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
 #include <GameState/GameStateMatchEnded.h>
@@ -66,6 +67,23 @@ namespace MultiplayerSample
         {
             UiGameOverBus::Broadcast(&UiGameOverBus::Events::SetGameOverScreenEnabled, true);
             UiGameOverBus::Broadcast(&UiGameOverBus::Events::DisplayResults, results);
+
+            const char* playerIdentityName = nullptr;
+            PlayerIdentityRequestBus::BroadcastResult(playerIdentityName, &PlayerIdentityRequestBus::Events::GetPlayerIdentityName);
+            if (playerIdentityName)
+            {
+                if (results.m_winningPlayerName == playerIdentityName)
+                {
+                    // Local player is the winner
+                    LocalOnlyGameplayEffectsNotificationBus::Broadcast(
+                        &LocalOnlyGameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::VictoryFanfare);
+                }
+                else
+                {
+                    LocalOnlyGameplayEffectsNotificationBus::Broadcast(
+                        &LocalOnlyGameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::LosingFanfare);
+                }
+            }
         }
     }
 
