@@ -25,7 +25,7 @@ namespace MultiplayerSample
 
     void UiPlayerArmorComponent::OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor)
     {
-        const AZStd::string armorTextValue = AZStd::string::format("%.0f", armorPointsForLocalPlayer);
+        const AZStd::string armorTextValue = AZStd::string::format("%.0f", armorPointsForLocalPlayer) + AZStd::string("%");
         UiTextBus::Event(m_armorText, &UiTextBus::Events::SetText, armorTextValue.c_str());
 
         if (startingArmor > 1.f)

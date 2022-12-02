@@ -47,7 +47,6 @@ namespace MultiplayerSample
     {
         UiGameOverBus::Handler::BusConnect(GetEntityId());
         UiButtonNotificationBus::Handler::BusConnect(m_closeResultsButton);
-        UiCursorBus::Broadcast(&UiCursorBus::Events::SetUiCursor, "UICanvases/cursor.png");
     }
 
     void UiGameOverComponent::Deactivate()
@@ -89,12 +88,14 @@ namespace MultiplayerSample
     AZStd::string UiGameOverComponent::BuildResultsSummary(const AZStd::vector<PlayerState>& playerStates)
     {
         // TODO: make this a nice grid in UiCanvas instead of a big string
-        AZStd::string resultTable = "---------- Final Standings ----------\n\n";
+        AZStd::string resultTable;
         for (PlayerState result : playerStates)
         {
             resultTable.append(
-                AZStd::string::format("%s :  score  %i, armor %i\n",
-                    result.m_playerName.c_str(), result.m_score, result.m_remainingArmor));
+                AZStd::string::format("%i               %s\n",
+                result.m_score,
+                result.m_playerName.c_str())
+            );
         }
         return resultTable;
     }

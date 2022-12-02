@@ -32,7 +32,7 @@ namespace MultiplayerSample
             registry->Get(winningCoinCount, WinningCoinCountSetting);
         }
 
-        const AZStd::string message = AZStd::string::format("%d out of %llu", totalCoinsCollectedByLocalPlayer, winningCoinCount);
+        const AZStd::string message = AZStd::string::format("%04d", totalCoinsCollectedByLocalPlayer);
         UiTextBus::Event(m_coinsTextForLocalPlayer, &UiTextBus::Events::SetText, message);
 
         if (m_coinTextColorEffectDuration > AZ::Time::ZeroTimeMs) // sanity check
