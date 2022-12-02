@@ -1,0 +1,151 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Player_Camera",
+        "Components": {
+            "Component_[124230638568335090]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 124230638568335090
+            },
+            "Component_[12754972795557779503]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 12754972795557779503,
+                "Child Entity Order": [
+                    "Entity_[49600613090343]"
+                ]
+            },
+            "Component_[13514245165228370298]": {
+                "$type": "EditorLockComponent",
+                "Id": 13514245165228370298
+            },
+            "Component_[14357684198880595382]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 14357684198880595382
+            },
+            "Component_[17029333370011457204]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 17029333370011457204
+            },
+            "Component_[17846312542567411904]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 17846312542567411904,
+                "Parent Entity": ""
+            },
+            "Component_[18279880419143283723]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 18279880419143283723
+            },
+            "Component_[3460551241366337477]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 3460551241366337477
+            },
+            "Component_[9445970528526034239]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 9445970528526034239
+            },
+            "Component_[9787079021026307403]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 9787079021026307403
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[49600613090343]": {
+            "Id": "Entity_[49600613090343]",
+            "Name": "Player Camera",
+            "Components": {
+                "Component_[13707688659030262739]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13707688659030262739
+                },
+                "Component_[14557570787500416175]": {
+                    "$type": "AZ::Render::EditorBloomComponent",
+                    "Id": 14557570787500416175,
+                    "Controller": {
+                        "Configuration": {
+                            "Enabled": true
+                        }
+                    }
+                },
+                "Component_[15209981873132626600]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 15209981873132626600
+                },
+                "Component_[154105298091518109]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 154105298091518109,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 2763779754963209072
+                        },
+                        {
+                            "ComponentId": 3655999494444134160,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 9004585884070611256,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 14557570787500416175,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 7092071161962745685,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[17443734220531699641]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 17443734220531699641
+                },
+                "Component_[2046025781821881524]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 2046025781821881524
+                },
+                "Component_[2763779754963209072]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 2763779754963209072,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[3655999494444134160]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3655999494444134160,
+                    "m_template": {
+                        "$type": "UiCanvasAssetRefComponent",
+                        "CanvasAssetRef": {
+                            "AssetPath": "uicanvases/reticle.uicanvas"
+                        },
+                        "IsAutoLoad": true
+                    }
+                },
+                "Component_[3970187958414398085]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 3970187958414398085
+                },
+                "Component_[6170729524149437702]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 6170729524149437702
+                },
+                "Component_[7092071161962745685]": {
+                    "$type": "{CA11DA46-29FF-4083-B5F6-E02C3A8C3A3D} EditorCameraComponent",
+                    "Id": 7092071161962745685,
+                    "Controller": {
+                        "Configuration": {
+                            "EditorEntityId": 1010066591619431053
+                        }
+                    }
+                },
+                "Component_[9004585884070611256]": {
+                    "$type": "AZ::Render::EditorPostFxLayerComponent",
+                    "Id": 9004585884070611256
+                },
+                "Component_[9321193093942328270]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 9321193093942328270
+                }
+            }
+        }
+    }
+}
