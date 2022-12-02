@@ -179,6 +179,12 @@ namespace MultiplayerSample
             entityItem.GetNetBindComponent()->EnablePlayerHostAutonomy(true);
         }
 
+        if (entityList.empty())
+        {
+            AZ_Error("NetworkStressTestComponentController", false, "No AI entity to spawn");
+            return;
+        }
+
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
         // Drive inputs from AI instead of user inputs and disable camera following
         NetworkAiComponentController* networkAiController = createdEntity.FindController<NetworkAiComponentController>();
