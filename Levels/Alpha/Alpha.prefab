@@ -33,7 +33,9 @@
                     "Instance_[872918975093123]/ContainerEntity",
                     "Entity_[5674883717507]",
                     "Entity_[872897500256643]",
-                    "Instance_[80137830564903]/ContainerEntity"
+                    "Instance_[80137830564903]/ContainerEntity",
+                    "Instance_[51914644903660]/ContainerEntity",
+                    "Instance_[43906299149777]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -25238,7 +25240,8 @@
                                     "subId": 2000
                                 },
                                 "assetHint": "cubemapcaptures/alpha_specular__2e417a90-191c-4583-aa62-d6c9c9b61d1e__iblspecularcm256.dds.streamingimage"
-                            }
+                            },
+                            "exposure": -0.5
                         }
                     },
                     "diffuseImageAsset": {
@@ -25254,7 +25257,8 @@
                             "subId": 2000
                         },
                         "assetHint": "cubemapcaptures/alpha_specular__2e417a90-191c-4583-aa62-d6c9c9b61d1e__iblspecularcm256.dds.streamingimage"
-                    }
+                    },
+                    "exposure": -0.5
                 },
                 "Component_[5138134953073834077]": {
                     "$type": "EditorVisibilityComponent",
@@ -25271,7 +25275,8 @@
                                     "subId": 2000
                                 },
                                 "assetHint": "skies/evening_horizon_iblskyboxcm_iblspecular.exr.streamingimage"
-                            }
+                            },
+                            "Exposure": -2.700000047683716
                         }
                     }
                 },
@@ -27152,6 +27157,31 @@
                 }
             ]
         },
+        "Instance_[43906299149777]": {
+            "Source": "Prefabs/GamePlay_Effects.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13490474510842214515]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13490474510842214515]/Transform Data/Translate/0",
+                    "value": -59.073909759521484
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13490474510842214515]/Transform Data/Translate/1",
+                    "value": 42.069480895996094
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13490474510842214515]/Transform Data/Translate/2",
+                    "value": -4.143481254577637
+                }
+            ]
+        },
         "Instance_[43960222194051]": {
             "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgMD_A.prefab",
             "Patches": [
@@ -28044,6 +28074,31 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Rotate/2",
                     "value": 180.0
+                }
+            ]
+        },
+        "Instance_[51914644903660]": {
+            "Source": "Prefabs/MatchController.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16882190328477997960]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16882190328477997960]/Transform Data/Translate/0",
+                    "value": 2.871580123901367
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16882190328477997960]/Transform Data/Translate/1",
+                    "value": -41.57832336425781
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16882190328477997960]/Transform Data/Translate/2",
+                    "value": 5.555325031280518
                 }
             ]
         },
@@ -29143,7 +29198,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16237068544565649519]/Transform Data/Translate/2",
-                    "value": -3.299999952316284
+                    "value": -3.240565776824951
                 }
             ]
         },

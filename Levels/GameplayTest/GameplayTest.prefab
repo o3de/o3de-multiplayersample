@@ -10687,7 +10687,7 @@
         },
         "Entity_[830977005898]": {
             "Id": "Entity_[830977005898]",
-            "Name": "Camera",
+            "Name": "Camera and Input",
             "Components": {
                 "Component_[13707688659030262739]": {
                     "$type": "EditorEntityIconComponent",
@@ -10735,6 +10735,19 @@
                         ]
                     }
                 },
+                "Component_[299241743554369776]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 299241743554369776,
+                    "m_template": {
+                        "$type": "InputConfigurationComponent",
+                        "Input Event Bindings": {
+                            "assetId": {
+                                "guid": "{C67E0526-85F2-525B-A44B-04855474A5BE}"
+                            },
+                            "assetHint": "inputbindings/player.inputbindings"
+                        }
+                    }
+                },
                 "Component_[3655999494444134160]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3655999494444134160,
@@ -10759,7 +10772,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 9372934375852764365
+                            "EditorEntityId": 989740997263671176
                         }
                     }
                 },

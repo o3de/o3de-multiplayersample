@@ -51,19 +51,6 @@
             "Id": "Entity_[1423682492746]",
             "Name": "Player",
             "Components": {
-                "Component_[10731928891422556040]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 10731928891422556040,
-                    "m_template": {
-                        "$type": "InputConfigurationComponent",
-                        "Input Event Bindings": {
-                            "assetId": {
-                                "guid": "{C67E0526-85F2-525B-A44B-04855474A5BE}"
-                            },
-                            "assetHint": "inputbindings/player.inputbindings"
-                        }
-                    }
-                },
                 "Component_[10752091759919038477]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 10752091759919038477,
@@ -465,6 +452,11 @@
                         "SprintSpeed": 6.0,
                         "JumpVelocity": 8.0
                     }
+                },
+                "Component_[5984669395829237154]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 5984669395829237154,
+                    "Configuration": "Do not add an InputBinding component to this prefab, only add it to your level or load the bindings some other way.  Multiple InputBinding components will lead to input events getting sent per-component and cause input spam."
                 },
                 "Component_[6252367322126438780]": {
                     "$type": "GenericComponentWrapper",

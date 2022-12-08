@@ -1,0 +1,158 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "GamePlay_Effects",
+        "Components": {
+            "Component_[12450055130148559371]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 12450055130148559371
+            },
+            "Component_[13490474510842214515]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 13490474510842214515,
+                "Parent Entity": ""
+            },
+            "Component_[1504729941609681648]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 1504729941609681648
+            },
+            "Component_[15482869980983967676]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 15482869980983967676
+            },
+            "Component_[16871230422689996014]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 16871230422689996014
+            },
+            "Component_[2242806845704960273]": {
+                "$type": "EditorLockComponent",
+                "Id": 2242806845704960273
+            },
+            "Component_[2511009772429746619]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 2511009772429746619,
+                "Child Entity Order": [
+                    "Entity_[39735885905361]"
+                ]
+            },
+            "Component_[4099753608611289960]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 4099753608611289960
+            },
+            "Component_[4372557423451646264]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 4372557423451646264
+            },
+            "Component_[9463531765175646720]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 9463531765175646720
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[39735885905361]": {
+            "Id": "Entity_[39735885905361]",
+            "Name": "GamePlay Effects",
+            "Components": {
+                "Component_[11946705441174808443]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 11946705441174808443
+                },
+                "Component_[12472505337896015496]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 12472505337896015496
+                },
+                "Component_[12557627627480150856]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12557627627480150856,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[13295483437782755113]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13295483437782755113,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[1504635443841809763]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 1504635443841809763,
+                    "m_template": {
+                        "$type": "NetworkPrefabSpawnerComponent",
+                        "Default Prefab": {
+                            "assetId": {
+                                "guid": "{35EE7939-1A13-5B58-B05C-5D90DB3ACC0E}",
+                                "subId": 2091499493
+                            },
+                            "assetHint": "prefabs/sound_effect.spawnable"
+                        }
+                    }
+                },
+                "Component_[16370588755011357885]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 16370588755011357885,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[16666566038828336824]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16666566038828336824
+                },
+                "Component_[4614452708224633330]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4614452708224633330
+                },
+                "Component_[5218063406307720170]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 5218063406307720170
+                },
+                "Component_[6305603003699945145]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6305603003699945145
+                },
+                "Component_[8106850883560113265]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8106850883560113265,
+                    "m_template": {
+                        "$type": "MultiplayerSample::GameplayEffectsComponent",
+                        "GemPickup": "Play_Gem_Pickup",
+                        "RoundStart": "Play_Round_Begin",
+                        "RoundEnd": "Play_Round_End",
+                        "LaserPistolImpact": "Play_Laser_Gun_Impact",
+                        "EnergyBallTrapImpact": "Play_Laser_Gun_Impact"
+                    }
+                },
+                "Component_[8376277465513176068]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 8376277465513176068
+                },
+                "Component_[8837169591982663765]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8837169591982663765,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 16370588755011357885
+                        },
+                        {
+                            "ComponentId": 1504635443841809763,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 12557627627480150856,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 13295483437782755113,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 8106850883560113265,
+                            "SortIndex": 4
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
