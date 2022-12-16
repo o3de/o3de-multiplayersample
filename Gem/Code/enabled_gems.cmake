@@ -63,4 +63,5 @@ set(ENABLED_GEMS
     pbr_material_pack_mps
     PopcornFX
     DiffuseProbeGrid
+    Terrain
 )
