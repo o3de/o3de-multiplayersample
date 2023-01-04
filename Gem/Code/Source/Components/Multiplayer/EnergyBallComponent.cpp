@@ -42,6 +42,7 @@ namespace MultiplayerSample
         m_collisionHandler.Disconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
         const AZ::Vector3& startingPosition, const AZ::Vector3& direction)
     {
@@ -60,6 +61,7 @@ namespace MultiplayerSample
         GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
             SoundEffect::EnergyBallTrapProjectile, GetEntity()->GetTransform()->GetWorldTranslation());
     }
+#endif
 
     void EnergyBallComponentController::HideEnergyBall()
     {
@@ -79,12 +81,14 @@ namespace MultiplayerSample
                 &AZ::ComponentApplicationBus::Events::FindEntity, collisionEvent.m_body2->GetEntityId());
             if (target)
             {
+#if AZ_TRAIT_SERVER
                 if (NetworkHealthComponent* health = target->FindComponent<NetworkHealthComponent>())
                 {
                     health->SendHealthDelta(aznumeric_cast<float>(-m_armorDamage));
                 }
 
                 TryKnockbackPlayer(target);
+#endif
             }
 
             GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
@@ -104,6 +108,7 @@ namespace MultiplayerSample
         }
     }
 
+#if AZ_TRAIT_SERVER
     void EnergyBallComponentController::TryKnockbackPlayer(AZ::Entity* target)
     {
         if (PlayerKnockbackEffectComponent* effect = target->FindComponent<PlayerKnockbackEffectComponent>())
@@ -115,4 +120,5 @@ namespace MultiplayerSample
             }
         }
     }
+#endif
 }

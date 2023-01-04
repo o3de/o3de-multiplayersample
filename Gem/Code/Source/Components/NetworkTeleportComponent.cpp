@@ -97,7 +97,7 @@ namespace MultiplayerSample
     }
 
     void NetworkTeleportComponentController::TeleportPlayer(
-        const AZ::Vector3& vector, AZ::Entity* entity)
+        [[maybe_unused]] const AZ::Vector3& vector, AZ::Entity* entity)
     {
         if (entity)
         {
@@ -105,7 +105,9 @@ namespace MultiplayerSample
                 entity->FindComponent<MultiplayerSample::NetworkTeleportCompatibleComponent>();
             if (teleportable)
             {
+#if AZ_TRAIT_SERVER
                 teleportable->Teleport(vector);
+#endif
             }
             else
             {

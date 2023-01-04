@@ -62,6 +62,7 @@ namespace MultiplayerSample
         PlayerCoinCollectorNotificationBus::Handler::BusDisconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void MatchPlayerCoinsComponentController::ResetAllCoins()
     {
         for (int i = 0; i < MultiplayerSample::MaxSupportedPlayers; ++i)
@@ -110,6 +111,7 @@ namespace MultiplayerSample
             ModifyCoinsPerPlayer(stateIndex).m_coins = 0;
         }
     }
+#endif
 
     int MatchPlayerCoinsComponentController::GetCoinStateIndex(Multiplayer::NetEntityId playerEntity) const
     {

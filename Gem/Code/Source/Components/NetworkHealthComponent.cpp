@@ -24,10 +24,12 @@ namespace MultiplayerSample
         ;
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkHealthComponentController::HandleSendHealthDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const float& healthDelta)
     {
         float health = GetHealth();
         health = AZStd::max(0.0f, AZStd::min(GetMaxHealth(), health + healthDelta));
         SetHealth(health);
     }
+#endif
 }

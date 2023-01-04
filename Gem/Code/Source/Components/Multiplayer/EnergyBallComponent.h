@@ -21,11 +21,16 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction) override;
+#endif
 
     private:
         void HideEnergyBall();
+
+#if AZ_TRAIT_SERVER
         void TryKnockbackPlayer(AZ::Entity* target);
+#endif
 
         void OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent);
         AzPhysics::SimulatedBodyEvents::OnCollisionBegin::Handler m_collisionHandler{ [this](

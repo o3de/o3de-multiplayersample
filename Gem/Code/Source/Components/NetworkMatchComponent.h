@@ -26,14 +26,18 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         //! PlayerIdentityNotificationBus
         //! @{
         void OnPlayerActivated(Multiplayer::NetEntityId playerEntity) override;
         void OnPlayerDeactivated(Multiplayer::NetEntityId playerEntity) override;
         //! }@
+#endif
 
+#if AZ_TRAIT_CLIENT
         void HandleRPC_EndMatch(
             AzNetworking::IConnection* invokingConnection, const MatchResultsSummary& results) override;
+#endif
     };
 
     class NetworkMatchComponentController
@@ -51,6 +55,7 @@ namespace MultiplayerSample
         void OnPlayerArmorZero(Multiplayer::NetEntityId playerEntity) override;
         //! )@
 
+#if AZ_TRAIT_SERVER
         void StartMatch();
 
         void EndMatch();
@@ -58,8 +63,10 @@ namespace MultiplayerSample
 
         void HandleRPC_PlayerActivated(AzNetworking::IConnection* invokingConnection, const Multiplayer::NetEntityId& playerEntity) override;
         void HandleRPC_PlayerDeactivated(AzNetworking::IConnection* invokingConnection, const Multiplayer::NetEntityId& playerEntity) override;
+#endif
 
     private:
+
         void RoundTickOnceASecond();
         AZ::ScheduledEvent m_roundTickEvent{[this]()
         {
@@ -73,7 +80,9 @@ namespace MultiplayerSample
         void AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity);
         int m_nextPlayerId = 1;
 
+#if AZ_TRAIT_SERVER
         void RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets);
+#endif
 
         void FindWinner(MatchResultsSummary& results, const AZStd::vector<PlayerState>& potentialWinners);
     };

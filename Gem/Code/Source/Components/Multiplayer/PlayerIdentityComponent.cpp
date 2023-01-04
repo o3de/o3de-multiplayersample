@@ -31,16 +31,14 @@ namespace MultiplayerSample
     {
     }
 
-    void PlayerIdentityComponent::AssignPlayerName(const PlayerNameString& newPlayerName)
+    void PlayerIdentityComponent::AssignPlayerName([[maybe_unused]] const PlayerNameString& newPlayerName)
     {
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleServer())
         {
             RPC_AssignPlayerName(newPlayerName);
         }
-        else
-        {
-            static_cast<PlayerIdentityComponentController*>(GetController())->SetPlayerName(newPlayerName);
-        }
+#endif
     }
 
 
@@ -72,6 +70,7 @@ namespace MultiplayerSample
         PlayerIdentityRequestBus::Handler::BusDisconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void PlayerIdentityComponentController::HandleRPC_AssignPlayerName([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
         const PlayerNameString& newPlayerName)
     {
@@ -90,6 +89,7 @@ namespace MultiplayerSample
         GetPlayerCoinCollectorComponentController()->SetCoinsCollected(currentCoins - aznumeric_cast<uint16_t>(coinsToDeduct));
         PlayerIdentityComponentControllerBase::HandleRPC_ResetPlayerState(invokingConnection, resetOptions);
     }
+#endif
 
     const char* PlayerIdentityComponentController::GetPlayerIdentityName()
     {

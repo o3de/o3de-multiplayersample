@@ -9,8 +9,12 @@
 #include <MatchPlayerCoinsBus.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/Multiplayer/PlayerIdentityComponent.h>
+
+#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+#endif
+
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
 
 namespace MultiplayerSample
@@ -19,14 +23,19 @@ namespace MultiplayerSample
 
     void UiMatchPlayerCoinCountsComponent::Activate()
     {
+#if AZ_TRAIT_CLIENT
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ShowPlayerCoinCountsEventId);
+#endif
     }
 
     void UiMatchPlayerCoinCountsComponent::Deactivate()
     {
+#if AZ_TRAIT_CLIENT
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect();
+#endif
     }
 
+#if AZ_TRAIT_CLIENT
     void UiMatchPlayerCoinCountsComponent::OnPressed([[maybe_unused]] float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
@@ -106,6 +115,7 @@ namespace MultiplayerSample
 
         return "Unknown Player";
     }
+#endif
 
     void UiMatchPlayerCoinCountsComponent::Reflect(AZ::ReflectContext* context)
     {

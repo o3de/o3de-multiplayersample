@@ -38,7 +38,9 @@ namespace MultiplayerSample
 
     NetworkStressTestComponentController::NetworkStressTestComponentController(NetworkStressTestComponent& owner)
         : NetworkStressTestComponentControllerBase(owner)
+#if AZ_TRAIT_SERVER
         , m_autoSpawnTimer([this]() { HandleSpawnAiEntity(); }, AZ::Name("StressTestSpawner Event"))
+#endif
     {
         ;
     }
@@ -61,10 +63,12 @@ namespace MultiplayerSample
             break;
         }
 
+#if AZ_TRAIT_SERVER
         if (GetAutoSpawnIntervalMs() > AZ::Time::ZeroTimeMs)
         {
             m_autoSpawnTimer.Enqueue(GetAutoSpawnIntervalMs(), true);
         }
+#endif
     }
 
     void NetworkStressTestComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -74,11 +78,13 @@ namespace MultiplayerSample
 #endif
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkStressTestComponentController::HandleSpawnAiEntity()
     {
         const uint64_t seed = m_seed == 0 ? static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) : m_seed;
         HandleSpawnAIEntity(nullptr, m_fireIntervalMinMs, m_fireIntervalMaxMs, m_actionIntervalMinMs, m_actionIntervalMaxMs, seed, m_teamID);
     }
+#endif
 
 #if defined(IMGUI_ENABLED)
     void NetworkStressTestComponentController::OnImGuiMainMenuUpdate()
@@ -121,6 +127,7 @@ namespace MultiplayerSample
             {
                 if (m_isServer)
                 {
+#if AZ_TRAIT_SERVER
                     HandleSpawnAIEntity(
                         nullptr,
                         m_fireIntervalMinMs,
@@ -129,9 +136,11 @@ namespace MultiplayerSample
                         m_actionIntervalMaxMs,
                         seed + i,
                         m_teamID);
+#endif
                 }
                 else
                 {
+#if AZ_TRAIT_CLIENT
                     SpawnAIEntity(
                         m_fireIntervalMinMs,
                         m_fireIntervalMaxMs,
@@ -139,6 +148,7 @@ namespace MultiplayerSample
                         m_actionIntervalMaxMs,
                         seed + i,
                         m_teamID);
+#endif
                 }
             }
         }
@@ -153,6 +163,7 @@ namespace MultiplayerSample
     {
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkStressTestComponentController::HandleSpawnAIEntity(
         AzNetworking::IConnection* invokingConnection,
         const float& fireIntervalMinMs,
@@ -196,4 +207,5 @@ namespace MultiplayerSample
         }
         createdEntity.Activate();
     }
+#endif
 } // namespace MultiplayerSample

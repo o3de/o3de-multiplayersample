@@ -50,6 +50,7 @@ namespace MultiplayerSample
         PlayerIdentityNotificationBus::Handler::BusDisconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkMatchComponent::OnPlayerActivated(Multiplayer::NetEntityId playerEntity)
     {
         RPC_PlayerActivated(playerEntity);
@@ -59,7 +60,9 @@ namespace MultiplayerSample
     {
         RPC_PlayerDeactivated(playerEntity);
     }
+#endif
 
+#if AZ_TRAIT_CLIENT
     void NetworkMatchComponent::HandleRPC_EndMatch(
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const MatchResultsSummary& results)
     {
@@ -86,6 +89,7 @@ namespace MultiplayerSample
             }
         }
     }
+#endif
 
     // Controller methods
 
@@ -132,6 +136,7 @@ namespace MultiplayerSample
         m_roundTickEvent.RemoveFromQueue();
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::StartMatch()
     {
         SetRoundTime(RoundTimeSec{ GetRoundDuration() });
@@ -208,6 +213,7 @@ namespace MultiplayerSample
         RPC_EndMatch(results);
         GetMatchPlayerCoinsComponentController()->ResetAllCoins();
     }
+#endif
 
     void NetworkMatchComponentController::FindWinner(MatchResultsSummary& results,
         const AZStd::vector<PlayerState>& potentialWinners)
@@ -252,6 +258,7 @@ namespace MultiplayerSample
         }
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::EndRound()
     {
         ModifyRoundNumber()++;
@@ -282,9 +289,11 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player deactivated %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
     }
+#endif
 
-    void NetworkMatchComponentController::OnPlayerArmorZero(Multiplayer::NetEntityId playerEntity)
+    void NetworkMatchComponentController::OnPlayerArmorZero([[maybe_unused]] Multiplayer::NetEntityId playerEntity)
     {
+#if AZ_TRAIT_SERVER
         const auto playerIterator = AZStd::find(m_players.begin(), m_players.end(), playerEntity);
         if (playerIterator != m_players.end())
         {
@@ -297,11 +306,12 @@ namespace MultiplayerSample
         {
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player reported depleted armor: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
-        
+#endif   
     }
 
     void NetworkMatchComponentController::RoundTickOnceASecond()
     {
+#if AZ_TRAIT_SERVER
         // m_roundTickEvent is configured to tick once a second
         SetRoundTime(RoundTimeSec(GetRoundTime() - 1.f));
 
@@ -309,6 +319,7 @@ namespace MultiplayerSample
         {
             EndRound();
         }
+#endif
     }
 
     void NetworkMatchComponentController::AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity)
@@ -329,6 +340,7 @@ namespace MultiplayerSample
         m_nextPlayerId++;
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets)
     {
         const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity);
@@ -354,4 +366,5 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "Attempted respawn of an unknown player: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
     }
+#endif
 }

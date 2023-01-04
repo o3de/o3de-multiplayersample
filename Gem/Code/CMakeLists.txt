@@ -27,6 +27,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
+            Gem::PopcornFX.Static
             Gem::Multiplayer.Client
         PRIVATE
             Gem::LmbrCentral.Static
@@ -94,6 +95,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
+            Gem::PopcornFX.Static
             Gem::Multiplayer
         PRIVATE
             Gem::LmbrCentral.Static

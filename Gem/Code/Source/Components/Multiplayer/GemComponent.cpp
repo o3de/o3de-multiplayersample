@@ -73,10 +73,12 @@ namespace MultiplayerSample
     {
     }
 
+#if AZ_TRAIT_SERVER
     void GemComponentController::HandleRPC_CollectedByPlayer([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         // Hide the gem by moving it far away from the players' interest area.
         // This removes the gem from the clients' view. See @sv_ClientAwarenessRadius.
         GetNetworkTransformComponentController()->SetTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
     }
+#endif
 }

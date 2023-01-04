@@ -78,6 +78,7 @@ namespace MultiplayerSample
         LocalOnlyGameplayEffectsNotificationBus::Handler::BusDisconnect();
     }
 
+#if AZ_TRAIT_CLIENT
     void GameplayEffectsComponent::HandleRPC_OnEffect([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
         const SoundEffect& effect)
     {
@@ -98,6 +99,7 @@ namespace MultiplayerSample
     {
         SpawnEffect(effect, soundLocation);
     }
+#endif
 
     void GameplayEffectsComponent::ReportTriggerFinished([[maybe_unused]] Audio::TAudioControlID triggerId)
     {
@@ -113,6 +115,7 @@ namespace MultiplayerSample
         }
     }
 
+#if AZ_TRAIT_CLIENT
     void GameplayEffectsComponent::OnPositionalEffect(SoundEffect effect, const AZ::Vector3& position)
     {
         HandleRPC_OnPositionalEffect(nullptr, effect, position);
@@ -122,6 +125,7 @@ namespace MultiplayerSample
     {
         HandleRPC_OnEffect(nullptr, effect);
     }
+#endif
 
     void GameplayEffectsComponent::SpawnEffect(SoundEffect effect, const AZ::Vector3& position)
     {
@@ -182,6 +186,7 @@ namespace MultiplayerSample
         GameplayEffectsNotificationBus::Handler::BusDisconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void GameplayEffectsComponentController::OnEffect(SoundEffect effect)
     {
         RPC_OnEffect(effect);
@@ -191,4 +196,5 @@ namespace MultiplayerSample
     {
         RPC_OnPositionalEffect(effect, position);
     }
+#endif
 }

@@ -12,8 +12,11 @@
 #include <AzFramework/Components/CameraBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
-#include <Multiplayer/IMultiplayer.h>
+#include <Multiplayer/IMultiplayer.h> 
+
+#if AZ_TRAIT_CLIENT
 #include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -180,6 +183,7 @@ namespace MultiplayerSample
 
         inOutTransform.SetTranslation(cameraPivot + direction * distance);
 
+#if AZ_TRAIT_CLIENT
         if (cl_drawCameraCollider && distance < maxDistance)
         {
             if (auto debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler(); debugDraw != nullptr)
@@ -196,6 +200,7 @@ namespace MultiplayerSample
 
             inOutTransform.SetTranslation(cameraPivot + direction * maxDistance);
         }
+#endif
     }
 
     int NetworkSimplePlayerCameraComponentController::GetTickOrder()

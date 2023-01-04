@@ -12,13 +12,16 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 
+#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiCanvasBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+#endif
 
 namespace MultiplayerSample
 {
     void HUDComponent::Activate()
     {
+#if AZ_TRAIT_CLIENT
         UiCanvasRefBus::EventResult(m_uiCanvasId, GetEntityId(), &UiCanvasRefBus::Events::GetCanvas);
         if (!m_uiCanvasId.IsValid())
         {
@@ -34,11 +37,14 @@ namespace MultiplayerSample
             m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
             netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
         }
+#endif
     }
 
     void HUDComponent::Deactivate()
     {
+#if AZ_TRAIT_CLIENT
         UiCanvasAssetRefNotificationBus::Handler::BusDisconnect(GetEntityId());
+#endif
     }
 
     void HUDComponent::Reflect(AZ::ReflectContext* context)
@@ -74,6 +80,7 @@ namespace MultiplayerSample
         required.push_back(AZ_CRC("NetworkMatchComponent"));
     }
 
+#if AZ_TRAIT_CLIENT
     void HUDComponent::OnCanvasLoadedIntoEntity(AZ::EntityId uiCanvasEntity)
     {
         m_uiCanvasId = uiCanvasEntity;
@@ -116,4 +123,5 @@ namespace MultiplayerSample
             }
         }
     }
+#endif
 } // namespace MultiplayerSample

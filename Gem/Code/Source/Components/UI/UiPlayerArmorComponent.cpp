@@ -7,22 +7,31 @@
  */
 
 #include <AzCore/Serialization/EditContext.h>
+
+#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiImageBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+#endif
+
 #include <Source/Components/UI/UiPlayerArmorComponent.h>
 
 namespace MultiplayerSample
 {
     void UiPlayerArmorComponent::Activate()
     {
+#if AZ_TRAIT_CLIENT
         UiPlayerArmorNotificationBus::Handler::BusConnect();
+#endif
     }
 
     void UiPlayerArmorComponent::Deactivate()
     {
+#if AZ_TRAIT_CLIENT
         UiPlayerArmorNotificationBus::Handler::BusDisconnect();
+#endif
     }
 
+#if AZ_TRAIT_CLIENT
     void UiPlayerArmorComponent::OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor)
     {
         const AZStd::string armorTextValue = AZStd::string::format("%.0f", armorPointsForLocalPlayer) + AZStd::string("%");
@@ -38,6 +47,7 @@ namespace MultiplayerSample
             UiImageBus::Event(m_armorVisualEntity, &UiImageBus::Events::SetFillAmount, 1.f);
         }
     }
+#endif
 
     void UiPlayerArmorComponent::Reflect(AZ::ReflectContext* context)
     {

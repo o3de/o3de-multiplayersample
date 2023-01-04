@@ -20,11 +20,13 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
     private:
         void OnFireEnergyBall();
         AZ::ScheduledEvent m_firingEvent{[this]()
         {
             OnFireEnergyBall();
         }, AZ::Name("EnergyCannonComponentController")};
+#endif
     };
 }

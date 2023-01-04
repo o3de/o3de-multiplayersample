@@ -19,7 +19,9 @@ namespace MultiplayerSample
 
     void GameStateMatchEnded::OnEnter()
     {
+#if AZ_TRAIT_SERVER
         m_controller->EndMatch();
+#endif
         m_finishingTime = AZ::TimeMs{ 3000 };
         m_finishingEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
 
