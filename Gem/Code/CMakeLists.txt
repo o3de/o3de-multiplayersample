@@ -27,7 +27,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
-            Gem::Multiplayer
+            Gem::Multiplayer.Client
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Client.Static
@@ -61,7 +61,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
-            Gem::Multiplayer
+            Gem::Multiplayer.Server
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Server.Static
