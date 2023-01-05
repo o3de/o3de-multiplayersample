@@ -37,10 +37,7 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void ConfigureAi(
-            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed);
-
-        // TODO: Technically this guy should also be authority to autonomous so we don't roll different values after a migration..
-        AZ::SimpleLcgRandom m_lcg;
+            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs);
 #endif
     };
 }

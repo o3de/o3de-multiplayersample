@@ -34,13 +34,16 @@ namespace MultiplayerSample
 
     NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
         : NetworkPlayerMovementComponentControllerBase(parent)
+#if AZ_TRAIT_SERVER		
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
+#endif
     {
         ;
     }
 
     void NetworkPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_SERVER
         NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
         m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
         if (m_aiEnabled)
@@ -48,7 +51,10 @@ namespace MultiplayerSample
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             m_networkAiComponentController = GetNetworkAiComponentController();
         }
-        else if (IsNetEntityRoleAutonomous())
+#endif
+
+#if AZ_TRAIT_CLIENT
+        if (IsNetEntityRoleAutonomous())
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
@@ -62,6 +68,7 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomInEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomOutEventId);
         }
+#endif
 
         AzPhysics::SimulatedBody* worldBody = nullptr;
         AzPhysics::SimulatedBodyComponentRequestsBus::EventResult(worldBody, GetEntityId(), &AzPhysics::SimulatedBodyComponentRequests::GetSimulatedBody);
@@ -72,7 +79,6 @@ namespace MultiplayerSample
                 m_gravity = sceneInterface->GetGravity(worldBody->m_sceneOwner).GetZ();
             }
         }
-
 
         Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
         PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
@@ -457,14 +463,14 @@ namespace MultiplayerSample
         }
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkPlayerMovementComponentController::UpdateAI()
     {
-#if AZ_TRAIT_SERVER
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
         if (m_networkAiComponentController != nullptr)
         {
             m_networkAiComponentController->TickMovement(*this, deltaTime);
         }
-#endif
     }
+#endif
 } // namespace MultiplayerSample

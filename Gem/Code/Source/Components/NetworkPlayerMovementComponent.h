@@ -60,11 +60,13 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
-        void UpdateAI();
         bool ShouldProcessInput() const;
 
+#if AZ_TRAIT_SERVER
+        void UpdateAI();
         AZ::ScheduledEvent m_updateAI;
         NetworkAiComponentController* m_networkAiComponentController = nullptr;
+#endif
 
         // Technically these values should never migrate hosts since they are maintained by the autonomous client
         // But due to how the stress test chaos monkey operates, it puppets these values on the server to mimic a client
