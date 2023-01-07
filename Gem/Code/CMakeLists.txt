@@ -192,4 +192,4 @@ endif()
 
 set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"client.cfg\"")
 set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
-set_property(TARGET MultiplayerSample APPEND PROPERTY UNIFIEDLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY UNIFIEDLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
