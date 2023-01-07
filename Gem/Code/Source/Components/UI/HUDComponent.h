@@ -9,9 +9,9 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AzCore/EBus/Event.h>
 
 #if AZ_TRAIT_CLIENT
+#include <AzCore/EBus/Event.h>
 #include <LyShine/Bus/World/UiCanvasRefBus.h>
 #endif
 
