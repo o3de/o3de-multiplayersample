@@ -8,21 +8,6 @@
 set(FILES
     Include/NetworkPrefabSpawnerInterface.h
 
-    # Scripting samples
-    Source/AutoGen/ScriptingPlayerMovementComponent.AutoComponent.xml
-
-    Source/AutoGen/NetworkAiComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
-    Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
-    Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/RpcTesterComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp

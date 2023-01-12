@@ -23,30 +23,7 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkAiComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceEnableAutonomousUpdate();
-            }
-        }
-    }
-
-    void NetworkAiComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceDisableAutonomousUpdate();
-            }
-        }
-    }
-
+#if AZ_TRAIT_SERVER
     void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
@@ -145,4 +122,5 @@ namespace MultiplayerSample
         SetActionIntervalMaxMs(actionIntervalMaxMs);
         m_lcg.SetSeed(seed);
     }
+#endif
 }

@@ -41,6 +41,7 @@ namespace MultiplayerSample
     NetworkRandomComponentController::NetworkRandomComponentController(NetworkRandomComponent& parent)
         : NetworkRandomComponentControllerBase(parent)
     {
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleAuthority())
         {
             // Setup seed on authority for proxies to pull
@@ -49,6 +50,7 @@ namespace MultiplayerSample
             seedGenerator.GetRandom(seed);
             SetSeed(seed);
         };
+#endif
     }
 
     void NetworkRandomComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
