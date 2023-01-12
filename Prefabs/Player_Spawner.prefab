@@ -148,9 +148,23 @@
             "Id": "Entity_[16133673567579]",
             "Name": "Player Spawner",
             "Components": {
+                "Component_[12098780961998011209]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12098780961998011209,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
                 "Component_[12821202692257528540]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 12821202692257528540
+                },
+                "Component_[13410910435256719410]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13410910435256719410,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent"
+                    }
                 },
                 "Component_[14597378810391071687]": {
                     "$type": "EditorLockComponent",
