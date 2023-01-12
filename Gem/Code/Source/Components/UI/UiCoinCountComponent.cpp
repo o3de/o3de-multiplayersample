@@ -9,21 +9,28 @@
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Settings/SettingsRegistry.h>
+#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiTextBus.h>
+#endif
 #include <Source/Components/UI/UiCoinCountComponent.h>
 
 namespace MultiplayerSample
 {
     void UiCoinCountComponent::Activate()
     {
+#if AZ_TRAIT_CLIENT
         UiCoinCountNotificationBus::Handler::BusConnect();
+#endif
     }
 
     void UiCoinCountComponent::Deactivate()
     {
+#if AZ_TRAIT_CLIENT
         UiCoinCountNotificationBus::Handler::BusDisconnect();
+#endif
     }
 
+#if AZ_TRAIT_CLIENT
     void UiCoinCountComponent::OnCoinCountChanged(uint16_t totalCoinsCollectedByLocalPlayer)
     {
         AZ::u64 winningCoinCount = 10;
@@ -61,6 +68,7 @@ namespace MultiplayerSample
             UiTextBus::Event(m_coinsTextForLocalPlayer, &UiTextBus::Events::SetColor, interpolatedColor);
         }
     }
+#endif
 
     void UiCoinCountComponent::Reflect(AZ::ReflectContext* context)
     {

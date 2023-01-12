@@ -16,7 +16,9 @@ namespace MultiplayerSample
 {
     class UiCoinCountComponent
         : public AZ::Component
+#if AZ_TRAIT_CLIENT
         , public UiCoinCountNotificationBus::Handler
+#endif
     {
     public:
         AZ_COMPONENT(UiCoinCountComponent, "{ede1871e-70fa-4d63-9dc4-aa451b1b3fa9}");
@@ -26,14 +28,15 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
+#if AZ_TRAIT_CLIENT
         //! UiCoinCountNotificationBus overrides ...
         //! @{
         void OnCoinCountChanged(uint16_t totalCoinsCollectedByLocalPlayer) override;
         //! }@
+#endif
 
     private:
-        AZ::EntityId m_coinsTextForLocalPlayer;
-
+#if AZ_TRAIT_CLIENT
         // Color change effect
         // @{
         void OnTick(AZ::TimeMs delta);
@@ -41,6 +44,8 @@ namespace MultiplayerSample
         {
             OnTick(m_gameFrameTick.TimeInQueueMs());
         }, AZ::Name("UiCoinCountComponent")};
+#endif
+        AZ::EntityId m_coinsTextForLocalPlayer;
         AZ::Color m_recentlyChangedCoinTextColor = AZ::Colors::Green;
         AZ::Color m_coinTextColor = AZ::Colors::White;
         AZ::TimeMs m_coinTextColorEffectDuration{ 300 };

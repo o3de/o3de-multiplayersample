@@ -32,15 +32,27 @@ namespace MultiplayerSample
     AZ_CVAR(float, cl_AimStickScaleX, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
     AZ_CVAR(float, cl_MaxMouseDelta, 1024.f, nullptr, AZ::ConsoleFunctorFlags::Null, "Mouse deltas will be clamped to this maximum");
 
+#if AZ_TRAIT_CLIENT
+    AZ_CVAR(bool, mps_botMode, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If true, enable bot (AI) mode for client.");
+    AZ_CVAR(float, mps_botMinInterval, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The minimum amount of time between bot control updates");
+    AZ_CVAR(float, mps_botMaxInterval, 9500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The maximum amount of time between bot control updates");
+#endif
+
     NetworkPlayerMovementComponentController::NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent)
         : NetworkPlayerMovementComponentControllerBase(parent)
+#if AZ_TRAIT_SERVER		
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
+#endif
+#if AZ_TRAIT_CLIENT
+        , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
+#endif
     {
         ;
     }
 
     void NetworkPlayerMovementComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_SERVER
         NetworkAiComponent* networkAiComponent = GetParent().GetNetworkAiComponent();
         m_aiEnabled = (networkAiComponent != nullptr) ? networkAiComponent->GetEnabled() : false;
         if (m_aiEnabled)
@@ -48,20 +60,31 @@ namespace MultiplayerSample
             m_updateAI.Enqueue(AZ::TimeMs{ 0 }, true);
             m_networkAiComponentController = GetNetworkAiComponentController();
         }
-        else if (IsNetEntityRoleAutonomous())
+#endif
+
+#if AZ_TRAIT_CLIENT
+        if (IsNetEntityRoleAutonomous())
         {
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomInEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomOutEventId);
+            if (mps_botMode)
+            {
+                m_updateLocalBot.Enqueue(AZ::TimeMs{ 0 }, true);
+            }
+            else
+            {
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveFwdEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveBackEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveLeftEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(MoveRightEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(SprintEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(JumpEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(CrouchEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookLeftRightEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(LookUpDownEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomInEventId);
+                StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ZoomOutEventId);
+            }
         }
+#endif
 
         AzPhysics::SimulatedBody* worldBody = nullptr;
         AzPhysics::SimulatedBodyComponentRequestsBus::EventResult(worldBody, GetEntityId(), &AzPhysics::SimulatedBodyComponentRequests::GetSimulatedBody);
@@ -73,14 +96,14 @@ namespace MultiplayerSample
             }
         }
 
-
         Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
         PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
     }
 
     void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsNetEntityRoleAutonomous() && !m_aiEnabled)
+#if AZ_TRAIT_CLIENT
+        if (IsNetEntityRoleAutonomous() && !mps_botMode)
         {
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
@@ -94,6 +117,7 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomInEventId);
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomOutEventId);
         }
+#endif
     }
 
     bool NetworkPlayerMovementComponentController::ShouldProcessInput() const
@@ -457,6 +481,7 @@ namespace MultiplayerSample
         }
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkPlayerMovementComponentController::UpdateAI()
     {
         float deltaTime = static_cast<float>(m_updateAI.TimeInQueueMs()) / 1000.f;
@@ -465,4 +490,74 @@ namespace MultiplayerSample
             m_networkAiComponentController->TickMovement(*this, deltaTime);
         }
     }
+#endif
+
+#if AZ_TRAIT_CLIENT
+    void NetworkPlayerMovementComponentController::UpdateLocalBot()
+    {
+        float deltaTimeMs = static_cast<float>(m_updateLocalBot.TimeInQueueMs());
+        m_botRemainingTime -= deltaTimeMs;
+
+        if (m_botRemainingTime <= 0)
+        {
+            // Determine a new directive after 500 to 9500 ms
+            m_botRemainingTime = (m_botLcg.GetRandomFloat() * (mps_botMaxInterval - mps_botMinInterval) + mps_botMinInterval);
+            m_botTurnRate = (1.f / m_botRemainingTime);
+
+            // Randomize new target yaw and pitch and compute the delta from the current yaw and pitch respectively
+            m_botTargetYawDelta = -m_viewYaw + (m_botLcg.GetRandomFloat() * 2.f - 1.f);
+            m_botTargetPitchDelta = -m_viewPitch + (m_botLcg.GetRandomFloat() - 0.5f);
+
+            // Randomize the action and strafe direction (used only if we decide to strafe)
+            m_botAction = static_cast<Action>(m_botLcg.GetRandom() % static_cast<int>(Action::COUNT));
+            m_botStrafingRight = static_cast<bool>(m_botLcg.GetRandom() % 2);
+        }
+
+        // Translate desired motion into inputs
+
+        // Interpolate the current view yaw and pitch values towards the desired values
+        m_viewYaw += m_botTurnRate * deltaTimeMs * m_botTargetPitchDelta;
+        m_viewPitch += m_botTurnRate * deltaTimeMs * m_botTargetPitchDelta;
+
+        // Reset keyboard movement inputs decided on the previous frame
+        m_forwardDown = false;
+        m_backwardDown = false;
+        m_leftDown = false;
+        m_rightDown = false;
+        m_sprinting = false;
+        m_jumping = false;
+        m_crouching = false;
+
+        switch (m_botAction)
+        {
+        case Action::Default:
+            m_forwardDown = true;
+            break;
+        case Action::Sprinting:
+            m_forwardDown = true;
+            m_sprinting = true;
+            break;
+        case Action::Jumping:
+            m_forwardDown = true;
+            m_jumping = true;
+            break;
+        case Action::Crouching:
+            m_forwardDown = true;
+            m_crouching = true;
+            break;
+        case Action::Strafing:
+            if (m_botStrafingRight)
+            {
+                m_rightDown = true;
+            }
+            else
+            {
+                m_leftDown = true;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+#endif
 } // namespace MultiplayerSample

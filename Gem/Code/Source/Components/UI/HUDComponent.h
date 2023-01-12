@@ -9,15 +9,21 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+
+#if AZ_TRAIT_CLIENT
 #include <AzCore/EBus/Event.h>
 #include <LyShine/Bus/World/UiCanvasRefBus.h>
+#endif
+
 #include "MultiplayerSampleTypes.h"
 
 namespace MultiplayerSample
 {
     class HUDComponent
         : public AZ::Component
+#if AZ_TRAIT_CLIENT
         , UiCanvasAssetRefNotificationBus::Handler
+#endif
     {
     public:
         AZ_COMPONENT(MultiplayerSample::HUDComponent, "{8061E5D2-A1F7-4B40-9AAC-8FF14BD094FC}");
@@ -41,6 +47,7 @@ namespace MultiplayerSample
         void Deactivate() override;
 
     private:
+#if AZ_TRAIT_CLIENT
         // UiCanvasAssetRefNotificationBus overrides ...
         void OnCanvasLoadedIntoEntity(AZ::EntityId uiCanvasEntity) override;
 
@@ -48,11 +55,13 @@ namespace MultiplayerSample
         void SetRoundTimerText(RoundTimeSec time);
     
         AZ::EntityId m_uiCanvasId;
+        AZ::EventHandler<uint16_t> m_roundNumberHandler; 
+        AZ::EventHandler<RoundTimeSec> m_roundTimerHandler;
+#endif
+
         int m_roundNumberId = 0;
         int m_roundTimerId = 0;
         AZStd::string m_roundNumberText;
         AZStd::string m_roundTimerText;
-        AZ::EventHandler<uint16_t> m_roundNumberHandler; 
-        AZ::EventHandler<RoundTimeSec> m_roundTimerHandler;
     };
 } // namespace MultiplayerSample

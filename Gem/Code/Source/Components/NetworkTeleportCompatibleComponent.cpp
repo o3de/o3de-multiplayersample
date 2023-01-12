@@ -25,6 +25,7 @@ namespace MultiplayerSample
     {
     }
 
+#if AZ_TRAIT_SERVER
     void  NetworkTeleportCompatibleComponentController::HandleTeleport(
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const AZ::Vector3& teleportedLocation)
     {
@@ -51,5 +52,5 @@ namespace MultiplayerSample
         // re-enable physics
         Physics::RigidBodyRequestBus::Event(selfId, &Physics::RigidBodyRequestBus::Events::EnablePhysics);
     }
-
+#endif
 } // namespace MultiplayerSample

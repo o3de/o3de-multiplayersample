@@ -36,7 +36,9 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         void SpawnGems();
+#endif
 
         //! EntityBus
         //! @{
@@ -44,9 +46,11 @@ namespace MultiplayerSample
         //! @}
 
     private:
+#if AZ_TRAIT_SERVER
         void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
         void RemoveGems();
-        
+#endif
+
         AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
         AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_queuedForRemovalGems;
 

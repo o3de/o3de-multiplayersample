@@ -27,8 +27,10 @@ namespace MultiplayerSample
         void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
         void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
 
+#if AZ_TRAIT_SERVER
         void HandleTeleport(
             AzNetworking::IConnection* invokingConnection, const AZ::Vector3& teleportedLocation) override;
+#endif
     };
 
 } // namespace MultiplayerSample

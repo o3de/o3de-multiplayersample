@@ -22,6 +22,7 @@ namespace MultiplayerSample
 
     void EnergyCannonComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_SERVER
         if (const auto registry = AZ::SettingsRegistry::Get())
         {
             AZ::s64 firingPeriod = 0;
@@ -31,13 +32,17 @@ namespace MultiplayerSample
                 m_firingEvent.Enqueue(AZ::TimeMs{ firingPeriod }, true);
             }
         }
+#endif
     }
 
     void EnergyCannonComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_SERVER
         m_firingEvent.RemoveFromQueue();
+#endif
     }
 
+#if AZ_TRAIT_SERVER
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
         // Re-using the same ball entity.
@@ -57,4 +62,5 @@ namespace MultiplayerSample
             }
         }
     }
+#endif
 }

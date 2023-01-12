@@ -110,6 +110,7 @@ namespace MultiplayerSample
         AZ::EntityBus::MultiHandler::BusDisconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void GemSpawnerComponentController::SpawnGems()
     {
         RemoveGems();
@@ -203,6 +204,7 @@ namespace MultiplayerSample
 
         m_spawnedGems.clear();
     }
+#endif
 
     void GemSpawnerComponentController::OnEntityDeactivated(const AZ::EntityId& entityId)
     {

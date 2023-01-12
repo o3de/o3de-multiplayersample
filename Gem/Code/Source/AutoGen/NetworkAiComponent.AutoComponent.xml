@@ -14,6 +14,7 @@
     <!-- and flip coins to determine if we should shoot, or perform some other action. -->
 
     <ComponentRelation Constraint="Required" HasController="true" Name="LocalPredictionPlayerInputComponent" Namespace="Multiplayer" Include="Multiplayer/Components/LocalPredictionPlayerInputComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Components/NetworkRandomComponent.h" />
 
     <NetworkProperty Type="bool" Name="Enabled" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="true" ExposeToScript="false" GenerateEventBindings="false" Description="If enabled, this AI component overrides movement and camera components." />
 

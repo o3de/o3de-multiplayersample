@@ -19,19 +19,18 @@ set(FILES
 
     Source/AutoGen/EnergyBallComponent.AutoComponent.xml
     Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
+    Source/AutoGen/GameplayEffectsComponent.AutoComponent.xml
+    Source/AutoGen/GemComponent.AutoComponent.xml
+    Source/AutoGen/GemSpawnerComponent.AutoComponent.xml
     Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/GemComponent.AutoComponent.xml
-    Source/AutoGen/GemSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
@@ -91,10 +90,8 @@ set(FILES
     Source/Components/UI/UiPlayerArmorComponent.cpp
     Source/Components/UI/UiPlayerArmorComponent.h
 
-    Source/AutoGen/GameplayEffectsComponent.AutoComponent.xml
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
-
     Source/Components/Multiplayer/GemComponent.cpp
     Source/Components/Multiplayer/GemComponent.h
     Source/Components/Multiplayer/GemSpawnerComponent.cpp

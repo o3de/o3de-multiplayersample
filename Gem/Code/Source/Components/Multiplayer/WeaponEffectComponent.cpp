@@ -8,8 +8,11 @@
 #include <GameplayEffectsNotificationBus.h>
 #include <AzCore/Component/TransformBus.h>
 #include <LmbrCentral/Audio/AudioTriggerComponentBus.h>
-#include <PopcornFX/PopcornFXBus.h>
 #include <Source/Components/Multiplayer/WeaponEffectComponent.h>
+
+#if AZ_TRAIT_CLIENT
+#include <PopcornFX/PopcornFXBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -36,8 +39,10 @@ namespace MultiplayerSample
         m_weaponConfirmHandler.Disconnect();
     }
 
-    void WeaponEffectComponent::PlayParticleEffect(const AZ::Vector3& start, const AZ::Vector3& end)
+    void WeaponEffectComponent::PlayParticleEffect(
+        [[maybe_unused]] const AZ::Vector3& start, [[maybe_unused]] const AZ::Vector3& end)
     {
+#if AZ_TRAIT_CLIENT
         if (PopcornFX::PopcornFXEmitterComponentRequests* particle =
             PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntityId()))
         {
@@ -55,6 +60,7 @@ namespace MultiplayerSample
 
             particle->Restart(true);
         }
+#endif
 
         GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect, 
             SoundEffect::LaserPistolMuzzleFlash, GetEntity()->GetTransform()->GetWorldTranslation());

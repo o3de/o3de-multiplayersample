@@ -26,15 +26,19 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_CLIENT
         void HandleRPC_OnEffect(AzNetworking::IConnection* invokingConnection, const SoundEffect& effect) override;
         void HandleRPC_OnPositionalEffect(AzNetworking::IConnection* invokingConnection, const SoundEffect& effect, const AZ::Vector3& soundLocation) override;
-        
+#endif
+
         // AudioTriggerNotificationBus overrides ...
         void ReportTriggerFinished(Audio::TAudioControlID triggerId) override;
 
+#if AZ_TRAIT_CLIENT
         // LocalOnlyGameplayEffectsNotificationBus overrides ...
         void OnPositionalEffect(SoundEffect effect, const AZ::Vector3& position) override;
         void OnEffect(SoundEffect effect) override;
+#endif
 
     private:        
         AZStd::vector<AZStd::string> m_soundTriggerNames;
@@ -53,8 +57,10 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         // GameplayEffectsNotificationBus overrides ...
         void OnEffect(SoundEffect effect) override;
         void OnPositionalEffect(SoundEffect effect, const AZ::Vector3& position) override;
+#endif
     };
 }

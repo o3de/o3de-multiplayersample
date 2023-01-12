@@ -28,7 +28,9 @@ namespace MultiplayerSample
         if (m_controller)
         {
             m_controller->RoundNumberAddEvent(m_roundChangedHandler);
+#if AZ_TRAIT_SERVER
             m_controller->StartMatch();
+#endif
 
             GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::RoundStart);
         }

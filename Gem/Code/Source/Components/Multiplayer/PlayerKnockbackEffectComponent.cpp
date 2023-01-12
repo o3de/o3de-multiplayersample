@@ -26,6 +26,7 @@ namespace MultiplayerSample
     {
     }
 
+#if AZ_TRAIT_SERVER
     void PlayerKnockbackEffectComponentController::HandleRPC_Knockback([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
         const AZ::Vector3& direction)
     {
@@ -47,4 +48,5 @@ namespace MultiplayerSample
         GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
             SoundEffect::PlayerKnockedDown, GetEntity()->GetTransform()->GetWorldTranslation());
     }
+#endif
 }

@@ -26,7 +26,9 @@ namespace MultiplayerSample
 
         if (IsNetEntityRoleAuthority())
         {
+#if AZ_TRAIT_SERVER
             GetNetworkHealthComponentController()->SetHealth(GetStartingArmor());
+#endif
         }
     }
 

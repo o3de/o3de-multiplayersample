@@ -26,12 +26,14 @@ namespace MultiplayerSample
     {
         if (IsNetEntityRoleAuthority())
         {
+#if AZ_TRAIT_SERVER
             if (AzPhysics::SceneInterface* si = AZ::Interface<AzPhysics::SceneInterface>::Get())
             {
                 const AzPhysics::SceneHandle sh = si->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
                 si->RegisterSceneTriggersEventHandler(sh, m_trigger);
             }
             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorActivated, GetNetEntityId());
+#endif
         }
         if (IsNetEntityRoleAutonomous())
         {
@@ -43,15 +45,18 @@ namespace MultiplayerSample
 
     void PlayerCoinCollectorComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleAuthority())
         {
             PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectorDeactivated, GetNetEntityId());
         }
 
         m_trigger.Disconnect();
+#endif
         m_coinCountChangedHandler.Disconnect();
     }
 
+#if AZ_TRAIT_SERVER
     void PlayerCoinCollectorComponentController::OnTriggerEvents(const AzPhysics::TriggerEventList& tel)
     {
         for (const AzPhysics::TriggerEvent& te : tel)
@@ -80,6 +85,7 @@ namespace MultiplayerSample
             }
         }
     }
+#endif
 
     void PlayerCoinCollectorComponentController::OnCoinsChanged(uint16_t coins)
     {

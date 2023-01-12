@@ -6,9 +6,13 @@
  */
 
 #include <AzCore/Serialization/EditContext.h>
+
+#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiCursorBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+#endif
+
 #include <Source/Components/UI/UiGameOverComponent.h>
 
 namespace MultiplayerSample
@@ -45,16 +49,21 @@ namespace MultiplayerSample
 
     void UiGameOverComponent::Activate()
     {
+#if AZ_TRAIT_CLIENT
         UiGameOverBus::Handler::BusConnect(GetEntityId());
         UiButtonNotificationBus::Handler::BusConnect(m_closeResultsButton);
+#endif
     }
 
     void UiGameOverComponent::Deactivate()
     {
+#if AZ_TRAIT_CLIENT
         UiGameOverBus::Handler::BusDisconnect();
         UiButtonNotificationBus::Handler::BusDisconnect();
+#endif
     }
 
+#if AZ_TRAIT_CLIENT
     void UiGameOverComponent::SetGameOverScreenEnabled(bool enabled)
     {
         UiElementBus::Event(m_gameOverRootElement, &UiElementBus::Events::SetIsEnabled, enabled);
@@ -99,4 +108,5 @@ namespace MultiplayerSample
         }
         return resultTable;
     }
+#endif
 }

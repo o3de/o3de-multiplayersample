@@ -13,7 +13,10 @@
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
 #include <AzCore/Component/TransformBus.h>
+
+#if AZ_TRAIT_CLIENT
 #include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -181,6 +184,7 @@ namespace MultiplayerSample
             m_animationGraph->SetParameterVector3(m_aimTargetParamId, aimTarget);
 
 #ifndef AZ_RELEASE_BUILD
+#if AZ_TRAIT_CLIENT
             if (cl_drawAimTarget)
             {
                 if (auto debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler(); debugDraw != nullptr)
@@ -188,6 +192,7 @@ namespace MultiplayerSample
                     debugDraw->DrawSphereAtLocation(aimTarget, 0.1f, AZ::Colors::Red, 0.f);
                 }
             }
+#endif
         }
 #endif // AZ_RELEASE_BUILD
 

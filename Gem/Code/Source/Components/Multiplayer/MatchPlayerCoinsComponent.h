@@ -41,6 +41,7 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         void ResetAllCoins();
 
         //! PlayerCoinCollectorNotificationBus overrides ...
@@ -49,6 +50,7 @@ namespace MultiplayerSample
         void OnPlayerCollectorActivated(Multiplayer::NetEntityId playerEntity) override;
         void OnPlayerCollectorDeactivated(Multiplayer::NetEntityId playerEntity) override;
         //! }@
+#endif
 
     private:
         // Return -1 if a state is not available for this player id
