@@ -8,9 +8,6 @@
 set(FILES
     Include/NetworkPrefabSpawnerInterface.h
 
-    # Scripting samples
-    Source/AutoGen/ScriptingPlayerMovementComponent.AutoComponent.xml
-
     Source/AutoGen/RpcTesterComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
