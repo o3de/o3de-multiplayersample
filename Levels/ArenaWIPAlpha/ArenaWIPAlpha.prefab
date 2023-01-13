@@ -21,7 +21,8 @@
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
                     "Entity_[69306349366933]",
-                    "Entity_[158648010295032]"
+                    "Entity_[158648010295032]",
+                    "Instance_[40338284743604]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -590,8 +591,7 @@
                     "Id": 110022581788315572,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "RoundDuration": 20.0,
-                        "TotalRounds": 2
+                        "RoundDuration": 60.0
                     }
                 },
                 "Component_[11474776527615145837]": {
@@ -724,6 +724,9 @@
                                     },
                                     {
                                         "Gem Tag Type": "Blue Gem"
+                                    },
+                                    {
+                                        "Gem Tag Type": "Red Gem"
                                     }
                                 ]
                             },
@@ -3348,6 +3351,119 @@
                                 },
                                 "assetHint": "pick_ups/gem.azmodel"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "Entity_[40117709171538]": {
+            "Id": "Entity_[40117709171538]",
+            "Name": "Red Spawn Point",
+            "Components": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[776693804189432]",
+                    "Transform Data": {
+                        "Translate": [
+                            21.6845703125,
+                            -6.496315956115723,
+                            21.659515380859375
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 4271420846863702610,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[4315872631398851318]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4315872631398851318
+                },
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
+                },
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 4772585879258544005,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
+                                    "subId": 273712816
+                                },
+                                "assetHint": "pick_ups/gem.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[8606680622352249581]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 8606680622352249581,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2087309546
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
+                                            },
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -9910,7 +10026,6 @@
                         "Instance_[10445700566398]/ContainerEntity",
                         "Instance_[238353182587715]/ContainerEntity",
                         "Instance_[454235418753859]/ContainerEntity",
-                        "Instance_[670353878121283]/ContainerEntity",
                         "Instance_[886635546245955]/ContainerEntity",
                         "Instance_[1103123372800835]/ContainerEntity",
                         "Instance_[1103832042404675]/ContainerEntity",
@@ -9936,7 +10051,6 @@
                         "Instance_[24009403087325]/ContainerEntity",
                         "Instance_[24048057792989]/ContainerEntity",
                         "Instance_[24275691059677]/ContainerEntity",
-                        "Instance_[26599268366813]/ContainerEntity",
                         "Instance_[24078122564061]/ContainerEntity",
                         "Instance_[24103892367837]/ContainerEntity",
                         "Instance_[24314345765341]/ContainerEntity",
@@ -10369,7 +10483,6 @@
                         "Instance_[460365294871718]/ContainerEntity",
                         "Instance_[459914323305638]/ContainerEntity",
                         "Instance_[9763095979174]/ContainerEntity",
-                        "Instance_[460472669054118]/ContainerEntity",
                         "Instance_[10317146760358]/ContainerEntity",
                         "Instance_[460416834479270]/ContainerEntity",
                         "Instance_[689763793118374]/ContainerEntity",
@@ -12763,7 +12876,8 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 1469736255587743080,
                     "Child Entity Order": [
-                        "Entity_[839417506580216]"
+                        "Entity_[839417506580216]",
+                        "Entity_[40117709171538]"
                     ]
                 },
                 "Component_[17516658065838579545]": {
@@ -12973,8 +13087,8 @@
                     "Parent Entity": "Entity_[776689509222136]",
                     "Transform Data": {
                         "Translate": [
-                            -0.1162261962890625,
-                            4.695988178253174,
+                            0.6746177673339844,
+                            -6.170521259307861,
                             1.5096874237060547
                         ]
                     }
@@ -13041,8 +13155,8 @@
                     "Parent Entity": "Entity_[776693804189432]",
                     "Transform Data": {
                         "Translate": [
-                            0.0,
-                            0.0,
+                            2.8958969116210938,
+                            -7.07635498046875,
                             1.896310806274414
                         ]
                     }
@@ -13253,8 +13367,8 @@
                     "Parent Entity": "Entity_[839421801547512]",
                     "Transform Data": {
                         "Translate": [
-                            2.7955856323242188,
-                            -5.537712574005127,
+                            4.101001739501953,
+                            -6.708232879638672,
                             1.5304069519042969
                         ]
                     }
@@ -15772,27 +15886,22 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13229839974588332606]/Transform Data/Translate/0",
-                    "value": 43.45271682739258
+                    "value": 45.89535903930664
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13229839974588332606]/Transform Data/Translate/1",
-                    "value": -10.677358627319336
+                    "value": -11.601411819458008
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13229839974588332606]/Transform Data/Translate/2",
-                    "value": 17.37554168701172
+                    "value": 15.473533630371094
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13229839974588332606]/Transform Data/Rotate/2",
                     "value": -173.2799835205078
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[238735543228454]/Components/Component_[5008364609275579654]/Controller/Configuration/materials/1/Value/MaterialAsset/assetHint",
-                    "value": "crate/crate_opaque_mat.azmaterial"
                 }
             ]
         },
@@ -25311,31 +25420,6 @@
                 }
             ]
         },
-        "Instance_[26599268366813]": {
-            "Source": "LargeBush/LargeBush.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1600691860631416466]/Parent Entity",
-                    "value": "../Entity_[69306349366933]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1600691860631416466]/Transform Data/Translate/0",
-                    "value": 40.726844787597656
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1600691860631416466]/Transform Data/Translate/1",
-                    "value": -2.2429981231689453
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1600691860631416466]/Transform Data/Translate/2",
-                    "value": 15.114995956420898
-                }
-            ]
-        },
         "Instance_[26783951960541]": {
             "Source": "AgPlatform/agplatform.prefab",
             "Patches": [
@@ -27672,6 +27756,31 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                }
+            ]
+        },
+        "Instance_[40338284743604]": {
+            "Source": "Teleporter_Platform/Teleporter.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[1340886723482881960]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[1340886723482881960]/Transform Data/Translate/0",
+                    "value": 52.817535400390625
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[1340886723482881960]/Transform Data/Translate/1",
+                    "value": -0.640899658203125
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[1340886723482881960]/Transform Data/Translate/2",
+                    "value": 16.60501480102539
                 }
             ]
         },
@@ -39913,31 +40022,6 @@
                 }
             ]
         },
-        "Instance_[460472669054118]": {
-            "Source": "KB3D_HighTechStreets/Prefabs/HTS_Planter_C.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[9486044773524928276]/Parent Entity",
-                    "value": "../Entity_[69306349366933]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[9486044773524928276]/Transform Data/Translate/0",
-                    "value": 40.89771270751953
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[9486044773524928276]/Transform Data/Translate/1",
-                    "value": -26.435791015625
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[9486044773524928276]/Transform Data/Translate/2",
-                    "value": 11.341144561767578
-                }
-            ]
-        },
         "Instance_[460489848923302]": {
             "Source": "KB3D_HighTechStreets/Prefabs/HTS_Lift_A.prefab",
             "Patches": [
@@ -42263,36 +42347,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
-                }
-            ]
-        },
-        "Instance_[670353878121283]": {
-            "Source": "BoxwoodPlanter/BoxwoodPlanter.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1443348170064532185]/Parent Entity",
-                    "value": "../Entity_[69306349366933]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1443348170064532185]/Transform Data/Translate/0",
-                    "value": 47.588157653808594
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1443348170064532185]/Transform Data/Translate/1",
-                    "value": -4.3053669929504395
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[1443348170064532185]/Transform Data/Translate/2",
-                    "value": 15.46189308166504
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[670362468055875]/Components/Component_[15053791590785891318]/Controller/Configuration/materials/0/Value/MaterialAsset/assetHint",
-                    "value": "boxwoodplanter/boxwoodplanter_opaque_mat.azmaterial"
                 }
             ]
         },
