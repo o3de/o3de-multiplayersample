@@ -100,7 +100,10 @@ namespace MultiplayerSample
         }
 
         const AZ::u32 threadIndex = AZ::JobContext::GetGlobalContext()->GetJobManager().GetWorkerThreadId();
-        m_networkRequests->SetActorThreadIndex(threadIndex);
+        if (threadIndex != AZ::JobManager::InvalidWorkerThreadId)
+        {
+            m_networkRequests->SetActorThreadIndex(threadIndex);
+        }
 
         m_networkRequests->UpdateActorExternal(deltaTime);
 
