@@ -22,7 +22,9 @@
                     "Entity_[1176639161715]",
                     "Entity_[69306349366933]",
                     "Entity_[158648010295032]",
-                    "Instance_[40338284743604]/ContainerEntity"
+                    "Instance_[40338284743604]/ContainerEntity",
+                    "Instance_[94235658361970]/ContainerEntity",
+                    "Entity_[94411752021106]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -13511,6 +13513,206 @@
                 }
             }
         },
+        "Entity_[94411752021106]": {
+            "Id": "Entity_[94411752021106]",
+            "Name": "TeleporterGround02",
+            "Components": {
+                "Component_[12481164336898852542]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 12481164336898852542
+                },
+                "Component_[13400025247542302622]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 13400025247542302622,
+                    "Child Entity Order": [
+                        "Entity_[94416046988402]",
+                        "Entity_[94420341955698]"
+                    ]
+                },
+                "Component_[1411923903965887478]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 1411923903965887478
+                },
+                "Component_[16310441580422888225]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 16310441580422888225
+                },
+                "Component_[17493002300067681830]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 17493002300067681830
+                },
+                "Component_[2604004730977945722]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 2604004730977945722
+                },
+                "Component_[4854660653707954057]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 4854660653707954057
+                },
+                "Component_[7430365798078459959]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 7430365798078459959,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            119.82259368896484,
+                            -27.74736785888672,
+                            4.76837158203125e-7
+                        ]
+                    }
+                },
+                "Component_[8569140211082955359]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8569140211082955359
+                }
+            }
+        },
+        "Entity_[94416046988402]": {
+            "Id": "Entity_[94416046988402]",
+            "Name": "TeleporterGround02Enter",
+            "Components": {
+                "Component_[11007733080872195433]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 11007733080872195433
+                },
+                "Component_[12427244996577540486]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 12427244996577540486
+                },
+                "Component_[16182021149715538630]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 16182021149715538630,
+                    "m_template": {
+                        "$type": "NetworkTeleportComponent",
+                        "Destination": "Entity_[94420341955698]"
+                    }
+                },
+                "Component_[17163630185885010368]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 17163630185885010368
+                },
+                "Component_[3012135789818235481]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3012135789818235481,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4010377964195142509]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 4010377964195142509
+                },
+                "Component_[4493777120324879384]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 4493777120324879384,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[4617733338173391909]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 4617733338173391909
+                },
+                "Component_[5536974240790899090]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 5536974240790899090
+                },
+                "Component_[7347558097825798324]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 7347558097825798324
+                },
+                "Component_[8137341888573976318]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 8137341888573976318,
+                    "ColliderConfiguration": {
+                        "Trigger": true,
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1,
+                        "Box": {
+                            "Configuration": [
+                                40.0,
+                                40.0,
+                                1.0
+                            ]
+                        }
+                    }
+                },
+                "Component_[8842216696269772654]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 8842216696269772654
+                },
+                "Component_[8926886614530205718]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 8926886614530205718,
+                    "Parent Entity": "Entity_[94411752021106]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            2.12711238861084
+                        ]
+                    }
+                }
+            }
+        },
+        "Entity_[94420341955698]": {
+            "Id": "Entity_[94420341955698]",
+            "Name": "TeleporterGroundExit02",
+            "Components": {
+                "Component_[13047906639152887554]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 13047906639152887554
+                },
+                "Component_[17154601273266881611]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17154601273266881611
+                },
+                "Component_[17500513255986082187]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17500513255986082187
+                },
+                "Component_[2825761585108754542]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 2825761585108754542
+                },
+                "Component_[3201766569301386781]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 3201766569301386781
+                },
+                "Component_[6235345284788457831]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 6235345284788457831
+                },
+                "Component_[7342801569620264968]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 7342801569620264968
+                },
+                "Component_[8736641914109789]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 8736641914109789
+                },
+                "Component_[98631194479816635]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 98631194479816635,
+                    "Parent Entity": "Entity_[94411752021106]",
+                    "Transform Data": {
+                        "Translate": [
+                            -15.625946044921875,
+                            7.306362152099609,
+                            19.739606857299805
+                        ]
+                    }
+                }
+            }
+        },
         "Entity_[96012456013461]": {
             "Id": "Entity_[96012456013461]",
             "Name": "road_tile",
@@ -19665,7 +19867,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.40972900390624
+                    "value": 92.40972900390625
                 },
                 {
                     "op": "replace",
@@ -19681,6 +19883,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19741,6 +19948,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19755,7 +19967,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.48157501220705
+                    "value": 92.48157501220703
                 },
                 {
                     "op": "replace",
@@ -19771,6 +19983,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19801,6 +20018,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19831,6 +20053,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19845,7 +20072,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.42638397216795
+                    "value": 92.42638397216797
                 },
                 {
                     "op": "replace",
@@ -19861,6 +20088,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19875,7 +20107,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.44229125976564
+                    "value": 92.44229125976563
                 },
                 {
                     "op": "replace",
@@ -19891,6 +20123,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19905,7 +20142,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.31761932373048
+                    "value": 92.31761932373047
                 },
                 {
                     "op": "replace",
@@ -19921,6 +20158,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19935,7 +20177,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.40972900390624
+                    "value": 92.40972900390625
                 },
                 {
                     "op": "replace",
@@ -19951,6 +20193,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -19981,6 +20228,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20011,6 +20263,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20041,6 +20298,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20055,7 +20317,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.48157501220705
+                    "value": 92.48157501220703
                 },
                 {
                     "op": "replace",
@@ -20071,6 +20333,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20085,12 +20352,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.42638397216795
+                    "value": 92.42638397216797
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -25.11762428283691
+                    "value": -25.117624282836914
                 },
                 {
                     "op": "replace",
@@ -20101,6 +20368,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20115,7 +20387,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.31761932373048
+                    "value": 92.31761932373047
                 },
                 {
                     "op": "replace",
@@ -20131,6 +20403,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20145,7 +20422,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.44229125976564
+                    "value": 92.44229125976563
                 },
                 {
                     "op": "replace",
@@ -20161,6 +20438,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20191,6 +20473,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20221,6 +20508,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20235,7 +20527,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 112.11048126220705
+                    "value": 112.11048126220703
                 },
                 {
                     "op": "replace",
@@ -20251,6 +20543,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20265,7 +20562,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 116.33024597167967
+                    "value": 116.33024597167969
                 },
                 {
                     "op": "replace",
@@ -20281,6 +20578,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20295,7 +20597,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 114.98281860351564
+                    "value": 114.98281860351563
                 },
                 {
                     "op": "replace",
@@ -20311,6 +20613,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20341,6 +20648,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20371,6 +20683,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20385,7 +20702,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 117.06916809082033
+                    "value": 117.06916809082031
                 },
                 {
                     "op": "replace",
@@ -20401,6 +20718,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20415,7 +20737,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 98.8036651611328
+                    "value": 98.80366516113281
                 },
                 {
                     "op": "replace",
@@ -20431,6 +20753,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20461,6 +20788,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20480,7 +20812,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -18.610525131225582
+                    "value": -18.610525131225586
                 },
                 {
                     "op": "replace",
@@ -20491,6 +20823,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20505,7 +20842,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 97.35887908935548
+                    "value": 97.35887908935547
                 },
                 {
                     "op": "replace",
@@ -20521,6 +20858,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20551,6 +20893,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20581,6 +20928,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20611,6 +20963,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20641,6 +20998,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20671,6 +21033,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20701,6 +21068,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20715,7 +21087,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.32586669921876
+                    "value": 101.32586669921875
                 },
                 {
                     "op": "replace",
@@ -20731,6 +21103,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20761,6 +21138,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20775,7 +21157,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.2974090576172
+                    "value": 101.29740905761719
                 },
                 {
                     "op": "replace",
@@ -20791,6 +21173,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20805,12 +21192,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.39771270751952
+                    "value": 101.39771270751953
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -23.121736526489254
+                    "value": -23.121736526489258
                 },
                 {
                     "op": "replace",
@@ -20821,6 +21208,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20835,12 +21227,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.32654571533205
+                    "value": 101.32654571533203
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -27.33842086791992
+                    "value": -27.338420867919922
                 },
                 {
                     "op": "replace",
@@ -20851,6 +21243,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20881,6 +21278,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20911,6 +21313,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20941,6 +21348,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20960,7 +21372,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -25.889249801635746
+                    "value": -25.889249801635742
                 },
                 {
                     "op": "replace",
@@ -20971,6 +21383,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -20985,7 +21402,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.32738494873048
+                    "value": 101.32738494873047
                 },
                 {
                     "op": "replace",
@@ -21001,6 +21418,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21031,6 +21453,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21061,6 +21488,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21075,7 +21507,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.14305877685548
+                    "value": 101.14305877685547
                 },
                 {
                     "op": "replace",
@@ -21091,6 +21523,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21121,6 +21558,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21135,7 +21577,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.11758422851564
+                    "value": 101.11758422851563
                 },
                 {
                     "op": "replace",
@@ -21151,6 +21593,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21165,7 +21612,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 101.0888214111328
+                    "value": 101.08882141113281
                 },
                 {
                     "op": "replace",
@@ -21181,6 +21628,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21211,6 +21663,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21241,6 +21698,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21271,6 +21733,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21301,6 +21768,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21331,6 +21803,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21361,6 +21838,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21391,6 +21873,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21421,6 +21908,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21451,6 +21943,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21481,6 +21978,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21511,6 +22013,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21541,6 +22048,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21571,6 +22083,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21601,6 +22118,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21631,6 +22153,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21661,6 +22188,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21691,6 +22223,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21710,7 +22247,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": 21.007244110107425
+                    "value": 21.007244110107422
                 },
                 {
                     "op": "replace",
@@ -21721,6 +22258,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21751,6 +22293,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21781,6 +22328,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21811,6 +22363,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21841,6 +22398,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21871,6 +22433,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21901,6 +22468,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21931,6 +22503,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21961,6 +22538,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -21991,6 +22573,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22071,6 +22658,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22101,6 +22693,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22131,6 +22728,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22161,6 +22763,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22191,6 +22798,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22221,6 +22833,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22251,6 +22868,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -22306,6 +22928,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24517,6 +25144,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24547,6 +25179,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24577,6 +25214,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24607,6 +25249,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24637,6 +25284,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24686,7 +25338,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": 15.953441619873049
+                    "value": 15.953441619873047
                 },
                 {
                     "op": "replace",
@@ -24697,6 +25349,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 91.16786193847656
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24727,6 +25384,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -43.832244873046875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24757,6 +25419,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -43.832244873046875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24771,7 +25438,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 56.83748626708984
+                    "value": 56.837486267089844
                 },
                 {
                     "op": "replace",
@@ -24787,6 +25454,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24847,6 +25519,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -43.832244873046875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24877,6 +25554,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 91.16786193847656
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24907,6 +25589,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 91.16786193847656
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24921,7 +25608,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 56.83748626708984
+                    "value": 56.837486267089844
                 },
                 {
                     "op": "replace",
@@ -24937,6 +25624,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24967,6 +25659,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -24986,7 +25683,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": 11.77931785583496
+                    "value": 11.779317855834961
                 },
                 {
                     "op": "replace",
@@ -24997,6 +25694,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -43.832244873046875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25016,7 +25718,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": 11.160848617553713
+                    "value": 11.160848617553711
                 },
                 {
                     "op": "replace",
@@ -25027,6 +25729,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -43.832244873046875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25087,6 +25794,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25117,6 +25829,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25147,6 +25864,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25177,6 +25899,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25207,6 +25934,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25237,6 +25969,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25251,7 +25988,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 118.32534790039064
+                    "value": 118.32534790039063
                 },
                 {
                     "op": "replace",
@@ -25267,6 +26004,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25297,6 +26039,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25327,6 +26074,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25341,12 +26093,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 93.95562744140624
+                    "value": 93.95562744140625
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -18.569255828857425
+                    "value": -18.569255828857422
                 },
                 {
                     "op": "replace",
@@ -25357,6 +26109,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -25371,12 +26128,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 94.70059204101564
+                    "value": 94.70059204101563
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -18.56042861938477
+                    "value": -18.560428619384766
                 },
                 {
                     "op": "replace",
@@ -25387,6 +26144,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41116,7 +41878,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 114.48438262939452
+                    "value": 114.48438262939453
                 },
                 {
                     "op": "replace",
@@ -41126,12 +41888,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41156,12 +41923,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41216,12 +41988,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41271,17 +42048,22 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -0.21325445175170896
+                    "value": -0.21325445175170898
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41366,12 +42148,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41426,12 +42213,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41476,7 +42268,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 117.6851043701172
+                    "value": 117.68510437011719
                 },
                 {
                     "op": "replace",
@@ -41486,12 +42278,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41541,17 +42338,22 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -0.19302460551261905
+                    "value": -0.19302460551261902
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41576,12 +42378,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41636,12 +42443,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/2",
-                    "value": 24.20201110839844
+                    "value": 24.202011108398438
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41762,6 +42574,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41776,7 +42593,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 109.27967071533205
+                    "value": 109.27967071533203
                 },
                 {
                     "op": "replace",
@@ -41792,6 +42609,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41822,6 +42644,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41912,6 +42739,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41942,6 +42774,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -41972,6 +42809,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -42002,6 +42844,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -42062,6 +42909,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -42092,6 +42944,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -42136,7 +42993,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 112.48039245605467
+                    "value": 112.48039245605469
                 },
                 {
                     "op": "replace",
@@ -42152,6 +43009,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49659,7 +50521,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 119.52208709716795
+                    "value": 119.52208709716797
                 },
                 {
                     "op": "replace",
@@ -49675,6 +50537,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49705,6 +50572,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49735,6 +50607,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49765,6 +50642,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49779,7 +50661,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 119.46784973144533
+                    "value": 119.46784973144531
                 },
                 {
                     "op": "replace",
@@ -49795,6 +50677,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49825,6 +50712,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49839,12 +50731,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 117.90453338623048
+                    "value": 117.90453338623047
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -18.691007614135746
+                    "value": -18.691007614135742
                 },
                 {
                     "op": "replace",
@@ -49855,6 +50747,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -49915,6 +50812,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50005,6 +50907,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50019,7 +50926,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 113.74243927001952
+                    "value": 113.74243927001953
                 },
                 {
                     "op": "replace",
@@ -50035,6 +50942,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50065,6 +50977,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50095,6 +51012,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50109,7 +51031,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.3931121826172
+                    "value": 110.39311218261719
                 },
                 {
                     "op": "replace",
@@ -50125,6 +51047,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50155,6 +51082,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50390,6 +51322,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50404,7 +51341,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 113.2406768798828
+                    "value": 113.24067687988281
                 },
                 {
                     "op": "replace",
@@ -50420,6 +51357,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50434,7 +51376,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 115.73790740966795
+                    "value": 115.73790740966797
                 },
                 {
                     "op": "replace",
@@ -50450,6 +51392,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -178.8321075439453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50570,6 +51517,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50600,6 +51552,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50614,7 +51571,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 117.18269348144533
+                    "value": 117.18269348144531
                 },
                 {
                     "op": "replace",
@@ -50630,6 +51587,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50679,7 +51641,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -18.610525131225582
+                    "value": -18.610525131225586
                 },
                 {
                     "op": "replace",
@@ -50690,6 +51652,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50854,7 +51821,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.57799530029295
+                    "value": 110.57799530029297
                 },
                 {
                     "op": "replace",
@@ -50870,6 +51837,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50884,7 +51856,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.60821533203124
+                    "value": 110.60821533203125
                 },
                 {
                     "op": "replace",
@@ -50900,6 +51872,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50944,7 +51921,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.64077758789064
+                    "value": 110.64077758789063
                 },
                 {
                     "op": "replace",
@@ -50960,6 +51937,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -50974,7 +51956,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.57975769042967
+                    "value": 110.57975769042969
                 },
                 {
                     "op": "replace",
@@ -50990,6 +51972,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51064,7 +52051,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.64984130859376
+                    "value": 110.64984130859375
                 },
                 {
                     "op": "replace",
@@ -51080,6 +52067,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51094,7 +52086,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.51610565185548
+                    "value": 110.51610565185547
                 },
                 {
                     "op": "replace",
@@ -51110,6 +52102,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51140,6 +52137,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51154,7 +52156,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.68006134033205
+                    "value": 110.68006134033203
                 },
                 {
                     "op": "replace",
@@ -51170,6 +52172,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51290,6 +52297,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51380,6 +52392,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51424,7 +52441,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.56916809082033
+                    "value": 110.56916809082031
                 },
                 {
                     "op": "replace",
@@ -51440,6 +52457,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51530,6 +52552,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51544,7 +52571,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.34942626953124
+                    "value": 110.34942626953125
                 },
                 {
                     "op": "replace",
@@ -51560,6 +52587,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51574,7 +52606,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.4435577392578
+                    "value": 110.44355773925781
                 },
                 {
                     "op": "replace",
@@ -51590,6 +52622,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51680,6 +52717,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51710,6 +52752,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51740,6 +52787,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51754,7 +52806,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 110.37427520751952
+                    "value": 110.37427520751953
                 },
                 {
                     "op": "replace",
@@ -51770,6 +52822,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83212280273438
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51800,6 +52857,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51830,6 +52892,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51860,6 +52927,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51879,7 +52951,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -20.05456924438477
+                    "value": -20.054569244384766
                 },
                 {
                     "op": "replace",
@@ -51890,6 +52962,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51920,6 +52997,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -133.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51934,7 +53016,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.42638397216795
+                    "value": 92.42638397216797
                 },
                 {
                     "op": "replace",
@@ -51950,6 +53032,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51964,12 +53051,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.44229125976564
+                    "value": 92.44229125976563
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/1",
-                    "value": -29.943946838378903
+                    "value": -29.943946838378906
                 },
                 {
                     "op": "replace",
@@ -51980,6 +53067,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 136.1677703857422
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -51994,7 +53086,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Translate/0",
-                    "value": 92.31761932373048
+                    "value": 92.31761932373047
                 },
                 {
                     "op": "replace",
@@ -52010,6 +53102,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": -88.83221435546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -53548,6 +54645,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -53578,6 +54680,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11106670523878836401]/Transform Data/Rotate/2",
                     "value": 46.16776657104492
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24404540078557]/Components/Component_[6756982386435152427]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Opaque_MAT"
                 }
             ]
         },
@@ -57366,6 +58473,31 @@
                     "op": "replace",
                     "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/2",
                     "value": 0.7151455283164978
+                }
+            ]
+        },
+        "Instance_[94235658361970]": {
+            "Source": "Teleporter_Platform/TeleporterGround01.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9240736716032173341]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9240736716032173341]/Transform Data/Translate/0",
+                    "value": 102.2625961303711
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9240736716032173341]/Transform Data/Translate/1",
+                    "value": 34.815696716308594
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9240736716032173341]/Transform Data/Translate/2",
+                    "value": 9.5367431640625e-7
                 }
             ]
         },
