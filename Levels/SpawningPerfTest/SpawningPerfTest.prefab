@@ -150,7 +150,21 @@
                 },
                 "Component_[5182430712893438093]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 5182430712893438093
+                    "Id": 5182430712893438093,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": {
+                                "{}": {
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{CF91AE08-8FD5-538B-A5F2-427DFA9D5E1C}"
+                                        },
+                                        "assetHint": "materials/basic_grey.azmaterial"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "Component_[5675108321710651991]": {
                     "$type": "AZ::Render::EditorMeshComponent",
@@ -199,7 +213,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 14617233715992192339
+                            "EditorEntityId": 17737121437562245004
                         }
                     }
                 },
@@ -269,29 +283,31 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 14249419413039427459
                 },
-                "Component_[15448581635946161318]": {
-                    "$type": "AZ::Render::EditorGridComponent",
-                    "Id": 15448581635946161318,
-                    "Controller": {
-                        "Configuration": {
-                            "primarySpacing": 4.0,
-                            "primaryColor": [
-                                0.501960813999176,
-                                0.501960813999176,
-                                0.501960813999176
-                            ],
-                            "secondarySpacing": 0.5,
-                            "secondaryColor": [
-                                0.250980406999588,
-                                0.250980406999588,
-                                0.250980406999588
-                            ]
-                        }
-                    }
-                },
                 "Component_[1843303322527297409]": {
                     "$type": "EditorDisabledCompositionComponent",
-                    "Id": 1843303322527297409
+                    "Id": 1843303322527297409,
+                    "DisabledComponents": [
+                        {
+                            "$type": "AZ::Render::EditorGridComponent",
+                            "Id": 15448581635946161318,
+                            "Controller": {
+                                "Configuration": {
+                                    "primarySpacing": 4.0,
+                                    "primaryColor": [
+                                        0.501960813999176,
+                                        0.501960813999176,
+                                        0.501960813999176
+                                    ],
+                                    "secondarySpacing": 0.5,
+                                    "secondaryColor": [
+                                        0.250980406999588,
+                                        0.250980406999588,
+                                        0.250980406999588
+                                    ]
+                                }
+                            }
+                        }
+                    ]
                 },
                 "Component_[2390335684631149729]": {
                     "$type": "EditorColliderComponent",
@@ -324,6 +340,9 @@
                                 1.0
                             ]
                         }
+                    },
+                    "DebugDrawSettings": {
+                        "LocallyEnabled": false
                     }
                 },
                 "Component_[380249072065273654]": {
@@ -563,9 +582,9 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            7.0853471755981445,
+                            -0.2731480598449707,
                             -3.1976943016052246,
-                            8.996732711791992
+                            19.055803298950195
                         ]
                     }
                 },
@@ -574,7 +593,7 @@
                     "Id": 11734110005037668943,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkTestSpawnerComponent",
-                        "MaxLiveCount": 20,
+                        "MaxLiveCount": 2000,
                         "SpawnPerSecond": 5
                     }
                 },
@@ -651,8 +670,8 @@
                     "BoxShape": {
                         "Configuration": {
                             "Dimensions": [
-                                5.0,
-                                5.0,
+                                25.0,
+                                25.0,
                                 1.0
                             ]
                         }
@@ -687,6 +706,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10875373432506593388]/Parent Entity",
                     "value": "../Entity_[947961075516]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[428599321104]/Components/Component_[6520325419833207798]/Controller/Configuration/materials/0/Value/MaterialAsset/assetHint",
+                    "value": "materials/presets/macbeth/10_purple_tex.azmaterial"
                 }
             ]
         }

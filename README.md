@@ -1,5 +1,4 @@
 # MultiplayerSample Project
-
 A simple third-person multiplayer sample for O3DE.
 
 > **_NOTE:_** For Linux, see the Linux specific setup in [README_LINUX](./README_LINUX.md).
@@ -8,11 +7,13 @@ A simple third-person multiplayer sample for O3DE.
 
 This repository uses Git LFS for storing large binary files.  You will need to create a Github personal access token to authenticate with the LFS service.
 
+
 ### Create a Git Personal Access Token
 
 You will need your personal access token credentials to authenticate when you clone the repository.
 
 [Create a personal access token with the 'repo' scope.](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+
 
 ### (Recommended) Verify you have a credential manager installed to store your credentials
 
@@ -31,12 +32,6 @@ You can clone the project to any folder locally, including inside the engine fol
 Cloning into 'o3de-multiplayersample'...
 ```
 
-```shell
-# clone the assets into an external folder
-> git clone https://github.com/o3de/o3de-multiplayersample-assets.git
-Cloning into 'o3de-multiplayersample-assets'...
-```
-
 #### Option #2 - cloning into the engine repository folder
 
 ```shell
@@ -44,28 +39,20 @@ Cloning into 'o3de-multiplayersample-assets'...
 > git clone https://github.com/o3de/o3de-multiplayersample.git c:/path/to/o3de/o3de-multiplayersample
 Cloning into 'o3de-multiplayersample'...
 
-# clone the asset gems into a folder named 'o3de-multiplayersample-assets' in your existing engine gems folder
-> git clone https://github.com/o3de/o3de-multiplayersample-assets.git c:/path/to/o3de/gems/o3de-multiplayersample-assets
-Cloning into 'o3de-multiplayersample-assets'...
-
 # modify the local engine git exclude file to ignore the project folder
 > echo o3de-multiplayersample > c:/path/to/o3de/.git/info/exclude
-> echo o3de-multiplayersample-assets > c:/path/to/o3de/.git/info/exclude
 ```
 
 If you have a Git credential helper configured, you should not be prompted for your credentials anymore.
 
-### Step 2. Register the engine, the project, and the gems
+### Step 2. Register the engine and project
 
 ```shell
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
-# register the project (only need to do this once)
+# register the project
 > c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
-
-# register the asset gems (only need to do this once)
-> c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
 ```
 
 ### Step 3. Configure and build
@@ -96,28 +83,28 @@ This option will output all the project and engine binaries in the engine's buil
 
 ### Step 4. Setup Client and Server
 
-Under project root, there should be 2 files: client.cfg and server.cfg. File client.cfg should contain:
+Under project root, there should be 2 files: launch_client.cfg and launch_server.cfg. File launch_client.cfg should contain:
 
 ```shell
 connect
 ```
 
-File server.cfg should contain:
+File launch_server.cfg should contain:
 
 ```shell
 host
 LoadLevel Levels/SampleBase/SampleBase.spawnable
 ```
 
-If these cfg files are not present, create them as they will be used to when launching server and client launchers.
-
 #### Running the Server
 
 A server can be run as follows
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg 
+MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg 
 ```
+Notice the launch_server.cfg is passed into the commandline. Any file passed into the console-command-file argument will be used when starting up the application.
+For convenience you can run launch_server.cmd (Windows) or launch_server.sh (Unix) directly. 
 
 #### (Optional) Running the Server Headless
 
@@ -126,7 +113,7 @@ If you do not need to see rendered output on your servers, you can reduce resour
 Note: Parameters to use null renderer must be passed on the command line as the console-command-file is parsed after rendering is configured.
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=server.cfg -rhi=null -NullRenderer
+MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg -rhi=null -NullRenderer
 ```
 
 #### Running the Server in the Editor
@@ -135,18 +122,21 @@ By default, launching a local server from the editor during Play Mode is enabled
 
 Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/) for the complete list of console variables (cvar) which support play in the editor with servers.
 
-#### Running the Client
 
+#### Running the Client
 A client can be run with:
 
 ```shell
-MultiplayerSample.GameLauncher.exe --console-command-file=client.cfg
+MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg
 ```
 
 This will connect a client to the local server and start a multiplayer session.
+For convenience you can run launch_client.cmd (Windows) or launch_client.sh (Unix) directly.
+
+#### Debugging in Visual Studio
+When debugging MultiplayerSample.GameLauncher and MultiplayerSample.ServerLauncher from Visual Studio it's helpful to automatically host and connect; thereby avoiding having to open the console (~) once the application opens and explicitly executing the 'host' and 'loadlevel' command on server, or the 'connect' command on client. For convenience, Gem/Code/CMakeLists.txt defines ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS which allows Visual Studio to automatically populate the debugger with command arguments. By default, launch_client.cfg is used when debugging the GameLauncher and launch_server.cfg is used when debugging the ServerLauncher.
 
 ## More Information
-
 * [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
 * [Multiplayer Tutorials](https://o3de.org/docs/learning-guide/tutorials/multiplayer/)
 

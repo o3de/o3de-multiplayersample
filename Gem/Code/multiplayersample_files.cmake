@@ -6,45 +6,9 @@
 #
 
 set(FILES
-    Include/GameplayEffectsNotificationBus.h
-    Include/PlayerKnockbackBus.h
-    Include/MatchPlayerCoinsBus.h
     Include/NetworkPrefabSpawnerInterface.h
-    Include/PlayerCoinCollectorBus.h
-    Include/PlayerIdentityBus.h
-    Include/PlayerMatchLifecycleBus.h
-    Include/UiCoinCountBus.h
-    Include/UiGameOverBus.h
-    Include/UiPlayerArmorBus.h
 
-    Source/AutoGen/EnergyBallComponent.AutoComponent.xml
-    Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
-    Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAiComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/GemComponent.AutoComponent.xml
-    Source/AutoGen/GemSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
-    Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
-    Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
-    Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
-    Source/AutoGen/PlayerArmorComponent.AutoComponent.xml
-    Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
-    Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
-    Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
-    Source/AutoGen/WeaponEffectComponent.AutoComponent.xml
-
+    Source/AutoGen/RpcTesterComponent.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -53,16 +17,10 @@ set(FILES
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
-    Source/Components/NetworkMatchComponent.cpp
-    Source/Components/NetworkMatchComponent.h
     Source/Components/NetworkPlayerSpawnerComponent.cpp
     Source/Components/NetworkPlayerSpawnerComponent.h
     Source/Components/NetworkRandomComponent.cpp
     Source/Components/NetworkRandomComponent.h
-    Source/Components/NetworkTeleportComponent.cpp
-    Source/Components/NetworkTeleportComponent.h
-    Source/Components/NetworkTeleportCompatibleComponent.cpp
-    Source/Components/NetworkTeleportCompatibleComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp
@@ -79,52 +37,8 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
-
-    Source/Components/UI/HUDComponent.cpp
-    Source/Components/UI/HUDComponent.h
-    Source/Components/UI/UiCoinCountComponent.cpp
-    Source/Components/UI/UiCoinCountComponent.h
-    Source/Components/UI/UiGameOverComponent.cpp
-    Source/Components/UI/UiGameOverComponent.h
-    Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
-    Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
-    Source/Components/UI/UiPlayerArmorComponent.cpp
-    Source/Components/UI/UiPlayerArmorComponent.h
-
-    Source/AutoGen/GameplayEffectsComponent.AutoComponent.xml
-    Source/Components/Multiplayer/GameplayEffectsComponent.cpp
-    Source/Components/Multiplayer/GameplayEffectsComponent.h
-
-    Source/Components/Multiplayer/GemComponent.cpp
-    Source/Components/Multiplayer/GemComponent.h
-    Source/Components/Multiplayer/GemSpawnerComponent.cpp
-    Source/Components/Multiplayer/GemSpawnerComponent.h
-    Source/Components/Multiplayer/MatchPlayerCoinsComponent.cpp
-    Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
-    Source/Components/Multiplayer/PlayerArmorComponent.cpp
-    Source/Components/Multiplayer/PlayerArmorComponent.h
-    Source/Components/Multiplayer/PlayerCoinCollectorComponent.cpp
-    Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
-    Source/Components/Multiplayer/PlayerIdentityComponent.cpp
-    Source/Components/Multiplayer/PlayerIdentityComponent.h
-    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.cpp
-    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h
-    Source/Components/Multiplayer/EnergyBallComponent.cpp
-    Source/Components/Multiplayer/EnergyBallComponent.h
-    Source/Components/Multiplayer/EnergyCannonComponent.cpp
-    Source/Components/Multiplayer/EnergyCannonComponent.h
-    Source/Components/Multiplayer/WeaponEffectComponent.cpp
-    Source/Components/Multiplayer/WeaponEffectComponent.h
-
-    Source/GameState/GameStateMatchEnded.h
-    Source/GameState/GameStateMatchEnded.cpp
-    Source/GameState/GameStateMatchInProgress.h
-    Source/GameState/GameStateMatchInProgress.cpp
-    Source/GameState/GameStatePreparingMatch.h
-    Source/GameState/GameStatePreparingMatch.cpp
-    Source/GameState/GameStateWaitingForPlayers.h
-    Source/GameState/GameStateWaitingForPlayers.cpp
-
+    Source/Components/RpcTesterComponent.cpp
+    Source/Components/RpcTesterComponent.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp

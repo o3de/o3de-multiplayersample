@@ -30,6 +30,12 @@ namespace MultiplayerSample
             return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(Multiplayer::PrefabEntityId(), AZ::Transform::CreateIdentity());
         }
 
+        if (m_spawnIndex >= m_spawners.size())
+        {
+            AZLOG_WARN("RoundRobinSpawner has an out-of-bounds spawner index. Resetting spawn index to 0. Did you forget to call UnregisterPlayerSpawner?")
+            m_spawnIndex = 0;
+        }
+
         NetworkPlayerSpawnerComponent* spawner = m_spawners[m_spawnIndex];
         m_spawnIndex = m_spawnIndex + 1 == m_spawners.size() ? 0 : m_spawnIndex + 1;
         // NetworkEntityManager currently operates against/validates AssetId or Path, opt for Path via Hint
@@ -44,6 +50,13 @@ namespace MultiplayerSample
         if (AZStd::find(m_spawners.begin(), m_spawners.end(), spawner))
         {
             m_spawners.erase(AZStd::remove(m_spawners.begin(), m_spawners.end(), spawner));
+
+            // A spawner was removed, reset the next spawnIndex if it's now out-of-bounds
+            if (m_spawnIndex >= m_spawners.size())
+            {
+                m_spawnIndex = 0;
+            }
+
             return true;
         }
 
