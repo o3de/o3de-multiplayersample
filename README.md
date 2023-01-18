@@ -48,6 +48,10 @@ Cloning into 'o3de-multiplayersample'...
 > git clone https://github.com/o3de/o3de-multiplayersample-assets.git c:/path/to/o3de/gems/o3de-multiplayersample-assets
 Cloning into 'o3de-multiplayersample-assets'...
 
+# from inside your clone of o3de-multiplayersample-assets, update submodules:
+# (PopcornFX gem might be available otherwise)
+> git submodule update --init --recursive
+
 # modify the local engine git exclude file to ignore the project folder
 > echo o3de-multiplayersample > c:/path/to/o3de/.git/info/exclude
 > echo o3de-multiplayersample-assets > c:/path/to/o3de/.git/info/exclude
