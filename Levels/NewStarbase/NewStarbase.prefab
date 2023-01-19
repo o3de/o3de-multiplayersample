@@ -19,7 +19,8 @@
                 "$type": "EditorEntitySortComponent",
                 "Id": 14126657869720434043,
                 "Child Entity Order": [
-                    "Entity_[1176639161715]"
+                    "Entity_[1176639161715]",
+                    "Instance_[495892363195372]/Entity_[1146574390643]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -30,6 +31,11 @@
             "Component_[16239496886950819870]": {
                 "$type": "EditorDisabledCompositionComponent",
                 "Id": 16239496886950819870
+            },
+            "Component_[3836692511183074389]": {
+                "$type": "LocalViewBookmarkComponent",
+                "Id": 3836692511183074389,
+                "LocalBookmarkFileName": "NewStarbase_16741596095199200.setreg"
             },
             "Component_[5688118765544765547]": {
                 "$type": "EditorEntityIconComponent",
@@ -544,6 +550,33 @@
                     "Id": 931091830724002070
                 }
             }
+        }
+    },
+    "Instances": {
+        "Instance_[495892363195372]": {
+            "Source": "Prefabs/Levels/Starbase/StarbaseWIP.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/0",
+                    "value": 55.6689567565918
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/1",
+                    "value": 17.555904388427734
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/2",
+                    "value": 22.469425201416016
+                }
+            ]
         }
     }
 }
