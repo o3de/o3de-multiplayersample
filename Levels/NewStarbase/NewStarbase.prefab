@@ -20,7 +20,8 @@
                 "Id": 14126657869720434043,
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
-                    "Instance_[495892363195372]/Entity_[1146574390643]"
+                    "Instance_[662818616219918]/ContainerEntity",
+                    "Instance_[698140427262222]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -553,28 +554,48 @@
         }
     },
     "Instances": {
-        "Instance_[495892363195372]": {
-            "Source": "Prefabs/Levels/Starbase/StarbaseWIP.prefab",
+        "Instance_[662818616219918]": {
+            "Source": "Prefabs/Levels/Starbase/Starbase_Level.prefab",
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Parent Entity",
+                    "path": "/ContainerEntity/Components/Component_[17053476105047184532]/Parent Entity",
                     "value": "../Entity_[1146574390643]"
                 },
                 {
                     "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/0",
-                    "value": 55.6689567565918
+                    "path": "/Entities/Entity_[45850859116814]/Components/Component_[16880285896855930892]/Controller/Configuration/EditorEntityId",
+                    "value": 2618278122537516801
                 },
                 {
                     "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/1",
-                    "value": 17.555904388427734
+                    "path": "/Instances/Instance_[244590891542927]/Entities/Entity_[49600613090343]/Components/Component_[7092071161962745685]/Controller/Configuration/EditorEntityId",
+                    "value": 12826807841858671182
+                }
+            ]
+        },
+        "Instance_[698140427262222]": {
+            "Source": "Prefabs/Levels/Starbase/Starbase_MatchController.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9003997438369447724]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
                 },
                 {
                     "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[15230859088967841193]/Transform Data/Translate/2",
-                    "value": 22.469425201416016
+                    "path": "/ContainerEntity/Components/Component_[9003997438369447724]/Transform Data/Translate/0",
+                    "value": 48.55263137817383
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9003997438369447724]/Transform Data/Translate/1",
+                    "value": 5.458255767822266
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9003997438369447724]/Transform Data/Translate/2",
+                    "value": 14.983573913574219
                 }
             ]
         }
