@@ -126,6 +126,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Client.Static
             Gem::MultiplayerSample.Client.Static
             Gem::Atom_AtomBridge.Static
 )
@@ -144,6 +145,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Server.Static
             Gem::MultiplayerSample.Server.Static
             Gem::Atom_AtomBridge.Static
 )
@@ -162,6 +164,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Unified.Static
             Gem::MultiplayerSample.Unified.Static
             Gem::Atom_AtomBridge.Static
 )
