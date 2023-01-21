@@ -1,0 +1,34 @@
+{
+  "clean": {
+    "TAGS": [],
+    "COMMAND": "clean_linux.sh",
+    "PARAMETERS": {
+      "OUTPUT_DIRECTORY": "build",
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
+  },
+  "mps_profile": {
+    "TAGS": [
+      "mps-periodic-incremental-daily"
+    ],
+    "COMMAND": "build_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "profile",
+      "OUTPUT_DIRECTORY": "build/linux",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4",
+      "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher"
+    }
+  },
+  "mps_release": {
+    "TAGS": [
+      "mps-periodic-incremental-daily"
+    ],
+    "COMMAND": "build_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build/linux",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4",
+      "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher"
+    }
+  }
+}
