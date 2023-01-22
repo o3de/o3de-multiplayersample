@@ -17,7 +17,8 @@
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DLY_TEST_IMPACT_INSTRUMENTATION_BIN=%TEST_IMPACT_WIN_BINARY%",
       "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher",
-      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
+      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
+      "CMAKE_LY_PROJECTS": "MultiplayerSample"
     }
   },
   "mps_release": {
@@ -30,7 +31,8 @@
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0",
       "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher",
-      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
+      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
+      "CMAKE_LY_PROJECTS": "MultiplayerSample"
     }
   }
 }
