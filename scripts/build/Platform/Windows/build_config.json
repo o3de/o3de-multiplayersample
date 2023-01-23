@@ -1,0 +1,40 @@
+{
+  "clean": {
+    "TAGS": [],
+    "COMMAND": "clean_windows.cmd",
+    "PARAMETERS": {
+      "OUTPUT_DIRECTORY": "build",
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
+  },
+  "mps_profile": {
+    "TAGS": [
+      "default",
+      "mps-periodic-incremental-daily"
+    ],
+    "COMMAND": "build_windows.cmd",
+    "PARAMETERS": {
+      "CONFIGURATION": "profile",
+      "OUTPUT_DIRECTORY": "build\\windows",
+      "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DLY_TEST_IMPACT_INSTRUMENTATION_BIN=%TEST_IMPACT_WIN_BINARY%",
+      "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher",
+      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
+      "CMAKE_LY_PROJECTS": "MultiplayerSample"
+    }
+  },
+  "mps_release": {
+    "TAGS": [
+      "default",
+      "mps-periodic-incremental-daily"
+    ],
+    "COMMAND": "build_windows.cmd",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build\\windows",
+      "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0",
+      "CMAKE_TARGET": "Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher",
+      "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
+      "CMAKE_LY_PROJECTS": "MultiplayerSample"
+    }
+  }
+}
