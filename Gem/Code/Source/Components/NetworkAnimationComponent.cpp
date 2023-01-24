@@ -193,8 +193,8 @@ namespace MultiplayerSample
                 }
             }
 #endif
-        }
 #endif // AZ_RELEASE_BUILD
+        }
 
         if (m_crouchParamId != InvalidParamIndex)
         {
