@@ -18,13 +18,7 @@ namespace MultiplayerSample
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::WeaponEffectComponent, s_weaponEffectComponentConcreteUuid, MultiplayerSample::WeaponEffectComponentBase);
 
-        static void Reflect(AZ::ReflectContext* context);
-
-        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-        {
-            WeaponEffectComponentBase::GetRequiredServices(required);
-            required.push_back(AZ_CRC("PopcornFXEmitterService"));
-        }
+        static void Reflect(AZ::ReflectContext* context);        
         
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
