@@ -69,3 +69,8 @@ namespace MultiplayerSample
 
     using LocalOnlyGameplayEffectsNotificationBus = AZ::EBus<GameplayEffectsNotifications>;
 }
+
+namespace AZ
+{
+    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::SoundEffect, "{1A214937-62F2-4724-A66C-CC3E9D4F1F2F}");
+}
