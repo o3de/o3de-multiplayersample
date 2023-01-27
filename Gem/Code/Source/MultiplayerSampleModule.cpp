@@ -62,4 +62,8 @@ namespace MultiplayerSample
 // DO NOT MODIFY THIS LINE UNLESS YOU RENAME THE GEM
 // The first parameter should be GemName_GemIdLower
 // The second should be the fully qualified name of the class above
+#if defined(AZ_MONOLITHIC_BUILD)
+AZ_DECLARE_MODULE_CLASS(Gem_MultiplayerSample_Client, MultiplayerSample::MultiplayerSampleModule);
+AZ_DECLARE_MODULE_CLASS(Gem_MultiplayerSample_Server, MultiplayerSample::MultiplayerSampleModule);
+#endif
 AZ_DECLARE_MODULE_CLASS(Gem_MultiplayerSample, MultiplayerSample::MultiplayerSampleModule)
