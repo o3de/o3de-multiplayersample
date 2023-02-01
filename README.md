@@ -37,6 +37,13 @@ Cloning into 'o3de-multiplayersample'...
 Cloning into 'o3de-multiplayersample-assets'...
 ```
 
+```shell
+> cd o3de-multiplayersample-assets
+# from inside your clone of o3de-multiplayersample-assets, update submodules:
+# (PopcornFX gem might not be available otherwise)
+> git submodule update --init --recursive
+```
+
 #### Option #2 - cloning into the engine repository folder
 
 ```shell
@@ -49,7 +56,7 @@ Cloning into 'o3de-multiplayersample'...
 Cloning into 'o3de-multiplayersample-assets'...
 
 # from inside your clone of o3de-multiplayersample-assets, update submodules:
-# (PopcornFX gem might be available otherwise)
+# (PopcornFX gem might not be available otherwise)
 > git submodule update --init --recursive
 
 # modify the local engine git exclude file to ignore the project folder
@@ -65,12 +72,14 @@ If you have a Git credential helper configured, you should not be prompted for y
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
-# register the project (only need to do this once)
-> c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
-
 # register the asset gems (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
+
+# register the project (only need to do this once)
+> c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
 ```
+
+The final step will print out warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
 
 ### Step 3. Configure and build
 
@@ -110,7 +119,7 @@ File server.cfg should contain:
 
 ```shell
 host
-LoadLevel Levels/SampleBase/SampleBase.spawnable
+LoadLevel Levels/NewStarbase/NewStarbase.spawnable
 ```
 
 If these cfg files are not present, create them as they will be used to when launching server and client launchers.
