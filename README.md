@@ -37,6 +37,13 @@ Cloning into 'o3de-multiplayersample'...
 Cloning into 'o3de-multiplayersample-assets'...
 ```
 
+```shell
+> cd o3de-multiplayersample-assets
+# from inside your clone of o3de-multiplayersample-assets, update submodules:
+# (PopcornFX gem might not be available otherwise)
+> git submodule update --init --recursive
+```
+
 #### Option #2 - cloning into the engine repository folder
 
 ```shell
@@ -49,7 +56,7 @@ Cloning into 'o3de-multiplayersample'...
 Cloning into 'o3de-multiplayersample-assets'...
 
 # from inside your clone of o3de-multiplayersample-assets, update submodules:
-# (PopcornFX gem might be available otherwise)
+# (PopcornFX gem might not be available otherwise)
 > git submodule update --init --recursive
 
 # modify the local engine git exclude file to ignore the project folder
@@ -110,7 +117,7 @@ File server.cfg should contain:
 
 ```shell
 host
-LoadLevel Levels/SampleBase/SampleBase.spawnable
+LoadLevel Levels/NewStarbase/NewStarbase.spawnable
 ```
 
 If these cfg files are not present, create them as they will be used to when launching server and client launchers.
