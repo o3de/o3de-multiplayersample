@@ -72,12 +72,14 @@ If you have a Git credential helper configured, you should not be prompted for y
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
-# register the project (only need to do this once)
-> c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
-
 # register the asset gems (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
+
+# register the project (only need to do this once)
+> c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample
 ```
+
+The final step will print out warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
 
 ### Step 3. Configure and build
 
