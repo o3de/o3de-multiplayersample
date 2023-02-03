@@ -50,6 +50,98 @@
         }
     },
     "Entities": {
+        "Entity_[34347018198245]": {
+            "Id": "Entity_[34347018198245]",
+            "Name": "Phase 1",
+            "Components": {
+                "Component_[11465296896691372774]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 11465296896691372774
+                },
+                "Component_[1385482276620248037]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 1385482276620248037
+                },
+                "Component_[1672496453160844206]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 1672496453160844206
+                },
+                "Component_[4365273676223359053]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 4365273676223359053,
+                    "Parent Entity": "Entity_[39016767503750]"
+                },
+                "Component_[447335812249655624]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 447335812249655624
+                },
+                "Component_[6421469484883233712]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 6421469484883233712
+                },
+                "Component_[6540248605613727097]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6540248605613727097,
+                    "Child Entity Order": [
+                        "Entity_[39021062471046]"
+                    ]
+                },
+                "Component_[7868645382700840779]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7868645382700840779
+                },
+                "Component_[8597459559629824464]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8597459559629824464
+                }
+            }
+        },
+        "Entity_[34351313165541]": {
+            "Id": "Entity_[34351313165541]",
+            "Name": "Phase 2",
+            "Components": {
+                "Component_[11940488200108544029]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 11940488200108544029
+                },
+                "Component_[14129595328833699507]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 14129595328833699507
+                },
+                "Component_[16092172063427678105]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 16092172063427678105
+                },
+                "Component_[16588922463918217171]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 16588922463918217171
+                },
+                "Component_[5123309152069758904]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 5123309152069758904
+                },
+                "Component_[5462063561847919361]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 5462063561847919361,
+                    "Parent Entity": "Entity_[39016767503750]"
+                },
+                "Component_[9283479863323905712]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 9283479863323905712
+                },
+                "Component_[9734026090289860517]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 9734026090289860517,
+                    "Child Entity Order": [
+                        "Entity_[38986702732678]"
+                    ]
+                },
+                "Component_[9899140064008822826]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 9899140064008822826
+                }
+            }
+        },
         "Entity_[38982407765382]": {
             "Id": "Entity_[38982407765382]",
             "Name": "Height",
@@ -158,7 +250,7 @@
                 "Component_[1120577847071895138]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 1120577847071895138,
-                    "Parent Entity": "Entity_[39021062471046]"
+                    "Parent Entity": "Entity_[34351313165541]"
                 },
                 "Component_[14065982559159361768]": {
                     "$type": "EditorLockComponent",
@@ -211,7 +303,8 @@
                                             "subId": 2000
                                         },
                                         "assetHint": "cubemapcaptures/alpha_capture_specular__2d3d4baf-893b-4af3-8902-6f3b77c25ea0__iblspecularcm512.dds.streamingimage"
-                                    }
+                                    },
+                                    "exposure": 7.0
                                 }
                             },
                             "diffuseImageAsset": {
@@ -227,7 +320,8 @@
                                     "subId": 2000
                                 },
                                 "assetHint": "cubemapcaptures/alpha_capture_specular__2d3d4baf-893b-4af3-8902-6f3b77c25ea0__iblspecularcm512.dds.streamingimage"
-                            }
+                            },
+                            "exposure": 7.0
                         }
                     ]
                 }
@@ -309,7 +403,7 @@
                 "Component_[2682898890655730800]": {
                     "$type": "EditorCommentComponent",
                     "Id": 2682898890655730800,
-                    "Configuration": "Trying to load the captured cubemaps currently causes a repeated crash, so will swing back around and update the lighting again later."
+                    "Configuration": "Enable the Global SkyLight (Original, Editor), raw glonal lighting (no terrain).\n\nDisable the Sun, and SkyAtmo. Then capture the Alpha_Capture_Diffuse, and the Alpha_Capture_Specular.\n\nEnable the entity components under Phase 1\n- capture cubemaps \n\n\n "
                 },
                 "Component_[4198628851538256659]": {
                     "$type": "EditorInspectorComponent",
@@ -461,7 +555,7 @@
                 "Component_[17794639845029481355]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 17794639845029481355,
-                    "Parent Entity": "Entity_[39016767503750]",
+                    "Parent Entity": "Entity_[39029652405638]",
                     "Transform Data": {
                         "Translate": [
                             0.0,
@@ -485,16 +579,16 @@
                         "Configuration": {
                             "OriginMode": 1,
                             "LuminanceFactor": [
-                                0.20000000298023224,
-                                0.20000000298023224,
-                                0.20000000298023224
+                                0.07500000298023224,
+                                0.10000000149011612,
+                                0.12999999523162842
                             ],
                             "SunColor": [
                                 0.5254902243614197,
                                 0.46666666865348816,
                                 0.40784314274787903
                             ],
-                            "SunLuminanceFactor": 8.0,
+                            "SunLuminanceFactor": 5.0,
                             "SunLimbColor": [
                                 0.5254902243614197,
                                 0.46666666865348816,
@@ -562,7 +656,8 @@
                     "Controller": {
                         "Configuration": {
                             "CaptureType": 1,
-                            "RelativePath": "CubeMapCaptures/Alpha_Capture_Diffuse__39478955-76A0-4686-8921-E5185EAE6177__ibldiffusecm.dds"
+                            "RelativePath": "CubeMapCaptures/Alpha_Capture_Diffuse__39478955-76A0-4686-8921-E5185EAE6177__ibldiffusecm.dds",
+                            "Exposure": 7.0
                         }
                     }
                 },
@@ -676,7 +771,7 @@
                                 0.18431372940540314,
                                 0.13725490868091583
                             ],
-                            "Intensity": 2.0,
+                            "Intensity": 1.25,
                             "AngularDiameter": 1.0,
                             "CameraEntityId": "",
                             "ShadowFarClipDistance": 512.0,
@@ -717,14 +812,19 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 15639290523135418003,
                     "Child Entity Order": [
-                        "Entity_[39021062471046]",
                         "Entity_[38990997699974]",
-                        "Entity_[38999587634566]"
+                        "Entity_[34347018198245]",
+                        "Entity_[34351313165541]"
                     ]
                 },
                 "Component_[17166107248206998633]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 17166107248206998633
+                },
+                "Component_[182451372562475186]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 182451372562475186,
+                    "Configuration": "We want to keep the skybox raw HDR.  It will be used in Cubemap Captures, where that components Exposure param will influence its exposure at capture. Be aware, that in a Cubemap capture that the Exposure parameter on those, will feed back to this component during the capture. There is a need to capture the balanced HDR energy.\n"
                 },
                 "Component_[3905614897554567605]": {
                     "$type": "EditorInspectorComponent",
@@ -763,7 +863,7 @@
                                 },
                                 "assetHint": "skies/starmap_2020_iblskyboxcm.exr.streamingimage"
                             },
-                            "Exposure": 2.0
+                            "Exposure": 3.0
                         }
                     }
                 },
@@ -789,12 +889,14 @@
             "Id": "Entity_[39021062471046]",
             "Name": "Global SkyLight (Original, Editor)",
             "Components": {
+                "Component_[12604741406293862685]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 12604741406293862685,
+                    "Configuration": "This is the raw original IBL exr, used as indirect lighting (ambient), we use it to capture the global lighting subemaps without other contributions like Sun and Sky. We use the Capture components to include this but generate lighting cubemaps that include the terrain, etc.  we expose the base global lighting (6 ev)\n\n\n\n"
+                },
                 "Component_[1366660958173371482]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 1366660958173371482,
-                    "Child Entity Order": [
-                        "Entity_[38986702732678]"
-                    ]
+                    "Id": 1366660958173371482
                 },
                 "Component_[14079987197963437469]": {
                     "$type": "EditorVisibilityComponent",
@@ -827,7 +929,7 @@
                                         },
                                         "assetHint": "skies/starmap_2020_iblskyboxcm_iblspecular.exr.streamingimage"
                                     },
-                                    "exposure": 2.0
+                                    "exposure": 7.0
                                 }
                             },
                             "diffuseImageAsset": {
@@ -844,7 +946,7 @@
                                 },
                                 "assetHint": "skies/starmap_2020_iblskyboxcm_iblspecular.exr.streamingimage"
                             },
-                            "exposure": 2.0
+                            "exposure": 7.0
                         }
                     ]
                 },
@@ -855,7 +957,7 @@
                 "Component_[2194552238784997669]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 2194552238784997669,
-                    "Parent Entity": "Entity_[39016767503750]"
+                    "Parent Entity": "Entity_[34347018198245]"
                 },
                 "Component_[2371472880792653230]": {
                     "$type": "EditorOnlyEntityComponent",
@@ -919,7 +1021,8 @@
                     "Controller": {
                         "Configuration": {
                             "SpecularQualityLevel": 3,
-                            "RelativePath": "CubeMapCaptures/Alpha_Capture_Specular__2D3D4BAF-893B-4AF3-8902-6F3B77C25EA0__iblspecularcm512.dds"
+                            "RelativePath": "CubeMapCaptures/Alpha_Capture_Specular__2D3D4BAF-893B-4AF3-8902-6F3B77C25EA0__iblspecularcm512.dds",
+                            "Exposure": 7.0
                         }
                     }
                 },
@@ -953,6 +1056,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 1707873626671173953,
                     "Child Entity Order": [
+                        "Entity_[38999587634566]",
                         "Entity_[39016767503750]",
                         "Entity_[39033947372934]"
                     ]
