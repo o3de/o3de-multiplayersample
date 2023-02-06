@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0AD14DD5-1CBD-4F2A-B1DE-F678C986F4EB}" SchemaVersion="103" RootDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}" ParentDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}">
+	<AudioObjects>
+		<WorkUnit Name="Player" ID="{0AD14DD5-1CBD-4F2A-B1DE-F678C986F4EB}" OwnerID="{AAEBA70B-BECE-4AC8-BE18-6CB0721C5DC7}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="23"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Player" ID="{E71203F1-C2FA-4E18-A8EC-8F7F531C4860}" ShortID="79767531">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="23"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+						<Property Name="OverrideOutput" Type="bool" Value="True"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="sx_player_armor_mend_01" ID="{51E47AD0-D0F0-4289-B906-624B9E68EE6E}" ShortID="252208872">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_armor_mend_01" ID="{BFFE85CE-9AFE-4EB9-B731-B0D324BBCE4E}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_armor_mend_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="629301626"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_armor_mend_01" ID="{BFFE85CE-9AFE-4EB9-B731-B0D324BBCE4E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_armor_breaking_01" ID="{E84A228D-B245-4639-9964-EDCE1F957749}" ShortID="252483772">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_armor_breaking_01" ID="{C67B94C5-32DA-410C-B50F-0375820AB2D2}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_armor_breaking_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="949393809"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_armor_breaking_01" ID="{C67B94C5-32DA-410C-B50F-0375820AB2D2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_pain_01" ID="{BAA803F1-9881-471F-8EED-436B717615D5}" ShortID="538403605">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_pain_01" ID="{E0565300-3F6B-418B-BAD7-78964473D4B9}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_pain_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="884545288"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_pain_01" ID="{E0565300-3F6B-418B-BAD7-78964473D4B9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_knockdown_01" ID="{6CF68F6C-479E-483D-827C-187F923B0A1F}" ShortID="73360858">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_knockdown_01" ID="{04DBF378-4A20-4A30-BDDF-1186A4D5F6B3}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_knockdown_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="181891645"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_knockdown_01" ID="{04DBF378-4A20-4A30-BDDF-1186A4D5F6B3}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_footstep_01" ID="{EEE0CD52-5EA0-4E19-A37C-DD5CBAEC66F7}" ShortID="239860570">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_footstep_01" ID="{C8ACD8C1-5EDD-4C33-A4FD-823E6758127E}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_footstep_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="641332548"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_footstep_01" ID="{C8ACD8C1-5EDD-4C33-A4FD-823E6758127E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_ladder_climb_01" ID="{9B2C6880-337B-49D2-BADA-CFD9ABA0CBFB}" ShortID="118389448">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_ladder_climb_01" ID="{B059F537-0D94-48C3-88A8-51157F2D7672}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_ladder_climb_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="572173670"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_ladder_climb_01" ID="{B059F537-0D94-48C3-88A8-51157F2D7672}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="sx_player_exertion_01" ID="{8510879F-2978-4537-AD75-530DA466D561}" ShortID="74466390">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="sx_player_exertion_01" ID="{EA8CEBCE-3DF7-4A1C-AE29-250824CF7447}">
+									<Language>SFX</Language>
+									<AudioFile>Hexany\sx_player_exertion_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="339415203"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="sx_player_exertion_01" ID="{EA8CEBCE-3DF7-4A1C-AE29-250824CF7447}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

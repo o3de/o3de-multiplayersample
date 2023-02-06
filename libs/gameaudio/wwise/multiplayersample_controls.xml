@@ -1,5 +1,86 @@
 <ATLConfig atl_name="multiplayersample_controls">
 	<AudioTriggers>
+		<ATLTrigger atl_name="play_sx_wpn_laserpistol_impact">
+			<WwiseEvent wwise_name="play_sx_wpn_laserpistol_impact"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_wpn_laserpistol_fire">
+			<WwiseEvent wwise_name="play_sx_wpn_laserpistol_fire"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_wpn_bubblegun_projectile">
+			<WwiseEvent wwise_name="play_sx_wpn_bubblegun_projectile"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_wpn_bubblegun_impact">
+			<WwiseEvent wwise_name="play_sx_wpn_bubblegun_impact"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_wpn_bubblegun_fire">
+			<WwiseEvent wwise_name="play_sx_wpn_bubblegun_fire"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_wpn_bubblegun_buildup">
+			<WwiseEvent wwise_name="play_sx_wpn_bubblegun_buildup"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_shutdown">
+			<WwiseEvent wwise_name="play_sx_ui_game_shutdown"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_round_start">
+			<WwiseEvent wwise_name="play_sx_ui_game_round_start"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_round_end">
+			<WwiseEvent wwise_name="play_sx_ui_game_round_end"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_fanfare_victory">
+			<WwiseEvent wwise_name="play_sx_ui_game_fanfare_victory"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_fanfare_defeat">
+			<WwiseEvent wwise_name="play_sx_ui_game_fanfare_defeat"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_end">
+			<WwiseEvent wwise_name="play_sx_ui_game_end"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_ui_game_countdown">
+			<WwiseEvent wwise_name="play_sx_ui_game_countdown"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_pain">
+			<WwiseEvent wwise_name="play_sx_player_pain"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_ladder_climb">
+			<WwiseEvent wwise_name="play_sx_player_ladder_climb"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_knockdown">
+			<WwiseEvent wwise_name="play_sx_player_knockdown"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_footstep">
+			<WwiseEvent wwise_name="play_sx_player_footstep"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_exertion">
+			<WwiseEvent wwise_name="play_sx_player_exertion"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_armor_mend">
+			<WwiseEvent wwise_name="play_sx_player_armor_mend"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_player_armor_breaking">
+			<WwiseEvent wwise_name="play_sx_player_armor_breaking"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_jumppad_launch">
+			<WwiseEvent wwise_name="play_sx_int_jumppad_launch"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_gem_pickup">
+			<WwiseEvent wwise_name="play_sx_int_gem_pickup"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_energyballtrap_rising">
+			<WwiseEvent wwise_name="play_sx_int_energyballtrap_rising"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_energyballtrap_projectile">
+			<WwiseEvent wwise_name="play_sx_int_energyballtrap_projectile"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_energyballtrap_oncooldown">
+			<WwiseEvent wwise_name="play_sx_int_energyballtrap_oncooldown"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_energyballtrap_impact">
+			<WwiseEvent wwise_name="play_sx_int_energyballtrap_impact"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_energyballtrap_buildup">
+			<WwiseEvent wwise_name="play_sx_int_energyballtrap_buildup"/>
+		</ATLTrigger>
 		<ATLTrigger atl_name="Stop_Gem_Pickup">
 			<WwiseEvent wwise_name="Stop_Gem_Pickup"/>
 		</ATLTrigger>
@@ -31,6 +112,58 @@
 			<WwiseEvent wwise_name="Play_Sound_Gun_Firing"/>
 		</ATLTrigger>
 	</AudioTriggers>
+	<AudioRtpcs>
+		<ATLRtpc atl_name="Volume_SFX">
+			<WwiseRtpc wwise_name="Volume_SFX"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Volume_Music">
+			<WwiseRtpc wwise_name="Volume_Music"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Volume_Master">
+			<WwiseRtpc wwise_name="Volume_Master"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="TransmissionLoss">
+			<WwiseRtpc wwise_name="TransmissionLoss"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Occlusion">
+			<WwiseRtpc wwise_name="Occlusion"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Obstruction">
+			<WwiseRtpc wwise_name="Obstruction"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Elevation">
+			<WwiseRtpc wwise_name="Elevation"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Distance_10000">
+			<WwiseRtpc wwise_name="Distance_10000"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Distance_1000">
+			<WwiseRtpc wwise_name="Distance_1000"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Distance_100">
+			<WwiseRtpc wwise_name="Distance_100"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Diffraction">
+			<WwiseRtpc wwise_name="Diffraction"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Azimuth">
+			<WwiseRtpc wwise_name="Azimuth"/>
+		</ATLRtpc>
+	</AudioRtpcs>
+	<AudioEnvironments>
+		<ATLEnvironment atl_name="RVB_INT_Room_Small">
+			<WwiseAuxBus wwise_name="RVB_INT_Room_Small"/>
+		</ATLEnvironment>
+		<ATLEnvironment atl_name="RVB_INT_Room_Medium">
+			<WwiseAuxBus wwise_name="RVB_INT_Room_Medium"/>
+		</ATLEnvironment>
+		<ATLEnvironment atl_name="RVB_INT_Room_Large">
+			<WwiseAuxBus wwise_name="RVB_INT_Room_Large"/>
+		</ATLEnvironment>
+		<ATLEnvironment atl_name="RVB_EXT_Main">
+			<WwiseAuxBus wwise_name="RVB_EXT_Main"/>
+		</ATLEnvironment>
+	</AudioEnvironments>
 	<AudioPreloads>
 		<ATLPreloadRequest atl_name="multiplayersample_soundbank" atl_type="AutoLoad">
 			<WwiseFile wwise_name="multiplayersample_soundbank.bnk"/>
