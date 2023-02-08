@@ -64,4 +64,5 @@ set(ENABLED_GEMS
     PopcornFX
     DiffuseProbeGrid
     Terrain
+    Profiler
 )
