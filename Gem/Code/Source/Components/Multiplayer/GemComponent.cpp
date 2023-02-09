@@ -78,7 +78,7 @@ namespace MultiplayerSample
     {
         // Hide the gem by moving it far away from the players' interest area.
         // This removes the gem from the clients' view. See @sv_ClientAwarenessRadius.
-        GetNetworkTransformComponentController()->SetTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
+        GetParent().GetEntity()->GetTransform()->SetWorldTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
     }
 #endif
 }
