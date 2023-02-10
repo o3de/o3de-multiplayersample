@@ -319,7 +319,7 @@
                                 0.46666666865348816,
                                 0.40784314274787903
                             ],
-                            "SunLuminanceFactor": 5.0,
+                            "SunLuminanceFactor": 1.0,
                             "SunLimbColor": [
                                 0.5254902243614197,
                                 0.46666666865348816,
@@ -327,7 +327,7 @@
                             ],
                             "SunOrientation": "Entity_[39012472536454]",
                             "SunRadiusFactor": 8.0,
-                            "SunFalloffFactor": 10.0
+                            "SunFalloffFactor": 2.0
                         }
                     }
                 },
@@ -387,12 +387,15 @@
                                 0.18431372940540314,
                                 0.13725490868091583
                             ],
-                            "Intensity": 1.25,
+                            "IntensityMode": 2,
+                            "Intensity": 2.0,
                             "AngularDiameter": 1.0,
                             "CameraEntityId": "",
                             "ShadowFarClipDistance": 512.0,
                             "ShadowmapSize": "Size2048",
                             "SplitRatio": 0.949999988079071,
+                            "IsCascadeCorrectionEnabled": true,
+                            "ShadowFilterMethod": 1,
                             "FullscreenBlurConstFalloff": 0.703000009059906
                         }
                     }
@@ -456,7 +459,7 @@
                                 },
                                 "assetHint": "cubemapcaptures/alpha_capture_specular__b66149be-9c0f-4652-be45-1eb815520424__iblspecularcm1024.dds.streamingimage"
                             },
-                            "exposure": 6.0
+                            "exposure": 4.0
                         }
                     },
                     "diffuseImageAsset": {
@@ -473,7 +476,7 @@
                         },
                         "assetHint": "cubemapcaptures/alpha_capture_specular__b66149be-9c0f-4652-be45-1eb815520424__iblspecularcm1024.dds.streamingimage"
                     },
-                    "exposure": 6.0
+                    "exposure": 4.0
                 },
                 "Component_[3905614897554567605]": {
                     "$type": "EditorInspectorComponent",
@@ -507,12 +510,11 @@
                         "Configuration": {
                             "CubemapAsset": {
                                 "assetId": {
-                                    "guid": "{AFD66868-7A71-5175-9BDC-43C50EC3FB8D}",
+                                    "guid": "{3D2505EE-B764-59AA-9CDF-08AD52C4B563}",
                                     "subId": 1000
                                 },
-                                "assetHint": "skies/starmap_2020_leveled_lowcontrast_minus6ev_iblskyboxcm.exr.streamingimage"
-                            },
-                            "Exposure": 6.0
+                                "assetHint": "skies/starmap_2020_leveled_lowcontrast_iblskyboxcm.exr.streamingimage"
+                            }
                         }
                     }
                 },

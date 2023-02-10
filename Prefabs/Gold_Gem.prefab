@@ -54,57 +54,26 @@
             "Id": "Entity_[3747099433025]",
             "Name": "Gold Gem",
             "Components": {
-                "Component_[10824307280319942103]": {
+                "Component_[10116610734860791914]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 10824307280319942103,
+                    "Id": 10116610734860791914,
                     "Controller": {
                         "Configuration": {
-                            "materials": {
-                                "{}": {
-                                    "MaterialAsset": {
-                                        "assetId": {
-                                            "guid": "{E9DA4541-230D-5C53-8DBA-C07A7B903D4A}"
-                                        },
-                                        "assetHint": "materials/base_gem.azmaterial"
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 1890610506
                                     },
-                                    "PropertyOverrides": {
-                                        "baseColor.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.7741512060165405,
-                                                0.7891203165054321,
-                                                0.34019988775253296,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.7346913814544678,
-                                                0.6367284655570984,
-                                                0.0,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.enable": {
-                                            "$type": "bool",
-                                            "Value": true
-                                        },
-                                        "emissive.intensity": {
-                                            "$type": "float",
-                                            "Value": 3.680000066757202
-                                        },
-                                        "metallic.factor": {
-                                            "$type": "float",
-                                            "Value": 0.33000001311302185
-                                        },
-                                        "roughness.factor": {
-                                            "$type": "float",
-                                            "Value": 0.029999999329447746
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{5002410C-2DA9-56B1-81D5-EC9405EFFFDA}"
+                                            },
+                                            "assetHint": "objects/gems/gem_skin_yellow.azmaterial"
                                         }
                                     }
                                 }
-                            }
+                            ]
                         }
                     }
                 },
@@ -138,6 +107,13 @@
                 "Component_[14439860670826727286]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 14439860670826727286
+                },
+                "Component_[16164730420228758197]": {
+                    "$type": "EditorRigidBodyComponent",
+                    "Id": 16164730420228758197,
+                    "Configuration": {
+                        "entityId": ""
+                    }
                 },
                 "Component_[3117152326793893835]": {
                     "$type": "GenericComponentWrapper",
@@ -238,10 +214,6 @@
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
-                },
-                "Component_[9319598377546976378]": {
-                    "$type": "EditorStaticRigidBodyComponent",
-                    "Id": 9319598377546976378
                 },
                 "Component_[9503189652770780952]": {
                     "$type": "EditorDisabledCompositionComponent",

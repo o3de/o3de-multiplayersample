@@ -54,64 +54,6 @@
             "Id": "Entity_[3566710806593]",
             "Name": "Blue Gem",
             "Components": {
-                "Component_[10824307280319942103]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 10824307280319942103,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": {
-                                "{}": {
-                                    "MaterialAsset": {
-                                        "assetId": {
-                                            "guid": "{E9DA4541-230D-5C53-8DBA-C07A7B903D4A}"
-                                        },
-                                        "assetHint": "materials/base_gem.azmaterial"
-                                    },
-                                    "PropertyOverrides": {
-                                        "baseColor.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.01361104752868414,
-                                                0.11337453126907349,
-                                                0.6122377514839172,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.0,
-                                                0.018371863290667534,
-                                                0.41960784792900085,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.enable": {
-                                            "$type": "bool",
-                                            "Value": true
-                                        },
-                                        "emissive.intensity": {
-                                            "$type": "float",
-                                            "Value": 6.320000171661377
-                                        },
-                                        "irradiance.factor": {
-                                            "$type": "float",
-                                            "Value": 1.0
-                                        },
-                                        "metallic.factor": {
-                                            "$type": "float",
-                                            "Value": 0.009999999776482582
-                                        },
-                                        "roughness.factor": {
-                                            "$type": "float",
-                                            "Value": 0.0
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
                 "Component_[11153673147495975095]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 11153673147495975095
@@ -135,10 +77,6 @@
                         }
                     }
                 },
-                "Component_[13492750360035286761]": {
-                    "$type": "EditorStaticRigidBodyComponent",
-                    "Id": 13492750360035286761
-                },
                 "Component_[13644541024230291784]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 13644541024230291784
@@ -147,11 +85,41 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 14439860670826727286
                 },
+                "Component_[16668231183739890418]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 16668231183739890418,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 1890610506
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{6298EA2B-CACD-5753-AD14-379C27F6CE1C}"
+                                            },
+                                            "assetHint": "objects/gems/gem_skin_blue.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
                 "Component_[3117152326793893835]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3117152326793893835,
                     "m_template": {
                         "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4600790919685410654]": {
+                    "$type": "EditorRigidBodyComponent",
+                    "Id": 4600790919685410654,
+                    "Configuration": {
+                        "entityId": ""
                     }
                 },
                 "Component_[4684877471957022317]": {

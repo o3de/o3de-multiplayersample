@@ -59,56 +59,25 @@
                     "Id": 10824307280319942103,
                     "Controller": {
                         "Configuration": {
-                            "materials": {
-                                "{}": {
-                                    "MaterialAsset": {
-                                        "assetId": {
-                                            "guid": "{E9DA4541-230D-5C53-8DBA-C07A7B903D4A}"
-                                        },
-                                        "assetHint": "materials/base_gem.azmaterial"
+                            "materials": [
+                                {
+                                    "Key": {},
+                                    "Value": {}
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 1890610506
                                     },
-                                    "PropertyOverrides": {
-                                        "baseColor.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.8571450114250183,
-                                                0.13333334028720856,
-                                                0.13333334028720856,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.color": {
-                                            "$type": "Color",
-                                            "Value": [
-                                                0.9115586876869202,
-                                                0.1886625438928604,
-                                                0.09318684786558151,
-                                                1.0
-                                            ]
-                                        },
-                                        "emissive.enable": {
-                                            "$type": "bool",
-                                            "Value": true
-                                        },
-                                        "emissive.intensity": {
-                                            "$type": "float",
-                                            "Value": 3.680000066757202
-                                        },
-                                        "irradiance.factor": {
-                                            "$type": "float",
-                                            "Value": 1.0
-                                        },
-                                        "metallic.factor": {
-                                            "$type": "float",
-                                            "Value": 0.009999999776482582
-                                        },
-                                        "roughness.factor": {
-                                            "$type": "float",
-                                            "Value": 0.0
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{9AC78BC3-5F44-5378-95A3-44D401344F6D}"
+                                            },
+                                            "assetHint": "objects/gems/gem_skin_red.azmaterial"
                                         }
                                     }
                                 }
-                            }
+                            ]
                         }
                     }
                 },
@@ -216,10 +185,6 @@
                         "LocallyEnabled": false
                     }
                 },
-                "Component_[5456606074696120624]": {
-                    "$type": "EditorStaticRigidBodyComponent",
-                    "Id": 5456606074696120624
-                },
                 "Component_[6047658345822598543]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 6047658345822598543,
@@ -239,6 +204,13 @@
                             0.0
                         ],
                         "UniformScale": 0.5
+                    }
+                },
+                "Component_[7042590329975968588]": {
+                    "$type": "EditorRigidBodyComponent",
+                    "Id": 7042590329975968588,
+                    "Configuration": {
+                        "entityId": ""
                     }
                 },
                 "Component_[7858479129415370824]": {
