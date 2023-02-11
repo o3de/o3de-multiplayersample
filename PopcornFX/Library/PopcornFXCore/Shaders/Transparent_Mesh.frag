@@ -81,12 +81,20 @@ vec2	fragUV0 = fInput.fragUV0;
 	vec2	oldFragUV0 = fragUV0;	
 	fragUV0 = ((fragUV0 - rect0.zw) / rect0.xy); // normalize (if atlas)
 	fragUV0 = transformUV(fragUV0, UVScale, UVRotation, UVOffset); // scale then rotate then translate UV
+	// For clean derivatives:
+	vec2	_uv = fragUV0 * rect0.xy + rect0.zw;
+	vec2	dUVdx = dFdx(_uv);
+	vec2	dUVdy = dFdy(_uv);
 	fragUV0 = fract(fragUV0) * rect0.xy + rect0.zw; // undo normalize
 	bool	RGBOnly = GET_CONSTANT(Material, TransformUVs_RGBOnly) != 0;
 #endif
 
 #if	defined(HAS_Diffuse)
-	vec4    textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	if defined(HAS_TransformUVs)
+	vec4	textureColor = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV0, dUVdx, dUVdy);
+#	else
+	vec4	textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	endif
 	
 #	if defined(HAS_TransformUVs)
 		if (RGBOnly)
@@ -98,7 +106,11 @@ vec2	fragUV0 = fInput.fragUV0;
 #   if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#		if defined(HAS_TransformUVs)
+		vec4    textureColor2 = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV1, dUVdx, dUVdy);
+#		else
 		vec4    textureColor2 = SAMPLE(Diffuse_DiffuseMap, fragUV1);
+#		endif
 #		if defined(HAS_TransformUVs)
 		if (RGBOnly)
 		{
@@ -138,19 +150,26 @@ vec2	fragUV0 = fInput.fragUV0;
 #endif
 
 #if	defined(HAS_Emissive)
+#if defined(HAS_TransformUVs)
+	vec3	emissiveColor1 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV0, dUVdx, dUVdy).rgb;
+#else
 	vec3	emissiveColor1 = SAMPLE(Emissive_EmissiveMap, fragUV0).rgb;
-	
-#	if defined(HAS_Atlas)
+#endif
+#if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
-		vec3	emissiveColor2 = SAMPLE(Emissive_EmissiveMap, fragUV1).rgb;
+#if defined(HAS_TransformUVs)
+		vec3 emissiveColor2 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV1, dUVdx, dUVdy).rgb;
+#else
+		vec3 emissiveColor2 = SAMPLE(Emissive_EmissiveMap, fragUV1).rgb;
+#endif
 		emissiveColor1 = mix(emissiveColor1, emissiveColor2, blendMix);
 	}
-#	endif
+#endif
 
-#	if	defined(HAS_EmissiveRamp)
+#if	defined(HAS_EmissiveRamp)
 	emissiveColor1 = SAMPLE(EmissiveRamp_RampMap, vec2(emissiveColor1.x,0.0)).rgb;
-#	endif
+#endif
 
 	emissiveColor1 *= fInput.fragEmissive_EmissiveColor;
 	color.rgb += emissiveColor1.rgb;

@@ -98,28 +98,40 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 	vec2	oldFragUV0 = fragUV0;	
 	fragUV0 = ((fragUV0 - rect0.zw) / rect0.xy); // normalize (if atlas)
 	fragUV0 = transformUV(fragUV0, UVScale, UVRotation, UVOffset); // scale then rotate then translate UV
+	// For clean derivatives:
+	vec2	_uv = fragUV0 * rect0.xy + rect0.zw;
+	vec2	dUVdx = dFdx(_uv);
+	vec2	dUVdy = dFdy(_uv);
 	fragUV0 = fract(fragUV0) * rect0.xy + rect0.zw; // undo normalize
 	bool	RGBOnly = GET_CONSTANT(Material, TransformUVs_RGBOnly) != 0;
 #endif
 
 #if	defined(HAS_Diffuse)
-	vec4    textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	if defined(HAS_TransformUVs)
+	vec4	textureColor = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV0, dUVdx, dUVdy);
+#	else
+	vec4	textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	endif
 	
 #	if defined(HAS_TransformUVs)
 		if (RGBOnly)
 		{
-			textureColor.a = SAMPLE(Diffuse_DiffuseMap, oldFragUV0).a;
+			textureColor.a =  SAMPLE(Diffuse_DiffuseMap, oldFragUV0).a;
 		}
 #	endif
 
 #   if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#		if defined(HAS_TransformUVs)
+		vec4    textureColor2 = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV1, dUVdx, dUVdy);
+#		else
 		vec4    textureColor2 = SAMPLE(Diffuse_DiffuseMap, fragUV1);
+#		endif
 #		if defined(HAS_TransformUVs)
 		if (RGBOnly)
 		{
-			textureColor2.a = SAMPLE(Diffuse_DiffuseMap, oldFragUV1).a;
+			textureColor2.a =  SAMPLE(Diffuse_DiffuseMap, oldFragUV1).a;
 		}
 #		endif
 		textureColor = mix(textureColor, textureColor2, blendMix);
@@ -127,7 +139,7 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 #	endif
 
 #if defined(HAS_DiffuseRamp)
-	textureColor.rgb =  SAMPLE(DiffuseRamp_RampMap, vec2(textureColor.x,0.0)).rgb;
+	textureColor.rgb = SAMPLE(DiffuseRamp_RampMap, vec2(textureColor.x,0.0)).rgb;
 #endif
 
 	color *= textureColor;
@@ -147,17 +159,26 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 
 #if     defined(HAS_Lit)
 
-	vec3    normalTex =  SAMPLE(Lit_NormalMap, fragUV0).xyz;
+#if defined(HAS_TransformUVs)
+	vec3 normalTex = SAMPLEGRAD(Lit_NormalMap, fragUV0, dUVdx, dUVdy).xyz;	
+#else
+	vec3 normalTex = SAMPLE(Lit_NormalMap, fragUV0).xyz;
+#endif
+
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
-		vec3 normalTex2 =  SAMPLE(Lit_NormalMap, fragUV1).xyz;
+#if defined(HAS_TransformUVs)
+		vec3 normalTex2 = SAMPLEGRAD(Lit_NormalMap, fragUV1, dUVdx, dUVdy).xyz;	
+#else
+		vec3 normalTex2 = SAMPLE(Lit_NormalMap, fragUV1).xyz;
+#endif
 		normalTex = mix(normalTex, normalTex2, blendMix);
 	}
 #endif
 
 	normalTex = 2.0f * normalTex.xyz - vec3(1.0f, 1.0f, 1.0f);
-
+	
 // if uv are rotated, inverse rotate the billboard space normal
 // to cancel tangent-UV mismatch
 #	if defined(HAS_TransformUVs)
@@ -191,17 +212,25 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 
 #elif   defined(HAS_LegacyLit)
 
-	vec3    normalTex =  SAMPLE(LegacyLit_NormalMap, fragUV0).xyz;
+#if defined(HAS_TransformUVs)
+	vec3 normalTex =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV0, dUVdx, dUVdy).xyz;
+#else
+	vec3 normalTex =  SAMPLE(LegacyLit_NormalMap, fragUV0).xyz;
+#endif
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec3 normalTex2 =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV1, dUVdx, dUVdy).xyz;
+#else
 		vec3 normalTex2 =  SAMPLE(LegacyLit_NormalMap, fragUV1).xyz;
+#endif
 		normalTex = mix(normalTex, normalTex2, blendMix);
 	}
 #endif
 
 	normalTex = 2.0f * normalTex.xyz - vec3(1.0f, 1.0f, 1.0f);
-
+	
 // if uv are rotated, inverse rotate the billboard space normal
 // to cancel tangent-UV mismatch
 #	if defined(HAS_TransformUVs)
@@ -209,8 +238,8 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 	float cosMR = cosR; // cos(-x) = cos(x)
 	mat2 UVInverseRotation = mat2(cosMR, sinMR, -sinMR, cosMR);
 	normalTex.xy = mul(UVInverseRotation, normalTex.xy);
-#	endif
-
+#	endif	
+	
 	vec3    T = normalize(fInput.fragTangent.xyz);
 	vec3    N = normalize(fInput.fragNormal.xyz);
 	vec3	B = CROSS(N, T) * fInput.fragTangent.w * GET_CONSTANT(SceneInfo, Handedness);
@@ -225,26 +254,33 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
-		float roughness2 =  (1.0 - SAMPLE(LegacyLit_SpecularMap, fragUV1).x) * 0.7 + 0.3;
+		float roughness2 = (1.0 - SAMPLE(LegacyLit_SpecularMap, fragUV1).x) * 0.7 + 0.3;
 		roughness = mix(roughness, roughness2, blendMix);
 	}
 #endif
 	metalness = 0.0f;
 
 #else
-
 	emissive = color;
-	color = vec4(0,0,0,0);
+	color = vec4(0.0,0.0,0.0,0.0);
 
 #endif
 
 #if defined(HAS_Emissive)
-	vec3 emissiveColor1 = SAMPLE(Emissive_EmissiveMap, fragUV0).rgb;
+#if defined(HAS_TransformUVs)
+	vec3	emissiveColor1 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV0, dUVdx, dUVdy).rgb;
+#else
+	vec3	emissiveColor1 = SAMPLE(Emissive_EmissiveMap, fragUV0).rgb;
+#endif
 
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec3 emissiveColor2 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV1, dUVdx, dUVdy).rgb;
+#else
 		vec3 emissiveColor2 = SAMPLE(Emissive_EmissiveMap, fragUV1).rgb;
+#endif
 		emissiveColor1 = mix(emissiveColor1, emissiveColor2, blendMix);
 	}
 #endif

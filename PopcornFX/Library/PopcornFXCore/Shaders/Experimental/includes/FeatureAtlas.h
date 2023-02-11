@@ -25,12 +25,20 @@ void	ApplyAtlasTexCoords(INOUT(SFragGeometry) fGeom FS_ARGS)
 
 vec4	SampleTextureVec4(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_ARGS)
 {
+#if defined(HAS_TransformUVs)
+	vec4	color = SAMPLEGRAD(toSample, fGeom.m_UV0, fGeom.m_dUVdx, fGeom.m_dUVdy);
+#else
 	vec4	color = SAMPLE(toSample, fGeom.m_UV0);
+#endif
 #if defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec4	color1 =  SAMPLEGRAD(toSample, fGeom.m_UV1, fGeom.m_dUVdx, fGeom.m_dUVdy);
+#else
 		vec4	color1 =  SAMPLE(toSample, fGeom.m_UV1);
+#endif
 		color = mix(color, color1, fGeom.m_BlendMix);
 	}
 #endif
@@ -39,12 +47,20 @@ vec4	SampleTextureVec4(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_A
 
 vec3	SampleTextureVec3(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_ARGS)
 {
+#if defined(HAS_TransformUVs)
+	vec3	color = SAMPLEGRAD(toSample, fGeom.m_UV0, fGeom.m_dUVdx, fGeom.m_dUVdy).xyz;
+#else
 	vec3	color = SAMPLE(toSample, fGeom.m_UV0).xyz;
+#endif
 #if defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec3	color1 =  SAMPLEGRAD(toSample, fGeom.m_UV1, fGeom.m_dUVdx, fGeom.m_dUVdy).xyz;
+#else
 		vec3	color1 =  SAMPLE(toSample, fGeom.m_UV1).xyz;
+#endif
 		color = mix(color, color1, fGeom.m_BlendMix);
 	}
 #endif
@@ -53,12 +69,20 @@ vec3	SampleTextureVec3(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_A
 
 vec2	SampleTextureVec2(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_ARGS)
 {
+#if defined(HAS_TransformUVs)
+	vec2	color = SAMPLEGRAD(toSample, fGeom.m_UV0, fGeom.m_dUVdx, fGeom.m_dUVdy).xy;
+#else
 	vec2	color = SAMPLE(toSample, fGeom.m_UV0).xy;
+#endif
 #if defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec2	color1 =  SAMPLEGRAD(toSample, fGeom.m_UV1, fGeom.m_dUVdx, fGeom.m_dUVdy).xy;
+#else
 		vec2	color1 =  SAMPLE(toSample, fGeom.m_UV1).xy;
+#endif
 		color = mix(color, color1, fGeom.m_BlendMix);
 	}
 #endif
@@ -67,12 +91,20 @@ vec2	SampleTextureVec2(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_A
 
 float	SampleTextureVec1(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_ARGS)
 {
+#if defined(HAS_TransformUVs)
+	float	color = SAMPLEGRAD(toSample, fGeom.m_UV0, fGeom.m_dUVdx, fGeom.m_dUVdy).x;
+#else
 	float	color = SAMPLE(toSample, fGeom.m_UV0).x;
+#endif
 #if defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		float	color1 =  SAMPLEGRAD(toSample, fGeom.m_UV1, fGeom.m_dUVdx, fGeom.m_dUVdy).x;
+#else
 		float	color1 =  SAMPLE(toSample, fGeom.m_UV1).x;
+#endif
 		color = mix(color, color1, fGeom.m_BlendMix);
 	}
 #endif
@@ -82,12 +114,12 @@ float	SampleTextureVec1(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_
 #if	defined(HAS_TransformUVs)
 float	SampleTextureAlpha(IN(SFragGeometry) fGeom, SAMPLER2D_DCL_ARG(toSample) FS_ARGS)
 {
-	float	color = SAMPLE(toSample, fGeom.m_AlphaUV0).w;
+	float	color = SAMPLEGRAD(toSample, fGeom.m_AlphaUV0, fGeom.m_dUVdx, fGeom.m_dUVdy).w;
 #	if defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
 	if (blendingType >= 1)
 	{
-		float	color1 =  SAMPLE(toSample, fGeom.m_AlphaUV1).w;
+		float	color1 =  SAMPLEGRAD(toSample, fGeom.m_AlphaUV1, fGeom.m_dUVdx, fGeom.m_dUVdy).w;
 		color = mix(color, color1, fGeom.m_BlendMix);
 	}
 #	endif

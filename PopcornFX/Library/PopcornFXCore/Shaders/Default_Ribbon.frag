@@ -146,10 +146,10 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 
 #if     defined(HAS_Diffuse) || defined(HAS_Lit) || defined(HAS_LegacyLit) || defined(HAS_Emissive) // has texture sampling
 	vec2    fragUV0 = applyCorrectDeformation(fInput, fInput.fragUV0 FS_PARAMS);
-	
-#   if      defined(HAS_Atlas)
+
+#if		defined(HAS_Atlas)
 	int		blendingType = GET_CONSTANT(Material, Atlas_Blending);
-	vec2    fragUV1 = applyCorrectDeformation(fInput, fInput.fragUV1 FS_PARAMS);
+	vec2	fragUV1 = fInput.fragUV1;
 
 	float	blendMix = 0.f;
 
@@ -196,12 +196,20 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	vec2	oldFragUV0 = fragUV0;	
 	fragUV0 = ((fragUV0 - rect0.zw) / rect0.xy); // normalize (if atlas)
 	fragUV0 = transformUV(fragUV0, UVScale, UVRotation, UVOffset); // scale then rotate then translate UV
+	// For clean derivatives:
+	vec2	_uv = fragUV0 * rect0.xy + rect0.zw;
+	vec2	dUVdx = dFdx(_uv);
+	vec2	dUVdy = dFdy(_uv);
 	fragUV0 = fract(fragUV0) * rect0.xy + rect0.zw; // undo normalize
 	bool	RGBOnly = GET_CONSTANT(Material, TransformUVs_RGBOnly) != 0;
 #endif
 
 #if	defined(HAS_Diffuse)
-	vec4    textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	if defined(HAS_TransformUVs)
+	vec4	textureColor = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV0, dUVdx, dUVdy);
+#	else
+	vec4	textureColor = SAMPLE(Diffuse_DiffuseMap, fragUV0);
+#	endif
 	
 #	if defined(HAS_TransformUVs)
 		if (RGBOnly)
@@ -213,7 +221,11 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 #   if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#		if defined(HAS_TransformUVs)
+		vec4    textureColor2 = SAMPLEGRAD(Diffuse_DiffuseMap, fragUV1, dUVdx, dUVdy);
+#		else
 		vec4    textureColor2 = SAMPLE(Diffuse_DiffuseMap, fragUV1);
+#		endif
 #		if defined(HAS_TransformUVs)
 		if (RGBOnly)
 		{
@@ -237,7 +249,7 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 
 #endif // defined HAS_Diffuse
 
-#if     defined(HAS_SoftParticles)
+#if	defined(HAS_SoftParticles)
 	vec4    projPos = fInput.fragViewProjPosition;
 	float   rcpw = 1.0 / projPos.w;
 	float   fragDepth_cs = projPos.z * rcpw;
@@ -252,17 +264,26 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	color *= depthfade;
 #endif
 
-#if     defined(HAS_Lit)
+#if defined(HAS_Lit)
 	vec3 surfacePosition = fInput.fragWorldPosition;
 
-	vec3 normalTex1 =  SAMPLE(Lit_NormalMap, fragUV0).xyz;
-	#if defined(HAS_Atlas)
+#if defined(HAS_TransformUVs)
+	vec3 normalTex1 = SAMPLEGRAD(Lit_NormalMap, fragUV0, dUVdx, dUVdy).xyz;	
+#else
+	vec3 normalTex1 = SAMPLE(Lit_NormalMap, fragUV0).xyz;
+#endif
+
+#if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
-		vec3 normalTex2 =  SAMPLE(Lit_NormalMap, fragUV1).xyz;
+#if defined(HAS_TransformUVs)
+		vec3 normalTex2 = SAMPLEGRAD(Lit_NormalMap, fragUV1, dUVdx, dUVdy).xyz;	
+#else
+		vec3 normalTex2 = SAMPLE(Lit_NormalMap, fragUV1).xyz;
+#endif
 		normalTex1 = mix(normalTex1, normalTex2, blendMix);
 	}
-	#endif
+#endif
 	normalTex1 = 2.0f * normalTex1.xyz - vec3(1.0f, 1.0f, 1.0f);
 
 // if uv are rotated, inverse rotate the billboard space normal
@@ -274,26 +295,26 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	normalTex1.xy = mul(UVInverseRotation, normalTex1.xy);
 #	endif
 
-	vec3 T = normalize(fInput.fragTangent.xyz);
-	vec3 N = normalize(fInput.fragNormal.xyz);
-    vec3 B = CROSS(N, T) * fInput.fragTangent.w * GET_CONSTANT(SceneInfo, Handedness);
+	vec3	T = normalize(fInput.fragTangent.xyz);
+	vec3	N = normalize(fInput.fragNormal.xyz);
+	vec3	B = CROSS(N, T) * fInput.fragTangent.w * GET_CONSTANT(SceneInfo, Handedness);
 	N = fInput.IsFrontFace ? N : -N;
-	mat3 TBN = BUILD_MAT3(T, B, N);
+	mat3	TBN = BUILD_MAT3(T, B, N);
 
-	vec3 surfaceNormal = normalize(mul(TBN, normalTex1.xyz));
+	vec3	surfaceNormal = normalize(mul(TBN, normalTex1.xyz));
 
-	float   surfaceRoughness = GET_CONSTANT(Material, Lit_Roughness);
-	float   surfaceMetalness = GET_CONSTANT(Material, Lit_Metalness);
+	float 	surfaceRoughness = GET_CONSTANT(Material, Lit_Roughness);
+	float	surfaceMetalness = GET_CONSTANT(Material, Lit_Metalness);
 
 	bool 	hasDirLight = GET_CONSTANT(LightInfo, DirectionalLightsCount) >= 1;
 	vec3 	lightDirection = hasDirLight ? LOADF3(GET_RAW_BUFFER(DirectionalLightsInfo), RAW_BUFFER_INDEX(0)) : vec3(0, 1, 0);
 	vec3 	lightColor = hasDirLight ? LOADF3(GET_RAW_BUFFER(DirectionalLightsInfo), RAW_BUFFER_INDEX(8)) : VEC3_ZERO;
 
-	vec3    viewPosition = GET_MATRIX_W_AXIS(GET_CONSTANT(SceneInfo, UnpackNormalView)).xyz;
-	vec3    surfToView = viewPosition - surfacePosition;
-	vec3    surfToLight = -lightDirection;
-	vec3    surfToLightDir = normalize(surfToLight);
-	vec3    surfToViewDir = normalize(surfToView);
+	vec3	viewPosition = GET_MATRIX_W_AXIS(GET_CONSTANT(SceneInfo, UnpackNormalView)).xyz;
+	vec3	surfToView = viewPosition - surfacePosition;
+	vec3	surfToLight = -lightDirection;
+	vec3	surfToLightDir = normalize(surfToLight);
+	vec3	surfToViewDir = normalize(surfToView);
 
 	vec3	lightDiffuse = computeBRDF(	surfToLightDir,
 										surfToViewDir,
@@ -313,19 +334,28 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 
 	color.rgb = lightDiffuse * lightColor + lightAmbient * ambientColor;
 
-#elif   defined(HAS_LegacyLit)
+#elif defined(HAS_LegacyLit)
 
+#if defined(HAS_TransformUVs)
+	vec3 normalTex1 =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV0, dUVdx, dUVdy).xyz;
+#else
 	vec3 normalTex1 =  SAMPLE(LegacyLit_NormalMap, fragUV0).xyz;
-#if 	defined(HAS_Atlas)
+#endif
+
+#if		defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec3 normalTex2 =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV1, dUVdx, dUVdy).xyz;
+#else
 		vec3 normalTex2 =  SAMPLE(LegacyLit_NormalMap, fragUV1).xyz;
+#endif
 		normalTex1 = mix(normalTex1, normalTex2, blendMix);
 	}
 #endif
 
 	normalTex1 = 2.0f * normalTex1.xyz - vec3(1.0f, 1.0f, 1.0f);
-
+	
 // if uv are rotated, inverse rotate the billboard space normal
 // to cancel tangent-UV mismatch
 #	if defined(HAS_TransformUVs)
@@ -335,11 +365,11 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	normalTex1.xy = mul(UVInverseRotation, normalTex1.xy);
 #	endif
 
-	vec3 T = normalize(fInput.fragTangent.xyz);
-	vec3 N = normalize(fInput.fragNormal.xyz);
-	vec3 B = CROSS(N, T) * fInput.fragTangent.w * GET_CONSTANT(SceneInfo, Handedness);
+	vec3	T = normalize(fInput.fragTangent.xyz);
+	vec3	N = normalize(fInput.fragNormal.xyz);
+	vec3	B = CROSS(N, T) * fInput.fragTangent.w * GET_CONSTANT(SceneInfo, Handedness);
 	N = fInput.IsFrontFace ? N : -N;
-	mat3 TBN = BUILD_MAT3(T, B, N);
+	mat3	TBN = BUILD_MAT3(T, B, N);
 
 	vec3 surfaceNormal = normalize(mul(TBN, normalTex1.xyz));
 
@@ -348,9 +378,9 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	vec3 	lightColor = hasDirLight ? LOADF3(GET_RAW_BUFFER(DirectionalLightsInfo), RAW_BUFFER_INDEX(8)) : VEC3_ZERO;
 
 	// Compute the light incidence
-	vec3    posToLightDirection = normalize(-lightDirection); // for the directional lights, instead of the position, we get the orientation
-	float   incidenceRemap = GET_CONSTANT(Material, LegacyLit_NormalWrapFactor) * 0.5f;
-	float   lightIncidence = max(0.f, incidenceRemap + (1.f - incidenceRemap) * dot(posToLightDirection, surfaceNormal));
+	vec3	posToLightDirection = -normalize(lightDirection); // for the directional lights, instead of the position, we get the orientation
+	float	incidenceRemap = GET_CONSTANT(Material, LegacyLit_NormalWrapFactor) * 0.5f;
+	float	lightIncidence = max(0.f, incidenceRemap + (1.f - incidenceRemap) * dot(posToLightDirection, surfaceNormal));
 	lightIncidence = pow(lightIncidence, GET_CONSTANT(Material, LegacyLit_LightExponent));
 	vec3	ambientColor = GET_CONSTANT(LightInfo, AmbientColor);
 	//  Compute the ambient light
@@ -359,25 +389,32 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	color.rgb *= (lightColor * lightIncidence + lightAmbient) * GET_CONSTANT(Material, LegacyLit_LightScale);
 #endif
 
-#if defined(HAS_Emissive)
-	vec3 emissiveColor1 = SAMPLE(Emissive_EmissiveMap, fragUV0).rgb;
-
+#if	defined(HAS_Emissive)
+#if defined(HAS_TransformUVs)
+	vec3	emissiveColor1 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV0, dUVdx, dUVdy).rgb;
+#else
+	vec3	emissiveColor1 = SAMPLE(Emissive_EmissiveMap, fragUV0).rgb;
+#endif
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
+#if defined(HAS_TransformUVs)
+		vec3 emissiveColor2 = SAMPLEGRAD(Emissive_EmissiveMap, fragUV1, dUVdx, dUVdy).rgb;
+#else
 		vec3 emissiveColor2 = SAMPLE(Emissive_EmissiveMap, fragUV1).rgb;
+#endif
 		emissiveColor1 = mix(emissiveColor1, emissiveColor2, blendMix);
 	}
 #endif
 
-#if defined(HAS_EmissiveRamp)
+#if	defined(HAS_EmissiveRamp)
 	emissiveColor1 = SAMPLE(EmissiveRamp_RampMap, vec2(emissiveColor1.x,0.0)).rgb;
 #endif
 
 	emissiveColor1 *= fInput.fragEmissive_EmissiveColor;
 
 	color.rgb += emissiveColor1.rgb;
-#endif
+#endif	
 
 	fOutput.Output0 = color;
 }

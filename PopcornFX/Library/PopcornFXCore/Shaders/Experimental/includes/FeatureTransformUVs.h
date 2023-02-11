@@ -31,6 +31,10 @@ void	ApplyTransformUVs(INOUT(SFragGeometry) fGeom, float angle, vec2 scale, vec2
 	fGeom.m_AlphaUV0 = fGeom.m_UV0;
 	fGeom.m_UV0 = ((fGeom.m_UV0 - rect0.zw) / rect0.xy); // normalize (if atlas)
 	fGeom.m_UV0 = TransformUV(fGeom.m_UV0, scale, UVRotation, offset); // scale then rotate then translate UV
+	// Compute clean derivatives
+	vec2	_uv = fGeom.m_UV0 * rect0.xy + rect0.zw;
+	fGeom.m_dUVdx = dFdx(_uv);
+	fGeom.m_dUVdy = dFdy(_uv);
 	fGeom.m_UV0 = fract(fGeom.m_UV0) * rect0.xy + rect0.zw; // undo normalize
 
 	fGeom.m_UseAlphaUVs = GET_CONSTANT(Material, TransformUVs_RGBOnly) != 0;
