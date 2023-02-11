@@ -39,6 +39,11 @@ struct	SFragGeometry
 	// We use m_RotateTangent to store the inverse UV rotation:
 	// we can then rotate the normal in UV space using this instead of rotating the 3D tangent
 	mat2	m_TangentRotation;
+
+	// Clean derivatives (derivatives are broken by fract()
+	// when tranforming the UVs)
+	vec2	m_dUVdx;
+	vec2	m_dUVdy;
 #	endif
 };
 
@@ -168,6 +173,8 @@ void	FragmentInputToFragGeometry(IN(SFragmentInput) fInput, OUT(SFragGeometry) f
 	fGeom.m_AlphaUV0 = fGeom.m_UV0;
 	fGeom.m_AlphaUV1 = fGeom.m_UV1;
 	fGeom.m_UseAlphaUVs = false;
+	fGeom.m_dUVdx = vec2(0, 0);
+	fGeom.m_dUVdy = vec2(0, 0);
 	fGeom.m_TangentRotation = BUILD_MAT2(vec2(1, 0), vec2(0, 1)); // Identity
 #	endif
 }
