@@ -43,16 +43,32 @@ namespace MultiplayerSample
     {
     }
 
-    void NetworkTeleportComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    void NetworkTeleportComponentController::OnPhysicsEnabled(const AZ::EntityId& entityId)
     {
         auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get();
         if (physicsSystem)
         {
-            const AZ::EntityId selfId = GetEntity()->GetId();
-            auto [sceneHandle, bodyHandle] = physicsSystem->FindAttachedBodyHandleFromEntityId(selfId);
+            auto [sceneHandle, bodyHandle] = physicsSystem->FindAttachedBodyHandleFromEntityId(entityId);
             AzPhysics::SimulatedBodyEvents::RegisterOnTriggerEnterHandler(
                 sceneHandle, bodyHandle, m_enterTrigger);
         }
+    }
+
+    void NetworkTeleportComponentController::OnPhysicsDisabled([[maybe_unused]] const AZ::EntityId& entityId)
+    {
+        m_enterTrigger.Disconnect();
+    }
+
+
+    void NetworkTeleportComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        Physics::RigidBodyNotificationBus::Handler::BusConnect(GetEntity()->GetId());
+    }
+
+    void NetworkTeleportComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        Physics::RigidBodyNotificationBus::Handler::BusDisconnect();
+        m_enterTrigger.Disconnect();
     }
 
     void NetworkTeleportComponentController::OnTriggerEnter(

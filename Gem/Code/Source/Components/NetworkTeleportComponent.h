@@ -10,6 +10,7 @@
 #include <Source/AutoGen/NetworkTeleportComponent.AutoComponent.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBodyEvents.h>
+#include <AzFramework/Physics/RigidBodyBus.h>
 
 namespace MultiplayerSample
 {
@@ -33,14 +34,18 @@ namespace MultiplayerSample
 
     class NetworkTeleportComponentController
         : public NetworkTeleportComponentControllerBase
+        , private Physics::RigidBodyNotificationBus::Handler
     {
     public:
         NetworkTeleportComponentController(NetworkTeleportComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
     private:
+        void OnPhysicsEnabled(const AZ::EntityId& entityId) override;
+        void OnPhysicsDisabled(const AZ::EntityId& entityId) override;
+
         AzPhysics::SimulatedBodyEvents::OnTriggerEnter::Handler m_enterTrigger;
         void OnTriggerEnter(
             AzPhysics::SimulatedBodyHandle bodyHandle, const AzPhysics::TriggerEvent& triggerEvent);
