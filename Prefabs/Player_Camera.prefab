@@ -54,6 +54,23 @@
             "Id": "Entity_[49600613090343]",
             "Name": "Player Camera",
             "Components": {
+                "Component_[10560176780057129368]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 10560176780057129368,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                            "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                        },
+                        "sourceName": "EnableServerCamera.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                                "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                            }
+                        }
+                    }
+                },
                 "Component_[13707688659030262739]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 13707688659030262739
@@ -133,6 +150,14 @@
                     "Id": 2763779754963209072,
                     "Parent Entity": "ContainerEntity"
                 },
+                "Component_[3448770521617866748]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3448770521617866748,
+                    "m_template": {
+                        "$type": "FlyCameraInputComponent",
+                        "Is enabled": false
+                    }
+                },
                 "Component_[3655999494444134160]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3655999494444134160,
@@ -157,7 +182,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 3179186993369762026
+                            "EditorEntityId": 360978527176751707
                         }
                     }
                 },
