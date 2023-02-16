@@ -115,11 +115,6 @@
                                 }
                             ]
                         },
-                        "Material": {
-                            "MaterialIds": [
-                                {}
-                            ]
-                        },
                         "MaximumSlopeAngle": 45.0,
                         "StepHeight": 0.30000001192092896,
                         "ApplyMoveOnPhysicsTick": false,
@@ -239,6 +234,71 @@
                             }
                         ],
                         "AttributesRawData": "AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAABzuVw/0QZCP/CAcT0AAIA/AAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACBBAAAAAAAAAAAAAAAAAADIQgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAc7lcP9EGQj/wgHE9AACAPwAAoEIAAAAAAAAAAAAAAADNzEw9AAAAAAAAAAAAAAAAAAAgQQAAAAAAAAAAAAAAAA=="
+                    },
+                    "EditorAttributeList": {
+                        "AttributeCategories": [
+                            {
+                                "Attributes": [
+                                    {},
+                                    {
+                                        "ValueFY": 3.0
+                                    },
+                                    {
+                                        "Color": [
+                                            0.8622047305107117,
+                                            0.7579165101051331,
+                                            0.05896085500717163
+                                        ]
+                                    },
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 80.0
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 10.0
+                                    },
+                                    {
+                                        "ValueFX": 100.0
+                                    },
+                                    {
+                                        "ValueFX": 10.0
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "Color": [
+                                            0.8622047305107117,
+                                            0.7579165101051331,
+                                            0.05896085500717163
+                                        ]
+                                    },
+                                    {
+                                        "ValueFX": 0.05000000074505806
+                                    }
+                                ]
+                            },
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 2.0
+                                    },
+                                    {
+                                        "ValueFX": 1.0
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 "Component_[2596368806843971783]": {
@@ -376,21 +436,8 @@
                         "loadBehavior": "QueueLoad",
                         "assetHint": "mixamo/ybot/ybot.actor"
                     },
-                    "MaterialPerLOD": [
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        }
-                    ],
-                    "MaterialPerActor": {
-                        "AssetPath": "burt/burtactor.mtl"
-                    },
-                    "AttachmentTarget": ""
+                    "AttachmentTarget": "",
+                    "RenderSkeleton": true
                 },
                 "Component_[5387953310772448141]": {
                     "$type": "GenericComponentWrapper",
@@ -493,22 +540,112 @@
                         ]
                     }
                 },
-                "Component_[9355205875164065586]": {
+                "Component_[9102179976553247749]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 9355205875164065586,
+                    "Id": 9102179976553247749,
                     "Controller": {
                         "Configuration": {
                             "materials": [
                                 {
                                     "Key": {
-                                        "materialSlotStableId": 3026370142
+                                        "materialSlotStableId": 1599611083
                                     },
                                     "Value": {
                                         "MaterialAsset": {
                                             "assetId": {
-                                                "guid": "{665C08D7-6D4F-5D00-BE83-66F147764D44}"
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
                                             },
-                                            "assetHint": "burt/burtactor.azmaterial"
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2106362150
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2810781130
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2821398715
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2825923043
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{37CE36DF-D4DF-5653-B137-B2A17069B7B8}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_head_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3204802744
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3562450033
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{98AC2D11-901B-5559-8FBF-B5D48EDA6150}"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3617808779
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{227BF31B-A8D6-5B51-80B7-B8FC37E9C781}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/mixamo_logo.azmaterial"
                                         }
                                     }
                                 }

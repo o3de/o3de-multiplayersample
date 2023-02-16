@@ -54,6 +54,23 @@
             "Id": "Entity_[49600613090343]",
             "Name": "Player Camera",
             "Components": {
+                "Component_[10560176780057129368]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 10560176780057129368,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                            "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                        },
+                        "sourceName": "EnableServerCamera.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                                "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                            }
+                        }
+                    }
+                },
                 "Component_[13707688659030262739]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 13707688659030262739
@@ -77,8 +94,15 @@
                     "Controller": {
                         "Configuration": {
                             "Enabled": true,
-                            "Threshold": 5.0,
-                            "BicubicEnabled": true
+                            "Threshold": 0.05999999865889549,
+                            "Intensity": 0.30000001192092896,
+                            "BicubicEnabled": true,
+                            "KernelSizeScale": 0.5,
+                            "KernelSizeStage0": 0.029999999329447746,
+                            "KernelSizeStage1": 0.15000000596046448,
+                            "KernelSizeStage2": 0.36000001430511475,
+                            "KernelSizeStage3": 0.6200000047683716,
+                            "KernelSizeStage4": 0.8899999856948853
                         }
                     }
                 },
@@ -87,7 +111,10 @@
                     "Id": 15000556558809036741,
                     "Controller": {
                         "Configuration": {
-                            "ExposureControlType": 1
+                            "ExposureControlType": 1,
+                            "ManualCompensation": 0.5,
+                            "EyeAdaptationExposureMin": -6.0,
+                            "EyeAdaptationExposureMax": 4.0
                         }
                     }
                 },
@@ -133,6 +160,14 @@
                     "Id": 2763779754963209072,
                     "Parent Entity": "ContainerEntity"
                 },
+                "Component_[3448770521617866748]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3448770521617866748,
+                    "m_template": {
+                        "$type": "FlyCameraInputComponent",
+                        "Is enabled": false
+                    }
+                },
                 "Component_[3655999494444134160]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3655999494444134160,
@@ -157,7 +192,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 3179186993369762026
+                            "EditorEntityId": 18338076033681498124
                         }
                     }
                 },

@@ -16,6 +16,7 @@ set(ENABLED_GEMS
     SceneProcessing
     GraphCanvas
     Multiplayer
+    Multiplayer_ScriptCanvas
     AudioSystem
     AudioEngineWwise
     Camera

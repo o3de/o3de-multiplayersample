@@ -1,0 +1,212 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "SkyAtmo",
+        "Components": {
+            "Component_[10674215281257356344]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 10674215281257356344
+            },
+            "Component_[11125765718219999633]": {
+                "$type": "EditorLockComponent",
+                "Id": 11125765718219999633
+            },
+            "Component_[11140928920244074130]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 11140928920244074130
+            },
+            "Component_[11812740183696584495]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 11812740183696584495
+            },
+            "Component_[12420731808009528597]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 12420731808009528597
+            },
+            "Component_[14453071973814095547]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 14453071973814095547,
+                "Parent Entity": ""
+            },
+            "Component_[3595745718774097631]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 3595745718774097631
+            },
+            "Component_[3917089697361397601]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 3917089697361397601
+            },
+            "Component_[5880775446412373892]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 5880775446412373892
+            },
+            "Component_[7090931406108917807]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 7090931406108917807,
+                "Child Entity Order": [
+                    "Entity_[351218496601676]"
+                ]
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[351218496601676]": {
+            "Id": "Entity_[351218496601676]",
+            "Name": "SkyAtmo",
+            "Components": {
+                "Component_[11042714686207548429]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 11042714686207548429,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 17794639845029481355
+                        },
+                        {
+                            "ComponentId": 3432601531686441754,
+                            "SortIndex": 1
+                        }
+                    ]
+                },
+                "Component_[11177225613648985477]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11177225613648985477
+                },
+                "Component_[14454678485304404922]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 14454678485304404922
+                },
+                "Component_[15744299950611104828]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 15744299950611104828
+                },
+                "Component_[1728065122520318572]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 1728065122520318572
+                },
+                "Component_[17794639845029481355]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 17794639845029481355,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[17822647489610734478]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 17822647489610734478
+                },
+                "Component_[18071200091228191348]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 18071200091228191348
+                },
+                "Component_[3432601531686441754]": {
+                    "$type": "AZ::Render::EditorSkyAtmosphereComponent",
+                    "Id": 3432601531686441754,
+                    "Controller": {
+                        "Configuration": {
+                            "OriginMode": 1,
+                            "LuminanceFactor": [
+                                0.07500000298023224,
+                                0.10000000149011612,
+                                0.12999999523162842
+                            ],
+                            "SunColor": [
+                                0.5254902243614197,
+                                0.46666666865348816,
+                                0.40784314274787903
+                            ],
+                            "SunLuminanceFactor": 5.0,
+                            "SunLimbColor": [
+                                0.5254902243614197,
+                                0.46666666865348816,
+                                0.40784314274787903
+                            ],
+                            "SunOrientation": "Entity_[351222791568972]",
+                            "SunRadiusFactor": 8.0,
+                            "SunFalloffFactor": 10.0
+                        }
+                    }
+                },
+                "Component_[7563786365250201013]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 7563786365250201013,
+                    "Child Entity Order": [
+                        "Entity_[351222791568972]"
+                    ]
+                }
+            }
+        },
+        "Entity_[351222791568972]": {
+            "Id": "Entity_[351222791568972]",
+            "Name": "Sun",
+            "Components": {
+                "Component_[12020387915929175314]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 12020387915929175314
+                },
+                "Component_[12113168580323165094]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 12113168580323165094
+                },
+                "Component_[16939772704288602141]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 16939772704288602141,
+                    "Parent Entity": "Entity_[351218496601676]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            332.0
+                        ],
+                        "Rotate": [
+                            140.33816528320313,
+                            -8.796403884887695,
+                            157.58079528808594
+                        ]
+                    }
+                },
+                "Component_[181484920425426795]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 181484920425426795
+                },
+                "Component_[1924698028746237056]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 1924698028746237056
+                },
+                "Component_[2163705156606546370]": {
+                    "$type": "AZ::Render::EditorDirectionalLightComponent",
+                    "Id": 2163705156606546370,
+                    "Controller": {
+                        "Configuration": {
+                            "Color": [
+                                0.239215686917305,
+                                0.18431372940540314,
+                                0.13725490868091583
+                            ],
+                            "Intensity": 1.25,
+                            "AngularDiameter": 1.0,
+                            "CameraEntityId": "",
+                            "ShadowFarClipDistance": 512.0,
+                            "ShadowmapSize": "Size2048",
+                            "SplitRatio": 0.949999988079071,
+                            "FullscreenBlurConstFalloff": 0.703000009059906
+                        }
+                    }
+                },
+                "Component_[3991835182627485406]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 3991835182627485406
+                },
+                "Component_[8034472642282561588]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8034472642282561588
+                },
+                "Component_[8915786006739025830]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 8915786006739025830
+                },
+                "Component_[9242372134971919133]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 9242372134971919133
+                }
+            }
+        }
+    }
+}
