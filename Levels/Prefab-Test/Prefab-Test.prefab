@@ -30,7 +30,9 @@
                     "Instance_[865730782376351]/ContainerEntity",
                     "Instance_[868788799091103]/ContainerEntity",
                     "Instance_[872692924363167]/ContainerEntity",
-                    "Instance_[875995754213791]/ContainerEntity"
+                    "Instance_[875995754213791]/ContainerEntity",
+                    "Instance_[11636475205747]/ContainerEntity",
+                    "Instance_[15136873551987]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -592,6 +594,51 @@
         }
     },
     "Instances": {
+        "Instance_[11636475205747]": {
+            "Source": "Prefabs/Teleporter0.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Transform Data/Translate/0",
+                    "value": 8.061491012573242
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Transform Data/Translate/1",
+                    "value": -0.7208518981933594
+                }
+            ]
+        },
+        "Instance_[15136873551987]": {
+            "Source": "Prefabs/Horizontal_Teleporter_01.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/0",
+                    "value": 7.94142484664917
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/1",
+                    "value": -0.5600683689117432
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/2",
+                    "value": 1.1920928955078125e-7
+                }
+            ]
+        },
         "Instance_[40654643291332]": {
             "Source": "Prefabs/Player.prefab",
             "Patches": [
