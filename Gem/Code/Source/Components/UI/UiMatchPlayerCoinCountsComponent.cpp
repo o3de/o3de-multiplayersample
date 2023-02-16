@@ -19,7 +19,9 @@
 
 namespace MultiplayerSample
 {
+#if AZ_TRAIT_CLIENT
     const StartingPointInput::InputEventNotificationId ShowPlayerCoinCountsEventId("show_player_coin_counts");
+#endif
 
     void UiMatchPlayerCoinCountsComponent::Activate()
     {

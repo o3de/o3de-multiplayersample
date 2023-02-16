@@ -17,12 +17,13 @@
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
-#include <Source/Spawners/IPlayerSpawner.h>
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
+#include <Multiplayer/Components/SimplePlayerSpawnerComponent.h>
+
 
 namespace MultiplayerSample
 {
@@ -355,10 +356,16 @@ namespace MultiplayerSample
             // move to valid respawn point
             if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
             {
-                AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = 
-                    AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
-
-                teleport->Teleport(entityParams.second.GetTranslation());
+                auto spawner = azrtti_cast<Multiplayer::SimplePlayerSpawnerComponent*>(AZ::Interface<Multiplayer::IMultiplayerSpawner>::Get());
+                if (spawner)
+                {
+                    teleport->Teleport(spawner->VisitNextPlayerSpawnPoint().GetTranslation());
+                }
+                else
+                {
+                    teleport->Teleport(AZ::Vector3::CreateZero());
+                    AZ_Warning("NetworkMatchComponentController", false, "Attempted respawn but couldn't find a SimplePlayerSpawnerComponent in this level. Respawning player at the origin.");
+                }
             }
         }
         else

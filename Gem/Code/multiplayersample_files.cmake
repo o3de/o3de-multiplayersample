@@ -28,7 +28,6 @@ set(FILES
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
@@ -54,8 +53,6 @@ set(FILES
     Source/Components/NetworkHealthComponent.h
     Source/Components/NetworkMatchComponent.cpp
     Source/Components/NetworkMatchComponent.h
-    Source/Components/NetworkPlayerSpawnerComponent.cpp
-    Source/Components/NetworkPlayerSpawnerComponent.h
     Source/Components/NetworkRandomComponent.cpp
     Source/Components/NetworkRandomComponent.h
     Source/Components/NetworkTeleportComponent.cpp
@@ -122,9 +119,6 @@ set(FILES
     Source/GameState/GameStateWaitingForPlayers.h
     Source/GameState/GameStateWaitingForPlayers.cpp
 
-    Source/Spawners/IPlayerSpawner.h
-    Source/Spawners/RoundRobinSpawner.h
-    Source/Spawners/RoundRobinSpawner.cpp
     Source/Weapons/BaseWeapon.cpp
     Source/Weapons/BaseWeapon.h
     Source/Weapons/IWeapon.h
