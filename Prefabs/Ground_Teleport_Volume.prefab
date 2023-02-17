@@ -50,6 +50,95 @@
         }
     },
     "Entities": {
+        "Entity_[231106521526987]": {
+            "Id": "Entity_[231106521526987]",
+            "Name": "Teleporter_Solid_Ground",
+            "Components": {
+                "Component_[11663447689141265609]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 11663447689141265609
+                },
+                "Component_[14321098117774088259]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 14321098117774088259,
+                    "Configuration": "This second collider exists to ensure that the player can't fall below the ground and see space before the teleport volume kicks in.\t"
+                },
+                "Component_[17811603727156048934]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 17811603727156048934
+                },
+                "Component_[3335095108465076549]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 3335095108465076549
+                },
+                "Component_[4416799629784701092]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 4416799629784701092
+                },
+                "Component_[5358441699706328762]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 5358441699706328762,
+                    "Parent Entity": "Entity_[331433155175311]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            -71.0
+                        ]
+                    }
+                },
+                "Component_[5965617868763001731]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 5965617868763001731
+                },
+                "Component_[6232834962003349701]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6232834962003349701
+                },
+                "Component_[7220851007187099460]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 7220851007187099460
+                },
+                "Component_[8766191077602697072]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 8766191077602697072
+                },
+                "Component_[9876359112770311095]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 9876359112770311095,
+                    "ColliderConfiguration": {
+                        "Trigger": true,
+                        "Simulated": false,
+                        "Position": [
+                            0.0,
+                            0.0,
+                            -1.0
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 1,
+                        "Box": {
+                            "Configuration": [
+                                300.0,
+                                300.0,
+                                100.0
+                            ]
+                        }
+                    }
+                },
+                "Component_[9916623459093771546]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 9916623459093771546
+                }
+            }
+        },
         "Entity_[331433155175311]": {
             "Id": "Entity_[331433155175311]",
             "Name": "Ground Teleport Volume",
@@ -84,6 +173,7 @@
                     "Id": 6452283446899879262,
                     "Child Entity Order": [
                         "Entity_[331437450142607]",
+                        "Entity_[231106521526987]",
                         "Entity_[331441745109903]"
                     ]
                 },
@@ -146,9 +236,9 @@
                     "Parent Entity": "Entity_[331433155175311]",
                     "Transform Data": {
                         "Translate": [
-                            22.511653900146484,
-                            -5.952991485595703,
-                            -70.0
+                            0.0,
+                            0.0,
+                            -69.0
                         ]
                     }
                 },
@@ -177,6 +267,8 @@
                     "Id": 9876359112770311095,
                     "ColliderConfiguration": {
                         "Trigger": true,
+                        "Simulated": false,
+                        "InSceneQueries": false,
                         "Position": [
                             0.0,
                             0.0,
@@ -217,9 +309,9 @@
                     "Parent Entity": "Entity_[331433155175311]",
                     "Transform Data": {
                         "Translate": [
-                            24.23980712890625,
-                            15.392169952392578,
-                            -10.179061889648438
+                            81.33338165283203,
+                            2.235382080078125,
+                            -1.617548942565918
                         ]
                     }
                 },
