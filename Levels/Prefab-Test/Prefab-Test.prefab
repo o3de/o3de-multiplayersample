@@ -25,7 +25,15 @@
                     "Instance_[41655370671300]/ContainerEntity",
                     "Instance_[41724090148036]/ContainerEntity",
                     "Instance_[41792809624772]/ContainerEntity",
-                    "Instance_[41861529101508]/ContainerEntity"
+                    "Instance_[41861529101508]/ContainerEntity",
+                    "Instance_[862689945530783]/ContainerEntity",
+                    "Instance_[865730782376351]/ContainerEntity",
+                    "Instance_[868788799091103]/ContainerEntity",
+                    "Instance_[872692924363167]/ContainerEntity",
+                    "Instance_[875995754213791]/ContainerEntity",
+                    "Instance_[11636475205747]/ContainerEntity",
+                    "Instance_[15136873551987]/ContainerEntity",
+                    "Instance_[112609956657964]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -238,7 +246,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 17995419854605187254
+                            "EditorEntityId": 8905893834512531470
                         }
                     }
                 },
@@ -276,7 +284,8 @@
                     "Id": 437741358723931493,
                     "Controller": {
                         "Configuration": {
-                            "ExposureControlType": 1
+                            "ExposureControlType": 1,
+                            "ManualCompensation": 1.0
                         }
                     }
                 },
@@ -586,6 +595,76 @@
         }
     },
     "Instances": {
+        "Instance_[112609956657964]": {
+            "Source": "Prefabs/Gold_Gem.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/0",
+                    "value": 3.796407461166382
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/1",
+                    "value": 2.1730308532714844
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/2",
+                    "value": 0.6239018440246582
+                }
+            ]
+        },
+        "Instance_[11636475205747]": {
+            "Source": "Prefabs/Teleporter0.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Transform Data/Translate/0",
+                    "value": 8.061491012573242
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11552986467664113547]/Transform Data/Translate/1",
+                    "value": -0.7208518981933594
+                }
+            ]
+        },
+        "Instance_[15136873551987]": {
+            "Source": "Prefabs/Horizontal_Teleporter_01.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/0",
+                    "value": 7.94142484664917
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/1",
+                    "value": -0.5600683689117432
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/2",
+                    "value": 1.1920928955078125e-7
+                }
+            ]
+        },
         "Instance_[40654643291332]": {
             "Source": "Prefabs/Player.prefab",
             "Patches": [
@@ -602,7 +681,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[3452999764137394831]/Transform Data/Translate/1",
-                    "value": -0.19441795349121094
+                    "value": -0.19441795349121097
                 },
                 {
                     "op": "replace",
@@ -738,6 +817,151 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Transform Data/Translate/2",
                     "value": 4.76837158203125e-7
+                }
+            ]
+        },
+        "Instance_[862689945530783]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgLG_D.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10020934249267694962]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10020934249267694962]/Transform Data/Translate/0",
+                    "value": -28.10591506958008
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10020934249267694962]/Transform Data/Translate/1",
+                    "value": 14.062856674194336
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[30698221023462]/Components/Component_[2974378503878604500]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "phys_MAT"
+                }
+            ]
+        },
+        "Instance_[865730782376351]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgLG_F.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11772461055269678372]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11772461055269678372]/Transform Data/Translate/0",
+                    "value": -9.404630661010742
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11772461055269678372]/Transform Data/Translate/1",
+                    "value": 14.75586986541748
+                }
+            ]
+        },
+        "Instance_[868788799091103]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgLG_I.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11775020393873745010]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11775020393873745010]/Transform Data/Translate/0",
+                    "value": 15.011674880981444
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11775020393873745010]/Transform Data/Translate/1",
+                    "value": 16.248104095458984
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11775020393873745010]/Transform Data/Translate/2",
+                    "value": 0.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[32562236829926]/Components/Component_[12573553797875360289]/ColliderConfiguration/MaterialSlots/Slots/0/MaterialAsset/assetId/guid",
+                    "value": "{92A5EC27-1AC1-523E-88BB-9A6278DBD853}"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[32562236829926]/Components/Component_[12573553797875360289]/ColliderConfiguration/MaterialSlots/Slots/0/MaterialAsset/assetId/subId",
+                    "value": 1
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[32562236829926]/Components/Component_[12573553797875360289]/ColliderConfiguration/MaterialSlots/Slots/0/MaterialAsset/assetHint",
+                    "value": "physx/metal.physicsmaterial"
+                }
+            ]
+        },
+        "Instance_[872692924363167]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgMD_A.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[7597910993806708061]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[7597910993806708061]/Transform Data/Translate/0",
+                    "value": 29.577482223510746
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[7597910993806708061]/Transform Data/Translate/1",
+                    "value": 16.913503646850586
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[7597910993806708061]/Transform Data/Translate/2",
+                    "value": 0.0000019073486328125
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[12909143611409]/Components/Component_[2979562609108133719]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "lambert1"
+                }
+            ]
+        },
+        "Instance_[875995754213791]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgMD_C.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[13404824851231]/Components/Component_[17623369086815944419]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[13409119818527]/Components/Component_[17623369086815944419]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Translate/0",
+                    "value": 43.98609924316406
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Translate/1",
+                    "value": 14.609228134155272
                 }
             ]
         }
