@@ -32,7 +32,8 @@
                     "Instance_[872692924363167]/ContainerEntity",
                     "Instance_[875995754213791]/ContainerEntity",
                     "Instance_[11636475205747]/ContainerEntity",
-                    "Instance_[15136873551987]/ContainerEntity"
+                    "Instance_[15136873551987]/ContainerEntity",
+                    "Instance_[112609956657964]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -594,6 +595,31 @@
         }
     },
     "Instances": {
+        "Instance_[112609956657964]": {
+            "Source": "Prefabs/Gold_Gem.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/0",
+                    "value": 3.796407461166382
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/1",
+                    "value": 2.1730308532714844
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/2",
+                    "value": 0.6239018440246582
+                }
+            ]
+        },
         "Instance_[11636475205747]": {
             "Source": "Prefabs/Teleporter0.prefab",
             "Patches": [
