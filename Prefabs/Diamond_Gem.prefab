@@ -108,13 +108,6 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 14439860670826727286
                 },
-                "Component_[16520736197796751763]": {
-                    "$type": "EditorRigidBodyComponent",
-                    "Id": 16520736197796751763,
-                    "Configuration": {
-                        "entityId": ""
-                    }
-                },
                 "Component_[3117152326793893835]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3117152326793893835,
@@ -168,7 +161,14 @@
                         "MaterialSlots": {
                             "Slots": [
                                 {
-                                    "Name": "Entire object"
+                                    "Name": "Entire object",
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{EF76347C-319F-584E-9DDE-A06D328F4304}",
+                                            "subId": 1
+                                        },
+                                        "assetHint": "physx/glass.physicsmaterial"
+                                    }
                                 }
                             ]
                         }
@@ -195,6 +195,10 @@
                         "$type": "MultiplayerSample::GemComponent",
                         "VerticalAmplitude": 0.5
                     }
+                },
+                "Component_[6168639890567694195]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 6168639890567694195
                 },
                 "Component_[6627174300642616873]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
