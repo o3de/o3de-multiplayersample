@@ -419,7 +419,7 @@ namespace MultiplayerSample
         if (weaponInput->m_firing.AnySet())
         {
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_firing.AnySet());
+                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), true);
         }
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
