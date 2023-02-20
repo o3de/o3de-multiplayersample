@@ -13,7 +13,6 @@
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 #include <Multiplayer/IMultiplayer.h> 
-#include <IAudioSystem.h>
 
 #if AZ_TRAIT_CLIENT
 #include <DebugDraw/DebugDrawBus.h>
@@ -141,14 +140,6 @@ namespace MultiplayerSample
         {
             const AZ::Transform& transform = GetCameraTransform(GetEnableCollision());
             m_activeCameraEntity->GetTransform()->SetWorldTM(transform);
-
-            if (auto audioSystem = AZ::Interface<Audio::IAudioSystem>::Get(); audioSystem != nullptr)
-            {
-                Audio::ListenerRequest::SetWorldTransform setWorldTM;
-                setWorldTM.m_transform = transform;
-                audioSystem->PushRequest(AZStd::move(setWorldTM));
-            }
-
         }
 
         if (GetSyncAimImmediate())
