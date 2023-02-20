@@ -11232,8 +11232,8 @@
                     "Child Entity Order": [
                         "Entity_[86130393031567]",
                         "Entity_[330587046617999]",
-                        "Instance_[34318143886290]/ContainerEntity",
-                        "Instance_[244590891542927]/ContainerEntity"
+                        "Instance_[244590891542927]/ContainerEntity",
+                        "Instance_[34422570296544]/ContainerEntity"
                     ]
                 },
                 "Component_[12288421313516573809]": {
@@ -12043,7 +12043,7 @@
                     "Child Entity Order": [
                         "Instance_[34369300484124]/ContainerEntity",
                         "Instance_[244590891542927]/ContainerEntity",
-                        "Instance_[34318143886290]/ContainerEntity",
+                        "",
                         "Entity_[60257510040463]",
                         "Entity_[330587046617999]"
                     ]
@@ -19077,7 +19077,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Rotate/2",
-                    "value": -101.23047637939453
+                    "value": -101.23047637939452
                 }
             ]
         },
@@ -28496,171 +28496,6 @@
                 }
             ]
         },
-        "Instance_[34318143886290]": {
-            "Source": "Prefabs/Ground_Teleport_Volume.prefab",
-            "Patches": [
-                {
-                    "op": "add",
-                    "path": "/Entities/Entity_[331437450142607]/Components/Component_[6232834962003349701]/PendingComponents/0",
-                    "value": {
-                        "$type": "EditorColliderComponent",
-                        "Id": 9876359112770311095,
-                        "ColliderConfiguration": {
-                            "CollisionLayer": {
-                                "Index": 0
-                            },
-                            "CollisionGroupId": {
-                                "GroupId": "{00000000-0000-0000-0000-000000000000}"
-                            },
-                            "Visible": false,
-                            "Trigger": true,
-                            "Simulated": true,
-                            "InSceneQueries": true,
-                            "Exclusive": true,
-                            "Position": [
-                                0.0,
-                                0.0,
-                                -1.0
-                            ],
-                            "Rotation": [
-                                0.0,
-                                0.0,
-                                0.0,
-                                1.0
-                            ],
-                            "MaterialSlots": {
-                                "Slots": [
-                                    {
-                                        "Name": "Entire object",
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{00000000-0000-0000-0000-000000000000}",
-                                                "subId": 0
-                                            },
-                                            "loadBehavior": "QueueLoad",
-                                            "assetHint": ""
-                                        }
-                                    }
-                                ]
-                            },
-                            "propertyVisibilityFlags": 255,
-                            "ColliderTag": "",
-                            "RestOffset": 0.0,
-                            "ContactOffset": 0.019999999552965164
-                        },
-                        "ShapeConfiguration": {
-                            "ShapeType": 1,
-                            "Sphere": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Radius": 0.5
-                            },
-                            "Box": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Configuration": [
-                                    300.0,
-                                    300.0,
-                                    100.0
-                                ]
-                            },
-                            "Capsule": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Height": 1.0,
-                                "Radius": 0.25
-                            },
-                            "Cylinder": {
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "CookedData": "",
-                                    "Type": 0
-                                },
-                                "Subdivision": 16,
-                                "Height": 1.0,
-                                "Radius": 1.0
-                            },
-                            "PhysicsAsset": {
-                                "Asset": {
-                                    "assetId": {
-                                        "guid": "{00000000-0000-0000-0000-000000000000}",
-                                        "subId": 0
-                                    },
-                                    "loadBehavior": "QueueLoad",
-                                    "assetHint": ""
-                                },
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "PhysicsAsset": {
-                                        "assetId": {
-                                            "guid": "{00000000-0000-0000-0000-000000000000}",
-                                            "subId": 0
-                                        },
-                                        "loadBehavior": "PreLoad",
-                                        "assetHint": ""
-                                    },
-                                    "AssetScale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "UseMaterialsFromAsset": true,
-                                    "SubdivisionLevel": 4
-                                }
-                            },
-                            "HasNonUniformScale": false,
-                            "SubdivisionLevel": 4
-                        },
-                        "DebugDrawSettings": {
-                            "LocallyEnabled": true
-                        },
-                        "ComponentMode": {},
-                        "HasNonUniformScale": false
-                    }
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[331437450142607]/Components/Component_[9876359112770311095]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Parent Entity",
-                    "value": "../Entity_[34368826042616]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Transform Data/Translate/0",
-                    "value": -22.07675552368164
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Transform Data/Translate/1",
-                    "value": -3.623994827270508
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Transform Data/Translate/2",
-                    "value": -6.273536682128906
-                }
-            ]
-        },
         "Instance_[34369300484124]": {
             "Source": "Prefabs/GamePlay_Effects.prefab",
             "Patches": [
@@ -28668,6 +28503,21 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13490474510842214515]/Parent Entity",
                     "value": "../Entity_[767186398073361]"
+                }
+            ]
+        },
+        "Instance_[34422570296544]": {
+            "Source": "Prefabs/Ground_Teleport_Volume.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Parent Entity",
+                    "value": "../Entity_[34368826042616]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5383665612827889585]/Transform Data/Translate/2",
+                    "value": -6.0
                 }
             ]
         },
@@ -29993,146 +29843,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[14975493809432415569]/Transform Data/Translate/2",
                     "value": 1.9679021835327148
-                },
-                {
-                    "op": "add",
-                    "path": "/Entities/Entity_[388201835310631]/Components/Component_[2357341637469120305]/PendingComponents/0",
-                    "value": {
-                        "$type": "EditorColliderComponent",
-                        "Id": 17367610872572260282,
-                        "ColliderConfiguration": {
-                            "CollisionLayer": {
-                                "Index": 0
-                            },
-                            "CollisionGroupId": {
-                                "GroupId": "{00000000-0000-0000-0000-000000000000}"
-                            },
-                            "Visible": false,
-                            "Trigger": true,
-                            "Simulated": true,
-                            "InSceneQueries": true,
-                            "Exclusive": true,
-                            "Position": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Rotation": [
-                                0.0,
-                                0.0,
-                                0.0,
-                                1.0
-                            ],
-                            "MaterialSlots": {
-                                "Slots": [
-                                    {
-                                        "Name": "Entire object",
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{00000000-0000-0000-0000-000000000000}",
-                                                "subId": 0
-                                            },
-                                            "loadBehavior": "QueueLoad",
-                                            "assetHint": ""
-                                        }
-                                    }
-                                ]
-                            },
-                            "propertyVisibilityFlags": 255,
-                            "ColliderTag": "",
-                            "RestOffset": 0.0,
-                            "ContactOffset": 0.019999999552965164
-                        },
-                        "ShapeConfiguration": {
-                            "ShapeType": 1,
-                            "Sphere": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Radius": 0.5
-                            },
-                            "Box": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Configuration": [
-                                    1.100000023841858,
-                                    0.5,
-                                    2.5
-                                ]
-                            },
-                            "Capsule": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Height": 1.0,
-                                "Radius": 0.25
-                            },
-                            "Cylinder": {
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "CookedData": "",
-                                    "Type": 0
-                                },
-                                "Subdivision": 16,
-                                "Height": 1.0,
-                                "Radius": 1.0
-                            },
-                            "PhysicsAsset": {
-                                "Asset": {
-                                    "assetId": {
-                                        "guid": "{00000000-0000-0000-0000-000000000000}",
-                                        "subId": 0
-                                    },
-                                    "loadBehavior": "QueueLoad",
-                                    "assetHint": ""
-                                },
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "PhysicsAsset": {
-                                        "assetId": {
-                                            "guid": "{00000000-0000-0000-0000-000000000000}",
-                                            "subId": 0
-                                        },
-                                        "loadBehavior": "PreLoad",
-                                        "assetHint": ""
-                                    },
-                                    "AssetScale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "UseMaterialsFromAsset": true,
-                                    "SubdivisionLevel": 4
-                                }
-                            },
-                            "HasNonUniformScale": false,
-                            "SubdivisionLevel": 4
-                        },
-                        "DebugDrawSettings": {
-                            "LocallyEnabled": true
-                        },
-                        "ComponentMode": {},
-                        "HasNonUniformScale": false
-                    }
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[388201835310631]/Components/Component_[17367610872572260282]"
                 }
             ]
         },
@@ -37667,7 +37377,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[7597910993806708061]/Transform Data/Translate/2",
-                    "value": -2.5009422302246094
+                    "value": -2.50094223022461
                 }
             ]
         },
@@ -39917,7 +39627,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[5148151819538207002]/Transform Data/Translate/2",
-                    "value": 9.647003173828125
+                    "value": 9.647003173828123
                 }
             ]
         },
@@ -40528,146 +40238,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8277903220693415169]/Transform Data/Translate/2",
                     "value": -6.30514669418335
-                },
-                {
-                    "op": "add",
-                    "path": "/Entities/Entity_[576499694117775]/Components/Component_[15887976581344016802]/PendingComponents/0",
-                    "value": {
-                        "$type": "EditorColliderComponent",
-                        "Id": 16993719566409520369,
-                        "ColliderConfiguration": {
-                            "CollisionLayer": {
-                                "Index": 0
-                            },
-                            "CollisionGroupId": {
-                                "GroupId": "{00000000-0000-0000-0000-000000000000}"
-                            },
-                            "Visible": false,
-                            "Trigger": true,
-                            "Simulated": true,
-                            "InSceneQueries": true,
-                            "Exclusive": true,
-                            "Position": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Rotation": [
-                                0.0,
-                                0.0,
-                                0.0,
-                                1.0
-                            ],
-                            "MaterialSlots": {
-                                "Slots": [
-                                    {
-                                        "Name": "Entire object",
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{00000000-0000-0000-0000-000000000000}",
-                                                "subId": 0
-                                            },
-                                            "loadBehavior": "QueueLoad",
-                                            "assetHint": ""
-                                        }
-                                    }
-                                ]
-                            },
-                            "propertyVisibilityFlags": 255,
-                            "ColliderTag": "",
-                            "RestOffset": 0.0,
-                            "ContactOffset": 0.019999999552965164
-                        },
-                        "ShapeConfiguration": {
-                            "ShapeType": 1,
-                            "Sphere": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Radius": 0.5
-                            },
-                            "Box": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Configuration": [
-                                    0.5,
-                                    2.5,
-                                    4.0
-                                ]
-                            },
-                            "Capsule": {
-                                "Scale": [
-                                    1.0,
-                                    1.0,
-                                    1.0
-                                ],
-                                "Height": 1.0,
-                                "Radius": 0.25
-                            },
-                            "Cylinder": {
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "CookedData": "",
-                                    "Type": 0
-                                },
-                                "Subdivision": 16,
-                                "Height": 1.0,
-                                "Radius": 1.0
-                            },
-                            "PhysicsAsset": {
-                                "Asset": {
-                                    "assetId": {
-                                        "guid": "{00000000-0000-0000-0000-000000000000}",
-                                        "subId": 0
-                                    },
-                                    "loadBehavior": "QueueLoad",
-                                    "assetHint": ""
-                                },
-                                "Configuration": {
-                                    "Scale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "PhysicsAsset": {
-                                        "assetId": {
-                                            "guid": "{00000000-0000-0000-0000-000000000000}",
-                                            "subId": 0
-                                        },
-                                        "loadBehavior": "PreLoad",
-                                        "assetHint": ""
-                                    },
-                                    "AssetScale": [
-                                        1.0,
-                                        1.0,
-                                        1.0
-                                    ],
-                                    "UseMaterialsFromAsset": true,
-                                    "SubdivisionLevel": 4
-                                }
-                            },
-                            "HasNonUniformScale": false,
-                            "SubdivisionLevel": 4
-                        },
-                        "DebugDrawSettings": {
-                            "LocallyEnabled": true
-                        },
-                        "ComponentMode": {},
-                        "HasNonUniformScale": false
-                    }
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[576499694117775]/Components/Component_[16993719566409520369]"
                 }
             ]
         },
@@ -46717,7 +46287,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Translate/1",
-                    "value": -30.579133987426758
+                    "value": -30.57913398742676
                 },
                 {
                     "op": "replace",
@@ -46897,7 +46467,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11388605022631206776]/Transform Data/Rotate/2",
-                    "value": 90.17402648925781
+                    "value": 90.1740264892578
                 }
             ]
         },
