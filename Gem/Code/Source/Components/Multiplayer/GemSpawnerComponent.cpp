@@ -194,6 +194,9 @@ namespace MultiplayerSample
                 AZ::EntityBus::MultiHandler::BusConnect(gem.first);
                 Multiplayer::GetNetworkEntityManager()->MarkForRemoval(netEntityHandle);
 
+                // Move the gem out of the view because it can take a little while before the removal gets applied.
+                AZ::TransformBus::Event(gem.first, &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
+
                 m_queuedForRemovalGems.emplace(gem.first, gem.second);
             }
         }
