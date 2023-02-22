@@ -103,6 +103,13 @@
                         "$type": "Multiplayer::NetworkHitVolumesComponent"
                     }
                 },
+                "Component_[14650897891489430105]": {
+                    "$type": "EditorAudioListenerComponent",
+                    "Id": 14650897891489430105,
+                    "Rotation Entity": "",
+                    "Position Entity": "",
+                    "DefaultListenerState": false
+                },
                 "Component_[14925070260434397195]": {
                     "$type": "EditorCharacterControllerComponent",
                     "Id": 14925070260434397195,
@@ -146,6 +153,23 @@
                 "Component_[17057124452563381137]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 17057124452563381137
+                },
+                "Component_[17172141579586985375]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 17172141579586985375,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{82D25D38-FEDE-5944-8240-232924F2FA9D}",
+                            "path": "scriptcanvas/EnableAudioListener.scriptcanvas"
+                        },
+                        "sourceName": "EnableAudioListener.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{82D25D38-FEDE-5944-8240-232924F2FA9D}",
+                                "path": "scriptcanvas/EnableAudioListener.scriptcanvas"
+                            }
+                        }
+                    }
                 },
                 "Component_[17263204639576784355]": {
                     "$type": "EditorAudioTriggerComponent",
@@ -632,7 +656,8 @@
                                         "MaterialAsset": {
                                             "assetId": {
                                                 "guid": "{98AC2D11-901B-5559-8FBF-B5D48EDA6150}"
-                                            }
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_joints_base.azmaterial"
                                         }
                                     }
                                 },

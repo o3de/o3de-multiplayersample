@@ -81,6 +81,10 @@
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 11153673147495975095
                 },
+                "Component_[1152654918709079190]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 1152654918709079190
+                },
                 "Component_[11667213342982191799]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 11667213342982191799
@@ -107,13 +111,6 @@
                 "Component_[14439860670826727286]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 14439860670826727286
-                },
-                "Component_[16164730420228758197]": {
-                    "$type": "EditorRigidBodyComponent",
-                    "Id": 16164730420228758197,
-                    "Configuration": {
-                        "entityId": ""
-                    }
                 },
                 "Component_[3117152326793893835]": {
                     "$type": "GenericComponentWrapper",
@@ -160,6 +157,7 @@
                     "Id": 4709323619022222983,
                     "ColliderConfiguration": {
                         "Trigger": true,
+                        "InSceneQueries": false,
                         "Position": [
                             0.0,
                             0.0,
@@ -168,7 +166,14 @@
                         "MaterialSlots": {
                             "Slots": [
                                 {
-                                    "Name": "Entire object"
+                                    "Name": "Entire object",
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{EF76347C-319F-584E-9DDE-A06D328F4304}",
+                                            "subId": 1
+                                        },
+                                        "assetHint": "physx/glass.physicsmaterial"
+                                    }
                                 }
                             ]
                         }

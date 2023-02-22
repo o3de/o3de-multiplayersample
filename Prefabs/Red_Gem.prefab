@@ -161,6 +161,7 @@
                     "Id": 4709323619022222983,
                     "ColliderConfiguration": {
                         "Trigger": true,
+                        "InSceneQueries": false,
                         "Position": [
                             0.0,
                             0.0,
@@ -169,7 +170,14 @@
                         "MaterialSlots": {
                             "Slots": [
                                 {
-                                    "Name": "Entire object"
+                                    "Name": "Entire object",
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{EF76347C-319F-584E-9DDE-A06D328F4304}",
+                                            "subId": 1
+                                        },
+                                        "assetHint": "physx/glass.physicsmaterial"
+                                    }
                                 }
                             ]
                         }
@@ -208,13 +216,6 @@
                             0.0
                         ],
                         "UniformScale": 0.5
-                    }
-                },
-                "Component_[7042590329975968588]": {
-                    "$type": "EditorRigidBodyComponent",
-                    "Id": 7042590329975968588,
-                    "Configuration": {
-                        "entityId": ""
                     }
                 },
                 "Component_[7858479129415370824]": {
