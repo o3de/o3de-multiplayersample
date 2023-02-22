@@ -94,8 +94,8 @@
                     "Controller": {
                         "Configuration": {
                             "Enabled": true,
-                            "Threshold": 0.05999999865889549,
-                            "Intensity": 0.30000001192092896,
+                            "Threshold": 5.0,
+                            "Intensity": 0.10000000149011612,
                             "BicubicEnabled": true,
                             "KernelSizeScale": 0.5,
                             "KernelSizeStage0": 0.029999999329447746,
@@ -111,10 +111,10 @@
                     "Id": 15000556558809036741,
                     "Controller": {
                         "Configuration": {
+                            "Enabled": false,
                             "ExposureControlType": 1,
-                            "ManualCompensation": 0.5,
-                            "EyeAdaptationExposureMin": -6.0,
-                            "EyeAdaptationExposureMax": 4.0
+                            "EyeAdaptationExposureMin": -6.079999923706055,
+                            "EyeAdaptationExposureMax": 2.880000114440918
                         }
                     }
                 },
@@ -192,7 +192,7 @@
                     "Id": 7092071161962745685,
                     "Controller": {
                         "Configuration": {
-                            "EditorEntityId": 18338076033681498124
+                            "EditorEntityId": 12953933457708970648
                         }
                     }
                 },
@@ -203,6 +203,16 @@
                 "Component_[9321193093942328270]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 9321193093942328270
+                },
+                "Component_[9804125538938309579]": {
+                    "$type": "AZ::Render::EditorSsaoComponent",
+                    "Id": 9804125538938309579,
+                    "Controller": {
+                        "Configuration": {
+                            "Strength": 1.5199999809265137,
+                            "SamplingRadius": 0.08500000089406967
+                        }
+                    }
                 }
             }
         }
