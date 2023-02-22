@@ -26,12 +26,12 @@
                 "$type": "EditorEntitySortComponent",
                 "Id": 14126657869720434043,
                 "Child Entity Order": [
-                    "Entity_[34410156738972]",
+                    "",
                     "Entity_[2678230870090387]",
                     "Entity_[60274689909647]",
                     "Entity_[767186398073361]",
                     "Entity_[34368826042616]",
-                    "Entity_[39539979770159]"
+                    ""
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -118,7 +118,8 @@
                 },
                 "Component_[15968881008554284491]": {
                     "$type": "EditorVisibilityComponent",
-                    "Id": 15968881008554284491
+                    "Id": 15968881008554284491,
+                    "VisibilityFlag": false
                 },
                 "Component_[17184034451637086909]": {
                     "$type": "EditorLockComponent",
@@ -135,33 +136,6 @@
                 "Component_[3283348170754300606]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 3283348170754300606
-                },
-                "Component_[4550567890573989371]": {
-                    "$type": "AZ::Render::EditorDiffuseProbeGridComponent",
-                    "Id": 4550567890573989371,
-                    "Controller": {
-                        "Configuration": {
-                            "ProbeSpacing": [
-                                4.0,
-                                4.0,
-                                4.0
-                            ],
-                            "Extents": [
-                                61.0,
-                                90.0,
-                                40.0
-                            ],
-                            "AmbientMultiplier": 3.0,
-                            "FrameUpdateCount": 5,
-                            "TransparencyMode": 1
-                        }
-                    },
-                    "probeSpacingX": 4.0,
-                    "probeSpacingY": 4.0,
-                    "probeSpacingZ": 4.0,
-                    "ambientMultiplier": 3.0,
-                    "frameUpdateCount": 5,
-                    "transparencyMode": 1
                 }
             }
         },
@@ -11496,70 +11470,6 @@
                 }
             }
         },
-        "Entity_[34369186119290]": {
-            "Id": "Entity_[34369186119290]",
-            "Name": "GI_grid",
-            "Components": {
-                "Component_[11395059257651401592]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 11395059257651401592
-                },
-                "Component_[15258492801402488492]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 15258492801402488492
-                },
-                "Component_[17169577397856036783]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 17169577397856036783
-                },
-                "Component_[1829398464863796187]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 1829398464863796187,
-                    "VisibilityFlag": false
-                },
-                "Component_[18347505369630385387]": {
-                    "$type": "EditorBoxShapeComponent",
-                    "Id": 18347505369630385387,
-                    "BoxShape": {
-                        "Configuration": {
-                            "Dimensions": [
-                                140.0,
-                                120.0,
-                                50.0
-                            ]
-                        }
-                    }
-                },
-                "Component_[4352154144979422966]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 4352154144979422966
-                },
-                "Component_[8187286103596964657]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 8187286103596964657
-                },
-                "Component_[9070505240574738931]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 9070505240574738931
-                },
-                "Component_[9145985432383206334]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 9145985432383206334,
-                    "Parent Entity": "Entity_[60274689909647]",
-                    "Transform Data": {
-                        "Translate": [
-                            15.0,
-                            -15.0,
-                            -8.569963455200195
-                        ]
-                    }
-                },
-                "Component_[9989172408597427926]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 9989172408597427926
-                }
-            }
-        },
         "Entity_[34373481086586]": {
             "Id": "Entity_[34373481086586]",
             "Name": "ReflectionProbe",
@@ -13752,7 +13662,6 @@
                         "Entity_[303215746835132]",
                         "Entity_[303232926704316]",
                         "Entity_[34373481086586]",
-                        "Entity_[34369186119290]",
                         "Entity_[60296164746127]",
                         "Entity_[60309049648015]"
                     ]
