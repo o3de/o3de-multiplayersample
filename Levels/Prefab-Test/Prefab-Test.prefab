@@ -47,7 +47,8 @@
                     "Instance_[122806125753326]/ContainerEntity",
                     "Instance_[122831895557102]/ContainerEntity",
                     "Instance_[122857665360878]/ContainerEntity",
-                    "Instance_[122883435164654]/ContainerEntity"
+                    "Instance_[122883435164654]/ContainerEntity",
+                    "Entity_[121674522842602]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -296,7 +297,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 2390899721904181174
+                            "EditorEntityId": 6651461574557019689
                         }
                     }
                 },
@@ -662,6 +663,71 @@
                     "Id": 931091830724002070
                 }
             }
+        },
+        "Entity_[121674522842602]": {
+            "Id": "Entity_[121674522842602]",
+            "Name": "YBot",
+            "Components": {
+                "Component_[10294921353730862436]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 10294921353730862436
+                },
+                "Component_[11436388195410521463]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 11436388195410521463,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            115.18277740478516,
+                            48.88015365600586,
+                            4.556943893432617
+                        ]
+                    }
+                },
+                "Component_[14031151242769531034]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 14031151242769531034,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{BB461826-550B-5DC9-96B6-45AE4A7F1F64}",
+                                    "subId": 276243389
+                                },
+                                "assetHint": "mixamo/ybot/test_data/ybot_mesh_test.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[15295861985573349229]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 15295861985573349229
+                },
+                "Component_[18054551138148752222]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 18054551138148752222
+                },
+                "Component_[5678599462702258903]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 5678599462702258903
+                },
+                "Component_[6093865768498825328]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 6093865768498825328
+                },
+                "Component_[8362163496482655477]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8362163496482655477
+                },
+                "Component_[8781028413538855057]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 8781028413538855057
+                },
+                "Component_[9706936640724920842]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9706936640724920842
+                }
+            }
         }
     },
     "Instances": {
@@ -811,12 +877,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/0",
-                    "value": 118.44769287109375
+                    "value": 118.44769287109376
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/1",
-                    "value": 49.221763610839844
+                    "value": 49.22176361083984
                 },
                 {
                     "op": "replace",
@@ -836,7 +902,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/0",
-                    "value": 117.52635955810547
+                    "value": 117.52635955810548
                 },
                 {
                     "op": "replace",
@@ -861,7 +927,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8875781117888677262]/Transform Data/Translate/0",
-                    "value": 116.48246765136719
+                    "value": 116.4824676513672
                 },
                 {
                     "op": "replace",
