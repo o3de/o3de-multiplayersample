@@ -19,6 +19,9 @@ namespace MultiplayerSample
 
     void GameStateWaitingForPlayers::OnPlayerActivated([[maybe_unused]] Multiplayer::NetEntityId playerEntity)
     {
-        GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStatePreparingMatch>();
+        PlayerIdentityNotificationBus::Handler::BusDisconnect();
+        
+        const auto state = GameState::GameStateRequests::CreateNewOverridableGameStateOfType<GameStatePreparingMatch>();
+        GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::ReplaceActiveGameState, state);
     }
 }
