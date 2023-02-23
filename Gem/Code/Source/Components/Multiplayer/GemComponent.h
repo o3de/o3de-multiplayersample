@@ -7,12 +7,16 @@
 
 #pragma once
 
+#include <AzFramework/Physics/RigidBodyBus.h>
 #include <Source/AutoGen/GemComponent.AutoComponent.h>
 
 namespace MultiplayerSample
 {
+    //! @brief Gems have a physical static body on the server with a trigger volume
+    //! On clients, gems do not have physics and have a local bouncing effect.
     class GemComponent
         : public GemComponentBase
+        , public Physics::RigidBodyNotificationBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::GemComponent, s_gemComponentConcreteUuid, MultiplayerSample::GemComponentBase);
@@ -21,6 +25,11 @@ namespace MultiplayerSample
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        //! RigidBodyNotificationBus overrides ...
+        //! @{
+        void OnPhysicsEnabled(const AZ::EntityId& entityId) override;
+        //! }@
 
     private:
         // Animate the gem on clients without spending network traffic. (The gem will not spin on the authority server.)
