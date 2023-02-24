@@ -357,7 +357,7 @@ namespace MultiplayerSample
             if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
             {
                 AZ::Transform respawnPoint;
-                Multiplayer::SimplePlayerSpawnerRequestBus::BroadcastResult(respawnPoint, &Multiplayer::SimplePlayerSpawnerRequests::VisitNextSpawnPoint);
+                Multiplayer::SimplePlayerSpawnerRequestBus::BroadcastResult(respawnPoint, &Multiplayer::SimplePlayerSpawnerRequests::RoundRobinNextSpawnPoint);
                 teleport->Teleport(respawnPoint.GetTranslation());
             }
         }
