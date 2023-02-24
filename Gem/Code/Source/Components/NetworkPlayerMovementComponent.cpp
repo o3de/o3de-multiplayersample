@@ -105,17 +105,7 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (IsNetEntityRoleAutonomous() && !mps_botMode)
         {
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveFwdEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveBackEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveLeftEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(MoveRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(SprintEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(JumpEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(CrouchEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookLeftRightEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(LookUpDownEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomInEventId);
-            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect(ZoomOutEventId);
+            StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect();
         }
 #endif
     }
@@ -247,7 +237,8 @@ namespace MultiplayerSample
         {
             if (playerInput.m_jump)
             {
-                selfGeneratedVelocity.SetZ(GetJumpVelocity());
+                const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity) * GetMaxJumpHeight());
+                selfGeneratedVelocity.SetZ(initialJumpVelocity);
             }
             else
             {
