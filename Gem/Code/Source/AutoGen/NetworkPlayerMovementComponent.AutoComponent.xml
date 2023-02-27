@@ -22,6 +22,7 @@
     <NetworkProperty Type="float" Name="SecondsSinceJumpRequest" Init="1000.0f" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Number of seconds elapsed without a jump button press"/>
     <NetworkProperty Type="bool" Name="OnGround" Init="true" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Tracks whether or not the player is currently on the ground"/>
     <NetworkProperty Type="bool" Name="WasOnGround" Init="true" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Tracks whether or not the player was previously on the ground in the last tick"/>
+    <NetworkProperty Type="bool" Name="IsJumping" Init="false" ReplicateFrom="Authority" ReplicateTo="Autonomous" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Tracks whether or not the player is currently in a jump that they requested"/>
 
     <NetworkInput Type="StickAxis" Name="ForwardAxis" Init="0.0f" />
     <NetworkInput Type="StickAxis" Name="StrafeAxis"  Init="0.0f" />
