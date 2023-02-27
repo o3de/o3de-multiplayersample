@@ -68,6 +68,10 @@ namespace MultiplayerSample
 
     void WeaponEffectComponent::OnWeaponActivate(const WeaponActivationInfo& info)
     {
+        const AZ::Vector3& hitCenter = info.m_activateEvent.m_targetPosition;
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::LaserPistolImpact, hitCenter);
+
         // This is the locally predicated effect on the player that initiated the weapon.
         const AZ::Vector3 start = GetNetworkWeaponsComponent()->GetCurrentShotStartPosition();
         const AZ::Vector3& end = info.m_activateEvent.m_targetPosition;
@@ -76,9 +80,6 @@ namespace MultiplayerSample
 
     void WeaponEffectComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& info)
     {
-        const AZ::Vector3& hitCenter = info.m_hitEvent.m_hitTransform.GetTranslation();
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-            SoundEffect::LaserPistolImpact, hitCenter);
     }
 
 
