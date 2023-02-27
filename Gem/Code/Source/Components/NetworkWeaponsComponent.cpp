@@ -422,11 +422,18 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
 
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), weaponInput->m_firing.AnySet());
+
+        // Turn on aiming when any of the weapon is ready to fire.
+        // TODO: Enter aiming first, then animation should send events that we are ready to fire. We can listen to the anim event and process
+        // weapon fire.
+        if (weaponInput->m_firing.AnySet())
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), true);
+        }
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 
