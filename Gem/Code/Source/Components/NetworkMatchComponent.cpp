@@ -22,7 +22,7 @@
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
-#include <Multiplayer/Components/SimplePlayerSpawnerComponentBus.h>
+#include <Multiplayer/Components/ISimplePlayerSpawner.h>
 
 
 namespace MultiplayerSample
@@ -356,8 +356,20 @@ namespace MultiplayerSample
             // move to valid respawn point
             if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
             {
-                AZ::Transform respawnPoint;
-                Multiplayer::SimplePlayerSpawnerRequestBus::BroadcastResult(respawnPoint, &Multiplayer::SimplePlayerSpawnerRequests::GetAndAdvanceNextSpawnPoint);
+                AZ::Transform respawnPoint = AZ::Transform::CreateIdentity();
+                if (auto simplePlayerSpawner = AZ::Interface<Multiplayer::ISimplePlayerSpawner>::Get())
+                {
+                    respawnPoint = simplePlayerSpawner->GetNextSpawnPoint();
+
+                    // Increment the next spawn point so any new players or respawned players don't spawn in on top of us at this location.
+                    const uint32_t spawnPointCount = simplePlayerSpawner->GetSpawnPointCount();
+                    simplePlayerSpawner->SetNextSpawnPointIndex((simplePlayerSpawner->GetNextSpawnPointIndex()+1) % spawnPointCount);
+                }
+                else
+                {
+                    AZ_Warning("NetworkMatchComponentController", false, "Failed to find a valid respawn point; moving to the world origin.");
+                }
+
                 teleport->Teleport(respawnPoint.GetTranslation());
             }
         }
