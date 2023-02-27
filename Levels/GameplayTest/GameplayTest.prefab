@@ -84,7 +84,8 @@
                     "Entity_[15464591867054]",
                     "Entity_[15473181801646]",
                     "Entity_[15481771736238]",
-                    "Entity_[24092772383715]"
+                    "Entity_[24092772383715]",
+                    "Entity_[33106244647214]"
                 ]
             }
         }
@@ -6802,6 +6803,60 @@
                 }
             }
         },
+        "Entity_[33106244647214]": {
+            "Id": "Entity_[33106244647214]",
+            "Name": "InGameMenu",
+            "Components": {
+                "Component_[11607579679539730637]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 11607579679539730637
+                },
+                "Component_[11699578808044060050]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 11699578808044060050,
+                    "Parent Entity": "Entity_[356758116574]"
+                },
+                "Component_[11986152916766496752]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 11986152916766496752
+                },
+                "Component_[1270032018186910791]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 1270032018186910791,
+                    "m_template": {
+                        "$type": "UiCanvasAssetRefComponent",
+                        "CanvasAssetRef": {
+                            "AssetPath": "uicanvases/ingamemenu.uicanvas"
+                        },
+                        "IsAutoLoad": true
+                    }
+                },
+                "Component_[1377862900821278935]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 1377862900821278935
+                },
+                "Component_[16411475453178492047]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16411475453178492047
+                },
+                "Component_[18410293798321616605]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 18410293798321616605
+                },
+                "Component_[2767166177825845792]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 2767166177825845792
+                },
+                "Component_[8400884731337780781]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 8400884731337780781
+                },
+                "Component_[955366007471152724]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 955366007471152724
+                }
+            }
+        },
         "Entity_[3348671498193]": {
             "Id": "Entity_[3348671498193]",
             "Name": "Gem Spawn Point",
@@ -10588,7 +10643,7 @@
                     "Id": 11044208504869032248,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "TotalRounds": 1
+                        "RoundDuration": 15.0
                     }
                 },
                 "Component_[11582545100212439853]": {

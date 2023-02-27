@@ -66,4 +66,5 @@ set(ENABLED_GEMS
     DiffuseProbeGrid
     Terrain
     Profiler
+    MPSGems
 )
