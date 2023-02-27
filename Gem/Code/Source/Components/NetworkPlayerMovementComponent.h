@@ -102,6 +102,7 @@ namespace MultiplayerSample
         bool m_crouching = false;
         bool m_aiEnabled = false;
         float m_gravity = -9.81f;
+        float m_gravityMultiplier = 1.0f;
         float m_stepHeight = 0.1f;
         float m_radius = 0.3f;
     };

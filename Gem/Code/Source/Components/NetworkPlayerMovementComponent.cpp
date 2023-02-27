@@ -98,6 +98,9 @@ namespace MultiplayerSample
 
         Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
         PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
+        PhysX::CharacterGameplayRequestBus::EventResult(
+            m_gravityMultiplier, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::GetGravityMultiplier);
+
     }
 
     void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -331,7 +334,7 @@ namespace MultiplayerSample
             {
                 if (secondsSinceJumpRequest <= GetJumpPressQueuedSeconds())
                 {
-                    const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity * GetGravityMultiplier()) * GetMaxJumpHeight());
+                    const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity * m_gravityMultiplier) * GetMaxJumpHeight());
                     selfGeneratedVelocity.SetZ(initialJumpVelocity);
                     jumpTriggered = true;
                 }
@@ -350,7 +353,7 @@ namespace MultiplayerSample
             if (!jumpTriggered)
             {
                 // apply gravity
-                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + m_gravity * GetGravityMultiplier() * deltaTime);
+                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + m_gravity * m_gravityMultiplier * deltaTime);
             }
         }
 
@@ -360,7 +363,7 @@ namespace MultiplayerSample
         // velocity separated from externally-generated velocity for animation state purposes. Ideally we'd find another way
         // to do that, add *all* velocities affecting the player together, and then subtract gravity only once.
         velocityFromExternalSources.SetZ(
-            AZStd::max(0.0f, velocityFromExternalSources.GetZ() + m_gravity * GetGravityMultiplier() * deltaTime));
+            AZStd::max(0.0f, velocityFromExternalSources.GetZ() + m_gravity * m_gravityMultiplier * deltaTime));
 
         const float fwdBack = playerInput.m_forwardAxis;
         const float leftRight = playerInput.m_strafeAxis;
