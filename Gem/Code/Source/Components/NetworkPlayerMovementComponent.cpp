@@ -266,28 +266,57 @@ namespace MultiplayerSample
         AZ::Vector3 velocityFromExternalSources = GetVelocityFromExternalSources(); // non-player generated (jump pads, explosions etc.)
         AZ::Vector3 selfGeneratedVelocity = GetSelfGeneratedVelocity(); // player generated
 
-        float secondsSinceOnGround = GetSecondsSinceOnGround();
-        float secondsSinceJumpRequest = GetSecondsSinceJumpRequest();
+        const float secondsSinceOnGround = GetSecondsSinceOnGround();
+        const float secondsSinceJumpRequest = GetSecondsSinceJumpRequest();
 
-        bool onGround = GetOnGround();
+        const bool onGround = GetOnGround();
 
-        // Reset our jumping state if we've landed.
-        if (GetIsJumping())
+        if (onGround)
         {
-            if (onGround)
+            // Reset our jumping state if we're on the ground.
+            if (GetIsJumping())
             {
                 SetIsJumping(false);
             }
+
+            // If we're on the ground, we should never have velocities pushing us into the ground.
+            if (selfGeneratedVelocity.GetZ() <= 0.0f)
+            {
+                selfGeneratedVelocity.SetZ(0.0f);
+            }
+        }
+        else
+        {
+            // If we're not on the ground, apply gravity.
+            // NOTE: We do this *before* trying to trigger a jump so that the jump can overwrite the velocity and not have
+            // gravity applied on the first tick of the jump.
+            selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + m_gravity * m_gravityMultiplier * deltaTime);
         }
 
+        // Ideally, the way velocities would work below is that there would be a single player velocity tracking the player's
+        // current velocity, and pressing the jump button and getting external sources would just add an impulse into the player's
+        // velocity, which then would get ticked back down by gravity over time.
+        // However, the animation graph is expecting the player-generated velocity to be tracked separately from any external sources,
+        // so at least for now, we'll keep them as separate velocities.
+        // The one place where this is a problem is in how to make gravity work, as seen below. It's not actually solved correctly
+        // right now, but until something uses the external sources velocity, it's hard to tell whether or not it needs to be fixed
+        // in a better way.
+
+        // If we're not currently jumping, see if we should trigger a jump.
         if (!GetIsJumping())
         {
-            if (secondsSinceOnGround <= GetJumpOnGroundQueuedSeconds())
+            // We can trigger a jump as long as we aren't currently falling
+            if (selfGeneratedVelocity.GetZ() <= 0.0f)
             {
-                if (selfGeneratedVelocity.GetZ() <= 0.0f)
+                // We can trigger a jump as long as we *were* on the ground in the last "slop factor" fractions of a second
+                if (secondsSinceOnGround <= GetJumpOnGroundQueuedSeconds())
                 {
+                    // We can trigger a jump as long as we pressed the jump button in the last "slop factor" fractions of a second
                     if (secondsSinceJumpRequest <= GetJumpPressQueuedSeconds())
                     {
+                        // We're jumping, so set the upwards velocity necessary to reach our desired jump height.
+                        // Note that we're only setting Z velocity because the XY velocity components can be changed by the player
+                        // even while in midair.
                         const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity * m_gravityMultiplier) * GetMaxJumpHeight());
                         selfGeneratedVelocity.SetZ(initialJumpVelocity);
                         jumpTriggered = true;
@@ -297,29 +326,17 @@ namespace MultiplayerSample
             }
         }
 
-        if (onGround)
-        {
-            if (selfGeneratedVelocity.GetZ() <= 0.0f)
-            {
-                selfGeneratedVelocity.SetZ(0.0f);
-            }
-        }
-        else
-        {
-            if (!jumpTriggered)
-            {
-                // apply gravity
-                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + m_gravity * m_gravityMultiplier * deltaTime);
-            }
-        }
-
-        // External sources can only add positive velocity. The selfGeneratedVelocity already accounts for
-        // gravity that causes falling. 
-        // Technically, we're double-counting gravity here because we're trying to keep the current amount of self-generated
-        // velocity separated from externally-generated velocity for animation state purposes. Ideally we'd find another way
-        // to do that, add *all* velocities affecting the player together, and then subtract gravity only once.
+        // External sources can add velocity, but get clamped to 0 so that they never add negative velocity, since 
+        // the selfGeneratedVelocity already fully accounts for gravity so that the player can fall. 
+        // If we don't clamp it, we'll get too much gravity influence on the player.
+        // Note that because we're applying gravity to the external source as well as to the self-generated velocity, 
+        // we're double-counting gravity's influence. This will probably make the external source velocities a bit harder
+        // to tune.
         velocityFromExternalSources.SetZ(
             AZStd::max(0.0f, velocityFromExternalSources.GetZ() + m_gravity * m_gravityMultiplier * deltaTime));
+
+        // Now that we've got the vertical velocity from jumps / external sources / gravity accounted for, let's calculate
+        // the player horizontal movement velocity.
 
         const float fwdBack = playerInput.m_forwardAxis;
         const float leftRight = playerInput.m_strafeAxis;
@@ -346,22 +363,35 @@ namespace MultiplayerSample
             }
         }
 
+        // If the player isn't trying to move, set the self-generated XY velocity to 0.
+        // If they *are* trying to move, set a velocity based on the XY movement direction requested and the Z direction based
+        // on the slope of the ground directly ahead vs what's currently under the player.
         if (fwdBack != 0.0f || leftRight != 0.0f)
         {
             const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
             const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
-            const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle);
+            const float targetHeadingAngleRadians = NormalizeHeading(currentHeading + stickInputAngle);
             
-            // instant acceleration for now
-            const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeading) * speed;
+            // Using the unit vector from GetSlopeHeading that provides the direction of movement, multiply by speed
+            // to get the moveVelocity.
+            const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeadingAngleRadians) * speed;
+
+            // Immediately switch to the newly-requested XY movement direction, even if in midair.
+            // We've chosen not to apply acceleration / deceleration.
             selfGeneratedVelocity.SetX(moveVelocity.GetX());
             selfGeneratedVelocity.SetY(moveVelocity.GetY());
 
-            // Don't adjust Z when jumping
+            // If we're jumping, use the jumping/falling Z velocity. If we're on the ground or falling not from a jump, then we'll
+            // add in any movement velocity. This will be 0 if there's no ground near us, but it will be in the direction of the ground
+            // if we're next to some ground that's within a step height up or down.
+            // Note that we can't just check for "on ground" here, because in the case of moving down a ramp or small steps, we might
+            // actually be off the ground a little bit and need to correct our movement downward to get back onto the ground.
             if (!GetIsJumping())
             {
                 selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + moveVelocity.GetZ());
 
+                // If we're not jumping and we have a downwards velocity, track that we're deliberately moving downward so that
+                // we can distinguish this state from arbitrary falling.
                 if (moveVelocity.GetZ() < 0.0f)
                 {
                     movingDownward = true;
@@ -379,16 +409,21 @@ namespace MultiplayerSample
         SetSelfGeneratedVelocity(selfGeneratedVelocity);
     }
 
-    AZ::Vector3 NetworkPlayerMovementComponentController::GetSlopeHeading(float targetHeading) const
+    AZ::Vector3 NetworkPlayerMovementComponentController::GetSlopeHeading(float headingAngleRadians) const
     {
-        const AZ::Vector3 fwd = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(AZ::Vector3::CreateAxisY());
+        // Returns a unit vector pointing in the direction that the player is moving.
 
-        // Set the origin to the bottom of the player.
+        // Start with a direction vector in the XY plane.
+        const AZ::Vector3 fwd = AZ::Quaternion::CreateRotationZ(headingAngleRadians).TransformVector(AZ::Vector3::CreateAxisY());
+
+        // The origin is set to the bottom of the player, not the center.
         const AZ::Vector3 origin = GetEntity()->GetTransform()->GetWorldTranslation();
         constexpr float forwardEpsilon = 0.01f;
         constexpr float heightEpsilon = 0.01f;
 
-        // Start the trace in front of the player by a tiny amount (forwardEpsilon) at the step height plus some epsilon
+        // Raycast straight down in front of the player by a tiny amount (forwardEpsilon) starting at the step height plus an epsilon
+        // and ending at negative step height plus an epsilon. This will tell us if there's any surface directly in front of the player
+        // within the step height up or down. If so, we'll use that to calculate the Z direction.
         const AZ::Vector3 start = origin + fwd * (m_radius + forwardEpsilon) + AZ::Vector3(0.f, 0.f, m_stepHeight + heightEpsilon);
 
         AzPhysics::RayCastRequest request;
@@ -407,8 +442,8 @@ namespace MultiplayerSample
             }
         }
 
-        // If we've found a surface in front of us that's within the step height in size, then we'll create a vector
-        // in that direction accounting for its height to represent our heading.
+        // If we've found a surface in front of us that's within the step height in size in either direction, then we'll create a vector
+        // from the current bottom of the player to that new location so that our heading direction accounts for the Z slope.
         if (result && result.m_hits[0].IsValid())
         {
             // we use epsilon here to avoid the case where we are pushing up against an object and become slightly
