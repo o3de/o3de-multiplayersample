@@ -99,12 +99,6 @@ namespace MultiplayerSample
             return;
         }
 
-        if (m_networkRequests->HasSnapshot() == false)
-        {
-            constexpr bool isAuthoritative = true;
-            m_networkRequests->CreateSnapshot(isAuthoritative);
-        }
-
         // velocity or movement direction are necessary for movement
         if (m_velocityParamId == InvalidParamIndex && m_movementDirectionParamId == InvalidParamIndex)
         {
@@ -165,6 +159,13 @@ namespace MultiplayerSample
                     m_animationGraph->SetParameterVector2(m_movementDirectionParamId, AZ::Vector2(forward.GetX(), forward.GetY()));
                 }
                 m_animationGraph->SetParameterFloat(m_movementSpeedParamId, speed);
+            }
+
+            // Turn off aiming when character start running.
+            if (speed >= 1.0f)
+            {
+                NetworkAnimationComponentController* controller = static_cast<MultiplayerSample::NetworkAnimationComponentController*>(GetController());
+                controller->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
             }
         }
 
@@ -263,10 +264,9 @@ namespace MultiplayerSample
         EMotionFX::Integration::AnimGraphComponentNotificationBus::Handler::BusDisconnect();
 
         // Disable automatic EMotionFX updates of transform, network has control
-        if (m_networkRequests != nullptr)
+        if (m_actorRequests)
         {
-            constexpr bool isAuthoritative = true;
-            m_networkRequests->CreateSnapshot(isAuthoritative);
+            m_actorRequests->EnableInstanceUpdate(false);
         }
     }
 }
