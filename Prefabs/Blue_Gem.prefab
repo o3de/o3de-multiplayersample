@@ -69,10 +69,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{6F60A708-58B3-5A78-9BD2-FAA3FE9ED85B}",
-                                    "subId": 273712816
+                                    "guid": "{5BA8ACB3-A58F-5920-AF69-6B857C6A990F}",
+                                    "subId": 274657011
                                 },
-                                "assetHint": "objects/gem.azmodel"
+                                "assetHint": "pick_ups/gems/gem_three.azmodel"
                             }
                         }
                     }
@@ -83,24 +83,39 @@
                 },
                 "Component_[14439860670826727286]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 14439860670826727286
+                    "Id": 14439860670826727286,
+                    "Child Entity Order": [
+                        "Entity_[55308275179165]"
+                    ]
                 },
-                "Component_[16668231183739890418]": {
+                "Component_[14803385545847491867]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 16668231183739890418,
+                    "Id": 14803385545847491867,
                     "Controller": {
                         "Configuration": {
                             "materials": [
                                 {
                                     "Key": {
-                                        "materialSlotStableId": 1890610506
+                                        "materialSlotStableId": 2390400490
                                     },
                                     "Value": {
                                         "MaterialAsset": {
                                             "assetId": {
-                                                "guid": "{6298EA2B-CACD-5753-AD14-379C27F6CE1C}"
+                                                "guid": "{CF19FA01-E43E-5542-82F5-0E6EF9689E8E}"
                                             },
-                                            "assetHint": "objects/gems/gem_skin_blue.azmaterial"
+                                            "assetHint": "pick_ups/gems/skins/gem_exterior_blue.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 4270312937
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A5713C02-FAF4-5EC4-8E3A-9ECCF6602E10}"
+                                            }
                                         }
                                     }
                                 }
@@ -181,11 +196,6 @@
                     "ShapeConfiguration": {
                         "ShapeType": 0,
                         "Sphere": {
-                            "Scale": [
-                                0.5,
-                                0.5,
-                                0.5
-                            ],
                             "Radius": 1.0
                         }
                     },
@@ -204,10 +214,7 @@
                 "Component_[6627174300642616873]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 6627174300642616873,
-                    "Parent Entity": "ContainerEntity",
-                    "Transform Data": {
-                        "UniformScale": 0.5
-                    }
+                    "Parent Entity": "ContainerEntity"
                 },
                 "Component_[7858479129415370824]": {
                     "$type": "EditorLockComponent",
@@ -227,6 +234,72 @@
                 "Component_[957135423684634937]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 957135423684634937
+                }
+            }
+        },
+        "Entity_[55308275179165]": {
+            "Id": "Entity_[55308275179165]",
+            "Name": "Light",
+            "Components": {
+                "Component_[11389931810497139456]": {
+                    "$type": "AZ::Render::EditorAreaLightComponent",
+                    "Id": 11389931810497139456,
+                    "Controller": {
+                        "Configuration": {
+                            "LightType": 6,
+                            "Color": [
+                                0.0,
+                                0.2235293984413147,
+                                0.6392157077789307
+                            ],
+                            "Intensity": 4.0,
+                            "AttenuationRadius": 2.8706765174865723
+                        }
+                    }
+                },
+                "Component_[11397583193951446659]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 11397583193951446659
+                },
+                "Component_[12515557652890195284]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 12515557652890195284
+                },
+                "Component_[13963058857013492150]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13963058857013492150
+                },
+                "Component_[6689047679337604189]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6689047679337604189
+                },
+                "Component_[8073892722386754434]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 8073892722386754434
+                },
+                "Component_[866618880442094446]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 866618880442094446
+                },
+                "Component_[8838068600041134746]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 8838068600041134746
+                },
+                "Component_[9631743660200799251]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 9631743660200799251,
+                    "Parent Entity": "Entity_[3566710806593]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            0.7173895835876465
+                        ]
+                    }
+                },
+                "Component_[9846482979970475305]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 9846482979970475305
                 }
             }
         }

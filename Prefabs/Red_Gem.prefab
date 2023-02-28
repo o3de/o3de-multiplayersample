@@ -54,35 +54,6 @@
             "Id": "Entity_[1021293295971]",
             "Name": "Red Gem",
             "Components": {
-                "Component_[1016306708004647491]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 1016306708004647491,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 4054785016
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{D437D8CE-B89F-535E-AB5F-9884DC30C08C}"
-                                            },
-                                            "assetHint": "pick_ups/gem_back_glow_back_glow_mat.azmaterial"
-                                        },
-                                        "PropertyOverrides": {
-                                            "emissive.intensity": {
-                                                "$type": "float",
-                                                "Value": 16.0
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
                 "Component_[10514077087932575923]": {
                     "$type": "EditorStaticRigidBodyComponent",
                     "Id": 10514077087932575923
@@ -102,10 +73,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{64D8FEAF-C7CA-5280-955C-24A154CC1539}",
-                                    "subId": 278401427
+                                    "guid": "{C69FB9F3-EF12-5940-9A8B-F63BAC40E2D6}",
+                                    "subId": 268684416
                                 },
-                                "assetHint": "pick_ups/gem_back_glow.azmodel"
+                                "assetHint": "pick_ups/gems/gem_two.azmodel"
                             },
                             "ExcludeFromReflectionCubeMaps": true
                         }
@@ -119,8 +90,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 14439860670826727286,
                     "Child Entity Order": [
-                        "Entity_[121833436632554]",
-                        "Entity_[3247708366113]"
+                        "Entity_[37844938153629]"
                     ]
                 },
                 "Component_[3117152326793893835]": {
@@ -128,6 +98,42 @@
                     "Id": 3117152326793893835,
                     "m_template": {
                         "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4187954005481242647]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 4187954005481242647,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2390400490
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{4EE7CFA7-04F3-5D52-872C-46192C145AAF}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_exterior_red.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 4270312937
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{3D3B1B5A-919F-5272-B349-B386F240A4F5}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_interior_red.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 },
                 "Component_[4684877471957022317]": {
@@ -212,14 +218,7 @@
                 "Component_[6627174300642616873]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 6627174300642616873,
-                    "Parent Entity": "ContainerEntity",
-                    "Transform Data": {
-                        "Translate": [
-                            0.0,
-                            0.0,
-                            0.5
-                        ]
-                    }
+                    "Parent Entity": "ContainerEntity"
                 },
                 "Component_[7858479129415370824]": {
                     "$type": "EditorLockComponent",
@@ -242,266 +241,69 @@
                 }
             }
         },
-        "Entity_[121833436632554]": {
-            "Id": "Entity_[121833436632554]",
-            "Name": "Inner_draw1",
+        "Entity_[37844938153629]": {
+            "Id": "Entity_[37844938153629]",
+            "Name": "Light",
             "Components": {
-                "Component_[11486732627706255980]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 11486732627706255980,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 2390400490
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{4C841122-E3D0-533E-B0D8-27D9BC388B01}"
-                                            },
-                                            "assetHint": "pick_ups/gem_inner_interior_mat.azmaterial"
-                                        }
-                                    }
-                                },
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 4054785016
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{20170D0D-22B1-5097-90F7-08D0D447CA7D}"
-                                            },
-                                            "assetHint": "pick_ups/gem_red_interior.azmaterial"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[12923735613502726385]": {
+                "Component_[11494405668423909284]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 12923735613502726385
+                    "Id": 11494405668423909284
                 },
-                "Component_[13348715200909567074]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 13348715200909567074
-                },
-                "Component_[14313256827005309725]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 14313256827005309725
-                },
-                "Component_[1715277812872105156]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 1715277812872105156
-                },
-                "Component_[17162448612087371547]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 17162448612087371547,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[17641882046609224794]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 17641882046609224794
-                },
-                "Component_[2399092551775704180]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 2399092551775704180
-                },
-                "Component_[2861257083536167663]": {
-                    "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 2861257083536167663,
+                "Component_[12946699747333445232]": {
+                    "$type": "AZ::Render::EditorAreaLightComponent",
+                    "Id": 12946699747333445232,
                     "Controller": {
                         "Configuration": {
-                            "ModelAsset": {
-                                "assetId": {
-                                    "guid": "{5FCB3F3B-57C1-5ACA-B1A3-6C4BA4FC3F5D}",
-                                    "subId": 279592399
-                                },
-                                "assetHint": "pick_ups/gem_inner.azmodel"
-                            },
-                            "SortKey": 1,
-                            "ExcludeFromReflectionCubeMaps": true,
-                            "IsRayTracingEnabled": false
+                            "LightType": 6,
+                            "Color": [
+                                0.6239566802978516,
+                                0.038208600133657455,
+                                0.1119249016046524
+                            ],
+                            "Intensity": 4.5,
+                            "AttenuationRadius": 2.750044107437134
                         }
                     }
                 },
-                "Component_[3263321624326202685]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 3263321624326202685
-                },
-                "Component_[3517494784828305298]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 3517494784828305298,
-                    "m_template": {
-                        "$type": "Multiplayer::NetworkTransformComponent"
-                    }
-                },
-                "Component_[3698079478429001919]": {
+                "Component_[2203358737398452270]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 3698079478429001919,
-                    "Parent Entity": "Entity_[1021293295971]"
-                },
-                "Component_[5335454694434360553]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 5335454694434360553
-                }
-            }
-        },
-        "Entity_[3247708366113]": {
-            "Id": "Entity_[3247708366113]",
-            "Name": "Outer_draw2",
-            "Components": {
-                "Component_[12923735613502726385]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 12923735613502726385
-                },
-                "Component_[13348715200909567074]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 13348715200909567074
-                },
-                "Component_[14313256827005309725]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 14313256827005309725
-                },
-                "Component_[16350044322888638297]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 16350044322888638297,
-                    "m_template": {
-                        "$type": "Multiplayer::NetworkTransformComponent"
+                    "Id": 2203358737398452270,
+                    "Parent Entity": "Entity_[1021293295971]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            0.7817339897155762
+                        ]
                     }
                 },
-                "Component_[1715277812872105156]": {
+                "Component_[2670495502424352037]": {
                     "$type": "EditorInspectorComponent",
-                    "Id": 1715277812872105156
+                    "Id": 2670495502424352037
                 },
-                "Component_[17518375291841309464]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 17518375291841309464,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 2390400490
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{FD8073FA-5D00-5993-A092-F6258AC6BB8B}"
-                                            },
-                                            "assetHint": "pick_ups/gem_outer_exterior_mat.azmaterial"
-                                        },
-                                        "PropertyOverrides": {
-                                            "baseColor.color": {
-                                                "$type": "Color",
-                                                "Value": [
-                                                    0.7450980544090271,
-                                                    0.003921568859368563,
-                                                    0.11372549086809158,
-                                                    1.0
-                                                ]
-                                            },
-                                            "clearCoat.enable": {
-                                                "$type": "bool",
-                                                "Value": true
-                                            },
-                                            "irradiance.irradianceColorSource": {
-                                                "$type": "unsigned int",
-                                                "Value": 0
-                                            },
-                                            "metallic.factor": {
-                                                "$type": "float",
-                                                "Value": 0.5
-                                            },
-                                            "normal.textureMap": {
-                                                "$type": "AssetId",
-                                                "Value": {
-                                                    "guid": "{37A7545A-FB87-5BD5-9F9E-34899DA02DCC}",
-                                                    "subId": 1000
-                                                }
-                                            },
-                                            "opacity.alphaSource": {
-                                                "$type": "unsigned int",
-                                                "Value": 2
-                                            },
-                                            "opacity.factor": {
-                                                "$type": "float",
-                                                "Value": 0.75
-                                            },
-                                            "opacity.mode": {
-                                                "$type": "unsigned int",
-                                                "Value": 2
-                                            },
-                                            "roughness.factor": {
-                                                "$type": "float",
-                                                "Value": 0.10000000149011612
-                                            },
-                                            "specularF0.enableMultiScatterCompensation": {
-                                                "$type": "bool",
-                                                "Value": true
-                                            },
-                                            "specularF0.factor": {
-                                                "$type": "float",
-                                                "Value": 1.0
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[17641882046609224794]": {
+                "Component_[334110398646737348]": {
                     "$type": "EditorEntityIconComponent",
-                    "Id": 17641882046609224794
+                    "Id": 334110398646737348
                 },
-                "Component_[2399092551775704180]": {
+                "Component_[3727554406637501418]": {
                     "$type": "EditorPendingCompositionComponent",
-                    "Id": 2399092551775704180
+                    "Id": 3727554406637501418
                 },
-                "Component_[2861257083536167663]": {
-                    "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 2861257083536167663,
-                    "Controller": {
-                        "Configuration": {
-                            "ModelAsset": {
-                                "assetId": {
-                                    "guid": "{90372879-647F-59A3-B98C-246B70283497}",
-                                    "subId": 272842327
-                                },
-                                "assetHint": "pick_ups/gem_outer.azmodel"
-                            },
-                            "SortKey": 2,
-                            "ExcludeFromReflectionCubeMaps": true,
-                            "IsRayTracingEnabled": false
-                        }
-                    }
-                },
-                "Component_[3263321624326202685]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 3263321624326202685
-                },
-                "Component_[3698079478429001919]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 3698079478429001919,
-                    "Parent Entity": "Entity_[1021293295971]"
-                },
-                "Component_[5335454694434360553]": {
+                "Component_[3771183914243002094]": {
                     "$type": "EditorVisibilityComponent",
-                    "Id": 5335454694434360553
+                    "Id": 3771183914243002094
                 },
-                "Component_[8317377243921658626]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 8317377243921658626,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
+                "Component_[6715946746936371741]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 6715946746936371741
+                },
+                "Component_[8799381016712025622]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 8799381016712025622
+                },
+                "Component_[907517855804373427]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 907517855804373427
                 }
             }
         }
