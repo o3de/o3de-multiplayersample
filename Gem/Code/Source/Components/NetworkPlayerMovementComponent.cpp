@@ -86,6 +86,10 @@ namespace MultiplayerSample
         }
 #endif
 
+        // During activation the character controller is not created yet.
+        // Connect to CharacterNotificationBus to listen when it's activated after creation.
+        Physics::CharacterNotificationBus::Handler::BusConnect(GetEntityId());
+
         AzPhysics::SimulatedBody* worldBody = nullptr;
         AzPhysics::SimulatedBodyComponentRequestsBus::EventResult(worldBody, GetEntityId(), &AzPhysics::SimulatedBodyComponentRequests::GetSimulatedBody);
         if (worldBody)
@@ -95,12 +99,6 @@ namespace MultiplayerSample
                 m_gravity = sceneInterface->GetGravity(worldBody->m_sceneOwner).GetZ();
             }
         }
-
-        Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
-        PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
-        PhysX::CharacterGameplayRequestBus::EventResult(
-            m_gravityMultiplier, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::GetGravityMultiplier);
-
     }
 
     void NetworkPlayerMovementComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
@@ -111,6 +109,17 @@ namespace MultiplayerSample
             StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect();
         }
 #endif
+    }
+
+    void NetworkPlayerMovementComponentController::OnCharacterActivated([[maybe_unused]] const AZ::EntityId& entityId)
+    {
+        // Wait until the character is activated before requesting its parameters.
+        Physics::CharacterRequestBus::EventResult(m_stepHeight, GetEntityId(), &Physics::CharacterRequestBus::Events::GetStepHeight);
+        PhysX::CharacterControllerRequestBus::EventResult(m_radius, GetEntityId(), &PhysX::CharacterControllerRequestBus::Events::GetRadius);
+        PhysX::CharacterGameplayRequestBus::EventResult(
+            m_gravityMultiplier, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::GetGravityMultiplier);
+
+        Physics::CharacterNotificationBus::Handler::BusDisconnect();
     }
 
     bool NetworkPlayerMovementComponentController::ShouldProcessInput() const
@@ -163,7 +172,7 @@ namespace MultiplayerSample
         playerInput->m_jump = m_jumping;
         playerInput->m_crouch = m_crouching;
 
-        // reset jumping until next press
+        // reset jumping until next press. We only track when the jump is initially pressed, not that it's being held.
         m_jumping = false;
 
         // reset accumulated amounts
@@ -187,7 +196,7 @@ namespace MultiplayerSample
             return;
         }
 
-        [[maybe_unused]] bool wasOnGround = GetWasOnGround();
+        bool wasOnGround = GetWasOnGround();
 
         // Update the "on ground" state for the character.
         bool onGround = GetOnGround();
@@ -195,7 +204,7 @@ namespace MultiplayerSample
         SetOnGround(onGround);
 
         // Track timers for how recently it's been since the player was on the ground and how recently they pressed the jump button.
-        // These will be compared against "fudge factors" to allow for a little bit of slop in jumping to make it feel more reactive.
+        // These will be compared against "slop factors" to allow for a little bit of leniency in jumping to make it feel more reactive.
         SetSecondsSinceOnGround(onGround ? 0.0f : (GetSecondsSinceOnGround() + deltaTime));
         SetSecondsSinceJumpRequest(playerInput->m_jump ? 0.0f : (GetSecondsSinceJumpRequest() + deltaTime));
 
@@ -221,9 +230,11 @@ namespace MultiplayerSample
 
         // Update velocity
         bool jumpTriggered = false;
-        UpdateVelocity(*playerInput, deltaTime, jumpTriggered);
+        bool movingDownward = false;
+        UpdateVelocity(*playerInput, deltaTime, jumpTriggered, movingDownward);
 
-        // Reset time since jump pressed if jump was triggered so that we don't double-count the jump request if we land too quickly.
+        // If a jump was triggered, reset our jump request time to our "slop threshold" so that we don't double-count the jump request
+        // if we land too quickly.
         if (jumpTriggered)
         {
             SetSecondsSinceJumpRequest(GetJumpPressQueuedSeconds());
@@ -236,111 +247,49 @@ namespace MultiplayerSample
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Jumping), jumpTriggered);
 
+        bool isFalling = !movingDownward && absoluteVelocity.GetZ() < 0.0f;
+
         // if we're not moving down on a platform and have a negative velocity we're falling
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Falling), !onGround && !wasOnGround && absoluteVelocity.GetZ() < 0.f);
+            aznumeric_cast<uint32_t>(CharacterAnimState::Falling), isFalling);
 
         GetNetworkCharacterComponentController()->TryMoveWithVelocity(absoluteVelocity, deltaTime);
 
         SetWasOnGround(onGround);
     }
 
-    void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered)
+    void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward)
     {
         AZ::Vector3 velocityFromExternalSources = GetVelocityFromExternalSources(); // non-player generated (jump pads, explosions etc.)
         AZ::Vector3 selfGeneratedVelocity = GetSelfGeneratedVelocity(); // player generated
-
-        static bool useNewJumping = true;
-
-        if (!useNewJumping)
-        {
-            bool onGround = GetOnGround();
-            if (onGround)
-            {
-                if (playerInput.m_jump)
-                {
-                    selfGeneratedVelocity.SetZ(GetJumpVelocity());
-                }
-                else
-                {
-                    selfGeneratedVelocity.SetZ(0);
-                }
-
-                // prevent downward base velocity when on the ground
-                if (velocityFromExternalSources.GetZ() < 0.f)
-                {
-                    velocityFromExternalSources.SetZ(0.f);
-                }
-            }
-            else
-            {
-                // apply gravity
-                velocityFromExternalSources.SetZ(velocityFromExternalSources.GetZ() + m_gravity * deltaTime);
-                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + m_gravity * deltaTime);
-            }
-
-            const float fwdBack = playerInput.m_forwardAxis;
-            const float leftRight = playerInput.m_strafeAxis;
-
-            // TODO break out into air/water/ground speeds
-            float speed = 0.0f;
-            if (playerInput.m_crouch)
-            {
-                speed = GetCrouchSpeed();
-            }
-            else if (fwdBack < 0.0f)
-            {
-                speed = GetReverseSpeed();
-            }
-            else
-            {
-                if (playerInput.m_sprint)
-                {
-                    speed = GetSprintSpeed();
-                }
-                else
-                {
-                    speed = GetWalkSpeed();
-                }
-            }
-
-            if (fwdBack != 0.0f || leftRight != 0.0f)
-            {
-                const float stickInputAngle = AZ::Atan2(leftRight, fwdBack);
-                const float currentHeading = GetNetworkTransformComponentController()->GetRotation().GetEulerRadians().GetZ();
-                const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle);
-
-                // instant acceleration for now
-                const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeading, onGround) * speed;
-                selfGeneratedVelocity.SetX(moveVelocity.GetX());
-                selfGeneratedVelocity.SetY(moveVelocity.GetY());
-                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + moveVelocity.GetZ());
-            }
-            else
-            {
-                // instant deceleration for now
-                selfGeneratedVelocity.SetX(0.f);
-                selfGeneratedVelocity.SetY(0.f);
-            }
-
-            SetVelocityFromExternalSources(velocityFromExternalSources);
-            SetSelfGeneratedVelocity(selfGeneratedVelocity);
-            return;
-        }
 
         float secondsSinceOnGround = GetSecondsSinceOnGround();
         float secondsSinceJumpRequest = GetSecondsSinceJumpRequest();
 
         bool onGround = GetOnGround();
-        if (secondsSinceOnGround <= GetJumpOnGroundQueuedSeconds())
+
+        // Reset our jumping state if we've landed.
+        if (GetIsJumping())
         {
-            if (selfGeneratedVelocity.GetZ() <= 0.0f)
+            if (onGround)
             {
-                if (secondsSinceJumpRequest <= GetJumpPressQueuedSeconds())
+                SetIsJumping(false);
+            }
+        }
+
+        if (!GetIsJumping())
+        {
+            if (secondsSinceOnGround <= GetJumpOnGroundQueuedSeconds())
+            {
+                if (selfGeneratedVelocity.GetZ() <= 0.0f)
                 {
-                    const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity * m_gravityMultiplier) * GetMaxJumpHeight());
-                    selfGeneratedVelocity.SetZ(initialJumpVelocity);
-                    jumpTriggered = true;
+                    if (secondsSinceJumpRequest <= GetJumpPressQueuedSeconds())
+                    {
+                        const float initialJumpVelocity = AZ::Sqrt(2.0f * (-m_gravity * m_gravityMultiplier) * GetMaxJumpHeight());
+                        selfGeneratedVelocity.SetZ(initialJumpVelocity);
+                        jumpTriggered = true;
+                        SetIsJumping(true);
+                    }
                 }
             }
         }
@@ -401,12 +350,20 @@ namespace MultiplayerSample
             const float targetHeading = NormalizeHeading(currentHeading + stickInputAngle);
             
             // instant acceleration for now
-            const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeading, onGround) * speed;
+            const AZ::Vector3 moveVelocity = GetSlopeHeading(targetHeading) * speed;
             selfGeneratedVelocity.SetX(moveVelocity.GetX());
             selfGeneratedVelocity.SetY(moveVelocity.GetY());
 
-            // Don't adjust Z, we don't want any forces that can affect jumps
-//            selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + moveVelocity.GetZ());
+            // Don't adjust Z when jumping
+            if (!GetIsJumping())
+            {
+                selfGeneratedVelocity.SetZ(selfGeneratedVelocity.GetZ() + moveVelocity.GetZ());
+
+                if (moveVelocity.GetZ() < 0.0f)
+                {
+                    movingDownward = true;
+                }
+            }
         }
         else
         {
@@ -419,31 +376,23 @@ namespace MultiplayerSample
         SetSelfGeneratedVelocity(selfGeneratedVelocity);
     }
 
-    AZ::Vector3 NetworkPlayerMovementComponentController::GetSlopeHeading(float targetHeading, bool onGround) const
+    AZ::Vector3 NetworkPlayerMovementComponentController::GetSlopeHeading(float targetHeading) const
     {
         const AZ::Vector3 fwd = AZ::Quaternion::CreateRotationZ(targetHeading).TransformVector(AZ::Vector3::CreateAxisY());
-        if (!onGround)
-        {
-            return fwd;
-        }
 
+        // Set the origin to the bottom of the player.
         const AZ::Vector3 origin = GetEntity()->GetTransform()->GetWorldTranslation();
-        constexpr float epsilon = 0.01f;
+        constexpr float forwardEpsilon = 0.01f;
+        constexpr float heightEpsilon = 0.01f;
 
-        // start the trace in front of the player at the step height plus some epsilon
-        const AZ::Vector3 start = origin + fwd * (m_radius + epsilon) + AZ::Vector3(0.f, 0.f, m_stepHeight + epsilon);
+        // Start the trace in front of the player by a tiny amount (forwardEpsilon) at the step height plus some epsilon
+        const AZ::Vector3 start = origin + fwd * (m_radius + forwardEpsilon) + AZ::Vector3(0.f, 0.f, m_stepHeight + heightEpsilon);
 
         AzPhysics::RayCastRequest request;
         request.m_start = start;
         request.m_direction = AZ::Vector3::CreateAxisZ(-1.f);
-        request.m_distance = (m_stepHeight + epsilon) * 2.f;
-        AZ::EntityId ignore = GetEntityId();
+        request.m_distance = (m_stepHeight + heightEpsilon) * 2.f;
         request.m_queryType = AzPhysics::SceneQuery::QueryType::Static;
-        request.m_filterCallback = [ignore](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
-        {
-            return body->GetEntityId() != ignore ? AzPhysics::SceneQuery::QueryHitType::Block
-                                                 : AzPhysics::SceneQuery::QueryHitType::None;
-        };
 
         AzPhysics::SceneQueryHits result;
         if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
@@ -454,11 +403,14 @@ namespace MultiplayerSample
                 result = sceneInterface->QueryScene(sceneHandle, &request);
             }
         }
-        if (result)
+
+        // If we've found a surface in front of us that's within the step height in size, then we'll create a vector
+        // in that direction accounting for its height to represent our heading.
+        if (result && result.m_hits[0].IsValid())
         {
             // we use epsilon here to avoid the case where we are pushing up against an object and become slightly
             // elevated
-            if (result.m_hits[0].IsValid() && result.m_hits[0].m_position.GetZ() < origin.GetZ() - epsilon)
+            if (result.m_hits[0].m_position.GetZ() < (origin.GetZ() - heightEpsilon))
             {
                 const AZ::Vector3 delta = result.m_hits[0].m_position - origin;
                 return delta.GetNormalized();
