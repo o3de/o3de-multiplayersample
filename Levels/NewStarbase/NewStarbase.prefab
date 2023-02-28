@@ -75,13 +75,53 @@
         }
     },
     "Entities": {
-        "Entity_[165555276041283]": {
-            "Id": "Entity_[165555276041283]",
-            "Name": "Gem Spawn Point",
+        "Entity_[1137119038151759]": {
+            "Id": "Entity_[1137119038151759]",
+            "Name": "Red Spawn Point",
             "Components": {
-                "Component_[10030744480494108316]": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[330681535898511]",
+                    "Transform Data": {
+                        "Translate": [
+                            55.81142807006836,
+                            24.430728912353516,
+                            -3.242616653442383
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
                     "$type": "EditorScriptCanvasComponent",
-                    "Id": 10030744480494108316,
+                    "Id": 4271420846863702610,
                     "configuration": {
                         "sourceHandle": {
                             "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
@@ -96,29 +136,21 @@
                         }
                     }
                 },
-                "Component_[12388537255095640618]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 12388537255095640618
-                },
-                "Component_[13390836253429159783]": {
+                "Component_[4315872631398851318]": {
                     "$type": "EditorInspectorComponent",
-                    "Id": 13390836253429159783
+                    "Id": 4315872631398851318
                 },
-                "Component_[14462681071021429542]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14462681071021429542,
-                    "Parent Entity": "Entity_[330827564786575]",
-                    "Transform Data": {
-                        "Translate": [
-                            96.10527038574219,
-                            -36.32219696044922,
-                            10.53512191772461
-                        ]
-                    }
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
                 },
-                "Component_[14521735021593349398]": {
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
                     "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 14521735021593349398,
+                    "Id": 4772585879258544005,
                     "Controller": {
                         "Configuration": {
                             "ModelAsset": {
@@ -133,9 +165,9 @@
                         }
                     }
                 },
-                "Component_[16447552792144202660]": {
+                "Component_[8606680622352249581]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 16447552792144202660,
+                    "Id": 8606680622352249581,
                     "Controller": {
                         "Configuration": {
                             "materials": [
@@ -146,47 +178,15 @@
                                     "Value": {
                                         "MaterialAsset": {
                                             "assetId": {
-                                                "guid": "{01A72879-FF55-5B1E-A700-CE0CCCA50FDD}"
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
                                             },
-                                            "assetHint": "pick_ups/gemyellowmat.azmaterial"
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
                                         }
                                     }
                                 }
                             ]
                         }
                     }
-                },
-                "Component_[16461954007346991871]": {
-                    "$type": "EditorTagComponent",
-                    "Id": 16461954007346991871,
-                    "Tags": [
-                        "Gem Spawn",
-                        "Yellow Gem"
-                    ]
-                },
-                "Component_[16793295188539925626]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 16793295188539925626
-                },
-                "Component_[18177907032935635989]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 18177907032935635989
-                },
-                "Component_[3560841472014549873]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 3560841472014549873
-                },
-                "Component_[4728643164349728356]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 4728643164349728356
-                },
-                "Component_[7917642372853321005]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 7917642372853321005
-                },
-                "Component_[890422765667162835]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 890422765667162835
                 }
             }
         },
@@ -253,9 +253,9 @@
                     "Parent Entity": "Entity_[330947823870863]",
                     "Transform Data": {
                         "Translate": [
-                            53.24897003173828,
-                            -12.839990615844727,
-                            3.8177013397216797
+                            48.521583557128906,
+                            -12.951040267944336,
+                            4.880104064941406
                         ],
                         "Rotate": [
                             0.0,
@@ -451,6 +451,351 @@
                             57.638648986816406,
                             -42.154823303222656,
                             2.5934810638427734
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 4271420846863702610,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[4315872631398851318]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4315872631398851318
+                },
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
+                },
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 4772585879258544005,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
+                                    "subId": 273712816
+                                },
+                                "assetHint": "pick_ups/gem.azmodel"
+                            },
+                            "ExcludeFromReflectionCubeMaps": true,
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                },
+                "Component_[8606680622352249581]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 8606680622352249581,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2087309546
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
+                                            },
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Entity_[293115014814799]": {
+            "Id": "Entity_[293115014814799]",
+            "Name": "Red Spawn Point",
+            "Components": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[330681535898511]",
+                    "Transform Data": {
+                        "Translate": [
+                            45.073036193847656,
+                            4.605730056762695,
+                            -0.5620040893554688
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 4271420846863702610,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[4315872631398851318]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4315872631398851318
+                },
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
+                },
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 4772585879258544005,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
+                                    "subId": 273712816
+                                },
+                                "assetHint": "pick_ups/gem.azmodel"
+                            },
+                            "ExcludeFromReflectionCubeMaps": true,
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                },
+                "Component_[8606680622352249581]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 8606680622352249581,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2087309546
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
+                                            },
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Entity_[293132194683983]": {
+            "Id": "Entity_[293132194683983]",
+            "Name": "Red Spawn Point",
+            "Components": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[330681535898511]",
+                    "Transform Data": {
+                        "Translate": [
+                            8.33436393737793,
+                            -22.164291381835938,
+                            1.1820526123046875
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 4271420846863702610,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[4315872631398851318]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4315872631398851318
+                },
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
+                },
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 4772585879258544005,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
+                                    "subId": 273712816
+                                },
+                                "assetHint": "pick_ups/gem.azmodel"
+                            },
+                            "ExcludeFromReflectionCubeMaps": true,
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                },
+                "Component_[8606680622352249581]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 8606680622352249581,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2087309546
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
+                                            },
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Entity_[293153669520463]": {
+            "Id": "Entity_[293153669520463]",
+            "Name": "Red Spawn Point",
+            "Components": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[330681535898511]",
+                    "Transform Data": {
+                        "Translate": [
+                            17.29747200012207,
+                            1.2270355224609375,
+                            1.0529489517211914
                         ]
                     }
                 },
@@ -3752,12 +4097,17 @@
                     "Child Entity Order": [
                         "Entity_[330922054067087]",
                         "Entity_[34980767342873]",
+                        "Entity_[33797774384207]",
                         "Entity_[841512061182863]",
                         "Entity_[330771730211727]",
                         "Entity_[35083846557977]",
+                        "Entity_[293115014814799]",
+                        "Entity_[293132194683983]",
                         "Entity_[165636880419907]",
+                        "Entity_[293153669520463]",
                         "Entity_[330612816421775]",
                         "Entity_[330986478576527]",
+                        "Entity_[1137119038151759]",
                         "Entity_[35109616361753]"
                     ]
                 },
@@ -5506,121 +5856,6 @@
                 }
             }
         },
-        "Entity_[330754550342543]": {
-            "Id": "Entity_[330754550342543]",
-            "Name": "Gem Spawn Point",
-            "Components": {
-                "Component_[10030744480494108316]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 10030744480494108316,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
-                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
-                        },
-                        "sourceName": "HideGemsInGame.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
-                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
-                            }
-                        }
-                    }
-                },
-                "Component_[12388537255095640618]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 12388537255095640618
-                },
-                "Component_[13390836253429159783]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 13390836253429159783
-                },
-                "Component_[14462681071021429542]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14462681071021429542,
-                    "Parent Entity": "Entity_[330827564786575]",
-                    "Transform Data": {
-                        "Translate": [
-                            64.65472412109375,
-                            3.397890090942383,
-                            -0.7657299041748047
-                        ]
-                    }
-                },
-                "Component_[14521735021593349398]": {
-                    "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 14521735021593349398,
-                    "Controller": {
-                        "Configuration": {
-                            "ModelAsset": {
-                                "assetId": {
-                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
-                                    "subId": 273712816
-                                },
-                                "assetHint": "pick_ups/gem.azmodel"
-                            },
-                            "ExcludeFromReflectionCubeMaps": true,
-                            "IsRayTracingEnabled": false
-                        }
-                    }
-                },
-                "Component_[16447552792144202660]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 16447552792144202660,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 2087309546
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{01A72879-FF55-5B1E-A700-CE0CCCA50FDD}"
-                                            },
-                                            "assetHint": "pick_ups/gemyellowmat.azmaterial"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[16461954007346991871]": {
-                    "$type": "EditorTagComponent",
-                    "Id": 16461954007346991871,
-                    "Tags": [
-                        "Gem Spawn",
-                        "Yellow Gem"
-                    ]
-                },
-                "Component_[16793295188539925626]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 16793295188539925626
-                },
-                "Component_[18177907032935635989]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 18177907032935635989
-                },
-                "Component_[3560841472014549873]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 3560841472014549873
-                },
-                "Component_[4728643164349728356]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 4728643164349728356
-                },
-                "Component_[7917642372853321005]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 7917642372853321005
-                },
-                "Component_[890422765667162835]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 890422765667162835
-                }
-            }
-        },
         "Entity_[330758845309839]": {
             "Id": "Entity_[330758845309839]",
             "Name": "Gem Spawn Point",
@@ -6489,9 +6724,9 @@
                     "Parent Entity": "Entity_[330947823870863]",
                     "Transform Data": {
                         "Translate": [
-                            50.189388275146484,
-                            26.23137664794922,
-                            -1.966059684753418
+                            49.985694885253906,
+                            27.13433074951172,
+                            -1.9660606384277344
                         ]
                     }
                 },
@@ -7392,7 +7627,6 @@
                         "Entity_[330625701323663]",
                         "Entity_[330685830865807]",
                         "Entity_[330917759099791]",
-                        "Entity_[165555276041283]",
                         "Entity_[330853334590351]",
                         "Entity_[330694420800399]",
                         "Entity_[330758845309839]",
@@ -7409,8 +7643,6 @@
                         "Entity_[330814679884687]",
                         "Entity_[330952118838159]",
                         "Entity_[330861924524943]",
-                        "Entity_[330754550342543]",
-                        "Entity_[330870514459535]",
                         "Entity_[330965003740047]",
                         "Entity_[330707305702287]",
                         "Entity_[330818974851983]",
@@ -8177,9 +8409,9 @@
                     "Parent Entity": "Entity_[330750255375247]",
                     "Transform Data": {
                         "Translate": [
-                            41.35254669189453,
-                            25.382474899291992,
-                            0.16738319396972656
+                            42.545772552490234,
+                            30.351749420166016,
+                            -0.7390890121459961
                         ]
                     }
                 },
@@ -8300,9 +8532,9 @@
                     "Parent Entity": "Entity_[330827564786575]",
                     "Transform Data": {
                         "Translate": [
-                            56.656959533691406,
-                            -8.179683685302734,
-                            4.392412185668945
+                            58.764469146728516,
+                            -7.606685638427734,
+                            4.868364334106445
                         ]
                     }
                 },
@@ -8418,121 +8650,6 @@
                             51.26170349121094,
                             -34.27872085571289,
                             4.392412185668945
-                        ]
-                    }
-                },
-                "Component_[14521735021593349398]": {
-                    "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 14521735021593349398,
-                    "Controller": {
-                        "Configuration": {
-                            "ModelAsset": {
-                                "assetId": {
-                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
-                                    "subId": 273712816
-                                },
-                                "assetHint": "pick_ups/gem.azmodel"
-                            },
-                            "ExcludeFromReflectionCubeMaps": true,
-                            "IsRayTracingEnabled": false
-                        }
-                    }
-                },
-                "Component_[16447552792144202660]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 16447552792144202660,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 2087309546
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{01A72879-FF55-5B1E-A700-CE0CCCA50FDD}"
-                                            },
-                                            "assetHint": "pick_ups/gemyellowmat.azmaterial"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[16461954007346991871]": {
-                    "$type": "EditorTagComponent",
-                    "Id": 16461954007346991871,
-                    "Tags": [
-                        "Gem Spawn",
-                        "Yellow Gem"
-                    ]
-                },
-                "Component_[16793295188539925626]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 16793295188539925626
-                },
-                "Component_[18177907032935635989]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 18177907032935635989
-                },
-                "Component_[3560841472014549873]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 3560841472014549873
-                },
-                "Component_[4728643164349728356]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 4728643164349728356
-                },
-                "Component_[7917642372853321005]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 7917642372853321005
-                },
-                "Component_[890422765667162835]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 890422765667162835
-                }
-            }
-        },
-        "Entity_[330870514459535]": {
-            "Id": "Entity_[330870514459535]",
-            "Name": "Gem Spawn Point",
-            "Components": {
-                "Component_[10030744480494108316]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 10030744480494108316,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
-                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
-                        },
-                        "sourceName": "HideGemsInGame.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
-                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
-                            }
-                        }
-                    }
-                },
-                "Component_[12388537255095640618]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 12388537255095640618
-                },
-                "Component_[13390836253429159783]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 13390836253429159783
-                },
-                "Component_[14462681071021429542]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14462681071021429542,
-                    "Parent Entity": "Entity_[330827564786575]",
-                    "Transform Data": {
-                        "Translate": [
-                            49.24565124511719,
-                            -14.12936782836914,
-                            4.3495025634765625
                         ]
                     }
                 },
@@ -9014,7 +9131,23 @@
                                         "Gem Tag Type": "Blue Gem"
                                     },
                                     {
+                                        "Gem Tag Type": "Green Gem"
+                                    }
+                                ]
+                            },
+                            {
+                                "Gem Weights": [
+                                    {
+                                        "Gem Tag Type": "Green Gem"
+                                    },
+                                    {
                                         "Gem Tag Type": "Red Gem"
+                                    },
+                                    {
+                                        "Gem Tag Type": "White Gem"
+                                    },
+                                    {
+                                        "Gem Tag Type": "Blue Gem"
                                     }
                                 ]
                             },
@@ -9459,8 +9592,8 @@
                     "Parent Entity": "Entity_[330827564786575]",
                     "Transform Data": {
                         "Translate": [
-                            69.04409790039063,
-                            -39.80490493774414,
+                            69.8117446899414,
+                            -41.52543640136719,
                             4.392412185668945
                         ]
                     }
@@ -11063,7 +11196,7 @@
                         "Translate": [
                             51.90425109863281,
                             -9.322751998901367,
-                            4.3495025634765625
+                            4.509242057800293
                         ]
                     }
                 },
@@ -11621,7 +11754,7 @@
                         "Translate": [
                             55.66325759887695,
                             19.55084228515625,
-                            0.5889625549316406
+                            0.30736351013183594
                         ]
                     }
                 },
@@ -11828,6 +11961,121 @@
                 "Component_[890422765667162835]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 890422765667162835
+                }
+            }
+        },
+        "Entity_[33797774384207]": {
+            "Id": "Entity_[33797774384207]",
+            "Name": "Red Spawn Point",
+            "Components": {
+                "Component_[10108084049355864320]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10108084049355864320
+                },
+                "Component_[12425469720824516824]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 12425469720824516824
+                },
+                "Component_[14566015199448407479]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14566015199448407479,
+                    "Parent Entity": "Entity_[330681535898511]",
+                    "Transform Data": {
+                        "Translate": [
+                            62.238826751708984,
+                            -12.587116241455078,
+                            9.428481101989746
+                        ]
+                    }
+                },
+                "Component_[14976761751143004160]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 14976761751143004160,
+                    "Tags": [
+                        "Gem Spawn",
+                        "Red Gem"
+                    ]
+                },
+                "Component_[16342754522697288176]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16342754522697288176
+                },
+                "Component_[17792404053176456310]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17792404053176456310
+                },
+                "Component_[3363375371232196656]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 3363375371232196656
+                },
+                "Component_[4271420846863702610]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 4271420846863702610,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[4315872631398851318]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4315872631398851318
+                },
+                "Component_[4364837256251905080]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 4364837256251905080
+                },
+                "Component_[4532377245351268786]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4532377245351268786
+                },
+                "Component_[4772585879258544005]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 4772585879258544005,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{E5BA227C-CF47-57DF-8A44-285CC985F35D}",
+                                    "subId": 273712816
+                                },
+                                "assetHint": "pick_ups/gem.azmodel"
+                            },
+                            "ExcludeFromReflectionCubeMaps": true,
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                },
+                "Component_[8606680622352249581]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 8606680622352249581,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2087309546
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{A9C114E9-8B5D-5D59-B5A9-7BFA455B7019}"
+                                            },
+                                            "assetHint": "pick_ups/gemredmat.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 }
             }
         },
@@ -13290,9 +13538,9 @@
                     "Parent Entity": "Entity_[330947823870863]",
                     "Transform Data": {
                         "Translate": [
-                            39.90455627441406,
-                            -18.584163665771484,
-                            4.756232261657715
+                            68.2440185546875,
+                            5.91389274597168,
+                            2.240297317504883
                         ],
                         "Rotate": [
                             0.0,
@@ -16347,7 +16595,6 @@
                     "Child Entity Order": [
                         "Instance_[335441776687581]/ContainerEntity",
                         "Instance_[364456523844795]/ContainerEntity",
-                        "Instance_[364190235872443]/ContainerEntity",
                         "Instance_[886635546245955]/ContainerEntity"
                     ]
                 },
@@ -19709,6 +19956,51 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16381793778680065876]/Transform Data/Rotate/2",
                     "value": -0.000006830189704487566
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18041816328677]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18024636459493]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18071881099749]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18003161623013]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18046111295973]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18020341492197]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18054701230565]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18037521361381]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18058996197861]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -20868,12 +21160,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16237068544565649519]/Transform Data/Translate/0",
-                    "value": 67.39804077148438
+                    "value": 67.31575012207031
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16237068544565649519]/Transform Data/Translate/1",
-                    "value": -74.17634582519531
+                    "value": -74.51229095458984
                 },
                 {
                     "op": "replace",
@@ -21264,6 +21556,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9774255082885458415]/Transform Data/Translate/2",
                     "value": -11.796772956848145
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1123578464775]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1235247614471]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -21289,6 +21591,36 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18126181676688214812]/Transform Data/Translate/2",
                     "value": -11.80056858062744
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33231579695841]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33235874663137]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33240169630433]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33248759565025]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33265939434209]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33257349499617]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -21564,6 +21896,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9774255082885458415]/Transform Data/Rotate/2",
                     "value": 180.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1123578464775]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1235247614471]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -22044,6 +22386,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 179.99989318847656
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -22164,6 +22516,16 @@
                     "op": "replace",
                     "path": "/Entities/Entity_[76791138011873]/Components/Component_[3492570347697709275]/Controller/Configuration/ModelAsset/loadBehavior",
                     "value": "QueueLoad"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[76782548077281]/Components/Component_[17623369086815944419]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[76778253109985]/Components/Component_[17623369086815944419]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -28269,6 +28631,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -28609,6 +28981,106 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Rotate/2",
                     "value": -171.42184448242188
+                }
+            ]
+        },
+        "Instance_[293170849389647]": {
+            "Source": "Barrel02/Barrel02.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Parent Entity",
+                    "value": "../Entity_[86108918195087]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
+                    "value": 88.06478118896484
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/1",
+                    "value": -6.307306289672852
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/2",
+                    "value": 11.033531188964844
+                }
+            ]
+        },
+        "Instance_[293175144356943]": {
+            "Source": "Barrel02/Barrel02.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Parent Entity",
+                    "value": "../Entity_[86108918195087]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
+                    "value": 88.06478118896484
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/1",
+                    "value": -6.307306289672852
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/2",
+                    "value": 9.546188354492188
+                }
+            ]
+        },
+        "Instance_[293179439324239]": {
+            "Source": "Barrel01/Barrel001.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Parent Entity",
+                    "value": "../Entity_[86104623227791]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
+                    "value": 89.28404998779297
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/1",
+                    "value": -6.489595413208008
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/2",
+                    "value": 9.546188354492188
+                }
+            ]
+        },
+        "Instance_[293183734291535]": {
+            "Source": "Barrel01/Barrel001.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Parent Entity",
+                    "value": "../Entity_[86104623227791]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
+                    "value": 89.28404998779297
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/1",
+                    "value": -6.489595413208008
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/2",
+                    "value": 10.948265075683594
                 }
             ]
         },
@@ -31442,31 +31914,6 @@
                 }
             ]
         },
-        "Instance_[364190235872443]": {
-            "Source": "DefenceTurret/DefenseTurret.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[11643599802128616532]/Parent Entity",
-                    "value": "../Entity_[86091738325903]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[11643599802128616532]/Transform Data/Translate/0",
-                    "value": 59.773807525634766
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[11643599802128616532]/Transform Data/Translate/1",
-                    "value": -74.05905151367188
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[11643599802128616532]/Transform Data/Translate/2",
-                    "value": 6.101053237915039
-                }
-            ]
-        },
         "Instance_[364216005676219]": {
             "Source": "EnergyCollector/EnergyCollector.prefab",
             "Patches": [
@@ -31478,17 +31925,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10046873803164473926]/Transform Data/Translate/0",
-                    "value": -15.731941223144531
+                    "value": -14.612350463867188
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10046873803164473926]/Transform Data/Translate/1",
-                    "value": -70.83789825439453
+                    "value": -65.37467193603516
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10046873803164473926]/Transform Data/Translate/2",
-                    "value": 18.99930000305176
+                    "value": 18.999300003051758
                 }
             ]
         },
@@ -33654,6 +34101,36 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18126181676688214812]/Transform Data/Rotate/2",
                     "value": -12.177620887756348
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33257349499617]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33265939434209]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33248759565025]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33240169630433]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33235874663137]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33231579695841]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -33684,6 +34161,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -34509,6 +34996,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 89.99994659423828
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -35424,6 +35921,46 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[6863667359862897451]/Transform Data/Translate/2",
                     "value": -4.032270431518555
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3472423334118]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3450948497638]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3459538432230]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3425178693862]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3455243464934]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3420883726566]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3433768628454]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[3463833399526]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -36719,6 +37256,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -37429,6 +37976,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -38064,6 +38621,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 179.99989318847656
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -38149,6 +38716,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": -0.000006830189704487566
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -38339,6 +38916,36 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18126181676688214812]/Transform Data/Translate/2",
                     "value": -0.16483497619628906
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33257349499617]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33265939434209]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33248759565025]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33240169630433]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33235874663137]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33231579695841]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -38509,6 +39116,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9774255082885458415]/Transform Data/Translate/2",
                     "value": -11.796772956848145
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1235247614471]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1123578464775]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -41029,6 +41646,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9774255082885458415]/Transform Data/Translate/2",
                     "value": -11.796772956848145
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1235247614471]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1123578464775]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -42863,17 +43490,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
-                    "value": 88.41227722167969
+                    "value": 88.71060180664063
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/1",
-                    "value": -9.662324905395508
+                    "value": -8.037256240844727
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/2",
-                    "value": 9.546189308166504
+                    "value": 9.546188354492188
                 }
             ]
         },
@@ -42888,12 +43515,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
-                    "value": 88.41227722167969
+                    "value": 88.71060180664063
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/1",
-                    "value": -9.662324905395508
+                    "value": -8.037256240844727
                 },
                 {
                     "op": "replace",
@@ -42938,17 +43565,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
-                    "value": 89.63154602050781
+                    "value": 89.92987060546875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/1",
-                    "value": -9.844614028930664
+                    "value": -8.219545364379883
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/2",
-                    "value": 9.546189308166504
+                    "value": 9.546188354492188
                 }
             ]
         },
@@ -42963,17 +43590,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
-                    "value": 89.63154602050781
+                    "value": 89.92987060546875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/1",
-                    "value": -9.844614028930664
+                    "value": -8.219545364379883
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/2",
-                    "value": 10.94826602935791
+                    "value": 10.948265075683594
                 }
             ]
         },
@@ -45519,6 +46146,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -50069,6 +50706,36 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18126181676688214812]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33257349499617]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33265939434209]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33248759565025]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33240169630433]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33235874663137]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[33231579695841]/Components/Component_[6336552584560308397]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -50099,6 +50766,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": -0.000006830189704487566
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8944713910791]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[8940418943495]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
@@ -50129,6 +50806,51 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16381793778680065876]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18058996197861]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18037521361381]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18054701230565]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18020341492197]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18046111295973]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18003161623013]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18071881099749]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18024636459493]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[18041816328677]/Components/Component_[813477417330264611]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "Phys_MAT"
                 }
             ]
         },
