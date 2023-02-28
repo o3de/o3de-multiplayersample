@@ -260,8 +260,9 @@
                                 0.038208600133657455,
                                 0.1119249016046524
                             ],
-                            "Intensity": 4.5,
-                            "AttenuationRadius": 2.750044107437134
+                            "Intensity": 20.0,
+                            "AttenuationRadiusMode": 0,
+                            "AttenuationRadius": 2.0
                         }
                     }
                 },
@@ -277,9 +278,23 @@
                         ]
                     }
                 },
+                "Component_[2263898231048207016]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 2263898231048207016,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
                 "Component_[2670495502424352037]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 2670495502424352037
+                },
+                "Component_[2899095589123345486]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 2899095589123345486,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
                 },
                 "Component_[334110398646737348]": {
                     "$type": "EditorEntityIconComponent",

@@ -104,6 +104,21 @@
                                                 "guid": "{349C8F72-3319-5DB7-9519-5C70807B7871}"
                                             },
                                             "assetHint": "pick_ups/gems/skins/gem_exterior_white.azmaterial"
+                                        },
+                                        "PropertyOverrides": {
+                                            "emissive.intensity": {
+                                                "$type": "float",
+                                                "Value": 5.0
+                                            },
+                                            "subsurfaceScattering.scatterColor": {
+                                                "$type": "Color",
+                                                "Value": [
+                                                    0.2235293984413147,
+                                                    0.3137255012989044,
+                                                    0.34117650985717773,
+                                                    1.0
+                                                ]
+                                            }
                                         }
                                     }
                                 },
@@ -215,14 +230,7 @@
                 "Component_[6627174300642616873]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 6627174300642616873,
-                    "Parent Entity": "ContainerEntity",
-                    "Transform Data": {
-                        "Translate": [
-                            -0.06786346435546875,
-                            0.5647735595703125,
-                            0.0
-                        ]
-                    }
+                    "Parent Entity": "ContainerEntity"
                 },
                 "Component_[7858479129415370824]": {
                     "$type": "EditorLockComponent",
@@ -284,8 +292,9 @@
                                 0.3137255012989044,
                                 0.34117650985717773
                             ],
-                            "Intensity": 5.0,
-                            "AttenuationRadius": 3.8505311012268066
+                            "Intensity": 20.0,
+                            "AttenuationRadiusMode": 0,
+                            "AttenuationRadius": 2.0
                         }
                     }
                 },
@@ -308,6 +317,20 @@
                 "Component_[8116240443190111049]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 8116240443190111049
+                },
+                "Component_[8259679155451845488]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8259679155451845488,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9317568044731960784]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9317568044731960784,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
                 }
             }
         }

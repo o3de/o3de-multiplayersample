@@ -115,7 +115,8 @@
                                         "MaterialAsset": {
                                             "assetId": {
                                                 "guid": "{A5713C02-FAF4-5EC4-8E3A-9ECCF6602E10}"
-                                            }
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_interior_blue.azmaterial"
                                         }
                                     }
                                 }
@@ -241,6 +242,13 @@
             "Id": "Entity_[55308275179165]",
             "Name": "Light",
             "Components": {
+                "Component_[10067174683346795274]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 10067174683346795274,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
                 "Component_[11389931810497139456]": {
                     "$type": "AZ::Render::EditorAreaLightComponent",
                     "Id": 11389931810497139456,
@@ -252,8 +260,9 @@
                                 0.2235293984413147,
                                 0.6392157077789307
                             ],
-                            "Intensity": 4.0,
-                            "AttenuationRadius": 2.8706765174865723
+                            "Intensity": 20.0,
+                            "AttenuationRadiusMode": 0,
+                            "AttenuationRadius": 2.0
                         }
                     }
                 },
@@ -268,6 +277,13 @@
                 "Component_[13963058857013492150]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 13963058857013492150
+                },
+                "Component_[6673632923646444973]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6673632923646444973,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
                 },
                 "Component_[6689047679337604189]": {
                     "$type": "EditorPendingCompositionComponent",

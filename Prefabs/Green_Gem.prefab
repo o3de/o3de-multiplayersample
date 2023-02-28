@@ -126,7 +126,8 @@
                                         "MaterialAsset": {
                                             "assetId": {
                                                 "guid": "{F55EDFEA-D784-546E-9489-9FE7265B8283}"
-                                            }
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_interior_green.azmaterial"
                                         }
                                     }
                                 }
@@ -256,8 +257,9 @@
                                 0.43529409170150757,
                                 0.1607843041419983
                             ],
-                            "Intensity": 3.0,
-                            "AttenuationRadius": 3.2153124809265137
+                            "Intensity": 20.0,
+                            "AttenuationRadiusMode": 0,
+                            "AttenuationRadius": 2.0
                         }
                     }
                 },
@@ -272,6 +274,20 @@
                 "Component_[18064314381781132942]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 18064314381781132942
+                },
+                "Component_[1929995931127798057]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 1929995931127798057,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[2670328951008940150]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 2670328951008940150,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
                 },
                 "Component_[510932755695704127]": {
                     "$type": "EditorOnlyEntityComponent",
