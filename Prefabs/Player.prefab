@@ -51,6 +51,13 @@
             "Id": "Entity_[1423682492746]",
             "Name": "Player",
             "Components": {
+                "Component_[10227101122471384676]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 10227101122471384676,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkDebugPlayerIdComponent"
+                    }
+                },
                 "Component_[10752091759919038477]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 10752091759919038477,
@@ -115,6 +122,9 @@
                     "Id": 14925070260434397195,
                     "Configuration": {
                         "entityId": "",
+                        "CollisionGroupId": {
+                            "GroupId": "{FE20AF05-2602-45C6-BF4D-FA497B971061}"
+                        },
                         "MaterialSlots": {
                             "Slots": [
                                 {
@@ -258,71 +268,6 @@
                             }
                         ],
                         "AttributesRawData": "AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAABzuVw/0QZCP/CAcT0AAIA/AAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACBBAAAAAAAAAAAAAAAAAADIQgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAc7lcP9EGQj/wgHE9AACAPwAAoEIAAAAAAAAAAAAAAADNzEw9AAAAAAAAAAAAAAAAAAAgQQAAAAAAAAAAAAAAAA=="
-                    },
-                    "EditorAttributeList": {
-                        "AttributeCategories": [
-                            {
-                                "Attributes": [
-                                    {},
-                                    {
-                                        "ValueFY": 3.0
-                                    },
-                                    {
-                                        "Color": [
-                                            0.8622047305107117,
-                                            0.7579165101051331,
-                                            0.05896085500717163
-                                        ]
-                                    },
-                                    {
-                                        "ValueFX": 2.0
-                                    },
-                                    {
-                                        "ValueFX": 2.0
-                                    },
-                                    {
-                                        "ValueFX": 80.0
-                                    }
-                                ]
-                            },
-                            {
-                                "Attributes": [
-                                    {
-                                        "ValueFX": 10.0
-                                    },
-                                    {
-                                        "ValueFX": 100.0
-                                    },
-                                    {
-                                        "ValueFX": 10.0
-                                    }
-                                ]
-                            },
-                            {
-                                "Attributes": [
-                                    {
-                                        "Color": [
-                                            0.8622047305107117,
-                                            0.7579165101051331,
-                                            0.05896085500717163
-                                        ]
-                                    },
-                                    {
-                                        "ValueFX": 0.05000000074505806
-                                    }
-                                ]
-                            },
-                            {
-                                "Attributes": [
-                                    {
-                                        "ValueFX": 2.0
-                                    },
-                                    {
-                                        "ValueFX": 1.0
-                                    }
-                                ]
-                            }
-                        ]
                     }
                 },
                 "Component_[2596368806843971783]": {
@@ -460,8 +405,7 @@
                         "loadBehavior": "QueueLoad",
                         "assetHint": "mixamo/ybot/ybot.actor"
                     },
-                    "AttachmentTarget": "",
-                    "RenderSkeleton": true
+                    "AttachmentTarget": ""
                 },
                 "Component_[5387953310772448141]": {
                     "$type": "GenericComponentWrapper",
