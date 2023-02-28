@@ -7,6 +7,15 @@
                 "$type": "EditorInspectorComponent",
                 "Id": 10641544592923449938
             },
+            "Component_[11394089824307188456]": {
+                "$type": "AZ::Render::EditorDiffuseGlobalIlluminationComponent",
+                "Id": 11394089824307188456,
+                "Controller": {
+                    "Configuration": {
+                        "QualityLevel": 1
+                    }
+                }
+            },
             "Component_[12039882709170782873]": {
                 "$type": "EditorOnlyEntityComponent",
                 "Id": 12039882709170782873
@@ -48,7 +57,14 @@
                     "Instance_[122831895557102]/ContainerEntity",
                     "Instance_[122857665360878]/ContainerEntity",
                     "Instance_[122883435164654]/ContainerEntity",
-                    "Entity_[121674522842602]"
+                    "Entity_[121674522842602]",
+                    "Instance_[86752528665640]/ContainerEntity",
+                    "Instance_[86859902848040]/ContainerEntity",
+                    "Instance_[86967277030440]/ContainerEntity",
+                    "Instance_[87074651212840]/ContainerEntity",
+                    "Instance_[87182025395240]/ContainerEntity",
+                    "Instance_[87289399577640]/ContainerEntity",
+                    "Instance_[87396773760040]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -297,7 +313,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 6651461574557019689
+                            "EditorEntityId": 8907910779566607292
                         }
                     }
                 },
@@ -335,10 +351,7 @@
                     "Id": 437741358723931493,
                     "Controller": {
                         "Configuration": {
-                            "Enabled": false,
-                            "ExposureControlType": 1,
-                            "ManualCompensation": 1.0,
-                            "HeatmapEnabled": true
+                            "ManualCompensation": 2.0
                         }
                     }
                 },
@@ -545,6 +558,31 @@
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 4076975109609220594
                 },
+                "Component_[5288542661696631254]": {
+                    "$type": "AZ::Render::EditorDiffuseProbeGridComponent",
+                    "Id": 5288542661696631254,
+                    "Controller": {
+                        "Configuration": {
+                            "ProbeSpacing": [
+                                4.0,
+                                8.0,
+                                8.0
+                            ],
+                            "Extents": [
+                                256.0,
+                                256.0,
+                                32.0
+                            ],
+                            "AmbientMultiplier": 3.0,
+                            "VisualizationEnabled": true
+                        }
+                    },
+                    "probeSpacingX": 4.0,
+                    "probeSpacingY": 8.0,
+                    "probeSpacingZ": 8.0,
+                    "ambientMultiplier": 3.0,
+                    "showVisualization": true
+                },
                 "Component_[5679760548946028854]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 5679760548946028854
@@ -560,6 +598,24 @@
                         "Entity_[1163754259827]",
                         "Entity_[1159459292531]"
                     ]
+                },
+                "Component_[7305903414223684329]": {
+                    "$type": "EditorAxisAlignedBoxShapeComponent",
+                    "Id": 7305903414223684329,
+                    "AxisAlignedBoxShape": {
+                        "Configuration": {
+                            "Dimensions": [
+                                256.0,
+                                256.0,
+                                32.0
+                            ],
+                            "TranslationOffset": [
+                                0.0,
+                                0.0,
+                                16.0
+                            ]
+                        }
+                    }
                 },
                 "Component_[9277695270015777859]": {
                     "$type": "EditorEntityIconComponent",
@@ -1318,6 +1374,24 @@
                     "op": "replace",
                     "path": "/Entities/Entity_[30698221023462]/Components/Component_[2974378503878604500]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
                     "value": "phys_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[30711105925350]/Components/Component_[16342868248786470480]/Controller/Configuration/materials/1/Value/PropertyOverrides",
+                    "value": {
+                        "emissive.affectedByAlpha": {
+                            "$type": "float",
+                            "Value": 1.0
+                        },
+                        "emissive.intensity": {
+                            "$type": "float",
+                            "Value": 7.0
+                        },
+                        "opacity.mode": {
+                            "$type": "unsigned int",
+                            "Value": 3
+                        }
+                    }
                 }
             ]
         },
@@ -1338,6 +1412,56 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11772461055269678372]/Transform Data/Translate/1",
                     "value": 14.75586986541748
+                }
+            ]
+        },
+        "Instance_[86752528665640]": {
+            "Source": "Pick_Ups/Gems/gem_one.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14634580807146244331]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14634580807146244331]/Transform Data/Translate/0",
+                    "value": 141.0445098876953
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14634580807146244331]/Transform Data/Translate/1",
+                    "value": 58.91188049316406
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[14634580807146244331]/Transform Data/Translate/2",
+                    "value": 5.30440616607666
+                }
+            ]
+        },
+        "Instance_[86859902848040]": {
+            "Source": "Pick_Ups/Gems/gem_two.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4108868488500559633]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4108868488500559633]/Transform Data/Translate/0",
+                    "value": 141.7218017578125
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4108868488500559633]/Transform Data/Translate/1",
+                    "value": 59.05173110961914
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4108868488500559633]/Transform Data/Translate/2",
+                    "value": 5.331242561340332
                 }
             ]
         },
@@ -1381,6 +1505,81 @@
                 }
             ]
         },
+        "Instance_[86967277030440]": {
+            "Source": "Pick_Ups/Gems/gem_three.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18332677191708595514]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18332677191708595514]/Transform Data/Translate/0",
+                    "value": 142.29833984375
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18332677191708595514]/Transform Data/Translate/1",
+                    "value": 59.17203903198242
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18332677191708595514]/Transform Data/Translate/2",
+                    "value": 5.192111968994141
+                }
+            ]
+        },
+        "Instance_[87074651212840]": {
+            "Source": "Pick_Ups/Gems/gem_four.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4886439398006661207]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4886439398006661207]/Transform Data/Translate/0",
+                    "value": 142.95950317382813
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4886439398006661207]/Transform Data/Translate/1",
+                    "value": 59.33064270019531
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[4886439398006661207]/Transform Data/Translate/2",
+                    "value": 5.291114330291748
+                }
+            ]
+        },
+        "Instance_[87182025395240]": {
+            "Source": "Pick_Ups/Gems/gem_five.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[403139584444037813]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[403139584444037813]/Transform Data/Translate/0",
+                    "value": 143.5113983154297
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[403139584444037813]/Transform Data/Translate/1",
+                    "value": 59.45323944091797
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[403139584444037813]/Transform Data/Translate/2",
+                    "value": 5.320519924163818
+                }
+            ]
+        },
         "Instance_[872692924363167]": {
             "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgMD_A.prefab",
             "Patches": [
@@ -1408,6 +1607,76 @@
                     "op": "replace",
                     "path": "/Entities/Entity_[12909143611409]/Components/Component_[2979562609108133719]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
                     "value": "lambert1"
+                }
+            ]
+        },
+        "Instance_[87289399577640]": {
+            "Source": "Pick_Ups/Gems/gem_six.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18130686201824259518]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18130686201824259518]/Transform Data/Translate/0",
+                    "value": 144.16468811035156
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18130686201824259518]/Transform Data/Translate/1",
+                    "value": 59.47966766357422
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[18130686201824259518]/Transform Data/Translate/2",
+                    "value": 5.218627452850342
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5033997627271719247]/VisibilityFlag",
+                    "value": false
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[87297989512232]/Components/Component_[4008544362522971206]/VisibilityFlag",
+                    "value": false
+                }
+            ]
+        },
+        "Instance_[87396773760040]": {
+            "Source": "Pick_Ups/Gems/gem_seven.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3623510276956628643]/VisibilityFlag",
+                    "value": false
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3969611424515874443]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3969611424515874443]/Transform Data/Translate/0",
+                    "value": 144.55487060546875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3969611424515874443]/Transform Data/Translate/1",
+                    "value": 59.76267623901367
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[3969611424515874443]/Transform Data/Translate/2",
+                    "value": 5.250303268432617
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[87405363694632]/Components/Component_[11907042994808842582]/VisibilityFlag",
+                    "value": false
                 }
             ]
         },
