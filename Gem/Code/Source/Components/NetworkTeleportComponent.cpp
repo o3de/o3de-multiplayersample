@@ -7,6 +7,7 @@
 
 #include "NetworkTeleportComponent.h"
 
+#include <GameplayEffectsNotificationBus.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <Source/Components/NetworkTeleportCompatibleComponent.h>
 #include <AzCore/Component/TransformBus.h>
@@ -81,6 +82,9 @@ namespace MultiplayerSample
                 teleportLocation.GetX(), teleportLocation.GetY());
 
             AZ::Entity* otherEntity = GetCollidingEntity(triggerEvent.m_otherBody);
+
+            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect,
+                SoundEffect::TeleporterUse);
             TeleportPlayer(teleportLocation, otherEntity);
         }
     }
@@ -127,7 +131,7 @@ namespace MultiplayerSample
             }
             else
             {
-                AZ_TracePrintf("Teleporter", "colliding entity %s is not teleport compatible! NoOp.\n", 
+                AZ_TracePrintf("Teleporter", "colliding entity %s is not teleport compatible! NoOp.\n",
                     entity->GetName().c_str());
             }
         }

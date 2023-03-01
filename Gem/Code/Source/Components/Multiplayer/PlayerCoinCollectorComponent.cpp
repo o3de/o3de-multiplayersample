@@ -72,12 +72,9 @@ namespace MultiplayerSample
                     {
                         if (GemComponent* gem = coinEntity->FindComponent<GemComponent>())
                         {
-                            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-                                SoundEffect::GemPickup, GetEntity()->GetTransform()->GetWorldTranslation());
-
                             gem->RPC_CollectedByPlayer();
                             ModifyCoinsCollected() += gem->GetGemScoreValue();
-                            PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged, 
+                            PlayerCoinCollectorNotificationBus::Broadcast(&PlayerCoinCollectorNotifications::OnPlayerCollectedCoinCountChanged,
                                 GetNetEntityId(), GetCoinsCollected());
                         }
                     }
@@ -90,5 +87,9 @@ namespace MultiplayerSample
     void PlayerCoinCollectorComponentController::OnCoinsChanged(uint16_t coins)
     {
         UiCoinCountNotificationBus::Broadcast(&UiCoinCountNotifications::OnCoinCountChanged, coins);
+#if AZ_TRAIT_CLIENT
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::GemPickup, GetEntity()->GetTransform()->GetWorldTranslation());
+#endif
     }
 }
