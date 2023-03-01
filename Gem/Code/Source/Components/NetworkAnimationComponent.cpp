@@ -13,6 +13,8 @@
 #include <Integration/AnimationBus.h>
 #include <Integration/AnimGraphNetworkingBus.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Jobs/JobContext.h>
+#include <AzCore/Jobs/JobManager.h>
 
 namespace MultiplayerSample
 {
@@ -96,6 +98,13 @@ namespace MultiplayerSample
             constexpr bool isAuthoritative = true;
             m_networkRequests->CreateSnapshot(isAuthoritative);
         }
+
+        const AZ::u32 threadIndex = AZ::JobContext::GetGlobalContext()->GetJobManager().GetWorkerThreadId();
+        if (threadIndex != AZ::JobManager::InvalidWorkerThreadId)
+        {
+            m_networkRequests->SetActorThreadIndex(threadIndex);
+        }
+
         m_networkRequests->UpdateActorExternal(deltaTime);
 
         if (m_velocityParamId == InvalidParamIndex)
