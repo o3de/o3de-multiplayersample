@@ -11,9 +11,9 @@ ly_add_target(
     NAME MultiplayerSample.Client.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
-        multiplayersample_files.cmake
         multiplayersample_client_files.cmake
         multiplayersample_autogen_files.cmake
+        multiplayersample_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
@@ -195,6 +195,6 @@ if(PAL_TRAIT_BUILD_UNIFIED_SUPPORTED)
     set_property(GLOBAL APPEND PROPERTY LY_LAUNCHER_UNIFIED_PROJECTS MultiplayerSample)
 endif()
 
-set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"client.cfg\"")
-set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
-set_property(TARGET MultiplayerSample APPEND PROPERTY UNIFIEDLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"server.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY GAMELAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_client.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY SERVERLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")
+set_property(TARGET MultiplayerSample APPEND PROPERTY UNIFIEDLAUNCHER_ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS "--console-command-file=\"launch_server.cfg\"")

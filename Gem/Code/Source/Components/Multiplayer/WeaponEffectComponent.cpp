@@ -60,18 +60,16 @@ namespace MultiplayerSample
 
             particle->Restart(true);
         }
-#endif
 
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect, 
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
             SoundEffect::LaserPistolMuzzleFlash, GetEntity()->GetTransform()->GetWorldTranslation());
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::LaserPistolImpact, end);
+#endif
     }
 
     void WeaponEffectComponent::OnWeaponActivate(const WeaponActivationInfo& info)
     {
-        const AZ::Vector3& hitCenter = info.m_activateEvent.m_targetPosition;
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-            SoundEffect::LaserPistolImpact, hitCenter);
-
         // This is the locally predicated effect on the player that initiated the weapon.
         const AZ::Vector3 start = GetNetworkWeaponsComponent()->GetCurrentShotStartPosition();
         const AZ::Vector3& end = info.m_activateEvent.m_targetPosition;

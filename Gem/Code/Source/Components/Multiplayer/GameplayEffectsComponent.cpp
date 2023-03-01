@@ -64,6 +64,7 @@ namespace MultiplayerSample
         m_soundTriggerNames[aznumeric_cast<int>(SoundEffect::BubbleGunImpact)] = GetBubbleGunImpact();
 
         m_soundTriggerNames[aznumeric_cast<int>(SoundEffect::JumpPadLaunch)] = GetJumpPadLaunch();
+        m_soundTriggerNames[aznumeric_cast<int>(SoundEffect::TeleporterUse)] = GetTeleporterUse();
 
         m_soundTriggerNames[aznumeric_cast<int>(SoundEffect::EnergyBallTrapRisingOutOfTheGround)] = GetEnergyBallTrapRisingOutOfTheGround();
         m_soundTriggerNames[aznumeric_cast<int>(SoundEffect::EnergyBallTrapBuildup)] = GetEnergyBallTrapBuildup();
