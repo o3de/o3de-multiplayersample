@@ -31,6 +31,8 @@ namespace MultiplayerSample
                     "Handles spawning of prefabs")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
+                    ->Attribute(AZ::Edit::Attributes::Icon, "Editor/Icons/Components/NetworkPrefabSpawner.svg")
+                    ->Attribute(AZ::Edit::Attributes::ViewportIcon, "Editor/Icons/Components/Viewport/NetworkPrefabSpawner.svg")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->DataElement(nullptr, &NetworkPrefabSpawnerComponent::m_defaultSpawnableAsset, "Default Prefab", "Default prefab to spawn upon request.")
                     ;
