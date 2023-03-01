@@ -1,6 +1,6 @@
 /*
  * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
@@ -27,7 +27,7 @@ namespace MultiplayerSample
         if (m_spawners.empty())
         {
             AZLOG_WARN("No active NetworkPlayerSpawnerComponents were found on player spawn request.")
-            return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(Multiplayer::PrefabEntityId(), AZ::Transform::CreateIdentity());
+            return AZStd::make_pair(Multiplayer::PrefabEntityId(), AZ::Transform::CreateIdentity());
         }
 
         if (m_spawnIndex >= m_spawners.size())
@@ -41,7 +41,7 @@ namespace MultiplayerSample
         // NetworkEntityManager currently operates against/validates AssetId or Path, opt for Path via Hint
         Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(spawner->GetSpawnableAsset().GetHint().c_str()));
 
-        return AZStd::make_pair<Multiplayer::PrefabEntityId, AZ::Transform>(
+        return AZStd::make_pair(
             prefabEntityId, spawner->GetEntity()->GetTransform()->GetWorldTM());
     }
 
