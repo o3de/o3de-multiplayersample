@@ -1,0 +1,231 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "White_Gem_Spawn_Point",
+        "Components": {
+            "Component_[10340532275156888404]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 10340532275156888404
+            },
+            "Component_[11056978125143209777]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 11056978125143209777
+            },
+            "Component_[11208844961029658938]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 11208844961029658938,
+                "Parent Entity": ""
+            },
+            "Component_[11892780584867618051]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 11892780584867618051
+            },
+            "Component_[13460214808026329306]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 13460214808026329306
+            },
+            "Component_[13507438312509988862]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 13507438312509988862
+            },
+            "Component_[15497511989477501484]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 15497511989477501484
+            },
+            "Component_[17278920400511311809]": {
+                "$type": "EditorLockComponent",
+                "Id": 17278920400511311809
+            },
+            "Component_[6488930595743772486]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 6488930595743772486,
+                "Child Entity Order": [
+                    "Entity_[2560092415349577]"
+                ]
+            },
+            "Component_[9817428924873387262]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 9817428924873387262
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[2560092415349577]": {
+            "Id": "Entity_[2560092415349577]",
+            "Name": "White Gem Spawn Point",
+            "Components": {
+                "Component_[10697944362070151402]": {
+                    "$type": "EditorTagComponent",
+                    "Id": 10697944362070151402,
+                    "Tags": [
+                        "Gem Spawn",
+                        "White Gem"
+                    ]
+                },
+                "Component_[14100108706139569665]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 14100108706139569665
+                },
+                "Component_[166672928151845337]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 166672928151845337
+                },
+                "Component_[16667824794687043753]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 16667824794687043753,
+                    "Child Entity Order": [
+                        "Entity_[2560096710316873]"
+                    ]
+                },
+                "Component_[1723430337777321357]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 1723430337777321357,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[17648278906528260612]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 17648278906528260612,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 1723430337777321357
+                        },
+                        {
+                            "ComponentId": 10697944362070151402,
+                            "SortIndex": 1
+                        }
+                    ]
+                },
+                "Component_[18033163300221780249]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 18033163300221780249
+                },
+                "Component_[2241565787421491155]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 2241565787421491155
+                },
+                "Component_[3054921061466290491]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 3054921061466290491
+                },
+                "Component_[4355348264396550603]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 4355348264396550603
+                }
+            }
+        },
+        "Entity_[2560096710316873]": {
+            "Id": "Entity_[2560096710316873]",
+            "Name": "EditorMesh",
+            "Components": {
+                "Component_[10846252550500454051]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 10846252550500454051,
+                    "IsEditorOnly": true
+                },
+                "Component_[11052503914451899446]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 11052503914451899446,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2390400490
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{349C8F72-3319-5DB7-9519-5C70807B7871}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_exterior_white.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 4270312937
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{630822BA-9310-5417-8212-3F29C14B0C2B}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_interior_white.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[11496691165971077705]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 11496691165971077705
+                },
+                "Component_[4920234006876020261]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 4920234006876020261
+                },
+                "Component_[5359548080567948051]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 5359548080567948051,
+                    "Parent Entity": "Entity_[2560092415349577]"
+                },
+                "Component_[5953531094328242581]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 5953531094328242581
+                },
+                "Component_[6512630349110154921]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6512630349110154921
+                },
+                "Component_[6648222989022773636]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 6648222989022773636
+                },
+                "Component_[7662937228080522328]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 7662937228080522328
+                },
+                "Component_[776841323065031236]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 776841323065031236
+                },
+                "Component_[8047505999979295082]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 8047505999979295082,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                            "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                        },
+                        "sourceName": "HideGemsInGame.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{68DA66B0-787D-5F69-99B3-0635E9D61814}",
+                                "path": "scriptcanvas/HideGemsInGame.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[8188079261245851896]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 8188079261245851896,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{70930829-EF52-5336-9CB0-9694B77058FF}",
+                                    "subId": 279298071
+                                },
+                                "assetHint": "pick_ups/gems/gem_one.azmodel"
+                            },
+                            "ExcludeFromReflectionCubeMaps": true,
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
