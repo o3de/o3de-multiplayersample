@@ -16,6 +16,7 @@
 #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
+#include <Components/UI/UiRestBetweenRoundsComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -42,6 +43,7 @@ namespace MultiplayerSample
                 UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                 UiGameOverComponent::CreateDescriptor(),
                 UiPlayerArmorComponent::CreateDescriptor(),
+                UiRestBetweenRoundsComponent::CreateDescriptor()
             });
 
             CreateComponentDescriptors(m_descriptors);

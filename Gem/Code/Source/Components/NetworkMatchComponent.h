@@ -38,7 +38,15 @@ namespace MultiplayerSample
         void HandleRPC_EndMatch(
             AzNetworking::IConnection* invokingConnection, const MatchResultsSummary& results) override;
 #endif
+
+    private:
+        void OnRestTimeRemainingChanged(RoundTimeSec restTimeRemaining);
+        AZ::Event<RoundTimeSec>::Handler m_restTimeRemainingChangedHandler{ [this](RoundTimeSec restTimeRemaining)
+        {
+            OnRestTimeRemainingChanged(restTimeRemaining);
+        } };
     };
+
 
     class NetworkMatchComponentController
         : public NetworkMatchComponentControllerBase
@@ -57,8 +65,9 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void StartMatch();
-
         void EndMatch();
+
+        void StartRound();
         void EndRound();
 
         void HandleRPC_PlayerActivated(AzNetworking::IConnection* invokingConnection, const Multiplayer::NetEntityId& playerEntity) override;
@@ -72,6 +81,12 @@ namespace MultiplayerSample
         {
             RoundTickOnceASecond();
         }, AZ::Name("NetworkMatchComponentController")};
+
+        void RestTickOnceASecond();
+        AZ::ScheduledEvent m_restTickEvent{ [this]()
+        {
+            RestTickOnceASecond();
+        }, AZ::Name("NetworkMatchRestClock") };
 
         //! List of active players in the match.
         AZStd::vector<Multiplayer::NetEntityId> m_players;
