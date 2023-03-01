@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="RpcTesterComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/RpcTesterComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Include File="Atom/RPI.Reflect/Material/MaterialAsset.h"/>
+	<Include File="AzCore/Asset/AssetSerializer.h"/>
+	<ArchetypeProperty Type="AZ::Data::Asset&lt;AZ::RPI::MaterialAsset&gt;" Name="TestPassedMaterial"
+	                   ExposeToEditor="true" Description="Material to apply when a test passes" />
+	<ArchetypeProperty Type="AZ::Data::Asset&lt;AZ::RPI::MaterialAsset&gt;" Name="TestWaitingMaterial"
+	                   ExposeToEditor="true" Description="Material to apply when a test is in progress" />
+
+	<ArchetypeProperty Type="bool" Name="TestAutoToAuthorityRPC" Init="false"
+	                   ExposeToEditor="true" Description="If true, tests autonomous to authority RPC" />
+	<ArchetypeProperty Type="bool" Name="TestAuthorityToAutoRPC" Init="false"
+	                   ExposeToEditor="true" Description="If true, tests authority to autonomous RPC" />
+	<ArchetypeProperty Type="bool" Name="TestAuthorityToClientRPC" Init="false"
+	                   ExposeToEditor="true" Description="If true, tests authority to client RPC" />
+	<ArchetypeProperty Type="bool" Name="TestServerToAuthorityRPC" Init="false"
+	                   ExposeToEditor="true" Description="If true, tests server to authority RPC" />
+
+	<RemoteProcedure Name="RPC_TestPassed" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Test passed" />
+
+    <RemoteProcedure Name="RPC_AutonomousToAuthority" InvokeFrom="Autonomous" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Auto to auth test" />
+	<RemoteProcedure Name="RPC_AuthorityToAutonomous" InvokeFrom="Authority" HandleOn="Autonomous" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Auth to auto test" />
+	<RemoteProcedure Name="RPC_ServerToAuthority" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Server to auth test" />
+</Component>
