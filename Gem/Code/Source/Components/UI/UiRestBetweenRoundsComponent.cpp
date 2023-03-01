@@ -6,11 +6,7 @@
  */
 
 #include <AzCore/Serialization/EditContext.h>
-
-#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiElementBus.h>
-#endif
-
 #include <Source/Components/UI/UiRestBetweenRoundsComponent.h>
 
 namespace MultiplayerSample
@@ -41,19 +37,14 @@ namespace MultiplayerSample
 
     void UiRestBetweenRoundsComponent::Activate()
     {
-#if AZ_TRAIT_CLIENT
         UiRoundsLifecycleBus::Handler::BusConnect(GetEntityId());
-#endif
     }
 
     void UiRestBetweenRoundsComponent::Deactivate()
     {
-#if AZ_TRAIT_CLIENT
         UiRoundsLifecycleBus::Handler::BusDisconnect();
-#endif
     }
 
-#if AZ_TRAIT_CLIENT
     void UiRestBetweenRoundsComponent::OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRenaming)
     {
         bool enableRootElement = secondsRenaming > 0;
@@ -69,5 +60,5 @@ namespace MultiplayerSample
             UiElementBus::Event(numbersUiElements[i]->GetId(), &UiElementBus::Events::SetIsEnabled, enabled);
         }
     }
-#endif
+
 }

@@ -10,17 +10,13 @@
 
 #include <AzCore/Component/Component.h>
 
-#if AZ_TRAIT_CLIENT
 #include <UiRoundsLifecycleBus.h>
-#endif
 
 namespace MultiplayerSample
 {
     class UiRestBetweenRoundsComponent
         : public AZ::Component
-#if AZ_TRAIT_CLIENT
         , public UiRoundsLifecycleBus::Handler
-#endif
     {
     public:
         AZ_COMPONENT(UiRestBetweenRoundsComponent, "{8BF185B2-DCE7-462B-B151-43E0AF717BA5}");
