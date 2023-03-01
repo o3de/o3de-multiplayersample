@@ -40,11 +40,13 @@ namespace MultiplayerSample
 #endif
 
     private:
+#if AZ_TRAIT_CLIENT
         void OnRestTimeRemainingChanged(RoundTimeSec restTimeRemaining);
         AZ::Event<RoundTimeSec>::Handler m_restTimeRemainingChangedHandler{ [this](RoundTimeSec restTimeRemaining)
         {
             OnRestTimeRemainingChanged(restTimeRemaining);
         } };
+#endif
     };
 
 
@@ -76,6 +78,7 @@ namespace MultiplayerSample
 
     private:
 
+#if AZ_TRAIT_SERVER
         void RoundTickOnceASecond();
         AZ::ScheduledEvent m_roundTickEvent{[this]()
         {
@@ -87,6 +90,7 @@ namespace MultiplayerSample
         {
             RestTickOnceASecond();
         }, AZ::Name("NetworkMatchRestClock") };
+#endif
 
         //! List of active players in the match.
         AZStd::vector<Multiplayer::NetEntityId> m_players;

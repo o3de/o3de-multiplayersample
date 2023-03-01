@@ -8,7 +8,9 @@
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
-#include <UiRoundsLifecycleBus.h>
+#if AZ_TRAIT_CLIENT
+    #include <UiRoundsLifecycleBus.h>
+#endif
 #include <GameState/GameStateMatchEnded.h>
 #include <GameState/GameStateMatchInProgress.h>
 #include <GameState/GameStatePreparingMatch.h>
@@ -40,7 +42,9 @@ namespace MultiplayerSample
 
     void NetworkMatchComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        RoundRestTimeRemainingAddEvent(m_restTimeRemainingChangedHandler);
+        #if AZ_TRAIT_CLIENT
+            RoundRestTimeRemainingAddEvent(m_restTimeRemainingChangedHandler);
+        #endif
 
         if (IsNetEntityRoleAuthority() || IsNetEntityRoleServer())
         {
@@ -51,7 +55,10 @@ namespace MultiplayerSample
     void NetworkMatchComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         PlayerIdentityNotificationBus::Handler::BusDisconnect();
-        m_restTimeRemainingChangedHandler.Disconnect();
+
+        #if AZ_TRAIT_CLIENT
+            m_restTimeRemainingChangedHandler.Disconnect();
+        #endif
     }
 
 #if AZ_TRAIT_SERVER
@@ -93,13 +100,12 @@ namespace MultiplayerSample
             }
         }
     }
-#endif
 
     void NetworkMatchComponent::OnRestTimeRemainingChanged(RoundTimeSec restTimeRemaining)
     {
         UiRoundsLifecycleBus::Broadcast(&UiRoundsLifecycleNotifications::OnRoundRestTimeRemainingChanged, restTimeRemaining);
     }
-
+#endif  // AZ_TRAIT_CLIENT
 
     // Controller methods
 
@@ -142,8 +148,10 @@ namespace MultiplayerSample
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStatePreparingMatch>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchInProgress>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchEnded>();
-
+#if AZ_TRAIT_SERVER
         m_roundTickEvent.RemoveFromQueue();
+        m_restTickEvent.RemoveFromQueue();
+#endif
     }
 
 #if AZ_TRAIT_SERVER
@@ -290,7 +298,7 @@ namespace MultiplayerSample
             m_roundTickEvent.RemoveFromQueue();
 
             // start the rest timer
-            SetRoundRestTimeRemaining(RoundTimeSec{ GetRestDurationBetweenRounds() });
+            ModifyRoundRestTimeRemaining() = RoundTimeSec{ GetRestDurationBetweenRounds() };
             m_restTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
         }
         else // Match ended
@@ -344,9 +352,9 @@ namespace MultiplayerSample
 #endif   
     }
 
+#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::RoundTickOnceASecond()
     {
-#if AZ_TRAIT_SERVER
         // m_roundTickEvent is configured to tick once a second
         SetRoundTime(RoundTimeSec(GetRoundTime() - 1.f));
 
@@ -354,23 +362,19 @@ namespace MultiplayerSample
         {
             EndRound();
         }
-#endif
     }
 
     void NetworkMatchComponentController::RestTickOnceASecond()
     {
-#if AZ_TRAIT_SERVER
         // m_restTickEvent is configured to tick once a second
         SetRoundRestTimeRemaining(RoundTimeSec(GetRoundRestTimeRemaining() - 1.f));
-
-        AZ_Warning("NetworkMatchComponentController", false, "Rest time remaining: %i.", aznumeric_cast<int>(GetRoundRestTimeRemaining()));
 
         if (GetRoundRestTimeRemaining() <= RoundTimeSec(0.f))
         {
             StartRound();
         }
-#endif
     }
+#endif //AZ_TRAIT_SERVER
 
     void NetworkMatchComponentController::AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity)
     {

@@ -16,7 +16,6 @@ set(FILES
     Include/UiCoinCountBus.h
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h
-    Include/UiRoundsLifecycleBus.h
 
     Source/AutoGen/EnergyBallComponent.AutoComponent.xml
     Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
@@ -90,8 +89,6 @@ set(FILES
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiPlayerArmorComponent.cpp
     Source/Components/UI/UiPlayerArmorComponent.h
-    Source/Components/UI/UiRestBetweenRoundsComponent.cpp
-    Source/Components/UI/UiRestBetweenRoundsComponent.h
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
     Source/Components/Multiplayer/GemComponent.cpp

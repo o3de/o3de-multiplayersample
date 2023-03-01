@@ -12,6 +12,7 @@ ly_add_target(
     NAMESPACE Gem
     FILES_CMAKE
         multiplayersample_files.cmake
+        multiplayersample_client_files.cmake
         multiplayersample_autogen_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
@@ -81,6 +82,7 @@ ly_add_target(
     FILES_CMAKE
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
+        multiplayersample_client_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE

@@ -16,7 +16,10 @@
 #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
-#include <Components/UI/UiRestBetweenRoundsComponent.h>
+#if AZ_TRAIT_CLIENT
+    #include <Components/UI/UiRestBetweenRoundsComponent.h>
+#endif
+
 #include <Source/AutoGen/AutoComponentTypes.h>
 
 #include "MultiplayerSampleSystemComponent.h"
@@ -43,7 +46,9 @@ namespace MultiplayerSample
                 UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                 UiGameOverComponent::CreateDescriptor(),
                 UiPlayerArmorComponent::CreateDescriptor(),
-                UiRestBetweenRoundsComponent::CreateDescriptor()
+                #if AZ_TRAIT_CLIENT
+                    UiRestBetweenRoundsComponent::CreateDescriptor()
+                #endif
             });
 
             CreateComponentDescriptors(m_descriptors);
