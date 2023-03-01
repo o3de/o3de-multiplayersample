@@ -261,8 +261,17 @@ namespace MultiplayerSample
 #if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::EndRound()
     {
-        ModifyRoundNumber()++;
-        SetRoundTime(RoundTimeSec{ GetRoundDuration() });
+        uint16_t roundNumber = GetRoundNumber() + 1;
+
+        // We need to do this whether or not we're going beyond the number of total rounds so that
+        // the game state code can detect that it's time to end the game.
+        SetRoundNumber(roundNumber);
+
+        if (roundNumber <= GetTotalRounds())
+        {
+            SetRoundTime(RoundTimeSec{ GetRoundDuration() });
+            GetGemSpawnerComponentController()->SpawnGems();
+        }
     }
 
     void NetworkMatchComponentController::HandleRPC_PlayerActivated([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
