@@ -131,7 +131,7 @@ namespace MultiplayerSample
         const RoundSpawnTable& table = 
             GetSpawnTablesPerRound()[AZStd::min(round, aznumeric_cast<uint16_t>(GetSpawnTablesPerRound().size() - 1))];
 
-        // Move the table data into a working kust where we've done a one-time conversion of tags into CRCs and we can temporarily 
+        // Move the table data into a working list where we've done a one-time conversion of tags into CRCs and we can temporarily 
         // store which tags exist on the entity.
         AZStd::vector<GemSpawnEntry> gemSpawnList;
         gemSpawnList.reserve(table.m_gemWeights.size());
