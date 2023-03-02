@@ -273,13 +273,22 @@ namespace MultiplayerSample
 #if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::StartRound()
     {
-        // stop the rest timer
-        m_restTickEvent.RemoveFromQueue();
+        uint16_t roundNumber = GetRoundNumber() + 1;
 
-        // start the round timer
-        SetRoundTime(RoundTimeSec{ GetRoundDuration() });
-        m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true); // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
-        ModifyRoundNumber()++;
+        // We need to do this whether or not we're going beyond the number of total rounds so that
+        // the game state code can detect that it's time to end the game.
+        SetRoundNumber(roundNumber);
+
+        if (roundNumber <= GetTotalRounds())
+        {
+            // stop the rest timer
+            m_restTickEvent.RemoveFromQueue();
+
+            // start the round timer
+            SetRoundTime(RoundTimeSec{ GetRoundDuration() });
+            m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true); // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
+            GetGemSpawnerComponentController()->SpawnGems();
+        }
     }
 
     void NetworkMatchComponentController::EndRound()
