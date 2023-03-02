@@ -122,6 +122,9 @@
                     "Id": 14925070260434397195,
                     "Configuration": {
                         "entityId": "",
+                        "CollisionGroupId": {
+                            "GroupId": "{FE20AF05-2602-45C6-BF4D-FA497B971061}"
+                        },
                         "MaterialSlots": {
                             "Slots": [
                                 {
@@ -373,7 +376,7 @@
                     "$type": "EditorCharacterGameplayComponent",
                     "Id": 4325721995654492049,
                     "GameplayConfig": {
-                        "GravityMultiplier": 0.0,
+                        "GravityMultiplier": 2.0,
                         "GroundDetectionBoxHeight": 0.05000000074505806
                     }
                 },
@@ -402,8 +405,7 @@
                         "loadBehavior": "QueueLoad",
                         "assetHint": "mixamo/ybot/ybot.actor"
                     },
-                    "AttachmentTarget": "",
-                    "RenderSkeleton": true
+                    "AttachmentTarget": ""
                 },
                 "Component_[5387953310772448141]": {
                     "$type": "GenericComponentWrapper",
@@ -411,7 +413,7 @@
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkPlayerMovementComponent",
                         "SprintSpeed": 6.0,
-                        "JumpVelocity": 8.0
+                        "MaxJumpHeight": 1.625
                     }
                 },
                 "Component_[5984669395829237154]": {

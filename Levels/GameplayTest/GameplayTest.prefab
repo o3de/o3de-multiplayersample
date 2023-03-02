@@ -106,7 +106,8 @@
                     "Entity_[15464591867054]",
                     "Entity_[15473181801646]",
                     "Entity_[15481771736238]",
-                    "Entity_[24092772383715]"
+                    "Entity_[24092772383715]",
+                    "Entity_[873004712589]"
                 ]
             }
         }
@@ -5596,10 +5597,11 @@
                     "Id": 8106850883560113265,
                     "m_template": {
                         "$type": "MultiplayerSample::GameplayEffectsComponent",
-                        "GemPickup": "Play_Gem_Pickup",
+                        "GemPickup": "play_sx_int_gem_pickup",
                         "RoundStart": "Play_Round_Begin",
                         "RoundEnd": "Play_Round_End",
-                        "LaserPistolImpact": "Play_Laser_Gun_Impact",
+                        "LaserPistolMuzzleFlash": "play_sx_wpn_laserpistol_fire",
+                        "LaserPistolImpact": "play_sx_wpn_laserpistol_impact",
                         "EnergyBallTrapImpact": "Play_Laser_Gun_Impact"
                     }
                 },
@@ -10781,6 +10783,60 @@
                 "Component_[9914289529455341679]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 9914289529455341679
+                }
+            }
+        },
+        "Entity_[873004712589]": {
+            "Id": "Entity_[873004712589]",
+            "Name": "In Game Menu",
+            "Components": {
+                "Component_[10973769579758943127]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 10973769579758943127
+                },
+                "Component_[13892978883605229067]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 13892978883605229067
+                },
+                "Component_[16221779430861293146]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 16221779430861293146
+                },
+                "Component_[16377069407396552235]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 16377069407396552235
+                },
+                "Component_[199753144438342893]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 199753144438342893
+                },
+                "Component_[2280755623652026535]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 2280755623652026535,
+                    "Parent Entity": "Entity_[356758116574]"
+                },
+                "Component_[4368122420119951993]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 4368122420119951993
+                },
+                "Component_[438967016699456639]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 438967016699456639
+                },
+                "Component_[5604360131636598685]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 5604360131636598685
+                },
+                "Component_[9355518200202427665]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9355518200202427665,
+                    "m_template": {
+                        "$type": "UiCanvasAssetRefComponent",
+                        "CanvasAssetRef": {
+                            "AssetPath": "uicanvases/ingamemenu.uicanvas"
+                        },
+                        "IsAutoLoad": true
+                    }
                 }
             }
         }

@@ -60,10 +60,12 @@ namespace MultiplayerSample
 
             particle->Restart(true);
         }
-#endif
 
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect, 
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
             SoundEffect::LaserPistolMuzzleFlash, GetEntity()->GetTransform()->GetWorldTranslation());
+        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
+            SoundEffect::LaserPistolImpact, end);
+#endif
     }
 
     void WeaponEffectComponent::OnWeaponActivate(const WeaponActivationInfo& info)
@@ -76,9 +78,6 @@ namespace MultiplayerSample
 
     void WeaponEffectComponent::OnWeaponConfirmHit([[maybe_unused]] const WeaponHitInfo& info)
     {
-        const AZ::Vector3& hitCenter = info.m_hitEvent.m_hitTransform.GetTranslation();
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-            SoundEffect::LaserPistolImpact, hitCenter);
     }
 
 
