@@ -9,14 +9,13 @@
 
 
 #include <AzCore/Component/Component.h>
-
-#include <UiRoundsLifecycleBus.h>
+#include <AzCore/Component/TickBus.h>
 
 namespace MultiplayerSample
 {
     class UiRestBetweenRoundsComponent
         : public AZ::Component
-        , public UiRoundsLifecycleBus::Handler
+        , public AZ::TickBus::Handler
     {
     public:
         AZ_COMPONENT(UiRestBetweenRoundsComponent, "{8BF185B2-DCE7-462B-B151-43E0AF717BA5}");
@@ -26,14 +25,16 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
-#if AZ_TRAIT_CLIENT
-        //! UiRoundsLifecycleBus overrides
-        //! @{
-        void OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining) override;
-        //! }@
-#endif
+        //! AZ::TickBus::Handler overrides...
+        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
 
     private:
+        void OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining);
+        AZ::Event<RoundTimeSec>::Handler onRestTimeChangedHandler{ [this](RoundTimeSec secondsRemaining)
+        {
+            OnRoundRestTimeRemainingChanged(secondsRemaining);
+        } };
+
         AZ::EntityId m_restTimerRootUiElement;
         AZ::EntityId m_numbersContainerUiElement;
     };

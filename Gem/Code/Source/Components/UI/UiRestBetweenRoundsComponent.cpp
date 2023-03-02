@@ -5,9 +5,11 @@
  *
  */
 
+#include <Source/Components/UI/UiRestBetweenRoundsComponent.h>
+#include <Source/Components/NetworkMatchComponent.h>
+
 #include <AzCore/Serialization/EditContext.h>
 #include <LyShine/Bus/UiElementBus.h>
-#include <Source/Components/UI/UiRestBetweenRoundsComponent.h>
 
 namespace MultiplayerSample
 {
@@ -37,12 +39,23 @@ namespace MultiplayerSample
 
     void UiRestBetweenRoundsComponent::Activate()
     {
-        UiRoundsLifecycleBus::Handler::BusConnect(GetEntityId());
+        // Wait for the NetworkMatchComponent to activate and then register to listen for rest timer network property change
+        AZ::TickBus::Handler::BusConnect();
+    }
+
+    void UiRestBetweenRoundsComponent::OnTick([[maybe_unused]]float deltaTime, [[maybe_unused]]AZ::ScriptTimePoint time)
+    {
+        if (auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+        {
+            // Disconnect from tickbus once event notifications are set up
+            networkMatchComponent->RoundRestTimeRemainingAddEvent(onRestTimeChangedHandler);
+            AZ::TickBus::Handler::BusDisconnect();
+        }
     }
 
     void UiRestBetweenRoundsComponent::Deactivate()
     {
-        UiRoundsLifecycleBus::Handler::BusDisconnect();
+        onRestTimeChangedHandler.Disconnect();
     }
 
     void UiRestBetweenRoundsComponent::OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining)

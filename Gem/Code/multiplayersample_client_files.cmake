@@ -6,8 +6,6 @@
 #
 
 set(FILES
-    Include/UiRoundsLifecycleBus.h
-
     Source/Components/UI/UiRestBetweenRoundsComponent.cpp
     Source/Components/UI/UiRestBetweenRoundsComponent.h
 )

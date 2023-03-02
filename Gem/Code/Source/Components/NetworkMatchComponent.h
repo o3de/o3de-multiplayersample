@@ -39,14 +39,6 @@ namespace MultiplayerSample
             AzNetworking::IConnection* invokingConnection, const MatchResultsSummary& results) override;
 #endif
 
-    private:
-#if AZ_TRAIT_CLIENT
-        void OnRestTimeRemainingChanged(RoundTimeSec restTimeRemaining);
-        AZ::Event<RoundTimeSec>::Handler m_restTimeRemainingChangedHandler{ [this](RoundTimeSec restTimeRemaining)
-        {
-            OnRestTimeRemainingChanged(restTimeRemaining);
-        } };
-#endif
     };
 
 

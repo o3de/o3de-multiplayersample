@@ -8,9 +8,7 @@
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
-#if AZ_TRAIT_CLIENT
-    #include <UiRoundsLifecycleBus.h>
-#endif
+
 #include <GameState/GameStateMatchEnded.h>
 #include <GameState/GameStateMatchInProgress.h>
 #include <GameState/GameStatePreparingMatch.h>
@@ -43,7 +41,7 @@ namespace MultiplayerSample
     void NetworkMatchComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         #if AZ_TRAIT_CLIENT
-            RoundRestTimeRemainingAddEvent(m_restTimeRemainingChangedHandler);
+            AZ::Interface<NetworkMatchComponent>::Register(this);
         #endif
 
         if (IsNetEntityRoleAuthority() || IsNetEntityRoleServer())
@@ -57,7 +55,7 @@ namespace MultiplayerSample
         PlayerIdentityNotificationBus::Handler::BusDisconnect();
 
         #if AZ_TRAIT_CLIENT
-            m_restTimeRemainingChangedHandler.Disconnect();
+            AZ::Interface<NetworkMatchComponent>::Unregister(this);
         #endif
     }
 
@@ -99,11 +97,6 @@ namespace MultiplayerSample
                 }
             }
         }
-    }
-
-    void NetworkMatchComponent::OnRestTimeRemainingChanged(RoundTimeSec restTimeRemaining)
-    {
-        UiRoundsLifecycleBus::Broadcast(&UiRoundsLifecycleNotifications::OnRoundRestTimeRemainingChanged, restTimeRemaining);
     }
 #endif  // AZ_TRAIT_CLIENT
 
