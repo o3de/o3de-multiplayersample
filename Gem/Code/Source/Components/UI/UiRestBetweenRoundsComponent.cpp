@@ -45,19 +45,20 @@ namespace MultiplayerSample
         UiRoundsLifecycleBus::Handler::BusDisconnect();
     }
 
-    void UiRestBetweenRoundsComponent::OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRenaming)
+    void UiRestBetweenRoundsComponent::OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining)
     {
-        bool enableRootElement = secondsRenaming > 0;
+        bool enableRootElement = secondsRemaining > 0;
         UiElementBus::Event(m_restTimerRootUiElement, &UiElementBus::Events::SetIsEnabled, enableRootElement);
 
         LyShine::EntityArray numbersUiElements;
         UiElementBus::EventResult(numbersUiElements, m_numbersContainerUiElement, &UiElementBus::Events::GetChildElements);
 
+        const size_t secondsRemainingInt = aznumeric_cast<size_t>(secondsRemaining);
         const size_t uiElementCount = numbersUiElements.size();
-        for(size_t i = 0; i < uiElementCount; ++i)
+        for(size_t uiElementIndex = 0; uiElementIndex < uiElementCount; ++uiElementIndex)
         {
-            bool enabled = i == aznumeric_cast<size_t>(secondsRenaming);
-            UiElementBus::Event(numbersUiElements[i]->GetId(), &UiElementBus::Events::SetIsEnabled, enabled);
+            bool enabled = (uiElementIndex == secondsRemainingInt);
+            UiElementBus::Event(numbersUiElements[uiElementIndex]->GetId(), &UiElementBus::Events::SetIsEnabled, enabled);
         }
     }
 

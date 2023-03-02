@@ -285,7 +285,7 @@ namespace MultiplayerSample
 
         // start the round timer
         SetRoundTime(RoundTimeSec{ GetRoundDuration() });
-        m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+        m_roundTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true); // Tick once a second, this way we can keep the time as an 2 byte integer instead of a float.
         ModifyRoundNumber()++;
     }
 

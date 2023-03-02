@@ -29,7 +29,7 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         //! UiRoundsLifecycleBus overrides
         //! @{
-        void OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRenaming) override;
+        void OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining) override;
         //! }@
 #endif
 

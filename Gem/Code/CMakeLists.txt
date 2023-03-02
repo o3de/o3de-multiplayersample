@@ -11,9 +11,9 @@ ly_add_target(
     NAME MultiplayerSample.Client.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
-        multiplayersample_client_files.cmake
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
+        multiplayersample_client_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
