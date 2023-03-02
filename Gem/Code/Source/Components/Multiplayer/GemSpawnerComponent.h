@@ -54,7 +54,19 @@ namespace MultiplayerSample
         AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
         AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_queuedForRemovalGems;
 
+        struct GemSpawnEntry
+        {
+            AZ::Crc32 m_tag;
+            float m_weight;
+            bool m_entityHasTag;
+
+            GemSpawnEntry(AZ::Crc32 tag, float weight, bool entityHasTag)
+                : m_tag(tag), m_weight(weight), m_entityHasTag(entityHasTag)
+            {
+            }
+        };
+
         //! Randomly choose a gem type from the given set of weights for the current round.
-        AZ::Crc32 ChooseGemType(const LmbrCentral::Tags& tags);
+        AZ::Crc32 ChooseGemType(AZStd::vector<GemSpawnEntry>& gemSpawnList, const LmbrCentral::Tags& tags);
     };
 }

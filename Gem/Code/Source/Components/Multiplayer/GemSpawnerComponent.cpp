@@ -120,6 +120,26 @@ namespace MultiplayerSample
         LmbrCentral::TagGlobalRequestBus::EventResult(aggregator, AZ::Crc32(GetGemSpawnTag()),
             &LmbrCentral::TagGlobalRequests::RequestTaggedEntities);
 
+        // If there aren't any spawn tables, don't spawn anything.
+        if (GetSpawnTablesPerRound().empty())
+        {
+            return;
+        }
+
+        // Get the current round's spawn table, or the last defined round as a fallback.
+        const uint16_t round = GetNetworkMatchComponentController()->GetRoundNumber();
+        const RoundSpawnTable& table = 
+            GetSpawnTablesPerRound()[AZStd::min(round, aznumeric_cast<uint16_t>(GetSpawnTablesPerRound().size() - 1))];
+
+        // Move the table data into a working list where we've done a one-time conversion of tags into CRCs and we can temporarily 
+        // store which tags exist on the entity.
+        AZStd::vector<GemSpawnEntry> gemSpawnList;
+        gemSpawnList.reserve(table.m_gemWeights.size());
+        for (const GemWeightChance& gemWeight : table.m_gemWeights)
+        {
+            gemSpawnList.emplace_back(AZ::Crc32(gemWeight.m_tag), gemWeight.m_weight, false);
+        }
+
         for (const AZ::EntityId gemSpawnEntity : aggregator.values)
         {
             // Collect the gem tags for this specific entity.
@@ -128,11 +148,15 @@ namespace MultiplayerSample
                 &LmbrCentral::TagComponentRequestBus::Events::GetTags);
 
             // Randomly select a gem type for this entity.
-            const AZ::Crc32 type = ChooseGemType(tags);
+            const AZ::Crc32 type = ChooseGemType(gemSpawnList, tags);
 
-            AZ::Vector3 position = AZ::Vector3::CreateZero();
-            AZ::TransformBus::EventResult(position, gemSpawnEntity, &AZ::TransformBus::Events::GetWorldTranslation);
-            SpawnGem(position, type);
+            // If this entity has a valid gem type, spawn it.
+            if (type != AZ::Crc32(0))
+            {
+                AZ::Vector3 position = AZ::Vector3::CreateZero();
+                AZ::TransformBus::EventResult(position, gemSpawnEntity, &AZ::TransformBus::Events::GetWorldTranslation);
+                SpawnGem(position, type);
+            }
         }
     }
 
@@ -211,60 +235,42 @@ namespace MultiplayerSample
         m_queuedForRemovalGems.erase(entityId);
     }
 
-    AZ::Crc32 GemSpawnerComponentController::ChooseGemType(const LmbrCentral::Tags& tags)
+    AZ::Crc32 GemSpawnerComponentController::ChooseGemType(AZStd::vector<GemSpawnEntry>& gemSpawnList, const LmbrCentral::Tags& tags)
     {
-        if (GetSpawnTablesPerRound().empty())
-        {
-            return {};
-        }
-
-        // Get the current round's spawn table, or the last defined round as a fallback.
-        const uint16_t round = GetNetworkMatchComponentController()->GetRoundNumber();
-        const RoundSpawnTable* table;
-        if (round < GetSpawnTablesPerRound().size())
-        {
-            table = &GetSpawnTablesPerRound()[round];
-        }
-        else
-        {
-            table = &GetSpawnTablesPerRound().back();
-        }
-
         // Calculate the total weight of all applicable gem tags.
         float totalWeight = 0.f;
-        for (const GemWeightChance& gemWeight : table->m_gemWeights)
+        for (GemSpawnEntry& entry : gemSpawnList)
         {
-            const auto tagIterator = tags.find(AZ::Crc32(gemWeight.m_tag));
+            const auto tagIterator = tags.find(entry.m_tag);
+            entry.m_entityHasTag = tagIterator != tags.end();
             if (tagIterator != tags.end())
             {
-                totalWeight += gemWeight.m_weight;
+                totalWeight += entry.m_weight;
             }
         }
         
         // Create a random float in the range of [0, totalWeight)
         float randomWeight = GetNetworkRandomComponentController()->GetRandomFloat() * totalWeight;
 
-        AZ::Crc32 chosenType(table->m_gemWeights.front().m_tag);
-        for (const GemWeightChance& gemWeight : table->m_gemWeights)
+        AZ::Crc32 chosenType;
+        for (GemSpawnEntry& entry : gemSpawnList)
         {
-            const auto tagIterator = tags.find(AZ::Crc32(gemWeight.m_tag));
-            if (tagIterator == tags.end())
+            if (entry.m_entityHasTag)
             {
-                continue;
-            }
+                // For every acceptable tag, reduce the the weight value until the right gem type is found for the random value.
+                // >----------------------\
+                //                        |
+                // gem1--------gem2-------*--gem3------
+                if (randomWeight > entry.m_weight)
+                {
+                    randomWeight -= entry.m_weight;
+                }
+                else
+                {
+                    chosenType = entry.m_tag;
+                    break;
+                }
 
-            // For every acceptable tag, reduce the the weight value until the right gem type is found for the random value.
-            // >----------------------\
-            //                        |
-            // gem1--------gem2-------*--gem3------
-            if (randomWeight > gemWeight.m_weight)
-            {
-                randomWeight -= gemWeight.m_weight;
-            }
-            else
-            {
-                chosenType = AZ::Crc32(gemWeight.m_tag);
-                break;
             }
         }
 
