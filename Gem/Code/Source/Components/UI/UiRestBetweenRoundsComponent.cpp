@@ -47,7 +47,7 @@ namespace MultiplayerSample
 
     void UiRestBetweenRoundsComponent::OnRoundRestTimeRemainingChanged(RoundTimeSec secondsRemaining)
     {
-        bool enableRootElement = secondsRemaining > 0;
+        bool enableRootElement = secondsRemaining > 0.0f;
         UiElementBus::Event(m_restTimerRootUiElement, &UiElementBus::Events::SetIsEnabled, enableRootElement);
 
         LyShine::EntityArray numbersUiElements;
