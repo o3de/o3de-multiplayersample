@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <AzCore/Preprocessor/Enum.h>
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/Math/Vector3.h>
 
@@ -42,15 +43,16 @@ namespace MultiplayerSample
         BubbleGunProjectile,
         BubbleGunImpact,
 
-        // Jump Pad
+        // Environment
         JumpPadLaunch,
+        TeleporterUse,
 
         // Energy Ball Trap
         EnergyBallTrapRisingOutOfTheGround,
         EnergyBallTrapBuildup, // followed by muzzle flash
         EnergyBallTrapProjectile,
         EnergyBallTrapImpact,
-        EnergyBallTrapOnCooldown, // plays when you try to fire it during cooldown
+        EnergyBallTrapOnCooldown // plays when you try to fire it during cooldown
     );
 
     class GameplayEffectsNotifications : public AZ::EBusTraits
