@@ -90,7 +90,6 @@ set(FILES
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiPlayerArmorComponent.cpp
     Source/Components/UI/UiPlayerArmorComponent.h
-
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
     Source/Components/Multiplayer/GemComponent.cpp
