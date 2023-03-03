@@ -107,7 +107,9 @@ namespace MultiplayerSample
 
     void GemSpawnerComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::EntityBus::MultiHandler::BusDisconnect();
+#if AZ_TRAIT_SERVER
+        RemoveGems();
+#endif
     }
 
 #if AZ_TRAIT_SERVER
@@ -184,8 +186,22 @@ namespace MultiplayerSample
         callbacks.m_onActivateCallback = [this, spawnable](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
             AzFramework::SpawnableConstEntityContainerView view)
         {
+            if (view.empty())
+            {
+                return;
+            }
+
+            AZ::EntityId rootEntityId;
+
             for (const AZ::Entity* entity : view)
             {
+                // Keep track of the root entity of the spawnable so that we can move the gem out of sight when waiting for it to
+                // despawn on gem removals.
+                if (entity->GetTransform()->GetParent() == nullptr)
+                {
+                    rootEntityId = entity->GetId();
+                }
+
                 if (GemComponent* gem = entity->FindComponent<GemComponent>())
                 {
                     if (GemComponentController* gemController = static_cast<GemComponentController*>(gem->GetController()))
@@ -193,12 +209,12 @@ namespace MultiplayerSample
                         gemController->SetRandomPeriodOffset(GetNetworkRandomComponentController()->GetRandomInt() % 1000);
                         gemController->SetGemScoreValue(spawnable->m_scoreValue);
                     }
-
-                    // Save the gem spawn ticket, otherwise the gem will de-spawn
-                    m_spawnedGems.emplace(entity->GetId(), AZStd::move(ticket));
-                    break;
                 }
             }
+
+            // Save the gem spawn ticket, otherwise the gem will immediately despawn due to the ticket's destruction.
+            // Also track the root entity id so that we can move the gem out of sight while waiting for it to despawn when removing gems.
+            m_spawnedGems.emplace_back(AZStd::move(ticket), rootEntityId);
         };
 
         GetParent().GetNetworkPrefabSpawnerComponent()->SpawnPrefabAsset(
@@ -208,32 +224,18 @@ namespace MultiplayerSample
 
     void GemSpawnerComponentController::RemoveGems()
     {
-        for (const auto& gem : m_spawnedGems)
+        for (const auto& [ticket, rootEntityId] : m_spawnedGems)
         {
-            const Multiplayer::NetEntityId netEntityId = Multiplayer::GetNetworkEntityManager()->GetNetEntityIdById(gem.first);
-            Multiplayer::ConstNetworkEntityHandle netEntityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
+            // Move the gem out of the view because it can take a little while before the removal gets applied.
+            AZ::TransformBus::Event(rootEntityId, &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
 
-            if (netEntityHandle.Exists())
-            {
-                AZ::EntityBus::MultiHandler::BusConnect(gem.first);
-                Multiplayer::GetNetworkEntityManager()->MarkForRemoval(netEntityHandle);
-
-                // Move the gem out of the view because it can take a little while before the removal gets applied.
-                AZ::TransformBus::Event(gem.first, &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
-
-                m_queuedForRemovalGems.emplace(gem.first, gem.second);
-            }
+            // Destroy all the entities for each gem.
+            AzFramework::SpawnableEntitiesInterface::Get()->DespawnAllEntities(*ticket);
         }
 
         m_spawnedGems.clear();
     }
 #endif
-
-    void GemSpawnerComponentController::OnEntityDeactivated(const AZ::EntityId& entityId)
-    {
-        AZ::EntityBus::MultiHandler::BusDisconnect(entityId);
-        m_queuedForRemovalGems.erase(entityId);
-    }
 
     AZ::Crc32 GemSpawnerComponentController::ChooseGemType(AZStd::vector<GemSpawnEntry>& gemSpawnList, const LmbrCentral::Tags& tags)
     {
