@@ -46,13 +46,13 @@ namespace MultiplayerSample
         if (PopcornFX::PopcornFXEmitterComponentRequests* particle =
             PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntityId()))
         {
-            AZ::s32 attributeId = particle->GetAttributeId("Start");
+            AZ::s32 attributeId = particle->GetAttributeId("Start Position");
             if (attributeId >= 0)
             {
                 particle->SetAttributeAsFloat3(attributeId, start);
             }
 
-            attributeId = particle->GetAttributeId("End");
+            attributeId = particle->GetAttributeId("Hit Position");
             if (attributeId >= 0)
             {
                 particle->SetAttributeAsFloat3(attributeId, end);
