@@ -15,8 +15,6 @@
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
-#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
-#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/CharacterBus.h>
@@ -122,33 +120,15 @@ namespace MultiplayerSample
         Physics::CharacterNotificationBus::Handler::BusDisconnect();
     }
 
-    bool NetworkPlayerMovementComponentController::ShouldProcessInput() const
-    {
-        // skip player input if the gameplay is in between a round (rest period)
-        if (const auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
-        {
-            if (networkMatchComponent->GetRoundTime() <= 0 && networkMatchComponent->GetRoundRestTimeRemaining() > 0)
-            {
-                return false;
-            }
-        }
-
-        AzFramework::SystemCursorState systemCursorState{AzFramework::SystemCursorState::Unknown};
-        AzFramework::InputSystemCursorRequestBus::EventResult( systemCursorState, AzFramework::InputDeviceMouse::Id,
-            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-
-        // only process input when the system cursor isn't unconstrainted and visible a.k.a console mode
-        return systemCursorState != AzFramework::SystemCursorState::UnconstrainedAndVisible;
-    }
-
     void NetworkPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        if (!ShouldProcessInput())
+        // Check current game-play state
+        if (!AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
         {
-            // clear our input
+            // Clear our input
             m_forwardWeight = 0.f;
             m_leftWeight = 0.f;
             m_backwardWeight = 0.f;
@@ -165,7 +145,6 @@ namespace MultiplayerSample
             // running when the round starts instead of having to release the 'W' key and pressing it again.
             playerInput->m_forwardAxis = StickAxis(0);
             playerInput->m_strafeAxis = StickAxis(0);
-
             return;
         }
 
