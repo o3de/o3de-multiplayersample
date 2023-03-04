@@ -25,7 +25,6 @@
 #include <PhysX/CharacterGameplayBus.h>
 #include <PhysX/CharacterControllerBus.h>
 
-#pragma optimize("", off)
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
@@ -674,4 +673,3 @@ namespace MultiplayerSample
     }
 #endif
 } // namespace MultiplayerSample
-#pragma optimize("", on)
