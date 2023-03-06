@@ -28,7 +28,6 @@ namespace MultiplayerSample
 
     class GemSpawnerComponentController
         : public GemSpawnerComponentControllerBase
-        , public AZ::EntityBus::MultiHandler
     {
     public:
         explicit GemSpawnerComponentController(GemSpawnerComponent& parent);
@@ -40,19 +39,13 @@ namespace MultiplayerSample
         void SpawnGems();
 #endif
 
-        //! EntityBus
-        //! @{
-        void OnEntityDeactivated(const AZ::EntityId& entityId) override;
-        //! @}
-
     private:
 #if AZ_TRAIT_SERVER
         void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
         void RemoveGems();
 #endif
 
-        AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
-        AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_queuedForRemovalGems;
+        AZStd::vector<AZStd::pair<AZStd::shared_ptr<AzFramework::EntitySpawnTicket>, AZ::EntityId>> m_spawnedGems;
 
         struct GemSpawnEntry
         {
