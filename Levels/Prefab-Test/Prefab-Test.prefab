@@ -29,7 +29,8 @@
                     "Instance_[37741858938525]/ContainerEntity",
                     "Instance_[55239555702429]/ContainerEntity",
                     "Instance_[72999245471389]/ContainerEntity",
-                    "Instance_[91098237656733]/ContainerEntity"
+                    "Instance_[91098237656733]/ContainerEntity",
+                    "Instance_[128747359507152]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -521,7 +522,8 @@
                         "Entity_[1172344194419]",
                         "Entity_[1168049227123]",
                         "Entity_[1163754259827]",
-                        "Entity_[1159459292531]"
+                        "Entity_[1159459292531]",
+                        "Entity_[3570396572432]"
                     ]
                 },
                 "Component_[7305903414223684329]": {
@@ -826,7 +828,7 @@
                                 },
                                 "assetHint": "skies/kloppenheim_iblskyboxcm.exr.streamingimage"
                             },
-                            "Exposure": -2.0
+                            "Exposure": -4.0
                         }
                     }
                 },
@@ -857,6 +859,63 @@
                             61.530738830566406
                         ]
                     }
+                }
+            }
+        },
+        "Entity_[3570396572432]": {
+            "Id": "Entity_[3570396572432]",
+            "Name": "Stars",
+            "Components": {
+                "Component_[10528515667961685503]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 10528515667961685503
+                },
+                "Component_[11404340734377842363]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 11404340734377842363
+                },
+                "Component_[13780021475879168627]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 13780021475879168627,
+                    "Parent Entity": "Entity_[1176639161715]"
+                },
+                "Component_[14455266643080479102]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 14455266643080479102
+                },
+                "Component_[14603999841454567405]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 14603999841454567405
+                },
+                "Component_[15330950734331800386]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 15330950734331800386
+                },
+                "Component_[17370114785985056856]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17370114785985056856
+                },
+                "Component_[2233526880088770604]": {
+                    "$type": "AZ::Render::EditorStarsComponent",
+                    "Id": 2233526880088770604,
+                    "Controller": {
+                        "Configuration": {
+                            "StarsAsset": {
+                                "assetId": {
+                                    "guid": "{D9C676CB-4AE4-5B56-8042-A66F30C70921}"
+                                },
+                                "assetHint": "stars/default.stars"
+                            }
+                        }
+                    }
+                },
+                "Component_[4890235810797767916]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 4890235810797767916
+                },
+                "Component_[6747229718333205052]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 6747229718333205052
                 }
             }
         },
@@ -905,7 +964,6 @@
                         "Instance_[875995754213791]/ContainerEntity",
                         "Instance_[11636475205747]/ContainerEntity",
                         "Instance_[15136873551987]/ContainerEntity",
-                        "Instance_[112609956657964]/ContainerEntity",
                         "Instance_[41079043880988]/ContainerEntity",
                         "Instance_[634020753930268]/ContainerEntity",
                         "Instance_[47567365701250]/ContainerEntity",
@@ -968,7 +1026,8 @@
                                     "subId": 2000
                                 },
                                 "assetHint": "cubemapcaptures/beta_capture_specular__518aab83-8055-4b01-b767-3e812456e21b__iblspecularcm1024.dds.streamingimage"
-                            }
+                            },
+                            "exposure": -2.0
                         }
                     },
                     "diffuseImageAsset": {
@@ -984,7 +1043,8 @@
                             "subId": 2000
                         },
                         "assetHint": "cubemapcaptures/beta_capture_specular__518aab83-8055-4b01-b767-3e812456e21b__iblspecularcm1024.dds.streamingimage"
-                    }
+                    },
+                    "exposure": -2.0
                 },
                 "Component_[11680948589282608903]": {
                     "$type": "EditorLockComponent",
@@ -1030,31 +1090,6 @@
         }
     },
     "Instances": {
-        "Instance_[112609956657964]": {
-            "Source": "Prefabs/Gold_Gem.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Parent Entity",
-                    "value": "../Entity_[3930003406247]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/0",
-                    "value": 3.796407461166382
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/1",
-                    "value": 2.1730308532714844
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[13733325515080958445]/Transform Data/Translate/2",
-                    "value": 0.6239018440246582
-                }
-            ]
-        },
         "Instance_[11481381036691]": {
             "Source": "KB3D_HighTechStreets/Prefabs/HTS_Road_E.prefab",
             "Patches": [
@@ -1137,6 +1172,26 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[14813183333063698436]/Transform Data/Translate/2",
                     "value": 4.810461044311523
+                }
+            ]
+        },
+        "Instance_[128747359507152]": {
+            "Source": "KB3D_HighTechStreets/Prefabs/HTS_BldgMD_G.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2000417864965542772]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2000417864965542772]/Transform Data/Translate/0",
+                    "value": 22.01111602783203
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2000417864965542772]/Transform Data/Translate/1",
+                    "value": 14.647554397583008
                 }
             ]
         },
