@@ -165,7 +165,10 @@ namespace MultiplayerSample
             if (speed >= 1.0f)
             {
                 NetworkAnimationComponentController* controller = static_cast<MultiplayerSample::NetworkAnimationComponentController*>(GetController());
-                controller->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+                if (controller != nullptr)
+                {
+                    controller->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+                }
             }
         }
 
