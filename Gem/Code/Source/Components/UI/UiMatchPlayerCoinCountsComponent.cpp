@@ -59,10 +59,11 @@ namespace MultiplayerSample
         {
             AZStd::vector<AZ::EntityId> children;
             UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
-            if (children.size() >= 2)
+            if (children.size() >= 3)
             {
-                UiTextBus::Event(children[0], &UiTextBus::Events::SetText, "");
-                UiTextBus::Event(children[1], &UiTextBus::Events::SetText, "");
+                UiTextBus::Event(children[0], &UiTextBus::Events::SetText, ""); // name
+                UiTextBus::Event(children[1], &UiTextBus::Events::SetText, ""); // score
+                UiTextBus::Event(children[2], &UiTextBus::Events::SetText, ""); // rank
             }
         }
     }
