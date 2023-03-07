@@ -425,6 +425,14 @@ namespace MultiplayerSample
                 aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), true);
         }
 
+        // However, turn off aiming any time the character is sprinting.
+        if (GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting)))
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+        }
+
+
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 
         for (uint32_t weaponIndexInt = 0; weaponIndexInt < MaxWeaponsPerComponent; ++weaponIndexInt)
