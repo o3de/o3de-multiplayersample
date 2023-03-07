@@ -339,7 +339,9 @@ namespace MultiplayerSample
                     continue;
                 }
 
-                RespawnPlayer(playerNetEntity, PlayerResetOptions{ true, 0 });
+                constexpr bool resetShields = true
+                constexpr uint16_t coinPenalty = 0;
+                RespawnPlayer(playerNetEntity, PlayerResetOptions{ resetShields, coinPenalty });
             }
         }
         else // Match ended
