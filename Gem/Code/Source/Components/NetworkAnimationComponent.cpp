@@ -160,16 +160,6 @@ namespace MultiplayerSample
                 }
                 m_animationGraph->SetParameterFloat(m_movementSpeedParamId, speed);
             }
-
-            // Turn off aiming when character start running.
-            if (speed >= 1.0f)
-            {
-                NetworkAnimationComponentController* controller = static_cast<MultiplayerSample::NetworkAnimationComponentController*>(GetController());
-                if (controller != nullptr)
-                {
-                    controller->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
-                }
-            }
         }
 
         if (m_aimTargetParamId != InvalidParamIndex)
