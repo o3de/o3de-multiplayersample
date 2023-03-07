@@ -25,6 +25,11 @@
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
 
+#if AZ_TRAIT_CLIENT
+#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
+#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
+#endif
+
 namespace MultiplayerSample
 {
     void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
@@ -57,6 +62,28 @@ namespace MultiplayerSample
         #if AZ_TRAIT_CLIENT
             AZ::Interface<NetworkMatchComponent>::Unregister(this);
         #endif
+    }
+
+    bool NetworkMatchComponent::IsPlayerActionAllowed() const
+    {
+        // Disable player actions between rounds (rest period)
+        if (GetRoundTime() <= 0 && GetRoundRestTimeRemaining() > 0)
+        {
+            return false;
+        }
+
+        // Don't allow player movement if the console is open (system cursor isn't unconstrainted and visible)
+        #if AZ_TRAIT_CLIENT
+            AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
+            AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
+                &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
+            if (systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible)
+            {
+                return false;
+            }
+        #endif
+
+        return true;
     }
 
 #if AZ_TRAIT_SERVER

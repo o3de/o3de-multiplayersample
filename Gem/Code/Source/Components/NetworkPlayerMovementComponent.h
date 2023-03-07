@@ -65,8 +65,6 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
-        bool ShouldProcessInput() const;
-
 #if AZ_TRAIT_SERVER
         void UpdateAI();
         AZ::ScheduledEvent m_updateAI;

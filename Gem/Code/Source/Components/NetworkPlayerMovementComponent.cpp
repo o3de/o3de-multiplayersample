@@ -10,12 +10,11 @@
 #include <Source/Components/NetworkAiComponent.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
+#include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Time/ITime.h>
 #include <AzFramework/Components/CameraBus.h>
-#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
-#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/CharacterBus.h>
@@ -23,7 +22,6 @@
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <PhysX/CharacterGameplayBus.h>
 #include <PhysX/CharacterControllerBus.h>
-
 
 namespace MultiplayerSample
 {
@@ -122,21 +120,15 @@ namespace MultiplayerSample
         Physics::CharacterNotificationBus::Handler::BusDisconnect();
     }
 
-    bool NetworkPlayerMovementComponentController::ShouldProcessInput() const
-    {
-        AzFramework::SystemCursorState systemCursorState{AzFramework::SystemCursorState::Unknown};
-        AzFramework::InputSystemCursorRequestBus::EventResult( systemCursorState, AzFramework::InputDeviceMouse::Id,
-            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-
-        // only process input when the system cursor isn't unconstrainted and visible a.k.a console mode
-        return systemCursorState != AzFramework::SystemCursorState::UnconstrainedAndVisible;
-    }
-
     void NetworkPlayerMovementComponentController::CreateInput(Multiplayer::NetworkInput& input, float deltaTime)
     {
-        if (!ShouldProcessInput())
+        // Inputs for your own component always exist
+        NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
+
+        // Check current game-play state
+        if (!AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
         {
-            // clear our input  
+            // Clear our input
             m_forwardWeight = 0.f;
             m_leftWeight = 0.f;
             m_backwardWeight = 0.f;
@@ -146,6 +138,13 @@ namespace MultiplayerSample
             m_sprinting = false;
             m_jumping = false;
             m_crouching = false;
+
+            // Don't set m_forward/left/right/backDown to 0, instead just 0 out the net-input by hand.
+            // This way players can start the round hot out of the gate.
+            // Keep their finger on the 'W' (forward) key, and instantly start
+            // running when the round starts instead of having to release the 'W' key and pressing it again.
+            playerInput->m_forwardAxis = StickAxis(0);
+            playerInput->m_strafeAxis = StickAxis(0);
             return;
         }
 
@@ -157,8 +156,6 @@ namespace MultiplayerSample
         m_backwardWeight = std::min<float>(m_backwardDown ? m_backwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
         m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
 
-        // Inputs for your own component always exist
-        NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
         playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
         playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
