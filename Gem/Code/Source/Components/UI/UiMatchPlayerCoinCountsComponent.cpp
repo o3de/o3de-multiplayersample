@@ -6,14 +6,12 @@
  *
  */
 
-#include <MatchPlayerCoinsBus.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Components/Multiplayer/PlayerIdentityComponent.h>
 
-#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
-#endif
 
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
 
@@ -23,19 +21,52 @@ namespace MultiplayerSample
 
     void UiMatchPlayerCoinCountsComponent::Activate()
     {
-#if AZ_TRAIT_CLIENT
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ShowPlayerCoinCountsEventId);
-#endif
     }
 
     void UiMatchPlayerCoinCountsComponent::Deactivate()
     {
-#if AZ_TRAIT_CLIENT
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect();
-#endif
     }
 
-#if AZ_TRAIT_CLIENT
+    void UiMatchPlayerCoinCountsComponent::UpdatePlayerScoreUI()
+    {
+        AZStd::vector<PlayerCoinState> coins = AZ::Interface<MatchPlayerCoinsComponent>::Get()->GetPlayerCoinCounts();
+        AZStd::size_t elementIndex = 0;
+        for (const PlayerCoinState& state : coins)
+        {
+            if (elementIndex >= m_playerRowElement.size())
+            {
+                break;
+            }
+
+            if (state.m_playerId != Multiplayer::InvalidNetEntityId)
+            {
+                AZStd::vector<AZ::EntityId> children;
+                UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
+                if (children.size() >= 2)
+                {
+                    const PlayerNameString name = GetPlayerName(state.m_playerId);
+                    UiTextBus::Event(children[0], &UiTextBus::Events::SetText, AZStd::string::format("%s", name.c_str()));
+                    UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
+                }
+                elementIndex++;
+            }
+        }
+
+        // Clear out the unused fields.
+        for (; elementIndex < m_playerRowElement.size(); ++elementIndex)
+        {
+            AZStd::vector<AZ::EntityId> children;
+            UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
+            if (children.size() >= 2)
+            {
+                UiTextBus::Event(children[0], &UiTextBus::Events::SetText, "");
+                UiTextBus::Event(children[1], &UiTextBus::Events::SetText, "");
+            }
+        }
+    }
+
     void UiMatchPlayerCoinCountsComponent::OnPressed([[maybe_unused]] float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
@@ -48,42 +79,8 @@ namespace MultiplayerSample
         if (*inputId == ShowPlayerCoinCountsEventId)
         {
             UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, true);
-
-            AZStd::vector<PlayerCoinState> coins;
-            MatchPlayerCoinsRequestBus::BroadcastResult(coins, &MatchPlayerCoinsRequestBus::Events::GetPlayerCoinCounts);
-            AZStd::size_t elementIndex = 0;
-            for (const PlayerCoinState& state : coins)
-            {
-                if (elementIndex >= m_playerRowElement.size())
-                {
-                    break;
-                }
-
-                if (state.m_playerId != Multiplayer::InvalidNetEntityId)
-                {
-                    AZStd::vector<AZ::EntityId> children;
-                    UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
-                    if (children.size() >= 2)
-                    {
-                        const PlayerNameString name = GetPlayerName(state.m_playerId);
-                        UiTextBus::Event(children[0], &UiTextBus::Events::SetText, AZStd::string::format("%s", name.c_str()));
-                        UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
-                    }
-                    elementIndex++;
-                }
-            }
-
-            // Clear out the unused fields.
-            for (; elementIndex < m_playerRowElement.size(); ++elementIndex)
-            {
-                AZStd::vector<AZ::EntityId> children;
-                UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
-                if (children.size() >= 2)
-                {
-                    UiTextBus::Event(children[0], &UiTextBus::Events::SetText, "");
-                    UiTextBus::Event(children[1], &UiTextBus::Events::SetText, "");
-                }
-            }
+            AZ::Interface<MatchPlayerCoinsComponent>::Get()->CoinsPerPlayerAddEvent(m_onPlayerScoreChanged);
+            UpdatePlayerScoreUI();
         }
     }
 
@@ -98,6 +95,7 @@ namespace MultiplayerSample
 
         if (*inputId == ShowPlayerCoinCountsEventId)
         {
+            m_onPlayerScoreChanged.Disconnect();
             UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, false);
         }
     }
@@ -109,13 +107,17 @@ namespace MultiplayerSample
         {
             if (const PlayerIdentityComponent* identity = playerHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
             {
-                return identity->GetPlayerName();
+                PlayerNameString playerName = identity->GetPlayerName();
+                if (playerName.empty())
+                {
+                    return "<player_identity_empty>";
+                }
+                return playerName;
             }
         }
 
-        return "Unknown Player";
+        return "<player_handle_doesn't_exist>";
     }
-#endif
 
     void UiMatchPlayerCoinCountsComponent::Reflect(AZ::ReflectContext* context)
     {

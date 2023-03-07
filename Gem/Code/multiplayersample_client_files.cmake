@@ -6,6 +6,8 @@
 #
 
 set(FILES
+    Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
+    Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiRestBetweenRoundsComponent.cpp
     Source/Components/UI/UiRestBetweenRoundsComponent.h
 )

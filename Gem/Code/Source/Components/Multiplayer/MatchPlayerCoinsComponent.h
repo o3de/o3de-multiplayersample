@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <MatchPlayerCoinsBus.h>
 #include <PlayerCoinCollectorBus.h>
 #include <Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.h>
 
@@ -15,7 +14,6 @@ namespace MultiplayerSample
 {
     class MatchPlayerCoinsComponent
         : public MatchPlayerCoinsComponentBase
-        , public MatchPlayerCoinsRequestBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::MatchPlayerCoinsComponent, s_matchPlayerCoinsComponentConcreteUuid, MultiplayerSample::MatchPlayerCoinsComponentBase);
@@ -25,10 +23,8 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        //! MatchPlayerCoinsRequestBus overrides ...
-        //! @{
-        AZStd::vector<PlayerCoinState> GetPlayerCoinCounts() const override;
-        //! }@
+        //! Returns the coin count (aka score) of all the players currently in game
+        AZStd::vector<PlayerCoinState> GetPlayerCoinCounts() const;
     };
 
     class MatchPlayerCoinsComponentController
