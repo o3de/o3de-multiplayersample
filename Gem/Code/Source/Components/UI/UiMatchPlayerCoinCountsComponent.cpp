@@ -14,6 +14,7 @@
 #include <LyShine/Bus/UiTextBus.h>
 
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
+#include <Multiplayer\Components\NetworkDebugPlayerIdComponent.h>
 
 namespace MultiplayerSample
 {
@@ -111,8 +112,14 @@ namespace MultiplayerSample
                 PlayerNameString playerName = identity->GetPlayerName();
                 if (playerName.empty())
                 {
+                    if(const auto playerDebugId= playerHandle.GetEntity()->FindComponent<Multiplayer::NetworkDebugPlayerIdComponent>())
+                    {
+                        AZStd::string playerIdText = AZStd::string::format("<debug id: %i>", static_cast<uint32_t>(playerDebugId->GetPlayerId()));
+                        return playerIdText.c_str();
+                    }
                     return "<player_identity_empty>";
                 }
+
                 return playerName;
             }
         }
