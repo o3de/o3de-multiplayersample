@@ -140,7 +140,7 @@ namespace MultiplayerSample
             m_crouching = false;
 
             // Don't set m_forward/left/right/backDown to 0, instead just 0 out the net-input by hand.
-            // This way player's can start the round hot out the gate.
+            // This way players can start the round hot out of the gate.
             // Keep their finger on the 'W' (forward) key, and instantly start
             // running when the round starts instead of having to release the 'W' key and pressing it again.
             playerInput->m_forwardAxis = StickAxis(0);
