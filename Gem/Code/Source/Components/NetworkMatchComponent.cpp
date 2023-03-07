@@ -339,7 +339,7 @@ namespace MultiplayerSample
                     continue;
                 }
 
-                constexpr bool resetShields = true
+                constexpr bool resetShields = true;
                 constexpr uint16_t coinPenalty = 0;
                 RespawnPlayer(playerNetEntity, PlayerResetOptions{ resetShields, coinPenalty });
             }
