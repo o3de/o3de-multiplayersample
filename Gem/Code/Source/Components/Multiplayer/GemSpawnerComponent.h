@@ -8,6 +8,7 @@
 #pragma once
 
 #include <AzCore/Component/EntityBus.h>
+#include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
 #include <LmbrCentral/Scripting/TagComponentBus.h>
 #include <Source/AutoGen/GemSpawnerComponent.AutoComponent.h>
 
@@ -37,6 +38,7 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void SpawnGems();
+        void RemoveGem(AzFramework::EntitySpawnTicket::Id gemTicketId);
 #endif
 
     private:
@@ -44,8 +46,8 @@ namespace MultiplayerSample
         void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
         void RemoveGems();
 #endif
-
-        AZStd::vector<AZStd::pair<AZStd::shared_ptr<AzFramework::EntitySpawnTicket>, AZ::EntityId>> m_spawnedGems;
+        
+        AZStd::unordered_map<AzFramework::EntitySpawnTicket::Id, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
 
         struct GemSpawnEntry
         {
