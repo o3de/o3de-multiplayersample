@@ -48,7 +48,7 @@ namespace MultiplayerSample
                 if (children.size() >= 2)
                 {
                     const PlayerNameString name = GetPlayerName(state.m_playerId);
-                    UiTextBus::Event(children[0], &UiTextBus::Events::SetText, AZStd::string::format("%s", name.c_str()));
+                    UiTextBus::Event(children[0], &UiTextBus::Events::SetText, name.c_str());
                     UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
                 }
                 elementIndex++;
@@ -114,7 +114,7 @@ namespace MultiplayerSample
                 {
                     if(const auto playerDebugId= playerHandle.GetEntity()->FindComponent<Multiplayer::NetworkDebugPlayerIdComponent>())
                     {
-                        AZStd::string playerIdText = AZStd::string::format("<debug id: %i>", static_cast<uint32_t>(playerDebugId->GetPlayerId()));
+                        AZStd::string playerIdText = AZStd::string::format("<debug id: %u>", static_cast<uint32_t>(playerDebugId->GetPlayerId()));
                         return playerIdText.c_str();
                     }
                     return "<player_identity_empty>";
