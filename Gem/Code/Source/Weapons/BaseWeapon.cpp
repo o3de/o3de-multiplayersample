@@ -132,14 +132,14 @@ namespace MultiplayerSample
             {
                 popcornFx->EffectSetTransform(m_activateEffect, activateTransform);
 
-                AZ::s32 lengthAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Max Length");
+                int32_t lengthAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Max Length");
                 if (lengthAttrId >= 0)
                 {
                     const float length = target.GetDistance(activateTransform.GetTranslation());
                     popcornFx->EffectSetAttributeAsFloat(m_activateEffect, lengthAttrId, length);
                 }
 
-                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Hit Position");
+                int32_t hitAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Hit Position");
                 if (hitAttrId >= 0)
                 {
                     popcornFx->EffectSetAttributeAsFloat3(m_activateEffect, hitAttrId, target);
@@ -167,13 +167,13 @@ namespace MultiplayerSample
                 const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
                 popcornFx->EffectSetTransform(m_impactEffect, hitTransform);
 
-                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Position");
+                int32_t hitAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Position");
                 if (hitAttrId >= 0)
                 {
                     popcornFx->EffectSetAttributeAsFloat3(m_impactEffect, hitAttrId, hitPosition);
                 }
 
-                AZ::s32 normalAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Normal");
+                int32_t normalAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Normal");
                 if (normalAttrId >= 0)
                 {
                     const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
@@ -202,13 +202,13 @@ namespace MultiplayerSample
                 const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
                 popcornFx->EffectSetTransform(m_damageEffect, hitTransform);
 
-                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Position");
+                int32_t hitAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Position");
                 if (hitAttrId >= 0)
                 {
                     popcornFx->EffectSetAttributeAsFloat3(m_damageEffect, hitAttrId, hitPosition);
                 }
 
-                AZ::s32 normalAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Normal");
+                int32_t normalAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Normal");
                 if (normalAttrId >= 0)
                 {
                     const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
