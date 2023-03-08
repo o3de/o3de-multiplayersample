@@ -14,7 +14,6 @@
 #include <LyShine/Bus/UiTextBus.h>
 
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
-#include <Multiplayer\Components\NetworkDebugPlayerIdComponent.h>
 
 namespace MultiplayerSample
 {
