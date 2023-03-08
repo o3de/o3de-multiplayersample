@@ -26,6 +26,11 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+        //! Checks if the current game state allows player action.
+        //! For example, in between rounds the player shouldn't be able to move around.
+        //! @result true if the player is currently allowed to run, jump, shoot, etc; otherwise false.
+        bool IsPlayerActionAllowed() const;
+
 #if AZ_TRAIT_SERVER
         //! PlayerIdentityNotificationBus
         //! @{

@@ -25,6 +25,11 @@
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
 
+#if AZ_TRAIT_CLIENT
+#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
+#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
+#endif
+
 namespace MultiplayerSample
 {
     void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
@@ -57,6 +62,28 @@ namespace MultiplayerSample
         #if AZ_TRAIT_CLIENT
             AZ::Interface<NetworkMatchComponent>::Unregister(this);
         #endif
+    }
+
+    bool NetworkMatchComponent::IsPlayerActionAllowed() const
+    {
+        // Disable player actions between rounds (rest period)
+        if (GetRoundTime() <= 0 && GetRoundRestTimeRemaining() > 0)
+        {
+            return false;
+        }
+
+        // Don't allow player movement if the console is open (system cursor isn't unconstrainted and visible)
+        #if AZ_TRAIT_CLIENT
+            AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
+            AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
+                &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
+            if (systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible)
+            {
+                return false;
+            }
+        #endif
+
+        return true;
     }
 
 #if AZ_TRAIT_SERVER
@@ -302,6 +329,20 @@ namespace MultiplayerSample
             // start the rest timer
             ModifyRoundRestTimeRemaining() = RoundTimeSec{ GetRestDurationBetweenRounds() };
             m_restTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+
+            // Respawn players before the new round starts
+            for (const Multiplayer::NetEntityId playerNetEntity : m_players)
+            {
+                const Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerNetEntity);
+                if (!playerHandle.Exists())
+                {
+                    continue;
+                }
+
+                constexpr bool resetShields = true;
+                constexpr uint16_t coinPenalty = 0;
+                RespawnPlayer(playerNetEntity, PlayerResetOptions{ resetShields, coinPenalty });
+            }
         }
         else // Match ended
         {

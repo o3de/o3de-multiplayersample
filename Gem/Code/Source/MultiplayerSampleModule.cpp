@@ -13,10 +13,10 @@
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <Components/UI/HUDComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
-#include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
 #if AZ_TRAIT_CLIENT
+    #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
 #endif
 
@@ -43,10 +43,10 @@ namespace MultiplayerSample
                 HUDComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
-                UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                 UiGameOverComponent::CreateDescriptor(),
                 UiPlayerArmorComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
+                    UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                     UiRestBetweenRoundsComponent::CreateDescriptor()
                 #endif
             });

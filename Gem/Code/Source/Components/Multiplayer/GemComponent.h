@@ -10,6 +10,12 @@
 #include <AzFramework/Physics/RigidBodyBus.h>
 #include <Source/AutoGen/GemComponent.AutoComponent.h>
 
+#if AZ_TRAIT_SERVER
+#include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
+#include <Source/Components/Multiplayer/GemSpawnerComponent.h>
+#endif
+
+
 namespace MultiplayerSample
 {
     //! @brief Gems have a physical static body on the server with a trigger volume
@@ -59,7 +65,12 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
 #if AZ_TRAIT_SERVER
+        void SetGemSpawnerController(GemSpawnerComponentController* controller);
+
         void HandleRPC_CollectedByPlayer(AzNetworking::IConnection* invokingConnection) override;
+
+    private:
+        GemSpawnerComponentController* m_controller = nullptr;
 #endif
     };
 }
