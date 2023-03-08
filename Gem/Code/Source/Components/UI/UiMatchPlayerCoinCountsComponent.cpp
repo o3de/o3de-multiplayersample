@@ -124,7 +124,7 @@ namespace MultiplayerSample
             }
         }
 
-        return "<player_handle_doesn't_exist>";
+        return "<player_handle_does_not_exist>";
     }
 
     void UiMatchPlayerCoinCountsComponent::Reflect(AZ::ReflectContext* context)
