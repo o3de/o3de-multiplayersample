@@ -18,7 +18,6 @@ set(FILES
     Source/AutoGen/NetworkAiComponent.AutoComponent.xml
     Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
