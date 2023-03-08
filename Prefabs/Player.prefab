@@ -207,13 +207,33 @@
                     "Id": 1987329644401848864,
                     "ParticleSystem": {
                         "assetId": {
-                            "guid": "{4AB84876-46BB-56C9-9276-E29296924243}"
+                            "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
                         },
-                        "assetHint": "popcornfx/library/straight_shot_effect.pkfx"
+                        "assetHint": "popcornfx/particles/laserpistol/fx_laserpistol_ray.pkfx"
                     },
                     "PrewarmTime": 0.0,
                     "AttributeList": {
                         "Attributes": [
+                            {
+                                "Name": "Color 01",
+                                "Type": 34
+                            },
+                            {
+                                "Name": "Global Size",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Color 02",
+                                "Type": 34
+                            },
+                            {
+                                "Name": "Max Length",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Laser lifetime",
+                                "Type": 31
+                            },
                             {
                                 "Name": "Start",
                                 "Type": 33
@@ -221,53 +241,9 @@
                             {
                                 "Name": "End",
                                 "Type": 33
-                            },
-                            {
-                                "Name": "Trace_Color",
-                                "Type": 34
-                            },
-                            {
-                                "Name": "GlobalScale",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Core_Size",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Brightness_Global",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Brightness_Core",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Light_Range",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Light_Intensity",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Color",
-                                "Type": 34
-                            },
-                            {
-                                "Name": "Sparks_SpawnCount",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Hue_Var",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Brightness_Sparks",
-                                "Type": 31
                             }
                         ],
-                        "AttributesRawData": "AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAABzuVw/0QZCP/CAcT0AAIA/AAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACBBAAAAAAAAAAAAAAAAAADIQgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAc7lcP9EGQj/wgHE9AACAPwAAoEIAAAAAAAAAAAAAAADNzEw9AAAAAAAAAAAAAAAAAAAgQQAAAAAAAAAAAAAAAA=="
+                        "AttributesRawData": "AAAAADjVQj/+7WU/AACAPwAAgD8AAAAAAAAAAAAAAAD+7WU/ZePSPgAAAAAAAIA/AABIQgAAAAAAAAAAAAAAADMzsz4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
                     }
                 },
                 "Component_[2596368806843971783]": {
@@ -453,7 +429,14 @@
                 "Component_[7672425355040569134]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 7672425355040569134,
-                    "Parent Entity": "Entity_[1419387525450]"
+                    "Parent Entity": "Entity_[1419387525450]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            1.4564639329910278
+                        ]
+                    }
                 },
                 "Component_[8068531680783328727]": {
                     "$type": "GenericComponentWrapper",

@@ -10,17 +10,13 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/std/containers/vector.h>
-#if AZ_TRAIT_CLIENT
 #include <StartingPointInput/InputEventNotificationBus.h>
-#endif
 
 namespace MultiplayerSample
 {
     class UiMatchPlayerCoinCountsComponent
         : public AZ::Component
-#if AZ_TRAIT_CLIENT
         , public StartingPointInput::InputEventNotificationBus::MultiHandler
-#endif
     {
     public:
         AZ_COMPONENT(UiMatchPlayerCoinCountsComponent, "{529b9b3b-bea2-4120-9089-c4451438e4c0}");
@@ -30,20 +26,24 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
-#if AZ_TRAIT_CLIENT
         //! StartingPointInput::InputEventNotificationBus overrides ...
         //! @{
         void OnPressed(float value) override;
         void OnReleased(float value) override;
         //! @}
-#endif
+
 
     private:
         AZ::EntityId m_rootElementId;
         AZStd::vector<AZ::EntityId> m_playerRowElement;
 
-#if AZ_TRAIT_CLIENT
-        PlayerNameString GetPlayerName(Multiplayer::NetEntityId playerEntity);
-#endif
+        static PlayerNameString GetPlayerName(Multiplayer::NetEntityId playerEntity);
+
+        void UpdatePlayerScoreUI();
+        AZ::Event<int32_t, PlayerCoinState>::Handler m_onPlayerScoreChanged{[this](int32_t, PlayerCoinState)
+        {
+            UpdatePlayerScoreUI();
+        } };
+
     };
 } // namespace MultiplayerSample

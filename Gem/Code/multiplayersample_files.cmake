@@ -8,7 +8,6 @@
 set(FILES
     Include/GameplayEffectsNotificationBus.h
     Include/PlayerKnockbackBus.h
-    Include/MatchPlayerCoinsBus.h
     Include/NetworkPrefabSpawnerInterface.h
     Include/PlayerCoinCollectorBus.h
     Include/PlayerIdentityBus.h
@@ -83,11 +82,8 @@ set(FILES
     Source/Components/UI/UiCoinCountComponent.h
     Source/Components/UI/UiGameOverComponent.cpp
     Source/Components/UI/UiGameOverComponent.h
-    Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
-    Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiPlayerArmorComponent.cpp
     Source/Components/UI/UiPlayerArmorComponent.h
-
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
     Source/Components/Multiplayer/GemComponent.cpp

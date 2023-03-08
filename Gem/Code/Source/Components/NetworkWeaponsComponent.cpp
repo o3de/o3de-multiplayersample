@@ -11,13 +11,12 @@
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
+#include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
-#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
-#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 
 #if AZ_TRAIT_CLIENT
 #include <DebugDraw/DebugDrawBus.h>
@@ -364,15 +363,6 @@ namespace MultiplayerSample
         }
     }
 
-    bool NetworkWeaponsComponentController::ShouldProcessInput() const
-    {
-        AzFramework::SystemCursorState systemCursorState{AzFramework::SystemCursorState::Unknown};
-        AzFramework::InputSystemCursorRequestBus::EventResult( systemCursorState, AzFramework::InputDeviceMouse::Id,
-            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-
-        // only process input when the system cursor isn't unconstrainted and visible a.k.a console mode
-        return systemCursorState != AzFramework::SystemCursorState::UnconstrainedAndVisible;
-    }
 
     AZ::Vector3 NetworkWeaponsComponent::GetCurrentShotStartPosition()
     {
@@ -390,7 +380,7 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::CreateInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
-        if (!ShouldProcessInput())
+        if (!AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
         {
             m_weaponFiring = false;
             return;
@@ -434,6 +424,14 @@ namespace MultiplayerSample
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
                 aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), true);
         }
+
+        // However, turn off aiming any time the character is sprinting.
+        if (GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting)))
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+        }
+
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 

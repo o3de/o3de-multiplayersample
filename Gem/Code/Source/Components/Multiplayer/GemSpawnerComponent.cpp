@@ -107,7 +107,9 @@ namespace MultiplayerSample
 
     void GemSpawnerComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::EntityBus::MultiHandler::BusDisconnect();
+#if AZ_TRAIT_SERVER
+        RemoveGems();
+#endif
     }
 
 #if AZ_TRAIT_SERVER
@@ -120,6 +122,26 @@ namespace MultiplayerSample
         LmbrCentral::TagGlobalRequestBus::EventResult(aggregator, AZ::Crc32(GetGemSpawnTag()),
             &LmbrCentral::TagGlobalRequests::RequestTaggedEntities);
 
+        // If there aren't any spawn tables, don't spawn anything.
+        if (GetSpawnTablesPerRound().empty())
+        {
+            return;
+        }
+
+        // Get the current round's spawn table, or the last defined round as a fallback.
+        const uint16_t round = GetNetworkMatchComponentController()->GetRoundNumber();
+        const RoundSpawnTable& table = 
+            GetSpawnTablesPerRound()[AZStd::min(round, aznumeric_cast<uint16_t>(GetSpawnTablesPerRound().size() - 1))];
+
+        // Move the table data into a working list where we've done a one-time conversion of tags into CRCs and we can temporarily 
+        // store which tags exist on the entity.
+        AZStd::vector<GemSpawnEntry> gemSpawnList;
+        gemSpawnList.reserve(table.m_gemWeights.size());
+        for (const GemWeightChance& gemWeight : table.m_gemWeights)
+        {
+            gemSpawnList.emplace_back(AZ::Crc32(gemWeight.m_tag), gemWeight.m_weight, false);
+        }
+
         for (const AZ::EntityId gemSpawnEntity : aggregator.values)
         {
             // Collect the gem tags for this specific entity.
@@ -128,11 +150,15 @@ namespace MultiplayerSample
                 &LmbrCentral::TagComponentRequestBus::Events::GetTags);
 
             // Randomly select a gem type for this entity.
-            const AZ::Crc32 type = ChooseGemType(tags);
+            const AZ::Crc32 type = ChooseGemType(gemSpawnList, tags);
 
-            AZ::Vector3 position = AZ::Vector3::CreateZero();
-            AZ::TransformBus::EventResult(position, gemSpawnEntity, &AZ::TransformBus::Events::GetWorldTranslation);
-            SpawnGem(position, type);
+            // If this entity has a valid gem type, spawn it.
+            if (type != AZ::Crc32(0))
+            {
+                AZ::Vector3 position = AZ::Vector3::CreateZero();
+                AZ::TransformBus::EventResult(position, gemSpawnEntity, &AZ::TransformBus::Events::GetWorldTranslation);
+                SpawnGem(position, type);
+            }
         }
     }
 
@@ -160,6 +186,13 @@ namespace MultiplayerSample
         callbacks.m_onActivateCallback = [this, spawnable](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
             AzFramework::SpawnableConstEntityContainerView view)
         {
+            if (view.empty())
+            {
+                return;
+            }
+
+            const auto ticketId = ticket->GetId();
+
             for (const AZ::Entity* entity : view)
             {
                 if (GemComponent* gem = entity->FindComponent<GemComponent>())
@@ -168,13 +201,14 @@ namespace MultiplayerSample
                     {
                         gemController->SetRandomPeriodOffset(GetNetworkRandomComponentController()->GetRandomInt() % 1000);
                         gemController->SetGemScoreValue(spawnable->m_scoreValue);
+                        gemController->SetGemSpawnerController(this);
                     }
-
-                    // Save the gem spawn ticket, otherwise the gem will de-spawn
-                    m_spawnedGems.emplace(entity->GetId(), AZStd::move(ticket));
-                    break;
                 }
             }
+
+            // Save the gem spawn ticket, otherwise the gem will immediately despawn due to the ticket's destruction.
+            // Also track the root entity id so that we can move the gem out of sight while waiting for it to despawn when removing gems.
+            m_spawnedGems.insert(AZStd::make_pair(ticketId, AZStd::move(ticket)));
         };
 
         GetParent().GetNetworkPrefabSpawnerComponent()->SpawnPrefabAsset(
@@ -184,87 +218,63 @@ namespace MultiplayerSample
 
     void GemSpawnerComponentController::RemoveGems()
     {
-        for (const auto& gem : m_spawnedGems)
+        for (const auto& pair : m_spawnedGems)
         {
-            const Multiplayer::NetEntityId netEntityId = Multiplayer::GetNetworkEntityManager()->GetNetEntityIdById(gem.first);
-            Multiplayer::ConstNetworkEntityHandle netEntityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
-
-            if (netEntityHandle.Exists())
-            {
-                AZ::EntityBus::MultiHandler::BusConnect(gem.first);
-                Multiplayer::GetNetworkEntityManager()->MarkForRemoval(netEntityHandle);
-
-                // Move the gem out of the view because it can take a little while before the removal gets applied.
-                AZ::TransformBus::Event(gem.first, &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
-
-                m_queuedForRemovalGems.emplace(gem.first, gem.second);
-            }
+            // Destroy all the entities for each gem.
+            AzFramework::SpawnableEntitiesInterface::Get()->DespawnAllEntities(*pair.second);
         }
 
         m_spawnedGems.clear();
     }
+    
+    void GemSpawnerComponentController::RemoveGem(AzFramework::EntitySpawnTicket::Id gemTicketId)
+    {
+        const auto gemIterator = m_spawnedGems.find(gemTicketId);        
+
+        if (gemIterator != m_spawnedGems.end())
+        {
+            AzFramework::SpawnableEntitiesInterface::Get()->DespawnAllEntities(*gemIterator->second);
+            m_spawnedGems.erase(gemIterator);
+        }
+    }
 #endif
 
-    void GemSpawnerComponentController::OnEntityDeactivated(const AZ::EntityId& entityId)
+    AZ::Crc32 GemSpawnerComponentController::ChooseGemType(AZStd::vector<GemSpawnEntry>& gemSpawnList, const LmbrCentral::Tags& tags)
     {
-        AZ::EntityBus::MultiHandler::BusDisconnect(entityId);
-        m_queuedForRemovalGems.erase(entityId);
-    }
-
-    AZ::Crc32 GemSpawnerComponentController::ChooseGemType(const LmbrCentral::Tags& tags)
-    {
-        if (GetSpawnTablesPerRound().empty())
-        {
-            return {};
-        }
-
-        // Get the current round's spawn table, or the last defined round as a fallback.
-        const uint16_t round = GetNetworkMatchComponentController()->GetRoundNumber();
-        const RoundSpawnTable* table;
-        if (round < GetSpawnTablesPerRound().size())
-        {
-            table = &GetSpawnTablesPerRound()[round];
-        }
-        else
-        {
-            table = &GetSpawnTablesPerRound().back();
-        }
-
         // Calculate the total weight of all applicable gem tags.
         float totalWeight = 0.f;
-        for (const GemWeightChance& gemWeight : table->m_gemWeights)
+        for (GemSpawnEntry& entry : gemSpawnList)
         {
-            const auto tagIterator = tags.find(AZ::Crc32(gemWeight.m_tag));
+            const auto tagIterator = tags.find(entry.m_tag);
+            entry.m_entityHasTag = tagIterator != tags.end();
             if (tagIterator != tags.end())
             {
-                totalWeight += gemWeight.m_weight;
+                totalWeight += entry.m_weight;
             }
         }
         
         // Create a random float in the range of [0, totalWeight)
         float randomWeight = GetNetworkRandomComponentController()->GetRandomFloat() * totalWeight;
 
-        AZ::Crc32 chosenType(table->m_gemWeights.front().m_tag);
-        for (const GemWeightChance& gemWeight : table->m_gemWeights)
+        AZ::Crc32 chosenType;
+        for (GemSpawnEntry& entry : gemSpawnList)
         {
-            const auto tagIterator = tags.find(AZ::Crc32(gemWeight.m_tag));
-            if (tagIterator == tags.end())
+            if (entry.m_entityHasTag)
             {
-                continue;
-            }
+                // For every acceptable tag, reduce the the weight value until the right gem type is found for the random value.
+                // >----------------------\
+                //                        |
+                // gem1--------gem2-------*--gem3------
+                if (randomWeight > entry.m_weight)
+                {
+                    randomWeight -= entry.m_weight;
+                }
+                else
+                {
+                    chosenType = entry.m_tag;
+                    break;
+                }
 
-            // For every acceptable tag, reduce the the weight value until the right gem type is found for the random value.
-            // >----------------------\
-            //                        |
-            // gem1--------gem2-------*--gem3------
-            if (randomWeight > gemWeight.m_weight)
-            {
-                randomWeight -= gemWeight.m_weight;
-            }
-            else
-            {
-                chosenType = AZ::Crc32(gemWeight.m_tag);
-                break;
             }
         }
 

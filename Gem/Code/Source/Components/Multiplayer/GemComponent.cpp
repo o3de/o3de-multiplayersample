@@ -89,9 +89,16 @@ namespace MultiplayerSample
 #if AZ_TRAIT_SERVER
     void GemComponentController::HandleRPC_CollectedByPlayer([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
-        // Hide the gem by moving it far away from the players' interest area.
-        // This removes the gem from the clients' view. See @sv_ClientAwarenessRadius.
-        GetParent().GetEntity()->GetTransform()->SetWorldTranslation(AZ::Vector3::CreateAxisZ(-1000.f));
+        if (m_controller)
+        {
+            m_controller->RemoveGem(GetEntity()->GetEntitySpawnTicketId());
+            m_controller = nullptr;
+        }
+    }
+
+    void GemComponentController::SetGemSpawnerController(GemSpawnerComponentController* controller)
+    {
+        m_controller = controller;
     }
 #endif
 }

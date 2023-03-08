@@ -8,6 +8,7 @@
 #pragma once
 
 #include <AzCore/Component/EntityBus.h>
+#include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
 #include <LmbrCentral/Scripting/TagComponentBus.h>
 #include <Source/AutoGen/GemSpawnerComponent.AutoComponent.h>
 
@@ -28,7 +29,6 @@ namespace MultiplayerSample
 
     class GemSpawnerComponentController
         : public GemSpawnerComponentControllerBase
-        , public AZ::EntityBus::MultiHandler
     {
     public:
         explicit GemSpawnerComponentController(GemSpawnerComponent& parent);
@@ -38,23 +38,30 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void SpawnGems();
+        void RemoveGem(AzFramework::EntitySpawnTicket::Id gemTicketId);
 #endif
-
-        //! EntityBus
-        //! @{
-        void OnEntityDeactivated(const AZ::EntityId& entityId) override;
-        //! @}
 
     private:
 #if AZ_TRAIT_SERVER
         void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
         void RemoveGems();
 #endif
+        
+        AZStd::unordered_map<AzFramework::EntitySpawnTicket::Id, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
 
-        AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
-        AZStd::unordered_map<AZ::EntityId, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_queuedForRemovalGems;
+        struct GemSpawnEntry
+        {
+            AZ::Crc32 m_tag;
+            float m_weight;
+            bool m_entityHasTag;
+
+            GemSpawnEntry(AZ::Crc32 tag, float weight, bool entityHasTag)
+                : m_tag(tag), m_weight(weight), m_entityHasTag(entityHasTag)
+            {
+            }
+        };
 
         //! Randomly choose a gem type from the given set of weights for the current round.
-        AZ::Crc32 ChooseGemType(const LmbrCentral::Tags& tags);
+        AZ::Crc32 ChooseGemType(AZStd::vector<GemSpawnEntry>& gemSpawnList, const LmbrCentral::Tags& tags);
     };
 }
