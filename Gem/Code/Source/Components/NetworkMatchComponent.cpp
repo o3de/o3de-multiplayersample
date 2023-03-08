@@ -329,6 +329,20 @@ namespace MultiplayerSample
             // start the rest timer
             ModifyRoundRestTimeRemaining() = RoundTimeSec{ GetRestDurationBetweenRounds() };
             m_restTickEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+
+            // Respawn players before the new round starts
+            for (const Multiplayer::NetEntityId playerNetEntity : m_players)
+            {
+                const Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerNetEntity);
+                if (!playerHandle.Exists())
+                {
+                    continue;
+                }
+
+                constexpr bool resetShields = true;
+                constexpr uint16_t coinPenalty = 0;
+                RespawnPlayer(playerNetEntity, PlayerResetOptions{ resetShields, coinPenalty });
+            }
         }
         else // Match ended
         {
