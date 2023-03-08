@@ -10,51 +10,10 @@
 #include <AzCore/Preprocessor/Enum.h>
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/Math/Vector3.h>
+#include <Source/MultiplayerSampleTypes.h>
 
 namespace MultiplayerSample
 {
-    AZ_ENUM_CLASS(SoundEffect,
-        // Player Sounds
-        PlayerFootSteps,
-        PlayerExertion,
-        PlayerKnockedDown,
-        ArmorBreaking,
-        ArmorMend,
-        PlayerOuch,
-        LadderClimb,
-        ShutDown,
-
-        // Game Event Sounds
-        CountDown,
-        GemPickup,
-        VictoryFanfare,
-        LosingFanfare,
-        RoundStart,
-        RoundEnd,
-        GameEnd,
-
-        // Laser Pistol
-        LaserPistolMuzzleFlash,
-        LaserPistolImpact,
-
-        // Bubble Gun
-        BubbleGunBuildup,
-        BubbleGunMuzzleFlash,
-        BubbleGunProjectile,
-        BubbleGunImpact,
-
-        // Environment
-        JumpPadLaunch,
-        TeleporterUse,
-
-        // Energy Ball Trap
-        EnergyBallTrapRisingOutOfTheGround,
-        EnergyBallTrapBuildup, // followed by muzzle flash
-        EnergyBallTrapProjectile,
-        EnergyBallTrapImpact,
-        EnergyBallTrapOnCooldown // plays when you try to fire it during cooldown
-    );
-
     class GameplayEffectsNotifications : public AZ::EBusTraits
     {
     public:
@@ -70,9 +29,4 @@ namespace MultiplayerSample
     using GameplayEffectsNotificationBus = AZ::EBus<GameplayEffectsNotifications>;
 
     using LocalOnlyGameplayEffectsNotificationBus = AZ::EBus<GameplayEffectsNotifications>;
-}
-
-namespace AZ
-{
-    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::SoundEffect, "{1A214937-62F2-4724-A66C-CC3E9D4F1F2F}");
 }

@@ -89,21 +89,20 @@ namespace MultiplayerSample
         //! @param deltaTime   the amount of time we are ticking over
         virtual void TickActiveShots(WeaponState& weaponState, float deltaTime) = 0;
 
-        //! Returns the activate effect bound to this weapon instance.
-        //! @return reference to the activate effect bound to this weapon instance
-        virtual const ClientEffect& GetActivateEffect() const = 0;
+        //! Executes the activation sound effect bound to this weapon instance at the specified location.
+        //! @param activateTransform the initial transform corresponding to weapon activation
+        //! @param target the point targetted by the activation event
+        virtual void ExecuteActivateEffect(const AZ::Transform& activateTransform, const AZ::Vector3& target) const = 0;
 
-        //! Returns the impact effect bound to this weapon instance.
-        //! @return reference to the impact effect bound to this weapon instance
-        virtual const ClientEffect& GetImpactEffect() const = 0;
+        //! Executes the impact (predictive hit) sound effect bound to this weapon instance at the specified location.
+        //! @param activatePosition the initial position of activation
+        //! @param hitPosition the world space position at which to play the impact effect
+        virtual void ExecuteImpactEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const = 0;
 
-        //! Returns the damage effect bound to this weapon instance.
-        //! @return reference to the damage effect bound to this weapon instance
-        virtual const ClientEffect& GetDamageEffect() const = 0;
-
-        //! Returns the ammo type surface index for this weapon.
-        //! @return the ammo type surface index for this weapon
-        virtual int32_t GetAmmoTypeSurfaceIndex() const = 0;
+        //! Executes the damage (server confirmed hit) sound effect bound to this weapon instance at the specified location.
+        //! @param activatePosition the initial position of activation
+        //! @param hitPosition the world space position at which to play the damage effect
+        virtual void ExecuteDamageEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const = 0;
     };
 
     //! @struct WeaponActivationInfo

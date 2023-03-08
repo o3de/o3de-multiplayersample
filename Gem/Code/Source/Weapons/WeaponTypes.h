@@ -133,14 +133,16 @@ namespace MultiplayerSample
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again
         float m_weaponMaxAimDistance = 1.0f; // The max range of a raycast when searching for a target
         CharacterAnimState m_animFlag = CharacterAnimState::Shooting; // The animation flag to raise on the network animation when firing this weapon
-        AssetStringType m_activateFx;       // The effect to play upon weapon activation
-        AssetStringType m_impactFx;         // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
-        AssetStringType m_damageFx;         // The effect to play for each hit entitiy. Played authoritatively only
-        AssetStringType m_projectileAsset;  // If a projectile weapon, the prefab asset name for the projectile entity
-        AssetStringType m_ammoMaterialType; // The effects material type of the ammo for bullet decals and other material effects (@TODO: Requires a replacement for the material effects system)
-        GatherParams m_gatherParams;        // The type of gather to perform for trace weapons
-        HitEffect m_damageEffect;           // Parameters controlling damage distribution on hit
-        bool m_locallyPredicted = true;     // Whether or not this weapon is locally predicted or waits round trip to display on a client
+        AZ::Data::AssetId m_activateAssetId; // The effect to play upon weapon activation
+        AZStd::string m_activateAudioTrigger; // The name of the audio trigger to use for weapon activation
+        AZ::Data::AssetId m_impactAssetId; // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
+        AZStd::string m_impactAudioTrigger; // The name of the audio trigger to use for weapon impacts
+        AZ::Data::AssetId m_damageAssetId; // The effect to play for each hit entitiy. Played authoritatively only
+        AZStd::string m_damageAudioTrigger; // The name of the audio trigger to use for weapon damage
+        AssetStringType m_projectileAsset; // If a projectile weapon, the prefab asset name for the projectile entity
+        GatherParams m_gatherParams; // The type of gather to perform for trace weapons
+        HitEffect m_damageEffect; // Parameters controlling damage distribution on hit
+        bool m_locallyPredicted = true; // Whether or not this weapon is locally predicted or waits round trip to display on a client
 
         static void Reflect(AZ::ReflectContext* context);
     };

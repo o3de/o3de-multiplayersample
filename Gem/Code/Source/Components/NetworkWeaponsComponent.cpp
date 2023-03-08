@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#include <AzCore/Math/Plane.h>
-#include <Source/Components/NetworkWeaponsComponent.h>
 
+#include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
@@ -14,13 +13,14 @@
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Math/Plane.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 #include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
 #include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 
 #if AZ_TRAIT_CLIENT
-#include <DebugDraw/DebugDrawBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
@@ -162,6 +162,8 @@ namespace MultiplayerSample
                 cl_WeaponsDrawDebugDurationSec
             );
         }
+
+        activationInfo.m_weapon.ExecuteActivateEffect(activationInfo.m_activateEvent.m_initialTransform, activationInfo.m_activateEvent.m_targetPosition);
 #endif
     }
 
@@ -203,6 +205,8 @@ namespace MultiplayerSample
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
+
+            hitInfo.m_weapon.ExecuteImpactEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
 #endif
 
             AZLOG
@@ -266,7 +270,7 @@ namespace MultiplayerSample
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
 #if AZ_TRAIT_CLIENT
-	        if (cl_WeaponsDrawDebug && m_debugDraw)
+            if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
                 (
@@ -275,6 +279,11 @@ namespace MultiplayerSample
                     AZ::Colors::Red,
                     cl_WeaponsDrawDebugDurationSec
                 );
+            }
+
+            if (shouldIssueMaterialEffects)
+            {
+                hitInfo.m_weapon.ExecuteDamageEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
             }
 #endif
 

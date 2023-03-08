@@ -10,6 +10,10 @@
 #include <Source/Weapons/ProjectileWeapon.h>
 #include <AzCore/Console/ILogger.h>
 
+#if AZ_TRAIT_CLIENT
+#   include <PopcornFX/PopcornFXBus.h>
+#endif
+
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, gp_PauseOnWeaponGather, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Will halt game execution on starting a weapon gather");
@@ -20,19 +24,50 @@ namespace MultiplayerSample
         , m_weaponParams(constructParams.m_weaponParams)
         , m_weaponListener(constructParams.m_weaponListener)
     {
-/*
-        @TODO: Need a replacement fx and material fx system
-        ArchetypeAssetLibrary* assetLibsInstance = ArchetypeAssetLibrary::GetInstance();
-        NV_ASSERT(assetLibsInstance != nullptr, "Asset library is NULL");
+#if AZ_TRAIT_CLIENT
+        if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+        {
+            const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(true, false, AZ::Transform::CreateIdentity());
+            m_activateEffect = popcornFx->SpawnEffectById(constructParams.m_weaponParams.m_activateAssetId, params);
+            m_impactEffect = popcornFx->SpawnEffectById(constructParams.m_weaponParams.m_impactAssetId, params);
+            m_damageEffect = popcornFx->SpawnEffectById(constructParams.m_weaponParams.m_damageAssetId, params);
+        }
 
-        const ClientEffect* activateEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetActivateFx().c_str());
-        const ClientEffect* impactEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetImpactFx().c_str());
-        const ClientEffect* damageEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetDamageFx().c_str());
+        if (Audio::IAudioSystem* audioSystem = AZ::Interface<Audio::IAudioSystem>::Get())
+        {
+            m_activateSoundProxy = audioSystem->GetAudioProxy();
+            m_impactSoundProxy = audioSystem->GetAudioProxy();
+            m_damageSoundProxy = audioSystem->GetAudioProxy();
+            m_activateTriggerId = audioSystem->GetAudioTriggerID(constructParams.m_weaponParams.m_activateAudioTrigger.c_str());
+            m_impactTriggerId = audioSystem->GetAudioTriggerID(constructParams.m_weaponParams.m_impactAudioTrigger.c_str());
+            m_damageTriggerId = audioSystem->GetAudioTriggerID(constructParams.m_weaponParams.m_damageAudioTrigger.c_str());
+        }
+#endif
+    }
 
-        m_ActivateEffect = activateEffect ? *activateEffect : ClientEffect();
-        m_ImpactEffect = impactEffect ? *impactEffect : ClientEffect();
-        m_DamageEffect = damageEffect ? *damageEffect : ClientEffect();
-*/
+    BaseWeapon::~BaseWeapon()
+    {
+#if AZ_TRAIT_CLIENT
+        if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+        {
+            popcornFx->DestroyEffect(m_activateEffect);
+            m_activateEffect = nullptr;
+            popcornFx->DestroyEffect(m_impactEffect);
+            m_impactEffect = nullptr;
+            popcornFx->DestroyEffect(m_damageEffect);
+            m_damageEffect = nullptr;
+        }
+
+        if (Audio::IAudioSystem* audioSystem = AZ::Interface<Audio::IAudioSystem>::Get())
+        {
+            audioSystem->RecycleAudioProxy(m_activateSoundProxy);
+            m_activateSoundProxy = nullptr;
+            audioSystem->RecycleAudioProxy(m_impactSoundProxy);
+            m_impactSoundProxy = nullptr;
+            audioSystem->RecycleAudioProxy(m_damageSoundProxy);
+            m_damageSoundProxy = nullptr;
+        }
+#endif
     }
 
     WeaponIndex BaseWeapon::GetWeaponIndex() const
@@ -88,24 +123,108 @@ namespace MultiplayerSample
         m_fireParams = fireParams;
     }
 
-    const ClientEffect& BaseWeapon::GetActivateEffect() const
+    void BaseWeapon::ExecuteActivateEffect([[maybe_unused]] const AZ::Transform& activateTransform, [[maybe_unused]] const AZ::Vector3& target) const
     {
-        return m_activateEffect;
+#if AZ_TRAIT_CLIENT
+        if (m_activateEffect != nullptr)
+        {
+            if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+            {
+                popcornFx->EffectSetTransform(m_activateEffect, activateTransform);
+
+                AZ::s32 lengthAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Max Length");
+                if (lengthAttrId >= 0)
+                {
+                    const float length = target.GetDistance(activateTransform.GetTranslation());
+                    popcornFx->EffectSetAttributeAsFloat(m_activateEffect, lengthAttrId, length);
+                }
+
+                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_activateEffect, "Hit Position");
+                if (hitAttrId >= 0)
+                {
+                    popcornFx->EffectSetAttributeAsFloat3(m_activateEffect, hitAttrId, target);
+                }
+
+                popcornFx->EffectRestart(m_activateEffect, true);
+            }
+        }
+
+        if ((m_activateSoundProxy != nullptr) && (m_activateTriggerId != INVALID_AUDIO_CONTROL_ID))
+        {
+            m_activateSoundProxy->SetPosition(activateTransform.GetTranslation());
+            m_activateSoundProxy->ExecuteTrigger(m_activateTriggerId);
+        }
+#endif
     }
 
-    const ClientEffect& BaseWeapon::GetImpactEffect() const
+    void BaseWeapon::ExecuteImpactEffect([[maybe_unused]] const AZ::Vector3& activatePosition, [[maybe_unused]] const AZ::Vector3& hitPosition) const
     {
-        return m_impactEffect;
+#if AZ_TRAIT_CLIENT
+        if (m_impactEffect != nullptr)
+        {
+            if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+            {
+                const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
+                popcornFx->EffectSetTransform(m_impactEffect, hitTransform);
+
+                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Position");
+                if (hitAttrId >= 0)
+                {
+                    popcornFx->EffectSetAttributeAsFloat3(m_impactEffect, hitAttrId, hitPosition);
+                }
+
+                AZ::s32 normalAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Normal");
+                if (normalAttrId >= 0)
+                {
+                    const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
+                    popcornFx->EffectSetAttributeAsFloat3(m_impactEffect, normalAttrId, hitNormal);
+                }
+
+                popcornFx->EffectRestart(m_impactEffect, true);
+            }
+        }
+
+        if ((m_impactSoundProxy != nullptr) && (m_impactTriggerId != INVALID_AUDIO_CONTROL_ID))
+        {
+            m_impactSoundProxy->SetPosition(hitPosition);
+            m_impactSoundProxy->ExecuteTrigger(m_impactTriggerId);
+        }
+#endif
     }
 
-    const ClientEffect& BaseWeapon::GetDamageEffect() const
+    void BaseWeapon::ExecuteDamageEffect([[maybe_unused]] const AZ::Vector3& activatePosition, [[maybe_unused]] const AZ::Vector3& hitPosition) const
     {
-        return m_damageEffect;
-    }
+#if AZ_TRAIT_CLIENT
+        if (m_damageEffect != nullptr)
+        {
+            if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+            {
+                const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
+                popcornFx->EffectSetTransform(m_damageEffect, hitTransform);
 
-    int32_t BaseWeapon::GetAmmoTypeSurfaceIndex() const
-    {
-        return m_ammoSurfaceTypeIndex;
+                AZ::s32 hitAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Position");
+                if (hitAttrId >= 0)
+                {
+                    popcornFx->EffectSetAttributeAsFloat3(m_damageEffect, hitAttrId, hitPosition);
+                }
+
+                AZ::s32 normalAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Normal");
+                if (normalAttrId >= 0)
+                {
+                    const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
+                    popcornFx->EffectSetAttributeAsFloat3(m_damageEffect, normalAttrId, hitNormal);
+                }
+
+                popcornFx->EffectRestart(m_damageEffect, true);
+            }
+        }
+
+        if ((m_damageSoundProxy != nullptr) && (m_damageTriggerId != INVALID_AUDIO_CONTROL_ID))
+        {
+            m_damageSoundProxy->SetPosition(hitPosition);
+            m_damageSoundProxy->ExecuteTrigger(m_damageTriggerId);
+        }
+#endif
     }
 
     bool BaseWeapon::ActivateInternal(WeaponState& weaponState, bool validateFiringState)

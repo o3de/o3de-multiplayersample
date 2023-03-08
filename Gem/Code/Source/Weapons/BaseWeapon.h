@@ -11,6 +11,12 @@
 #include <Source/Weapons/WeaponGathers.h>
 #include <Multiplayer/NetworkEntity/NetworkEntityHandle.h>
 
+#if AZ_TRAIT_CLIENT
+#   include <IAudioSystem.h>
+#endif
+
+namespace PopcornFX { struct StandaloneEmitter; }
+
 namespace MultiplayerSample
 {
     struct ConstructParams
@@ -30,7 +36,7 @@ namespace MultiplayerSample
         //! Constructor.
         //! @param constructParams the set of construction params for the weapon instance
         BaseWeapon(const ConstructParams& constructParams);
-        ~BaseWeapon() override = default;
+        ~BaseWeapon() override;
         
         //! IWeapon interface
         //! @{
@@ -41,10 +47,9 @@ namespace MultiplayerSample
         bool TryStartFire(WeaponState& weaponState, const FireParams& fireParams) override;
         const FireParams& GetFireParams() const override;
         void SetFireParams(const FireParams& fireParams) override;
-        const ClientEffect& GetActivateEffect() const override;
-        const ClientEffect& GetImpactEffect() const override;
-        const ClientEffect& GetDamageEffect() const override;
-        int32_t GetAmmoTypeSurfaceIndex() const override;
+        void ExecuteActivateEffect(const AZ::Transform& activateTransform, const AZ::Vector3& target) const override;
+        void ExecuteImpactEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const override;
+        void ExecuteDamageEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const override;
         //! @}
 
     protected:
@@ -78,13 +83,22 @@ namespace MultiplayerSample
         const WeaponParams m_weaponParams;
 
         WeaponListener& m_weaponListener;
-        ClientEffect m_activateEffect;
-        ClientEffect m_impactEffect;
-        ClientEffect m_damageEffect;
-        FireParams   m_fireParams;
-        NetEntityIdSet m_gatheredNetEntityIds;
 
-        int32_t m_ammoSurfaceTypeIndex = -1;
+#if AZ_TRAIT_CLIENT
+        PopcornFX::StandaloneEmitter* m_activateEffect = nullptr;
+        PopcornFX::StandaloneEmitter* m_impactEffect = nullptr;
+        PopcornFX::StandaloneEmitter* m_damageEffect = nullptr;
+
+        Audio::IAudioProxy* m_activateSoundProxy = nullptr;
+        Audio::TATLIDType m_activateTriggerId = INVALID_AUDIO_CONTROL_ID;
+        Audio::IAudioProxy* m_impactSoundProxy = nullptr;
+        Audio::TATLIDType m_impactTriggerId = INVALID_AUDIO_CONTROL_ID;
+        Audio::IAudioProxy* m_damageSoundProxy = nullptr;
+        Audio::TATLIDType m_damageTriggerId = INVALID_AUDIO_CONTROL_ID;
+#endif
+
+        FireParams m_fireParams;
+        NetEntityIdSet m_gatheredNetEntityIds;
     };
 
     //! Factory function to create an appropriate IWeapon instance given the provided ConstructParams.
