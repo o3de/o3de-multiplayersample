@@ -22,8 +22,6 @@
 #   include <DebugDraw/DebugDrawBus.h>
 #endif
 
-#pragma optimize ("", off)
-
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_WeaponsDrawDebug, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
@@ -640,4 +638,3 @@ namespace MultiplayerSample
 #endif
     }
 } // namespace MultiplayerSample
-#pragma optimize ("", on)

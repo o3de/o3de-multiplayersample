@@ -14,7 +14,6 @@
 #   include <PopcornFX/PopcornFXBus.h>
 #endif
 
-#pragma optimize ("", off)
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, gp_PauseOnWeaponGather, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Will halt game execution on starting a weapon gather");
@@ -320,4 +319,3 @@ namespace MultiplayerSample
         return nullptr;
     }
 }
-#pragma optimize ("", on)
