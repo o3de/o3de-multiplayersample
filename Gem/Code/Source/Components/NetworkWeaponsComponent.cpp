@@ -22,6 +22,8 @@
 #   include <DebugDraw/DebugDrawBus.h>
 #endif
 
+#pragma optimize ("", off)
+
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_WeaponsDrawDebug, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
@@ -222,9 +224,9 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponConfirmHit(const WeaponHitInfo& hitInfo)
     {
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleAuthority())
         {
-#if AZ_TRAIT_SERVER
             for (const HitEntity& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
             {
                 Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
@@ -258,12 +260,13 @@ namespace MultiplayerSample
                     }
                 }
             }
-#endif
         }
+#endif
 
         m_onWeaponConfirmHitEvent.Signal(hitInfo);
 
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
+        // Note that materialfx are not hooked up currently as the engine currently doesn't support them
         [[maybe_unused]] bool shouldIssueMaterialEffects = !HasController() || !hitInfo.m_weapon.GetParams().m_locallyPredicted;
 
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
@@ -280,10 +283,7 @@ namespace MultiplayerSample
                 );
             }
 
-            if (shouldIssueMaterialEffects)
-            {
-                hitInfo.m_weapon.ExecuteDamageEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
-            }
+            hitInfo.m_weapon.ExecuteDamageEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
 #endif
 
             AZLOG
@@ -325,7 +325,6 @@ namespace MultiplayerSample
             ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(index), weaponState, fireParams, validateActivations);
         }
     }
-
 
     void NetworkWeaponsComponent::OnTickSimulatedWeapons(float seconds)
     {
@@ -641,3 +640,4 @@ namespace MultiplayerSample
 #endif
     }
 } // namespace MultiplayerSample
+#pragma optimize ("", on)

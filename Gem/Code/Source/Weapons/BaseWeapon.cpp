@@ -14,9 +14,11 @@
 #   include <PopcornFX/PopcornFXBus.h>
 #endif
 
+#pragma optimize ("", off)
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, gp_PauseOnWeaponGather, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Will halt game execution on starting a weapon gather");
+    AZ_CVAR(bool, cl_KillEffectOnRestart, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Controls whether or not to kill current effects on restart");
 
     BaseWeapon::BaseWeapon(const ConstructParams& constructParams)
         : m_owningEntity(constructParams.m_owningEntity)
@@ -145,7 +147,7 @@ namespace MultiplayerSample
                     popcornFx->EffectSetAttributeAsFloat3(m_activateEffect, hitAttrId, target);
                 }
 
-                popcornFx->EffectRestart(m_activateEffect, true);
+                popcornFx->EffectRestart(m_activateEffect, cl_KillEffectOnRestart);
             }
         }
 
@@ -176,11 +178,11 @@ namespace MultiplayerSample
                 int32_t normalAttrId = popcornFx->EffectGetAttributeId(m_impactEffect, "Hit Normal");
                 if (normalAttrId >= 0)
                 {
-                    const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
+                    const AZ::Vector3 hitNormal = (activatePosition - hitPosition).GetNormalized();
                     popcornFx->EffectSetAttributeAsFloat3(m_impactEffect, normalAttrId, hitNormal);
                 }
 
-                popcornFx->EffectRestart(m_impactEffect, true);
+                popcornFx->EffectRestart(m_impactEffect, cl_KillEffectOnRestart);
             }
         }
 
@@ -211,11 +213,11 @@ namespace MultiplayerSample
                 int32_t normalAttrId = popcornFx->EffectGetAttributeId(m_damageEffect, "Hit Normal");
                 if (normalAttrId >= 0)
                 {
-                    const AZ::Vector3 hitNormal = (hitPosition - activatePosition).GetNormalized();
+                    const AZ::Vector3 hitNormal = (activatePosition - hitPosition).GetNormalized();
                     popcornFx->EffectSetAttributeAsFloat3(m_damageEffect, normalAttrId, hitNormal);
                 }
 
-                popcornFx->EffectRestart(m_damageEffect, true);
+                popcornFx->EffectRestart(m_damageEffect, cl_KillEffectOnRestart);
             }
         }
 
@@ -318,3 +320,4 @@ namespace MultiplayerSample
         return nullptr;
     }
 }
+#pragma optimize ("", on)
