@@ -65,4 +65,5 @@ set(ENABLED_GEMS
     DiffuseProbeGrid
     Terrain
     Profiler
+    Stars
 )
