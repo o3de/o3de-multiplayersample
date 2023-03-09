@@ -422,8 +422,13 @@ namespace MultiplayerSample
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
 
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), weaponInput->m_firing.AnySet());
+        // Always disable the recoil shooting flag when we start ProcessInput
+        // It will raise again if we actually enter an activation scenario for any weapon
+        if (!weaponInput->m_firing.AnySet())
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), false);
+        }
 
         // Turn on aiming when any of the weapon is ready to fire.
         // TODO: Enter aiming first, then animation should send events that we are ready to fire. We can listen to the anim event and process
@@ -440,7 +445,6 @@ namespace MultiplayerSample
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
                 aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
         }
-
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 
@@ -563,15 +567,19 @@ namespace MultiplayerSample
             return false;
         }
 
+        const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
         WeaponState& weaponState = ModifyWeaponStates(weaponIndexInt);
         if (weapon->TryStartFire(weaponState, fireParams))
         {
-            const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
             if (!GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(animBit))
             {
                 GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, true);
             }
             return true;
+        }
+        else if (GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(animBit))
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, false);
         }
 
         return false;

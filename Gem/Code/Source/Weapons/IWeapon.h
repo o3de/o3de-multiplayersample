@@ -91,7 +91,7 @@ namespace MultiplayerSample
 
         //! Executes the activation sound effect bound to this weapon instance at the specified location.
         //! @param activateTransform the initial transform corresponding to weapon activation
-        //! @param target the point targetted by the activation event
+        //! @param target the point targeted by the activation event
         virtual void ExecuteActivateEffect(const AZ::Transform& activateTransform, const AZ::Vector3& target) const = 0;
 
         //! Executes the impact (predictive hit) sound effect bound to this weapon instance at the specified location.

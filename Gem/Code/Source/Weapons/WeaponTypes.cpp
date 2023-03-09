@@ -10,6 +10,10 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 
+#if AZ_TRAIT_CLIENT
+#   include <PopcornFX/PopcornFXBus.h>
+#endif
+
 namespace MultiplayerSample
 {
     const char* GetEnumString(WeaponType value)
@@ -298,8 +302,6 @@ namespace MultiplayerSample
         }
     }
 
-    constexpr AZ::Uuid s_popcornFxAssetUuid{ "{45047C35-64F7-43BA-B463-000081B587C3}" };
-
     void WeaponParams::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -332,13 +334,19 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_cooldownTimeMs, "CooldownTimeMs", "The number of milliseconds needed before the weapon can activate again")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_animFlag, "AnimFlag", "The animation flag to raise on the character when starting a fire sequence")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateAssetId, "ActivateFx", "The effect to play upon weapon activation")
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ s_popcornFxAssetUuid }); })
+#if AZ_TRAIT_CLIENT
+                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
+#endif
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateAudioTrigger, "ActivateSoundEffect", "The trigger name of the sound to play upon weapon activation")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactAssetId, "ImpactFx", "The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients")
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ s_popcornFxAssetUuid }); })
+#if AZ_TRAIT_CLIENT
+                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
+#endif
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactAudioTrigger, "ImpactSoundEffect", "The trigger name of the sound to play upon predicted weapon hit")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageAssetId, "DamageFx", "The effect to play for each hit entitiy. Played authoritatively only")
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ s_popcornFxAssetUuid }); })
+#if AZ_TRAIT_CLIENT
+                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
+#endif
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageAudioTrigger, "DamageSoundEffect", "The trigger name of the sound to play upon confirmed weapon hit")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_projectileAsset, "ProjectileAsset", "If a projectile weapon, the archetype asset name for projectile properties")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_gatherParams, "GatherParams", "The type of gather to perform for shape-cast weapons")
