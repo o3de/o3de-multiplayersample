@@ -110,7 +110,7 @@ If you have a Git credential helper configured, you should not be prompted for y
 > c:/path/to/o3de/scripts/o3de register --this-engine
 
 # register the asset gems (only need to do this once)
-> c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/gems
+> c:/path/to/o3de/scripts/o3de register --all-gems-path c:/path/to/o3de-multiplayersample-assets/Gems
 
 # register the project (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register -p c:/path/to/o3de-multiplayersample

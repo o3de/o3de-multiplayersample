@@ -117,7 +117,7 @@ namespace MultiplayerSample
                 auto minutes = AZStd::chrono::duration_cast<AZStd::chrono::minutes>(duration);
                 auto seconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(duration - minutes);
 
-                m_roundTimerText = AZStd::string::format("%02i:%02i", minutes.count(), seconds.count());
+                m_roundTimerText = AZStd::string::format("%02i:%02i", static_cast<int>(minutes.count()), static_cast<int>(seconds.count()));
 
                 UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundTimerText);
             }
