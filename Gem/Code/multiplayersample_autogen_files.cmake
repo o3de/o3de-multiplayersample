@@ -41,5 +41,4 @@ set(FILES
     Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
     Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
     Source/AutoGen/RpcTesterComponent.AutoComponent.xml
-    Source/AutoGen/WeaponEffectComponent.AutoComponent.xml    
 )
