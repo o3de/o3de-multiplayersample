@@ -27,7 +27,6 @@ set(FILES
     Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
     Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
     Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
