@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#include <AzCore/Math/Plane.h>
-#include <Source/Components/NetworkWeaponsComponent.h>
 
+#include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
@@ -15,11 +14,12 @@
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/Math/Plane.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 
 #if AZ_TRAIT_CLIENT
-#include <DebugDraw/DebugDrawBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
@@ -161,6 +161,8 @@ namespace MultiplayerSample
                 cl_WeaponsDrawDebugDurationSec
             );
         }
+
+        activationInfo.m_weapon.ExecuteActivateEffect(activationInfo.m_activateEvent.m_initialTransform, activationInfo.m_activateEvent.m_targetPosition);
 #endif
     }
 
@@ -202,6 +204,8 @@ namespace MultiplayerSample
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
+
+            hitInfo.m_weapon.ExecuteImpactEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
 #endif
 
             AZLOG
@@ -218,9 +222,9 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponent::OnWeaponConfirmHit(const WeaponHitInfo& hitInfo)
     {
+#if AZ_TRAIT_SERVER
         if (IsNetEntityRoleAuthority())
         {
-#if AZ_TRAIT_SERVER
             for (const HitEntity& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
             {
                 Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
@@ -254,18 +258,19 @@ namespace MultiplayerSample
                     }
                 }
             }
-#endif
         }
+#endif
 
         m_onWeaponConfirmHitEvent.Signal(hitInfo);
 
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
+        // Note that materialfx are not hooked up currently as the engine currently doesn't support them
         [[maybe_unused]] bool shouldIssueMaterialEffects = !HasController() || !hitInfo.m_weapon.GetParams().m_locallyPredicted;
 
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
 #if AZ_TRAIT_CLIENT
-	        if (cl_WeaponsDrawDebug && m_debugDraw)
+            if (cl_WeaponsDrawDebug && m_debugDraw)
             {
                 m_debugDraw->DrawSphereAtLocation
                 (
@@ -275,6 +280,8 @@ namespace MultiplayerSample
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
+
+            hitInfo.m_weapon.ExecuteDamageEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
 #endif
 
             AZLOG
@@ -316,7 +323,6 @@ namespace MultiplayerSample
             ActivateWeaponWithParams(aznumeric_cast<WeaponIndex>(index), weaponState, fireParams, validateActivations);
         }
     }
-
 
     void NetworkWeaponsComponent::OnTickSimulatedWeapons(float seconds)
     {
@@ -413,8 +419,13 @@ namespace MultiplayerSample
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
 
-        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-            aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), weaponInput->m_firing.AnySet());
+        // Always disable the recoil shooting flag when we start ProcessInput
+        // It will raise again if we actually enter an activation scenario for any weapon
+        if (!weaponInput->m_firing.AnySet())
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
+                aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), false);
+        }
 
         // Turn on aiming when any of the weapon is ready to fire.
         // TODO: Enter aiming first, then animation should send events that we are ready to fire. We can listen to the anim event and process
@@ -431,7 +442,6 @@ namespace MultiplayerSample
             GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
                 aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
         }
-
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
 
@@ -554,15 +564,19 @@ namespace MultiplayerSample
             return false;
         }
 
+        const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
         WeaponState& weaponState = ModifyWeaponStates(weaponIndexInt);
         if (weapon->TryStartFire(weaponState, fireParams))
         {
-            const uint32_t animBit = static_cast<uint32_t>(weapon->GetParams().m_animFlag);
             if (!GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(animBit))
             {
                 GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, true);
             }
             return true;
+        }
+        else if (GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(animBit))
+        {
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(animBit, false);
         }
 
         return false;

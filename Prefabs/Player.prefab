@@ -202,50 +202,6 @@
                         "$type": "MultiplayerSample::PlayerKnockbackEffectComponent"
                     }
                 },
-                "Component_[1987329644401848864]": {
-                    "$type": "PopcornFXEmitterEditorComponent",
-                    "Id": 1987329644401848864,
-                    "ParticleSystem": {
-                        "assetId": {
-                            "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
-                        },
-                        "assetHint": "popcornfx/particles/laserpistol/fx_laserpistol_ray.pkfx"
-                    },
-                    "PrewarmTime": 0.0,
-                    "AttributeList": {
-                        "Attributes": [
-                            {
-                                "Name": "Color 01",
-                                "Type": 34
-                            },
-                            {
-                                "Name": "Global Size",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Color 02",
-                                "Type": 34
-                            },
-                            {
-                                "Name": "Max Length",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Laser lifetime",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Start",
-                                "Type": 33
-                            },
-                            {
-                                "Name": "End",
-                                "Type": 33
-                            }
-                        ],
-                        "AttributesRawData": "AAAAADjVQj/+7WU/AACAPwAAgD8AAAAAAAAAAAAAAAD+7WU/ZePSPgAAAAAAAIA/AABIQgAAAAAAAAAAAAAAADMzsz4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
-                    }
-                },
                 "Component_[2596368806843971783]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 2596368806843971783,
@@ -404,13 +360,6 @@
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
                 },
-                "Component_[695007936360450055]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 695007936360450055,
-                    "m_template": {
-                        "$type": "MultiplayerSample::WeaponEffectComponent"
-                    }
-                },
                 "Component_[7398251875150394377]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 7398251875150394377,
@@ -461,7 +410,18 @@
                             {
                                 "WeaponType": 1,
                                 "WeaponMaxAimDistance": 25.0,
-                                "CooldownTimeMs": 500,
+                                "CooldownTimeMs": 1000,
+                                "ActivateFx": {
+                                    "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                },
+                                "ActivateSoundEffect": "play_sx_wpn_laserpistol_fire",
+                                "ImpactFx": {
+                                    "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                },
+                                "ImpactSoundEffect": "play_sx_wpn_laserpistol_impact",
+                                "DamageFx": {
+                                    "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                },
                                 "GatherParams": {
                                     "CastDistance": 2000.0,
                                     "TravelSpeed": 200.0
