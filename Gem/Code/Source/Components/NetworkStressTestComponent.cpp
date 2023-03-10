@@ -114,8 +114,6 @@ namespace MultiplayerSample
         ImGui::InputFloat("Fire Interval Max (ms)", &m_fireIntervalMaxMs, 0.f, 100000.f);
         ImGui::InputFloat("Action Interval Min (ms)", &m_actionIntervalMinMs, 0.f, 100000.f);
         ImGui::InputFloat("Action Interval Max (ms)", &m_actionIntervalMaxMs, 0.f, 100000.f);
-        constexpr static uint64_t SeedMin = 0;
-        constexpr static uint64_t SeedMax = AZStd::numeric_limits<uint64_t>::max();
 
         if (ImGui::Button("Spawn AI Entity"))
         {

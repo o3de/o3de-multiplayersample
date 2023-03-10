@@ -29,6 +29,7 @@
 #if AZ_TRAIT_CLIENT
 #include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
 #include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
+#include <LyShine/Bus/UiCursorBus.h>
 #endif
 
 namespace MultiplayerSample
@@ -73,15 +74,25 @@ namespace MultiplayerSample
             return false;
         }
 
-        // Don't allow player movement if the console is open (system cursor isn't unconstrainted and visible)
         #if AZ_TRAIT_CLIENT
+            // Don't allow player movement if the system cursor is visible
             AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
             AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
                 &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-            if (systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible)
+            if ((systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible) ||
+                (systemCursorState == AzFramework::SystemCursorState::ConstrainedAndVisible))
             {
                 return false;
             }
+
+            // Don't allow player movement if the UI cursor is visible
+            bool isCursorVisible = false;
+            UiCursorBus::BroadcastResult(isCursorVisible, &UiCursorInterface::IsUiCursorVisible);
+            if (isCursorVisible)
+            {
+                return false;
+            }
+
         #endif
 
         return true;
