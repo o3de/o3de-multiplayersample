@@ -52,6 +52,50 @@ namespace MultiplayerSample
         COUNT = Crouching + 1
     };
 
+    AZ_ENUM_CLASS(SoundEffect,
+        Unused,
+
+        // Player Sounds
+        PlayerFootSteps,
+        PlayerExertion,
+        PlayerKnockedDown,
+        ArmorBreaking,
+        ArmorMend,
+        PlayerOuch,
+        LadderClimb,
+        ShutDown,
+
+        // Game Event Sounds
+        CountDown,
+        GemPickup,
+        VictoryFanfare,
+        LosingFanfare,
+        RoundStart,
+        RoundEnd,
+        GameEnd,
+
+        // Laser Pistol
+        LaserPistolMuzzleFlash,
+        LaserPistolImpact,
+
+        // Bubble Gun
+        BubbleGunBuildup,
+        BubbleGunMuzzleFlash,
+        BubbleGunProjectile,
+        BubbleGunImpact,
+
+        // Environment
+        JumpPadLaunch,
+        TeleporterUse,
+
+        // Energy Ball Trap
+        EnergyBallTrapRisingOutOfTheGround,
+        EnergyBallTrapBuildup, // followed by muzzle flash
+        EnergyBallTrapProjectile,
+        EnergyBallTrapImpact,
+        EnergyBallTrapOnCooldown // plays when you try to fire it during cooldown
+    );
+
     using RoundTimeSec = AzNetworking::QuantizedValues<1, 2, 0, 3600>; // 1 hour max round duration
 
     static constexpr int MaxSupportedPlayers = 8;
@@ -182,6 +226,7 @@ namespace MultiplayerSample
 
 namespace AZ
 {
+    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::SoundEffect, "{1A214937-62F2-4724-A66C-CC3E9D4F1F2F}");
     AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::CharacterAnimState, "{2DC36B4D-3B14-45A8-911A-60F8732F6A88}");
     AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::Action, "{1BFDEBD3-ED36-465D-BFA0-9160CFB24F37}");
 }

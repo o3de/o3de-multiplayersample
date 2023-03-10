@@ -130,6 +130,11 @@ namespace MultiplayerSample
 
     void GameplayEffectsComponent::SpawnEffect(SoundEffect effect, const AZ::Vector3& position)
     {
+        if (effect == SoundEffect::Unused)
+        {
+            return;
+        }
+
         const char* triggerName = nullptr;
         const AZStd::size_t effectId = aznumeric_cast<AZStd::size_t>(effect);
         if (effectId < m_soundTriggerNames.size())
