@@ -39,6 +39,25 @@
                 "$type": "EditorDisabledCompositionComponent",
                 "Id": 16239496886950819870
             },
+            "Component_[17914565629918365862]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 17914565629918365862,
+                "m_template": {
+                    "$type": "Multiplayer::SimplePlayerSpawnerComponent",
+                    "PlayerSpawnable": {
+                        "Spawnable": {
+                            "assetId": {
+                                "guid": "{77D6202F-A96B-565F-9FA1-F8855B24930A}",
+                                "subId": 2976800808
+                            },
+                            "assetHint": "prefabs/test_player_with_tests.network.spawnable"
+                        }
+                    },
+                    "SpawnPoints": [
+                        "Entity_[408005295678]"
+                    ]
+                }
+            },
             "Component_[5688118765544765547]": {
                 "$type": "EditorEntityIconComponent",
                 "Id": 5688118765544765547
@@ -666,7 +685,7 @@
         },
         "Entity_[408005295678]": {
             "Id": "Entity_[408005295678]",
-            "Name": "Test Player Spawner",
+            "Name": "Test Player Spawn Point",
             "Components": {
                 "Component_[10262238844204620657]": {
                     "$type": "EditorEntityIconComponent",
@@ -696,20 +715,6 @@
                     "$type": "EditorLockComponent",
                     "Id": 2573667475129030481
                 },
-                "Component_[287735088776915350]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 287735088776915350,
-                    "m_template": {
-                        "$type": "NetworkPlayerSpawnerComponent",
-                        "SpawnableAsset": {
-                            "assetId": {
-                                "guid": "{77D6202F-A96B-565F-9FA1-F8855B24930A}",
-                                "subId": 2976800808
-                            },
-                            "assetHint": "prefabs/test_player_with_tests.network.spawnable"
-                        }
-                    }
-                },
                 "Component_[3570910616290236488]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 3570910616290236488
@@ -717,13 +722,6 @@
                 "Component_[4187805579088269744]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 4187805579088269744
-                },
-                "Component_[4441669878931506875]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 4441669878931506875,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
                 },
                 "Component_[4601104312603409121]": {
                     "$type": "EditorPendingCompositionComponent",

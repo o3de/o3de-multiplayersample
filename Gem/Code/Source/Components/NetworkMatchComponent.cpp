@@ -18,12 +18,13 @@
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
-#include <Source/Spawners/IPlayerSpawner.h>
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
+#include <Multiplayer/Components/ISimplePlayerSpawner.h>
+
 
 #if AZ_TRAIT_CLIENT
 #include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
@@ -463,10 +464,21 @@ namespace MultiplayerSample
             // move to valid respawn point
             if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
             {
-                AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = 
-                    AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+                AZ::Transform respawnPoint = AZ::Transform::CreateIdentity();
+                if (auto simplePlayerSpawner = AZ::Interface<Multiplayer::ISimplePlayerSpawner>::Get())
+                {
+                    respawnPoint = simplePlayerSpawner->GetNextSpawnPoint();
 
-                teleport->Teleport(entityParams.second.GetTranslation());
+                    // Increment the next spawn point so any new players or respawned players don't spawn in on top of us at this location.
+                    const uint32_t spawnPointCount = simplePlayerSpawner->GetSpawnPointCount();
+                    simplePlayerSpawner->SetNextSpawnPointIndex((simplePlayerSpawner->GetNextSpawnPointIndex()+1) % spawnPointCount);
+                }
+                else
+                {
+                    AZ_Warning("NetworkMatchComponentController", false, "Failed to find a valid respawn point; moving to the world origin.");
+                }
+
+                teleport->Teleport(respawnPoint.GetTranslation());
             }
         }
         else

@@ -7,6 +7,38 @@
                 "$type": "EditorInspectorComponent",
                 "Id": 10641544592923449938
             },
+            "Component_[10649889334476703760]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 10649889334476703760,
+                "m_template": {
+                    "$type": "Multiplayer::SimplePlayerSpawnerComponent",
+                    "PlayerSpawnable": {
+                        "Spawnable": {
+                            "assetId": {
+                                "guid": "{13BAFCBF-6669-5E4E-B3B0-8610349B2C01}",
+                                "subId": 738868766
+                            },
+                            "assetHint": "prefabs/player.network.spawnable"
+                        }
+                    },
+                    "SpawnPoints": [
+                        "Instance_[158609355589368]/ContainerEntity",
+                        "Instance_[158600765654776]/ContainerEntity",
+                        "Instance_[158446146832120]/ContainerEntity",
+                        "Instance_[158562110949112]/ContainerEntity",
+                        "Instance_[158411787093752]/ContainerEntity",
+                        "Instance_[158566405916408]/ContainerEntity",
+                        "Instance_[158441851864824]/ContainerEntity",
+                        "Instance_[2592777775630072]/ContainerEntity",
+                        "Instance_[459514891347110]/ContainerEntity",
+                        "Instance_[158355952518904]/ContainerEntity",
+                        "Instance_[158450441799416]/ContainerEntity",
+                        "Instance_[158605060622072]/ContainerEntity",
+                        "Instance_[158549226047224]/ContainerEntity",
+                        "Instance_[158570700883704]/ContainerEntity"
+                    ]
+                }
+            },
             "Component_[12039882709170782873]": {
                 "$type": "EditorOnlyEntityComponent",
                 "Id": 12039882709170782873
@@ -18029,6 +18061,11 @@
             "Patches": [
                 {
                     "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 10"
+                },
+                {
+                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
                     "value": "../Entity_[86130393031567]"
                 },
@@ -18045,13 +18082,18 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 }
             ]
         },
         "Instance_[158411787093752]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 5"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18070,13 +18112,18 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 }
             ]
         },
         "Instance_[158441851864824]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 7"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18104,6 +18151,11 @@
             "Patches": [
                 {
                     "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 3"
+                },
+                {
+                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
                     "value": "../Entity_[86130393031567]"
                 },
@@ -18120,13 +18172,18 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 }
             ]
         },
         "Instance_[158450441799416]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 11"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18145,13 +18202,18 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 }
             ]
         },
         "Instance_[158549226047224]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 13"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18170,13 +18232,18 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 }
             ]
         },
         "Instance_[158562110949112]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 4"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18195,7 +18262,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 },
                 {
                     "op": "replace",
@@ -18207,6 +18274,11 @@
         "Instance_[158566405916408]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 6"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18225,7 +18297,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 },
                 {
                     "op": "replace",
@@ -18237,6 +18309,11 @@
         "Instance_[158570700883704]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 14"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18255,7 +18332,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683104
+                    "value": 10.749918937683105
                 },
                 {
                     "op": "replace",
@@ -18267,6 +18344,11 @@
         "Instance_[158600765654776]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 2"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -18299,6 +18381,11 @@
             "Patches": [
                 {
                     "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 12"
+                },
+                {
+                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
                     "value": "../Entity_[86130393031567]"
                 },
@@ -18327,6 +18414,11 @@
         "Instance_[158609355589368]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 1"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
@@ -23794,6 +23886,11 @@
             "Patches": [
                 {
                     "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 8"
+                },
+                {
+                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
                     "value": "../Entity_[86130393031567]"
                 },
@@ -23805,7 +23902,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/1",
-                    "value": -22.48564720153809
+                    "value": -22.485647201538086
                 },
                 {
                     "op": "replace",
@@ -29129,7 +29226,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29169,7 +29266,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29209,7 +29306,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29249,7 +29346,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29289,7 +29386,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29329,7 +29426,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29369,7 +29466,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29409,7 +29506,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -36235,6 +36332,11 @@
         "Instance_[459514891347110]": {
             "Source": "Prefabs/Player_Spawner.prefab",
             "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Name",
+                    "value": "Player_Spawner 9"
+                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Parent Entity",
