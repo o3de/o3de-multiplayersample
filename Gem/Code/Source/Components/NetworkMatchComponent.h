@@ -97,12 +97,14 @@ namespace MultiplayerSample
         //! List of active players in the match.
         AZStd::vector<Multiplayer::NetEntityId> m_players;
 
+#if AZ_TRAIT_SERVER
         //! A temporary way to assign player identities, such as player names.
         void AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity);
+        PlayerNameString GeneratePlayerName();
         int m_nextPlayerId = 1;
-        AZ::SimpleLcgRandom m_randomNameGenerator;
+        int m_playerNameRandomStartingIndexPrefix = 0;
+        int m_playerNameRandomStartingIndexPostfix = 0;
 
-#if AZ_TRAIT_SERVER
         void RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets);
 #endif
 

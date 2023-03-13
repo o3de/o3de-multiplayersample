@@ -148,7 +148,11 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_randomNameGenerator.SetSeed(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
+        #if AZ_TRAIT_SERVER
+            AZ::SimpleLcgRandom randomNumberGenerator(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
+            m_playerNameRandomStartingIndexPrefix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size();
+            m_playerNameRandomStartingIndexPostfix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size();
+        #endif
 
         GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
             {
@@ -431,7 +435,18 @@ namespace MultiplayerSample
             StartRound();
         }
     }
-#endif //AZ_TRAIT_SERVER
+
+    PlayerNameString NetworkMatchComponentController::GeneratePlayerName()
+    {
+        // The first-name will be offset depending on how many times all prefix names have been used.
+        // This has the affect of exhausting all the possible name combinations before hitting a name collision.
+        const int prefixOffset = aznumeric_cast<int>(AZStd::floorf( static_cast<float>(m_nextPlayerId) / AutoAssignedPlayerNamePrefix.size()));
+        const PlayerNameString prefixName = AutoAssignedPlayerNamePrefix[(++m_playerNameRandomStartingIndexPrefix + prefixOffset) % AutoAssignedPlayerNamePrefix.size()];
+        const PlayerNameString postfixName = AutoAssignedPlayerNamePostfix[++m_playerNameRandomStartingIndexPostfix % AutoAssignedPlayerNamePostfix.size()];
+
+        const PlayerNameString playerName = prefixName + postfixName;
+        return playerName;
+    }
 
     void NetworkMatchComponentController::AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity)
     {
@@ -440,9 +455,7 @@ namespace MultiplayerSample
         {
             if (PlayerIdentityComponent* identity = entityHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
             {
-                const PlayerNameString prefixName = AutoAssignedPlayerNamePrefix[m_randomNameGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size()];
-                const PlayerNameString postfixName = AutoAssignedPlayerNamePostfix[m_randomNameGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size()];
-                identity->RPC_AssignPlayerName(prefixName+postfixName);
+                identity->RPC_AssignPlayerName(GeneratePlayerName());
             }
             else
             {
@@ -453,7 +466,6 @@ namespace MultiplayerSample
         m_nextPlayerId++;
     }
 
-#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets)
     {
         const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity);

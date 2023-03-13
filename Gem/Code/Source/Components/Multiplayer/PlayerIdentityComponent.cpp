@@ -25,12 +25,10 @@ namespace MultiplayerSample
 
     void PlayerIdentityComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        PlayerNameAddEvent(m_onPlayerNameChanged);
     }
 
     void PlayerIdentityComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_onPlayerNameChanged.Disconnect();
     }
 
     PlayerIdentityComponentController::PlayerIdentityComponentController(PlayerIdentityComponent& parent)
@@ -47,6 +45,7 @@ namespace MultiplayerSample
 
         if (IsNetEntityRoleAutonomous())
         {
+            PlayerNameAddEvent(m_onAutomonousPlayerNameChanged);
             PlayerIdentityRequestBus::Handler::BusConnect();
         }
     }
@@ -59,6 +58,7 @@ namespace MultiplayerSample
         }
 
         PlayerIdentityRequestBus::Handler::BusDisconnect();
+        m_onAutomonousPlayerNameChanged.Disconnect();
     }
 
 #if AZ_TRAIT_SERVER

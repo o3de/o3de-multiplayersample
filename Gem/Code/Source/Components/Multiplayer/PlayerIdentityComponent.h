@@ -23,11 +23,6 @@ namespace MultiplayerSample
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
-
-        AZ::Event<PlayerNameString>::Handler m_onPlayerNameChanged{[](const PlayerNameString& playerName)
-        {
-            PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotifications::OnAutonomousPlayerNameChanged, playerName.c_str());;
-        }};
     };
 
 
@@ -48,5 +43,11 @@ namespace MultiplayerSample
 
         // PlayerIdentityRequestBus overrides ...
         const char* GetPlayerIdentityName() override;
+
+    private:
+        AZ::Event<PlayerNameString>::Handler m_onAutomonousPlayerNameChanged{ [](const PlayerNameString& playerName)
+        {
+            PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotifications::OnAutonomousPlayerNameChanged, playerName.c_str());;
+        } };
     };
 }
