@@ -8,6 +8,7 @@
 #pragma once
 
 
+#include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 
