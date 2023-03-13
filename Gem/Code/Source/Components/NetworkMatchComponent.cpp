@@ -148,6 +148,8 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_randomNameGenerator.SetSeed(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
+
         GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
             {
                 return AZStd::make_shared<GameStateWaitingForPlayers>(this);
@@ -438,7 +440,9 @@ namespace MultiplayerSample
         {
             if (PlayerIdentityComponent* identity = entityHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
             {
-                identity->AssignPlayerName(PlayerNameString::format("Player %d", m_nextPlayerId));
+                const PlayerNameString prefixName = AutoAssignedPlayerNamePrefix[m_randomNameGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size()];
+                const PlayerNameString postfixName = AutoAssignedPlayerNamePostfix[m_randomNameGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size()];
+                identity->RPC_AssignPlayerName(prefixName+postfixName);
             }
             else
             {

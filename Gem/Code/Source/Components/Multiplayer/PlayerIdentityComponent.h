@@ -20,11 +20,14 @@ namespace MultiplayerSample
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::PlayerIdentityComponent, s_playerIdentityComponentConcreteUuid, MultiplayerSample::PlayerIdentityComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
-        
+
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void AssignPlayerName(const PlayerNameString& newPlayerName);
+        AZ::Event<PlayerNameString>::Handler m_onPlayerNameChanged{[](const PlayerNameString& playerName)
+        {
+            PlayerIdentityNotificationBus::Broadcast(&PlayerIdentityNotifications::OnAutonomousPlayerNameChanged, playerName.c_str());;
+        }};
     };
 
 

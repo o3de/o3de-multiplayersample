@@ -25,22 +25,13 @@ namespace MultiplayerSample
 
     void PlayerIdentityComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        PlayerNameAddEvent(m_onPlayerNameChanged);
     }
 
     void PlayerIdentityComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_onPlayerNameChanged.Disconnect();
     }
-
-    void PlayerIdentityComponent::AssignPlayerName([[maybe_unused]] const PlayerNameString& newPlayerName)
-    {
-#if AZ_TRAIT_SERVER
-        if (IsNetEntityRoleServer())
-        {
-            RPC_AssignPlayerName(newPlayerName);
-        }
-#endif
-    }
-
 
     PlayerIdentityComponentController::PlayerIdentityComponentController(PlayerIdentityComponent& parent)
         : PlayerIdentityComponentControllerBase(parent)
