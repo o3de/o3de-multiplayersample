@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{5D3AE987-B23A-43C3-8065-135D4594325B}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{E5F4F469-906C-4147-B0E4-CD832E5C1948}">
+	<Events>
+		<WorkUnit Name="INT" ID="{5D3AE987-B23A-43C3-8065-135D4594325B}" OwnerID="{E5F4F469-906C-4147-B0E4-CD832E5C1948}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="20"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Folder Name="energyBallTrap" ID="{F78A511B-8F88-4FD9-8B78-6A7FE28821AD}" ShortID="539690349">
+					<ChildrenList>
+						<Event Name="play_sx_int_energyballtrap_rising" ID="{7CCD4AF5-560C-47C8-A7CF-8C0430C95587}">
+							<ChildrenList>
+								<Action Name="" ID="{92286178-8C75-4621-B361-99198C940B29}" ShortID="871951582">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_rising" ID="{79C95A75-AB6F-4CE1-B619-E36D7D3DF23D}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_energyballtrap_projectile" ID="{4C9F5296-5B71-4CC3-8E72-63D2B8BEBAD9}">
+							<ChildrenList>
+								<Action Name="" ID="{C08664F7-3F9F-4C68-AC9A-1B3BC0BFA70A}" ShortID="187484371">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_energyballtrap_impact" ID="{4BD8BF4B-C265-4D3D-A9F5-00BA8DBF3173}">
+							<ChildrenList>
+								<Action Name="" ID="{5BABD659-278C-48DA-84EA-6405F7E20885}" ShortID="400091114">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_impact" ID="{92014ACE-04FD-4CE2-8FEC-0513182D6858}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_energyballtrap_oncooldown" ID="{11E39775-D1C8-428D-974E-34057F043181}">
+							<ChildrenList>
+								<Action Name="" ID="{C343D4C9-0452-489F-82E1-6568C42A2929}" ShortID="804109373">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_onCooldown" ID="{11F73741-B078-4D24-8316-DAF1026A5E0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_energyballtrap_buildup" ID="{E26765DC-56E5-444D-BA2E-6084A800C1EF}">
+							<ChildrenList>
+								<Action Name="" ID="{F6D72A11-88DB-425D-A30E-6BD6A3F0F637}" ShortID="849759192">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_buildup" ID="{13873A13-8973-4020-9FFB-501BD5BA5865}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="energyCollector" ID="{714A99A5-4F08-442F-8F6A-A8214FB3130F}" ShortID="696842136">
+					<ChildrenList>
+						<Event Name="play_sx_int_energycollector_explosion" ID="{E0E34EE2-738E-4E96-BF07-6FEBB42C3C2E}">
+							<ChildrenList>
+								<Action Name="" ID="{3378EAF7-B8DD-472F-B67E-2A2C0FDE28AA}" ShortID="102418540">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyCollector_explosion" ID="{F7B977C9-5A5B-4A1F-AB64-F730DAD37337}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="gem" ID="{EC75E717-92E5-4DEB-89EB-52DDFD0204B3}" ShortID="274366707">
+					<ChildrenList>
+						<Event Name="play_sx_int_gem_pickup" ID="{D9D7B8A3-6812-451E-93C5-896700291A0B}">
+							<ChildrenList>
+								<Action Name="" ID="{9993FE6A-4D10-4B82-9BEF-7A54E61270DF}" ShortID="1006310010">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_gem_pickup" ID="{E9B2A017-63F2-4AE9-A4F8-838FE3D42176}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="jumpPad" ID="{CCBB6605-AD73-45BA-988A-A23AD7A56256}" ShortID="332519664">
+					<ChildrenList>
+						<Event Name="play_sx_int_jumppad_launch" ID="{4BE8A9A4-5EEE-4ACC-B314-F1D626BD46C7}">
+							<ChildrenList>
+								<Action Name="" ID="{57259460-E87A-49F2-9728-4CA5F3AE6078}" ShortID="646193284">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_jumpPad_launch" ID="{715FC78B-4F25-4B37-B15F-8B41ED56110F}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="shieldGenerator" ID="{EA7AAFF1-27D9-4D66-800A-1133114DB455}" ShortID="47090">
+					<ChildrenList>
+						<Event Name="play_sx_int_malfunctioningshieldgenerator_buildup" ID="{14C1E7BF-5B9E-43FF-8083-618230E2B7B8}">
+							<ChildrenList>
+								<Action Name="" ID="{A8FE24AA-051F-4471-AC7B-253CDA898514}" ShortID="205586822">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_buildUp" ID="{62399925-3AE3-499B-AB20-D8FF1037A822}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_malfunctioningshieldgenerator_explo" ID="{A910A681-E6E6-47EF-9061-B9753C009A61}">
+							<ChildrenList>
+								<Action Name="" ID="{E99C5AA4-277F-4D59-BA82-95573711373E}" ShortID="287725219">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_explo" ID="{01E0DEFE-B2F5-4AF4-AFD5-4D242E317371}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_malfunctioningshieldgenerator_idle" ID="{8D875A6A-108D-4C08-9A16-851A7A80EA24}">
+							<ChildrenList>
+								<Action Name="" ID="{6BDAFBC2-05B1-490F-8CFC-112C7761CACD}" ShortID="997584170">
+									<PropertyList>
+										<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{CA39850E-7BDB-4A34-90E1-F2F882682C0C}" ShortID="357455969">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="SeekPercent" Type="Real64" Value="50">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{39B5BB1D-8A46-437B-85CA-4A1C2EADE40C}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="stop_sx_int_malfunctioningshieldgenerator_idle" ID="{6E863577-C6E8-4563-BA13-E739D818DF44}">
+							<ChildrenList>
+								<Action Name="" ID="{6ECBCFB5-299A-4916-8F5A-9CCC69383E91}" ShortID="993264331">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
