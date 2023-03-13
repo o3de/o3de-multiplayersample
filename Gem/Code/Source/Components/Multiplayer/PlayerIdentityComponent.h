@@ -20,6 +20,7 @@ namespace MultiplayerSample
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::PlayerIdentityComponent, s_playerIdentityComponentConcreteUuid, MultiplayerSample::PlayerIdentityComponentBase);
 
         static void Reflect(AZ::ReflectContext* context);
+
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
     };
