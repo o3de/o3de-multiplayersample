@@ -54,8 +54,8 @@ namespace MultiplayerSample
     {
     public:
         // Possible pre/post names for automatically assigned player gamer name. Upon joining, a player will be given a name e.g. RoboRiot.
-        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePrefix{ "Robo", "Circuit", "Sparky", "Bolt", "Mech", "Metal", "Junkyard", "Wire", "Steel", "Cog", "Electric", "Circuit", "Rusty", "Byte", "Cyber", "Gizmo", "Sprocket" };
-        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePostfix{ "Riot", "Crusher", "Sparks", "Bot", "Messiah", "Marauder", "Warrior", "Samurai", "Commando", "Enigma", "Champion", "Renegade", "Brawler", "Crusader", "Gladiator", "Battler", "Savior" };
+        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePrefix{ "Robo", "Circuit", "Sparky", "Bolt", "Mech", "Metal", "Junkyard", "Wire", "Steel", "Cog", "Electric", "Circuit", "Rusty", "Byte", "Cyber", "Gizmo", "Sprocket", "Electro", "Plasma", "Automated", "Cybernetic", "Bionic" };
+        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePostfix{ "Riot", "Crusher", "Sparks", "Bot", "Marauder", "Warrior", "Samurai", "Commando", "Enigma", "Champion", "Renegade", "Brawler", "Crusader", "Gladiator", "Battler", "Heavy", "Miner", "Simulant", "Mecha", "Automata", "Cyborg", "Clunker", "Automat"};
 
         explicit NetworkMatchComponentController(NetworkMatchComponent& parent);
 
