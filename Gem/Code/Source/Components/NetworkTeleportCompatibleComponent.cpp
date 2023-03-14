@@ -12,10 +12,6 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
 
-#if AZ_TRAIT_CLIENT
-#   include <PopcornFX/PopcornFXBus.h>
-#endif
-
 namespace MultiplayerSample
 {
     void NetworkTeleportCompatibleComponent::Reflect(AZ::ReflectContext* context)
