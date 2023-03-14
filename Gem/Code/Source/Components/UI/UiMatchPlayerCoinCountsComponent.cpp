@@ -68,13 +68,13 @@ namespace MultiplayerSample
             UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
 
             // Highlight the row belonging to this client's autonomous player
-            bool isAutonmousPlayer = false;
+            bool isAutonomousPlayer = false;
             const Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(state.m_playerId);
             if (playerHandle.Exists() && playerHandle.GetNetBindComponent() != nullptr)
             {
-                isAutonmousPlayer = playerHandle.GetNetBindComponent()->IsNetEntityRoleAutonomous();
+                isAutonomousPlayer = playerHandle.GetNetBindComponent()->IsNetEntityRoleAutonomous();
             }
-            UiElementBus::Event(children[2], &UiElementBus::Events::SetIsEnabled, isAutonmousPlayer);
+            UiElementBus::Event(children[2], &UiElementBus::Events::SetIsEnabled, isAutonomousPlayer);
 
             elementIndex++;
         }
