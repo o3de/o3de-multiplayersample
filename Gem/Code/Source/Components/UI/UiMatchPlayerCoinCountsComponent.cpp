@@ -54,7 +54,7 @@ namespace MultiplayerSample
 
             if (children.size() < 3)
             {
-                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update scorescreen. Please update UICanvas so the player row has at least 3 child elements for setting the player name, coin count, and player highlight.")
+                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update score screen. Please update UICanvas so the player row has at least 3 child elements for setting the player name, coin count, and player highlight.")
                 break;
             }
 
