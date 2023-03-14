@@ -145,6 +145,13 @@ namespace MultiplayerSample
             // running when the round starts instead of having to release the 'W' key and pressing it again.
             playerInput->m_forwardAxis = StickAxis(0);
             playerInput->m_strafeAxis = StickAxis(0);
+
+            playerInput->m_viewYaw = MouseAxis(0);
+            playerInput->m_viewPitch = MouseAxis(0);
+            playerInput->m_sprint = m_sprinting;
+            playerInput->m_jump = m_jumping;
+            playerInput->m_crouch = m_crouching;
+            playerInput->m_resetCount = GetNetworkTransformComponentController()->GetResetCount();
             return;
         }
 
