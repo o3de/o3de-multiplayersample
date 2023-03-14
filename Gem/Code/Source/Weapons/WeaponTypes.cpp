@@ -415,7 +415,8 @@ namespace MultiplayerSample
 
     bool FireParams::Serialize(AzNetworking::ISerializer& serializer)
     {
-        return serializer.Serialize(m_targetPosition, "TargetPosition")
+        return serializer.Serialize(m_sourcePosition, "SourcePosition")
+            && serializer.Serialize(m_targetPosition, "TargetPosition")
             && serializer.Serialize(m_targetId, "TargetId");
     }
 }
