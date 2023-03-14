@@ -98,7 +98,7 @@
                 "Id": 8009524072278951670,
                 "Controller": {
                     "Configuration": {
-                        "QualityLevel": 2
+                        "QualityLevel": 1
                     }
                 }
             },
@@ -5670,29 +5670,6 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 15067863594581946920
                 },
-                "Component_[15207903343033907706]": {
-                    "$type": "AZ::Render::EditorDiffuseProbeGridComponent",
-                    "Id": 15207903343033907706,
-                    "Controller": {
-                        "Configuration": {
-                            "ProbeSpacing": [
-                                20.0,
-                                20.0,
-                                20.0
-                            ],
-                            "Extents": [
-                                140.0,
-                                120.0,
-                                100.0
-                            ],
-                            "EmissiveMultiplier": 3.0
-                        }
-                    },
-                    "probeSpacingX": 20.0,
-                    "probeSpacingY": 20.0,
-                    "probeSpacingZ": 20.0,
-                    "emissiveMultiplier": 3.0
-                },
                 "Component_[16030485922744415920]": {
                     "$type": "EditorBoxShapeComponent",
                     "Id": 16030485922744415920,
@@ -9051,6 +9028,79 @@
                 }
             }
         },
+        "Entity_[438004642439717]": {
+            "Id": "Entity_[438004642439717]",
+            "Name": "Road_G_grp",
+            "Components": {
+                "Component_[10708654832693836377]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 10708654832693836377
+                },
+                "Component_[11181485831494153746]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 11181485831494153746,
+                    "Parent Entity": "Entity_[86061673554831]"
+                },
+                "Component_[11795864673122095368]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11795864673122095368
+                },
+                "Component_[12626903982405318712]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 12626903982405318712
+                },
+                "Component_[16280756158005182775]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 16280756158005182775
+                },
+                "Component_[2811144344695929466]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 2811144344695929466
+                },
+                "Component_[3432351525011871234]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 3432351525011871234
+                },
+                "Component_[5971798741270325585]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 5971798741270325585,
+                    "Child Entity Order": [
+                        "Instance_[460318050231462]/ContainerEntity",
+                        "Instance_[8702239057062]/ContainerEntity",
+                        "Instance_[460373884806310]/ContainerEntity",
+                        "Instance_[459166998996134]/ContainerEntity",
+                        "Instance_[458767567037606]/ContainerEntity",
+                        "Instance_[8831088075942]/ContainerEntity",
+                        "Instance_[458973725467814]/ContainerEntity",
+                        "Instance_[8697944089766]/ContainerEntity",
+                        "Instance_[8573390038182]/ContainerEntity",
+                        "Instance_[8839678010534]/ContainerEntity",
+                        "Instance_[8440246052006]/ContainerEntity",
+                        "Instance_[8581979972774]/ContainerEntity",
+                        "Instance_[459845603828902]/ContainerEntity",
+                        "Instance_[459682395071654]/ContainerEntity",
+                        "Instance_[8710828991654]/ContainerEntity",
+                        "Instance_[8633519580326]/ContainerEntity",
+                        "Instance_[458857761350822]/ContainerEntity",
+                        "Instance_[459557841020070]/ContainerEntity",
+                        "Instance_[8770958533798]/ContainerEntity",
+                        "Instance_[459424697033894]/ContainerEntity",
+                        "Instance_[84012974154639]/ContainerEntity",
+                        "Instance_[8762368599206]/ContainerEntity",
+                        "Instance_[460455489184934]/ContainerEntity",
+                        "Instance_[8517555463334]/ContainerEntity",
+                        "Instance_[458771862004902]/ContainerEntity",
+                        "Instance_[8435951084710]/ContainerEntity",
+                        "Instance_[8500375594150]/ContainerEntity",
+                        "Instance_[459089689584806]/ContainerEntity"
+                    ]
+                },
+                "Component_[9355834749589385709]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 9355834749589385709
+                }
+            }
+        },
         "Entity_[4521869600907512]": {
             "Id": "Entity_[4521869600907512]",
             "Name": "GI_walkway_A",
@@ -10536,6 +10586,7 @@
                     "Id": 10038415289771320825,
                     "Child Entity Order": [
                         "Instance_[9715851338918]/ContainerEntity",
+                        "Entity_[438004642439717]",
                         "Instance_[467516415419558]/ContainerEntity",
                         "Instance_[458913595925670]/ContainerEntity",
                         "Instance_[459660920235174]/ContainerEntity",
@@ -10543,7 +10594,6 @@
                         "Instance_[9273469707430]/ContainerEntity",
                         "Instance_[460232150885542]/ContainerEntity",
                         "Instance_[459776884352166]/ContainerEntity",
-                        "Instance_[8702239057062]/ContainerEntity",
                         "Instance_[691115853421682]/ContainerEntity",
                         "Instance_[689407310832806]/ContainerEntity",
                         "Instance_[459549251085478]/ContainerEntity",
@@ -10555,7 +10605,6 @@
                         "Instance_[9174685459622]/ContainerEntity",
                         "Instance_[10029383951526]/ContainerEntity",
                         "Instance_[689411605800102]/ContainerEntity",
-                        "Instance_[460373884806310]/ContainerEntity",
                         "Instance_[458849171416230]/ContainerEntity",
                         "Instance_[459287258080422]/ContainerEntity",
                         "Instance_[390266279238770]/ContainerEntity",
@@ -10571,21 +10620,16 @@
                         "Instance_[459291553047718]/ContainerEntity",
                         "Instance_[459231423505574]/ContainerEntity",
                         "Instance_[10226952447142]/ContainerEntity",
-                        "Instance_[459166998996134]/ContainerEntity",
                         "Instance_[390270574206066]/ContainerEntity",
                         "Instance_[9569822450854]/ContainerEntity",
-                        "Instance_[458767567037606]/ContainerEntity",
                         "Instance_[9775980881062]/ContainerEntity",
                         "Instance_[459648035333286]/ContainerEntity",
                         "Instance_[108654422756734]/ContainerEntity",
                         "Instance_[689385835996326]/ContainerEntity",
                         "Instance_[460051762259110]/ContainerEntity",
-                        "Instance_[8831088075942]/ContainerEntity",
                         "Instance_[459111164421286]/ContainerEntity",
                         "Instance_[460348115002534]/ContainerEntity",
                         "Instance_[689591994426534]/ContainerEntity",
-                        "Instance_[458973725467814]/ContainerEntity",
-                        "Instance_[8697944089766]/ContainerEntity",
                         "Instance_[689609174295718]/ContainerEntity",
                         "Instance_[9483923104934]/ContainerEntity",
                         "Instance_[460468374086822]/ContainerEntity",
@@ -10620,7 +10664,6 @@
                         "Instance_[459132639257766]/ContainerEntity",
                         "Instance_[671768338803087]/ContainerEntity",
                         "Instance_[9578412385446]/ContainerEntity",
-                        "Instance_[8573390038182]/ContainerEntity",
                         "Instance_[671764043835791]/ContainerEntity",
                         "Instance_[671798403574159]/ContainerEntity",
                         "Instance_[689501800113318]/ContainerEntity",
@@ -10628,9 +10671,7 @@
                         "Instance_[460159136441510]/ContainerEntity",
                         "Instance_[671802698541455]/ContainerEntity",
                         "Instance_[460416834479270]/ContainerEntity",
-                        "Instance_[8839678010534]/ContainerEntity",
                         "Instance_[689398720898214]/ContainerEntity",
-                        "Instance_[8440246052006]/ContainerEntity",
                         "Instance_[458990905336998]/ContainerEntity",
                         "Instance_[460330935133350]/ContainerEntity",
                         "Instance_[390227624533106]/ContainerEntity",
@@ -10651,7 +10692,6 @@
                         "Instance_[9032951538854]/ContainerEntity",
                         "Instance_[460081827030182]/ContainerEntity",
                         "Instance_[9891944998054]/ContainerEntity",
-                        "Instance_[8581979972774]/ContainerEntity",
                         "Instance_[10321441727654]/ContainerEntity",
                         "Instance_[10317146760358]/ContainerEntity",
                         "Instance_[691025659108466]/ContainerEntity",
@@ -10664,8 +10704,6 @@
                         "Instance_[689510390047910]/ContainerEntity",
                         "Instance_[9909124867238]/ContainerEntity",
                         "Instance_[9831815455910]/ContainerEntity",
-                        "Instance_[459845603828902]/ContainerEntity",
-                        "Instance_[459682395071654]/ContainerEntity",
                         "Instance_[459579315856550]/ContainerEntity",
                         "Instance_[459261488276646]/ContainerEntity",
                         "Instance_[788123297819023]/ContainerEntity",
@@ -10691,13 +10729,9 @@
                         "Instance_[1147096370558]/ContainerEntity",
                         "Instance_[460245035787430]/ContainerEntity",
                         "Instance_[10085218526374]/ContainerEntity",
-                        "Instance_[8710828991654]/ContainerEntity",
-                        "Instance_[460318050231462]/ContainerEntity",
                         "Instance_[390253394336882]/ContainerEntity",
-                        "Instance_[8633519580326]/ContainerEntity",
                         "Instance_[467499235550374]/ContainerEntity",
                         "Instance_[689381541029030]/ContainerEntity",
-                        "Instance_[458857761350822]/ContainerEntity",
                         "Instance_[467507825484966]/ContainerEntity",
                         "Instance_[459592200758438]/ContainerEntity",
                         "Instance_[459635150431398]/ContainerEntity",
@@ -10708,18 +10742,13 @@
                         "Instance_[689394425930918]/ContainerEntity",
                         "Instance_[691128738323570]/ContainerEntity",
                         "Instance_[689403015865510]/ContainerEntity",
-                        "Instance_[459557841020070]/ContainerEntity",
-                        "Instance_[8770958533798]/ContainerEntity",
                         "Instance_[458969430500518]/ContainerEntity",
                         "Instance_[689493210178726]/ContainerEntity",
                         "Instance_[458896416056486]/ContainerEntity",
                         "Instance_[459566430954662]/ContainerEntity",
-                        "Instance_[459424697033894]/ContainerEntity",
                         "Instance_[460365294871718]/ContainerEntity",
                         "Instance_[390283459107954]/ContainerEntity",
                         "Instance_[460107596833958]/ContainerEntity",
-                        "Instance_[84012974154639]/ContainerEntity",
-                        "Instance_[8762368599206]/ContainerEntity",
                         "Instance_[9488218072230]/ContainerEntity",
                         "Instance_[390249099369586]/ContainerEntity",
                         "Instance_[460408244544678]/ContainerEntity",
@@ -10728,7 +10757,6 @@
                         "Instance_[691008479239282]/ContainerEntity",
                         "Instance_[689600584361126]/ContainerEntity",
                         "Instance_[9702966437030]/ContainerEntity",
-                        "Instance_[460455489184934]/ContainerEntity",
                         "Instance_[8268447360166]/ContainerEntity",
                         "Instance_[9157505590438]/ContainerEntity",
                         "Instance_[689497505146022]/ContainerEntity",
@@ -10752,7 +10780,6 @@
                         "Instance_[689488915211430]/ContainerEntity",
                         "Instance_[9123145852070]/ContainerEntity",
                         "Instance_[1105925107919247]/ContainerEntity",
-                        "Instance_[8517555463334]/ContainerEntity",
                         "Instance_[9763095979174]/ContainerEntity",
                         "Instance_[671759748868495]/ContainerEntity",
                         "Instance_[689604879328422]/ContainerEntity",
@@ -10768,9 +10795,7 @@
                         "Instance_[390292049042546]/ContainerEntity",
                         "Instance_[9170390492326]/ContainerEntity",
                         "Instance_[9840405390502]/ContainerEntity",
-                        "Instance_[458771862004902]/ContainerEntity",
                         "Instance_[460356704937126]/ContainerEntity",
-                        "Instance_[8435951084710]/ContainerEntity",
                         "Instance_[9363664020646]/ContainerEntity",
                         "Instance_[8143893308582]/ContainerEntity",
                         "Instance_[9711556371622]/ContainerEntity",
@@ -10781,12 +10806,10 @@
                         "Instance_[689506095080614]/ContainerEntity",
                         "Instance_[460464079119526]/ContainerEntity",
                         "Instance_[459179883898022]/ContainerEntity",
-                        "Instance_[8500375594150]/ContainerEntity",
                         "Instance_[691124443356274]/ContainerEntity",
                         "Instance_[9904829899942]/ContainerEntity",
                         "Instance_[8191137948838]/ContainerEntity",
                         "Instance_[1105555740731791]/ContainerEntity",
-                        "Instance_[459089689584806]/ContainerEntity",
                         "Instance_[576907716010895]/ContainerEntity",
                         "Instance_[576980730454927]/ContainerEntity",
                         "Instance_[576783161959311]/ContainerEntity",
@@ -18082,7 +18105,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 }
             ]
         },
@@ -18112,7 +18135,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 }
             ]
         },
@@ -18172,7 +18195,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 }
             ]
         },
@@ -18202,7 +18225,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 }
             ]
         },
@@ -18232,7 +18255,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 }
             ]
         },
@@ -18262,7 +18285,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 },
                 {
                     "op": "replace",
@@ -18297,7 +18320,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 },
                 {
                     "op": "replace",
@@ -18332,7 +18355,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/2",
-                    "value": 10.749918937683105
+                    "value": 10.749918937683104
                 },
                 {
                     "op": "replace",
@@ -23902,7 +23925,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15806820478732200410]/Transform Data/Translate/1",
-                    "value": -22.485647201538086
+                    "value": -22.48564720153809
                 },
                 {
                     "op": "replace",
@@ -34015,17 +34038,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.4979743957519531
+                    "value": 12.76363754272461
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.83075714111328
+                    "value": -61.777557373046875
                 },
                 {
                     "op": "replace",
@@ -34035,7 +34058,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -55.683387756347656
+                    "value": 124.77320861816406
                 },
                 {
                     "op": "replace",
@@ -34070,17 +34093,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.555763244628906
+                    "value": 0.6855392456054688
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -59.113712310791016
+                    "value": -44.44532775878906
                 },
                 {
                     "op": "replace",
@@ -34090,7 +34113,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 126.53341674804688
+                    "value": -53.00999069213867
                 },
                 {
                     "op": "replace",
@@ -34355,17 +34378,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 6.638391494750977
+                    "value": 6.546514511108398
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -66.1658706665039
+                    "value": -37.53844451904297
                 },
                 {
                     "op": "replace",
@@ -34375,7 +34398,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.8552703857422
+                    "value": 0.31186169385910034
                 },
                 {
                     "op": "replace",
@@ -34715,17 +34738,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": -3.841484069824219
+                    "value": 17.04905128479004
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.64890670776367
+                    "value": -53.8657341003418
                 },
                 {
                     "op": "replace",
@@ -34735,7 +34758,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -0.1191713735461235
+                    "value": -179.66253662109375
                 },
                 {
                     "op": "replace",
@@ -34975,17 +34998,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.555763244628906
+                    "value": 0.6855392456054688
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -59.113712310791016
+                    "value": -44.44532775878906
                 },
                 {
                     "op": "replace",
@@ -34995,7 +35018,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 126.53341674804688
+                    "value": -53.00999069213867
                 },
                 {
                     "op": "replace",
@@ -35390,27 +35413,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 17.10041046142578
+                    "value": -3.936138153076172
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.72439956665039
+                    "value": -53.75714111328125
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -15.757204055786133
+                    "value": -15.7572021484375
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.83570861816406
+                    "value": 0.2923009693622589
                 },
                 {
                     "op": "replace",
@@ -36215,17 +36238,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.08662796020507813
+                    "value": 13.07342529296875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -58.75715255737305
+                    "value": -44.86884307861328
                 },
                 {
                     "op": "replace",
@@ -36235,7 +36258,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 55.14516830444336
+                    "value": -124.39823150634766
                 },
                 {
                     "op": "replace",
@@ -36475,27 +36498,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.22083854675293
+                    "value": 0.9421501159667968
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.420684814453125
+                    "value": -62.198143005371094
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -11.132034301757813
+                    "value": -11.132036209106444
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -126.15686798095705
+                    "value": 54.29973602294922
                 },
                 {
                     "op": "replace",
@@ -37055,27 +37078,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.08662796020507813
+                    "value": 13.07342529296875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -58.75715255737305
+                    "value": -44.86884307861328
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -8.632022857666016
+                    "value": -8.63201904296875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 55.14516830444336
+                    "value": -124.39823150634766
                 },
                 {
                     "op": "replace",
@@ -37505,17 +37528,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": -3.841484069824219
+                    "value": 17.04905128479004
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.64890670776367
+                    "value": -53.8657341003418
                 },
                 {
                     "op": "replace",
@@ -37525,7 +37548,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -0.1191713735461235
+                    "value": -179.66253662109375
                 },
                 {
                     "op": "replace",
@@ -38690,27 +38713,22 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 17.10041046142578
+                    "value": -3.9387130737304688
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.72439956665039
+                    "value": -53.764854431152344
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
                     "value": -8.632028579711914
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.83570861816406
                 },
                 {
                     "op": "replace",
@@ -38995,27 +39013,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.22083854675293
+                    "value": 0.9421501159667968
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.420684814453125
+                    "value": -62.198143005371094
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -8.632028579711914
+                    "value": -8.632024765014648
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -126.15686798095705
+                    "value": 54.29973602294922
                 },
                 {
                     "op": "replace",
@@ -39160,17 +39178,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.22083854675293
+                    "value": 0.9421501159667968
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.420684814453125
+                    "value": -62.198143005371094
                 },
                 {
                     "op": "replace",
@@ -39180,7 +39198,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -126.15686798095705
+                    "value": 54.29973602294922
                 },
                 {
                     "op": "replace",
@@ -57165,17 +57183,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 6.638391494750977
+                    "value": 6.546514511108398
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -66.1658706665039
+                    "value": -37.53844451904297
                 },
                 {
                     "op": "replace",
@@ -57185,7 +57203,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.8552703857422
+                    "value": 0.31186169385910034
                 },
                 {
                     "op": "replace",
@@ -57990,27 +58008,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 6.638391494750977
+                    "value": 6.546514511108398
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -66.1658706665039
+                    "value": -37.53844451904297
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -8.63203239440918
+                    "value": -8.632030487060547
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.8552703857422
+                    "value": 0.31186169385910034
                 },
                 {
                     "op": "replace",
@@ -58045,17 +58063,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 6.638391494750977
+                    "value": 6.546514511108398
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -66.1658706665039
+                    "value": -37.53844451904297
                 },
                 {
                     "op": "replace",
@@ -58065,7 +58083,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.8552703857422
+                    "value": 0.31186169385910034
                 },
                 {
                     "op": "replace",
@@ -58100,27 +58118,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.555763244628906
+                    "value": 0.6855392456054688
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -59.113712310791016
+                    "value": -44.44532775878906
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -8.63203239440918
+                    "value": -8.632030487060547
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 126.53341674804688
+                    "value": -53.00999069213867
                 },
                 {
                     "op": "replace",
@@ -58155,17 +58173,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.555763244628906
+                    "value": 0.6855392456054688
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -59.113712310791016
+                    "value": -44.44532775878906
                 },
                 {
                     "op": "replace",
@@ -58175,7 +58193,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 126.53341674804688
+                    "value": -53.00999069213867
                 },
                 {
                     "op": "replace",
@@ -58210,27 +58228,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 17.10041046142578
+                    "value": -3.936138153076172
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.72439956665039
+                    "value": -53.75714111328125
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -11.132034301757813
+                    "value": -11.132036209106444
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.83570861816406
+                    "value": 0.2923009693622589
                 },
                 {
                     "op": "replace",
@@ -58265,17 +58283,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 17.10041046142578
+                    "value": -3.936138153076172
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.72439956665039
+                    "value": -53.75714111328125
                 },
                 {
                     "op": "replace",
@@ -58285,7 +58303,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 179.83570861816406
+                    "value": 0.2923009693622589
                 },
                 {
                     "op": "replace",
@@ -58320,27 +58338,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 12.22083854675293
+                    "value": 0.9421501159667968
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.420684814453125
+                    "value": -62.198143005371094
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -15.757204055786133
+                    "value": -15.7572021484375
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -126.15686798095705
+                    "value": 54.29973602294922
                 },
                 {
                     "op": "replace",
@@ -58595,27 +58613,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.4979743957519531
+                    "value": 12.76363754272461
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.83075714111328
+                    "value": -61.777557373046875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -8.632028579711914
+                    "value": -8.632024765014648
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -55.683387756347656
+                    "value": 124.77320861816406
                 },
                 {
                     "op": "replace",
@@ -58650,27 +58668,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.4979743957519531
+                    "value": 12.76363754272461
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.83075714111328
+                    "value": -61.777557373046875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -15.757204055786133
+                    "value": -15.7572021484375
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -55.683387756347656
+                    "value": 124.77320861816406
                 },
                 {
                     "op": "replace",
@@ -58705,17 +58723,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.4979743957519531
+                    "value": 12.76363754272461
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -41.83075714111328
+                    "value": -61.777557373046875
                 },
                 {
                     "op": "replace",
@@ -58725,7 +58743,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -55.683387756347656
+                    "value": 124.77320861816406
                 },
                 {
                     "op": "replace",
@@ -58795,27 +58813,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": -3.841484069824219
+                    "value": 17.04905128479004
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.64890670776367
+                    "value": -53.8657341003418
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -15.757205963134766
+                    "value": -15.7572021484375
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -0.1191713735461235
+                    "value": -179.66253662109375
                 },
                 {
                     "op": "replace",
@@ -59060,17 +59078,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": -3.841484069824219
+                    "value": 17.04905128479004
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -49.64890670776367
+                    "value": -53.8657341003418
                 },
                 {
                     "op": "replace",
@@ -59080,7 +59098,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": -0.1191713735461235
+                    "value": -179.66253662109375
                 },
                 {
                     "op": "replace",
@@ -59770,27 +59788,27 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.08662796020507813
+                    "value": 13.07342529296875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -58.75715255737305
+                    "value": -44.86884307861328
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/2",
-                    "value": -13.432336807250977
+                    "value": -13.432334899902344
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 55.14516830444336
+                    "value": -124.39823150634766
                 },
                 {
                     "op": "replace",
@@ -59825,17 +59843,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
-                    "value": "../Entity_[86061673554831]"
+                    "value": "../Entity_[438004642439717]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/0",
-                    "value": 0.08662796020507813
+                    "value": 13.07342529296875
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Translate/1",
-                    "value": -58.75715255737305
+                    "value": -44.86884307861328
                 },
                 {
                     "op": "replace",
@@ -59845,7 +59863,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/Rotate/2",
-                    "value": 55.14516830444336
+                    "value": -124.39823150634766
                 },
                 {
                     "op": "replace",
@@ -62159,6 +62177,26 @@
             "Patches": [
                 {
                     "op": "replace",
+                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "KB3D_HTS_MetalGrey"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/0",
+                    "value": 0.7151455283164978
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/1",
+                    "value": 0.7151455283164978
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/2",
+                    "value": 0.7151455283164978
+                },
+                {
+                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Parent Entity",
                     "value": "../Entity_[86061673554831]"
                 },
@@ -62185,26 +62223,6 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/UniformScale",
-                    "value": 0.7151455283164978
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
-                    "value": "KB3D_HTS_MetalGrey"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/0",
-                    "value": 0.7151455283164978
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/1",
-                    "value": 0.7151455283164978
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9765677058485]/Components/Component_[13953719371560068493]/ShapeConfiguration/PhysicsAsset/Configuration/Scale/2",
                     "value": 0.7151455283164978
                 }
             ]
