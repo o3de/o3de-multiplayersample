@@ -80,8 +80,6 @@ set(FILES
     Source/Components/UI/HUDComponent.h
     Source/Components/UI/UiCoinCountComponent.cpp
     Source/Components/UI/UiCoinCountComponent.h
-    Source/Components/UI/UiGameOverComponent.cpp
-    Source/Components/UI/UiGameOverComponent.h
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
     Source/Components/Multiplayer/GemComponent.cpp

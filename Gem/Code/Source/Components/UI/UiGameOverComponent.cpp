@@ -7,11 +7,10 @@
 
 #include <AzCore/Serialization/EditContext.h>
 
-#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiCursorBus.h>
 #include <LyShine/Bus/UiTextBus.h>
-#endif
+
 
 #include <Source/Components/UI/UiGameOverComponent.h>
 
@@ -26,7 +25,6 @@ namespace MultiplayerSample
                 ->Field("Game Over root element", &UiGameOverComponent::m_gameOverRootElement)
                 ->Field("Winner Name Text", &UiGameOverComponent::m_winnerNameElement)
                 ->Field("Match Results element", &UiGameOverComponent::m_matchResultsElement)
-                ->Field("Close Results Button", &UiGameOverComponent::m_closeResultsButton)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -40,8 +38,6 @@ namespace MultiplayerSample
                         "Winner Name Text", "The text element for the name of the match winner")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameOverComponent::m_matchResultsElement,
                         "Match Results element", "The element for the textual display of the match results")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameOverComponent::m_closeResultsButton,
-                        "Close Results Button", "The button to close results UI")
                     ;
             }
         }
@@ -49,33 +45,19 @@ namespace MultiplayerSample
 
     void UiGameOverComponent::Activate()
     {
-#if AZ_TRAIT_CLIENT
         UiGameOverBus::Handler::BusConnect(GetEntityId());
-        UiButtonNotificationBus::Handler::BusConnect(m_closeResultsButton);
-#endif
     }
 
     void UiGameOverComponent::Deactivate()
     {
-#if AZ_TRAIT_CLIENT
         UiGameOverBus::Handler::BusDisconnect();
-        UiButtonNotificationBus::Handler::BusDisconnect();
-#endif
+
     }
 
-#if AZ_TRAIT_CLIENT
     void UiGameOverComponent::SetGameOverScreenEnabled(bool enabled)
     {
         UiElementBus::Event(m_gameOverRootElement, &UiElementBus::Events::SetIsEnabled, enabled);
-
-        if (enabled)
-        {
-            UiCursorBus::Broadcast(&UiCursorBus::Events::IncrementVisibleCounter);
-        }
-        else
-        {
-            UiCursorBus::Broadcast(&UiCursorBus::Events::DecrementVisibleCounter);
-        }
+       
     }
 
     void UiGameOverComponent::DisplayResults(MatchResultsSummary results)
@@ -83,15 +65,6 @@ namespace MultiplayerSample
         UiTextBus::Event(m_winnerNameElement, &UiTextBus::Events::SetText, results.m_winningPlayerName.c_str());
         auto resultsSummary = BuildResultsSummary(results.m_playerStates);
         UiTextBus::Event(m_matchResultsElement, &UiTextBus::Events::SetText, resultsSummary);
-    }
-
-    void UiGameOverComponent::OnButtonClick()
-    {
-        const AZ::EntityId buttonId = *UiButtonNotificationBus::GetCurrentBusId();
-        if (buttonId == m_closeResultsButton)
-        {
-            SetGameOverScreenEnabled(false);
-        }
     }
 
     AZStd::string UiGameOverComponent::BuildResultsSummary(const AZStd::vector<PlayerState>& playerStates)
@@ -108,5 +81,4 @@ namespace MultiplayerSample
         }
         return resultTable;
     }
-#endif
 }
