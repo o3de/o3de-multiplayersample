@@ -10,13 +10,6 @@
 #include <AzCore/Component/Component.h>
 
 
-namespace Multiplayer
-{
-    struct EntityReplicationData;
-    using ReplicationSet = AZStd::map<ConstNetworkEntityHandle, EntityReplicationData>;
-    struct MultiplayerAgentDatum;
-}
-
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent

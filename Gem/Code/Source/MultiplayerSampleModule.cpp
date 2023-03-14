@@ -44,8 +44,8 @@ namespace MultiplayerSample
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
                 UiGameOverComponent::CreateDescriptor(),
-                UiPlayerArmorComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
+                    UiPlayerArmorComponent::CreateDescriptor(),
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                     UiRestBetweenRoundsComponent::CreateDescriptor()
                 #endif

@@ -10,4 +10,6 @@ set(FILES
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiRestBetweenRoundsComponent.cpp
     Source/Components/UI/UiRestBetweenRoundsComponent.h
+    Source/Components/UI/UiPlayerArmorComponent.cpp
+    Source/Components/UI/UiPlayerArmorComponent.h
 )
