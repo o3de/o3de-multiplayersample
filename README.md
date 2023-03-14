@@ -1,8 +1,10 @@
 # MultiplayerSample Project
 
-A third-person multiplayer game sample for O3DE. 
+![MPS SplashScreen](Documentation/Media/splashscreen.png)
 
-> **_NOTE:_** For Linux, see the Linux specific setup in [README_LINUX](./README_LINUX.md).
+A third-person multiplayer game sample for O3DE, where robots battle one another for dominance in a multi-tiered, under-construction, Starbase
+
+> **_NOTE:_** For Linux, see the [specific setup guide](README_LINUX.md).
 
 ## Gameplay Overview
 This game sample has players competing to hit the highest score to win. Played over a series of rounds, each round brings greater opportunity for rewards but at higher risks.  Players race to collect gems scattered all over the level.
@@ -206,6 +208,7 @@ By default, launch_client.cfg is used when debugging the GameLauncher and launch
 > When debugging set `net_UdpTimeoutConnections` to false, this will prevent connection closures when stopped on breakpoints.
 
 ## Levels in this Project
+
 This project ships with several levels, the ones of note are:
 
 1. NewStarBase - The main game level, default to using this level
@@ -213,12 +216,29 @@ This project ships with several levels, the ones of note are:
 3. StartMenu - An example menu to enable joining, hosting and connecting to servers.
 4. MultiplayerScriptingSample - An example of Multiplayer and scripting.
 
-Other levels in the project are there for testing or performance evaluation purposes and can be ignored.
+Other levels in the project are there for testing or performance evaluation purposes and should be considered experimental.
 
-## More Information
+## How to contribute?
+
+> The sample is managed by the O3DE special interest group SIG, [SIG/Network](https://github.com/o3de/sig-network).
+
+O3DE cannot work without the help and input from as many of its community members as possible. You do not need anyone’s permission to get involved and contribute to the project. The #sig-network channel on O3DE Discord is a great place to begin getting involved.
+
+You can report issues, fix known [issues](https://github.com/o3de/o3de-multiplayersample/issues or tackle backlogged features. In addition you can make [make requests](https://github.com/o3de/o3de-multiplayersample/issues/new/choose) and proposals for new features or extensions.
+
+## Documentation
+
+| Link                                                            | Description                       |
+|-----------------------------------------------------------------|-----------------------------------|
+| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings   |
+
+## O3DE Useful Links
+
 * [O3DE Networking](https://o3de.org/docs/user-guide/networking/)
 * [Multiplayer Tutorials](https://o3de.org/docs/learning-guide/tutorials/multiplayer/)
 * [Networking/Multiplayer Settings](https://www.o3de.org/docs/user-guide/networking/settings/)
+
 
 ## License
 

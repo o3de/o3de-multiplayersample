@@ -18,12 +18,13 @@
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
-#include <Source/Spawners/IPlayerSpawner.h>
 #include <GameState/GameStateRequestBus.h>
 #include <GameState/GameStateWaitingForPlayers.h>
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
+#include <Multiplayer/Components/ISimplePlayerSpawner.h>
+
 
 #if AZ_TRAIT_CLIENT
 #include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
@@ -147,6 +148,12 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        #if AZ_TRAIT_SERVER
+            AZ::SimpleLcgRandom randomNumberGenerator(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
+            m_playerNameRandomStartingIndexPrefix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size();
+            m_playerNameRandomStartingIndexPostfix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size();
+        #endif
+
         GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
             {
                 return AZStd::make_shared<GameStateWaitingForPlayers>(this);
@@ -428,7 +435,18 @@ namespace MultiplayerSample
             StartRound();
         }
     }
-#endif //AZ_TRAIT_SERVER
+
+    PlayerNameString NetworkMatchComponentController::GeneratePlayerName()
+    {
+        // The first-name will be offset depending on how many times all prefix names have been used.
+        // This has the affect of exhausting all the possible name combinations before hitting a name collision.
+        const int prefixOffset = aznumeric_cast<int>(AZStd::floorf( static_cast<float>(m_nextPlayerId) / AutoAssignedPlayerNamePrefix.size()));
+        const PlayerNameString prefixName = AutoAssignedPlayerNamePrefix[(++m_playerNameRandomStartingIndexPrefix + prefixOffset) % AutoAssignedPlayerNamePrefix.size()];
+        const PlayerNameString postfixName = AutoAssignedPlayerNamePostfix[++m_playerNameRandomStartingIndexPostfix % AutoAssignedPlayerNamePostfix.size()];
+
+        const PlayerNameString playerName = prefixName + postfixName;
+        return playerName;
+    }
 
     void NetworkMatchComponentController::AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity)
     {
@@ -437,7 +455,7 @@ namespace MultiplayerSample
         {
             if (PlayerIdentityComponent* identity = entityHandle.GetEntity()->FindComponent<PlayerIdentityComponent>())
             {
-                identity->AssignPlayerName(PlayerNameString::format("Player %d", m_nextPlayerId));
+                identity->RPC_AssignPlayerName(GeneratePlayerName());
             }
             else
             {
@@ -448,7 +466,6 @@ namespace MultiplayerSample
         m_nextPlayerId++;
     }
 
-#if AZ_TRAIT_SERVER
     void NetworkMatchComponentController::RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets)
     {
         const auto playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity);
@@ -463,10 +480,21 @@ namespace MultiplayerSample
             // move to valid respawn point
             if (NetworkTeleportCompatibleComponent* teleport = playerHandle.GetEntity()->FindComponent<NetworkTeleportCompatibleComponent>())
             {
-                AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = 
-                    AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
+                AZ::Transform respawnPoint = AZ::Transform::CreateIdentity();
+                if (auto simplePlayerSpawner = AZ::Interface<Multiplayer::ISimplePlayerSpawner>::Get())
+                {
+                    respawnPoint = simplePlayerSpawner->GetNextSpawnPoint();
 
-                teleport->Teleport(entityParams.second.GetTranslation());
+                    // Increment the next spawn point so any new players or respawned players don't spawn in on top of us at this location.
+                    const uint32_t spawnPointCount = simplePlayerSpawner->GetSpawnPointCount();
+                    simplePlayerSpawner->SetNextSpawnPointIndex((simplePlayerSpawner->GetNextSpawnPointIndex()+1) % spawnPointCount);
+                }
+                else
+                {
+                    AZ_Warning("NetworkMatchComponentController", false, "Failed to find a valid respawn point; moving to the world origin.");
+                }
+
+                teleport->Teleport(respawnPoint.GetTranslation());
             }
         }
         else
