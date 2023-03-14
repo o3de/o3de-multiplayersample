@@ -45,7 +45,7 @@ namespace MultiplayerSample
         {
             if (elementIndex >= m_playerRowElement.size())
             {
-                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update scorescreen. Please update UICanvas so there are enough player rows.")
+                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update score screen. Please update UICanvas so there are enough player rows.")
                 break;
             }
 
