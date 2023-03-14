@@ -16,8 +16,8 @@
 #include <Source/Weapons/WeaponTypes.h>
 #include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
+#include <Source/Spawners/RoundRobinSpawner.h>
 #include <Source/Effects/GameEffect.h>
-
 #include <Multiplayer/Components/NetBindComponent.h>
 
 namespace MultiplayerSample
