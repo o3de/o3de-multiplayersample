@@ -12,6 +12,7 @@ set(FILES
     Include/PlayerCoinCollectorBus.h
     Include/PlayerIdentityBus.h
     Include/PlayerMatchLifecycleBus.h
+    Include/WeaponNotificationBus.h
     Include/UiCoinCountBus.h
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h

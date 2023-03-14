@@ -1,0 +1,35 @@
+{
+    "entries": [
+        {
+            "base": "UiPlayerArmorNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "Ui Player Armor Notification Bus",
+                "category": "EBus Handlers"
+            },
+            "methods": [
+                {
+                    "base": "OnPlayerArmorChanged",
+                    "details": {
+                        "name": "On Player Armor Changed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "Current Armor"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "Maximum Armor"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

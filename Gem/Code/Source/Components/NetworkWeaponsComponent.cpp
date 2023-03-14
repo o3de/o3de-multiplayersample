@@ -12,11 +12,13 @@
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
+#include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 #include <Source/Weapons/BaseWeapon.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Math/Plane.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
+#include <WeaponNotificationBus.h>
 
 #if AZ_TRAIT_CLIENT
 #   include <DebugDraw/DebugDrawBus.h>
@@ -31,7 +33,21 @@ namespace MultiplayerSample
     AZ_CVAR(float, sv_WeaponsStartPositionClampRange, 1.f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor between the where the client and server say a shot started");
     AZ_CVAR(float, sv_WeaponsDotClamp, 0.35f, nullptr, AZ::ConsoleFunctorFlags::Null, "Acceptable dot product range for a shot between the camera raycast and weapon raycast.");
 
-    void NetworkWeaponsComponent::NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
+    class BehaviorWeaponNotificationBusHandler
+        : public WeaponNotificationBus::Handler
+        , public AZ::BehaviorEBusHandler
+    {
+    public:
+        AZ_EBUS_BEHAVIOR_BINDER(BehaviorWeaponNotificationBusHandler, "{8F083B95-4519-4A24-8824-ED5ADA8FC52E}", AZ::SystemAllocator,
+            OnConfirmedHitPlayer);
+
+        void OnConfirmedHitPlayer(AZ::EntityId byPlayerEntity, AZ::EntityId otherPlayerEntity) override
+        {
+            Call(FN_OnConfirmedHitPlayer, byPlayerEntity, otherPlayerEntity);
+        }
+    };
+
+    void NetworkWeaponsComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
         if (serializeContext)
@@ -40,6 +56,13 @@ namespace MultiplayerSample
                 ->Version(1);
         }
         NetworkWeaponsComponentBase::Reflect(context);
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->EBus<WeaponNotificationBus>("WeaponNotificationBus")
+                ->Handler<BehaviorWeaponNotificationBusHandler>();
+        }
     }
 
     NetworkWeaponsComponent::NetworkWeaponsComponent()
@@ -279,6 +302,20 @@ namespace MultiplayerSample
                     AZ::Colors::Red,
                     cl_WeaponsDrawDebugDurationSec
                 );
+            }
+
+            Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(
+                hitEntity.m_hitNetEntityId);
+            if (handle.Exists())
+            {
+                if (const AZ::Entity* entity = handle.GetEntity())
+                {
+                    if (entity->FindComponent<PlayerIdentityComponent>())
+                    {
+                        // Hit confirmed on a player
+                        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnConfirmedHitPlayer, GetEntityId(), entity->GetId());
+                    }
+                }
             }
 
             hitInfo.m_weapon.ExecuteDamageEffect(hitInfo.m_weapon.GetFireParams().m_sourcePosition, hitEntity.m_hitPosition);
