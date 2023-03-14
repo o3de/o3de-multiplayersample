@@ -126,6 +126,8 @@ set(FILES
     Source/Weapons/WeaponTypes.h
     Source/Weapons/SceneQuery.cpp
     Source/Weapons/SceneQuery.h
+    Source/Effects/GameEffect.cpp
+    Source/Effects/GameEffect.h
     Source/MultiplayerSampleSystemComponent.cpp
     Source/MultiplayerSampleSystemComponent.h
     Source/MultiplayerSampleTypes.h
