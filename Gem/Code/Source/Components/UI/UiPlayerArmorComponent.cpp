@@ -6,6 +6,7 @@
  *
  */
 
+#include <UiPlayerArmorBus.h>
 #include <AzCore/Serialization/EditContext.h>
 
 #include <LyShine/Bus/UiImageBus.h>
@@ -15,6 +16,21 @@
 
 namespace MultiplayerSample
 {
+    class BehaviorUiPlayerArmorNotificationBusHandler
+        : public UiPlayerArmorNotificationBus::Handler
+        , public AZ::BehaviorEBusHandler
+    {
+    public:
+        AZ_EBUS_BEHAVIOR_BINDER(BehaviorUiPlayerArmorNotificationBusHandler, "{6EB46F80-3D88-4DB9-8446-348A2CB4320D}", AZ::SystemAllocator,
+            OnPlayerArmorChanged);
+
+        void OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor) override
+        {
+            Call(FN_OnPlayerArmorChanged, armorPointsForLocalPlayer, startingArmor);
+        }
+    };
+
+
     void UiPlayerArmorComponent::Activate()
     {
         UiPlayerArmorNotificationBus::Handler::BusConnect();
@@ -84,6 +100,13 @@ namespace MultiplayerSample
 
                     ;
             }
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->EBus<UiPlayerArmorNotificationBus>("UiPlayerArmorNotificationBus")
+                ->Handler<BehaviorUiPlayerArmorNotificationBusHandler>();
         }
     }
 } // namespace MultiplayerSample
