@@ -162,40 +162,6 @@ namespace MultiplayerSample
         }
     }
 
-    bool ClientEffect::Serialize(AzNetworking::ISerializer& serializer)
-    {
-        return serializer.Serialize(m_effectName, "EffectName")
-            && serializer.Serialize(m_lifespan, "Lifespan")
-            && serializer.Serialize(m_travelToTarget, "TravelToTarget")
-            && serializer.Serialize(m_effectDirection, "EffectDirection");
-    }
-
-    void ClientEffect::Reflect(AZ::ReflectContext* context)
-    {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<ClientEffect>()
-                ->Version(1)
-                ->Field("EffectName", &ClientEffect::m_effectName)
-                ->Field("Lifespan", &ClientEffect::m_lifespan)
-                ->Field("TravelToTarget", &ClientEffect::m_travelToTarget)
-                ->Field("EffectDirection", &ClientEffect::m_effectDirection);
-
-            AZ::EditContext* editContext = serializeContext->GetEditContext();
-            if (editContext)
-            {
-                editContext->Class<ClientEffect>("ClientEffect", "Parameters that control client effect spawning")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_effectName, "EffectName", "The effect to play upon weapon hit confirmation")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_lifespan, "Lifespan", "The lifespan value to provide the effects manager")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_travelToTarget, "TravelToTarget", "If true, effect will travel from origin to target position over it's lifetime")
-                    ->DataElement(AZ::Edit::UIHandlers::ComboBox, &ClientEffect::m_effectDirection, "EffectDirection", "The orientation to use when spawning the effect")
-                    ;
-            }
-        }
-    }
-
     void GatherParams::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -308,17 +274,14 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<WeaponParams>()
-                ->Version(5)
+                ->Version(6)
                 ->Field("WeaponType", &WeaponParams::m_weaponType)
                 ->Field("WeaponMaxAimDistance", &WeaponParams::m_weaponMaxAimDistance)
                 ->Field("CooldownTimeMs", &WeaponParams::m_cooldownTimeMs)
                 ->Field("AnimFlag", &WeaponParams::m_animFlag)
-                ->Field("ActivateFx", &WeaponParams::m_activateAssetId)
-                ->Field("ActivateSoundEffect", &WeaponParams::m_activateAudioTrigger)
-                ->Field("ImpactFx", &WeaponParams::m_impactAssetId)
-                ->Field("ImpactSoundEffect", &WeaponParams::m_impactAudioTrigger)
-                ->Field("DamageFx", &WeaponParams::m_damageAssetId)
-                ->Field("DamageSoundEffect", &WeaponParams::m_damageAudioTrigger)
+                ->Field("ActivateFx", &WeaponParams::m_activateFx)
+                ->Field("ImpactFx", &WeaponParams::m_impactFx)
+                ->Field("DamageFx", &WeaponParams::m_damageFx)
                 ->Field("ProjectileAsset", &WeaponParams::m_projectileAsset)
                 ->Field("GatherParams", &WeaponParams::m_gatherParams)
                 ->Field("DamageEffect", &WeaponParams::m_damageEffect)
@@ -333,21 +296,9 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_weaponMaxAimDistance, "WeaponMaxAimDistance", "The maximum distance of a raycast to locate a target when firing.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_cooldownTimeMs, "CooldownTimeMs", "The number of milliseconds needed before the weapon can activate again")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_animFlag, "AnimFlag", "The animation flag to raise on the character when starting a fire sequence")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateAssetId, "ActivateFx", "The effect to play upon weapon activation")
-#if AZ_TRAIT_CLIENT
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
-#endif
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateAudioTrigger, "ActivateSoundEffect", "The trigger name of the sound to play upon weapon activation")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactAssetId, "ImpactFx", "The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients")
-#if AZ_TRAIT_CLIENT
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
-#endif
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactAudioTrigger, "ImpactSoundEffect", "The trigger name of the sound to play upon predicted weapon hit")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageAssetId, "DamageFx", "The effect to play for each hit entitiy. Played authoritatively only")
-#if AZ_TRAIT_CLIENT
-                        ->Attribute(AZ_CRC_CE("SupportedAssetTypes"), []() { return AZStd::vector<AZ::Data::AssetType>({ PopcornFX::AssetTypeId }); })
-#endif
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageAudioTrigger, "DamageSoundEffect", "The trigger name of the sound to play upon confirmed weapon hit")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateFx, "ActivateFx", "The effect to play upon weapon activation")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactFx, "ImpactFx", "The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageFx, "DamageFx", "The effect to play for each hit entitiy. Played authoritatively only")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_projectileAsset, "ProjectileAsset", "If a projectile weapon, the archetype asset name for projectile properties")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_gatherParams, "GatherParams", "The type of gather to perform for shape-cast weapons")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageEffect, "DamageEffect", "The modifier parameters to apply to hit entities for damage")
