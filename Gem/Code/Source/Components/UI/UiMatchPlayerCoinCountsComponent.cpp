@@ -7,17 +7,22 @@
  */
 
 #include <AzCore/Serialization/EditContext.h>
+#include <AzCore/std/sort.h>
+
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Components/Multiplayer/PlayerIdentityComponent.h>
 
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+#include <Multiplayer/Components/NetBindComponent.h>
 
 #include <Source/Components/UI/UiMatchPlayerCoinCountsComponent.h>
 
 namespace MultiplayerSample
 {
+#if AZ_TRAIT_CLIENT
     const StartingPointInput::InputEventNotificationId ShowPlayerCoinCountsEventId("show_player_coin_counts");
+#endif
 
     void UiMatchPlayerCoinCountsComponent::Activate()
     {
@@ -31,27 +36,47 @@ namespace MultiplayerSample
 
     void UiMatchPlayerCoinCountsComponent::UpdatePlayerScoreUI()
     {
+        // Display player scores sorted by coin count (highest score on top)
         AZStd::vector<PlayerCoinState> coins = AZ::Interface<MatchPlayerCoinsComponent>::Get()->GetPlayerCoinCounts();
+        AZStd::sort(coins.begin(), coins.end(), [](const PlayerCoinState& a, const PlayerCoinState& b) {return a.m_coins > b.m_coins; });
+
         AZStd::size_t elementIndex = 0;
         for (const PlayerCoinState& state : coins)
         {
             if (elementIndex >= m_playerRowElement.size())
             {
+                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update score screen. Please update UICanvas so there are enough player rows.")
                 break;
             }
 
-            if (state.m_playerId != Multiplayer::InvalidNetEntityId)
+            AZStd::vector<AZ::EntityId> children;
+            UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
+
+            if (children.size() < 3)
             {
-                AZStd::vector<AZ::EntityId> children;
-                UiElementBus::EventResult(children, m_playerRowElement[elementIndex], &UiElementBus::Events::GetChildEntityIds);
-                if (children.size() >= 2)
-                {
-                    const PlayerNameString name = GetPlayerName(state.m_playerId);
-                    UiTextBus::Event(children[0], &UiTextBus::Events::SetText, name.c_str());
-                    UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
-                }
-                elementIndex++;
+                AZ_Error("UiMatchPlayerCoinCounts", false, "Failed to update score screen. Please update UICanvas so the player row has at least 3 child elements for setting the player name, coin count, and player highlight.")
+                break;
             }
+
+            if (state.m_playerId == Multiplayer::InvalidNetEntityId)
+            {
+                continue;
+            }
+
+            const PlayerNameString name = GetPlayerName(state.m_playerId);
+            UiTextBus::Event(children[0], &UiTextBus::Events::SetText, name.c_str());
+            UiTextBus::Event(children[1], &UiTextBus::Events::SetText, AZStd::string::format("%d", state.m_coins));
+
+            // Highlight the row belonging to this client's autonomous player
+            bool isAutonomousPlayer = false;
+            const Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(state.m_playerId);
+            if (playerHandle.Exists() && playerHandle.GetNetBindComponent() != nullptr)
+            {
+                isAutonomousPlayer = playerHandle.GetNetBindComponent()->IsNetEntityRoleAutonomous();
+            }
+            UiElementBus::Event(children[2], &UiElementBus::Events::SetIsEnabled, isAutonomousPlayer);
+
+            elementIndex++;
         }
 
         // Clear out the unused fields.
@@ -63,7 +88,7 @@ namespace MultiplayerSample
             {
                 UiTextBus::Event(children[0], &UiTextBus::Events::SetText, ""); // name
                 UiTextBus::Event(children[1], &UiTextBus::Events::SetText, ""); // score
-                UiTextBus::Event(children[2], &UiTextBus::Events::SetText, ""); // rank
+                UiElementBus::Event(children[2], &UiElementBus::Events::SetIsEnabled, false); // autonomous player highlight
             }
         }
     }

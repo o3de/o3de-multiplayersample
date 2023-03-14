@@ -19,6 +19,7 @@ namespace MultiplayerSample
 
         virtual void OnPlayerActivated([[maybe_unused]] Multiplayer::NetEntityId playerEntity) {}
         virtual void OnPlayerDeactivated([[maybe_unused]] Multiplayer::NetEntityId playerEntity) {}
+        virtual void OnAutonomousPlayerNameChanged([[maybe_unused]] const char* playerName) {}
     };
 
     using PlayerIdentityNotificationBus = AZ::EBus<PlayerIdentityNotifications>;

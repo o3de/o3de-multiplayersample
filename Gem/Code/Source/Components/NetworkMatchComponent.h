@@ -10,6 +10,7 @@
 #include <PlayerIdentityBus.h>
 #include <PlayerMatchLifecycleBus.h>
 #include <AzCore/EBus/ScheduledEvent.h>
+#include <AzCore/Math/Random.h>
 #include <Source/AutoGen/NetworkMatchComponent.AutoComponent.h>
 
 namespace MultiplayerSample
@@ -52,6 +53,10 @@ namespace MultiplayerSample
         , public PlayerMatchLifecycleBus::Handler
     {
     public:
+        // Possible pre/post names for automatically assigned player gamer name. Upon joining, a player will be given a name e.g. RoboRiot.
+        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePrefix{ "Robo", "Circuit", "Sparky", "Bolt", "Mech", "Metal", "Junkyard", "Wire", "Steel", "Cog", "Electric", "Circuit", "Rusty", "Byte", "Cyber", "Gizmo", "Sprocket", "Electro", "Plasma", "Automated", "Cybernetic", "Bionic" };
+        const AZStd::vector<PlayerNameString> AutoAssignedPlayerNamePostfix{ "Riot", "Crusher", "Sparks", "Bot", "Marauder", "Warrior", "Samurai", "Commando", "Enigma", "Champion", "Renegade", "Brawler", "Crusader", "Gladiator", "Battler", "Heavy", "Miner", "Simulant", "Mecha", "Automata", "Cyborg", "Clunker", "Automat"};
+
         explicit NetworkMatchComponentController(NetworkMatchComponent& parent);
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
@@ -92,11 +97,14 @@ namespace MultiplayerSample
         //! List of active players in the match.
         AZStd::vector<Multiplayer::NetEntityId> m_players;
 
+#if AZ_TRAIT_SERVER
         //! A temporary way to assign player identities, such as player names.
         void AssignPlayerIdentity(Multiplayer::NetEntityId playerEntity);
+        PlayerNameString GeneratePlayerName();
         int m_nextPlayerId = 1;
+        int m_playerNameRandomStartingIndexPrefix = 0;
+        int m_playerNameRandomStartingIndexPostfix = 0;
 
-#if AZ_TRAIT_SERVER
         void RespawnPlayer(Multiplayer::NetEntityId playerEntity, PlayerResetOptions resets);
 #endif
 
