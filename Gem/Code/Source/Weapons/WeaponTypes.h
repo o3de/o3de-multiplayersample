@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Source/MultiplayerSampleTypes.h>
+#include <Source/Effects/GameEffect.h>
 #include <Multiplayer/MultiplayerTypes.h>
 #include <AzCore/RTTI/TypeSafeIntegral.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
@@ -72,21 +73,6 @@ namespace MultiplayerSample
 
     using AssetStringType = AZStd::string; //< @TODO, Replace with proper asset reference types
 
-    // @TODO: This needs to be hooked up to O3DE's effect system once it comes online
-    //! Parameters that control client effect spawning.
-    struct ClientEffect
-    {
-        AZ_TYPE_INFO(ClientEffect, "{B0B4E78C-51EC-4103-BC57-4C54ED36E3DB}");
-
-        AssetStringType m_effectName;  // The effect to play upon weapon hit confirmation
-        float m_lifespan = 1.0f;       // The lifespan value to provide the effects manager
-        bool m_travelToTarget = false; // If true, effect will travel from origin to target position over it's lifetime
-        EffectDirection m_effectDirection = EffectDirection::None; // The orientation to use when spawning the effect
-
-        bool Serialize(AzNetworking::ISerializer& serializer);
-        static void Reflect(AZ::ReflectContext* context);
-    };
-
     //! Parameters that control entity gathers on weapon or projectile activates.
     struct GatherParams
     {
@@ -133,12 +119,9 @@ namespace MultiplayerSample
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again
         float m_weaponMaxAimDistance = 1.0f; // The max range of a raycast when searching for a target
         CharacterAnimState m_animFlag = CharacterAnimState::Shooting; // The animation flag to raise on the network animation when firing this weapon
-        AZ::Data::AssetId m_activateAssetId; // The effect to play upon weapon activation
-        AZStd::string m_activateAudioTrigger; // The name of the audio trigger to use for weapon activation
-        AZ::Data::AssetId m_impactAssetId; // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
-        AZStd::string m_impactAudioTrigger; // The name of the audio trigger to use for weapon impacts
-        AZ::Data::AssetId m_damageAssetId; // The effect to play for each hit entitiy. Played authoritatively only
-        AZStd::string m_damageAudioTrigger; // The name of the audio trigger to use for weapon damage
+        GameEffect m_activateFx; // The effect to play upon weapon activation
+        GameEffect m_impactFx; // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
+        GameEffect m_damageFx; // The effect to play for each hit entitiy. Played authoritatively only
         AssetStringType m_projectileAsset; // If a projectile weapon, the prefab asset name for the projectile entity
         GatherParams m_gatherParams; // The type of gather to perform for trace weapons
         HitEffect m_damageEffect; // Parameters controlling damage distribution on hit

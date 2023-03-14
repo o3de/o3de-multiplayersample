@@ -11,6 +11,10 @@
 	<ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" 
                        Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
 
+    <Include File="Source/Effects/GameEffect.h" />
+
+    <ArchetypeProperty Type="GameEffect" Name="TeleportEffect" Init="" Container="Object" ExposeToEditor="true" Description="Specifies the effect to play upon teleportation" />
+
     <RemoteProcedure
         Name="Teleport" 
         InvokeFrom="Server" 
@@ -18,7 +22,18 @@
         IsPublic="true" 
         IsReliable="true" 
         GenerateEventBindings="true"
-        Description="Teleport occured RPC">
+        Description="Teleport occurred RPC">
+        <Param Type="AZ::Vector3" Name="TeleportedLocation"/>
+    </RemoteProcedure>
+
+    <RemoteProcedure
+        Name="NotifyTeleport"
+        InvokeFrom="Authority"
+        HandleOn="Client"
+        IsPublic="false"
+        IsReliable="false"
+        GenerateEventBindings="false"
+        Description="Teleport occurred RPC">
         <Param Type="AZ::Vector3" Name="TeleportedLocation"/>
     </RemoteProcedure>
 </Component>

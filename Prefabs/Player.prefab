@@ -220,7 +220,17 @@
                     "$type": "GenericComponentWrapper",
                     "Id": 3651951460255600248,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent"
+                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent",
+                        "TeleportEffect": {
+                            "ParticleAsset": {
+                                "guid": "{10D382AB-A8B6-5224-8C65-5C72BE106FD2}"
+                            },
+                            "EffectOffset": [
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
                     }
                 },
                 "Component_[3873700008294568875]": {
@@ -412,16 +422,22 @@
                                 "WeaponMaxAimDistance": 25.0,
                                 "CooldownTimeMs": 1000,
                                 "ActivateFx": {
-                                    "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                    "ParticleAsset": {
+                                        "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                    },
+                                    "AudioTrigger": "play_sx_wpn_laserpistol_fire"
                                 },
-                                "ActivateSoundEffect": "play_sx_wpn_laserpistol_fire",
                                 "ImpactFx": {
-                                    "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                    "ParticleAsset": {
+                                        "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                    }
                                 },
-                                "ImpactSoundEffect": "play_sx_wpn_laserpistol_impact",
                                 "DamageFx": {
-                                    "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                    "ParticleAsset": {
+                                        "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                    }
                                 },
+                                "ProjectileAsset": "play_sx_wpn_laserpistol_impact",
                                 "GatherParams": {
                                     "CastDistance": 2000.0,
                                     "TravelSpeed": 200.0
@@ -431,7 +447,6 @@
                                 }
                             },
                             {
-                                "WeaponType": 2,
                                 "WeaponMaxAimDistance": 25.0,
                                 "CooldownTimeMs": 2000,
                                 "GatherParams": {
@@ -560,6 +575,80 @@
                                             "assetHint": "mixamo/ybot/skins/mixamo_logo.azmaterial"
                                         }
                                     }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[9177231166678061715]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 9177231166678061715,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{A79F36FD-74EB-5C3A-A188-7A8E467FF599}",
+                            "path": "scriptcanvas/SpawnAndAttachLazerGun.scriptcanvas"
+                        },
+                        "sourceName": "SpawnAndAttachLazerGun.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{A79F36FD-74EB-5C3A-A188-7A8E467FF599}",
+                                "path": "scriptcanvas/SpawnAndAttachLazerGun.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
+                                        "value": {
+                                            "asset": {
+                                                "assetId": {
+                                                    "guid": "{A3F7D1D0-33BC-5A2B-BEC3-1ABA33AC212B}",
+                                                    "subId": 992460137
+                                                },
+                                                "assetHint": "prefabs/laser_pistol.spawnable"
+                                            }
+                                        }
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{499C8DD5-1DD9-459C-A083-F1874898BCCA}"
+                                    },
+                                    "VariableName": "GunAsset",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
+                                        "value": {
+                                            "asset": {
+                                                "assetId": {
+                                                    "guid": "{A3F7D1D0-33BC-5A2B-BEC3-1ABA33AC212B}",
+                                                    "subId": 992460137
+                                                },
+                                                "assetHint": "prefabs/laser_pistol.spawnable"
+                                            }
+                                        }
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{499C8DD5-1DD9-459C-A083-F1874898BCCA}"
+                                    },
+                                    "VariableName": "GunAsset",
+                                    "InitialValueSource": 1
                                 }
                             ]
                         }
