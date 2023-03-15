@@ -60,7 +60,7 @@ It is highly recommended you check that you have a [credential manager installed
 
 ### Step 1. Clone the repository
 
-You can clone the project to any folder locally, including inside the engine folder. If you clone the project inside an existing Git repository (e.g. o3de) you should add the project folder to the Git exclude file for the existing repository.
+You can clone the project to any folder locally, including inside the engine folder. If you clone the project inside an existing Git repository (e.g. O3DE) you should add the project folder to the Git exclude file for the existing repository.
 
 #### Option #1 (Recommended) - cloning into a folder outside the engine repository folder
 
@@ -107,6 +107,7 @@ If you have a Git credential helper configured, you should not be prompted for y
 
 ### Step 2. Register the engine, the project, and the gems
 
+#### Option #1 - Use CLI
 ```shell
 # register the engine (only need to do this once)
 > c:/path/to/o3de/scripts/o3de register --this-engine
@@ -119,6 +120,15 @@ If you have a Git credential helper configured, you should not be prompted for y
 ```
 
 The final step will print out warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
+
+#### Option #2 - Use Project Manager
+
+If you've already built the O3DE engine, use the O3DE project manager to open an existing project.
+
+1. Find `o3de.exe` under `c:/path/to/o3de/build/bin/profile/o3de.exe`.
+2. (Optional) If MultiplayerSample is not in the "My Projects" view, then click the "New Project..." drop down and select "Open Existing Project".
+   1. Select the project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
+4. You can directly build the project and skip the Configure and Build steps (Step 3.)
 
 ### Step 3. Configure and build
 
@@ -224,7 +234,7 @@ Other levels in the project are there for testing or performance evaluation purp
 
 O3DE cannot work without the help and input from as many of its community members as possible. You do not need anyone’s permission to get involved and contribute to the project. The #sig-network channel on O3DE Discord is a great place to begin getting involved.
 
-You can report issues, fix known [issues](https://github.com/o3de/o3de-multiplayersample/issues or tackle backlogged features. In addition you can make [make requests](https://github.com/o3de/o3de-multiplayersample/issues/new/choose) and proposals for new features or extensions.
+You can report issues, fix known [issues](https://github.com/o3de/o3de-multiplayersample/issues) or tackle backlogged features. Additionally, you can [make requests](https://github.com/o3de/o3de-multiplayersample/issues/new/choose) and proposals for new features or extensions.
 
 ## Documentation
 
