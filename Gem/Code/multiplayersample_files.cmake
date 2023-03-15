@@ -17,32 +17,6 @@ set(FILES
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h
 
-    Source/AutoGen/EnergyBallComponent.AutoComponent.xml
-    Source/AutoGen/EnergyCannonComponent.AutoComponent.xml
-    Source/AutoGen/GameplayEffectsComponent.AutoComponent.xml
-    Source/AutoGen/GemComponent.AutoComponent.xml
-    Source/AutoGen/GemSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/MatchPlayerCoinsComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAiComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
-    Source/AutoGen/NetworkMatchComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
-    Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
-    Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTeleportCompatibleComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTeleportComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
-    Source/AutoGen/PlayerArmorComponent.AutoComponent.xml
-    Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
-    Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
-    Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
-    Source/AutoGen/RpcTesterComponent.AutoComponent.xml
-
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
