@@ -20,7 +20,7 @@ namespace MultiplayerSample
         , public UiGameOverBus::Handler
     {
     public:
-        static constexpr uint16_t RestTimeBetweenMatches = 5;
+        static constexpr uint16_t RestSecondsBetweenMatches = 5;
 
         AZ_COMPONENT(UiGameOverComponent, "{37a2de13-a8fa-4ee1-8652-e17253137f62}");
 
@@ -40,18 +40,18 @@ namespace MultiplayerSample
         // There aren't any network events around match restart time;
         // Real time is controlled on the server within the match state machine, but not shared across network.
         // See GameStatePreparingMatch.cpp and GameStateMatchEnded.cpp.
-        void DisplayTimeRemainingUI(uint16_t secondsRemaining);
-        AZ::ScheduledEvent m_onTimeRemainingChanged = AZ::ScheduledEvent( [this]()
+        void DisplaySecondsRemainingUI(uint16_t secondsRemaining);
+        AZ::ScheduledEvent m_onSecondsRemainingChanged = AZ::ScheduledEvent( [this]()
         {
-            m_timeRemainingUntilNewMatch -= 1;
-            DisplayTimeRemainingUI(m_timeRemainingUntilNewMatch);
+            m_secondsRemainingUntilNewMatch -= 1;
+            DisplaySecondsRemainingUI(m_secondsRemainingUntilNewMatch);
 
             // Remove this scheduled event once the time reaches 0
-            if (m_timeRemainingUntilNewMatch == 0)
+            if (m_secondsRemainingUntilNewMatch == 0)
             {
-                m_onTimeRemainingChanged.RemoveFromQueue();
+                m_onSecondsRemainingChanged.RemoveFromQueue();
             }
-        }, AZ::Name("GameOverUI Time Remaining"));
+        }, AZ::Name("GameOverUI Seconds Remaining"));
 
         // Listen for the NetworkMatch Round Number to Change
         // Round 1 is the 1st round in a match; turn off this game-over screen.
@@ -79,6 +79,6 @@ namespace MultiplayerSample
         AZ::EntityId m_rankNumbersUIContainer;
         AZStd::vector<AZ::EntityId> m_topRankPlayersUIElements;
         AZ::EntityId m_timeRemainingUntilNewMatchUIContainer;
-        uint16_t m_timeRemainingUntilNewMatch;
+        uint16_t m_secondsRemainingUntilNewMatch;
     };
 }

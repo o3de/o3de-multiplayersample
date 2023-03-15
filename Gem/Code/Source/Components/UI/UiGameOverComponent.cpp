@@ -55,11 +55,11 @@ namespace MultiplayerSample
     {
         UiGameOverBus::Handler::BusDisconnect();
         m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
-        m_onTimeRemainingChanged.RemoveFromQueue();
+        m_onSecondsRemainingChanged.RemoveFromQueue();
         m_onRoundNumberChangedHandler.Disconnect();
     }
 
-    void UiGameOverComponent::DisplayTimeRemainingUI(uint16_t secondsRemaining)
+    void UiGameOverComponent::DisplaySecondsRemainingUI(uint16_t secondsRemaining)
     {
         LyShine::EntityArray rankNumberUIElements;
         UiElementBus::EventResult(rankNumberUIElements, m_timeRemainingUntilNewMatchUIContainer, &UiElementBus::Events::GetChildElements);
@@ -74,13 +74,13 @@ namespace MultiplayerSample
     {
         if (enabled)
         {
-            m_timeRemainingUntilNewMatch = RestTimeBetweenMatches;
-            DisplayTimeRemainingUI(m_timeRemainingUntilNewMatch);
-            m_onTimeRemainingChanged.Enqueue(AZ::TimeMs{ 1000 }, true);
+            m_secondsRemainingUntilNewMatch = RestSecondsBetweenMatches;
+            DisplaySecondsRemainingUI(m_secondsRemainingUntilNewMatch);
+            m_onSecondsRemainingChanged.Enqueue(AZ::TimeMs{ 1000 }, true);
         }
         else
         {
-            m_onTimeRemainingChanged.RemoveFromQueue();
+            m_onSecondsRemainingChanged.RemoveFromQueue();
         }
 
         UiElementBus::Event(m_gameOverRootElement, &UiElementBus::Events::SetIsEnabled, enabled);
