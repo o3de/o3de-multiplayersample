@@ -23,6 +23,9 @@
 						<Event Name="play_sx_int_energyballtrap_projectile" ID="{4C9F5296-5B71-4CC3-8E72-63D2B8BEBAD9}">
 							<ChildrenList>
 								<Action Name="" ID="{C08664F7-3F9F-4C68-AC9A-1B3BC0BFA70A}" ShortID="187484371">
+									<PropertyList>
+										<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
@@ -59,6 +62,21 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="sx_int_energyBallTrap_buildup" ID="{13873A13-8973-4020-9FFB-501BD5BA5865}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="stop_sx_int_energyballtrap_projectile" ID="{3714147F-B604-47AA-87DE-0B70D2AE676F}">
+							<ChildrenList>
+								<Action Name="" ID="{7FB106EA-03E9-4016-BA24-E6923DA0D51F}" ShortID="686360877">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

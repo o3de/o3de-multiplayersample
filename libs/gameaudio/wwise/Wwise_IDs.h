@@ -61,6 +61,7 @@ namespace AK
         static const AkUniqueID STOP_ROUND_BEGIN = 3173054466U;
         static const AkUniqueID STOP_ROUND_END = 1822575350U;
         static const AkUniqueID STOP_SOUND_GUN_FIRING = 1390826636U;
+        static const AkUniqueID STOP_SX_INT_ENERGYBALLTRAP_PROJECTILE = 2825372966U;
         static const AkUniqueID STOP_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 1399787879U;
         static const AkUniqueID STOP_SX_WPN_BUBBLEGUN_PROJECTILE = 3507985354U;
         static const AkUniqueID UNMUTE_ALL = 4003578643U;
