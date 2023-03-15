@@ -79,6 +79,8 @@ namespace MultiplayerSample
         if (m_audioSystem != nullptr)
         {
             m_audioProxy = m_audioSystem->GetAudioProxy();
+            m_audioProxy->Initialize(m_audioTrigger.c_str(), this);
+            m_audioProxy->SetObstructionCalcType(Audio::ObstructionType::Ignore);
             m_audioTriggerId = m_audioSystem->GetAudioTriggerID(m_audioTrigger.c_str());
         }
 #endif

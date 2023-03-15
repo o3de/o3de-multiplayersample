@@ -48,5 +48,4 @@ namespace MultiplayerSample
             AzNetworking::IConnection* invokingConnection, const AZ::Vector3& teleportedLocation) override;
 #endif
     };
-
 } // namespace MultiplayerSample
