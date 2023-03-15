@@ -125,56 +125,50 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        // Check current game-play state
-        if (!AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
-        {
-            // Clear our input
-            m_forwardWeight = 0.f;
-            m_leftWeight = 0.f;
-            m_backwardWeight = 0.f;
-            m_rightWeight = 0.f;
-            m_viewYaw = 0.f;
-            m_viewPitch = 0.f;
-            m_sprinting = false;
-            m_jumping = false;
-            m_crouching = false;
+        // View Axis are clamped and brought into the -1,1 range for transport across the network.
+        // These are set regardless of whether or not any other player actions are allowed.
+        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
 
+        // reset accumulated amounts
+        m_viewYaw = 0.f;
+        m_viewPitch = 0.f;
+
+        // Check current game-play state
+        if (AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
+        {
+            // Movement axis
+            // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
+            // This is so that tapping the keyboard moves the virtual stick less than just holding it down
+            m_forwardWeight = std::min<float>(m_forwardDown ? m_forwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
+            m_leftWeight = std::min<float>(m_leftDown ? m_leftWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
+            m_backwardWeight = std::min<float>(m_backwardDown ? m_backwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
+            m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
+
+            playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
+            playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
+
+            // Strafe input
+            playerInput->m_sprint = m_sprinting;
+            playerInput->m_jump = m_jumping;
+            playerInput->m_crouch = m_crouching;
+        }
+        else
+        {
             // Don't set m_forward/left/right/backDown to 0, instead just 0 out the net-input by hand.
             // This way players can start the round hot out of the gate.
             // Keep their finger on the 'W' (forward) key, and instantly start
             // running when the round starts instead of having to release the 'W' key and pressing it again.
             playerInput->m_forwardAxis = StickAxis(0);
             playerInput->m_strafeAxis = StickAxis(0);
-            return;
+
+            playerInput->m_sprint = false;
+            playerInput->m_jump = false;
+            playerInput->m_crouch = false;
         }
-
-        // Movement axis
-        // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
-        // This is so that tapping the keyboard moves the virtual stick less than just holding it down
-        m_forwardWeight = std::min<float>(m_forwardDown ? m_forwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
-        m_leftWeight = std::min<float>(m_leftDown ? m_leftWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
-        m_backwardWeight = std::min<float>(m_backwardDown ? m_backwardWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
-        m_rightWeight = std::min<float>(m_rightDown ? m_rightWeight + cl_WasdStickAccel * deltaTime : 0.0f, 1.0f);
-
-
-        playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
-        playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
-
-        // View Axis are clamped and brought into the -1,1 range for transport across the network 
-        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-
-        // Strafe input
-        playerInput->m_sprint = m_sprinting;
-        playerInput->m_jump = m_jumping;
-        playerInput->m_crouch = m_crouching;
 
         // reset jumping until next press. We only track when the jump is initially pressed, not that it's being held.
         m_jumping = false;
-
-        // reset accumulated amounts
-        m_viewYaw = 0.f;
-        m_viewPitch = 0.f;
 
         // Just a note for anyone who is super confused by this, ResetCount is a predictable network property, it gets set on the client
         // through correction packets
