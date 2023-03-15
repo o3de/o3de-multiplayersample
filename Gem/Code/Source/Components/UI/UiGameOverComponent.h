@@ -77,7 +77,7 @@ namespace MultiplayerSample
 
         AZ::EntityId m_gameOverRootElement;
         AZ::EntityId m_rankNumbersUIContainer;
-        AZStd::vector<AZ::EntityId> m_topPlayersUIElements;
+        AZStd::vector<AZ::EntityId> m_topRankPlayersUIElements;
         AZ::EntityId m_timeRemainingUntilNewMatchUIContainer;
         uint16_t m_timeRemainingUntilNewMatch;
     };
