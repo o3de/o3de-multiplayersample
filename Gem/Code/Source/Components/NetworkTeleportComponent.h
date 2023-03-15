@@ -1,5 +1,6 @@
 /*
- * Copyright (c) Contributors to the Open 3D Engine Project
+ * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of
+ * this distribution.
  *
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
@@ -28,8 +29,15 @@ namespace MultiplayerSample
         static void Reflect(AZ::ReflectContext* reflection);
 
         void OnInit() override {};
-        void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+        void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+
+#if AZ_TRAIT_CLIENT
+        void HandleNotifyTeleport(AzNetworking::IConnection* invokingConnection) override;
+#endif
+
+    private:
+        GameEffect m_effect;
     };
 
     class NetworkTeleportComponentController

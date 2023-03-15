@@ -1,5 +1,6 @@
 /*
- * Copyright (c) Contributors to the Open 3D Engine Project
+ * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of
+ * this distribution.
  *
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
@@ -30,6 +31,21 @@ namespace MultiplayerSample
             NetworkTeleportComponentBase::Reflect(reflection);
         }
     }
+
+    void NetworkTeleportComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+#if AZ_TRAIT_CLIENT
+        m_effect = GetTeleportEffect();
+        m_effect.Initialize();
+#endif
+    }
+
+#if AZ_TRAIT_CLIENT
+    void NetworkTeleportComponent::HandleNotifyTeleport([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+    }
+#endif
 
     // Controller
 
@@ -83,8 +99,6 @@ namespace MultiplayerSample
 
             AZ::Entity* otherEntity = GetCollidingEntity(triggerEvent.m_otherBody);
 
-            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect,
-                SoundEffect::TeleporterUse);
             TeleportPlayer(teleportLocation, otherEntity);
         }
     }
@@ -126,6 +140,7 @@ namespace MultiplayerSample
             if (teleportable)
             {
 #if AZ_TRAIT_SERVER
+                NotifyTeleport();
                 teleportable->Teleport(vector);
 #endif
             }

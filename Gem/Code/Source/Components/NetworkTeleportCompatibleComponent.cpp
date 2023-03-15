@@ -1,5 +1,12 @@
-#include <Source/Components/NetworkTeleportCompatibleComponent.h>
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of
+ * this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
 
+#include <Source/Components/NetworkTeleportCompatibleComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Serialization/SerializeContext.h>
@@ -17,6 +24,22 @@ namespace MultiplayerSample
         }
         NetworkTeleportCompatibleComponentBase::Reflect(context);
     }
+
+    void NetworkTeleportCompatibleComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+#if AZ_TRAIT_CLIENT
+        m_effect = GetTeleportEffect();
+        m_effect.Initialize();
+#endif
+    }
+
+#if AZ_TRAIT_CLIENT
+    void NetworkTeleportCompatibleComponent::HandleNotifyTeleport([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& teleportedLocation)
+    {
+        const AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), teleportedLocation);
+        m_effect.TriggerEffect(transform);
+    }
+#endif
 
     // Controller
 
@@ -51,6 +74,8 @@ namespace MultiplayerSample
 
         // re-enable physics
         Physics::RigidBodyRequestBus::Event(selfId, &Physics::RigidBodyRequestBus::Events::EnablePhysics);
+
+        NotifyTeleport(teleportedLocation);
     }
 #endif
 } // namespace MultiplayerSample

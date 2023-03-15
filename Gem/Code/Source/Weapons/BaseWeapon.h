@@ -11,12 +11,6 @@
 #include <Source/Weapons/WeaponGathers.h>
 #include <Multiplayer/NetworkEntity/NetworkEntityHandle.h>
 
-#if AZ_TRAIT_CLIENT
-#   include <IAudioSystem.h>
-#endif
-
-namespace PopcornFX { struct StandaloneEmitter; }
-
 namespace MultiplayerSample
 {
     struct ConstructParams
@@ -36,7 +30,7 @@ namespace MultiplayerSample
         //! Constructor.
         //! @param constructParams the set of construction params for the weapon instance
         BaseWeapon(const ConstructParams& constructParams);
-        ~BaseWeapon() override;
+        ~BaseWeapon() = default;
         
         //! IWeapon interface
         //! @{
@@ -84,18 +78,9 @@ namespace MultiplayerSample
 
         WeaponListener& m_weaponListener;
 
-#if AZ_TRAIT_CLIENT
-        PopcornFX::StandaloneEmitter* m_activateEffect = nullptr;
-        PopcornFX::StandaloneEmitter* m_impactEffect = nullptr;
-        PopcornFX::StandaloneEmitter* m_damageEffect = nullptr;
-
-        Audio::IAudioProxy* m_activateSoundProxy = nullptr;
-        Audio::TATLIDType m_activateTriggerId = INVALID_AUDIO_CONTROL_ID;
-        Audio::IAudioProxy* m_impactSoundProxy = nullptr;
-        Audio::TATLIDType m_impactTriggerId = INVALID_AUDIO_CONTROL_ID;
-        Audio::IAudioProxy* m_damageSoundProxy = nullptr;
-        Audio::TATLIDType m_damageTriggerId = INVALID_AUDIO_CONTROL_ID;
-#endif
+        GameEffect m_activateEffect;
+        GameEffect m_impactEffect;
+        GameEffect m_damageEffect;
 
         FireParams m_fireParams;
         NetEntityIdSet m_gatheredNetEntityIds;

@@ -181,26 +181,9 @@
                         }
                     }
                 },
-                "Component_[17263204639576784355]": {
-                    "$type": "EditorAudioTriggerComponent",
-                    "Id": 17263204639576784355,
-                    "Play Trigger": {
-                        "controlName": "Play_Sound_Gun_Firing"
-                    },
-                    "Stop Trigger": {
-                        "controlName": "Stop_Sound_Gun_Firing"
-                    }
-                },
                 "Component_[17993245065130330388]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 17993245065130330388
-                },
-                "Component_[1825823955420198768]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 1825823955420198768,
-                    "m_template": {
-                        "$type": "MultiplayerSample::PlayerKnockbackEffectComponent"
-                    }
                 },
                 "Component_[2596368806843971783]": {
                     "$type": "GenericComponentWrapper",
@@ -220,7 +203,18 @@
                     "$type": "GenericComponentWrapper",
                     "Id": 3651951460255600248,
                     "m_template": {
-                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent"
+                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent",
+                        "TeleportEffect": {
+                            "ParticleAsset": {
+                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                            },
+                            "AudioTrigger": "Play_Laser_Gun_Impact",
+                            "EffectOffset": [
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
                     }
                 },
                 "Component_[3873700008294568875]": {
@@ -412,16 +406,23 @@
                                 "WeaponMaxAimDistance": 25.0,
                                 "CooldownTimeMs": 1000,
                                 "ActivateFx": {
-                                    "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                    "ParticleAsset": {
+                                        "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                    },
+                                    "AudioTrigger": "Play_Sound_Gun_Firing"
                                 },
-                                "ActivateSoundEffect": "play_sx_wpn_laserpistol_fire",
                                 "ImpactFx": {
-                                    "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                    "ParticleAsset": {
+                                        "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                    }
                                 },
-                                "ImpactSoundEffect": "play_sx_wpn_laserpistol_impact",
                                 "DamageFx": {
-                                    "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                    "ParticleAsset": {
+                                        "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                    },
+                                    "AudioTrigger": "Play_Laser_Gun_Impact"
                                 },
+                                "ProjectileAsset": "play_sx_wpn_laserpistol_impact",
                                 "GatherParams": {
                                     "CastDistance": 2000.0,
                                     "TravelSpeed": 200.0
@@ -431,7 +432,6 @@
                                 }
                             },
                             {
-                                "WeaponType": 2,
                                 "WeaponMaxAimDistance": 25.0,
                                 "CooldownTimeMs": 2000,
                                 "GatherParams": {

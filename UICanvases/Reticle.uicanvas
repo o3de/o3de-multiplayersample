@@ -209,7 +209,7 @@
 										<Class name="AZ::u64" field="Id" value="16887896880506757230" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
 									<Class name="unsigned int" field="Id" value="48" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
-									<Class name="bool" field="IsEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsVisibleInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
@@ -242,12 +242,30 @@
 									<Class name="int" field="FillEdgeOrigin" value="0" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
 									<Class name="bool" field="FillClockwise" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 								</Class>
-								<Class name="UiFaderComponent" field="element" version="1" type="{CD01FF77-2249-4ED8-BFFB-33A66A47E17C}">
-									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
-										<Class name="AZ::u64" field="Id" value="4222153663287310690" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+								<Class name="EditorScriptCanvasComponent" field="element" version="17" type="{C28E2D29-0746-451D-A639-7F113ECF5D72}">
+									<Class name="EditorComponentBase" field="BaseClass1" version="1" type="{D5346BD4-7F20-444E-B370-327ACD03D4A0}">
+										<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
+											<Class name="AZ::u64" field="Id" value="5276002616727847276" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+										</Class>
 									</Class>
-									<Class name="float" field="Fade" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-									<Class name="bool" field="UseRenderToTexture" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="Configuration" field="configuration" type="{0F4D78A9-EF29-4D6A-AC5B-8F4E19B1A6EE}">
+										<Class name="SourceHandle" field="sourceHandle" version="1" type="{65855A98-AE2F-427F-BFC8-69D45265E312}">
+											<Class name="AZ::Uuid" field="id" value="{3435C454-5AA6-5501-BBEE-CF4944BEC963}" type="{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}"/>
+											<Class name="AZ::IO::Path" field="path" value="scriptcanvas/DamageFlash.scriptcanvas" type="{88E0A40F-3085-4CAB-8B11-EF5A2659C71A}"/>
+										</Class>
+										<Class name="AZStd::string" field="sourceName" value="DamageFlash.scriptcanvas" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+										<Class name="BuildVariableOverrides" field="propertyOverrides" version="3" type="{8336D44C-8EDC-4C28-AEB4-3420D5FD5AE2}">
+											<Class name="SourceHandle" field="source" version="1" type="{65855A98-AE2F-427F-BFC8-69D45265E312}">
+												<Class name="AZ::Uuid" field="id" value="{3435C454-5AA6-5501-BBEE-CF4944BEC963}" type="{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}"/>
+												<Class name="AZ::IO::Path" field="path" value="scriptcanvas/DamageFlash.scriptcanvas" type="{88E0A40F-3085-4CAB-8B11-EF5A2659C71A}"/>
+											</Class>
+											<Class name="AZStd::vector&lt;GraphVariable, allocator&gt;" field="variables" type="{C35B1777-D50B-526C-A435-04BD80FF4312}"/>
+											<Class name="AZStd::vector&lt;AZStd::pair&lt;VariableId, EntityId&gt;, allocator&gt;" field="entityId" type="{24B699CC-A966-5A48-9D87-6460CC374504}"/>
+											<Class name="AZStd::vector&lt;GraphVariable, allocator&gt;" field="overrides" type="{C35B1777-D50B-526C-A435-04BD80FF4312}"/>
+											<Class name="AZStd::vector&lt;GraphVariable, allocator&gt;" field="overridesUnused" type="{C35B1777-D50B-526C-A435-04BD80FF4312}"/>
+											<Class name="AZStd::vector&lt;BuildVariableOverrides, allocator&gt;" field="dependencies" type="{FEA20C67-00FA-5AC8-ACFC-2303080DEF63}"/>
+										</Class>
+									</Class>
 								</Class>
 							</Class>
 							<Class name="bool" field="IsDependencyReady" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>

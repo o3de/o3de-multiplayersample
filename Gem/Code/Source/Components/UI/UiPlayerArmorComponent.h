@@ -8,19 +8,16 @@
 
 #pragma once
 
-#if AZ_TRAIT_CLIENT
 #include <UiPlayerArmorBus.h>
-#endif
-
+#include <PlayerIdentityBus.h>
 #include <AzCore/Component/Component.h>
 
 namespace MultiplayerSample
 {
     class UiPlayerArmorComponent
         : public AZ::Component
-#if AZ_TRAIT_CLIENT
         , public UiPlayerArmorNotificationBus::Handler
-#endif
+        , public PlayerIdentityNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(UiPlayerArmorComponent, "{15de84e4-eb35-4c9a-a0e3-9e39c10a7ff4}");
@@ -30,16 +27,20 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
 
-#if AZ_TRAIT_CLIENT
         //! UiPlayerArmorNotificationBus overrides ...
         //! @{
         void OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor) override;
         //! @}
-#endif
+
+        //! PlayerIdentityNotificationBus overrides ...
+        //! @{
+        void OnAutonomousPlayerNameChanged(const char* playerName) override;
+        //! @}
 
     private:
         // UI entities
         AZ::EntityId m_rootElement;
+        AZ::EntityId m_playerName;
         AZ::EntityId m_armorVisualEntity;
         AZ::EntityId m_armorText;
     };

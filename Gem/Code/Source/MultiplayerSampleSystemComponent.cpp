@@ -16,7 +16,7 @@
 #include <Source/Weapons/WeaponTypes.h>
 #include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
-
+#include <Source/Effects/GameEffect.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 
 namespace MultiplayerSample
@@ -26,10 +26,10 @@ namespace MultiplayerSample
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         ReflectWeaponEnums(context);
-        ClientEffect::Reflect(context);
         GatherParams::Reflect(context);
         HitEffect::Reflect(context);
         WeaponParams::Reflect(context);
+        GameEffect::Reflect(context);
 
         GemSpawnable::Reflect(context);
         GemWeightChance::Reflect(context);

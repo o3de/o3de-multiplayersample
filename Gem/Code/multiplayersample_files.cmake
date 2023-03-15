@@ -12,6 +12,7 @@ set(FILES
     Include/PlayerCoinCollectorBus.h
     Include/PlayerIdentityBus.h
     Include/PlayerMatchLifecycleBus.h
+    Include/WeaponNotificationBus.h
     Include/UiCoinCountBus.h
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h
@@ -79,10 +80,6 @@ set(FILES
     Source/Components/UI/HUDComponent.h
     Source/Components/UI/UiCoinCountComponent.cpp
     Source/Components/UI/UiCoinCountComponent.h
-    Source/Components/UI/UiGameOverComponent.cpp
-    Source/Components/UI/UiGameOverComponent.h
-    Source/Components/UI/UiPlayerArmorComponent.cpp
-    Source/Components/UI/UiPlayerArmorComponent.h
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp
     Source/Components/Multiplayer/GameplayEffectsComponent.h
     Source/Components/Multiplayer/GemComponent.cpp
@@ -129,6 +126,8 @@ set(FILES
     Source/Weapons/WeaponTypes.h
     Source/Weapons/SceneQuery.cpp
     Source/Weapons/SceneQuery.h
+    Source/Effects/GameEffect.cpp
+    Source/Effects/GameEffect.h
     Source/MultiplayerSampleSystemComponent.cpp
     Source/MultiplayerSampleSystemComponent.h
     Source/MultiplayerSampleTypes.h

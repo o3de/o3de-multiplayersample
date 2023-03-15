@@ -6,32 +6,56 @@
  *
  */
 
+#include <UiPlayerArmorBus.h>
 #include <AzCore/Serialization/EditContext.h>
 
-#if AZ_TRAIT_CLIENT
 #include <LyShine/Bus/UiImageBus.h>
 #include <LyShine/Bus/UiTextBus.h>
-#endif
 
 #include <Source/Components/UI/UiPlayerArmorComponent.h>
 
 namespace MultiplayerSample
 {
+    class BehaviorUiPlayerArmorNotificationBusHandler
+        : public UiPlayerArmorNotificationBus::Handler
+        , public AZ::BehaviorEBusHandler
+    {
+    public:
+        AZ_EBUS_BEHAVIOR_BINDER(BehaviorUiPlayerArmorNotificationBusHandler, "{6EB46F80-3D88-4DB9-8446-348A2CB4320D}", AZ::SystemAllocator,
+            OnPlayerArmorChanged);
+
+        void OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor) override
+        {
+            Call(FN_OnPlayerArmorChanged, armorPointsForLocalPlayer, startingArmor);
+        }
+    };
+
+
     void UiPlayerArmorComponent::Activate()
     {
-#if AZ_TRAIT_CLIENT
         UiPlayerArmorNotificationBus::Handler::BusConnect();
-#endif
+        PlayerIdentityNotificationBus::Handler::BusConnect();
+
+        // Attempt to grab the player name now, but it's likely the UI is loaded before a player name is chosen
+        const char* playerName = nullptr;
+        PlayerIdentityRequestBus::BroadcastResult(playerName, &PlayerIdentityRequestBus::Events::GetPlayerIdentityName);
+        if (playerName != nullptr)
+        {
+            UiTextBus::Event(m_playerName, &UiTextBus::Events::SetText, playerName);
+        }
     }
 
     void UiPlayerArmorComponent::Deactivate()
     {
-#if AZ_TRAIT_CLIENT
+        PlayerIdentityNotificationBus::Handler::BusDisconnect();
         UiPlayerArmorNotificationBus::Handler::BusDisconnect();
-#endif
     }
 
-#if AZ_TRAIT_CLIENT
+    void UiPlayerArmorComponent::OnAutonomousPlayerNameChanged(const char* playerName)
+    {
+        UiTextBus::Event(m_playerName, &UiTextBus::Events::SetText, playerName);
+    }
+
     void UiPlayerArmorComponent::OnPlayerArmorChanged(float armorPointsForLocalPlayer, float startingArmor)
     {
         const AZStd::string armorTextValue = AZStd::string::format("%.0f", armorPointsForLocalPlayer) + AZStd::string("%");
@@ -47,7 +71,6 @@ namespace MultiplayerSample
             UiImageBus::Event(m_armorVisualEntity, &UiImageBus::Events::SetFillAmount, 1.f);
         }
     }
-#endif
 
     void UiPlayerArmorComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -58,6 +81,7 @@ namespace MultiplayerSample
                 ->Field("Root Element", &UiPlayerArmorComponent::m_rootElement)
                 ->Field("Player Armor Visual", &UiPlayerArmorComponent::m_armorVisualEntity)
                 ->Field("Player Armor Text", &UiPlayerArmorComponent::m_armorText)
+                ->Field("Player Name Text", &UiPlayerArmorComponent::m_playerName)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -72,8 +96,17 @@ namespace MultiplayerSample
                         "Top level element that contains all other elements for player's armor value")
                     ->DataElement(nullptr, &UiPlayerArmorComponent::m_armorVisualEntity, "Player Armor Visual", "")
                     ->DataElement(nullptr, &UiPlayerArmorComponent::m_armorText, "Player Armor Text", "")
+                    ->DataElement(nullptr, &UiPlayerArmorComponent::m_playerName, "Player Name Text", "")
+
                     ;
             }
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->EBus<UiPlayerArmorNotificationBus>("UiPlayerArmorNotificationBus")
+                ->Handler<BehaviorUiPlayerArmorNotificationBusHandler>();
         }
     }
 } // namespace MultiplayerSample

@@ -31,17 +31,6 @@ namespace MultiplayerSample
     {
     }
 
-    void PlayerIdentityComponent::AssignPlayerName([[maybe_unused]] const PlayerNameString& newPlayerName)
-    {
-#if AZ_TRAIT_SERVER
-        if (IsNetEntityRoleServer())
-        {
-            RPC_AssignPlayerName(newPlayerName);
-        }
-#endif
-    }
-
-
     PlayerIdentityComponentController::PlayerIdentityComponentController(PlayerIdentityComponent& parent)
         : PlayerIdentityComponentControllerBase(parent)
     {
@@ -56,6 +45,7 @@ namespace MultiplayerSample
 
         if (IsNetEntityRoleAutonomous())
         {
+            PlayerNameAddEvent(m_onAutomonousPlayerNameChanged);
             PlayerIdentityRequestBus::Handler::BusConnect();
         }
     }
@@ -68,6 +58,7 @@ namespace MultiplayerSample
         }
 
         PlayerIdentityRequestBus::Handler::BusDisconnect();
+        m_onAutomonousPlayerNameChanged.Disconnect();
     }
 
 #if AZ_TRAIT_SERVER
