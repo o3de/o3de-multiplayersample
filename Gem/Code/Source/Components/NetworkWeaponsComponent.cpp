@@ -532,17 +532,18 @@ namespace MultiplayerSample
 
                         if (AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &physicsRayRequest))
                         {
+                            float minDistance = AZStd::numeric_limits<float>::max();
                             for (const AzPhysics::SceneQueryHit& hit : result.m_hits)
                             {
-                                // Set target to first found intersect within dot tolerance, if any
+                                // Set target to closest found intersection within dot tolerance, if any
                                 AZ::Vector3 targetDirection = hit.m_position - weaponInput->m_shotStartPosition;
                                 AZ::Vector3 aimDirection = physicsRayRequest.m_direction;
                                 targetDirection.Normalize();
                                 aimDirection.Normalize();
-                                if (targetDirection.Dot(aimDirection) > sv_WeaponsDotClamp)
+                                if ((targetDirection.Dot(aimDirection) > sv_WeaponsDotClamp) && (hit.m_distance <= minDistance))
                                 {
                                     aimTarget = hit.m_position;
-                                    break;
+                                    minDistance = hit.m_distance;
                                 }
                             }
                         }

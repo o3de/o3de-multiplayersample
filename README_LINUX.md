@@ -47,8 +47,8 @@ Cloning into 'o3de-multiplayersample-assets'...
 > git submodule update --init --recursive
 
 # modify the local engine git exclude file to ignore the project folder
-> echo o3de-multiplayersample > /path/to/o3de/.git/info/exclude
-> echo o3de-multiplayersample-assets > /path/to/o3de/.git/info/exclude
+> echo o3de-multiplayersample >> /path/to/o3de/.git/info/exclude
+> echo o3de-multiplayersample-assets >> /path/to/o3de/.git/info/exclude
 ```
 
 If you have a Git credential helper configured, you should not be prompted for your credentials anymore.
@@ -57,13 +57,13 @@ If you have a Git credential helper configured, you should not be prompted for y
 
 ```shell
 # register the engine (only need to do this once)
-> /path/to/o3de/scripts/o3de register --this-engine
+> /path/to/o3de/scripts/o3de.sh register --this-engine
 
 # register the asset gems (only need to do this once)
-> /path/to/o3de/scripts/o3de register --all-gems-path /path/to/o3de-multiplayersample-assets/Gems
+> /path/to/o3de/scripts/o3de.sh register --all-gems-path /path/to/o3de-multiplayersample-assets/Gems
 
 # register the project (only need to do this once)
-> /path/to/o3de/scripts/o3de register -p /path/to/o3de-multiplayersample
+> /path/to/o3de/scripts/o3de.sh register -p /path/to/o3de-multiplayersample
 ```
 
 The final step may print out warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
