@@ -307,10 +307,33 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="sx_int_gem_pickup" ID="{E9B2A017-63F2-4AE9-A4F8-838FE3D42176}" ShortID="321786558">
 									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{93D92A25-BFF9-45EF-863D-F443EA58FFF7}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-7</Value>
 											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{A81ED09A-9124-4E9A-8A12-3387DFDF1C45}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Min" Type="Real64" Value="-1"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
 										</Property>
 									</PropertyList>
 									<ReferenceList>
