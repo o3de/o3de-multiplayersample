@@ -87,8 +87,5 @@ namespace MultiplayerSample
 
     void UiGameOverComponent::DisplayResults([[maybe_unused]]MatchResultsSummary results)
     {
-        //UiTextBus::Event(m_winnerNameElement, &UiTextBus::Events::SetText, results.m_winningPlayerName.c_str());
-        //auto resultsSummary = BuildResultsSummary(results.m_playerStates);
-        //UiTextBus::Event(m_matchResultsElement, &UiTextBus::Events::SetText, resultsSummary);
     }
 }
