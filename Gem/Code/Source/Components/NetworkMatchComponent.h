@@ -81,6 +81,8 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+        //! INetworkMatch interface
+        //! @{
         bool IsPlayerActionAllowed() const override;
         float GetRoundTimeRemainingSec() const override;
         float GetTotalRoundTimeSec() const override;
@@ -89,7 +91,7 @@ namespace MultiplayerSample
         int32_t GetTotalPlayerCount() const override;
         void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) override;
         void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
-
+        //! @}
 
 #if AZ_TRAIT_SERVER
         //! PlayerIdentityNotificationBus
