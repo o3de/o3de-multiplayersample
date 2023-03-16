@@ -15,8 +15,62 @@
 
 namespace MultiplayerSample
 {
+    class INetworkMatch
+    {
+    public:
+        AZ_RTTI(INetworkMatch, "{2EBAF2B1-76E9-4FC8-82DF-BD63FFC372BF}");
+
+        INetworkMatch() = default;
+        virtual ~INetworkMatch() = default;
+
+        //! Checks if the current game state allows player action.
+        //! For example, in between rounds the player shouldn't be able to move around.
+        //! @result true if the player is currently allowed to run, jump, shoot, etc; otherwise false.
+        virtual bool IsPlayerActionAllowed() const = 0;
+
+        //! Returns the time in seconds until the current round ends.
+        //! @result the time in seconds until the current round ends
+        virtual float GetRoundTimeRemainingSec() const = 0;
+
+        //! Returns the total time in seconds until a round ends.
+        //! @result the total time in seconds until a round ends
+        virtual float GetTotalRoundTimeSec() const = 0;
+
+        //! Returns current the round number.
+        //! @result current the round number
+        virtual int32_t GetCurrentRoundNumber() const = 0;
+
+        //! Returns the total number of rounds before a game ends.
+        //! @result the total number of rounds before a game ends
+        virtual int32_t GetTotalRoundCount() const = 0;
+
+        //! Returns the current count of active players.
+        //! @result the current count of active players
+        virtual int32_t GetTotalPlayerCount() const = 0;
+
+        //! Adds an event handler to the round number AZ::Event
+        //! @param handler the handler to add the the requested component event
+        virtual void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) = 0;
+
+        //! Adds an event handler to the round number rest remaining AZ::Event
+        //! @param handler the handler to add the the requested component event
+        virtual void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) = 0;
+    };
+
+
+    //! Script-bind for the INetworkMatch interface
+    class NetworkMatchComponentRequests
+        : public AZ::EBusTraits
+    {
+    public:
+        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+    };
+    using NetworkMatchComponentRequestBus = AZ::EBus<INetworkMatch, NetworkMatchComponentRequests>;
+
     class NetworkMatchComponent
         : public NetworkMatchComponentBase
+        , public NetworkMatchComponentRequestBus::Handler
         , public PlayerIdentityNotificationBus::Handler
     {
     public:
@@ -27,10 +81,15 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        //! Checks if the current game state allows player action.
-        //! For example, in between rounds the player shouldn't be able to move around.
-        //! @result true if the player is currently allowed to run, jump, shoot, etc; otherwise false.
-        bool IsPlayerActionAllowed() const;
+        bool IsPlayerActionAllowed() const override;
+        float GetRoundTimeRemainingSec() const override;
+        float GetTotalRoundTimeSec() const override;
+        int32_t GetCurrentRoundNumber() const override;
+        int32_t GetTotalRoundCount() const override;
+        int32_t GetTotalPlayerCount() const override;
+        void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) override;
+        void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
+
 
 #if AZ_TRAIT_SERVER
         //! PlayerIdentityNotificationBus
@@ -44,9 +103,7 @@ namespace MultiplayerSample
         void HandleRPC_EndMatch(
             AzNetworking::IConnection* invokingConnection, const MatchResultsSummary& results) override;
 #endif
-
     };
-
 
     class NetworkMatchComponentController
         : public NetworkMatchComponentControllerBase

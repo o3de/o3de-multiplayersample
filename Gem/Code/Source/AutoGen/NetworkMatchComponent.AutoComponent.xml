@@ -22,6 +22,7 @@
                      Count="MaxSupportedPlayers" IsPublic="true" IsRewindable="false" IsPredictable="true"
                      ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true"
                      Description="The current states of players in-game resources"/>
+    <NetworkProperty Type="uint16_t" Name="PlayerCount" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round in seconds" />
 
     <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.f" ExposeToEditor="true" Description="Total time of a round in seconds" />
     <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
