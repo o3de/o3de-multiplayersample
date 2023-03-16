@@ -13,6 +13,7 @@ ly_add_target(
     FILES_CMAKE
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
+        multiplayersample_client_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
@@ -27,7 +28,9 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
+            Gem::PopcornFX.Static
             Gem::Multiplayer.Client
+            Gem::AudioSystem.API
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Client.Static
@@ -80,6 +83,7 @@ ly_add_target(
     FILES_CMAKE
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
+        multiplayersample_client_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
@@ -94,6 +98,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
+            Gem::PopcornFX.Static
             Gem::Multiplayer
         PRIVATE
             Gem::LmbrCentral.Static
@@ -124,6 +129,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Client.Static
             Gem::MultiplayerSample.Client.Static
             Gem::Atom_AtomBridge.Static
 )
@@ -142,6 +148,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Server.Static
             Gem::MultiplayerSample.Server.Static
             Gem::Atom_AtomBridge.Static
 )
@@ -160,6 +167,7 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
+            Gem::Multiplayer.Unified.Static
             Gem::MultiplayerSample.Unified.Static
             Gem::Atom_AtomBridge.Static
 )

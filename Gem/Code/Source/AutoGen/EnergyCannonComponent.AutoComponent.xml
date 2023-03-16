@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="EnergyCannonComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="false"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/EnergyCannonComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <ArchetypeProperty Type="AZ::EntityId" Name="EnergyBallEntity" ExposeToEditor="true"
+                       Description="The entity representing an energy ball." />
+</Component>

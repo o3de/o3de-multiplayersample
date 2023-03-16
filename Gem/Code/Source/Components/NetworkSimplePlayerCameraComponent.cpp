@@ -10,11 +10,21 @@
 #include <Source/Components/NetworkSimplePlayerCameraComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Components/CameraBus.h>
-#include <Multiplayer/IMultiplayer.h>
+#include <AzFramework/Physics/PhysicsScene.h>
+#include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
+#include <Multiplayer/IMultiplayer.h> 
+
+#if AZ_TRAIT_CLIENT
+#include <DebugDraw/DebugDrawBus.h>
+#endif
 
 namespace MultiplayerSample
 {
-    AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.0f, -5.0f, 3.0f), nullptr, AZ::ConsoleFunctorFlags::Null, "Offset to use for the player camera");
+    AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.5f, 0.f, 1.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Offset to use for the player camera");
+    AZ_CVAR(AZ::Vector3, cl_cameraColliderSize, AZ::Vector3(0.7f, 0.1f, 0.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Temporary collider size for player camera");
+    AZ_CVAR(bool, cl_drawCameraCollider, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Draw the camera collider");
+    AZ_CVAR(bool, cl_cameraBlendingEnabled, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When active, blends the camera aim angles.");
+
 
     NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
         : NetworkSimplePlayerCameraComponentControllerBase(parent)
@@ -24,6 +34,12 @@ namespace MultiplayerSample
 
     void NetworkSimplePlayerCameraComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_physicsSceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
+        if (m_physicsSceneInterface)
+        {
+            m_physicsSceneHandle = m_physicsSceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+        }
+
         // Synchronize aim angles with initial transform
         AZ::Vector3& aimAngles = ModifyAimAngles();
         aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
@@ -45,7 +61,10 @@ namespace MultiplayerSample
 
     void NetworkSimplePlayerCameraComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ::TickBus::Handler::BusDisconnect();
+        if(AZ::TickBus::Handler::BusIsConnected())
+        { 
+            AZ::TickBus::Handler::BusDisconnect();
+        }
     }
 
     float NetworkSimplePlayerCameraComponentController::GetCameraYaw() const
@@ -78,14 +97,17 @@ namespace MultiplayerSample
         return GetAimAnglesPrevious().GetY();
     }
 
-    void NetworkSimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    AZ::Transform NetworkSimplePlayerCameraComponentController::GetCameraTransform(bool collisionEnabled) const
     {
-        if (m_activeCameraEntity != nullptr && m_activeCameraEntity->GetState() == AZ::Entity::State::Active)
+        // exclude roll from any rotation calculations
+        const AZ::Quaternion targetYaw = AZ::Quaternion::CreateRotationZ(GetCameraYaw());
+        const AZ::Quaternion targetRotation = targetYaw * AZ::Quaternion::CreateRotationX(GetCameraPitch());
+        AZ::Quaternion aimRotation = targetRotation;
+
+        if (IsNetEntityRoleAutonomous() && cl_cameraBlendingEnabled)
         {
-            const AZ::Quaternion targetRotation = AZ::Quaternion::CreateRotationZ(GetCameraYaw()) * AZ::Quaternion::CreateRotationX(GetCameraPitch());
             const float blendFactor = Multiplayer::GetMultiplayer()->GetCurrentBlendFactor();
-            
-            AZ::Quaternion aimRotation = targetRotation;
+
             if (!GetSyncAimImmediate() && !AZ::IsClose(blendFactor, 1.0f))
             {
                 const AZ::Quaternion prevRotation = AZ::Quaternion::CreateRotationZ(GetCameraYawPrevious()) * AZ::Quaternion::CreateRotationX(GetCameraPitchPrevious());
@@ -94,16 +116,91 @@ namespace MultiplayerSample
                     aimRotation = prevRotation.Slerp(targetRotation, blendFactor).GetNormalized();
                 }
             }
-            const AZ::Vector3 targetTranslation = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
-            const AZ::Vector3 cameraOffset = aimRotation.TransformVector(cl_cameraOffset);
-            const AZ::Transform cameraTransform = AZ::Transform::CreateFromQuaternionAndTranslation(aimRotation, targetTranslation + cameraOffset);
-            m_activeCameraEntity->GetTransform()->SetWorldTM(cameraTransform);
+        }
+
+        const AZ::Vector3 targetTranslation = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
+        const AZ::Vector3 cameraPivotOffset = targetYaw.TransformVector(cl_cameraOffset);
+
+        if(collisionEnabled)
+        { 
+            AZ::Transform cameraTransform = AZ::Transform::CreateFromQuaternionAndTranslation(aimRotation, targetTranslation + cameraPivotOffset);
+            ApplySpringArm(cameraTransform);
+            return cameraTransform;
+        }
+        else
+        { 
+            const AZ::Vector3 cameraOffset = cameraPivotOffset + aimRotation.TransformVector(AZ::Vector3(0.f, GetMaxFollowDistance(), 0.f));
+            return AZ::Transform::CreateFromQuaternionAndTranslation(aimRotation, targetTranslation + cameraOffset);
+        }
+    }
+
+    void NetworkSimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
+        if (m_activeCameraEntity != nullptr && m_activeCameraEntity->GetState() == AZ::Entity::State::Active)
+        {
+            const AZ::Transform& transform = GetCameraTransform(GetEnableCollision());
+            m_activeCameraEntity->GetTransform()->SetWorldTM(transform);
         }
 
         if (GetSyncAimImmediate())
         {
             SetSyncAimImmediate(false);
+
+            if (!m_activeCameraEntity)
+            {
+                // the server no longer needs to tick after the initial sync
+                AZ::TickBus::Handler::BusDisconnect();
+            }
         }
+    }
+
+    void NetworkSimplePlayerCameraComponentController::ApplySpringArm(AZ::Transform& inOutTransform) const
+    {
+        // TODO replace cl_cameraColliderSize with dynamic box based on the camera near plane world dimensions
+        const AZ::EntityId ignoreEntityId = GetEntityId();
+        const AZ::Vector3 cameraPivot = inOutTransform.GetTranslation();
+        const AZ::Vector3 direction = -inOutTransform.GetBasisY();
+        const float maxDistance = GetMaxFollowDistance();
+        float distance = maxDistance;
+
+        // trace from the target to the camera position
+        auto request = AzPhysics::ShapeCastRequestHelpers::CreateBoxCastRequest(
+                    cl_cameraColliderSize, inOutTransform, direction, maxDistance,
+                    AzPhysics::SceneQuery::QueryType::StaticAndDynamic,
+                    AzPhysics::CollisionGroup::All, 
+                    [ignoreEntityId](const AzPhysics::SimulatedBody* body, [[maybe_unused]] const Physics::Shape* shape)
+                    {
+                        return body->GetEntityId() != ignoreEntityId ? AzPhysics::SceneQuery::QueryHitType::Block
+                                                             : AzPhysics::SceneQuery::QueryHitType::None;
+                    });
+        AzPhysics::SceneQueryHits result = m_physicsSceneInterface->QueryScene(m_physicsSceneHandle, &request);
+        if (result && !result.m_hits.empty())
+        {
+            // include the collision offset so we are not intersecting the surface
+            distance = result.m_hits[0].m_distance - GetCollisionOffset();
+            distance = AZ::GetClamp(distance, GetMinFollowDistance(), maxDistance);
+        }
+
+        inOutTransform.SetTranslation(cameraPivot + direction * distance);
+
+#if AZ_TRAIT_CLIENT
+        if (cl_drawCameraCollider && distance < maxDistance)
+        {
+            if (auto debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler(); debugDraw != nullptr)
+            {
+                const AZ::Vector3 colliderSize = cl_cameraColliderSize;
+                debugDraw->DrawObb(
+                    AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+                        inOutTransform.GetTranslation(),
+                        inOutTransform.GetRotation(),
+                        colliderSize * 0.5f),
+                    AZ::Color(1.f,0.f,0.f,0.1f), 
+                    1.f);
+            }
+
+            inOutTransform.SetTranslation(cameraPivot + direction * maxDistance);
+        }
+#endif
     }
 
     int NetworkSimplePlayerCameraComponentController::GetTickOrder()

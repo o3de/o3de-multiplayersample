@@ -11,10 +11,6 @@
                 "$type": "EditorDisabledCompositionComponent",
                 "Id": 10732697195551847781
             },
-            "Component_[1098481335074499299]": {
-                "$type": "SelectionComponent",
-                "Id": 1098481335074499299
-            },
             "Component_[14001194199437502546]": {
                 "$type": "EditorPendingCompositionComponent",
                 "Id": 14001194199437502546
@@ -55,17 +51,11 @@
             "Id": "Entity_[1423682492746]",
             "Name": "Player",
             "Components": {
-                "Component_[10731928891422556040]": {
+                "Component_[10227101122471384676]": {
                     "$type": "GenericComponentWrapper",
-                    "Id": 10731928891422556040,
+                    "Id": 10227101122471384676,
                     "m_template": {
-                        "$type": "InputConfigurationComponent",
-                        "Input Event Bindings": {
-                            "assetId": {
-                                "guid": "{C67E0526-85F2-525B-A44B-04855474A5BE}"
-                            },
-                            "assetHint": "inputbindings/player.inputbindings"
-                        }
+                        "$type": "Multiplayer::NetworkDebugPlayerIdComponent"
                     }
                 },
                 "Component_[10752091759919038477]": {
@@ -81,23 +71,34 @@
                         }
                     ]
                 },
-                "Component_[11366312871180321311]": {
-                    "$type": "SelectionComponent",
-                    "Id": 11366312871180321311
+                "Component_[10949504725335319493]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 10949504725335319493,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkHealthComponent"
+                    }
+                },
+                "Component_[11573337348143243531]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11573337348143243531,
+                    "m_template": {
+                        "$type": "MultiplayerSample::PlayerIdentityComponent"
+                    }
                 },
                 "Component_[11996978980717063697]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 11996978980717063697,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkAnimationComponent",
-                        "VelocityParamName": "movement_direction",
-                        "AimTargetParamName": "target_position",
-                        "CrouchParamName": "crouch",
+                        "MovementDirectionParamName": "movement_direction",
+                        "MovementSpeedParamName": "movement_speed",
+                        "AimTargetParamName": "aim_target",
+                        "CrouchParamName": "crouching",
                         "AimingParamName": "aiming",
-                        "ShootParamName": "shoot",
-                        "JumpParamName": "jump",
-                        "FallParamName": "fall",
-                        "LandParamName": "land",
+                        "ShootParamName": "attacking",
+                        "JumpParamName": "jumping",
+                        "FallParamName": "falling",
+                        "LandParamName": "landing",
                         "HitParamName": "hit",
                         "DeathParamName": "death_state_index"
                     }
@@ -109,17 +110,39 @@
                         "$type": "Multiplayer::NetworkHitVolumesComponent"
                     }
                 },
+                "Component_[14650897891489430105]": {
+                    "$type": "EditorAudioListenerComponent",
+                    "Id": 14650897891489430105,
+                    "Rotation Entity": "",
+                    "Position Entity": "",
+                    "DefaultListenerState": false
+                },
                 "Component_[14925070260434397195]": {
                     "$type": "EditorCharacterControllerComponent",
                     "Id": 14925070260434397195,
                     "Configuration": {
                         "entityId": "",
-                        "Material": {
-                            "MaterialIds": [
-                                {}
+                        "CollisionGroupId": {
+                            "GroupId": "{FE20AF05-2602-45C6-BF4D-FA497B971061}"
+                        },
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
                             ]
                         },
-                        "ApplyMoveOnPhysicsTick": false
+                        "MaximumSlopeAngle": 45.0,
+                        "StepHeight": 0.30000001192092896,
+                        "ApplyMoveOnPhysicsTick": false,
+                        "SlopeBehaviour": 1,
+                        "ScaleCoeff": 0.8999999761581421
+                    },
+                    "ShapeConfig": {
+                        "Capsule": {
+                            "Height": 1.7999999523162842,
+                            "Radius": 0.30000001192092896
+                        }
                     }
                 },
                 "Component_[1673121106304051384]": {
@@ -141,6 +164,23 @@
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 17057124452563381137
                 },
+                "Component_[17172141579586985375]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 17172141579586985375,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{82D25D38-FEDE-5944-8240-232924F2FA9D}",
+                            "path": "scriptcanvas/EnableAudioListener.scriptcanvas"
+                        },
+                        "sourceName": "EnableAudioListener.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{82D25D38-FEDE-5944-8240-232924F2FA9D}",
+                                "path": "scriptcanvas/EnableAudioListener.scriptcanvas"
+                            }
+                        }
+                    }
+                },
                 "Component_[17993245065130330388]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 17993245065130330388
@@ -159,6 +199,24 @@
                         "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
                     }
                 },
+                "Component_[3651951460255600248]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3651951460255600248,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent",
+                        "TeleportEffect": {
+                            "ParticleAsset": {
+                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                            },
+                            "AudioTrigger": "Play_Laser_Gun_Impact",
+                            "EffectOffset": [
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    }
+                },
                 "Component_[3873700008294568875]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 3873700008294568875
@@ -168,91 +226,54 @@
                     "Id": 4186588317358117667,
                     "AnimGraphAsset": {
                         "assetId": {
-                            "guid": "{46F677B6-0C57-50DE-BA38-2CC3079FDFC9}"
+                            "guid": "{BC61EACA-A8E6-5436-AE96-EF52288EB574}"
                         },
-                        "assetHint": "burt/humanoidcharacter.animgraph"
+                        "assetHint": "mixamo/ybot/ybot.animgraph"
                     },
                     "MotionSetAsset": {
                         "assetId": {
-                            "guid": "{0FA6D069-A122-57F5-BF54-A66AC8BE58A5}"
+                            "guid": "{A703856B-7290-5458-B7D8-7589EBD4F538}"
                         },
-                        "assetHint": "burt/burt.motionset"
+                        "assetHint": "mixamo/ybot/ybot.motionset"
                     },
-                    "ActiveMotionSetName": "BURTMotionSet",
+                    "ActiveMotionSetName": "YBotMotionSet",
                     "ParameterDefaults": {
                         "Parameters": [
                             {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 958518102,
-                                "name": "desired_angle"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 182703473,
-                                "name": "slope_angle"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2155279128,
-                                "name": "crouch"
-                            },
-                            {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
                                 "id": 1084884419,
-                                "name": "aiming"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1883569342,
-                                "name": "shoot"
+                                "name": "aiming",
+                                "value": true
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 1720552084,
-                                "name": "lateral_adjustment",
-                                "value": 0.03500000014901161
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 819414243,
-                                "name": "height_adjustment",
-                                "value": -0.05000000074505806
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 2672514538,
-                                "name": "forward_adjustment"
+                                "id": 4070320611,
+                                "name": "movement_speed"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2813527574,
-                                "name": "jump"
+                                "id": 2356543930,
+                                "name": "jumping"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 4216381196,
-                                "name": "fall"
+                                "id": 60754182,
+                                "name": "attacking"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2818627032,
-                                "name": "land"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 2553848132,
-                                "name": "land_type_index",
-                                "value": 1.0
+                                "id": 70061904,
+                                "name": "crouching"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1523721793,
-                                "name": "hit"
+                                "id": 4097764052,
+                                "name": "falling"
                             },
                             {
-                                "$type": "AzFramework::ScriptPropertyNumber",
-                                "id": 4154523292,
-                                "name": "hit_axis_index"
+                                "$type": "AzFramework::ScriptPropertyBoolean",
+                                "id": 4013608469,
+                                "name": "landing"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyNumber",
@@ -260,35 +281,43 @@
                                 "name": "death_state_index"
                             },
                             {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 2469366193,
-                                "name": "adjust_hip",
-                                "value": true
+                                "$type": "AzFramework::ScriptPropertyNumber",
+                                "id": 3656193794,
+                                "name": "hit_direction_index"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 671657505,
-                                "name": "lock_feet",
-                                "value": true
+                                "id": 713582873,
+                                "name": "stunned"
                             },
                             {
                                 "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 3470154576,
-                                "name": "foot_ik_weight",
-                                "value": true
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 1891303514,
-                                "name": "victory"
-                            },
-                            {
-                                "$type": "AzFramework::ScriptPropertyBoolean",
-                                "id": 420668671,
-                                "name": "game_entry",
-                                "value": true
+                                "id": 1523721793,
+                                "name": "hit"
                             }
                         ]
+                    }
+                },
+                "Component_[4325721995654492049]": {
+                    "$type": "EditorCharacterGameplayComponent",
+                    "Id": 4325721995654492049,
+                    "GameplayConfig": {
+                        "GravityMultiplier": 2.0,
+                        "GroundDetectionBoxHeight": 0.05000000074505806
+                    }
+                },
+                "Component_[5250619091527933772]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 5250619091527933772,
+                    "m_template": {
+                        "$type": "MultiplayerSample::PlayerCoinCollectorComponent"
+                    }
+                },
+                "Component_[5307034937237072373]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 5307034937237072373,
+                    "m_template": {
+                        "$type": "MultiplayerSample::NetworkRandomComponent"
                     }
                 },
                 "Component_[5329091026602047821]": {
@@ -296,28 +325,11 @@
                     "Id": 5329091026602047821,
                     "ActorAsset": {
                         "assetId": {
-                            "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                            "subId": 526701631
+                            "guid": "{49D8DCD0-7383-5AC7-8A87-CE6267605407}",
+                            "subId": 196688939
                         },
                         "loadBehavior": "QueueLoad",
-                        "assetHint": "burt/burtactor.actor"
-                    },
-                    "MaterialPerLOD": [
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        },
-                        {
-                            "AssetPath": "burt/burtactor.mtl"
-                        }
-                    ],
-                    "MaterialPerActor": {
-                        "AssetPath": "burt/burtactor.mtl"
+                        "assetHint": "mixamo/ybot/ybot.actor"
                     },
                     "AttachmentTarget": ""
                 },
@@ -326,11 +338,14 @@
                     "Id": 5387953310772448141,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkPlayerMovementComponent",
-                        "WalkSpeed": 3.0,
-                        "SprintSpeed": 5.0,
-                        "ReverseSpeed": 2.0,
-                        "CrouchSpeed": 1.5
+                        "SprintSpeed": 6.0,
+                        "MaxJumpHeight": 1.625
                     }
+                },
+                "Component_[5984669395829237154]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 5984669395829237154,
+                    "Configuration": "Do not add an InputBinding component to this prefab, only add it to your level or load the bindings some other way.  Multiple InputBinding components will lead to input events getting sent per-component and cause input spam."
                 },
                 "Component_[6252367322126438780]": {
                     "$type": "GenericComponentWrapper",
@@ -357,13 +372,27 @@
                 "Component_[7672425355040569134]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 7672425355040569134,
-                    "Parent Entity": "Entity_[1419387525450]"
+                    "Parent Entity": "Entity_[1419387525450]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            1.4564639329910278
+                        ]
+                    }
                 },
                 "Component_[8068531680783328727]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 8068531680783328727,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkSimplePlayerCameraComponent"
+                    }
+                },
+                "Component_[8136603864068018120]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8136603864068018120,
+                    "m_template": {
+                        "$type": "MultiplayerSample::PlayerArmorComponent"
                     }
                 },
                 "Component_[85365725485717905]": {
@@ -374,7 +403,26 @@
                         "WeaponParams": [
                             {
                                 "WeaponType": 1,
-                                "CooldownTimeMs": 500,
+                                "WeaponMaxAimDistance": 25.0,
+                                "CooldownTimeMs": 1000,
+                                "ActivateFx": {
+                                    "ParticleAsset": {
+                                        "guid": "{123FCBB4-016F-56D6-9DEC-BD329101C46F}"
+                                    },
+                                    "AudioTrigger": "Play_Sound_Gun_Firing"
+                                },
+                                "ImpactFx": {
+                                    "ParticleAsset": {
+                                        "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
+                                    }
+                                },
+                                "DamageFx": {
+                                    "ParticleAsset": {
+                                        "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
+                                    },
+                                    "AudioTrigger": "Play_Laser_Gun_Impact"
+                                },
+                                "ProjectileAsset": "play_sx_wpn_laserpistol_impact",
                                 "GatherParams": {
                                     "CastDistance": 2000.0,
                                     "TravelSpeed": 200.0
@@ -384,7 +432,7 @@
                                 }
                             },
                             {
-                                "WeaponType": 2,
+                                "WeaponMaxAimDistance": 25.0,
                                 "CooldownTimeMs": 2000,
                                 "GatherParams": {
                                     "GatherShape": 2,
@@ -398,120 +446,131 @@
                             }
                         ],
                         "FireBoneNames": [
-                            "RightHand",
-                            "RightHand"
+                            "mixamorig:RightHand",
+                            "mixamorig:RightHand"
                         ]
                     }
                 },
-                "Component_[9355205875164065586]": {
+                "Component_[9102179976553247749]": {
                     "$type": "EditorMaterialComponent",
-                    "Id": 9355205875164065586,
+                    "Id": 9102179976553247749,
                     "Controller": {
                         "Configuration": {
                             "materials": [
                                 {
                                     "Key": {
-                                        "materialSlotStableId": 3026370142
+                                        "materialSlotStableId": 1599611083
                                     },
                                     "Value": {
                                         "MaterialAsset": {
                                             "assetId": {
-                                                "guid": "{665C08D7-6D4F-5D00-BE83-66F147764D44}"
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
                                             },
-                                            "assetHint": "burt/burtactor.azmaterial"
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2106362150
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2810781130
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2821398715
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2825923043
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{37CE36DF-D4DF-5653-B137-B2A17069B7B8}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_head_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3204802744
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{BAB59DFB-1326-5D07-B552-9CB59A7F6A61}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_body_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3562450033
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{98AC2D11-901B-5559-8FBF-B5D48EDA6150}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/ybot_joints_base.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3617808779
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{227BF31B-A8D6-5B51-80B7-B8FC37E9C781}"
+                                            },
+                                            "assetHint": "mixamo/ybot/skins/mixamo_logo.azmaterial"
                                         }
                                     }
                                 }
                             ]
                         }
-                    },
-                    "materialSlots": [
-                        {
-                            "id": {
-                                "materialSlotStableId": 3026370142
-                            },
-                            "materialAsset": {
-                                "assetId": {
-                                    "guid": "{665C08D7-6D4F-5D00-BE83-66F147764D44}"
-                                },
-                                "assetHint": "burt/burtactor.azmaterial"
-                            },
-                            "defaultMaterialAsset": {
-                                "assetId": {
-                                    "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                    "subId": 3026370142
-                                },
-                                "loadBehavior": "PreLoad",
-                                "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                            }
-                        }
-                    ],
-                    "materialSlotsByLod": [
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 0,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 1,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 2,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ],
-                        [
-                            {
-                                "id": {
-                                    "lodIndex": 3,
-                                    "materialSlotStableId": 3026370142
-                                },
-                                "defaultMaterialAsset": {
-                                    "assetId": {
-                                        "guid": "{85A4DFBC-18C2-5D1B-8066-F82FBF31E794}",
-                                        "subId": 3026370142
-                                    },
-                                    "loadBehavior": "PreLoad",
-                                    "assetHint": "burt/burtactor_burtmat_8697524831461228126.azmaterial"
-                                }
-                            }
-                        ]
-                    ]
+                    }
+                },
+                "Component_[9435594912102554786]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9435594912102554786,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
                 }
             }
         }

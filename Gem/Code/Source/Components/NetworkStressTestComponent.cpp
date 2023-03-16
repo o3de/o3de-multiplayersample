@@ -81,8 +81,7 @@ namespace MultiplayerSample
 #if AZ_TRAIT_SERVER
     void NetworkStressTestComponentController::HandleSpawnAiEntity()
     {
-        const uint64_t seed = m_seed == 0 ? static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) : m_seed;
-        HandleSpawnAIEntity(nullptr, m_fireIntervalMinMs, m_fireIntervalMaxMs, m_actionIntervalMinMs, m_actionIntervalMaxMs, seed, m_teamID);
+        HandleSpawnAIEntity(nullptr, m_fireIntervalMinMs, m_fireIntervalMaxMs, m_actionIntervalMinMs, m_actionIntervalMaxMs, m_teamID);
     }
 #endif
 
@@ -115,14 +114,9 @@ namespace MultiplayerSample
         ImGui::InputFloat("Fire Interval Max (ms)", &m_fireIntervalMaxMs, 0.f, 100000.f);
         ImGui::InputFloat("Action Interval Min (ms)", &m_actionIntervalMinMs, 0.f, 100000.f);
         ImGui::InputFloat("Action Interval Max (ms)", &m_actionIntervalMaxMs, 0.f, 100000.f);
-        constexpr static uint64_t SeedMin = 0;
-        constexpr static uint64_t SeedMax = AZStd::numeric_limits<uint64_t>::max();
-        ImGui::InputScalar("Seed", ImGuiDataType_U64, &m_seed, &SeedMin, &SeedMax, "%llu");
 
         if (ImGui::Button("Spawn AI Entity"))
         {
-            uint64_t seed = m_seed == 0 ? static_cast<uint64_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs()) : m_seed;
-
             for (int i = 0; i != m_quantity; ++i)
             {
                 if (m_isServer)
@@ -134,7 +128,6 @@ namespace MultiplayerSample
                         m_fireIntervalMaxMs,
                         m_actionIntervalMinMs,
                         m_actionIntervalMaxMs,
-                        seed + i,
                         m_teamID);
 #endif
                 }
@@ -146,7 +139,6 @@ namespace MultiplayerSample
                         m_fireIntervalMaxMs,
                         m_actionIntervalMinMs,
                         m_actionIntervalMaxMs,
-                        seed + i,
                         m_teamID);
 #endif
                 }
@@ -170,7 +162,6 @@ namespace MultiplayerSample
         const float& fireIntervalMaxMs,
         const float& actionIntervalMinMs,
         const float& actionIntervalMaxMs,
-        const uint64_t& seed,
         [[maybe_unused]] const int& teamId)
     {
         if (GetSpawnCount() > GetMaxSpawns())
@@ -190,10 +181,16 @@ namespace MultiplayerSample
             entityItem.GetNetBindComponent()->EnablePlayerHostAutonomy(true);
         }
 
+        if (entityList.empty())
+        {
+            AZ_Error("NetworkStressTestComponentController", false, "No AI entity to spawn");
+            return;
+        }
+
         Multiplayer::NetworkEntityHandle createdEntity = entityList[0];
         // Drive inputs from AI instead of user inputs and disable camera following
         NetworkAiComponentController* networkAiController = createdEntity.FindController<NetworkAiComponentController>();
-        networkAiController->ConfigureAi(fireIntervalMinMs, fireIntervalMaxMs, actionIntervalMinMs, actionIntervalMaxMs, seed);
+        networkAiController->ConfigureAi(fireIntervalMinMs, fireIntervalMaxMs, actionIntervalMinMs, actionIntervalMaxMs);
         networkAiController->SetEnabled(true);
         if (invokingConnection)
         {

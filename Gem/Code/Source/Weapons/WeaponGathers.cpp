@@ -19,7 +19,7 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(uint32_t, bg_MultitraceNumTraceSegments, 3, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of segments to use when performing multitrace casts");
-    AZ_CVAR(bool, bg_DrawPhysicsRaycasts, true, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, will debug draw physics raycasts");
+    AZ_CVAR(bool, bg_DrawPhysicsRaycasts, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, will debug draw physics raycasts");
 
     IntersectFilter::IntersectFilter
     (
@@ -120,7 +120,7 @@ namespace MultiplayerSample
             AZ::Vector3 travelDistance = (segmentStepOffset * nextSegmentStartTime); // Total distance our shot has traveled as of this cast, ignoring arc-length due to gravity
             AZ::Vector3 nextSegmentPosition = inOutActiveShot.m_initialTransform.GetTranslation() + travelDistance + (gravity * 0.5f * nextSegmentStartTime * nextSegmentStartTime);
 
-            const AZ::Transform currSegTransform = AZ::Transform::CreateFromQuaternionAndTranslation(inOutActiveShot.m_initialTransform.GetRotation(), currSegmentPosition);
+            const AZ::Transform currSegTransform = AZ::Transform::CreateLookAt(currSegmentPosition, nextSegmentPosition);
             const AZ::Vector3 segSweep = nextSegmentPosition - currSegmentPosition;
 
             IntersectFilter filter(currSegTransform, segSweep, AzPhysics::SceneQuery::QueryType::StaticAndDynamic,
@@ -145,6 +145,19 @@ namespace MultiplayerSample
             if (((outResults.size() > 0) && !gatherParams.m_multiHit) || (travelDistance.GetLengthSq() > maxTravelDistanceSq))
             {
                 result = ShotResult::ShouldTerminate;
+#if AZ_TRAIT_CLIENT
+                if (bg_DrawPhysicsRaycasts && !outResults.empty())
+                {
+                    DebugDraw::DebugDrawRequestBus::Broadcast
+                    (
+                        &DebugDraw::DebugDrawRequests::DrawSphereAtLocation,
+                        outResults[0].m_position,
+                        /*radius=*/0.1f,
+                        AZ::Colors::Green,
+                        /*duration=*/10.0f
+                    );
+                }
+#endif
                 break;
             }
 

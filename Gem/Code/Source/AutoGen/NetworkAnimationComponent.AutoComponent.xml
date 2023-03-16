@@ -16,7 +16,11 @@
 
     <NetworkProperty Type="CharacterAnimStateBitset" Name="ActiveAnimStates" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="Bitset of active animation states" />
 
+    <ArchetypeProperty Type="AZStd::string" Name="MovementDirectionParamName"  Init="" ExposeToEditor="true" Description="Anim graph movement direction parameter"/>
+    <ArchetypeProperty Type="AZStd::string" Name="MovementSpeedParamName"  Init="" ExposeToEditor="true" Description="Anim graph movement speed parameter"/>
     <ArchetypeProperty Type="AZStd::string" Name="VelocityParamName"  Init="" ExposeToEditor="true" Description="Anim graph velocity parameter"/>
+    <ArchetypeProperty Type="bool" Name="VelocityIsLocal"  Init="true" ExposeToEditor="true" Description="True if velocity is relative to player"/>
+    <ArchetypeProperty Type="bool" Name="TurningEnabled"  Init="false" ExposeToEditor="true" Description="True if y is for speed and x is for turning"/>
     <ArchetypeProperty Type="AZStd::string" Name="AimTargetParamName" Init="" ExposeToEditor="true" Description="Anim graph aim target parameter"/>
     <ArchetypeProperty Type="AZStd::string" Name="CrouchParamName"    Init="" ExposeToEditor="true" Description="Anim graph crouch parameter"/>
     <ArchetypeProperty Type="AZStd::string" Name="AimingParamName"    Init="" ExposeToEditor="true" Description="Anim graph aiming parameter"/>

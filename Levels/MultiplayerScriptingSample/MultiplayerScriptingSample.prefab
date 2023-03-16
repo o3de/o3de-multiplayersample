@@ -47,6 +47,25 @@
                 "$type": "EditorEntityIconComponent",
                 "Id": 5688118765544765547
             },
+            "Component_[6666219161677256975]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 6666219161677256975,
+                "m_template": {
+                    "$type": "Multiplayer::SimplePlayerSpawnerComponent",
+                    "PlayerSpawnable": {
+                        "Spawnable": {
+                            "assetId": {
+                                "guid": "{56516028-D728-5DA8-B912-FAB724F8362D}",
+                                "subId": 4273583251
+                            },
+                            "assetHint": "prefabs/playerinscripting.network.spawnable"
+                        }
+                    },
+                    "SpawnPoints": [
+                        "Entity_[32137299649746]"
+                    ]
+                }
+            },
             "Component_[7247035804068349658]": {
                 "$type": "EditorPrefabComponent",
                 "Id": 7247035804068349658
@@ -787,20 +806,6 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 12193737312830268519
                 },
-                "Component_[1465977162413332875]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 1465977162413332875,
-                    "m_template": {
-                        "$type": "NetworkPlayerSpawnerComponent",
-                        "SpawnableAsset": {
-                            "assetId": {
-                                "guid": "{56516028-D728-5DA8-B912-FAB724F8362D}",
-                                "subId": 4273583251
-                            },
-                            "assetHint": "prefabs/playerinscripting.network.spawnable"
-                        }
-                    }
-                },
                 "Component_[15167927945444820525]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 15167927945444820525
@@ -808,13 +813,6 @@
                 "Component_[15627662291758116059]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 15627662291758116059
-                },
-                "Component_[16610028416005373301]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 16610028416005373301,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
                 },
                 "Component_[2101714997107630669]": {
                     "$type": "EditorLockComponent",

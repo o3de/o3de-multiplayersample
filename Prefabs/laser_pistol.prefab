@@ -1,0 +1,153 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "laser_pistol",
+        "Components": {
+            "Component_[10138240119695612836]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 10138240119695612836,
+                "Parent Entity": ""
+            },
+            "Component_[11865498400262342333]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 11865498400262342333
+            },
+            "Component_[12452603160837832647]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 12452603160837832647
+            },
+            "Component_[13390394588793210080]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 13390394588793210080
+            },
+            "Component_[13480621275664018970]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 13480621275664018970
+            },
+            "Component_[14295851089112823332]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 14295851089112823332
+            },
+            "Component_[15886129591734841193]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 15886129591734841193
+            },
+            "Component_[17357524323119066241]": {
+                "$type": "EditorLockComponent",
+                "Id": 17357524323119066241
+            },
+            "Component_[5421462017391038093]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 5421462017391038093
+            },
+            "Component_[8297574292730548386]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 8297574292730548386,
+                "Child Entity Order": [
+                    "Entity_[39836628510367]"
+                ]
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[39836628510367]": {
+            "Id": "Entity_[39836628510367]",
+            "Name": "laser_pistol",
+            "Components": {
+                "Component_[11499537694827971479]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11499537694827971479
+                },
+                "Component_[11854385180427390075]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 11854385180427390075,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[13691565136539568736]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 13691565136539568736
+                },
+                "Component_[14075834632839798403]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 14075834632839798403
+                },
+                "Component_[16653396567459833680]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 16653396567459833680,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{76B6FE48-1A08-53EF-92E4-A5F70A034972}",
+                                    "subId": 278644059
+                                },
+                                "assetHint": "attachments/laser_gun/gun.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[16775521981789057140]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 16775521981789057140
+                },
+                "Component_[18077220814481193847]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 18077220814481193847
+                },
+                "Component_[2476633131773194489]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 2476633131773194489
+                },
+                "Component_[3306118305244955694]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 3306118305244955694,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 3784176759
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{B67B074C-11F3-5615-9C82-EE5C47630AA7}"
+                                            },
+                                            "assetHint": "attachments/laser_gun/gun_gun.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[3714264565005618819]": {
+                    "$type": "EditorAttachmentComponent",
+                    "Id": 3714264565005618819,
+                    "Target ID": ""
+                },
+                "Component_[3773777917546431181]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 3773777917546431181,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 11854385180427390075
+                        },
+                        {
+                            "ComponentId": 16653396567459833680,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 3306118305244955694,
+                            "SortIndex": 2
+                        }
+                    ]
+                },
+                "Component_[4067757259082279395]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 4067757259082279395
+                }
+            }
+        }
+    }
+}

@@ -71,6 +71,8 @@ namespace MultiplayerSample
         EMotionFX::Integration::AnimGraphComponentRequests* m_animationGraph = nullptr;
 
         // Hardcoded parameters, be nice if this was flexible and configurable from within the editor
+        size_t m_movementDirectionParamId = InvalidParamIndex;
+        size_t m_movementSpeedParamId = InvalidParamIndex;
         size_t m_velocityParamId = InvalidParamIndex;
         size_t m_aimTargetParamId = InvalidParamIndex;
         size_t m_crouchParamId = InvalidParamIndex;

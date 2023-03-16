@@ -1,0 +1,241 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Player_Camera",
+        "Components": {
+            "Component_[124230638568335090]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 124230638568335090
+            },
+            "Component_[12754972795557779503]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 12754972795557779503,
+                "Child Entity Order": [
+                    "Entity_[49600613090343]"
+                ]
+            },
+            "Component_[13514245165228370298]": {
+                "$type": "EditorLockComponent",
+                "Id": 13514245165228370298
+            },
+            "Component_[14357684198880595382]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 14357684198880595382
+            },
+            "Component_[17029333370011457204]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 17029333370011457204
+            },
+            "Component_[17846312542567411904]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 17846312542567411904,
+                "Parent Entity": ""
+            },
+            "Component_[18279880419143283723]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 18279880419143283723
+            },
+            "Component_[3460551241366337477]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 3460551241366337477
+            },
+            "Component_[9445970528526034239]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 9445970528526034239
+            },
+            "Component_[9787079021026307403]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 9787079021026307403
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[49600613090343]": {
+            "Id": "Entity_[49600613090343]",
+            "Name": "Player Camera",
+            "Components": {
+                "Component_[10560176780057129368]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 10560176780057129368,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                            "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                        },
+                        "sourceName": "EnableServerCamera.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6334D87A-F859-5ED6-AA81-BB155C4CA359}",
+                                "path": "scriptcanvas/EnableServerCamera.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[11618953030000358124]": {
+                    "$type": "AZ::Render::EditorChromaticAberrationComponent",
+                    "Id": 11618953030000358124,
+                    "Controller": {
+                        "Configuration": {
+                            "Enabled": true
+                        }
+                    }
+                },
+                "Component_[13707688659030262739]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13707688659030262739
+                },
+                "Component_[1385590164709555587]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 1385590164709555587,
+                    "m_template": {
+                        "$type": "InputConfigurationComponent",
+                        "Input Event Bindings": {
+                            "assetId": {
+                                "guid": "{C67E0526-85F2-525B-A44B-04855474A5BE}"
+                            },
+                            "assetHint": "inputbindings/player.inputbindings"
+                        }
+                    }
+                },
+                "Component_[14557570787500416175]": {
+                    "$type": "AZ::Render::EditorBloomComponent",
+                    "Id": 14557570787500416175,
+                    "Controller": {
+                        "Configuration": {
+                            "Enabled": true,
+                            "Threshold": 0.800000011920929,
+                            "Intensity": 0.25,
+                            "BicubicEnabled": true,
+                            "KernelSizeScale": 0.5,
+                            "KernelSizeStage0": 0.029999999329447746,
+                            "KernelSizeStage1": 0.15000000596046448,
+                            "KernelSizeStage2": 0.36000001430511475,
+                            "KernelSizeStage3": 0.6200000047683716,
+                            "KernelSizeStage4": 0.8899999856948853
+                        }
+                    }
+                },
+                "Component_[15000556558809036741]": {
+                    "$type": "AZ::Render::EditorExposureControlComponent",
+                    "Id": 15000556558809036741,
+                    "Controller": {
+                        "Configuration": {
+                            "Enabled": false,
+                            "ExposureControlType": 1,
+                            "EyeAdaptationExposureMin": -6.079999923706055,
+                            "EyeAdaptationExposureMax": 2.880000114440918
+                        }
+                    }
+                },
+                "Component_[15209981873132626600]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 15209981873132626600
+                },
+                "Component_[154105298091518109]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 154105298091518109,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 2763779754963209072
+                        },
+                        {
+                            "ComponentId": 3655999494444134160,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 9004585884070611256,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 14557570787500416175,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 7092071161962745685,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[17443734220531699641]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 17443734220531699641
+                },
+                "Component_[2046025781821881524]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 2046025781821881524
+                },
+                "Component_[2763779754963209072]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 2763779754963209072,
+                    "Parent Entity": "ContainerEntity",
+                    "Transform Data": {
+                        "Translate": [
+                            60.041934967041016,
+                            -28.801956176757813,
+                            7.979676246643066
+                        ],
+                        "Rotate": [
+                            -9.163239479064941,
+                            0.2736999988555908,
+                            -1.696269154548645
+                        ]
+                    }
+                },
+                "Component_[3448770521617866748]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3448770521617866748,
+                    "m_template": {
+                        "$type": "FlyCameraInputComponent",
+                        "Is enabled": false
+                    }
+                },
+                "Component_[3655999494444134160]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3655999494444134160,
+                    "m_template": {
+                        "$type": "UiCanvasAssetRefComponent",
+                        "CanvasAssetRef": {
+                            "AssetPath": "uicanvases/reticle.uicanvas"
+                        },
+                        "IsAutoLoad": true
+                    }
+                },
+                "Component_[3970187958414398085]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 3970187958414398085
+                },
+                "Component_[6170729524149437702]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 6170729524149437702
+                },
+                "Component_[7092071161962745685]": {
+                    "$type": "{CA11DA46-29FF-4083-B5F6-E02C3A8C3A3D} EditorCameraComponent",
+                    "Id": 7092071161962745685,
+                    "Controller": {
+                        "Configuration": {
+                            "EditorEntityId": 10696170628329010487
+                        }
+                    }
+                },
+                "Component_[9004585884070611256]": {
+                    "$type": "AZ::Render::EditorPostFxLayerComponent",
+                    "Id": 9004585884070611256
+                },
+                "Component_[9321193093942328270]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 9321193093942328270
+                },
+                "Component_[9804125538938309579]": {
+                    "$type": "AZ::Render::EditorSsaoComponent",
+                    "Id": 9804125538938309579,
+                    "Controller": {
+                        "Configuration": {
+                            "Strength": 1.5199999809265137,
+                            "SamplingRadius": 0.08500000089406967
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

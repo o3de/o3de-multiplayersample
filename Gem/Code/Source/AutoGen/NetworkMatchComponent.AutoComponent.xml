@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkMatchComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/NetworkMatchComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="MatchPlayerCoinsComponent" Namespace="MultiplayerSample" Include="Components/Multiplayer/MatchPlayerCoinsComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="NetworkRandomComponent" Namespace="MultiplayerSample" Include="Components/NetworkRandomComponent.h" />
+    <ComponentRelation Constraint="Required" HasController="true" HasComponent="true" Name="GemSpawnerComponent" Namespace="MultiplayerSample" Include="Components/Multiplayer/GemSpawnerComponent.h" />
+
+    <Include File="MultiplayerSampleTypes.h"/>
+
+    <!-- Round time is in seconds and is quantized to 2 bytes to reduce network traffic	-->
+    <NetworkProperty Type="RoundTimeSec" Name="RoundTime" Init="RoundTimeSec{120}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round in seconds" />
+    <NetworkProperty Type="RoundTimeSec" Name="RoundRestTimeRemaining" Init="RoundTimeSec{10}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time of rest before starting a new round" />
+    <NetworkProperty Type="uint16_t" Name="RoundNumber" Init="1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The current round number" />
+    <NetworkProperty Type="PlayerState" Name="PlayerStates" Init="" ReplicateFrom="Authority" ReplicateTo="Client" Container="Array"
+                     Count="MaxSupportedPlayers" IsPublic="true" IsRewindable="false" IsPredictable="true"
+                     ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true"
+                     Description="The current states of players in-game resources"/>
+
+    <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.f" ExposeToEditor="true" Description="Total time of a round in seconds" />
+    <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
+    <ArchetypeProperty Type="uint16_t"  Name="RespawnPenaltyPercent" Init="50" ExposeToEditor="true" Description="Percent of score to deduct on armor depletion"/>
+    <ArchetypeProperty Type="float"  Name="RestDurationBetweenRounds"  Init="10.0f" ExposeToEditor="true" Description="The time between rounds to rest and look at the score." />
+
+    <RemoteProcedure Name="RPC_EndMatch" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true"
+                    GenerateEventBindings="" Description="Send match over event and results">
+        <Param Type="MatchResultsSummary" Name="Results"/>
+    </RemoteProcedure>
+
+    <!-- Using server to authority RPCs to handle players activating on a server that is different from the one hosting NetworkMatchComponent -->
+    <RemoteProcedure Name="RPC_PlayerActivated" InvokeFrom="Server" HandleOn="Authority" IsPublic="false" IsReliable="true"
+                     GenerateEventBindings="false" Description="Handles players activation">
+        <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
+    </RemoteProcedure>
+    <RemoteProcedure Name="RPC_PlayerDeactivated" InvokeFrom="Server" HandleOn="Authority" IsPublic="false" IsReliable="true"
+                     GenerateEventBindings="false" Description="Handles players deactivation">
+        <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
+    </RemoteProcedure>
+</Component>
