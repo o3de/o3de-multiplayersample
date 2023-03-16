@@ -29,6 +29,5 @@ namespace MultiplayerSample
         //! }@
 
     private:
-        NetworkMatchComponentController* m_controller = nullptr;
     };
 }

@@ -11,8 +11,7 @@
 
 namespace MultiplayerSample
 {
-    GameStateWaitingForPlayers::GameStateWaitingForPlayers(NetworkMatchComponentController* controller)
-        : m_controller(controller)
+    GameStateWaitingForPlayers::GameStateWaitingForPlayers([[maybe_unused]] NetworkMatchComponentController* controller)
     {
         PlayerIdentityNotificationBus::Handler::BusConnect();
     }
