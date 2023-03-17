@@ -12,29 +12,12 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 
-#if AZ_TRAIT_CLIENT
-#include <LyShine/Bus/UiCanvasBus.h>
 #include <LyShine/Bus/UiTextBus.h>
-#endif
 
 namespace MultiplayerSample
 {
     void HUDComponent::Activate()
     {
-#if AZ_TRAIT_CLIENT
-        UiCanvasRefBus::EventResult(m_uiCanvasId, GetEntityId(), &UiCanvasRefBus::Events::GetCanvas);
-        if (!m_uiCanvasId.IsValid())
-        {
-            UiCanvasAssetRefNotificationBus::Handler::BusConnect(GetEntityId());
-        }
-
-        if (NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>())
-        {
-            SetRoundNumberText(netMatchComponent->GetRoundNumber());
-            m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
-            netMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
-
-            m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
             netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
         }
 #endif
@@ -42,9 +25,7 @@ namespace MultiplayerSample
 
     void HUDComponent::Deactivate()
     {
-#if AZ_TRAIT_CLIENT
-        UiCanvasAssetRefNotificationBus::Handler::BusDisconnect(GetEntityId());
-#endif
+        m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
     }
 
     void HUDComponent::Reflect(AZ::ReflectContext* context)
@@ -54,9 +35,10 @@ namespace MultiplayerSample
             serializeContext->Class<HUDComponent, AZ::Component>()
                 ->Version(1)
                 ->Field("RoundNumberText", &HUDComponent::m_roundNumberText)
-                ->Field("RoundNumberId", &HUDComponent::m_roundNumberId)
+                ->Field("RoundNumberId", &HUDComponent::m_roundNumberUi)
                 ->Field("RoundTimerText", &HUDComponent::m_roundTimerText)
-                ->Field("RoundTimerId", &HUDComponent::m_roundTimerId)
+                ->Field("RoundTimerId", &HUDComponent::m_roundTimerUi)
+                ->Field("RoundSecondsRemaining", &HUDComponent::m_roundSecondsRemainingUiParent)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -65,10 +47,11 @@ namespace MultiplayerSample
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "Multiplayer Sample UI")
                     ->Attribute(AZ::Edit::Attributes::Icon, "Icons/Components/Component_Placeholder.svg")
-                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
+                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("CanvasUI"))
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &HUDComponent::m_roundNumberId, "Round Number UIElement Id", "The element id of the textbox you want to change. (Find the id inside the ui canvas)")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &HUDComponent::m_roundTimerId, "Round Time UIElement Id", "The element id of the textbox you want to change. (Find the id inside the ui canvas)")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &HUDComponent::m_roundNumberUi, "Round Number Textbox", "The ui textbox for displaying the current round number.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &HUDComponent::m_roundTimerUi, "Round Time Textbox", "The ui textbox for displaying the time remaining in the round.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &HUDComponent::m_roundSecondsRemainingUiParent, "Round Seconds Remaining UI Elements", "The parent ui element containing all the ui images to display the seconds remaining.")
                     ;
             }
         }
@@ -88,40 +71,42 @@ namespace MultiplayerSample
 
     void HUDComponent::SetRoundNumberText(uint16_t round)
     {
-        if (m_uiCanvasId.IsValid())
+        if (const NetworkMatchComponent* netMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
         {
-            AZ::Entity* textBoxEntity = nullptr;
-            UiCanvasBus::EventResult(textBoxEntity, m_uiCanvasId, &UiCanvasBus::Events::FindElementById, m_roundNumberId);
-
-            if (textBoxEntity != nullptr)
-            {
-                if (const NetworkMatchComponent* netMatchComponent = GetEntity()->FindComponent<NetworkMatchComponent>())
-                {
-                    m_roundNumberText = AZStd::string::format("%d of %d", round, netMatchComponent->GetTotalRounds());
-                    UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundNumberText);
-                }
-            }
+            // Display the current round number.
+            // The end of match can push the round count over the max round count, so cap it.
+            const uint16_t totalRounds = netMatchComponent->GetTotalRounds();
+            m_roundNumberText = AZStd::string::format("%d of %d", AZStd::min(round, totalRounds), totalRounds);
+            UiTextBus::Event(m_roundNumberUi, &UiTextBus::Events::SetText, m_roundNumberText);
         }
     }
 
     void HUDComponent::SetRoundTimerText(RoundTimeSec time)
     {
-        if (m_uiCanvasId.IsValid())
+        // Display a clock with the time remaining
+        auto duration = AZStd::chrono::seconds(time);
+        auto minutes = AZStd::chrono::duration_cast<AZStd::chrono::minutes>(duration);
+        auto seconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(duration - minutes);
+
+        m_roundTimerText = AZStd::string::format("%02i:%02i", static_cast<int>(minutes.count()), static_cast<int>(seconds.count()));
+
+        UiTextBus::Event(m_roundTimerUi, &UiTextBus::Events::SetText, m_roundTimerText);
+
+        // Display a countdown of custom UI when the round is close to finishing
+        if (duration.count() > 0 && duration.count() <= 10)
         {
-            AZ::Entity* textBoxEntity;
-            UiCanvasBus::EventResult(textBoxEntity, m_uiCanvasId, &UiCanvasBus::Events::FindElementById, m_roundTimerId);
+            UiElementBus::Event(m_roundSecondsRemainingUiParent, &UiElementBus::Events::SetIsEnabled, true);
 
-            if (textBoxEntity != nullptr)
+            AZStd::vector<AZ::EntityId> uiSecondsRemainingUIElements;
+            UiElementBus::EventResult(uiSecondsRemainingUIElements, m_roundSecondsRemainingUiParent, &UiElementBus::Events::GetChildEntityIds);
+            for (int i = 0; i < uiSecondsRemainingUIElements.size(); ++i)
             {
-                auto duration = AZStd::chrono::seconds(time);
-                auto minutes = AZStd::chrono::duration_cast<AZStd::chrono::minutes>(duration);
-                auto seconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(duration - minutes);
-
-                m_roundTimerText = AZStd::string::format("%02i:%02i", static_cast<int>(minutes.count()), static_cast<int>(seconds.count()));
-
-                UiTextBus::Event(textBoxEntity->GetId(), &UiTextBus::Events::SetText, m_roundTimerText);
+                UiElementBus::Event(uiSecondsRemainingUIElements[i], &UiElementBus::Events::SetIsEnabled, i == aznumeric_cast<int>(duration.count()));
             }
         }
+        else
+        {
+            UiElementBus::Event(m_roundSecondsRemainingUiParent, &UiElementBus::Events::SetIsEnabled, false);
+        }
     }
-#endif
 } // namespace MultiplayerSample

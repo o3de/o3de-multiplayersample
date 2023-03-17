@@ -9,11 +9,8 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-
-#if AZ_TRAIT_CLIENT
 #include <AzCore/EBus/Event.h>
-#include <LyShine/Bus/World/UiCanvasRefBus.h>
-#endif
+#include <Source/Components/NetworkMatchComponent.h>
 
 #include "MultiplayerSampleTypes.h"
 
@@ -21,9 +18,6 @@ namespace MultiplayerSample
 {
     class HUDComponent
         : public AZ::Component
-#if AZ_TRAIT_CLIENT
-        , UiCanvasAssetRefNotificationBus::Handler
-#endif
     {
     public:
         AZ_COMPONENT(MultiplayerSample::HUDComponent, "{8061E5D2-A1F7-4B40-9AAC-8FF14BD094FC}");
@@ -32,36 +26,37 @@ namespace MultiplayerSample
         * Reflects component data into the reflection contexts, including the serialization, edit, and behavior contexts.
         */
         static void Reflect(AZ::ReflectContext* context);
-        
-        /*
-        * Specifies the services that this component requires.
-        * The system activates the required services before it activates this component.
-        * It also deactivates the required services after it deactivates this component.
-        * If a required service is missing before this component is activated, the system
-        * returns an error and does not activate this component.
-        */
-        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
-    
+
     protected:
         void Activate() override;
         void Deactivate() override;
 
     private:
-#if AZ_TRAIT_CLIENT
-        // UiCanvasAssetRefNotificationBus overrides ...
-        void OnCanvasLoadedIntoEntity(AZ::EntityId uiCanvasEntity) override;
+        // Wait for NetworkMatchComponent to activate so we can begin listening for NetworkMatch events
+        AZ::ScheduledEvent m_waitForActiveNetworkMatchComponent = AZ::ScheduledEvent([this]
+            {
+                if (const auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+                {
+                    SetRoundNumberText(networkMatchComponent->GetRoundNumber());
+                    m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
+                    networkMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
+
+                    m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
+                    networkMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
+                    m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
+                }
+            }, AZ::Name("HUDComponent Wait For Active NetworkMatchComponent"));
 
         void SetRoundNumberText(uint16_t round);
         void SetRoundTimerText(RoundTimeSec time);
     
-        AZ::EntityId m_uiCanvasId;
         AZ::EventHandler<uint16_t> m_roundNumberHandler; 
         AZ::EventHandler<RoundTimeSec> m_roundTimerHandler;
-#endif
 
-        int m_roundNumberId = 0;
-        int m_roundTimerId = 0;
+        AZ::EntityId m_roundNumberUi;
+        AZ::EntityId m_roundTimerUi;
         AZStd::string m_roundNumberText;
         AZStd::string m_roundTimerText;
+        AZ::EntityId m_roundSecondsRemainingUiParent;
     };
 } // namespace MultiplayerSample
