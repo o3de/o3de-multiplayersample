@@ -6,7 +6,7 @@
  */
 
 #include <Source/Components/NetworkPlayerMovementComponent.h>
-
+#include <Source/Components/NetworkWeaponsComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <Multiplayer/Components/NetworkCharacterComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
@@ -147,7 +147,8 @@ namespace MultiplayerSample
         m_viewPitch = 0.f;
 
         // Check current game-play state
-        if (AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
+        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
+        if (networkMatchComponent && networkMatchComponent->IsPlayerActionAllowed())
         {
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
@@ -199,6 +200,14 @@ namespace MultiplayerSample
             return;
         }
 
+        NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
+        if ((weaponInput != nullptr) && weaponInput->m_firing.AnySet())
+        {
+            // Note that weaponInput is not guaranteed to exist, so we have to check for nullptr
+            // Don't allow sprinting when the character is trying to shoot
+            playerInput->m_sprint = false;
+        }
+
         const bool wasOnGround = GetWasOnGround();
         bool onGround = GetOnGround();
 
@@ -242,8 +251,11 @@ namespace MultiplayerSample
             SetSecondsSinceJumpRequest(GetJumpPressQueuedSeconds());
         }
 
+        // Tell the camera whether or not we're sprinting
+        GetNetworkSimplePlayerCameraComponentController()->SetSprintMode(playerInput->m_sprint);
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting), playerInput->m_sprint);
+
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Crouching), playerInput->m_crouch);
 

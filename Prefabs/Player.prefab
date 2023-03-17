@@ -306,6 +306,24 @@
                         "GroundDetectionBoxHeight": 0.05000000074505806
                     }
                 },
+                "Component_[4526255451914182701]": {
+                    "$type": "EditorAnimAudioComponent",
+                    "Id": 4526255451914182701,
+                    "Trigger Map": [
+                        {
+                            "event": "LeftFoot",
+                            "trigger": {
+                                "controlName": "play_sx_player_footstep"
+                            }
+                        },
+                        {
+                            "event": "RightFoot",
+                            "trigger": {
+                                "controlName": "play_sx_player_footstep"
+                            }
+                        }
+                    ]
+                },
                 "Component_[5250619091527933772]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 5250619091527933772,
@@ -420,9 +438,8 @@
                                     "ParticleAsset": {
                                         "guid": "{899C6C52-65FD-5C1F-B2A8-3BC8048DDABC}"
                                     },
-                                    "AudioTrigger": "Play_Laser_Gun_Impact"
+                                    "AudioTrigger": "play_sx_wpn_laserpistol_impact"
                                 },
-                                "ProjectileAsset": "play_sx_wpn_laserpistol_impact",
                                 "GatherParams": {
                                     "CastDistance": 2000.0,
                                     "TravelSpeed": 200.0
