@@ -26,8 +26,8 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
-    AZ_CVAR(float, cl_AimStickScaleZ, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
-    AZ_CVAR(float, cl_AimStickScaleX, 0.025f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleZ, 0.025f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleX, 0.0125f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
 
     /*
      * @cl_MaxMouseDelta should be large enough to contain the sum of mouse deltas across frames
@@ -139,8 +139,8 @@ namespace MultiplayerSample
 
         // View Axis are clamped and brought into the -1,1 range for transport across the network.
         // These are set regardless of whether or not any other player actions are allowed.
-        playerInput->m_viewYaw = MouseAxis(0.5f * AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-        playerInput->m_viewPitch = MouseAxis(0.5f * AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
 
         // reset accumulated amounts
         m_viewYaw = 0.f;
