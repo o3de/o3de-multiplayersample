@@ -7,20 +7,19 @@
  */
 
 #include <Source/Components/UI/HUDComponent.h>
-#include <Source/Components/NetworkMatchComponent.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 
+#include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
+
 
 namespace MultiplayerSample
 {
     void HUDComponent::Activate()
     {
-            netMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
-        }
-#endif
+        m_waitForActiveNetworkMatchComponent.Enqueue(AZ::TimeMs{ 1000 }, true);
     }
 
     void HUDComponent::Deactivate()
@@ -56,26 +55,14 @@ namespace MultiplayerSample
             }
         }
     }
-    
-    void HUDComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-    {
-        required.push_back(AZ_CRC("UiCanvasRefService"));
-        required.push_back(AZ_CRC("NetworkMatchComponent"));
-    }
-
-#if AZ_TRAIT_CLIENT
-    void HUDComponent::OnCanvasLoadedIntoEntity(AZ::EntityId uiCanvasEntity)
-    {
-        m_uiCanvasId = uiCanvasEntity;
-    }
 
     void HUDComponent::SetRoundNumberText(uint16_t round)
     {
-        if (const NetworkMatchComponent* netMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+        if (const INetworkMatch* netMatchComponent = AZ::Interface<INetworkMatch>::Get())
         {
             // Display the current round number.
             // The end of match can push the round count over the max round count, so cap it.
-            const uint16_t totalRounds = netMatchComponent->GetTotalRounds();
+            const uint16_t totalRounds = aznumeric_cast<uint16_t>(netMatchComponent->GetTotalRoundCount());
             m_roundNumberText = AZStd::string::format("%d of %d", AZStd::min(round, totalRounds), totalRounds);
             UiTextBus::Event(m_roundNumberUi, &UiTextBus::Events::SetText, m_roundNumberText);
         }

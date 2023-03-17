@@ -146,6 +146,11 @@ namespace MultiplayerSample
         RoundNumberAddEvent(handler);
     }
 
+    void NetworkMatchComponent::AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
+    {
+        RoundTimeAddEvent(handler);
+    }
+
     void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
     {
         RoundRestTimeRemainingAddEvent(handler);

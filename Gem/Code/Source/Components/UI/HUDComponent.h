@@ -35,14 +35,14 @@ namespace MultiplayerSample
         // Wait for NetworkMatchComponent to activate so we can begin listening for NetworkMatch events
         AZ::ScheduledEvent m_waitForActiveNetworkMatchComponent = AZ::ScheduledEvent([this]
             {
-                if (const auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+                if (const auto networkMatchComponent = AZ::Interface<INetworkMatch>::Get())
                 {
-                    SetRoundNumberText(networkMatchComponent->GetRoundNumber());
+                    SetRoundNumberText(aznumeric_cast<uint16_t>(networkMatchComponent->GetCurrentRoundNumber()));
                     m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
-                    networkMatchComponent->RoundNumberAddEvent(m_roundNumberHandler);
+                    networkMatchComponent->AddRoundNumberEventHandler(m_roundNumberHandler);
 
                     m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
-                    networkMatchComponent->RoundTimeAddEvent(m_roundTimerHandler);
+                    networkMatchComponent->AddRoundTimeRemainingEventHandler(m_roundTimerHandler);
                     m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
                 }
             }, AZ::Name("HUDComponent Wait For Active NetworkMatchComponent"));
