@@ -67,9 +67,9 @@ namespace MultiplayerSample
         // For example: when the round resets to 1 we know the new match has started.
         AZ::ScheduledEvent m_waitForActiveNetworkMatchComponent = AZ::ScheduledEvent([this]
         {
-            if (const auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+            if (const auto networkMatchComponent = AZ::Interface<INetworkMatch>::Get())
             {
-                networkMatchComponent->RoundNumberAddEvent(m_onRoundNumberChangedHandler);
+                networkMatchComponent->AddRoundNumberEventHandler(m_onRoundNumberChangedHandler);
                 m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
             }
         }, AZ::Name("GameOverUI Wait For Active NetworkMatchComponent"));

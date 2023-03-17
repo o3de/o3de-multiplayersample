@@ -6,6 +6,7 @@
  */
 
 #include <Source/Components/NetworkWeaponsComponent.h>
+#include <Source/Components/NetworkPlayerMovementComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkAnimationComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
@@ -423,8 +424,10 @@ namespace MultiplayerSample
 
     void NetworkWeaponsComponentController::CreateInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
-        if (!AZ::Interface<NetworkMatchComponent>::Get()->IsPlayerActionAllowed())
+        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
+        if (!networkMatchComponent || !networkMatchComponent->IsPlayerActionAllowed())
         {
+            m_weaponDrawn = false;
             m_weaponFiring = false;
             return;
         }
@@ -432,52 +435,45 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
 
-        // draw weapon automatically if firing
-        // use simple debounce for weapon draw to prevent multiple inputs between frames 
-        // TODO add cooldown timer
+        // Use simple debounce for weapon draw to prevent multiple inputs between frames 
         if (m_weaponDrawnChanged || (m_weaponFiring.AnySet() && !m_weaponDrawn))
         {
             m_weaponDrawn = !m_weaponDrawn;
             m_weaponDrawnChanged = false;
         }
 
-        weaponInput->m_draw = m_weaponDrawn;
         weaponInput->m_firing = m_weaponFiring;
 
         // All weapon indices point to the same bone so only send one instance
-        constexpr uint32_t weaponIndexInt = 0;
-        if (weaponInput->m_firing.GetBit(weaponIndexInt))
+        if (weaponInput->m_firing.AnySet())
         {
+            // Draw weapon automatically if firing
+            m_weaponDrawn = true;
             weaponInput->m_shotStartPosition = GetParent().GetCurrentShotStartPosition();
         }
+
+        weaponInput->m_draw = m_weaponDrawn;
     }
 
     void NetworkWeaponsComponentController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         NetworkWeaponsComponentNetworkInput* weaponInput = input.FindComponentInput<NetworkWeaponsComponentNetworkInput>();
+        NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
+
+        // Enable aiming if our weapon drawn flag is raised
+        GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), weaponInput->m_draw);
+
+        if ((playerInput != nullptr) && playerInput->m_sprint)
+        {
+            // Stop aiming whenever we're sprinting
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+        }
 
         // Always disable the recoil shooting flag when we start ProcessInput
         // It will raise again if we actually enter an activation scenario for any weapon
         if (!weaponInput->m_firing.AnySet())
         {
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-                aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), false);
-        }
-
-        // Turn on aiming when any of the weapon is ready to fire.
-        // TODO: Enter aiming first, then animation should send events that we are ready to fire. We can listen to the anim event and process
-        // weapon fire.
-        if (weaponInput->m_firing.AnySet())
-        {
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), true);
-        }
-
-        // However, turn off aiming any time the character is sprinting.
-        if (GetNetworkAnimationComponentController()->GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Sprinting)))
-        {
-            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
-                aznumeric_cast<uint32_t>(CharacterAnimState::Aiming), false);
+            GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Shooting), false);
         }
 
         const AZ::Transform cameraTransform = GetNetworkSimplePlayerCameraComponentController()->GetCameraTransform(/*collisionEnabled=*/false);
