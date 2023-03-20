@@ -25,6 +25,7 @@
 #include "Multiplayer/GemSpawnerComponent.h"
 #include <Multiplayer/Components/ISimplePlayerSpawner.h>
 
+
 #if AZ_TRAIT_CLIENT
 #   include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
 #   include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
@@ -143,6 +144,11 @@ namespace MultiplayerSample
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
     {
         RoundNumberAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
+    {
+        RoundTimeAddEvent(handler);
     }
 
     void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)

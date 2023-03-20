@@ -8,6 +8,8 @@
 set(FILES
     Source/Components/UI/UiGameOverComponent.cpp
     Source/Components/UI/UiGameOverComponent.h
+    Source/Components/UI/HUDComponent.cpp
+    Source/Components/UI/HUDComponent.h
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.cpp
     Source/Components/UI/UiMatchPlayerCoinCountsComponent.h
     Source/Components/UI/UiPlayerArmorComponent.cpp

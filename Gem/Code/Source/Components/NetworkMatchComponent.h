@@ -52,6 +52,10 @@ namespace MultiplayerSample
         //! @param handler the handler to add the the requested component event
         virtual void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) = 0;
 
+        //! Adds an event handler to the round time remaining AZ::Event
+        //! @param handler the handler to add the the requested component event
+        virtual void AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) = 0;
+
         //! Adds an event handler to the round number rest remaining AZ::Event
         //! @param handler the handler to add the the requested component event
         virtual void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) = 0;
@@ -90,6 +94,7 @@ namespace MultiplayerSample
         int32_t GetTotalRoundCount() const override;
         int32_t GetTotalPlayerCount() const override;
         void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) override;
+        void AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
         void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
         //! @}
 
