@@ -15,6 +15,12 @@
 
 namespace MultiplayerSample
 {
+    AZ_ENUM_CLASS(AllowedPlayerActions,
+        None,
+        RotationOnly,
+        All
+    );
+
     class INetworkMatch
     {
     public:
@@ -23,10 +29,10 @@ namespace MultiplayerSample
         INetworkMatch() = default;
         virtual ~INetworkMatch() = default;
 
-        //! Checks if the current game state allows player action.
-        //! For example, in between rounds the player shouldn't be able to move around.
-        //! @result true if the player is currently allowed to run, jump, shoot, etc; otherwise false.
-        virtual bool IsPlayerActionAllowed() const = 0;
+        //! Returns which player actions (if any) the current game state allows.
+        //! For example, in between rounds the player shouldn't be able to move around, but they can still rotate.
+        //! @result The type of player actions that are allowed 
+        virtual AllowedPlayerActions PlayerActionsAllowed() const = 0;
 
         //! Returns the time in seconds until the current round ends.
         //! @result the time in seconds until the current round ends
@@ -87,7 +93,7 @@ namespace MultiplayerSample
 
         //! INetworkMatch interface
         //! @{
-        bool IsPlayerActionAllowed() const override;
+        AllowedPlayerActions PlayerActionsAllowed() const override;
         float GetRoundTimeRemainingSec() const override;
         float GetTotalRoundTimeSec() const override;
         int32_t GetCurrentRoundNumber() const override;
@@ -175,3 +181,8 @@ namespace MultiplayerSample
         void FindWinner(MatchResultsSummary& results, const AZStd::vector<PlayerState>& potentialWinners);
     };
 }
+
+namespace AZ
+{
+    AZ_TYPE_INFO_SPECIALIZE(MultiplayerSample::AllowedPlayerActions, "{D8EB0533-D50C-4C04-B462-BA0BD1607FA8}");
+} // namespace AZ
