@@ -98,19 +98,19 @@ namespace MultiplayerSample
 
     void UiMatchPlayerCoinCountsComponent::EnableUI(bool enable)
     {
+        UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, enable);
+
         if (enable)
         {
-            UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, true);
             if (!m_onPlayerScoreChanged.IsConnected())
             {
                 AZ::Interface<MatchPlayerCoinsComponent>::Get()->CoinsPerPlayerAddEvent(m_onPlayerScoreChanged);
             }
             UpdatePlayerScoreUI();
         }
-        else if (!enable)
+        else
         {
             m_onPlayerScoreChanged.Disconnect();
-            UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, false);
         }
     }
 

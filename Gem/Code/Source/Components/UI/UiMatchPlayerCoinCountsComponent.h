@@ -19,6 +19,8 @@ namespace MultiplayerSample
         , public StartingPointInput::InputEventNotificationBus::MultiHandler
     {
     public:
+        static constexpr float SecondsBeforeNewRoundToHideUI = 3.0f;
+
         AZ_COMPONENT(UiMatchPlayerCoinCountsComponent, "{529b9b3b-bea2-4120-9089-c4451438e4c0}");
 
         static void Reflect(AZ::ReflectContext* context);
@@ -63,7 +65,7 @@ namespace MultiplayerSample
         // Automatically close the player score menu when the round is about to start
         AZ::Event<RoundTimeSec>::Handler m_restTimerHandler{ [this](RoundTimeSec secondsRemaining)
         {
-            if (secondsRemaining <= 3.0f)
+            if (secondsRemaining <= SecondsBeforeNewRoundToHideUI)
             {
                 EnableUI(false);
                 m_restTimerHandler.Disconnect();
