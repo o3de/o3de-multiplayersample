@@ -137,18 +137,21 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        // View Axis are clamped and brought into the -1,1 range for transport across the network.
-        // These are set regardless of whether or not any other player actions are allowed.
-        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        // Check current game-play state
+        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
+        if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() != AllowedPlayerActions::None))
+        {
+            // View Axis are clamped and brought into the -1,1 range for transport across the network.
+            // These are set if the player actions allow for rotation and/or all movement.
+            playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+            playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        }
 
         // reset accumulated amounts
         m_viewYaw = 0.f;
         m_viewPitch = 0.f;
 
-        // Check current game-play state
-        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
-        if (networkMatchComponent && networkMatchComponent->IsPlayerActionAllowed())
+        if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() == AllowedPlayerActions::All))
         {
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs

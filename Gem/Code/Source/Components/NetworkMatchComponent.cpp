@@ -5,6 +5,8 @@
  *
  */
 
+#include <AzCore/Preprocessor/EnumReflectUtils.h>
+
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
@@ -34,6 +36,8 @@
 
 namespace MultiplayerSample
 {
+    AZ_ENUM_DEFINE_REFLECT_UTILITIES(AllowedPlayerActions);
+
     void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -50,7 +54,7 @@ namespace MultiplayerSample
                 ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
                 ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
                 ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
-                ->Event("Is player action allowed", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::IsPlayerActionAllowed)
+                ->Event("Get the allowable player actions", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::PlayerActionsAllowed)
                 ->Event("Get roundtime remaining in seconds", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetRoundTimeRemainingSec)
                 ->Event("Get total roundtime in seconds", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetTotalRoundTimeSec)
                 ->Event("Get current round number", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetCurrentRoundNumber)
@@ -84,36 +88,36 @@ namespace MultiplayerSample
         #endif
     }
 
-    bool NetworkMatchComponent::IsPlayerActionAllowed() const
+    AllowedPlayerActions NetworkMatchComponent::PlayerActionsAllowed() const
     {
+#if AZ_TRAIT_CLIENT
+        // Don't allow player movement if the UI cursor is visible
+        bool isCursorVisible = false;
+        UiCursorBus::BroadcastResult(isCursorVisible, &UiCursorInterface::IsUiCursorVisible);
+        if (isCursorVisible)
+        {
+            return AllowedPlayerActions::None;
+        }
+
+        // Don't allow player movement if the system cursor is visible
+        AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
+        AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
+            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
+        if ((systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible) ||
+            (systemCursorState == AzFramework::SystemCursorState::ConstrainedAndVisible))
+        {
+            return AllowedPlayerActions::None;
+        }
+
+#endif
+
         // Disable player actions between rounds (rest period)
         if (GetRoundTime() <= 0 && GetRoundRestTimeRemaining() > 0)
         {
-            return false;
+            return AllowedPlayerActions::RotationOnly;
         }
 
-        #if AZ_TRAIT_CLIENT
-            // Don't allow player movement if the system cursor is visible
-            AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
-            AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
-                &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-            if ((systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible) ||
-                (systemCursorState == AzFramework::SystemCursorState::ConstrainedAndVisible))
-            {
-                return false;
-            }
-
-            // Don't allow player movement if the UI cursor is visible
-            bool isCursorVisible = false;
-            UiCursorBus::BroadcastResult(isCursorVisible, &UiCursorInterface::IsUiCursorVisible);
-            if (isCursorVisible)
-            {
-                return false;
-            }
-
-        #endif
-
-        return true;
+        return AllowedPlayerActions::All;
     }
 
     float NetworkMatchComponent::GetRoundTimeRemainingSec() const

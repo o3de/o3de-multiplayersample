@@ -425,7 +425,7 @@ namespace MultiplayerSample
     void NetworkWeaponsComponentController::CreateInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
-        if (!networkMatchComponent || !networkMatchComponent->IsPlayerActionAllowed())
+        if (!networkMatchComponent || (networkMatchComponent->PlayerActionsAllowed() != AllowedPlayerActions::All))
         {
             m_weaponDrawn = false;
             m_weaponFiring = false;
