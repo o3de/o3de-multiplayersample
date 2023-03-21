@@ -200,6 +200,10 @@ namespace MultiplayerSample
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
         if (playerInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
+            AZLOG_INFO("netEntityId=%u: Different reset count, discarding player input. Input / local reset=%u / %u, clientInputId=%u, hostFrame=%u",
+                GetNetEntityId(), playerInput->m_resetCount, GetNetworkTransformComponentController()->GetResetCount(), 
+                input.GetClientInputId(), input.GetHostFrameId()
+            );
             return;
         }
 
