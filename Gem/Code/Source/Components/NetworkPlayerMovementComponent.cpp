@@ -26,21 +26,9 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(float, cl_WasdStickAccel, 5.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The linear acceleration to apply to WASD inputs to simulate analog stick controls");
-    AZ_CVAR(float, cl_AimStickScaleZ, 0.025f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
-    AZ_CVAR(float, cl_AimStickScaleX, 0.0125f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
-
-    /*
-     * @cl_MaxMouseDelta should be large enough to contain the sum of mouse deltas across frames
-     * between NetworkPlayerMovementComponentController::CreateInput() calls,
-     * which happens at the frequency set by @cl_InputRateMs (33 times per second by default).
-     *
-     * The total value is then quantized using type @MouseAxis in "MultiplayerSampleTypes.h", for example:
-     *     using MouseAxis = AzNetworking::QuantizedValues<1, 2, -1, 1>;
-     * (The four numbers within the template parameters above read as: for a single value, spend 2 bytes to quantize a value between -1 and 1.)
-     *
-     * Keep the ranges and the precision of QuantizedValues and float types in mind when modifying mouse input configuration values.
-     */
-    AZ_CVAR(float, cl_MaxMouseDelta, 128.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The sum of mouse deltas will be clamped to this maximum");
+    AZ_CVAR(float, cl_AimStickScaleZ, 0.1f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_AimStickScaleX, 0.05f, nullptr, AZ::ConsoleFunctorFlags::Null, "The scaling to apply to aim and view adjustments");
+    AZ_CVAR(float, cl_MaxMouseDelta, 1024.f, nullptr, AZ::ConsoleFunctorFlags::Null, "Mouse deltas will be clamped to this maximum");
 
 #if AZ_TRAIT_CLIENT
     AZ_CVAR(bool, mps_botMode, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If true, enable bot (AI) mode for client.");
@@ -137,21 +125,18 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        // Check current game-play state
-        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
-        if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() != AllowedPlayerActions::None))
-        {
-            // View Axis are clamped and brought into the -1,1 range for transport across the network.
-            // These are set if the player actions allow for rotation and/or all movement.
-            playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-            playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
-        }
+        // View Axis are clamped and brought into the -1,1 range for transport across the network.
+        // These are set regardless of whether or not any other player actions are allowed.
+        playerInput->m_viewYaw = MouseAxis(AZStd::clamp<float>(m_viewYaw, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
+        playerInput->m_viewPitch = MouseAxis(AZStd::clamp<float>(m_viewPitch, -cl_MaxMouseDelta, cl_MaxMouseDelta) / cl_MaxMouseDelta);
 
         // reset accumulated amounts
         m_viewYaw = 0.f;
         m_viewPitch = 0.f;
 
-        if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() == AllowedPlayerActions::All))
+        // Check current game-play state
+        INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
+        if (networkMatchComponent && networkMatchComponent->IsPlayerActionAllowed())
         {
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
@@ -164,8 +149,7 @@ namespace MultiplayerSample
             playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
             playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
-            // Strafe input
-            playerInput->m_sprint = m_sprinting;
+            playerInput->m_sprint = m_sprinting && (playerInput->m_forwardAxis > 0.0f); // Only sprint if we're moving forward
             playerInput->m_jump = m_jumping;
             playerInput->m_crouch = m_crouching;
         }
@@ -200,15 +184,6 @@ namespace MultiplayerSample
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
         if (playerInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
-            // TEMPORARY LOGGING TO HELP DIAGNOSE MOVEMENT DISCONNECTIONS.
-            // Specifically, sometimes a player will still be able to move around locally, but on the server and other connected clients,
-            // the player has stopped moving. They can no longer interact with the environment, but they are still connected and can see
-            // the other players moving around, still receive damage notifications,e tc.
-            // This logging will get removed after the root cause has been found and resolved.
-            AZLOG_INFO("netEntityId=%u: Different reset count, discarding player input. Input / local reset=%u / %u, clientInputId=%u, hostFrame=%u",
-                GetNetEntityId(), playerInput->m_resetCount, GetNetworkTransformComponentController()->GetResetCount(), 
-                input.GetClientInputId(), input.GetHostFrameId()
-            );
             return;
         }
 
@@ -536,14 +511,11 @@ namespace MultiplayerSample
         }
         else if (*inputId == LookLeftRightEventId)
         {
-            // Accumulate input to be processed in CreateInput().
-            // In-between two CreateInput() calls, multiple series of presses and holds can occur, accumulate all of them,
-            // otherwise we will drop some of the input data by only including the last press and hold combination.
-            m_viewYaw += value;
+            m_viewYaw = value;
         }
         else if (*inputId == LookUpDownEventId)
         {
-            m_viewPitch += value;
+            m_viewPitch = value;
         }
     }
 

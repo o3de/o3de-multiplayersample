@@ -24,9 +24,9 @@ namespace MultiplayerSample
     AZ_CVAR(AZ::Vector3, cl_cameraColliderSize, AZ::Vector3(0.5f, 0.1f, 0.3f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Temporary collider size for player camera");
     AZ_CVAR(bool, cl_drawCameraCollider, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Draw the camera collider");
     AZ_CVAR(bool, cl_cameraBlendingEnabled, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When active, blends the camera aim angles.");
-    AZ_CVAR(float, cl_cameraFovSprintModifier, 15.0f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera FOV when sprinting");
-    AZ_CVAR(float, cl_cameraZoomSprintModifier, -0.5f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera zoom when sprinting");
-    AZ_CVAR(float, cl_cameraSprintBlendRate, 0.125f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "The rate at which to blend into sprint camera");
+    AZ_CVAR(float, cl_cameraFovSprintModifier, 10.0f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera FOV when sprinting");
+    AZ_CVAR(float, cl_cameraZoomSprintModifier, -0.3f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera zoom when sprinting");
+    AZ_CVAR(float, cl_cameraSprintBlendRate, 0.25f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "The rate at which to blend into sprint camera");
 
     NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
         : NetworkSimplePlayerCameraComponentControllerBase(parent)
