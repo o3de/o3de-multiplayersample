@@ -25,6 +25,8 @@ namespace MultiplayerSample
     void HUDComponent::Deactivate()
     {
         m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
+        m_roundNumberHandler.Disconnect();
+        m_roundTimerHandler.Disconnect();
     }
 
     void HUDComponent::Reflect(AZ::ReflectContext* context)
