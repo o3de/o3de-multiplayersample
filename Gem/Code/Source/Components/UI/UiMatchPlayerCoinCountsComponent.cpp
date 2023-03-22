@@ -26,12 +26,15 @@ namespace MultiplayerSample
 
     void UiMatchPlayerCoinCountsComponent::Activate()
     {
+        m_waitForActiveNetworkMatchComponent.Enqueue(AZ::TimeMs{ 1000 }, true);
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusConnect(ShowPlayerCoinCountsEventId);
     }
 
     void UiMatchPlayerCoinCountsComponent::Deactivate()
     {
         StartingPointInput::InputEventNotificationBus::MultiHandler::BusDisconnect();
+        m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
+        m_roundTimerHandler.Disconnect();
     }
 
     void UiMatchPlayerCoinCountsComponent::UpdatePlayerScoreUI()
@@ -93,6 +96,24 @@ namespace MultiplayerSample
         }
     }
 
+    void UiMatchPlayerCoinCountsComponent::EnableUI(bool enable)
+    {
+        UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, enable);
+
+        if (enable)
+        {
+            if (!m_onPlayerScoreChanged.IsConnected())
+            {
+                AZ::Interface<MatchPlayerCoinsComponent>::Get()->CoinsPerPlayerAddEvent(m_onPlayerScoreChanged);
+            }
+            UpdatePlayerScoreUI();
+        }
+        else
+        {
+            m_onPlayerScoreChanged.Disconnect();
+        }
+    }
+
     void UiMatchPlayerCoinCountsComponent::OnPressed([[maybe_unused]] float value)
     {
         const StartingPointInput::InputEventNotificationId* inputId = StartingPointInput::InputEventNotificationBus::GetCurrentBusId();
@@ -104,9 +125,7 @@ namespace MultiplayerSample
 
         if (*inputId == ShowPlayerCoinCountsEventId)
         {
-            UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, true);
-            AZ::Interface<MatchPlayerCoinsComponent>::Get()->CoinsPerPlayerAddEvent(m_onPlayerScoreChanged);
-            UpdatePlayerScoreUI();
+            EnableUI(true);
         }
     }
 
@@ -121,8 +140,7 @@ namespace MultiplayerSample
 
         if (*inputId == ShowPlayerCoinCountsEventId)
         {
-            m_onPlayerScoreChanged.Disconnect();
-            UiElementBus::Event(m_rootElementId, &UiElementBus::Events::SetIsEnabled, false);
+            EnableUI(false);
         }
     }
 

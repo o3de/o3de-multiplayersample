@@ -45,10 +45,10 @@ namespace MultiplayerSample
 
     void UiRestBetweenRoundsComponent::OnTick([[maybe_unused]]float deltaTime, [[maybe_unused]]AZ::ScriptTimePoint time)
     {
-        if (auto networkMatchComponent = AZ::Interface<NetworkMatchComponent>::Get())
+        if (auto networkMatchComponent = AZ::Interface<INetworkMatch>::Get())
         {
             // Disconnect from tickbus once event notifications are set up
-            networkMatchComponent->RoundRestTimeRemainingAddEvent(onRestTimeChangedHandler);
+            networkMatchComponent->AddRoundRestTimeRemainingEventHandler(onRestTimeChangedHandler);
             AZ::TickBus::Handler::BusDisconnect();
         }
     }

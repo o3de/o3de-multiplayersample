@@ -12,8 +12,7 @@
 
 namespace MultiplayerSample
 {
-    GameStatePreparingMatch::GameStatePreparingMatch(NetworkMatchComponentController* controller)
-        : m_controller(controller)
+    GameStatePreparingMatch::GameStatePreparingMatch([[maybe_unused]] NetworkMatchComponentController* controller)
     {
     }
 

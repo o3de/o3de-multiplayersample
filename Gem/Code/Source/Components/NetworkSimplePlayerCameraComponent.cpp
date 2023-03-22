@@ -15,16 +15,18 @@
 #include <Multiplayer/IMultiplayer.h> 
 
 #if AZ_TRAIT_CLIENT
-#include <DebugDraw/DebugDrawBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
 {
     AZ_CVAR(AZ::Vector3, cl_cameraOffset, AZ::Vector3(0.5f, 0.f, 1.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Offset to use for the player camera");
-    AZ_CVAR(AZ::Vector3, cl_cameraColliderSize, AZ::Vector3(0.7f, 0.1f, 0.5f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Temporary collider size for player camera");
+    AZ_CVAR(AZ::Vector3, cl_cameraColliderSize, AZ::Vector3(0.5f, 0.1f, 0.3f), nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Temporary collider size for player camera");
     AZ_CVAR(bool, cl_drawCameraCollider, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Draw the camera collider");
     AZ_CVAR(bool, cl_cameraBlendingEnabled, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When active, blends the camera aim angles.");
-
+    AZ_CVAR(float, cl_cameraFovSprintModifier, 15.0f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera FOV when sprinting");
+    AZ_CVAR(float, cl_cameraZoomSprintModifier, -0.5f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "Controls how much to adjust camera zoom when sprinting");
+    AZ_CVAR(float, cl_cameraSprintBlendRate, 0.125f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "The rate at which to blend into sprint camera");
 
     NetworkSimplePlayerCameraComponentController::NetworkSimplePlayerCameraComponentController(NetworkSimplePlayerCameraComponent& parent)
         : NetworkSimplePlayerCameraComponentControllerBase(parent)
@@ -45,6 +47,8 @@ namespace MultiplayerSample
         aimAngles.SetZ(GetEntity()->GetTransform()->GetLocalRotation().GetZ());
         SetSyncAimImmediate(true);
 
+        m_springArmDist = GetMaxFollowDistance();
+
         if (IsNetEntityRoleAutonomous())
         {
             m_aiEnabled = FindComponent<NetworkAiComponent>()->GetEnabled();
@@ -53,6 +57,8 @@ namespace MultiplayerSample
                 AZ::EntityId activeCameraId;
                 Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequestBus::Events::GetActiveCamera);
                 m_activeCameraEntity = AZ::Interface<AZ::ComponentApplicationRequests>::Get()->FindEntity(activeCameraId);
+                Camera::CameraRequestBus::EventResult(m_originalFov, m_activeCameraEntity->GetId(), &Camera::CameraRequestBus::Events::GetFovDegrees);
+                m_currentFov = m_originalFov;
             }
         }
 
@@ -121,7 +127,7 @@ namespace MultiplayerSample
         const AZ::Vector3 targetTranslation = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
         const AZ::Vector3 cameraPivotOffset = targetYaw.TransformVector(cl_cameraOffset);
 
-        if(collisionEnabled)
+        if (collisionEnabled)
         { 
             AZ::Transform cameraTransform = AZ::Transform::CreateFromQuaternionAndTranslation(aimRotation, targetTranslation + cameraPivotOffset);
             ApplySpringArm(cameraTransform);
@@ -134,10 +140,21 @@ namespace MultiplayerSample
         }
     }
 
+    void NetworkSimplePlayerCameraComponentController::SetSprintMode(bool sprintMode)
+    {
+        m_sprinting = sprintMode;
+    }
+
     void NetworkSimplePlayerCameraComponentController::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         if (m_activeCameraEntity != nullptr && m_activeCameraEntity->GetState() == AZ::Entity::State::Active)
         {
+            const float targetZoom = m_sprinting ? cl_cameraZoomSprintModifier : 0.0f;
+            m_currentZoom += (targetZoom - m_currentZoom) * cl_cameraSprintBlendRate;
+            const float targetFov = m_sprinting ? m_originalFov + cl_cameraFovSprintModifier : m_originalFov;
+            m_currentFov += (targetFov - m_currentFov) * cl_cameraSprintBlendRate;
+            Camera::CameraRequestBus::Event(m_activeCameraEntity->GetId(), &Camera::CameraRequestBus::Events::SetFovDegrees, m_currentFov);
+
             const AZ::Transform& transform = GetCameraTransform(GetEnableCollision());
             m_activeCameraEntity->GetTransform()->SetWorldTM(transform);
         }
@@ -161,7 +178,7 @@ namespace MultiplayerSample
         const AZ::Vector3 cameraPivot = inOutTransform.GetTranslation();
         const AZ::Vector3 direction = -inOutTransform.GetBasisY();
         const float maxDistance = GetMaxFollowDistance();
-        float distance = maxDistance;
+        float distance = maxDistance + m_currentZoom;
 
         // trace from the target to the camera position
         auto request = AzPhysics::ShapeCastRequestHelpers::CreateBoxCastRequest(
@@ -180,8 +197,9 @@ namespace MultiplayerSample
             distance = result.m_hits[0].m_distance - GetCollisionOffset();
             distance = AZ::GetClamp(distance, GetMinFollowDistance(), maxDistance);
         }
+        m_springArmDist = (m_springArmDist + distance) * 0.5f;
 
-        inOutTransform.SetTranslation(cameraPivot + direction * distance);
+        inOutTransform.SetTranslation(cameraPivot + direction * m_springArmDist);
 
 #if AZ_TRAIT_CLIENT
         if (cl_drawCameraCollider && distance < maxDistance)
