@@ -125,7 +125,7 @@ namespace MultiplayerSample
         const bool result = MultiplayerSample::GatherEntities(m_weaponParams.m_gatherParams, eventData, m_gatheredNetEntityIds, outResults);
         if (gp_PauseOnWeaponGather && (outResults.size() > 0))
         {
-            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_scale 0");
+            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_simulationTickScale 0");
         }
         return result;
     }
@@ -135,7 +135,7 @@ namespace MultiplayerSample
         ShotResult result = MultiplayerSample::GatherEntitiesMultisegment(m_weaponParams.m_gatherParams, m_gatheredNetEntityIds, deltaTime, inOutActiveShot, outResults);
         if (gp_PauseOnWeaponGather && (outResults.size() > 0))
         {
-            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_scale 0");
+            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_simulationTickScale 0");
         }
         return result;
     }
