@@ -11,10 +11,12 @@
 #include <Source/GameState/GameStatePreparingMatch.h>
 
 namespace MultiplayerSample
-{
-    GameStateMatchEnded::GameStateMatchEnded(NetworkMatchComponentController* controller)
-        : m_controller(controller)
+{    
+    GameStateMatchEnded::GameStateMatchEnded([[maybe_unused]] NetworkMatchComponentController* controller)
     {
+#if AZ_TRAIT_SERVER
+        m_controller = controller;	    
+#endif	    
     }
 
     void GameStateMatchEnded::OnEnter()
