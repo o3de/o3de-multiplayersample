@@ -199,15 +199,6 @@ namespace MultiplayerSample
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
         if (playerInput->m_resetCount != GetNetworkTransformComponentController()->GetResetCount())
         {
-            // TEMPORARY LOGGING TO HELP DIAGNOSE MOVEMENT DISCONNECTIONS.
-            // Specifically, sometimes a player will still be able to move around locally, but on the server and other connected clients,
-            // the player has stopped moving. They can no longer interact with the environment, but they are still connected and can see
-            // the other players moving around, still receive damage notifications,e tc.
-            // This logging will get removed after the root cause has been found and resolved.
-            AZLOG_INFO("netEntityId=%llu: Different reset count, discarding player input. Input / local reset=%u / %u, clientInputId=%u, hostFrame=%u",
-                aznumeric_cast<AZ::u64>(GetNetEntityId()), playerInput->m_resetCount, GetNetworkTransformComponentController()->GetResetCount(),
-                aznumeric_cast<AZ::u32>(input.GetClientInputId()), input.GetHostFrameId()
-            );
             return;
         }
 
