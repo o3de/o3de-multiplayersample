@@ -8,7 +8,9 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/Math/Transform.h>
 #include <AzFramework/Spawnable/Spawnable.h>
+#include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
 
 namespace MultiplayerSample
 {
@@ -29,6 +31,10 @@ namespace MultiplayerSample
         //! }@
 
     private:
-        AZ::Data::Asset<AzFramework::Spawnable> m_gunSpawnableAsset;
+        AZ::Data::Asset<AzFramework::Spawnable> m_gunAsset;
+        AZStd::string m_boneToAttachTo;
+        AZ::Transform m_attachmentTransform;
+
+        AZStd::shared_ptr<AzFramework::EntitySpawnTicket> m_gunTicket;
     };
 }
