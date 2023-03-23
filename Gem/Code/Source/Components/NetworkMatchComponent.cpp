@@ -5,6 +5,8 @@
  *
  */
 
+#include <AzCore/Preprocessor/EnumReflectUtils.h>
+
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
@@ -27,13 +29,15 @@
 
 
 #if AZ_TRAIT_CLIENT
-#include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
-#include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
-#include <LyShine/Bus/UiCursorBus.h>
+#   include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
+#   include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
+#   include <LyShine/Bus/UiCursorBus.h>
 #endif
 
 namespace MultiplayerSample
 {
+    AZ_ENUM_DEFINE_REFLECT_UTILITIES(AllowedPlayerActions);
+
     void NetworkMatchComponent::Reflect(AZ::ReflectContext* context)
     {
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
@@ -43,59 +47,117 @@ namespace MultiplayerSample
                 ->Version(1);
         }
         NetworkMatchComponentBase::Reflect(context);
+
+        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            behaviorContext->EBus<MultiplayerSample::NetworkMatchComponentRequestBus>("Network Match Component Requests")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
+                ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                ->Event("Get the allowable player actions", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::PlayerActionsAllowed)
+                ->Event("Get roundtime remaining in seconds", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetRoundTimeRemainingSec)
+                ->Event("Get total roundtime in seconds", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetTotalRoundTimeSec)
+                ->Event("Get current round number", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetCurrentRoundNumber)
+                ->Event("Get total round count", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetTotalRoundCount)
+                ->Event("Get total player count", &MultiplayerSample::NetworkMatchComponentRequestBus::Events::GetTotalPlayerCount)
+                ;
+        }
     }
 
     void NetworkMatchComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         #if AZ_TRAIT_CLIENT
-            AZ::Interface<NetworkMatchComponent>::Register(this);
+            AZ::Interface<INetworkMatch>::Register(this);
         #endif
 
         if (IsNetEntityRoleAuthority() || IsNetEntityRoleServer())
         {
             PlayerIdentityNotificationBus::Handler::BusConnect();
         }
+
+        NetworkMatchComponentRequestBus::Handler::BusConnect();
     }
 
     void NetworkMatchComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        NetworkMatchComponentRequestBus::Handler::BusDisconnect();
         PlayerIdentityNotificationBus::Handler::BusDisconnect();
 
         #if AZ_TRAIT_CLIENT
-            AZ::Interface<NetworkMatchComponent>::Unregister(this);
+            AZ::Interface<INetworkMatch>::Unregister(this);
         #endif
     }
 
-    bool NetworkMatchComponent::IsPlayerActionAllowed() const
+    AllowedPlayerActions NetworkMatchComponent::PlayerActionsAllowed() const
     {
+#if AZ_TRAIT_CLIENT
+        // Don't allow player movement if the UI cursor is visible
+        bool isCursorVisible = false;
+        UiCursorBus::BroadcastResult(isCursorVisible, &UiCursorInterface::IsUiCursorVisible);
+        if (isCursorVisible)
+        {
+            return AllowedPlayerActions::None;
+        }
+
+        // Don't allow player movement if the system cursor is visible
+        AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
+        AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
+            &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
+        if ((systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible) ||
+            (systemCursorState == AzFramework::SystemCursorState::ConstrainedAndVisible))
+        {
+            return AllowedPlayerActions::None;
+        }
+
+#endif
+
         // Disable player actions between rounds (rest period)
         if (GetRoundTime() <= 0 && GetRoundRestTimeRemaining() > 0)
         {
-            return false;
+            return AllowedPlayerActions::RotationOnly;
         }
 
-        #if AZ_TRAIT_CLIENT
-            // Don't allow player movement if the system cursor is visible
-            AzFramework::SystemCursorState systemCursorState{ AzFramework::SystemCursorState::Unknown };
-            AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorState, AzFramework::InputDeviceMouse::Id,
-                &AzFramework::InputSystemCursorRequests::GetSystemCursorState);
-            if ((systemCursorState == AzFramework::SystemCursorState::UnconstrainedAndVisible) ||
-                (systemCursorState == AzFramework::SystemCursorState::ConstrainedAndVisible))
-            {
-                return false;
-            }
+        return AllowedPlayerActions::All;
+    }
 
-            // Don't allow player movement if the UI cursor is visible
-            bool isCursorVisible = false;
-            UiCursorBus::BroadcastResult(isCursorVisible, &UiCursorInterface::IsUiCursorVisible);
-            if (isCursorVisible)
-            {
-                return false;
-            }
+    float NetworkMatchComponent::GetRoundTimeRemainingSec() const
+    {
+        return aznumeric_cast<float>(GetRoundTime());
+    }
 
-        #endif
+    float NetworkMatchComponent::GetTotalRoundTimeSec() const
+    {
+        return GetRoundDuration();
+    }
 
-        return true;
+    int32_t NetworkMatchComponent::GetCurrentRoundNumber() const
+    {
+        return aznumeric_cast<int32_t>(GetRoundNumber());
+    }
+
+    int32_t NetworkMatchComponent::GetTotalRoundCount() const
+    {
+        return aznumeric_cast<int32_t>(GetTotalRounds());
+    }
+
+    int32_t NetworkMatchComponent::GetTotalPlayerCount() const
+    {
+        return aznumeric_cast<int32_t>(GetPlayerCount());
+    }
+
+    void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
+    {
+        RoundNumberAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
+    {
+        RoundTimeAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
+    {
+        RoundRestTimeRemainingAddEvent(handler);
     }
 
 #if AZ_TRAIT_SERVER
@@ -378,6 +440,7 @@ namespace MultiplayerSample
             m_players.push_back(playerEntity);
             AssignPlayerIdentity(playerEntity);
         }
+        SetPlayerCount(aznumeric_cast<int16_t>(m_players.size()));
     }
 
     void NetworkMatchComponentController::HandleRPC_PlayerDeactivated([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
@@ -392,6 +455,7 @@ namespace MultiplayerSample
         {
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player deactivated %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
+        SetPlayerCount(aznumeric_cast<int16_t>(m_players.size()));
     }
 #endif
 

@@ -11,11 +11,11 @@
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/PerfTest/NetworkRandomImpulseComponent.h>
 #include <Components/PerfTest/NetworkTestSpawnerComponent.h>
-#include <Components/UI/HUDComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
 #if AZ_TRAIT_CLIENT
+    #include <Components/UI/HUDComponent.h>
     #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
 #endif
@@ -40,10 +40,10 @@ namespace MultiplayerSample
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
-                HUDComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
+                    HUDComponent::CreateDescriptor(),
                     UiGameOverComponent::CreateDescriptor(),
                     UiPlayerArmorComponent::CreateDescriptor(),
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),

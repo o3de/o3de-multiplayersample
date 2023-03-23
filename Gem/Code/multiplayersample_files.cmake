@@ -50,8 +50,6 @@ set(FILES
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
 
-    Source/Components/UI/HUDComponent.cpp
-    Source/Components/UI/HUDComponent.h
     Source/Components/UI/UiCoinCountComponent.cpp
     Source/Components/UI/UiCoinCountComponent.h
     Source/Components/Multiplayer/GameplayEffectsComponent.cpp

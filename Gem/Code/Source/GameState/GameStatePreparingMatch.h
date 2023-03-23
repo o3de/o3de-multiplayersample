@@ -29,8 +29,6 @@ namespace MultiplayerSample
         //! }@
 
     private:
-        NetworkMatchComponentController* m_controller = nullptr;
-
         AZ::TimeMs m_preparationTime = AZ::Time::ZeroTimeMs;
 
         void OnPreparingMatchTick();
