@@ -164,8 +164,7 @@ namespace MultiplayerSample
             playerInput->m_forwardAxis = StickAxis(m_forwardWeight - m_backwardWeight);
             playerInput->m_strafeAxis = StickAxis(m_leftWeight - m_rightWeight);
 
-            // Strafe input
-            playerInput->m_sprint = m_sprinting;
+            playerInput->m_sprint = m_sprinting && (playerInput->m_forwardAxis > 0.0f); // Only sprint if we're moving forward
             playerInput->m_jump = m_jumping;
             playerInput->m_crouch = m_crouching;
         }
