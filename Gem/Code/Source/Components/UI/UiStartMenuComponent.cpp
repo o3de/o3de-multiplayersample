@@ -92,56 +92,23 @@ namespace MultiplayerSample
         else if (buttonEntityId == m_hostButtonUi)
         {
             console->PerformCommand("host");
-            console->PerformCommand("loadlevel NewStarBase");
+            console->PerformCommand("loadlevel NewStarbase");
         }
         else if (buttonEntityId == m_joinButtonUi)
         {
             UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
-            console->PerformCommand("connect");
+
+            AZStd::string ipAddress = "";
+            UiTextInputBus::EventResult(ipAddress, m_ipAddressTextInputUi, &UiTextInputInterface::GetText);
+
+            const AZStd::string connectCommand = AZStd::string::format("connect %s", ipAddress.c_str());
+            console->PerformCommand(connectCommand.c_str());
         }
     }
 
-
-    /*
-    void UiStartMenuComponent::SetRoundNumberText(uint16_t round)
+    void UiStartMenuComponent::OnTick([[maybe_unused]]float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
-        if (const INetworkMatch* netMatchComponent = AZ::Interface<INetworkMatch>::Get())
-        {
-            // Display the current round number.
-            // The end of match can push the round count over the max round count, so cap it.
-            const uint16_t totalRounds = aznumeric_cast<uint16_t>(netMatchComponent->GetTotalRoundCount());
-            m_roundNumberText = AZStd::string::format("%d of %d", AZStd::min(round, totalRounds), totalRounds);
-            UiTextBus::Event(m_roundNumberUi, &UiTextBus::Events::SetText, m_roundNumberText);
-        }
+        
     }
 
-    void UiStartMenuComponent::SetRoundTimerText(RoundTimeSec time)
-    {
-        // Display a clock with the time remaining
-        auto duration = AZStd::chrono::seconds(time);
-        auto minutes = AZStd::chrono::duration_cast<AZStd::chrono::minutes>(duration);
-        auto seconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(duration - minutes);
-
-        m_roundTimerText = AZStd::string::format("%02i:%02i", static_cast<int>(minutes.count()), static_cast<int>(seconds.count()));
-
-        UiTextBus::Event(m_roundTimerUi, &UiTextBus::Events::SetText, m_roundTimerText);
-
-        // Display a countdown of custom UI when the round is close to finishing
-        if (duration.count() > 0 && duration.count() <= 10)
-        {
-            UiElementBus::Event(m_roundSecondsRemainingUiParent, &UiElementBus::Events::SetIsEnabled, true);
-
-            AZStd::vector<AZ::EntityId> uiSecondsRemainingUIElements;
-            UiElementBus::EventResult(uiSecondsRemainingUIElements, m_roundSecondsRemainingUiParent, &UiElementBus::Events::GetChildEntityIds);
-            for (int i = 0; i < uiSecondsRemainingUIElements.size(); ++i)
-            {
-                UiElementBus::Event(uiSecondsRemainingUIElements[i], &UiElementBus::Events::SetIsEnabled, i == aznumeric_cast<int>(duration.count()));
-            }
-        }
-        else
-        {
-            UiElementBus::Event(m_roundSecondsRemainingUiParent, &UiElementBus::Events::SetIsEnabled, false);
-        }
-    }
-    */
 } // namespace MultiplayerSample
