@@ -31,10 +31,9 @@ namespace MultiplayerSample
         //! }@
 
     private:
-        AZ::Data::Asset<AzFramework::Spawnable> m_gunAsset;
+        AZStd::shared_ptr<AzFramework::EntitySpawnTicket> m_weaponTicket;
+        AZ::Data::Asset<AzFramework::Spawnable> m_weaponAsset;
         AZStd::string m_boneToAttachTo;
         AZ::Transform m_attachmentTransform;
-
-        AZStd::shared_ptr<AzFramework::EntitySpawnTicket> m_gunTicket;
     };
 }

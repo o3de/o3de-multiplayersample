@@ -19,7 +19,7 @@ namespace MultiplayerSample
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<AttachPlayerWeaponComponent, AZ::Component>()
-                ->Field( "GunAsset", &AttachPlayerWeaponComponent::m_gunAsset)
+                ->Field( "WeaponAsset", &AttachPlayerWeaponComponent::m_weaponAsset)
                 ->Field( "Bone To Attach To", &AttachPlayerWeaponComponent::m_boneToAttachTo)
                 ->Field( "Transform", &AttachPlayerWeaponComponent::m_attachmentTransform)
                 ->Version(1);
@@ -28,14 +28,14 @@ namespace MultiplayerSample
             {
                 using namespace AZ::Edit;
                 editContext->Class<AttachPlayerWeaponComponent>("AttachPlayerWeaponComponent", 
-                        "Spawns a non-network gun prefab and attaches it to the player entity.")
+                        "Spawns a non-network weapon prefab and attaches it to the player entity.")
                     ->ClassElement(ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &AttachPlayerWeaponComponent::m_gunAsset, "GunAsset", 
-                        "non-networked gun prefab to spawn")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &AttachPlayerWeaponComponent::m_weaponAsset, "WeaponAsset", 
+                        "non-networked weapon prefab to spawn")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &AttachPlayerWeaponComponent::m_boneToAttachTo, "Bone To Attach To", 
-                        "The bone on the player actor's skeleton to attach the gun to")
+                        "The bone on the player actor's skeleton to attach the weapon to")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &AttachPlayerWeaponComponent::m_attachmentTransform, "Transform", 
                         "Relative transform of the attachment to the bone")
                 ;
@@ -45,7 +45,7 @@ namespace MultiplayerSample
 
     void AttachPlayerWeaponComponent::Activate()
     {
-        m_gunTicket = AZStd::make_shared<AzFramework::EntitySpawnTicket>(m_gunAsset);
+        m_weaponTicket = AZStd::make_shared<AzFramework::EntitySpawnTicket>(m_weaponAsset);
         
         auto onSpawnedCallback = [this]([[maybe_unused]] AzFramework::EntitySpawnTicket::Id ticketId, AzFramework::SpawnableConstEntityContainerView view)
         {
@@ -56,17 +56,17 @@ namespace MultiplayerSample
             }
         };
 
-        AZ_Assert(m_gunTicket->IsValid(), "Unable to instantiate gun's spawnable asset");
-        if (m_gunTicket->IsValid())
+        AZ_Assert(m_weaponTicket->IsValid(), "Unable to instantiate weapon's spawnable asset");
+        if (m_weaponTicket->IsValid())
         {
             AzFramework::SpawnAllEntitiesOptionalArgs optionalArgs;
             optionalArgs.m_completionCallback = AZStd::move(onSpawnedCallback);
-            AzFramework::SpawnableEntitiesInterface::Get()->SpawnAllEntities(*m_gunTicket, AZStd::move(optionalArgs));
+            AzFramework::SpawnableEntitiesInterface::Get()->SpawnAllEntities(*m_weaponTicket, AZStd::move(optionalArgs));
         }
     }
 
     void AttachPlayerWeaponComponent::Deactivate()
     {
-        m_gunTicket.reset();
+        m_weaponTicket.reset();
     }
 }
