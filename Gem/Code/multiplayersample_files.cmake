@@ -17,6 +17,8 @@ set(FILES
     Include/UiGameOverBus.h
     Include/UiPlayerArmorBus.h
 
+    Source/Components/AttachPlayerWeaponComponent.h
+    Source/Components/AttachPlayerWeaponComponent.cpp
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp

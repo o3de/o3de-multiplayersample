@@ -7,6 +7,7 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
+#include <Components/AttachPlayerWeaponComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/PerfTest/NetworkRandomImpulseComponent.h>
@@ -39,6 +40,7 @@ namespace MultiplayerSample
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
+                AttachPlayerWeaponComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
