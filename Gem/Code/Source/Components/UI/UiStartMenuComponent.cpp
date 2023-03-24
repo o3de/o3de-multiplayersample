@@ -30,6 +30,7 @@ namespace MultiplayerSample
                 ->Field("ExitButton", &UiStartMenuComponent::m_exitButtonUi)
                 ->Field("IPAddressTextInput", &UiStartMenuComponent::m_ipAddressTextInputUi)
                 ->Field("AttemptConnectionBlockerUi", &UiStartMenuComponent::m_attemptConnectionBlockerUi)
+                ->Field("ConnectToHostFailedUi", &UiStartMenuComponent::m_connectToHostFailedUi)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -45,6 +46,7 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiStartMenuComponent::m_exitButtonUi, "Exit Button", "The ui button to quit the app.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiStartMenuComponent::m_ipAddressTextInputUi, "IP Address TextInput", "The ui text input providing the ip address to join.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiStartMenuComponent::m_attemptConnectionBlockerUi, "Attempt Connection Blocker", "Fullscreen ui for blocking user input while the client tries to connect.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiStartMenuComponent::m_connectToHostFailedUi, "Connection To Host Failed", "Ui to inform the user that connecting to the host failed.")
                     ;
             }
         }
@@ -58,6 +60,7 @@ namespace MultiplayerSample
         UiButtonBus::Event(m_exitButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) {OnButtonClicked(buttonEntityId); });
         UiButtonBus::Event(m_hostButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) {OnButtonClicked(buttonEntityId); });
         UiButtonBus::Event(m_joinButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) {OnButtonClicked(buttonEntityId); });
+        UiButtonBus::Event(m_connectToHostFailedUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) {OnButtonClicked(buttonEntityId); });
 
         // Hide the host button if this app can't host
         #if !AZ_TRAIT_SERVER
@@ -69,10 +72,14 @@ namespace MultiplayerSample
 
         // Set default text of the ip-address
         UiTextInputBus::Event(m_ipAddressTextInputUi, &UiTextInputInterface::SetText, Multiplayer::LocalHost);
+
+        // Listen for disconnect events to know if connecting to the host server failed
+        AZ::Interface<Multiplayer::IMultiplayer>::Get()->AddEndpointDisconnectedHandler(m_onConnectToHostFailed);
     }
 
     void UiStartMenuComponent::Deactivate()
     {
+        m_onConnectToHostFailed.Disconnect();
         UiCursorBus::Broadcast(&UiCursorInterface::DecrementVisibleCounter);
     }
 
@@ -104,11 +111,18 @@ namespace MultiplayerSample
             const AZStd::string connectCommand = AZStd::string::format("connect %s", ipAddress.c_str());
             console->PerformCommand(connectCommand.c_str());
         }
+        else if (buttonEntityId == m_connectToHostFailedUi)
+        {
+            // Player acknowledged connection failed. Close the warning popup.
+            UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, false);
+        }
     }
 
-    void UiStartMenuComponent::OnTick([[maybe_unused]]float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void UiStartMenuComponent::OnConnectToHostFailed()
     {
-        
+        UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
+        UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
+
     }
 
 } // namespace MultiplayerSample
