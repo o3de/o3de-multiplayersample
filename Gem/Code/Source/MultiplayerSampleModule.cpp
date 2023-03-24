@@ -21,6 +21,9 @@
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
     #include <Components/UI/UiStartMenuComponent.h>
 #endif
+#if AZ_TRAIT_SERVER  && !AZ_TRAIT_CLIENT
+    #include <Source/MultiplayerSampleAWSGameLiftServerSystemComponent.h>
+#endif
 
 #include <Source/AutoGen/AutoComponentTypes.h>
 
@@ -53,6 +56,9 @@ namespace MultiplayerSample
                     UiRestBetweenRoundsComponent::CreateDescriptor(),
                     UiStartMenuComponent::CreateDescriptor()
                 #endif
+                #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+                    MultiplayerSampleAWSGameLiftServerSystemComponent::CreateDescriptor(),
+                #endif
             });
 
             CreateComponentDescriptors(m_descriptors);
@@ -65,6 +71,9 @@ namespace MultiplayerSample
         {
             return AZ::ComponentTypeList{
                 azrtti_typeid<MultiplayerSampleSystemComponent>(),
+                #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+                    azrtti_typeid<MultiplayerSampleAWSGameLiftServerSystemComponent>(),
+                #endif
             };
         }
     };
