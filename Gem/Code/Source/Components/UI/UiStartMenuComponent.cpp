@@ -122,7 +122,6 @@ namespace MultiplayerSample
     {
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
         UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
-
     }
 
 } // namespace MultiplayerSample
