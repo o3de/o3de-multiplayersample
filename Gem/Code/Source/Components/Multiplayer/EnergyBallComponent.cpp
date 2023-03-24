@@ -5,120 +5,144 @@
  *
  */
 
-#include <GameplayEffectsNotificationBus.h>
-#include <MultiplayerSampleTypes.h>
-#include <AzCore/Component/ComponentApplicationBus.h>
-#include <AzCore/Component/TransformBus.h>
-#include <AzCore/Settings/SettingsRegistry.h>
-#include <AzFramework/Physics/RigidBodyBus.h>
-#include <AzFramework/Physics/Collision/CollisionEvents.h>
-#include <AzFramework/Physics/SimulatedBodies/RigidBody.h>
-#include <Multiplayer/Components/NetworkTransformComponent.h>
-#include <Source/AutoGen/NetworkHealthComponent.AutoComponent.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
-#include <Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h>
+#include <Source/AutoGen/NetworkHealthComponent.AutoComponent.h>
+#include <Multiplayer/Components/NetworkTransformComponent.h>
+#include <Multiplayer/Components/NetworkRigidBodyComponent.h>
+#include <MultiplayerSampleTypes.h>
+#include <AzCore/Component/TransformBus.h>
+#include <AzFramework/Physics/RigidBodyBus.h>
 
 namespace MultiplayerSample
 {
+    AZ_CVAR(float, sv_EnergyBallImpulseScalar, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
+
+    void EnergyBallComponent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<EnergyBallComponent, EnergyBallComponentBase>()
+                ->Version(1);
+        }
+        EnergyBallComponentBase::Reflect(context);
+    }
+
+    void EnergyBallComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        m_effect = GetExplosionEffect();
+        m_effect.Initialize();
+    }
+
+    void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        ;
+    }
+
+#if AZ_TRAIT_CLIENT
+    void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location)
+    {
+        AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), location);
+        m_effect.TriggerEffect(transform);
+    }
+#endif
+
+
     EnergyBallComponentController::EnergyBallComponentController(EnergyBallComponent& parent)
         : EnergyBallComponentControllerBase(parent)
     {
+        ;
     }
 
     void EnergyBallComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        LoadEnergyBallSettings();
-
-        AzPhysics::RigidBody* body = nullptr;
-        Physics::RigidBodyRequestBus::EventResult(body, GetEntityId(), &Physics::RigidBodyRequests::GetRigidBody);
-        if (body)
-        {
-            body->RegisterOnCollisionBeginHandler(m_collisionHandler);
-        }
+#if AZ_TRAIT_SERVER
+        m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
+#endif
     }
 
     void EnergyBallComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        m_collisionHandler.Disconnect();
+#if AZ_TRAIT_SERVER
+        m_collisionCheckEvent.RemoveFromQueue();
+#endif
     }
 
 #if AZ_TRAIT_SERVER
-    void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection,
-        const AZ::Vector3& startingPosition, const AZ::Vector3& direction)
+    void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId)
     {
-        m_direction = direction;
+        HideEnergyBall();
 
-        using RigidBodyBus = Physics::RigidBodyRequestBus;
-        RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::DisablePhysics);
+        m_filteredNetEntityIds.clear();
+        m_filteredNetEntityIds.insert(owningNetEntityId);
+        m_filteredNetEntityIds.insert(GetNetEntityId());
+        m_direction = direction;
 
         // move self and increment resetCount to prevent transform interpolation
         AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, startingPosition);
         GetNetworkTransformComponentController()->ModifyResetCount()++;
 
-        RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::EnablePhysics);
-        RigidBodyBus::Event(GetEntityId(), &RigidBodyBus::Events::SetLinearVelocity, direction * aznumeric_cast<float>(m_speed));
-
-        GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-            SoundEffect::EnergyBallTrapProjectile, GetEntity()->GetTransform()->GetWorldTranslation());
+        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::EnablePhysics);
+        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
     }
-#endif
+
+    void EnergyBallComponentController::CheckForCollisions()
+    {
+        const AZ::Vector3& position = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
+        const HitEffect& effect = GetHitEffect();
+
+        IntersectResults results;
+        const ActivateEvent activateEvent{ GetEntity()->GetTransform()->GetWorldTM(), position, Multiplayer::InvalidNetEntityId, Multiplayer::InvalidNetEntityId };
+        GatherEntities(GetGatherParams(), activateEvent, m_filteredNetEntityIds, results);
+        if (!results.empty())
+        {
+            bool shouldTerminate = false;
+            for (const IntersectResult& result : results)
+            {
+                Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
+                if (handle.Exists())
+                {
+                    shouldTerminate = true;
+
+                    // Presently set to 1 until we capture falloff range
+                    float hitDistance = 1.f;
+                    float maxDistance = 1.f;
+                    float damage = effect.m_hitMagnitude * powf((effect.m_hitFalloff * (1.0f - hitDistance / maxDistance)), effect.m_hitExponent);
+
+                    // Look for physics rigid body component and make impact updates
+                    if (Multiplayer::NetworkRigidBodyComponent* rigidBodyComponent = handle.GetEntity()->FindComponent<Multiplayer::NetworkRigidBodyComponent>())
+                    {
+                        const AZ::Vector3 explosionCentre = position;
+                        const AZ::Vector3 hitObject = handle.GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
+                        const AZ::Vector3 impulse = (hitObject - position).GetNormalized() * damage * sv_EnergyBallImpulseScalar;
+                        rigidBodyComponent->SendApplyImpulse(impulse, position);
+                    }
+
+                    // Look for health component and directly update health based on hit parameters
+                    if (NetworkHealthComponent* healthComponent = handle.GetEntity()->FindComponent<NetworkHealthComponent>())
+                    {
+                        healthComponent->SendHealthDelta(damage * -1.0f);
+                    }
+                }
+            }
+
+            if (shouldTerminate)
+            {
+                HideEnergyBall();
+            }
+        }
+    }
 
     void EnergyBallComponentController::HideEnergyBall()
     {
+        RPC_BallExplosion(GetEntity()->GetTransform()->GetWorldTM().GetTranslation());
+
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::DisablePhysics);
+        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, AZ::Vector3::CreateZero());
 
         // move self and increment resetCount to prevent transform interpolation
         AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
         GetNetworkTransformComponentController()->ModifyResetCount()++;
-    }
-
-    void EnergyBallComponentController::OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent)
-    {
-        if (collisionEvent.m_body2)
-        {
-            AZ::Entity* target = nullptr;
-            AZ::ComponentApplicationBus::BroadcastResult(target,
-                &AZ::ComponentApplicationBus::Events::FindEntity, collisionEvent.m_body2->GetEntityId());
-            if (target)
-            {
-#if AZ_TRAIT_SERVER
-                if (NetworkHealthComponent* health = target->FindComponent<NetworkHealthComponent>())
-                {
-                    health->SendHealthDelta(aznumeric_cast<float>(-m_armorDamage));
-                }
-
-                TryKnockbackPlayer(target);
-#endif
-            }
-
-            GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-                SoundEffect::EnergyBallTrapImpact, GetEntity()->GetTransform()->GetWorldTranslation());
-
-            HideEnergyBall();
-        }
-    }
-
-    void EnergyBallComponentController::LoadEnergyBallSettings()
-    {
-        if (const auto registry = AZ::SettingsRegistry::Get())
-        {
-            registry->Get(m_knockbackDistance, KnockbackDistanceByEnergyBallSetting);
-            registry->Get(m_speed, EnergyBallSpeedSetting);
-            registry->Get(m_armorDamage, EnergyBallArmorDamageSetting);
-        }
-    }
-
-#if AZ_TRAIT_SERVER
-    void EnergyBallComponentController::TryKnockbackPlayer(AZ::Entity* target)
-    {
-        if (PlayerKnockbackEffectComponent* effect = target->FindComponent<PlayerKnockbackEffectComponent>())
-        {
-            const AZ::Vector3 direction = m_direction.GetNormalized();
-            if (m_knockbackDistance > 0.0)
-            {
-                effect->RPC_Knockback(direction * aznumeric_cast<float>(m_knockbackDistance));
-            }
-        }
     }
 #endif
 }
