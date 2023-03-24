@@ -10,11 +10,24 @@
 #include <MultiplayerSampleTypes.h>
 #include <PlayerIdentityBus.h>
 #include <Source/AutoGen/PlayerIdentityComponent.AutoComponent.h>
+#include <Atom/RPI.Public/ViewportContext.h>
+#include <AzCore/Component/TickBus.h>
+#include <AzFramework/Font/FontInterface.h>
+
+#if AZ_TRAIT_CLIENT
+    namespace AZ::RPI
+    {
+        class ViewportContext;
+    }
+#endif
 
 namespace MultiplayerSample
 {
     class PlayerIdentityComponent
         : public PlayerIdentityComponentBase
+        #if AZ_TRAIT_CLIENT
+            , AZ::TickBus::Handler
+        #endif
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::PlayerIdentityComponent, s_playerIdentityComponentConcreteUuid, MultiplayerSample::PlayerIdentityComponentBase);
@@ -23,6 +36,20 @@ namespace MultiplayerSample
 
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+
+    private:
+        #if AZ_TRAIT_CLIENT
+            static constexpr float FontScale = 0.7f;
+
+            // AZ::TickBus::Handler overrides...
+            void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
+
+            // Cache properties required for font rendering...
+            AZ::RPI::ViewportContextPtr m_viewport;
+            AzFramework::FontDrawInterface* m_fontDrawInterface = nullptr;
+            AzFramework::TextDrawParameters m_drawParams;
+        #endif
     };
 
 
