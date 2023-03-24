@@ -42,6 +42,5 @@ namespace MultiplayerSample
         AZ::EntityId m_ipAddressTextInputUi;
         AZ::EntityId m_attemptConnectionBlockerUi;
         AZ::EntityId m_connectToHostFailedUi;
-
     };
 } // namespace MultiplayerSample
