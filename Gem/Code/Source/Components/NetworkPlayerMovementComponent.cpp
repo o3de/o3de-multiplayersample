@@ -278,6 +278,14 @@ namespace MultiplayerSample
         SetWasOnGround(onGround);
     }
 
+#if AZ_TRAIT_SERVER
+    void NetworkPlayerMovementComponentController::HandleApplyImpulse([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& impulse)
+    {
+        const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
+        SetSelfGeneratedVelocity(newVelocity);
+    }
+#endif
+
     void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward)
     {
         AZ::Vector3 velocityFromExternalSources = GetVelocityFromExternalSources(); // non-player generated (jump pads, explosions etc.)

@@ -33,6 +33,17 @@
     <NetworkInput Type="bool"      Name="Crouch"      Init="false" />
     <NetworkInput Type="uint8_t"   Name="ResetCount"  Init="0" />
 
+    <RemoteProcedure
+        Name="ApplyImpulse"
+        InvokeFrom="Server"
+        HandleOn="Authority"
+        IsPublic="false"
+        IsReliable="true"
+        GenerateEventBindings="true"
+        Description="Applies an impulse directly to the players self generated velocity">
+        <Param Type="AZ::Vector3" Name="Impulse"/>
+    </RemoteProcedure>
+
     <ArchetypeProperty Type="float" Name="WalkSpeed"    Init="3.0f" ExposeToEditor="true" Description="Walk speed, units in meters per second" />
     <ArchetypeProperty Type="float" Name="SprintSpeed"  Init="5.0f" ExposeToEditor="true" Description="Sprint speed, units in meters per second" />
     <ArchetypeProperty Type="float" Name="ReverseSpeed" Init="2.0f" ExposeToEditor="true" Description="Reverse speed, units in meters per second" />
