@@ -48,6 +48,7 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void HandleApplyImpulse(AzNetworking::IConnection* connection, const AZ::Vector3& impulse) override;
+        void HandleSetVelocity(AzNetworking::IConnection* connection, const AZ::Vector3& velocity) override;
 #endif
         //! @}
     

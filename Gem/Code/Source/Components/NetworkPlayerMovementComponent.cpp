@@ -284,6 +284,11 @@ namespace MultiplayerSample
         const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
         SetSelfGeneratedVelocity(newVelocity);
     }
+
+    void NetworkPlayerMovementComponentController::HandleSetVelocity([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& velocity)
+    {
+        SetSelfGeneratedVelocity(velocity);
+    }
 #endif
 
     void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward)

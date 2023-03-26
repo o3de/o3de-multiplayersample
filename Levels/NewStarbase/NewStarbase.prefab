@@ -4383,8 +4383,9 @@
                     "Id": 8615741586168280576,
                     "m_template": {
                         "$type": "MultiplayerSample::HUDComponent",
-                        "RoundNumberId": 8,
-                        "RoundTimerId": 4
+                        "RoundNumberId": "",
+                        "RoundTimerId": "",
+                        "RoundSecondsRemaining": ""
                     }
                 },
                 "Component_[8823626037987064928]": {
@@ -11259,6 +11260,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 1772897977027413561,
                     "Child Entity Order": [
+                        "Instance_[436387970701411]/ContainerEntity",
                         "Entity_[86087443358607]",
                         "Entity_[86091738325903]",
                         "Entity_[86096033293199]"
@@ -28007,10 +28009,6 @@
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
                 {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[778604581285499997]/EditorAttributeList/AttributeCategories/0"
-                },
-                {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
@@ -29293,7 +29291,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29333,7 +29331,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29373,7 +29371,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29413,7 +29411,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29453,7 +29451,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29493,7 +29491,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29533,7 +29531,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -29573,7 +29571,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -33547,6 +33545,76 @@
                 }
             ]
         },
+        "Instance_[436357905930339]": {
+            "Source": "AgPlatform/AgPlatform.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Parent Entity",
+                    "value": "../Entity_[86121803096975]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Translate/0",
+                    "value": 52.16789245605469
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Translate/1",
+                    "value": 1.9253692626953125
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Translate/2",
+                    "value": -3.309915542602539
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Rotate/2",
+                    "value": -85.66777038574219
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24176906811869]/Components/Component_[3431268654275398685]/Transform Data/Translate/0",
+                    "value": -3.0231475830078125
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[24176906811869]/Components/Component_[3431268654275398685]/Transform Data/Translate/1",
+                    "value": -48.163272857666016
+                }
+            ]
+        },
+        "Instance_[436387970701411]": {
+            "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
+                    "value": "../Entity_[86083148391311]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
+                    "value": 4.917842864990234
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
+                    "value": 1.7837467193603516
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
+                    "value": -1.9898872375488281
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
+                    "value": 90.0
+                }
+            ]
+        },
         "Instance_[43656826571963]": {
             "Source": "EBarricade/EBarricade_Small.prefab",
             "Patches": [
@@ -33640,10 +33708,6 @@
         "Instance_[43747020885179]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[778604581285499997]/EditorAttributeList/AttributeCategories/0"
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
