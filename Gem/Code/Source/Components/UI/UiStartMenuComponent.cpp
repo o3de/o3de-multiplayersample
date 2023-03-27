@@ -15,7 +15,6 @@
 #include <LyShine/Bus/UiCursorBus.h>
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextInputBus.h>
-#include <Multiplayer/MultiplayerConstants.h>
 
 namespace MultiplayerSample
 {
@@ -70,11 +69,22 @@ namespace MultiplayerSample
         // Hide the attempting connection ui until the player tries to connect
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
 
-        // Set default text of the ip-address
-        UiTextInputBus::Event(m_ipAddressTextInputUi, &UiTextInputInterface::SetText, Multiplayer::LocalHost);
-
         // Listen for disconnect events to know if connecting to the host server failed
         AZ::Interface<Multiplayer::IMultiplayer>::Get()->AddEndpointDisconnectedHandler(m_onConnectToHostFailed);
+
+        // Set default text of the ip-address input textbox based on 'cl_serverAddr'
+        if (const auto console = AZ::Interface<AZ::IConsole>::Get())
+        {
+            AZ::CVarFixedString serverAddress;
+            if (console->GetCvarValue("cl_serverAddr", serverAddress) == AZ::GetValueResult::Success)
+            {
+                UiTextInputBus::Event(m_ipAddressTextInputUi, &UiTextInputInterface::SetText, serverAddress.c_str());
+            }
+            else
+            {
+                AZ_Warning("UiStartMenuComponent", false, "Could not access cl_serveraddr cvar, so the ip-address input textfield won't be filled out. Please update UiStartMenuComponent.cpp to check for a valid cvar!")
+            }
+        }
     }
 
     void UiStartMenuComponent::Deactivate()
@@ -99,7 +109,7 @@ namespace MultiplayerSample
         else if (buttonEntityId == m_hostButtonUi)
         {
             console->PerformCommand("host");
-            console->PerformCommand("loadlevel NewStarbase");
+            console->PerformCommand(AZStd::string::format("loadlevel %s", MultiplayerLevelName).c_str());
         }
         else if (buttonEntityId == m_joinButtonUi)
         {

@@ -9,15 +9,22 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AzCore/Settings/SettingsRegistry.h>
 #include <Multiplayer/IMultiplayer.h>
 
 namespace MultiplayerSample
 {
+    /*!
+     * \class UiStartMenuComponent
+     * \brief Ui component used for allowing game launcher applications to enter an IP address for connecting to a host.
+     * UnifiedLaunchers, which may either host or join a multiplayer game, will have a button option to host a game.
+    */
     class UiStartMenuComponent
         : public AZ::Component
     {
     public:
+        // The level a server or unified launcher will need to load once it begins hosting
+        static constexpr char MultiplayerLevelName[] = "NewStarbase";
+
         AZ_COMPONENT(MultiplayerSample::UiStartMenuComponent, "{2F9DA138-1750-4FC9-B1AE-7945D2C1AB4D}");
 
         /*
