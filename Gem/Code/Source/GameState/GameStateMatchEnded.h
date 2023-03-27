@@ -29,8 +29,9 @@ namespace MultiplayerSample
         //! }@
 
     private:
+#if AZ_TRAIT_SERVER
         NetworkMatchComponentController* m_controller = nullptr;
-
+#endif
         AZ::TimeMs m_finishingTime = AZ::Time::ZeroTimeMs;
 
         void OnFinishedMatchTick();
