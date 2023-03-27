@@ -185,6 +185,35 @@
                         "$type": "MultiplayerSample::NetworkHealthComponent"
                     }
                 },
+                "Component_[11014058151734361262]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 11014058151734361262,
+                    "m_template": {
+                        "$type": "MultiplayerSample::AttachPlayerWeaponComponent",
+                        "WeaponAsset": {
+                            "assetId": {
+                                "guid": "{A3F7D1D0-33BC-5A2B-BEC3-1ABA33AC212B}",
+                                "subId": 992460137
+                            },
+                            "assetHint": "prefabs/laser_pistol.spawnable"
+                        },
+                        "Bone To Attach To": "mixamorig:RightHand",
+                        "Transform": {
+                            "Translation": [
+                                -0.05999999865889549,
+                                0.03999999910593033,
+                                0.17000000178813934
+                            ],
+                            "Rotation": [
+                                0.0,
+                                0.7071068286895752,
+                                0.0,
+                                -0.7071067094802856
+                            ],
+                            "Scale": 1.0
+                        }
+                    }
+                },
                 "Component_[11573337348143243531]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 11573337348143243531,
@@ -261,10 +290,7 @@
                 },
                 "Component_[16870214955717717317]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 16870214955717717317,
-                    "Child Entity Order": [
-                        "Entity_[79127082897452]"
-                    ]
+                    "Id": 16870214955717717317
                 },
                 "Component_[17019293261405199280]": {
                     "$type": "EditorLockComponent",
@@ -535,8 +561,7 @@
                                 "ImpactFx": {
                                     "ParticleAsset": {
                                         "guid": "{1BB94CA2-0BA0-5EC6-BE46-9B1F51D66CB9}"
-                                    },
-                                    "AudioTrigger": "play_sx_wpn_laserpistol_impact"
+                                    }
                                 },
                                 "DamageFx": {
                                     "ParticleAsset": {
@@ -692,113 +717,6 @@
                     "m_template": {
                         "$type": "AudioProxyComponent"
                     }
-                }
-            }
-        },
-        "Entity_[79127082897452]": {
-            "Id": "Entity_[79127082897452]",
-            "Name": "Weapon",
-            "Components": {
-                "Component_[13189139624927963945]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 13189139624927963945
-                },
-                "Component_[13885502588543603778]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 13885502588543603778
-                },
-                "Component_[14648513879502314759]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 14648513879502314759
-                },
-                "Component_[14977488698964245606]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 14977488698964245606
-                },
-                "Component_[15538119291371334605]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 15538119291371334605
-                },
-                "Component_[17615699442004664488]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 17615699442004664488
-                },
-                "Component_[1933340800347360656]": {
-                    "$type": "EditorActorComponent",
-                    "Id": 1933340800347360656,
-                    "ActorAsset": {
-                        "assetId": {
-                            "guid": "{76B6FE48-1A08-53EF-92E4-A5F70A034972}",
-                            "subId": 2131347208
-                        },
-                        "loadBehavior": "QueueLoad",
-                        "assetHint": "attachments/laser_gun/gun.actor"
-                    },
-                    "AttachmentTarget": ""
-                },
-                "Component_[229280947394986432]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 229280947394986432
-                },
-                "Component_[2929462119505350792]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 2929462119505350792,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": [
-                                {
-                                    "Key": {
-                                        "materialSlotStableId": 3784176759
-                                    },
-                                    "Value": {
-                                        "MaterialAsset": {
-                                            "assetId": {
-                                                "guid": "{B67B074C-11F3-5615-9C82-EE5C47630AA7}"
-                                            },
-                                            "assetHint": "attachments/laser_gun/gun_gun.azmaterial"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[3143529322920032580]": {
-                    "$type": "EditorAttachmentComponent",
-                    "Id": 3143529322920032580,
-                    "Target ID": "Entity_[79122787930156]",
-                    "Target Bone Name": "mixamorig:RightHand",
-                    "Position Offset": [
-                        -0.05999999865889549,
-                        0.03999999910593033,
-                        0.17000000178813934
-                    ],
-                    "Rotation Offset": [
-                        0.0,
-                        -90.0,
-                        0.0
-                    ]
-                },
-                "Component_[6491658821099841814]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 6491658821099841814,
-                    "Parent Entity": "Entity_[79122787930156]",
-                    "Transform Data": {
-                        "Translate": [
-                            0.9078289866447449,
-                            -0.0017137452960014343,
-                            1.3956557512283325
-                        ],
-                        "Rotate": [
-                            -90.00000762939453,
-                            -0.00008210443775169551,
-                            -0.00001931869519467
-                        ]
-                    }
-                },
-                "Component_[7113995579181326026]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 7113995579181326026
                 }
             }
         }
