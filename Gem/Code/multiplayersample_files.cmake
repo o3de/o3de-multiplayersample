@@ -68,8 +68,6 @@ set(FILES
     Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
     Source/Components/Multiplayer/PlayerIdentityComponent.cpp
     Source/Components/Multiplayer/PlayerIdentityComponent.h
-    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.cpp
-    Source/Components/Multiplayer/PlayerKnockbackEffectComponent.h
     Source/Components/Multiplayer/EnergyBallComponent.cpp
     Source/Components/Multiplayer/EnergyBallComponent.h
     Source/Components/Multiplayer/EnergyCannonComponent.cpp

@@ -52,6 +52,10 @@ namespace MultiplayerSample
         //! @param transform the root transform to move the effect to prior to triggering
         void TriggerEffect(const AZ::Transform& transform) const;
 
+        //! Returns the configured effect offset.
+        //! @return the effect offset
+        const AZ::Vector3& GetEffectOffset() const;
+
     private:
         AZ::Data::AssetId m_particleAssetId; // The particle effect to play upon effect activation
         AZStd::string m_audioTrigger; // The name of the audio trigger to use on effect activation

@@ -3,13 +3,19 @@
 <Component
     Name="EnergyCannonComponent"
     Namespace="MultiplayerSample"
-    OverrideComponent="false"
+    OverrideComponent="true"
     OverrideController="true"
     OverrideInclude="Source/Components/Multiplayer/EnergyCannonComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <Include File="Source/Effects/GameEffect.h" />
+
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
 
-    <ArchetypeProperty Type="AZ::EntityId" Name="EnergyBallEntity" ExposeToEditor="true"
-                       Description="The entity representing an energy ball." />
+    <ArchetypeProperty Type="AZ::TimeMs" Name="RateOfFireMs" Init="" Container="Object" ExposeToEditor="true" 
+                       Description="Specifies the rate in milliseconds at which to fire projectiles, each cannon can only fire a single projectile at once so this also controls the projectile lifetime" />
+    <ArchetypeProperty Type="GameEffect" Name="FiringEffect" Init="" Container="Object" ExposeToEditor="true" Description="Specifies the effect to play upon firing" />
+    <ArchetypeProperty Type="AZ::EntityId" Name="EnergyBallEntity" ExposeToEditor="true" Description="The entity representing an energy ball." />
+
+    <RemoteProcedure Name="RPC_BallLaunched" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever a firing event occurs." />
 </Component>

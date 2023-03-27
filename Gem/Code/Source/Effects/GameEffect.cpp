@@ -168,4 +168,9 @@ namespace MultiplayerSample
         }
 #endif
     }
+
+    const AZ::Vector3& GameEffect::GetEffectOffset() const
+    {
+        return m_effectOffset;
+    }
 }
