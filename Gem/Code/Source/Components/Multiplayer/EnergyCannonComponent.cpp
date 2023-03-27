@@ -34,7 +34,6 @@ namespace MultiplayerSample
 
     void EnergyCannonComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        ;
     }
 
 #if AZ_TRAIT_CLIENT

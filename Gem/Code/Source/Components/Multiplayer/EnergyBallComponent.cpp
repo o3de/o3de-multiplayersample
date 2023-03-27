@@ -36,7 +36,6 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        ;
     }
 
 #if AZ_TRAIT_CLIENT
@@ -51,7 +50,6 @@ namespace MultiplayerSample
     EnergyBallComponentController::EnergyBallComponentController(EnergyBallComponent& parent)
         : EnergyBallComponentControllerBase(parent)
     {
-        ;
     }
 
     void EnergyBallComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)

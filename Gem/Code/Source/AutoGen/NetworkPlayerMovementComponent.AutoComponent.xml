@@ -41,7 +41,8 @@
         IsReliable="true"
         GenerateEventBindings="true"
         Description="Applies an impulse directly to the players self generated velocity">
-        <Param Type="AZ::Vector3" Name="Impulse"/>
+        <Param Type="AZ::Vector3" Name="Impulse" />
+        <Param Type="bool" Name="External" Description="If true, the impulse will be applied to the external velocity, and if false it will be applied to internal velocity" />
     </RemoteProcedure>
 
     <RemoteProcedure
@@ -53,6 +54,7 @@
         GenerateEventBindings="true"
         Description="Directly sets the self generated velocity to the provided value, overriding any current velocity values">
         <Param Type="AZ::Vector3" Name="Velocity"/>
+        <Param Type="bool" Name="External" Description="If true, the impulse will be applied to the external velocity, and if false it will be applied to internal velocity" />
     </RemoteProcedure>
 
     <ArchetypeProperty Type="float" Name="WalkSpeed"    Init="3.0f" ExposeToEditor="true" Description="Walk speed, units in meters per second" />

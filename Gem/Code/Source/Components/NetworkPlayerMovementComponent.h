@@ -47,8 +47,8 @@ namespace MultiplayerSample
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
 #if AZ_TRAIT_SERVER
-        void HandleApplyImpulse(AzNetworking::IConnection* connection, const AZ::Vector3& impulse) override;
-        void HandleSetVelocity(AzNetworking::IConnection* connection, const AZ::Vector3& velocity) override;
+        void HandleApplyImpulse(AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external) override;
+        void HandleSetVelocity(AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external) override;
 #endif
         //! @}
     

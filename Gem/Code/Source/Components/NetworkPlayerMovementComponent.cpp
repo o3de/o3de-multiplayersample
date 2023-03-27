@@ -54,7 +54,7 @@ namespace MultiplayerSample
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
 #endif
 #if AZ_TRAIT_CLIENT
-        , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
+    , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
 #endif
     {
         ;
@@ -279,15 +279,30 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_SERVER
-    void NetworkPlayerMovementComponentController::HandleApplyImpulse([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& impulse)
+    void NetworkPlayerMovementComponentController::HandleApplyImpulse([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external)
     {
-        const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
-        SetSelfGeneratedVelocity(newVelocity);
+        if (external)
+        {
+            const AZ::Vector3 newVelocity = GetVelocityFromExternalSources() + impulse;
+            SetVelocityFromExternalSources(newVelocity);
+        }
+        else
+        {
+            const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
+            SetSelfGeneratedVelocity(newVelocity);
+        }
     }
 
-    void NetworkPlayerMovementComponentController::HandleSetVelocity([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& velocity)
+    void NetworkPlayerMovementComponentController::HandleSetVelocity([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external)
     {
-        SetSelfGeneratedVelocity(velocity);
+        if (external)
+        {
+            SetVelocityFromExternalSources(velocity);
+        }
+        else
+        {
+            SetSelfGeneratedVelocity(velocity);
+        }
     }
 #endif
 
