@@ -10,6 +10,12 @@
 #include <Source/Components/Multiplayer/PlayerCoinCollectorComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 
+#if AZ_TRAIT_CLIENT
+    #include <Atom/RPI.Public/ViewportContextBus.h>
+    #include <AzFramework/Viewport/ViewportScreen.h>
+    #include <AzCore/Component/TransformBus.h>
+#endif
+
 namespace MultiplayerSample
 {
     void PlayerIdentityComponent::Reflect(AZ::ReflectContext* context)
@@ -25,11 +31,66 @@ namespace MultiplayerSample
 
     void PlayerIdentityComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        #if AZ_TRAIT_CLIENT
+            m_viewport = AZ::RPI::ViewportContextRequests::Get()->GetDefaultViewportContext();
+            if (!m_viewport)
+            {
+                AZ_Assert(false, "NetworkDebugPlayerIdComponent failed to find the a rendering viewport. Debug rendering will be disabled.");
+                return;
+            }
+
+            const auto fontQueryInterface = AZ::Interface<AzFramework::FontQueryInterface>::Get();
+            if (!fontQueryInterface)
+            {
+                AZ_Assert(false, "NetworkDebugPlayerIdComponent failed to find the FontQueryInterface. Debug rendering will be disabled.");
+                return;
+            }
+
+            m_fontDrawInterface = fontQueryInterface->GetDefaultFontDrawInterface();
+            if (!m_fontDrawInterface)
+            {
+                AZ_Assert(false, "NetworkDebugPlayerIdComponent failed to find the FontDrawInterface. Debug rendering will be disabled.");
+                return;
+            }
+
+            m_drawParams.m_drawViewportId = m_viewport->GetId();
+            m_drawParams.m_scale = AZ::Vector2(FontScale);
+            m_drawParams.m_color = AZ::Colors::Wheat;
+
+            AZ::TickBus::Handler::BusConnect();
+        #endif
     }
 
     void PlayerIdentityComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        #if AZ_TRAIT_CLIENT
+        #endif
     }
+
+#if AZ_TRAIT_CLIENT
+    void PlayerIdentityComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
+        // Don't render others players' on-screen debug text if the player is behind the camera
+        const AZ::Vector3 renderWorldSpace = GetEntity()->GetTransform()->GetWorldTranslation();
+        if (!IsNetEntityRoleAutonomous())
+        {
+            AZ::Vector3 cameraForward = m_viewport->GetCameraTransform().GetBasisY();
+            AZ::Vector3 cameraToPlayer = renderWorldSpace - m_viewport->GetCameraTransform().GetTranslation();
+            if (cameraForward.Dot(cameraToPlayer) < 0.0f)
+            {
+                return;
+            }
+        }
+
+        const AzFramework::WindowSize windowSize = m_viewport->GetViewportSize();
+        AzFramework::ScreenPoint renderScreenpoint = AzFramework::WorldToScreen(
+            renderWorldSpace, m_viewport->GetCameraViewMatrixAsMatrix3x4(), m_viewport->GetCameraProjectionMatrix(), AzFramework::ScreenSize(windowSize.m_width, windowSize.m_height));
+        m_drawParams.m_hAlign = AzFramework::TextHorizontalAlignment::Center;
+        m_drawParams.m_position = AZ::Vector3(aznumeric_cast<float>(renderScreenpoint.m_x), aznumeric_cast<float>(renderScreenpoint.m_y), 0.f);
+
+        m_fontDrawInterface->DrawScreenAlignedText2d(m_drawParams, GetPlayerName().c_str());
+    }
+#endif
 
     PlayerIdentityComponentController::PlayerIdentityComponentController(PlayerIdentityComponent& parent)
         : PlayerIdentityComponentControllerBase(parent)

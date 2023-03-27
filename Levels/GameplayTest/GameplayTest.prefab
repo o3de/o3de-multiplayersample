@@ -107,7 +107,8 @@
                     "Entity_[15473181801646]",
                     "Entity_[15481771736238]",
                     "Entity_[24092772383715]",
-                    "Entity_[873004712589]"
+                    "Entity_[873004712589]",
+                    "Instance_[990233405078]/ContainerEntity"
                 ]
             }
         }
@@ -13715,6 +13716,31 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/2",
                     "value": 0.8977532386779785
+                }
+            ]
+        },
+        "Instance_[990233405078]": {
+            "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
+                    "value": "../Entity_[356758116574]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
+                    "value": 14.869112014770508
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/1",
+                    "value": 2.133294105529785
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
+                    "value": -0.02783727645874023
                 }
             ]
         }
