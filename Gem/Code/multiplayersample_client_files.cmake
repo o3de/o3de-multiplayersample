@@ -16,4 +16,6 @@ set(FILES
     Source/Components/UI/UiPlayerArmorComponent.h
     Source/Components/UI/UiRestBetweenRoundsComponent.cpp
     Source/Components/UI/UiRestBetweenRoundsComponent.h
+    Source/Components/UI/UiStartMenuComponent.cpp
+    Source/Components/UI/UiStartMenuComponent.h
 )

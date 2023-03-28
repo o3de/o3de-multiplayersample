@@ -7,6 +7,7 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
+#include <Components/AttachPlayerWeaponComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/PerfTest/NetworkRandomImpulseComponent.h>
@@ -18,6 +19,7 @@
     #include <Components/UI/HUDComponent.h>
     #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
+    #include <Components/UI/UiStartMenuComponent.h>
 #endif
 
 #include <Source/AutoGen/AutoComponentTypes.h>
@@ -39,6 +41,7 @@ namespace MultiplayerSample
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
+                AttachPlayerWeaponComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
@@ -47,7 +50,8 @@ namespace MultiplayerSample
                     UiGameOverComponent::CreateDescriptor(),
                     UiPlayerArmorComponent::CreateDescriptor(),
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
-                    UiRestBetweenRoundsComponent::CreateDescriptor()
+                    UiRestBetweenRoundsComponent::CreateDescriptor(),
+                    UiStartMenuComponent::CreateDescriptor()
                 #endif
             });
 
