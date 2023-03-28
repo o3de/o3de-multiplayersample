@@ -137,12 +137,6 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
-        if (m_toggleSprint)
-        {
-            m_sprinting = !m_sprinting;
-            m_toggleSprint = false;
-        }
-
         // Check current game-play state
         INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
         if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() != AllowedPlayerActions::None))
@@ -159,6 +153,13 @@ namespace MultiplayerSample
 
         if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() == AllowedPlayerActions::All))
         {
+            // Check if the user requested to toggle sprint-state
+            if (m_toggleSprint)
+            {
+                m_sprinting = !m_sprinting;
+                m_toggleSprint = false;
+            }
+
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
             // This is so that tapping the keyboard moves the virtual stick less than just holding it down
