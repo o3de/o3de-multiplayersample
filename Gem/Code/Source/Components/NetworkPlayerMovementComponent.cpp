@@ -281,6 +281,14 @@ namespace MultiplayerSample
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Falling), isFalling);
 
+        // If we're still on the ground, then zero out our velocity from external forces
+        // This prevents us from sliding along the ground after we land
+        PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
+        if (onGround)
+        {
+            SetVelocityFromExternalSources(AZ::Vector3::CreateZero());
+        }
+
         // At the end, track whether or not we were on the ground for this input so we can compare states when processing the next input.
         SetWasOnGround(onGround);
     }
