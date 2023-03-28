@@ -153,6 +153,13 @@ namespace MultiplayerSample
 
         if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() == AllowedPlayerActions::All))
         {
+            // Check if the user requested to toggle sprint-state
+            if (m_toggleSprint)
+            {
+                m_sprinting = !m_sprinting;
+                m_toggleSprint = false;
+            }
+
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
             // This is so that tapping the keyboard moves the virtual stick less than just holding it down
@@ -273,6 +280,14 @@ namespace MultiplayerSample
         // Set whether or not we're currently falling.
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Falling), isFalling);
+
+        // If we're still on the ground, then zero out our velocity from external forces
+        // This prevents us from sliding along the ground after we land
+        PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
+        if (onGround)
+        {
+            SetVelocityFromExternalSources(AZ::Vector3::CreateZero());
+        }
 
         // At the end, track whether or not we were on the ground for this input so we can compare states when processing the next input.
         SetWasOnGround(onGround);
@@ -542,7 +557,7 @@ namespace MultiplayerSample
         }
         else if (*inputId == SprintEventId)
         {
-            m_sprinting = true;
+            m_toggleSprint = true;
         }
         else if (*inputId == JumpEventId)
         {
@@ -588,10 +603,6 @@ namespace MultiplayerSample
         else if (*inputId == MoveRightEventId)
         {
             m_rightDown = false;
-        }
-        else if (*inputId == SprintEventId)
-        {
-            m_sprinting = false;
         }
         else if (*inputId == JumpEventId)
         {
