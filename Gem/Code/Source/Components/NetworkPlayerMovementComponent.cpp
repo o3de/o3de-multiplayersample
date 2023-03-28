@@ -137,6 +137,12 @@ namespace MultiplayerSample
         // Inputs for your own component always exist
         NetworkPlayerMovementComponentNetworkInput* playerInput = input.FindComponentInput<NetworkPlayerMovementComponentNetworkInput>();
 
+        if (m_toggleSprint)
+        {
+            m_sprinting = !m_sprinting;
+            m_toggleSprint = false;
+        }
+
         // Check current game-play state
         INetworkMatch* networkMatchComponent = AZ::Interface<INetworkMatch>::Get();
         if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() != AllowedPlayerActions::None))
@@ -542,7 +548,7 @@ namespace MultiplayerSample
         }
         else if (*inputId == SprintEventId)
         {
-            m_sprinting = true;
+            m_toggleSprint = true;
         }
         else if (*inputId == JumpEventId)
         {
@@ -588,10 +594,6 @@ namespace MultiplayerSample
         else if (*inputId == MoveRightEventId)
         {
             m_rightDown = false;
-        }
-        else if (*inputId == SprintEventId)
-        {
-            m_sprinting = false;
         }
         else if (*inputId == JumpEventId)
         {

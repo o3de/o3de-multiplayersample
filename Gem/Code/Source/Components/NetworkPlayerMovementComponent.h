@@ -101,6 +101,8 @@ namespace MultiplayerSample
         float m_viewYaw = 0.0f;
         float m_viewPitch = 0.0f;
 
+        bool m_toggleSprint = false;
+
         bool m_forwardDown = false;
         bool m_leftDown = false;
         bool m_backwardDown = false;
