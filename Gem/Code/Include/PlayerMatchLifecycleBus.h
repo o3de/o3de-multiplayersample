@@ -18,6 +18,7 @@ namespace MultiplayerSample
     public:
         virtual ~PlayerMatchLifecycleNotifications() = default;
 
+        virtual void OnFirstMatchHostTimeChange([[maybe_unused]] AZ::TimeMs hostTimeMs) {}
         virtual void OnGameTimerChange([[maybe_unused]] float currentTimeSec, [[maybe_unused]] float totalTimeSec) {}
         virtual void OnPlayerArmorZero([[maybe_unused]] Multiplayer::NetEntityId playerEntity) {}
     };

@@ -8,9 +8,16 @@
 #include <GameState/GameStateRequestBus.h>
 #include <Source/GameState/GameStatePreparingMatch.h>
 #include <Source/GameState/GameStateWaitingForPlayers.h>
+#include <PlayerMatchLifecycleBus.h>
 
 namespace MultiplayerSample
 {
+    AZ_CVAR(uint32_t, sv_MpsFirstMatchDelaySeconds, 0, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
+        "Controls how many seconds the server waits to start the first match after the first player has connected. "
+        "This is a cvar instead of network archetype because it's important for server admins to be able to change this value at server runtime. "
+        "For example, during a tournament, if all the players are already in the game a server admin can start the match immediately by setting this value to 0.");
+
+
     GameStateWaitingForPlayers::GameStateWaitingForPlayers([[maybe_unused]] NetworkMatchComponentController* controller)
     {
         PlayerIdentityNotificationBus::Handler::BusConnect();
@@ -19,7 +26,16 @@ namespace MultiplayerSample
     void GameStateWaitingForPlayers::OnPlayerActivated([[maybe_unused]] Multiplayer::NetEntityId playerEntity)
     {
         PlayerIdentityNotificationBus::Handler::BusDisconnect();
-        
+
+        // The first player has joined, start the timer before starting the first match
+        const AZ::TimeMs firstMatchDelayMs = AZ::SecondsToTimeMs(sv_MpsFirstMatchDelaySeconds);
+        const AZ::TimeMs firstMatchHostTime = AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() + firstMatchDelayMs;
+        PlayerMatchLifecycleBus::Broadcast(&PlayerMatchLifecycleNotifications::OnFirstMatchHostTimeChange, firstMatchHostTime);
+        m_beginMatchEvent.Enqueue(firstMatchDelayMs);
+    }
+
+    void GameStateWaitingForPlayers::BeginMatch()
+    {
         const auto state = GameState::GameStateRequests::CreateNewOverridableGameStateOfType<GameStatePreparingMatch>();
         GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::ReplaceActiveGameState, state);
     }

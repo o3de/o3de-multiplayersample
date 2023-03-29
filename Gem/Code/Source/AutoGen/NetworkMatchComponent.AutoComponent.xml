@@ -15,6 +15,7 @@
     <Include File="MultiplayerSampleTypes.h"/>
 
     <!-- Round time is in seconds and is quantized to 2 bytes to reduce network traffic	-->
+
     <NetworkProperty Type="RoundTimeSec" Name="RoundTime" Init="RoundTimeSec{120}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round in seconds" />
     <NetworkProperty Type="RoundTimeSec" Name="RoundRestTimeRemaining" Init="RoundTimeSec{10}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time of rest before starting a new round" />
     <NetworkProperty Type="uint16_t" Name="RoundNumber" Init="1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The current round number" />
@@ -23,6 +24,8 @@
                      ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true"
                      Description="The current states of players in-game resources"/>
     <NetworkProperty Type="uint16_t" Name="PlayerCount" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The remaining time in the round in seconds" />
+    <NetworkProperty Type="AZ::TimeMs" Name="FirstMatchStartHostTime" Init="AZ::Time::ZeroTimeMs" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="The host time (seconds) when the first match will begin. The initial value is actually set in game code based on sv_MpsFirstMatchDelaySeconds. Note: Clients can use IMultiplayer::GetHostTimeMs to see the current host time." />
+
 
     <ArchetypeProperty Type="float"  Name="RoundDuration"  Init="120.f" ExposeToEditor="true" Description="Total time of a round in seconds" />
     <ArchetypeProperty Type="uint16_t"  Name="TotalRounds"  Init="3" ExposeToEditor="true" Description="Total number of rounds" />
