@@ -17,11 +17,8 @@ namespace AK
         static const AkUniqueID GET_FOCUS = 4280413250U;
         static const AkUniqueID LOSE_FOCUS = 3350149075U;
         static const AkUniqueID MUTE_ALL = 1739713018U;
-        static const AkUniqueID PLAY_GEM_PICKUP = 854025974U;
-        static const AkUniqueID PLAY_LASER_GUN_IMPACT = 2978351713U;
-        static const AkUniqueID PLAY_ROUND_BEGIN = 1345793836U;
-        static const AkUniqueID PLAY_ROUND_END = 1932934032U;
-        static const AkUniqueID PLAY_SOUND_GUN_FIRING = 850206754U;
+        static const AkUniqueID PLAY_SX_AMB_EXT_GENERAL = 1593597659U;
+        static const AkUniqueID PLAY_SX_ENV_LAMP_LOOP = 1589077493U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_BUILDUP = 1394544692U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_IMPACT = 3130133043U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_ONCOOLDOWN = 2009335613U;
@@ -33,6 +30,8 @@ namespace AK
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_BUILDUP = 4040956934U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_EXPLO = 3532523743U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 3971492149U;
+        static const AkUniqueID PLAY_SX_INT_TELEPORTER_ACTIVATE = 2479494560U;
+        static const AkUniqueID PLAY_SX_INT_TELEPORTER_IDLE = 2491323057U;
         static const AkUniqueID PLAY_SX_PLAYER_ARMOR_BREAKING = 2969244755U;
         static const AkUniqueID PLAY_SX_PLAYER_ARMOR_MEND = 4115785916U;
         static const AkUniqueID PLAY_SX_PLAYER_EXERTION = 1387321888U;
@@ -56,13 +55,11 @@ namespace AK
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_READY = 2608530362U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_FIRE = 2665115109U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_IMPACT = 172245811U;
-        static const AkUniqueID STOP_GEM_PICKUP = 1367930484U;
-        static const AkUniqueID STOP_LASER_GUN_IMPACT = 452471019U;
-        static const AkUniqueID STOP_ROUND_BEGIN = 3173054466U;
-        static const AkUniqueID STOP_ROUND_END = 1822575350U;
-        static const AkUniqueID STOP_SOUND_GUN_FIRING = 1390826636U;
+        static const AkUniqueID STOP_SX_AMB_EXT_GENERAL = 802626345U;
+        static const AkUniqueID STOP_SX_ENV_LAMP_LOOP = 860941867U;
         static const AkUniqueID STOP_SX_INT_ENERGYBALLTRAP_PROJECTILE = 2825372966U;
         static const AkUniqueID STOP_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 1399787879U;
+        static const AkUniqueID STOP_SX_INT_TELEPORTER_IDLE = 1815794527U;
         static const AkUniqueID STOP_SX_WPN_BUBBLEGUN_PROJECTILE = 3507985354U;
         static const AkUniqueID UNMUTE_ALL = 4003578643U;
     } // namespace EVENTS
@@ -93,9 +90,11 @@ namespace AK
         static const AkUniqueID DISTANCE_1000 = 2385509740U;
         static const AkUniqueID DISTANCE_10000 = 1099690292U;
         static const AkUniqueID ELEVATION = 2141048674U;
+        static const AkUniqueID HEALTH = 3677180323U;
         static const AkUniqueID OBSTRUCTION = 4251783213U;
         static const AkUniqueID OCCLUSION = 183903552U;
         static const AkUniqueID TRANSMISSIONLOSS = 2536503308U;
+        static const AkUniqueID VELOCITY = 3519441192U;
         static const AkUniqueID VOLUME_MASTER = 3695994288U;
         static const AkUniqueID VOLUME_MUSIC = 3891337659U;
         static const AkUniqueID VOLUME_SFX = 3673881719U;
