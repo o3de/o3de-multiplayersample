@@ -324,6 +324,8 @@ namespace MultiplayerSample
                 }
             }
 
+            // Print the player results to server.log for tracking tournament winners.
+            AZ_Info("NetworkMatchComponentController", "Match Results: Player %s score %i, armor %i.", state.m_playerName.c_str(), state.m_score, state.m_remainingArmor);
             results.m_playerStates.push_back(state);
         }
 
