@@ -40,6 +40,5 @@ set(FILES
     Source/AutoGen/PlayerArmorComponent.AutoComponent.xml
     Source/AutoGen/PlayerCoinCollectorComponent.AutoComponent.xml
     Source/AutoGen/PlayerIdentityComponent.AutoComponent.xml
-    Source/AutoGen/PlayerKnockbackEffectComponent.AutoComponent.xml
     Source/AutoGen/RpcTesterComponent.AutoComponent.xml
 )
