@@ -95,7 +95,9 @@ namespace MultiplayerSample
         m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenutationAngle);
         m_decalFeatureProcessor->SetDecalSortKey(handle, config.m_sortKey);
 
-        uint32_t currentTimeMs = GetCurrentTimeMs();
+        auto now = AZStd::chrono::steady_clock::now().time_since_epoch();
+        auto nowMs = AZStd::chrono::duration_cast<AZStd::chrono::milliseconds>(now).count();
+        uint32_t currentTimeMs = static_cast<uint32_t>(nowMs);
 
         if (config.m_lifeTime > 0.0)
         {
@@ -153,12 +155,5 @@ namespace MultiplayerSample
     bool ScriptableDecalComponent::HeapCompare(const DecalInstance& value1, const DecalInstance& value2)
     {
         return value1.m_despawnMs < value2.m_despawnMs;
-    }
-
-    uint32_t ScriptableDecalComponent::GetCurrentTimeMs()
-    {
-        auto now = AZStd::chrono::steady_clock::now().time_since_epoch();
-        auto nowMs = AZStd::chrono::duration_cast<AZStd::chrono::milliseconds>(now).count();
-        return static_cast<uint32_t>(nowMs);
     }
 }

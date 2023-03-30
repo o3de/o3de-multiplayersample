@@ -52,7 +52,6 @@ namespace MultiplayerSample
         virtual void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
 
         static bool HeapCompare(const DecalInstance& value1, const DecalInstance& value2);
-        static uint32_t GetCurrentTimeMs();
 
         AZ::Render::DecalFeatureProcessorInterface* m_decalFeatureProcessor = nullptr;
 
