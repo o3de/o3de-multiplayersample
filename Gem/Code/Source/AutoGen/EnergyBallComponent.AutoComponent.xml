@@ -17,11 +17,16 @@
     <ArchetypeProperty Type="GatherParams" Name="GatherParams" Init="" ExposeToEditor="true" Description="Specifies the types of intersections to test for on the projectile" />
     <ArchetypeProperty Type="HitEffect" Name="HitEffect" Init="" ExposeToEditor="true" Description="Specifies the damage effects to apply on hit" />
 
-    <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
-        GenerateEventBindings="true" Description="Launching an energy from a specified position in a specified direction.">
+    <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Launching an energy from a specified position in a specified direction.">
         <Param Type="AZ::Vector3" Name="StartingPosition"/>
         <Param Type="AZ::Vector3" Name="Direction"/>
         <Param Type="Multiplayer::NetEntityId" Name="OwningNetEntityId" />
+    </RemoteProcedure>
+
+    <RemoteProcedure Name="RPC_KillBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Kills a launched energy ball." />
+
+    <RemoteProcedure Name="RPC_BallLaunched" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball launches.">
+        <Param Type="AZ::Vector3" Name="Location"/>
     </RemoteProcedure>
 
     <RemoteProcedure Name="RPC_BallExplosion" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball explodes.">

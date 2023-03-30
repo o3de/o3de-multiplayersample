@@ -40,7 +40,25 @@ namespace MultiplayerSample
     {
     public:
         AZ_EBUS_BEHAVIOR_BINDER(BehaviorWeaponNotificationBusHandler, "{8F083B95-4519-4A24-8824-ED5ADA8FC52E}", AZ::SystemAllocator,
+            OnWeaponActivate,
+            OnWeaponImpact,
+            OnWeaponDamage,
             OnConfirmedHitPlayer);
+
+        void OnWeaponActivate(const AZ::Transform& transform) override
+        {
+            Call(FN_OnWeaponActivate, transform);
+        }
+
+        void OnWeaponImpact(const AZ::Transform& transform) override
+        {
+            Call(FN_OnWeaponImpact, transform);
+        }
+
+        void OnWeaponDamage(const AZ::Transform& transform) override
+        {
+            Call(FN_OnWeaponDamage, transform);
+        }
 
         void OnConfirmedHitPlayer(AZ::EntityId byPlayerEntity, AZ::EntityId otherPlayerEntity) override
         {
@@ -165,6 +183,7 @@ namespace MultiplayerSample
         }
 
         m_onWeaponActivateEvent.Signal(activationInfo);
+        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponActivate, activationInfo.m_activateEvent.m_initialTransform);
 
 #if AZ_TRAIT_CLIENT
         if (cl_WeaponsDrawDebug && m_debugDraw)
@@ -214,6 +233,7 @@ namespace MultiplayerSample
         }
 
         m_onWeaponPredictHitEvent.Signal(hitInfo);
+        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, hitInfo.m_hitEvent.m_hitTransform);
 
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
@@ -286,6 +306,7 @@ namespace MultiplayerSample
 #endif
 
         m_onWeaponConfirmHitEvent.Signal(hitInfo);
+        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponDamage, hitInfo.m_hitEvent.m_hitTransform);
 
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
         // Note that materialfx are not hooked up currently as the engine currently doesn't support them

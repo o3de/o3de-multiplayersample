@@ -170,22 +170,28 @@ namespace MultiplayerSample
     //! Single hit entity in a weapon hit event.
     struct HitEntity
     {
+        AZ_TYPE_INFO(HitEntity, "{A7A0A64A-816C-4675-9A02-652A72CD2255}");
+
         AZ::Vector3 m_hitPosition = AZ::Vector3::CreateZero(); // Location where the entity was hit, NOT the location of the projectile or weapon in the case of area damage
         Multiplayer::NetEntityId m_hitNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the entity which was hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
+        static void Reflect(AZ::ReflectContext* context);
     };
-    using HitEntities = AZStd::fixed_vector<HitEntity, MaxHitEntities>;
+    using HitEntities = AZStd::vector<HitEntity>;
 
     //! Structure containing details for a single weapon hit event.
     struct HitEvent
     {
+        AZ_TYPE_INFO(HitEvent, "{573515BB-E806-42C1-9F2C-2AA1B8E2EEF0}");
+
         AZ::Transform m_hitTransform = AZ::Transform::CreateIdentity(); // Transform of the hit event, NOT the location of the entity that was hit in the case of area damage
         Multiplayer::NetEntityId m_shooterNetEntityId    = Multiplayer::InvalidNetEntityId; // Entity Id of the shooter
         Multiplayer::NetEntityId m_projectileNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the projectile, InvalidNetEntityId if this was a trace weapon hit
         HitEntities m_hitEntities; // Information about the entities that were hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
+        static void Reflect(AZ::ReflectContext* context);
     };
 
     //! Structure containing details for a single fire event.

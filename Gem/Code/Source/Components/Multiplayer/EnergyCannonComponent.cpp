@@ -81,6 +81,23 @@ namespace MultiplayerSample
                 const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
                 ballComponent->RPC_LaunchBall(cannonTm.GetTranslation() + effectOffset, forward, GetNetEntityId());
                 RPC_BallLaunched();
+
+                // Enqueue our ball kill event
+                m_killEvent.Enqueue(GetBallLifetimeMs(), false);
+            }
+        }
+    }
+
+    void EnergyCannonComponentController::OnKillEnergyBall()
+    {
+        // Re-using the same ball entity.
+        AZ::Entity* ball = nullptr;
+        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
+        if (ball)
+        {
+            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
+            {
+                ballComponent->RPC_KillBall();
             }
         }
     }
