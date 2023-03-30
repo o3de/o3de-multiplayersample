@@ -1,32 +1,32 @@
 {
-    "MultiplayerSample": {
-        "Settings": {
-            "WinningCoinCount": 333,
-            "EnergyBall": {
-                "KnockbackDistanceMeters": 2.0,
-                "Speed": 15.0,
-                "ArmorDamage": 10
-            },
-            "EnergyCannon": {
-                "FiringPeriodMilliseconds": 2000
-            }
-        }
-    },
-    "O3DE": {
-        "Atom": {
-            "RPI": {
-                "Initialization": {
-                    "ImageSystemDescriptor": {
-                        "SystemStreamingImagePoolSize": 750000000,
-                        "SystemAttachmentImagePoolSize": 0 
-                    }
-                }
-            }
-        },
-        "Autoexec": {
-            "ConsoleCommands": {
-                r_streamingImageMipBias=1
-            }
-        }
-    }
+	"MultiplayerSample": {
+		"Settings": {
+			"WinningCoinCount": 333,
+			"EnergyBall": {
+				"KnockbackDistanceMeters": 2.0,
+				"Speed": 15.0,
+				"ArmorDamage": 10
+			},
+			"EnergyCannon": {
+				"FiringPeriodMilliseconds": 2000
+			}
+		}
+	},
+	"O3DE": {
+		"Atom": {
+			"RPI": {
+				"Initialization": {
+					"ImageSystemDescriptor": {
+						"SystemStreamingImagePoolSize": 750000000,
+						"SystemAttachmentImagePoolSize": 0
+					}
+				}
+			}
+		},
+		"Autoexec": {
+			"ConsoleCommands": {
+				"r_streamingImageMipBias": 1
+			}
+		}
+	}
 }
