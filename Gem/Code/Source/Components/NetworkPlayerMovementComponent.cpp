@@ -54,7 +54,7 @@ namespace MultiplayerSample
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
 #endif
 #if AZ_TRAIT_CLIENT
-        , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
+    , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
 #endif
     {
         ;
@@ -277,6 +277,34 @@ namespace MultiplayerSample
         // At the end, track whether or not we were on the ground for this input so we can compare states when processing the next input.
         SetWasOnGround(onGround);
     }
+
+#if AZ_TRAIT_SERVER
+    void NetworkPlayerMovementComponentController::HandleApplyImpulse([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external)
+    {
+        if (external)
+        {
+            const AZ::Vector3 newVelocity = GetVelocityFromExternalSources() + impulse;
+            SetVelocityFromExternalSources(newVelocity);
+        }
+        else
+        {
+            const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
+            SetSelfGeneratedVelocity(newVelocity);
+        }
+    }
+
+    void NetworkPlayerMovementComponentController::HandleSetVelocity([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external)
+    {
+        if (external)
+        {
+            SetVelocityFromExternalSources(velocity);
+        }
+        else
+        {
+            SetSelfGeneratedVelocity(velocity);
+        }
+    }
+#endif
 
     void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward)
     {
