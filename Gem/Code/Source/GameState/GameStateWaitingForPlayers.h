@@ -29,5 +29,11 @@ namespace MultiplayerSample
         //! }@
 
     private:
+        void BeginMatch();
+        AZ::ScheduledEvent m_beginMatchEvent{ [this]() 
+            {
+                BeginMatch(); 
+            }, 
+            AZ::Name("GameStateWaitingForPlayersBeginMatch") };
     };
 }
