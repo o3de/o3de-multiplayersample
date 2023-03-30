@@ -13,7 +13,9 @@
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
 
     <ArchetypeProperty Type="AZ::TimeMs" Name="RateOfFireMs" Init="" Container="Object" ExposeToEditor="true" 
-                       Description="Specifies the rate in milliseconds at which to fire projectiles, each cannon can only fire a single projectile at once so this also controls the projectile lifetime" />
+                       Description="Specifies the rate in milliseconds at which to fire projectiles, each cannon can only fire a single projectile at once so this also controls the projectile lifetime." />
+    <ArchetypeProperty Type="AZ::TimeMs" Name="BallLifetimeMs" Init="" Container="Object" ExposeToEditor="true"
+                       Description="Specifies the duration in milliseconds that the energy ball should live for. Must be less than the RateOfFireMs setting." />
     <ArchetypeProperty Type="GameEffect" Name="FiringEffect" Init="" Container="Object" ExposeToEditor="true" Description="Specifies the effect to play upon firing" />
     <ArchetypeProperty Type="AZ::EntityId" Name="EnergyBallEntity" ExposeToEditor="true" Description="The entity representing an energy ball." />
 

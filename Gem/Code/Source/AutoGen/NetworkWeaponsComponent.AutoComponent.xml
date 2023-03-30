@@ -25,7 +25,7 @@
     <ArchetypeProperty Type="WeaponParams"  Name="WeaponParams"  Init="" Container="Array" Count="MaxWeaponsPerComponent" ExposeToEditor="true" Description="Parameters for the weapons attached to this NetworkWeaponsComponent" />
     <ArchetypeProperty Type="AZStd::string" Name="FireBoneNames" Init="" Container="Array" Count="MaxWeaponsPerComponent" ExposeToEditor="true" Description="Name of the bone to attach to for fire events" />
 
-    <RemoteProcedure Name="SendConfirmHit" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="false" GenerateEventBindings="false" Description="Single hit event confirmed by the server" >
+    <RemoteProcedure Name="SendConfirmHit" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="false" GenerateEventBindings="true" Description="Single hit event confirmed by the server" >
         <Param Type="WeaponIndex" Name="WeaponIndex" />
         <Param Type="HitEvent"    Name="HitEvent" />
     </RemoteProcedure>
