@@ -324,10 +324,29 @@ namespace MultiplayerSample
                 }
             }
 
-            // Print the player results to server.log for tracking tournament winners.
-            AZ_Info("NetworkMatchComponentController", "Match Results: Player %s score %u, armor %u.", state.m_playerName.c_str(), state.m_score, state.m_remainingArmor);
             results.m_playerStates.push_back(state);
         }
+
+        // Print the player results to server.log for tracking tournament winners.
+        // Sort the players by score (highest score is 1st)
+        // If scores are matching, then sort by remaining armor.
+        AZStd::sort(results.m_playerStates.begin(), results.m_playerStates.end(), [](const PlayerState& a, const PlayerState& b)
+            {
+                if (a.m_score == b.m_score)
+                {
+                    return a.m_remainingArmor > b.m_remainingArmor;
+                }
+                return a.m_score > b.m_score;
+            });
+
+        AZStd::string prettyPrintMatchResults = "";
+        prettyPrintMatchResults += AZStd::string::format("Match Results (%u players)\n", results.m_playerStates.size());
+        for(const PlayerState& playerState : results.m_playerStates)
+        {
+            prettyPrintMatchResults += AZStd::string::format("\tPlayer %s score %u, armor %u.\n", playerState.m_playerName.c_str(), playerState.m_score, playerState.m_remainingArmor);
+        }
+        AZ_Info("NetworkMatchComponentController", prettyPrintMatchResults.c_str());
+
 
         FindWinner(results, potentialWinners);
 
