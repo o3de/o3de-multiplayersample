@@ -37,26 +37,40 @@ namespace MultiplayerSample
             {
                 if (const auto networkMatchComponent = AZ::Interface<INetworkMatch>::Get())
                 {
+                    m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
+
                     SetRoundNumberText(aznumeric_cast<uint16_t>(networkMatchComponent->GetCurrentRoundNumber()));
                     m_roundNumberHandler = AZ::EventHandler<uint16_t>([this](uint16_t value) { SetRoundNumberText(value); });
                     networkMatchComponent->AddRoundNumberEventHandler(m_roundNumberHandler);
 
                     m_roundTimerHandler = AZ::EventHandler<RoundTimeSec>([this](RoundTimeSec value) { SetRoundTimerText(value); });
                     networkMatchComponent->AddRoundTimeRemainingEventHandler(m_roundTimerHandler);
-                    m_waitForActiveNetworkMatchComponent.RemoveFromQueue();
+
+                    // Listen for an event if the host changes the match start time
+                    // This can happen if an admin changes the start time during a tournament to wait for more players.
+                    UpdateFirstMatchTimerUi();
+                    m_firstMatchStartHostTimeHandler = AZ::EventHandler<AZ::TimeMs>([this]([[maybe_unused]]AZ::TimeMs value) {UpdateFirstMatchTimerUi(); });
+                    networkMatchComponent->AddFirstMatchStartHostTime(m_firstMatchStartHostTimeHandler);
                 }
             }, AZ::Name("HUDComponent Wait For Active NetworkMatchComponent"));
 
         void SetRoundNumberText(uint16_t round);
         void SetRoundTimerText(RoundTimeSec time);
-    
+        void UpdateFirstMatchTimerUi();
+
         AZ::EventHandler<uint16_t> m_roundNumberHandler; 
         AZ::EventHandler<RoundTimeSec> m_roundTimerHandler;
+        AZ::EventHandler<AZ::TimeMs> m_firstMatchStartHostTimeHandler;
+        AZ::ScheduledEvent m_updateFirstMatchTimer = AZ::ScheduledEvent([this]
+            {
+                UpdateFirstMatchTimerUi();
+            }, AZ::Name("HUDComponent Update First Match Timer"));
 
         AZ::EntityId m_roundNumberUi;
         AZ::EntityId m_roundTimerUi;
         AZStd::string m_roundNumberText;
-        AZStd::string m_roundTimerText;
         AZ::EntityId m_roundSecondsRemainingUiParent;
+        AZ::EntityId m_firstMatchStartingUiParent;
+        AZ::EntityId m_firstMatchStartingTimerUi;
     };
 } // namespace MultiplayerSample

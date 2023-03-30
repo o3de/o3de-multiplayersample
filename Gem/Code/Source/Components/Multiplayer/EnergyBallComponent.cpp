@@ -13,6 +13,10 @@
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
 
+#if AZ_TRAIT_CLIENT
+#   include <PopcornFX/PopcornFXBus.h>
+#endif
+
 namespace MultiplayerSample
 {
     AZ_CVAR(float, sv_EnergyBallImpulseScalar, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
@@ -39,10 +43,25 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_CLIENT
+    void EnergyBallComponent::HandleRPC_BallLaunched([[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const AZ::Vector3& location)
+    {
+        PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
+        if (emitterRequests != nullptr)
+        {
+            emitterRequests->Start();
+        }
+    }
+
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location)
     {
         AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), location);
         m_effect.TriggerEffect(transform);
+
+        PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
+        if (emitterRequests != nullptr)
+        {
+            emitterRequests->Kill();
+        }
     }
 #endif
 
@@ -69,19 +88,25 @@ namespace MultiplayerSample
 #if AZ_TRAIT_SERVER
     void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId)
     {
-        HideEnergyBall();
+        m_shooterNetEntityId = owningNetEntityId;
 
         m_filteredNetEntityIds.clear();
         m_filteredNetEntityIds.insert(owningNetEntityId);
         m_filteredNetEntityIds.insert(GetNetEntityId());
         m_direction = direction;
 
-        // move self and increment resetCount to prevent transform interpolation
-        AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, startingPosition);
-        GetNetworkTransformComponentController()->ModifyResetCount()++;
+        // Move the entity to the start position
+        GetEntity()->GetTransform()->SetWorldTranslation(startingPosition);
 
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::EnablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
+
+        RPC_BallLaunched(startingPosition);
+    }
+
+    void EnergyBallComponentController::HandleRPC_KillBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        HideEnergyBall();
     }
 
     void EnergyBallComponentController::CheckForCollisions()
@@ -90,18 +115,18 @@ namespace MultiplayerSample
         const HitEffect& effect = GetHitEffect();
 
         IntersectResults results;
-        const ActivateEvent activateEvent{ GetEntity()->GetTransform()->GetWorldTM(), position, Multiplayer::InvalidNetEntityId, Multiplayer::InvalidNetEntityId };
+        const ActivateEvent activateEvent{ GetEntity()->GetTransform()->GetWorldTM(), position, m_shooterNetEntityId, GetNetEntityId() };
         GatherEntities(GetGatherParams(), activateEvent, m_filteredNetEntityIds, results);
         if (!results.empty())
         {
             bool shouldTerminate = false;
             for (const IntersectResult& result : results)
             {
+                shouldTerminate = true;
+
                 Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
                 if (handle.Exists())
                 {
-                    shouldTerminate = true;
-
                     // Presently set to 1 until we capture falloff range
                     float hitDistance = 1.f;
                     float maxDistance = 1.f;

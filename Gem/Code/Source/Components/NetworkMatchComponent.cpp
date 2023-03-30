@@ -117,6 +117,12 @@ namespace MultiplayerSample
             return AllowedPlayerActions::RotationOnly;
         }
 
+        // Disable player actions if the match hasn't started and we're still waiting for more players to join
+        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetFirstMatchStartHostTime())
+        {
+            return AllowedPlayerActions::RotationOnly;
+        }
+
         return AllowedPlayerActions::All;
     }
 
@@ -145,6 +151,11 @@ namespace MultiplayerSample
         return aznumeric_cast<int32_t>(GetPlayerCount());
     }
 
+    AZ::TimeMs NetworkMatchComponent::GetFirstMatchStartHostTime() const
+    {
+        return NetworkMatchComponentBase::GetFirstMatchStartHostTime();
+    }
+
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
     {
         RoundNumberAddEvent(handler);
@@ -158,6 +169,11 @@ namespace MultiplayerSample
     void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
     {
         RoundRestTimeRemainingAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddFirstMatchStartHostTime(AZ::Event<AZ::TimeMs>::Handler& handler)
+    {
+        this->FirstMatchStartHostTimeAddEvent(handler);
     }
 
 #if AZ_TRAIT_SERVER
@@ -475,6 +491,13 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player reported depleted armor: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
 #endif   
+    }
+
+    void NetworkMatchComponentController::OnFirstMatchHostTimeChange([[maybe_unused]]AZ::TimeMs hostTime)
+    {
+#if AZ_TRAIT_SERVER
+        SetFirstMatchStartHostTime(hostTime);
+#endif
     }
 
 #if AZ_TRAIT_SERVER

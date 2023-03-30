@@ -101,6 +101,8 @@
                     "Entity_[19602192101539]",
                     "Entity_[1800029023887]",
                     "Entity_[1808618958479]",
+                    "Instance_[9370273991746]/ContainerEntity",
+                    "Instance_[9344504187970]/ContainerEntity",
                     "Instance_[1787144121999]/ContainerEntity",
                     "Entity_[15271318338734]",
                     "Entity_[15438822063278]",
@@ -4995,9 +4997,9 @@
                     "Parent Entity": "Entity_[356758116574]",
                     "Transform Data": {
                         "Translate": [
-                            -3.749812126159668,
+                            -3.7022008895874023,
                             11.176107406616211,
-                            1.4368513822555542
+                            1.4251127243041992
                         ]
                     }
                 },
@@ -5551,9 +5553,9 @@
                     "Parent Entity": "Entity_[356758116574]",
                     "Transform Data": {
                         "Translate": [
-                            -7.148715496063232,
+                            -7.079329490661621,
                             11.176107406616211,
-                            2.8671789169311523
+                            2.849938154220581
                         ]
                     }
                 },
@@ -10425,6 +10427,21 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[10406703446304744333]/Transform Data/Translate/2",
                     "value": -0.01335453987121582
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/0",
+                    "value": -15.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/1",
+                    "value": 3.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/2",
+                    "value": 30.0
                 }
             ]
         },
@@ -11000,17 +11017,17 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/0",
-                    "value": 13.624070167541504
+                    "value": 13.378348350524902
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/1",
-                    "value": -4.622063159942627
+                    "value": -8.48344612121582
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Translate/2",
-                    "value": -0.02269315905869007
+                    "value": -0.02269316278398037
                 },
                 {
                     "op": "replace",
@@ -12406,6 +12423,66 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[3688874831980273851]/Transform Data/Translate/2",
                     "value": 0.8977532386779785
+                }
+            ]
+        },
+        "Instance_[9344504187970]": {
+            "Source": "EBarricade/EBarricade.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Parent Entity",
+                    "value": "../Entity_[356758116574]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/0",
+                    "value": -9.279814720153809
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/1",
+                    "value": -12.245059967041016
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/2",
+                    "value": -0.08922576904296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Rotate/2",
+                    "value": -143.00021362304688
+                }
+            ]
+        },
+        "Instance_[9370273991746]": {
+            "Source": "EBarricade/EBarricade.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Parent Entity",
+                    "value": "../Entity_[356758116574]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/0",
+                    "value": -4.886531829833984
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/1",
+                    "value": -12.245059967041016
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Translate/2",
+                    "value": -0.08922576904296875
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[8879157216575694980]/Transform Data/Rotate/2",
+                    "value": -143.00021362304688
                 }
             ]
         },

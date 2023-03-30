@@ -45,7 +45,13 @@ namespace MultiplayerSample
         AZ::ScheduledEvent m_firingEvent{[this]()
         {
             OnFireEnergyBall();
-        }, AZ::Name("EnergyCannonComponentController")};
+        }, AZ::Name("FireEnergyCannon")};
+
+        void OnKillEnergyBall();
+        AZ::ScheduledEvent m_killEvent{ [this]()
+        {
+            OnKillEnergyBall();
+        }, AZ::Name("KillEnergyBall") };
 #endif
     };
 }

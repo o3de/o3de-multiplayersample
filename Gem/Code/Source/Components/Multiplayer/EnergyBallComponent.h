@@ -24,6 +24,7 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
 #if AZ_TRAIT_CLIENT
+        void HandleRPC_BallLaunched(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location) override;
         void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location) override;
 #endif
 
@@ -42,6 +43,7 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId) override;
+        void HandleRPC_KillBall(AzNetworking::IConnection* invokingConnection) override;
         void CheckForCollisions();
         void HideEnergyBall();
 
@@ -52,6 +54,7 @@ namespace MultiplayerSample
         }, AZ::Name("EnergyBallCheckForCollisions") };
 
         AZ::Vector3 m_direction = AZ::Vector3::CreateZero();
+        Multiplayer::NetEntityId m_shooterNetEntityId = Multiplayer::InvalidNetEntityId;
         NetEntityIdSet m_filteredNetEntityIds;
 #endif
     };
