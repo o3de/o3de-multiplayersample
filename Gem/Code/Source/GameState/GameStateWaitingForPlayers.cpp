@@ -14,7 +14,7 @@ namespace MultiplayerSample
 {
     AZ_CVAR(uint32_t, sv_MpsFirstMatchDelaySeconds, 0, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
         "Controls how many seconds the server waits to start the first match after the first player has connected. "
-        "This is a cvar instead of network archetype because it's important for server admins to be able to change this value with commandline instead of having to update a level prefab. "
+        "This is a cvar instead of network archetype because it's important for server admins to be able to set this as a launch parameter instead of having to update a level prefab. This setting could be removed if using holding lobby and matchmaking."
         "For example, during a tournament, if all the players are ready a server admin can start server with a 60 second match delay.");
 
 
