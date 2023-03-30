@@ -15,6 +15,7 @@
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
+#include <Components/ScriptableDecalComponent.h>
 #if AZ_TRAIT_CLIENT
     #include <Components/UI/HUDComponent.h>
     #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
@@ -51,7 +52,8 @@ namespace MultiplayerSample
                     UiPlayerArmorComponent::CreateDescriptor(),
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                     UiRestBetweenRoundsComponent::CreateDescriptor(),
-                    UiStartMenuComponent::CreateDescriptor()
+                    UiStartMenuComponent::CreateDescriptor(),
+                    ScriptableDecalComponent::CreateDescriptor(),
                 #endif
             });
 

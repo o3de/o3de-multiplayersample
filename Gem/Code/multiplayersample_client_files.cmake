@@ -6,6 +6,8 @@
 #
 
 set(FILES
+    Include/DecalBus.h
+
     Source/Components/UI/UiGameOverComponent.cpp
     Source/Components/UI/UiGameOverComponent.h
     Source/Components/UI/HUDComponent.cpp
@@ -18,4 +20,6 @@ set(FILES
     Source/Components/UI/UiRestBetweenRoundsComponent.h
     Source/Components/UI/UiStartMenuComponent.cpp
     Source/Components/UI/UiStartMenuComponent.h
+    Source/Components/ScriptableDecalComponent.cpp
+    Source/Components/ScriptableDecalComponent.h
 )
