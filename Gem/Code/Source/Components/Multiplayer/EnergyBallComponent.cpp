@@ -95,9 +95,8 @@ namespace MultiplayerSample
         m_filteredNetEntityIds.insert(GetNetEntityId());
         m_direction = direction;
 
-        // move self and increment resetCount to prevent transform interpolation
-        AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, startingPosition);
-        GetNetworkTransformComponentController()->ModifyResetCount()++;
+        // Move the entity to the start position
+        GetEntity()->GetTransform()->SetWorldTranslation(startingPosition);
 
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::EnablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
