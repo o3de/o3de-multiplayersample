@@ -75,25 +75,13 @@
                     "Id": 12889870600493739301,
                     "ParticleSystem": {
                         "assetId": {
-                            "guid": "{EAD91758-94E3-597E-94CF-FB52F72B7252}"
+                            "guid": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
                         },
-                        "assetHint": "popcornfx/particles/defenseturret/fx_defenseturret_projectile.pkfx"
+                        "assetHint": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
                     },
                     "PrewarmTime": 0.0,
                     "AttributeList": {
                         "Attributes": [
-                            {
-                                "Name": "Fire Rate",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Color1",
-                                "Type": 34
-                            },
-                            {
-                                "Name": "Color2",
-                                "Type": 34
-                            },
                             {
                                 "Name": "Color Intensity",
                                 "Type": 31
@@ -103,34 +91,17 @@
                                 "Type": 31
                             }
                         ],
-                        "AttributesRawData": "AABAQAAAAAAAAAAAAAAAAAAAgD/YGNM+AAAAAAAAgD9Qv/E+AAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAAAA="
+                        "AttributesRawData": "AACAPwAAAAAAAAAAAAAAAAAAQD8AAAAAAAAAAAAAAAA="
                     },
                     "EditorAttributeList": {
                         "AttributeCategories": [
                             {
                                 "Attributes": [
                                     {
-                                        "ValueFX": 3.0
-                                    },
-                                    {
-                                        "Color": [
-                                            1.0,
-                                            0.41229891777038574,
-                                            0.0
-                                        ]
-                                    },
-                                    {
-                                        "Color": [
-                                            0.47216272354125977,
-                                            0.0,
-                                            1.0
-                                        ]
-                                    },
-                                    {
                                         "ValueFX": 1.0
                                     },
                                     {
-                                        "ValueFX": 4.0
+                                        "ValueFX": 0.75
                                     }
                                 ]
                             }
@@ -179,7 +150,7 @@
                         "$type": "MultiplayerSample::EnergyBallComponent",
                         "ExplosionEffect": {
                             "ParticleAsset": {
-                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
+                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
                             },
                             "AudioTrigger": "play_sx_int_energyballtrap_impact"
                         },
@@ -315,9 +286,10 @@
                     "m_template": {
                         "$type": "MultiplayerSample::EnergyCannonComponent",
                         "RateOfFireMs": 4000,
+                        "BallLifetimeMs": 3800,
                         "FiringEffect": {
                             "ParticleAsset": {
-                                "guid": "{5A84D0E0-8BF2-5478-B3B9-900F5548754D}"
+                                "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"
                             },
                             "AudioTrigger": "play_sx_int_energyballtrap_buildup",
                             "EffectOffset": [
