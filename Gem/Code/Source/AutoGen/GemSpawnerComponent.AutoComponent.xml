@@ -24,4 +24,20 @@
 
     <ArchetypeProperty Type="AZStd::string" Name="GemSpawnTag"
                        ExposeToEditor="true" Description="A tag value for entities the describe the location of gems spawn points." />
+
+    <RemoteProcedure Name="RPC_SpawnGem" InvokeFrom="Server" HandleOn="Authority" 
+                     IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Spawn a gem at a specific location">
+      <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
+      <Param Type="AZ::Vector3" Name="SpawnLocation"/>
+      <Param Type="AZStd::string" Name="GemTag"/>
+    </RemoteProcedure>
+
+  <RemoteProcedure Name="RPC_SpawnGemWithValue" InvokeFrom="Server" HandleOn="Authority"
+                   IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Spawn a gem at a specific location with the given value">
+    <Param Type="Multiplayer::NetEntityId" Name="PlayerEntity"/>
+    <Param Type="AZ::Vector3" Name="SpawnLocation"/>
+    <Param Type="AZStd::string" Name="GemTag"/>
+    <Param Type="uint16_t" Name="GemValue"/>
+  </RemoteProcedure>
+
 </Component>
