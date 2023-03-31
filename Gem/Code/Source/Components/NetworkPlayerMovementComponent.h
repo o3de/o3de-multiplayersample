@@ -45,6 +45,11 @@ namespace MultiplayerSample
 
         void CreateInput(Multiplayer::NetworkInput& input, float deltaTime) override;
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
+
+#if AZ_TRAIT_SERVER
+        void HandleApplyImpulse(AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external) override;
+        void HandleSetVelocity(AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external) override;
+#endif
         //! @}
     
     protected:
@@ -95,6 +100,8 @@ namespace MultiplayerSample
 
         float m_viewYaw = 0.0f;
         float m_viewPitch = 0.0f;
+
+        bool m_toggleSprint = false;
 
         bool m_forwardDown = false;
         bool m_leftDown = false;

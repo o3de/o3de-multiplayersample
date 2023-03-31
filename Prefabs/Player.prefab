@@ -263,6 +263,7 @@
                         },
                         "MaximumSlopeAngle": 45.0,
                         "StepHeight": 0.30000001192092896,
+                        "ColliderTag": "Player",
                         "ApplyMoveOnPhysicsTick": false,
                         "SlopeBehaviour": 1,
                         "ScaleCoeff": 0.8999999761581421
@@ -328,6 +329,23 @@
                         "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
                     }
                 },
+                "Component_[3433022179537173310]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 3433022179537173310,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{18883F85-05DF-5AED-ABC2-21A539A89B8A}",
+                            "path": "scriptcanvas/PredictiveJumpPad.scriptcanvas"
+                        },
+                        "sourceName": "PredictiveJumpPad.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{18883F85-05DF-5AED-ABC2-21A539A89B8A}",
+                                "path": "scriptcanvas/PredictiveJumpPad.scriptcanvas"
+                            }
+                        }
+                    }
+                },
                 "Component_[3651951460255600248]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 3651951460255600248,
@@ -335,15 +353,22 @@
                         "$type": "MultiplayerSample::NetworkTeleportCompatibleComponent",
                         "TeleportEffect": {
                             "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
                             },
-                            "AudioTrigger": "Play_Laser_Gun_Impact",
+                            "AudioTrigger": "play_sx_int_jumppad_launch",
                             "EffectOffset": [
                                 0.0,
                                 0.0,
                                 1.0
                             ]
                         }
+                    }
+                },
+                "Component_[3712185848172530557]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3712185848172530557,
+                    "m_template": {
+                        "$type": "MultiplayerSample::ScriptingPlayerMovementComponent"
                     }
                 },
                 "Component_[3873700008294568875]": {
@@ -499,23 +524,6 @@
                     "Id": 6252367322126438780,
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
-                    }
-                },
-                "Component_[6986583060757611873]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 6986583060757611873,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{83DDCA95-0CA1-5599-AA7C-EFCF1E6BC753}",
-                            "path": "scriptcanvas/DamagePlayer.scriptcanvas"
-                        },
-                        "sourceName": "DamagePlayer.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{83DDCA95-0CA1-5599-AA7C-EFCF1E6BC753}",
-                                "path": "scriptcanvas/DamagePlayer.scriptcanvas"
-                            }
-                        }
                     }
                 },
                 "Component_[7398251875150394377]": {

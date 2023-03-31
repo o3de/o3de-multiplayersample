@@ -54,7 +54,7 @@ namespace MultiplayerSample
         , m_updateAI{ [this] { UpdateAI(); }, AZ::Name{ "MovementControllerAi" } }
 #endif
 #if AZ_TRAIT_CLIENT
-        , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
+    , m_updateLocalBot{ [this] { UpdateLocalBot(); }, AZ::Name{ "MovementControllerLocalBot" } }
 #endif
     {
         ;
@@ -153,6 +153,13 @@ namespace MultiplayerSample
 
         if (networkMatchComponent && (networkMatchComponent->PlayerActionsAllowed() == AllowedPlayerActions::All))
         {
+            // Check if the user requested to toggle sprint-state
+            if (m_toggleSprint)
+            {
+                m_sprinting = !m_sprinting;
+                m_toggleSprint = false;
+            }
+
             // Movement axis
             // Since we're on a keyboard, this adds a touch of an acceleration curve to the keyboard inputs
             // This is so that tapping the keyboard moves the virtual stick less than just holding it down
@@ -274,9 +281,45 @@ namespace MultiplayerSample
         GetNetworkAnimationComponentController()->ModifyActiveAnimStates().SetBit(
             aznumeric_cast<uint32_t>(CharacterAnimState::Falling), isFalling);
 
+        // If we're still on the ground, then zero out our velocity from external forces
+        // This prevents us from sliding along the ground after we land
+        PhysX::CharacterGameplayRequestBus::EventResult(onGround, GetEntityId(), &PhysX::CharacterGameplayRequestBus::Events::IsOnGround);
+        if (onGround)
+        {
+            SetVelocityFromExternalSources(AZ::Vector3::CreateZero());
+        }
+
         // At the end, track whether or not we were on the ground for this input so we can compare states when processing the next input.
         SetWasOnGround(onGround);
     }
+
+#if AZ_TRAIT_SERVER
+    void NetworkPlayerMovementComponentController::HandleApplyImpulse([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external)
+    {
+        if (external)
+        {
+            const AZ::Vector3 newVelocity = GetVelocityFromExternalSources() + impulse;
+            SetVelocityFromExternalSources(newVelocity);
+        }
+        else
+        {
+            const AZ::Vector3 newVelocity = GetSelfGeneratedVelocity() + impulse;
+            SetSelfGeneratedVelocity(newVelocity);
+        }
+    }
+
+    void NetworkPlayerMovementComponentController::HandleSetVelocity([[maybe_unused]] AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external)
+    {
+        if (external)
+        {
+            SetVelocityFromExternalSources(velocity);
+        }
+        else
+        {
+            SetSelfGeneratedVelocity(velocity);
+        }
+    }
+#endif
 
     void NetworkPlayerMovementComponentController::UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward)
     {
@@ -514,7 +557,7 @@ namespace MultiplayerSample
         }
         else if (*inputId == SprintEventId)
         {
-            m_sprinting = true;
+            m_toggleSprint = true;
         }
         else if (*inputId == JumpEventId)
         {
@@ -560,10 +603,6 @@ namespace MultiplayerSample
         else if (*inputId == MoveRightEventId)
         {
             m_rightDown = false;
-        }
-        else if (*inputId == SprintEventId)
-        {
-            m_sprinting = false;
         }
         else if (*inputId == JumpEventId)
         {

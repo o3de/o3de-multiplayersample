@@ -7,11 +7,31 @@
 
 #pragma once
 
-#include <AzFramework/Physics/Common/PhysicsEvents.h>
 #include <Source/AutoGen/EnergyBallComponent.AutoComponent.h>
+#include <Source/Weapons/WeaponGathers.h>
 
 namespace MultiplayerSample
 {
+    class EnergyBallComponent
+        : public EnergyBallComponentBase
+    {
+    public:
+        AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::EnergyBallComponent, s_energyBallComponentConcreteUuid, MultiplayerSample::EnergyBallComponentBase);
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+#if AZ_TRAIT_CLIENT
+        void HandleRPC_BallLaunched(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location) override;
+        void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location) override;
+#endif
+
+    private:
+        GameEffect m_effect;
+    };
+
     class EnergyBallComponentController
         : public EnergyBallComponentControllerBase
     {
@@ -22,27 +42,20 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
 #if AZ_TRAIT_SERVER
-        void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction) override;
-#endif
-
-    private:
+        void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId) override;
+        void HandleRPC_KillBall(AzNetworking::IConnection* invokingConnection) override;
+        void CheckForCollisions();
         void HideEnergyBall();
 
-#if AZ_TRAIT_SERVER
-        void TryKnockbackPlayer(AZ::Entity* target);
-#endif
-
-        void OnCollisionBegin(const AzPhysics::CollisionEvent& collisionEvent);
-        AzPhysics::SimulatedBodyEvents::OnCollisionBegin::Handler m_collisionHandler{ [this](
-            AzPhysics::SimulatedBodyHandle, const AzPhysics::CollisionEvent& collisionEvent)
+    private:
+        AZ::ScheduledEvent m_collisionCheckEvent{ [this]()
         {
-            OnCollisionBegin(collisionEvent);
-        } };
+            CheckForCollisions();
+        }, AZ::Name("EnergyBallCheckForCollisions") };
 
-        void LoadEnergyBallSettings();
         AZ::Vector3 m_direction = AZ::Vector3::CreateZero();
-        double m_knockbackDistance = 0.0;
-        double m_speed = 0.0;
-        AZ::s64 m_armorDamage = 0;
+        Multiplayer::NetEntityId m_shooterNetEntityId = Multiplayer::InvalidNetEntityId;
+        NetEntityIdSet m_filteredNetEntityIds;
+#endif
     };
 }

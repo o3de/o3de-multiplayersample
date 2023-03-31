@@ -12,10 +12,20 @@
 
 namespace MultiplayerSample
 {
-    class WeaponNotifications : public AZ::EBusTraits
+    class WeaponNotifications
+        : public AZ::EBusTraits
     {
     public:
         virtual ~WeaponNotifications() = default;
+
+        //! Called on a local player that has activated a weapon.
+        virtual void OnWeaponActivate([[maybe_unused]] const AZ::Transform& transform) {}
+
+        //! Called on a local player that has predictively impacted something with a weapon.
+        virtual void OnWeaponImpact([[maybe_unused]] const AZ::Transform& transform) {}
+
+        //! Called on a local player that has confirmed damaged something with a weapon.
+        virtual void OnWeaponDamage([[maybe_unused]] const AZ::Transform& transform) {}
 
         //! Called on a local player that has been confirmed to hit a player with a weapon.
         virtual void OnConfirmedHitPlayer([[maybe_unused]] AZ::EntityId byPlayerEntity, [[maybe_unused]] AZ::EntityId otherPlayerEntity) {}

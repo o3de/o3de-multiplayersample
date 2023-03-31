@@ -28,6 +28,8 @@ namespace MultiplayerSample
         ReflectWeaponEnums(context);
         GatherParams::Reflect(context);
         HitEffect::Reflect(context);
+        HitEntity::Reflect(context);
+        HitEvent::Reflect(context);
         WeaponParams::Reflect(context);
         GameEffect::Reflect(context);
 
@@ -38,8 +40,7 @@ namespace MultiplayerSample
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<MultiplayerSampleSystemComponent, AZ::Component>()
-                ->Version(0)
-                ;
+                ->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {

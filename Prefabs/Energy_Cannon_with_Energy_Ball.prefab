@@ -62,62 +62,62 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 10375256730531750003
                 },
-                "Component_[10980786607067158143]": {
-                    "$type": "EditorMaterialComponent",
-                    "Id": 10980786607067158143,
-                    "Controller": {
-                        "Configuration": {
-                            "materials": {
-                                "{}": {
-                                    "MaterialAsset": {
-                                        "assetId": {
-                                            "guid": "{A07AB932-AA2C-5097-A476-2C80B74CBE44}"
-                                        },
-                                        "assetHint": "materials/presets/macbeth/13_blue_tex.azmaterial"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
                 "Component_[1260159715379895998]": {
                     "$type": "EditorRigidBodyComponent",
                     "Id": 1260159715379895998,
                     "Configuration": {
                         "entityId": "",
-                        "Gravity Enabled": false,
-                        "Mass": 523.5988159179688,
-                        "Inertia tensor": [
-                            52.35987854003906,
-                            0.0,
-                            0.0,
-                            0.0,
-                            52.35987854003906,
-                            0.0,
-                            0.0,
-                            0.0,
-                            52.35987854003906
-                        ]
+                        "Gravity Enabled": false
                     }
                 },
-                "Component_[12810850094831600573]": {
-                    "$type": "AZ::Render::EditorMeshComponent",
-                    "Id": 12810850094831600573,
-                    "Controller": {
-                        "Configuration": {
-                            "ModelAsset": {
-                                "assetId": {
-                                    "guid": "{CF3204A8-DE09-56D5-B5FA-E218A6F65E6F}",
-                                    "subId": 283342095
-                                },
-                                "assetHint": "testdata/objects/modelhotreload/sphere_5lods.azmodel"
+                "Component_[12889870600493739301]": {
+                    "$type": "PopcornFXEmitterEditorComponent",
+                    "Id": 12889870600493739301,
+                    "ParticleSystem": {
+                        "assetId": {
+                            "guid": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
+                        },
+                        "assetHint": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
+                    },
+                    "PrewarmTime": 0.0,
+                    "AttributeList": {
+                        "Attributes": [
+                            {
+                                "Name": "Color Intensity",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Global Scale",
+                                "Type": 31
                             }
-                        }
+                        ],
+                        "AttributesRawData": "AACAPwAAAAAAAAAAAAAAAAAAQD8AAAAAAAAAAAAAAAA="
+                    },
+                    "EditorAttributeList": {
+                        "AttributeCategories": [
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 1.0
+                                    },
+                                    {
+                                        "ValueFX": 0.75
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 "Component_[1317909201307914089]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 1317909201307914089
+                },
+                "Component_[147163556142342236]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 147163556142342236,
+                    "Play Trigger": {
+                        "controlName": "play_sx_int_energyballtrap_projectile"
+                    }
                 },
                 "Component_[14745079858933335176]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -125,9 +125,9 @@
                     "Parent Entity": "Entity_[660556807508]",
                     "Transform Data": {
                         "Translate": [
-                            0.0,
-                            -1.0,
-                            0.0
+                            -4.76837158203125e-7,
+                            0.014715194702148438,
+                            1.3146799802780151
                         ],
                         "UniformScale": 0.5
                     }
@@ -136,12 +136,33 @@
                     "$type": "EditorVisibilityComponent",
                     "Id": 15147782715820726746
                 },
+                "Component_[15983379144838108017]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 15983379144838108017,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
                 "Component_[16569145727191893785]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 16569145727191893785,
                     "m_template": {
                         "$type": "MultiplayerSample::EnergyBallComponent",
-                        "Speed": 5.0
+                        "ExplosionEffect": {
+                            "ParticleAsset": {
+                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                            },
+                            "AudioTrigger": "play_sx_int_energyballtrap_impact"
+                        },
+                        "GatherParams": {
+                            "GatherShape": 2,
+                            "CastDistance": 0.0,
+                            "TravelSpeed": 12.0,
+                            "BulletDrop": false
+                        },
+                        "HitEffect": {
+                            "HitMagnitude": 15.0
+                        }
                     }
                 },
                 "Component_[16681766830394531701]": {
@@ -149,30 +170,6 @@
                     "Id": 16681766830394531701,
                     "m_template": {
                         "$type": "Multiplayer::NetworkRigidBodyComponent"
-                    }
-                },
-                "Component_[17564887301536129798]": {
-                    "$type": "EditorColliderComponent",
-                    "Id": 17564887301536129798,
-                    "ColliderConfiguration": {
-                        "MaterialSlots": {
-                            "Slots": [
-                                {
-                                    "Name": "Entire object"
-                                }
-                            ]
-                        }
-                    },
-                    "ShapeConfiguration": {
-                        "ShapeType": 0,
-                        "Sphere": {
-                            "Scale": [
-                                0.5,
-                                0.5,
-                                0.5
-                            ],
-                            "Radius": 1.0
-                        }
                     }
                 },
                 "Component_[425805608025666933]": {
@@ -243,10 +240,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{E14975EF-E676-51A4-B826-3EF59CB645AA}",
-                                    "subId": 285127096
+                                    "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                    "subId": 269172407
                                 },
-                                "assetHint": "testdata/objects/cube/cube.azmodel"
+                                "assetHint": "defenceturret/defenceturret.azmodel"
                             }
                         }
                     }
@@ -288,6 +285,19 @@
                     "Id": 15034031694382477776,
                     "m_template": {
                         "$type": "MultiplayerSample::EnergyCannonComponent",
+                        "RateOfFireMs": 4000,
+                        "BallLifetimeMs": 3800,
+                        "FiringEffect": {
+                            "ParticleAsset": {
+                                "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"
+                            },
+                            "AudioTrigger": "play_sx_int_energyballtrap_buildup",
+                            "EffectOffset": [
+                                0.0,
+                                0.0,
+                                1.2999999523162842
+                            ]
+                        },
                         "EnergyBallEntity": "Entity_[656261840212]"
                     }
                 },
@@ -328,9 +338,10 @@
                                 "{}": {
                                     "MaterialAsset": {
                                         "assetId": {
-                                            "guid": "{A07AB932-AA2C-5097-A476-2C80B74CBE44}"
+                                            "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                            "subId": 1927518764
                                         },
-                                        "assetHint": "materials/presets/macbeth/13_blue_tex.azmaterial"
+                                        "assetHint": "defenceturret/defenceturret_opaque_mat_14061460897371757100.azmaterial"
                                     }
                                 }
                             }

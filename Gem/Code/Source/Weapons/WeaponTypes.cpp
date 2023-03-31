@@ -351,11 +351,63 @@ namespace MultiplayerSample
             && serializer.Serialize(m_hitNetEntityId, "HitNetEntityId");
     }
 
+    void HitEntity::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<HitEntity>()
+                ->Version(0)
+                ->Field("HitPosition", &HitEntity::m_hitPosition)
+                ->Field("HitNetEntityId", &HitEntity::m_hitNetEntityId);
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->Class<HitEntity>("HitEntity")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
+                ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                ->Constructor<>()
+                ->Property("HitPosition", BehaviorValueProperty(&HitEntity::m_hitPosition))
+                ->Property("HitNetEntityId", BehaviorValueProperty(&HitEntity::m_hitNetEntityId))
+                ;
+        }
+    }
+
     bool HitEvent::Serialize(AzNetworking::ISerializer& serializer)
     {
         return serializer.Serialize(m_hitTransform, "HitTransform")
             && serializer.Serialize(m_shooterNetEntityId, "ShooterNetEntityId")
             && serializer.Serialize(m_hitEntities, "HitEntities");
+    }
+
+    void HitEvent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<HitEvent>()
+                ->Version(0)
+                ->Field("HitTransform", &HitEvent::m_hitTransform)
+                ->Field("ShooterNetEntityId", &HitEvent::m_shooterNetEntityId)
+                ->Field("HitEntities", &HitEvent::m_hitEntities);
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->Class<HitEvent>("HitEvent")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
+                ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                ->Constructor<>()
+                ->Property("HitTransform", BehaviorValueProperty(&HitEvent::m_hitTransform))
+                ->Property("ShooterNetEntityId", BehaviorValueProperty(&HitEvent::m_shooterNetEntityId))
+                ->Property("HitEntities", BehaviorValueProperty(&HitEvent::m_hitEntities))
+                ;
+        }
     }
 
     bool FireParams::operator!=(const FireParams& rhs) const
