@@ -11,12 +11,14 @@
 					<PropertyList>
 						<Property Name="3DSpatialization" Type="int16" Value="2"/>
 						<Property Name="Color" Type="int16" Value="20"/>
+						<Property Name="EnableDiffraction" Type="bool" Value="True"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 						<Property Name="OverrideOutput" Type="bool" Value="True"/>
+						<Property Name="OverridePositioning" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Attenuation">
-							<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+							<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
 						</Reference>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -28,9 +30,15 @@
 					<ChildrenList>
 						<ActorMixer Name="EnergyBallTrap" ID="{B3FCC548-EA26-4E59-B7DD-EE409F33CE8E}" ShortID="897879539">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_INT_Trap" ID="{AFE142B5-7438-4098-9291-18BCDCD34D7B}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 								</Reference>
@@ -41,9 +49,11 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="sx_int_energyBallTrap_buildup" ID="{13873A13-8973-4020-9FFB-501BD5BA5865}" ShortID="182794333">
 									<PropertyList>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-8</Value>
+												<Value>-16</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -63,7 +73,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -91,13 +101,21 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="sx_int_energyBallTrap_impact" ID="{92014ACE-04FD-4CE2-8FEC-0513182D6858}" ShortID="342465274">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-7</Value>
+												<Value>-12</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Impact_Default" ID="{02FD8E94-C99D-4362-9DCD-BAF59B93A518}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 										</Reference>
@@ -113,7 +131,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -143,7 +161,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -173,7 +191,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -223,7 +241,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -251,13 +269,19 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" ShortID="459005780">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-18</Value>
+												<Value>-20</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Projectile_Default" ID="{875233F6-6B3F-48E9-9ECD-11FB1B195CCC}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 										</Reference>
@@ -274,7 +298,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -324,7 +348,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -355,9 +379,15 @@
 						</ActorMixer>
 						<ActorMixer Name="Gem" ID="{8682B672-CBD3-4F7A-BE0F-2203F82DC2E9}" ShortID="387902803">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_Default_10" ID="{CADD0C94-A66F-475F-A061-620A6D76B155}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 								</Reference>
@@ -413,7 +443,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -444,9 +474,15 @@
 						</ActorMixer>
 						<ActorMixer Name="JumpPad" ID="{383D17E4-D49E-4BA6-A5F0-2AC21C966FA4}" ShortID="869294703">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_INT_JumpPad" ID="{B20BF362-B310-4C42-AC31-ED627834073C}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 								</Reference>
@@ -457,9 +493,22 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="sx_int_jumpPad_launch" ID="{715FC78B-4F25-4B37-B15F-8B41ED56110F}" ShortID="1028960929">
 									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{BB489F52-6184-4067-8CFD-E977E9E97C61}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-4</Value>
+												<Value>-5</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -479,7 +528,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -521,7 +570,23 @@
 								<RandomSequenceContainer Name="sx_int_energyCollector_explosion" ID="{F7B977C9-5A5B-4A1F-AB64-F730DAD37337}" ShortID="1063007841">
 									<PropertyList>
 										<Property Name="3DSpatialization" Type="int16" Value="2"/>
-										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{23960D84-076F-47DF-86A7-A4153786912E}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-1</Value>
@@ -530,7 +595,7 @@
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
-											<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+											<ObjectRef Name="ATN_WPN_Explosion_Large" ID="{10812A45-46F3-492A-A38E-A2FF15AC8130}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
 										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -616,6 +681,15 @@
 							<ObjectLists/>
 						</ActorMixer>
 						<ActorMixer Name="ShieldGenerator" ID="{CF255924-3D19-445B-9088-BBDA53301A5D}" ShortID="937703326">
+							<PropertyList>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{FC8EBEA5-AF1B-4510-9458-FA6EBFBEA237}"/>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -628,7 +702,8 @@
 								<RandomSequenceContainer Name="sx_int_malfunctioningShieldGenerator_buildUp" ID="{62399925-3AE3-499B-AB20-D8FF1037A822}" ShortID="884853138">
 									<PropertyList>
 										<Property Name="3DSpatialization" Type="int16" Value="2"/>
-										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-3</Value>
@@ -637,7 +712,7 @@
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
-											<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+											<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -675,9 +750,22 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" ShortID="527520955">
 									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{2080D8CB-6FD3-4CB9-ADCB-EC648C850E0B}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-14</Value>
+												<Value>-16</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -698,7 +786,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -726,6 +814,24 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="sx_int_malfunctioningShieldGenerator_explo" ID="{01E0DEFE-B2F5-4AF4-AFD5-4D242E317371}" ShortID="462254982">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{545E12B5-8F04-46FD-B084-4B8CB9C368AD}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -733,6 +839,9 @@
 										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Explosion_Large" ID="{10812A45-46F3-492A-A38E-A2FF15AC8130}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
 										</Reference>
@@ -748,7 +857,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -778,7 +887,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -808,7 +917,7 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="ATN_Default_20u" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
@@ -836,6 +945,155 @@
 											<ObjectLists/>
 											<ActiveSourceList>
 												<ActiveSource Name="sx_env_malfunctioningShieldGenerator_explo_03" ID="{C14F2859-5C64-4D23-96CF-D3E376EDA7D0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="Teleporter" ID="{89222400-2CF3-4392-838B-0559932B3F2E}" ShortID="823777430">
+							<PropertyList>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{84AD078E-8FB5-4D14-91C2-AE5F557A9738}"/>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_int_teleporter_activate" ID="{1FDF3977-BF55-431F-BF82-01497FE2688C}" ShortID="790274834">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{014BE4A9-413E-47A8-A390-9C159BB00CD6}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="80"/>
+															<Property Name="Min" Type="Real64" Value="-80"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-17</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_teleporter_activate_01" ID="{7D22C746-F4EF-4111-BAA2-7613439B44EA}" ShortID="598262678">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_teleporter_activate_01" ID="{3F8B8349-E921-4FC3-BF57-9D472042F9FF}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\teleporter\sx_int_teleporter_activate_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="495133134"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_teleporter_activate_01" ID="{3F8B8349-E921-4FC3-BF57-9D472042F9FF}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" ShortID="656771698">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{2BF17959-BEF9-4E65-84B2-E63C1706F6F0}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-16</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_teleporter_loop_01" ID="{BD2935FF-8AA4-4859-AAC2-A652F5668509}" ShortID="377669000">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_teleporter_loop_01" ID="{93BC3602-8A99-4412-8DFE-3583833B5DF8}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\teleporter\sx_int_teleporter_loop_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="381397623"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_teleporter_loop_01" ID="{93BC3602-8A99-4412-8DFE-3583833B5DF8}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>

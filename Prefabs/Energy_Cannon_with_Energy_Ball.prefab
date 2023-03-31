@@ -91,7 +91,7 @@
                                 "Type": 31
                             }
                         ],
-                        "AttributesRawData": "AACAPwAAAAAAAAAAAAAAAAAAQD8AAAAAAAAAAAAAAAA="
+                        "AttributesRawData": "AACAPwAAAAAAAAAAAAAAAM3MTD8AAAAAAAAAAAAAAAA="
                     },
                     "EditorAttributeList": {
                         "AttributeCategories": [
@@ -101,7 +101,7 @@
                                         "ValueFX": 1.0
                                     },
                                     {
-                                        "ValueFX": 0.75
+                                        "ValueFX": 0.800000011920929
                                     }
                                 ]
                             }
@@ -125,9 +125,9 @@
                     "Parent Entity": "Entity_[660556807508]",
                     "Transform Data": {
                         "Translate": [
-                            -4.76837158203125e-7,
-                            0.014715194702148438,
-                            1.3146799802780151
+                            -9.5367431640625e-7,
+                            0.0,
+                            0.6000000238418579
                         ],
                         "UniformScale": 0.5
                     }
@@ -157,7 +157,7 @@
                         "GatherParams": {
                             "GatherShape": 2,
                             "CastDistance": 0.0,
-                            "TravelSpeed": 12.0,
+                            "TravelSpeed": 8.0,
                             "BulletDrop": false
                         },
                         "HitEffect": {
@@ -240,10 +240,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
-                                    "subId": 269172407
+                                    "guid": "{251F7A49-FA34-57EC-919D-399EAF8F9770}",
+                                    "subId": 269561695
                                 },
-                                "assetHint": "defenceturret/defenceturret.azmodel"
+                                "assetHint": "spacecannon/spacecannon.azmodel"
                             }
                         }
                     }
@@ -295,7 +295,7 @@
                             "EffectOffset": [
                                 0.0,
                                 0.0,
-                                1.2999999523162842
+                                1.2000000476837158
                             ]
                         },
                         "EnergyBallEntity": "Entity_[656261840212]"
@@ -316,7 +316,15 @@
                 "Component_[3533828349650165605]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 3533828349650165605,
-                    "Parent Entity": "ContainerEntity"
+                    "Parent Entity": "ContainerEntity",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            0.1949511617422104
+                        ],
+                        "UniformScale": 2.0
+                    }
                 },
                 "Component_[398718130345139058]": {
                     "$type": "EditorEntitySortComponent",
@@ -338,10 +346,8 @@
                                 "{}": {
                                     "MaterialAsset": {
                                         "assetId": {
-                                            "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
-                                            "subId": 1927518764
-                                        },
-                                        "assetHint": "defenceturret/defenceturret_opaque_mat_14061460897371757100.azmaterial"
+                                            "guid": "{7F678F45-39F0-573F-A178-34E76532397E}"
+                                        }
                                     }
                                 }
                             }
@@ -352,12 +358,40 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 8731904734389776651
                 },
+                "Component_[9112722425705082704]": {
+                    "$type": "EditorMeshColliderComponent",
+                    "Id": 9112722425705082704,
+                    "ColliderConfiguration": {
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "PhysicsAsset": {
+                            "Configuration": {
+                                "Scale": [
+                                    2.0,
+                                    2.0,
+                                    2.0
+                                ]
+                            }
+                        }
+                    }
+                },
                 "Component_[9219518570565453785]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 9219518570565453785,
                     "m_template": {
                         "$type": "Multiplayer::NetworkTransformComponent"
                     }
+                },
+                "Component_[9579942683680693676]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 9579942683680693676
                 }
             }
         }

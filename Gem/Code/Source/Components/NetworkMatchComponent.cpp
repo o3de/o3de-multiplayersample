@@ -117,6 +117,12 @@ namespace MultiplayerSample
             return AllowedPlayerActions::RotationOnly;
         }
 
+        // Disable player actions if the match hasn't started and we're still waiting for more players to join
+        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetFirstMatchStartHostTime())
+        {
+            return AllowedPlayerActions::RotationOnly;
+        }
+
         return AllowedPlayerActions::All;
     }
 
@@ -145,6 +151,11 @@ namespace MultiplayerSample
         return aznumeric_cast<int32_t>(GetPlayerCount());
     }
 
+    AZ::TimeMs NetworkMatchComponent::GetFirstMatchStartHostTime() const
+    {
+        return NetworkMatchComponentBase::GetFirstMatchStartHostTime();
+    }
+
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
     {
         RoundNumberAddEvent(handler);
@@ -158,6 +169,11 @@ namespace MultiplayerSample
     void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
     {
         RoundRestTimeRemainingAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddFirstMatchStartHostTime(AZ::Event<AZ::TimeMs>::Handler& handler)
+    {
+        this->FirstMatchStartHostTimeAddEvent(handler);
     }
 
 #if AZ_TRAIT_SERVER
@@ -327,6 +343,27 @@ namespace MultiplayerSample
             results.m_playerStates.push_back(state);
         }
 
+        // Print the player results to server.log for tracking tournament winners.
+        // Sort the players by score (highest score is 1st)
+        // If scores are matching, then sort by remaining armor.
+        AZStd::sort(results.m_playerStates.begin(), results.m_playerStates.end(), [](const PlayerState& a, const PlayerState& b)
+            {
+                if (a.m_score == b.m_score)
+                {
+                    return a.m_remainingArmor > b.m_remainingArmor;
+                }
+                return a.m_score > b.m_score;
+            });
+
+        AZStd::string prettyPrintMatchResults = "";
+        prettyPrintMatchResults += AZStd::string::format("Match Results (%u players)\n", results.m_playerStates.size());
+        for (const PlayerState& playerState : results.m_playerStates)
+        {
+            prettyPrintMatchResults += AZStd::string::format("\tPlayer %s score %u, armor %u.\n", playerState.m_playerName.c_str(), playerState.m_score, playerState.m_remainingArmor);
+        }
+        AZ_Info("NetworkMatchComponentController", prettyPrintMatchResults.c_str());
+
+
         FindWinner(results, potentialWinners);
 
         RPC_EndMatch(results);
@@ -475,6 +512,13 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player reported depleted armor: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
 #endif   
+    }
+
+    void NetworkMatchComponentController::OnFirstMatchHostTimeChange([[maybe_unused]]AZ::TimeMs hostTime)
+    {
+#if AZ_TRAIT_SERVER
+        SetFirstMatchStartHostTime(hostTime);
+#endif
     }
 
 #if AZ_TRAIT_SERVER

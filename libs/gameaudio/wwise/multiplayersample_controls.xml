@@ -1,5 +1,47 @@
 <ATLConfig atl_name="multiplayersample_controls">
 	<AudioTriggers>
+		<ATLTrigger atl_name="Stop_Gem_Pickup" path="z_placeholders">
+			<WwiseEvent wwise_name="Stop_Gem_Pickup"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Play_Gem_Pickup" path="z_placeholders">
+			<WwiseEvent wwise_name="Play_Gem_Pickup"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Stop_Laser_Gun_Impact" path="z_placeholders">
+			<WwiseEvent wwise_name="Stop_Laser_Gun_Impact"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Play_Laser_Gun_Impact" path="z_placeholders">
+			<WwiseEvent wwise_name="Play_Laser_Gun_Impact"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Stop_Round_End" path="z_placeholders">
+			<WwiseEvent wwise_name="Stop_Round_End"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Stop_Round_Begin" path="z_placeholders">
+			<WwiseEvent wwise_name="Stop_Round_Begin"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Play_Round_End" path="z_placeholders">
+			<WwiseEvent wwise_name="Play_Round_End"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Play_Round_Begin" path="z_placeholders">
+			<WwiseEvent wwise_name="Play_Round_Begin"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Stop_Sound_Gun_Firing" path="z_placeholders">
+			<WwiseEvent wwise_name="Stop_Sound_Gun_Firing"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="Play_Sound_Gun_Firing" path="z_placeholders">
+			<WwiseEvent wwise_name="Play_Sound_Gun_Firing"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="stop_sx_env_lamp_loop" path="Events/SX/LVL">
+			<WwiseEvent wwise_name="stop_sx_env_lamp_loop"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="stop_sx_amb_ext_general" path="Events/SX/LVL">
+			<WwiseEvent wwise_name="stop_sx_amb_ext_general"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_env_lamp_loop" path="Events/SX/LVL">
+			<WwiseEvent wwise_name="play_sx_env_lamp_loop"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_amb_ext_general" path="Events/SX/LVL">
+			<WwiseEvent wwise_name="play_sx_amb_ext_general"/>
+		</ATLTrigger>
 		<ATLTrigger atl_name="play_sx_player_pain" path="Events/SX/PLAYER">
 			<WwiseEvent wwise_name="play_sx_player_pain"/>
 		</ATLTrigger>
@@ -72,6 +114,15 @@
 		<ATLTrigger atl_name="play_sx_wpn_laserpistol_fire" path="Events/SX/WPN/laserPistol">
 			<WwiseEvent wwise_name="play_sx_wpn_laserpistol_fire"/>
 		</ATLTrigger>
+		<ATLTrigger atl_name="stop_sx_int_teleporter_idle" path="Events/SX/INT/teleporter">
+			<WwiseEvent wwise_name="stop_sx_int_teleporter_idle"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_teleporter_idle" path="Events/SX/INT/teleporter">
+			<WwiseEvent wwise_name="play_sx_int_teleporter_idle"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_teleporter_activate" path="Events/SX/INT/teleporter">
+			<WwiseEvent wwise_name="play_sx_int_teleporter_activate"/>
+		</ATLTrigger>
 		<ATLTrigger atl_name="play_sx_int_malfunctioningshieldgenerator_idle" path="Events/SX/INT/shieldGenerator">
 			<WwiseEvent wwise_name="play_sx_int_malfunctioningshieldgenerator_idle"/>
 		</ATLTrigger>
@@ -111,38 +162,14 @@
 		<ATLTrigger atl_name="play_sx_int_energyballtrap_buildup" path="Events/SX/INT/energyballTrap">
 			<WwiseEvent wwise_name="play_sx_int_energyballtrap_buildup"/>
 		</ATLTrigger>
-		<ATLTrigger atl_name="Stop_Gem_Pickup">
-			<WwiseEvent wwise_name="Stop_Gem_Pickup"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Play_Gem_Pickup">
-			<WwiseEvent wwise_name="Play_Gem_Pickup"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Stop_Laser_Gun_Impact">
-			<WwiseEvent wwise_name="Stop_Laser_Gun_Impact"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Play_Laser_Gun_Impact">
-			<WwiseEvent wwise_name="Play_Laser_Gun_Impact"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Stop_Round_End">
-			<WwiseEvent wwise_name="Stop_Round_End"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Stop_Round_Begin">
-			<WwiseEvent wwise_name="Stop_Round_Begin"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Play_Round_End">
-			<WwiseEvent wwise_name="Play_Round_End"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Play_Round_Begin">
-			<WwiseEvent wwise_name="Play_Round_Begin"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Stop_Sound_Gun_Firing">
-			<WwiseEvent wwise_name="Stop_Sound_Gun_Firing"/>
-		</ATLTrigger>
-		<ATLTrigger atl_name="Play_Sound_Gun_Firing">
-			<WwiseEvent wwise_name="Play_Sound_Gun_Firing"/>
-		</ATLTrigger>
 	</AudioTriggers>
 	<AudioRtpcs>
+		<ATLRtpc atl_name="Velocity" path="GameSyncs/RTPCs/Physics">
+			<WwiseRtpc wwise_name="Velocity"/>
+		</ATLRtpc>
+		<ATLRtpc atl_name="Health" path="GameSyncs/RTPCs/Gameplay">
+			<WwiseRtpc wwise_name="Health"/>
+		</ATLRtpc>
 		<ATLRtpc atl_name="Volume_SFX" path="GameSyncs/RTPCs/VolumeSettings">
 			<WwiseRtpc wwise_name="Volume_SFX"/>
 		</ATLRtpc>
