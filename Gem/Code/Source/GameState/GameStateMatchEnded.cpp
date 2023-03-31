@@ -9,23 +9,19 @@
 #include <GameState/GameStateRequestBus.h>
 #include <Source/GameState/GameStateMatchEnded.h>
 #include <Source/GameState/GameStatePreparingMatch.h>
+#include <AzCore/Time/ITime.h>
 
 namespace MultiplayerSample
 {    
     GameStateMatchEnded::GameStateMatchEnded([[maybe_unused]] NetworkMatchComponentController* controller)
     {
-#if AZ_TRAIT_SERVER
         m_controller = controller;	    
-#endif	    
     }
 
     void GameStateMatchEnded::OnEnter()
     {
-#if AZ_TRAIT_SERVER
         m_controller->EndMatch();
-#endif
-        m_finishingTime = AZ::TimeMs{ 3000 };
-        m_finishingEvent.Enqueue(AZ::Time::ZeroTimeMs, true);
+        m_finishingEvent.Enqueue(AZ::SecondsToTimeMs(m_controller->GetRestDurationBetweenMatches()));
 
         GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::GameEnd);
     }
@@ -35,15 +31,9 @@ namespace MultiplayerSample
         m_finishingEvent.RemoveFromQueue();
     }
 
-    void GameStateMatchEnded::OnFinishedMatchTick()
+    void GameStateMatchEnded::OnFinishedMatch()
     {
-        m_finishingTime -= m_finishingEvent.TimeInQueueMs();
-        if (m_finishingTime <= AZ::Time::ZeroTimeMs)
-        {
-            m_finishingEvent.RemoveFromQueue();
-
-            const auto state = GameState::GameStateRequests::CreateNewOverridableGameStateOfType<GameStatePreparingMatch>();
-            GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::ReplaceActiveGameState, state);
-        }
+        const auto state = GameState::GameStateRequests::CreateNewOverridableGameStateOfType<GameStatePreparingMatch>();
+        GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::ReplaceActiveGameState, state);
     }
 }

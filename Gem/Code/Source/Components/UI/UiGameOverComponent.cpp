@@ -74,7 +74,7 @@ namespace MultiplayerSample
     {
         if (enabled)
         {
-            m_secondsRemainingUntilNewMatch = RestSecondsBetweenMatches;
+            m_secondsRemainingUntilNewMatch = aznumeric_cast<uint16_t>(AZStd::floor(AZ::Interface<INetworkMatch>::Get()->GetRestDurationBetweenMatches()));
             DisplaySecondsRemainingUI(m_secondsRemainingUntilNewMatch);
             m_onSecondsRemainingChanged.Enqueue(AZ::TimeMs{ 1000 }, true);
         }

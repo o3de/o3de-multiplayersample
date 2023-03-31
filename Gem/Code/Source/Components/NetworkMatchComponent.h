@@ -65,6 +65,8 @@ namespace MultiplayerSample
         //! Adds an event handler to the round number rest remaining AZ::Event
         //! @param handler the handler to add the the requested component event
         virtual void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) = 0;
+
+        virtual float GetRestDurationBetweenMatches() const = 0;
     };
 
 
@@ -102,6 +104,8 @@ namespace MultiplayerSample
         void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) override;
         void AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
         void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
+        float GetRestDurationBetweenMatches() const override;
+
         //! @}
 
 #if AZ_TRAIT_SERVER

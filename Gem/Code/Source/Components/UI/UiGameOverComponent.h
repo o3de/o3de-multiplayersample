@@ -20,8 +20,6 @@ namespace MultiplayerSample
         , public UiGameOverBus::Handler
     {
     public:
-        static constexpr uint16_t RestSecondsBetweenMatches = 5;
-
         AZ_COMPONENT(UiGameOverComponent, "{37a2de13-a8fa-4ee1-8652-e17253137f62}");
 
         static void Reflect(AZ::ReflectContext* context);
