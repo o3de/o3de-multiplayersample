@@ -29,11 +29,37 @@ namespace MultiplayerSample
 
     void SpawnDecalConfig::Reflect(AZ::ReflectContext* context)
     {
-        if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
+        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<MultiplayerSample::SpawnDecalConfig>()
+            serializeContext->Class<MultiplayerSample::SpawnDecalConfig>()
                 ->Version(0)
+                ->Field("Scale", &SpawnDecalConfig::m_scale)
+                ->Field("Opacity", &SpawnDecalConfig::m_opacity)
+                ->Field("AttenuationAngle", &SpawnDecalConfig::m_attenutationAngle)
+                ->Field("LifeTime", &SpawnDecalConfig::m_lifeTime)
+                ->Field("FadeTime", &SpawnDecalConfig::m_fadeTime)
+                ->Field("SortKey", &SpawnDecalConfig::m_sortKey)
                 ;
+
+            if (auto editContext = serializeContext->GetEditContext())
+            {
+                editContext->Class<SpawnDecalConfig>("SpawnDecalConfig", "Configuration settings for spawning a decal.")
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
+                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_scale, "Scale", "The scale of the decal.")
+                    ->DataElement(AZ::Edit::UIHandlers::Slider, &SpawnDecalConfig::m_opacity, "Opacity", "The opacity of the decal.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                        ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_attenutationAngle, "Angle attenuation", "How much to attenuate the opacity of the decal based on the different in the angle between the decal and the surface.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                        ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_lifeTime, "Life time", "How long before the decal should begin to fade out, in seconds.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_fadeTime, "Fade time", "How long the decal should spend fading out at the end of its life time.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_sortKey, "Sort key", "Used to sort the decal with other decals. Higher numbered decals show on top of lower number decals.")
+                    ;
+            }
         }
 
         if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))

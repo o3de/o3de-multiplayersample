@@ -146,6 +146,7 @@ namespace MultiplayerSample
             else
             {
                 float opacity = 1.0f - (currentFadeTimeMs / totalFadeTimeMs);
+                opacity *= decalInstance.m_config.m_opacity;
                 m_decalFeatureProcessor->SetDecalOpacity(decalInstance.m_handle, opacity);
                 ++i;
             }
