@@ -5,6 +5,7 @@
  *
  */
 
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Preprocessor/EnumReflectUtils.h>
 
 #include <GameplayEffectsNotificationBus.h>
@@ -14,6 +15,7 @@
 #include <GameState/GameStateMatchEnded.h>
 #include <GameState/GameStateMatchInProgress.h>
 #include <GameState/GameStatePreparingMatch.h>
+#include <Source/Components/Multiplayer/GemSpawnerComponent.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 #include <Source/Components/NetworkTeleportCompatibleComponent.h>
@@ -437,6 +439,9 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::EndRound()
     {
+        // As soon as a round ends, remove all the gems until the next round begins.
+        GetGemSpawnerComponentController()->RemoveGems();
+
         // Check if we're in-between rounds, or if this is the end of the match...
         if (GetRoundNumber() < GetTotalRounds()) // In-between
         {
@@ -504,7 +509,40 @@ namespace MultiplayerSample
         {
             if (Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity))
             {
+                AZ::Vector3 playerTranslation = playerHandle.Exists() 
+                    ? playerHandle.GetEntity()->GetTransform()->GetWorldTranslation() 
+                    : AZ::Vector3::CreateZero();
                 RespawnPlayer(playerEntity, PlayerResetOptions{ true, GetRespawnPenaltyPercent() });
+                if (playerHandle.Exists())
+                {
+                    MultiplayerSample::GemSpawnerComponent* gemSpawnerComponent = GetParent().GetGemSpawnerComponent();
+
+                    if (gemSpawnerComponent)
+                    {
+                        const AZStd::vector<PlayerCoinState>& coinStates = GetMatchPlayerCoinsComponentController()->GetParent().
+                            GetPlayerCoinCounts();
+
+                        const auto coinStateIterator = AZStd::find_if(
+                            coinStates.begin(), coinStates.end(), [playerEntity](const PlayerCoinState& state)
+                            {
+                                return state.m_playerId == playerEntity;
+                            });
+
+                        if (coinStateIterator != coinStates.end())
+                        {
+                            float coinsDropped = coinStateIterator->m_coins * (GetRespawnPenaltyPercent() * 0.01f);
+
+                            gemSpawnerComponent->RPC_SpawnGemWithValue(
+                                playerEntity, playerTranslation, GetRespawnGemTag(), static_cast<uint16_t>(coinsDropped));
+                        }
+                        else
+                        {
+                            gemSpawnerComponent->RPC_SpawnGem(
+                                playerEntity, playerTranslation, GetRespawnGemTag());
+                        }
+                            
+                    }
+                }
             }
         }
         else
