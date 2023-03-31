@@ -136,7 +136,7 @@ namespace MultiplayerSample
             if (m_velocityParamId != InvalidParamIndex)
             {
                 const bool aiming = GetActiveAnimStates().GetBit(aznumeric_cast<uint32_t>(CharacterAnimState::Aiming));
-                if(GetTurningEnabled() && !aiming)
+                if (GetTurningEnabled() && !aiming)
                 { 
                     const float turnAmount = velocity2d.GetX();
                     m_animationGraph->SetParameterVector2(m_velocityParamId, AZ::Vector2(turnAmount, speed));
