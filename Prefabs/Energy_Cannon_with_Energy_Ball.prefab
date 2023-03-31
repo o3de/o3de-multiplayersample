@@ -126,7 +126,7 @@
                     "Transform Data": {
                         "Translate": [
                             -9.5367431640625e-7,
-                            0.0,
+                            -0.30000001192092896,
                             0.6000000238418579
                         ],
                         "UniformScale": 0.5
@@ -287,6 +287,7 @@
                         "$type": "MultiplayerSample::EnergyCannonComponent",
                         "RateOfFireMs": 4000,
                         "BallLifetimeMs": 3800,
+                        "BuildUpTimeMs": 3300,
                         "FiringEffect": {
                             "ParticleAsset": {
                                 "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"
@@ -294,7 +295,7 @@
                             "AudioTrigger": "play_sx_int_energyballtrap_buildup",
                             "EffectOffset": [
                                 0.0,
-                                0.0,
+                                0.6000000238418579,
                                 1.2000000476837158
                             ]
                         },
@@ -347,7 +348,8 @@
                                     "MaterialAsset": {
                                         "assetId": {
                                             "guid": "{7F678F45-39F0-573F-A178-34E76532397E}"
-                                        }
+                                        },
+                                        "assetHint": "spacecannon/spacecannon_base_mat.azmaterial"
                                     }
                                 }
                             }
@@ -362,22 +364,43 @@
                     "$type": "EditorMeshColliderComponent",
                     "Id": 9112722425705082704,
                     "ColliderConfiguration": {
+                        "Rotation": [
+                            0.0,
+                            -0.0,
+                            1.0,
+                            -0.0
+                        ],
                         "MaterialSlots": {
                             "Slots": [
                                 {
-                                    "Name": "Entire object"
+                                    "Name": "base_MAT"
                                 }
                             ]
                         }
                     },
                     "ShapeConfiguration": {
                         "PhysicsAsset": {
+                            "Asset": {
+                                "assetId": {
+                                    "guid": "{251F7A49-FA34-57EC-919D-399EAF8F9770}",
+                                    "subId": 1397975047
+                                },
+                                "assetHint": "spacecannon/spacecannon.pxmesh"
+                            },
                             "Configuration": {
                                 "Scale": [
                                     2.0,
                                     2.0,
                                     2.0
-                                ]
+                                ],
+                                "PhysicsAsset": {
+                                    "assetId": {
+                                        "guid": "{251F7A49-FA34-57EC-919D-399EAF8F9770}",
+                                        "subId": 1397975047
+                                    },
+                                    "loadBehavior": "QueueLoad",
+                                    "assetHint": "spacecannon/spacecannon.pxmesh"
+                                }
                             }
                         }
                     }
