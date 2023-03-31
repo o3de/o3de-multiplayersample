@@ -4812,9 +4812,9 @@
                         "$type": "NetworkTeleportComponent",
                         "TeleportEffect": {
                             "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
                             },
-                            "AudioTrigger": "play_sx_int_jumppad_launch",
+                            "AudioTrigger": "play_sx_int_teleporter_activate",
                             "EffectOffset": [
                                 0.0,
                                 0.0,
@@ -5538,7 +5538,8 @@
                     "Id": 110022581788315572,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
-                        "RespawnPenaltyPercent": 20
+                        "RespawnPenaltyPercent": 20,
+                        "RespawnGemTag": "Respawn Gem"
                     }
                 },
                 "Component_[11474776527615145837]": {
@@ -5690,6 +5691,17 @@
                                     "assetHint": "prefabs/diamond_gem.spawnable"
                                 },
                                 "Score": 20
+                            },
+                            {
+                                "Tag": "Respawn Gem",
+                                "Asset": {
+                                    "assetId": {
+                                        "guid": "{0A633BA0-57EE-51B7-8722-1EBC551740F2}",
+                                        "subId": 3148544445
+                                    },
+                                    "assetHint": "prefabs/player_drop_gem.spawnable"
+                                },
+                                "Score": 0
                             }
                         ],
                         "SpawnTablesPerRound": [
@@ -7255,9 +7267,9 @@
                         "$type": "NetworkTeleportComponent",
                         "TeleportEffect": {
                             "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
                             },
-                            "AudioTrigger": "play_sx_int_jumppad_launch",
+                            "AudioTrigger": "play_sx_int_teleporter_activate",
                             "EffectOffset": [
                                 0.0,
                                 0.0,
@@ -7543,9 +7555,9 @@
                         "$type": "NetworkTeleportComponent",
                         "TeleportEffect": {
                             "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
                             },
-                            "AudioTrigger": "play_sx_int_jumppad_launch",
+                            "AudioTrigger": "play_sx_int_teleporter_activate",
                             "EffectOffset": [
                                 0.0,
                                 0.0,
@@ -7839,9 +7851,9 @@
                         "$type": "NetworkTeleportComponent",
                         "TeleportEffect": {
                             "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
+                                "guid": "{FAEA4FC5-78DF-5608-8DA2-88C6CFB1D281}"
                             },
-                            "AudioTrigger": "play_sx_int_jumppad_launch",
+                            "AudioTrigger": "play_sx_int_teleporter_activate",
                             "EffectOffset": [
                                 0.0,
                                 0.0,
@@ -18796,16 +18808,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
                     "value": 18.0
                 },
@@ -18837,7 +18839,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
-                    "value": 9.977798461914063
+                    "value": 9.977798461914064
                 },
                 {
                     "op": "replace",
@@ -18849,16 +18851,6 @@
         "Instance_[1237088381006891]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
@@ -18877,7 +18869,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
-                    "value": -1.6977710723876953
+                    "value": -1.697771072387695
                 },
                 {
                     "op": "replace",
@@ -20531,11 +20523,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86083148391311]"
                 },
@@ -20558,235 +20545,12 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
                 }
             ]
         },
         "Instance_[195099375244812]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
@@ -20819,120 +20583,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86083148391311]"
                 },
@@ -20961,120 +20611,6 @@
         "Instance_[195172389688844]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
@@ -29647,16 +29183,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
                     "value": 18.0
                 },
@@ -29678,7 +29204,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
-                    "value": 59.414859771728516
+                    "value": 59.41485977172851
                 },
                 {
                     "op": "replace",
@@ -30953,7 +30479,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -30993,7 +30519,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31033,7 +30559,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31073,7 +30599,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31113,7 +30639,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31153,7 +30679,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31193,7 +30719,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -31233,7 +30759,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.273830758756478e-12
+                    "value": 1.2738307587564779e-12
                 },
                 {
                     "op": "replace",
@@ -34043,12 +33569,12 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11208844961029658938]/Transform Data/Translate/0",
-                    "value": 90.50407409667969
+                    "value": 90.50407409667967
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[11208844961029658938]/Transform Data/Translate/1",
-                    "value": 21.803030014038086
+                    "value": 21.80303001403809
                 },
                 {
                     "op": "replace",
@@ -34972,11 +34498,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86083148391311]"
                 },
@@ -34999,115 +34520,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": 89.99994659423828
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
                 }
             ]
         },
@@ -41776,16 +41188,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
                 },
@@ -41816,23 +41218,13 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
-                    "value": 95.65596008300781
+                    "value": 95.6559600830078
                 },
                 {
                     "op": "replace",
@@ -41861,16 +41253,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
                     "value": 18.0
                 },
@@ -41892,7 +41274,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
-                    "value": 101.86344909667969
+                    "value": 101.86344909667967
                 },
                 {
                     "op": "replace",
@@ -41909,16 +41291,6 @@
         "Instance_[515808753185835]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
@@ -41949,16 +41321,6 @@
         "Instance_[515830228022315]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
@@ -42006,23 +41368,13 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
-                    "value": 0.9160881042480469
+                    "value": 0.9160881042480468
                 },
                 {
                     "op": "replace",
@@ -42032,7 +41384,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
-                    "value": -1.6710014343261719
+                    "value": -1.671001434326172
                 },
                 {
                     "op": "replace",
@@ -42049,16 +41401,6 @@
         "Instance_[515864587760683]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
@@ -42094,16 +41436,6 @@
         "Instance_[515937602204715]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
@@ -42149,16 +41481,6 @@
         "Instance_[515959077041195]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
@@ -42212,7 +41534,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
-                    "value": 94.17369842529297
+                    "value": 94.17369842529295
                 },
                 {
                     "op": "replace",
@@ -42237,7 +41559,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
-                    "value": 94.68119812011719
+                    "value": 94.6811981201172
                 },
                 {
                     "op": "replace",
@@ -42287,7 +41609,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[9966736445084823710]/Transform Data/Translate/0",
-                    "value": 94.68119812011719
+                    "value": 94.6811981201172
                 },
                 {
                     "op": "replace",
@@ -42337,7 +41659,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/0",
-                    "value": 94.17369842529297
+                    "value": 94.17369842529295
                 },
                 {
                     "op": "replace",
@@ -42354,16 +41676,6 @@
         "Instance_[516049271354411]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
@@ -46591,120 +45903,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86083148391311]"
                 },
@@ -46733,120 +45931,6 @@
         "Instance_[590781827323404]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
@@ -46879,120 +45963,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86083148391311]"
                 },
@@ -47021,120 +45991,6 @@
         "Instance_[590807597127180]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetId/guid",
-                    "value": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/ParticleSystem/assetHint",
-                    "value": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/0/Name",
-                    "value": "Color Intensity"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Name",
-                    "value": "Global Scale"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/1/Type",
-                    "value": 31
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/AttributeList/AttributesRawData",
-                    "value": "AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAA="
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/ValueFX",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/1/Color/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/4"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/3"
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[12889870600493739301]/EditorAttributeList/AttributeCategories/0/Attributes/2"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/0",
-                    "value": -0.410919189453125
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/1",
-                    "value": -0.3166694641113281
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[14745079858933335176]/Transform Data/Translate/2",
-                    "value": 1.314678192138672
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/ParticleAsset/guid",
-                    "value": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/TravelSpeed",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/GatherParams/Sphere/Radius",
-                    "value": 0.25
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitFalloff",
-                    "value": 0.0
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
@@ -62272,23 +61128,13 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
                 },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/0",
-                    "value": 57.605140686035156
+                    "value": 57.60514068603515
                 },
                 {
                     "op": "replace",
@@ -62298,7 +61144,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
-                    "value": 2.1386337280273438
+                    "value": 2.138633728027344
                 },
                 {
                     "op": "replace",
@@ -62355,16 +61201,6 @@
         "Instance_[916885684188203]": {
             "Source": "MalfunctioningShieldGenerator/mshieldgen.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/AttributeList/AttributesRawData",
-                    "value": "AAAAQAAAAAAAAAAAAAAAAAAAwD8AAAAAAAAAAAAAAACf6QU/UQL1PkBNmj4AAIA/"
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[9833571067542]/Components/Component_[17631951853474351720]/EditorAttributeList/AttributeCategories/0/Attributes/0/ValueFX",
-                    "value": 2.0
-                },
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
@@ -64563,7 +63399,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[8292154386652853697]/Transform Data/Translate/1",
-                    "value": -2.3827266693115234
+                    "value": -2.382726669311523
                 },
                 {
                     "op": "replace",

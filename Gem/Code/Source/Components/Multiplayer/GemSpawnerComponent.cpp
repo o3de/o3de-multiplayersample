@@ -162,28 +162,58 @@ namespace MultiplayerSample
         }
     }
 
-    void GemSpawnerComponentController::SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type)
+    void GemSpawnerComponentController::HandleRPC_SpawnGem(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, 
+        [[maybe_unused]] const Multiplayer::NetEntityId& playerEntity, const AZ::Vector3& spawnLocation, const AZStd::string& gemTag)
     {
-        if (GetParent().GetGemSpawnables().empty())
-        {
-            return;
-        }
+        SpawnGem(spawnLocation, AZ::Crc32(gemTag));
+    }
 
-        const GemSpawnable* spawnable = nullptr;
-        for (const GemSpawnable& gemType : GetParent().GetGemSpawnables())
+    void GemSpawnerComponentController::HandleRPC_SpawnGemWithValue(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection,
+        [[maybe_unused]] const Multiplayer::NetEntityId& playerEntity, 
+        const AZ::Vector3& spawnLocation, const AZStd::string& gemTag, const uint16_t& gemValue)
+    {
+        
+        if (auto gemEntry = GetGemSpawnable(AZ::Crc32(gemTag)); gemEntry)
+        { 
+            // Spawn the gem with the max value between what's requested and what's in the gem table.
+            uint16_t value = AZStd::max(gemEntry->m_scoreValue, gemValue);
+            SpawnGem(spawnLocation, gemEntry->m_gemAsset, value);
+        }
+    }
+
+    AZStd::optional<const GemSpawnable> GemSpawnerComponentController::GetGemSpawnable(AZ::Crc32 gemTag) const
+    {
+        for (const GemSpawnable gemType : GetParent().GetGemSpawnables())
         {
-            if (type == AZ::Crc32(gemType.m_tag.c_str()))
+            if (gemTag == AZ::Crc32(gemType.m_tag.c_str()))
             {
-                spawnable = &gemType;
+                return gemType;
             }
         }
-        if (!spawnable)
+
+        return {};
+    }
+
+    void GemSpawnerComponentController::SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type)
+    {
+        if (auto gemEntry = GetGemSpawnable(type); gemEntry)
+        {
+            SpawnGem(location, gemEntry->m_gemAsset, gemEntry->m_scoreValue);
+        }
+    }
+
+    void GemSpawnerComponentController::SpawnGem(const AZ::Vector3& location, const AzFramework::SpawnableAsset& gemAsset, uint16_t gemValue)
+    {
+        // Don't spawn gems with 0 value.
+        if (gemValue == 0)
         {
             return;
         }
 
         PrefabCallbacks callbacks;
-        callbacks.m_onActivateCallback = [this, spawnable](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
+        callbacks.m_onActivateCallback = [this, gemValue](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket,
             AzFramework::SpawnableConstEntityContainerView view)
         {
             if (view.empty())
@@ -200,7 +230,7 @@ namespace MultiplayerSample
                     if (GemComponentController* gemController = static_cast<GemComponentController*>(gem->GetController()))
                     {
                         gemController->SetRandomPeriodOffset(GetNetworkRandomComponentController()->GetRandomInt() % 1000);
-                        gemController->SetGemScoreValue(spawnable->m_scoreValue);
+                        gemController->SetGemScoreValue(gemValue);
                         gemController->SetGemSpawnerController(this);
                     }
                 }
@@ -213,7 +243,7 @@ namespace MultiplayerSample
 
         GetParent().GetNetworkPrefabSpawnerComponent()->SpawnPrefabAsset(
             AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), location),
-            spawnable->m_gemAsset, AZStd::move(callbacks));
+            gemAsset, AZStd::move(callbacks));
     }
 
     void GemSpawnerComponentController::RemoveGems()
