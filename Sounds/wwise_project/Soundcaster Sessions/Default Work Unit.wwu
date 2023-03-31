@@ -1,6 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{EFF6DF5F-F035-4B47-A908-9BFE8386E85D}" SchemaVersion="103">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{EFF6DF5F-F035-4B47-A908-9BFE8386E85D}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{EFF6DF5F-F035-4B47-A908-9BFE8386E85D}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="SCS_Hexany" ID="{4977E544-DDD0-4520-B491-11810538F1D0}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="play_sx_int_malfunctioningshieldgenerator_idle" ID="{8D875A6A-108D-4C08-9A16-851A7A80EA24}" WorkUnitID="{5D3AE987-B23A-43C3-8065-135D4594325B}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_amb_ext_general" ID="{118E75AA-7412-45A0-AAA9-52CD47DB9E41}" WorkUnitID="{DE9FC369-2076-4F07-9C00-6203DBF0184F}"/>
+							<Position X="0" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_int_malfunctioningshieldgenerator_explo" ID="{A910A681-E6E6-47EF-9061-B9753C009A61}" WorkUnitID="{5D3AE987-B23A-43C3-8065-135D4594325B}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_env_lamp_loop" ID="{0886768C-CEF7-4F54-BBDE-690BFC89B2AB}" WorkUnitID="{60C2233B-F472-46D2-9B6E-A898FA28885E}"/>
+							<Position X="1" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_player_footstep" ID="{1FFADD80-2B41-4080-BCCC-C50E8E9F54A4}" WorkUnitID="{6146481B-5849-48AD-9DBA-B2D263C55E44}"/>
+							<Position X="2" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_wpn_bubblegun_fire" ID="{624DC077-3E40-4059-8E74-18F4F7782353}" WorkUnitID="{E8F53651-A80E-47A5-A3D1-FE5D411A6327}"/>
+							<Position X="2" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_wpn_laserpistol_fire" ID="{FA50B607-E2A8-4E18-B8FC-632C1F353C41}" WorkUnitID="{E8F53651-A80E-47A5-A3D1-FE5D411A6327}"/>
+							<Position X="2" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_player_pain" ID="{C4E4C612-D934-451D-873B-D9B4AE45A646}" WorkUnitID="{6146481B-5849-48AD-9DBA-B2D263C55E44}"/>
+							<Position X="3" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_int_energycollector_explosion" ID="{E0E34EE2-738E-4E96-BF07-6FEBB42C3C2E}" WorkUnitID="{5D3AE987-B23A-43C3-8065-135D4594325B}"/>
+							<Position X="3" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="play_sx_int_malfunctioningshieldgenerator_explo" ID="{A910A681-E6E6-47EF-9061-B9753C009A61}" WorkUnitID="{5D3AE987-B23A-43C3-8065-135D4594325B}"/>
+							<Position X="3" Y="3"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="Distance_10000" ID="{709EB988-5740-40FE-9C8A-ED9C9BCBD8A3}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="TransmissionLoss" ID="{A754CED1-3C58-414B-B4D6-B2C2B35208CB}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Health" ID="{75BE07F7-C6AF-4285-A0B8-FDA621BA5C2C}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Velocity" ID="{F57DCC68-303A-43A8-A338-D5352274478F}"/>
+							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Distance_1000" ID="{6E6314F2-1870-4431-9A3F-D1F592760A4A}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Elevation" ID="{0161502A-405D-456E-B653-F5A438B0B913}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Volume_Master" ID="{78897677-B23A-458F-99E0-7053C9C317C5}"/>
+							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Occlusion" ID="{18F5D7C4-9785-464F-8EBF-1868C914FBE7}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Obstruction" ID="{686AD302-4979-4680-93A4-4FA8D4814F4B}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Azimuth" ID="{8E427819-A024-47B4-B731-F17DCFE0191E}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Volume_Music" ID="{8B8E79C6-3210-497C-B430-EF7745F2A6B1}"/>
+							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Diffraction" ID="{46987FA0-EBDF-4D7E-AC38-218C3DB9ED91}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Distance_100" ID="{F3EEAFF4-46E7-4EAD-9336-DAE7EB3F7B50}"/>
+							<Value>100</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Volume_SFX" ID="{ED75F40C-CDF0-4F71-9326-36D39C711C17}"/>
+							<Value>1</Value>
+						</RTPCValue>
+					</RTPCValueList>
+					<CurrentStateList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Concrete" ID="{B14FAA96-8A3C-4226-A4DC-B002918E495B}"/>
+					</CurrentSwitchList>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>

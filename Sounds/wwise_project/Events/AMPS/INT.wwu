@@ -151,6 +151,63 @@
 										</Reference>
 									</ReferenceList>
 								</Action>
+								<Action Name="" ID="{4BC2142E-AA7E-41F0-A4E2-336C0ED62181}" ShortID="592893929">
+									<PropertyList>
+										<Property Name="AbsoluteOrRelative" Type="int16" Value="1"/>
+										<Property Name="ActionType" Type="int16" Value="12"/>
+										<Property Name="FadeInCurve" Type="int16" Value="1"/>
+										<Property Name="FadeTime" Type="Real64" Value="2"/>
+										<Property Name="Volume" Type="Real64" Value="-12"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{E51425A8-4870-4304-ACA2-83D5F32BF986}" ShortID="786633629">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="16"/>
+										<Property Name="Delay" Type="Real64" Value="2"/>
+										<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+										<Property Name="Volume" Type="Real64" Value="-6"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{E7E7B892-065E-4A71-B167-B80B6F6AE07B}" ShortID="528820851">
+									<PropertyList>
+										<Property Name="AbsoluteOrRelative" Type="int16" Value="1"/>
+										<Property Name="ActionType" Type="int16" Value="13"/>
+										<Property Name="FadeInCurve" Type="int16" Value="1"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+										<Property Name="Pitch" Type="int32" Value="-1200"/>
+										<Property Name="Volume" Type="Real64" Value="-12"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{D8CA4CEC-9E8D-4E40-BA65-A578A2A32B9E}" ShortID="797702470">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="18"/>
+										<Property Name="Delay" Type="Real64" Value="2"/>
+										<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+										<Property Name="Volume" Type="Real64" Value="-6"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 							</ChildrenList>
 						</Event>
 						<Event Name="play_sx_int_malfunctioningshieldgenerator_idle" ID="{8D875A6A-108D-4C08-9A16-851A7A80EA24}">
@@ -200,6 +257,69 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="teleporter" ID="{BFA50D18-FFEC-4DA0-A57D-149ABE555EFF}" ShortID="922100800">
+					<ChildrenList>
+						<Event Name="play_sx_int_teleporter_activate" ID="{3C5F4354-C671-41F4-A1E2-6B5777C87900}">
+							<ChildrenList>
+								<Action Name="" ID="{2B73797E-BE01-4561-BC0D-FDB121A50805}" ShortID="713534394">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_teleporter_activate" ID="{1FDF3977-BF55-431F-BF82-01497FE2688C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="stop_sx_int_teleporter_idle" ID="{09E442B7-D17C-4E77-A6AC-16483F2C91E9}">
+							<ChildrenList>
+								<Action Name="" ID="{2B7EF360-068A-4BD4-B9E0-B94EA8D46E45}" ShortID="455138360">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="play_sx_int_teleporter_idle" ID="{8F688EFE-210A-46A8-963C-00FF3FA7A1EB}">
+							<ChildrenList>
+								<Action Name="" ID="{1B5305A6-F2E7-4F05-B1A6-432958822A0F}" ShortID="460735492">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{ACF03B52-C0BC-4890-95DD-374B657A302A}" ShortID="24364970">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="SeekPercent" Type="Real64">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{2FABFBD2-BA95-4DDA-B893-B2CA5328432E}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
