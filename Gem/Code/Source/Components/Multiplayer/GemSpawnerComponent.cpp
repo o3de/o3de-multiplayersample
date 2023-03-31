@@ -174,8 +174,8 @@ namespace MultiplayerSample
         [[maybe_unused]] const Multiplayer::NetEntityId& playerEntity, 
         const AZ::Vector3& spawnLocation, const AZStd::string& gemTag, const uint16_t& gemValue)
     {
-        auto gemEntry = GetGemSpawnable(AZ::Crc32(gemTag));
-        if (gemEntry)
+        
+        if (auto gemEntry = GetGemSpawnable(AZ::Crc32(gemTag)); gemEntry)
         { 
             // Spawn the gem with the max value between what's requested and what's in the gem table.
             uint16_t value = AZStd::max(gemEntry->m_scoreValue, gemValue);
@@ -198,8 +198,7 @@ namespace MultiplayerSample
 
     void GemSpawnerComponentController::SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type)
     {
-        auto gemEntry = GetGemSpawnable(type);
-        if (gemEntry)
+        if (auto gemEntry = GetGemSpawnable(type); gemEntry)
         {
             SpawnGem(location, gemEntry->m_gemAsset, gemEntry->m_scoreValue);
         }
