@@ -38,17 +38,11 @@ namespace MultiplayerSample
         // There aren't any network events around match restart time;
         // Real time is controlled on the server within the match state machine, but not shared across network.
         // See GameStatePreparingMatch.cpp and GameStateMatchEnded.cpp.
-        void DisplaySecondsRemainingUI(uint16_t secondsRemaining);
+        void DisplaySecondsRemainingUI();
         AZ::ScheduledEvent m_onSecondsRemainingChanged = AZ::ScheduledEvent( [this]()
         {
-            m_secondsRemainingUntilNewMatch -= 1;
-            DisplaySecondsRemainingUI(m_secondsRemainingUntilNewMatch);
+            DisplaySecondsRemainingUI();
 
-            // Remove this scheduled event once the time reaches 0
-            if (m_secondsRemainingUntilNewMatch == 0)
-            {
-                m_onSecondsRemainingChanged.RemoveFromQueue();
-            }
         }, AZ::Name("GameOverUI Seconds Remaining"));
 
         // Listen for the NetworkMatch Round Number to Change
@@ -77,6 +71,5 @@ namespace MultiplayerSample
         AZ::EntityId m_rankNumbersUIContainer;
         AZStd::vector<AZ::EntityId> m_topRankPlayersUIElements;
         AZ::EntityId m_timeRemainingUntilNewMatchUIContainer;
-        uint16_t m_secondsRemainingUntilNewMatch;
     };
 }

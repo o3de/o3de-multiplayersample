@@ -14,14 +14,18 @@
 namespace MultiplayerSample
 {    
     GameStateMatchEnded::GameStateMatchEnded([[maybe_unused]] NetworkMatchComponentController* controller)
+        : m_controller(controller)
     {
-        m_controller = controller;	    
     }
 
     void GameStateMatchEnded::OnEnter()
     {
         m_controller->EndMatch();
-        m_finishingEvent.Enqueue(AZ::SecondsToTimeMs(m_controller->GetRestDurationBetweenMatches()));
+
+        const AZ::TimeMs restBeforeNewMatch = AZ::SecondsToTimeMs(m_controller->GetRestDurationBetweenMatches());
+        const AZ::TimeMs nextMatchStartTime = AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() + restBeforeNewMatch;
+        m_controller->SetMatchStartHostTime(nextMatchStartTime);
+        m_finishingEvent.Enqueue(restBeforeNewMatch);
 
         GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnEffect, SoundEffect::GameEnd);
     }

@@ -120,6 +120,12 @@ namespace MultiplayerSample
             return AllowedPlayerActions::RotationOnly;
         }
 
+        // Disable player actions if the match hasn't started and we're still waiting for more players to join
+        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetMatchStartHostTime())
+        {
+            return AllowedPlayerActions::RotationOnly;
+        }
+
         return AllowedPlayerActions::All;
     }
 
@@ -148,6 +154,11 @@ namespace MultiplayerSample
         return aznumeric_cast<int32_t>(GetPlayerCount());
     }
 
+    AZ::TimeMs NetworkMatchComponent::GetMatchStartHostTime() const
+    {
+        return NetworkMatchComponentBase::GetMatchStartHostTime();
+    }
+
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
     {
         RoundNumberAddEvent(handler);
@@ -163,11 +174,10 @@ namespace MultiplayerSample
         RoundRestTimeRemainingAddEvent(handler);
     }
 
-    float NetworkMatchComponent::GetRestDurationBetweenMatches() const
+    void NetworkMatchComponent::AddFirstMatchStartHostTime(AZ::Event<AZ::TimeMs>::Handler& handler)
     {
-        return NetworkMatchComponentBase::GetRestDurationBetweenMatches();
+        this->MatchStartHostTimeAddEvent(handler);
     }
-
 
 #if AZ_TRAIT_SERVER
     void NetworkMatchComponent::OnPlayerActivated(Multiplayer::NetEntityId playerEntity)
