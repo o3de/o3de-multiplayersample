@@ -38,15 +38,23 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void SpawnGems();
+        void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
         void RemoveGem(AzFramework::EntitySpawnTicket::Id gemTicketId);
+        void RemoveGems();
+
+        void HandleRPC_SpawnGem(
+            AzNetworking::IConnection* invokingConnection, const Multiplayer::NetEntityId& playerEntity, 
+            const AZ::Vector3& spawnLocation, const AZStd::string& gemTag) override;
+        void HandleRPC_SpawnGemWithValue(
+            AzNetworking::IConnection* invokingConnection, const Multiplayer::NetEntityId& playerEntity, 
+            const AZ::Vector3& spawnLocation, const AZStd::string& gemTag, const uint16_t& gemValue) override;
 #endif
 
     private:
 #if AZ_TRAIT_SERVER
-        void SpawnGem(const AZ::Vector3& location, const AZ::Crc32& type);
-        void RemoveGems();
+        AZStd::optional<const GemSpawnable> GetGemSpawnable(AZ::Crc32 gemTag) const;
+        void SpawnGem(const AZ::Vector3& location, const AzFramework::SpawnableAsset& gemAsset, uint16_t gemValue);
 #endif
-        
         AZStd::unordered_map<AzFramework::EntitySpawnTicket::Id, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedGems;
 
         struct GemSpawnEntry

@@ -5,12 +5,14 @@
  *
  */
 
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Preprocessor/EnumReflectUtils.h>
 
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
 
+#include <Source/Components/Multiplayer/GemSpawnerComponent.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 #include <Source/Components/NetworkTeleportCompatibleComponent.h>
@@ -349,6 +351,27 @@ namespace MultiplayerSample
             results.m_playerStates.push_back(state);
         }
 
+        // Print the player results to server.log for tracking tournament winners.
+        // Sort the players by score (highest score is 1st)
+        // If scores are matching, then sort by remaining armor.
+        AZStd::sort(results.m_playerStates.begin(), results.m_playerStates.end(), [](const PlayerState& a, const PlayerState& b)
+            {
+                if (a.m_score == b.m_score)
+                {
+                    return a.m_remainingArmor > b.m_remainingArmor;
+                }
+                return a.m_score > b.m_score;
+            });
+
+        AZStd::string prettyPrintMatchResults = "";
+        prettyPrintMatchResults += AZStd::string::format("Match Results (%u players)\n", results.m_playerStates.size());
+        for (const PlayerState& playerState : results.m_playerStates)
+        {
+            prettyPrintMatchResults += AZStd::string::format("\tPlayer %s score %u, armor %u.\n", playerState.m_playerName.c_str(), playerState.m_score, playerState.m_remainingArmor);
+        }
+        AZ_Info("NetworkMatchComponentController", prettyPrintMatchResults.c_str());
+
+
         FindWinner(results, potentialWinners);
 
         RPC_EndMatch(results);
@@ -422,6 +445,9 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::EndRound()
     {
+        // As soon as a round ends, remove all the gems until the next round begins.
+        GetGemSpawnerComponentController()->RemoveGems();
+
         // Check if we're in-between rounds, or if this is the end of the match...
         if (GetRoundNumber() < GetTotalRounds()) // In-between
         {
@@ -489,7 +515,40 @@ namespace MultiplayerSample
         {
             if (Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity))
             {
+                AZ::Vector3 playerTranslation = playerHandle.Exists() 
+                    ? playerHandle.GetEntity()->GetTransform()->GetWorldTranslation() 
+                    : AZ::Vector3::CreateZero();
                 RespawnPlayer(playerEntity, PlayerResetOptions{ true, GetRespawnPenaltyPercent() });
+                if (playerHandle.Exists())
+                {
+                    MultiplayerSample::GemSpawnerComponent* gemSpawnerComponent = GetParent().GetGemSpawnerComponent();
+
+                    if (gemSpawnerComponent)
+                    {
+                        const AZStd::vector<PlayerCoinState>& coinStates = GetMatchPlayerCoinsComponentController()->GetParent().
+                            GetPlayerCoinCounts();
+
+                        const auto coinStateIterator = AZStd::find_if(
+                            coinStates.begin(), coinStates.end(), [playerEntity](const PlayerCoinState& state)
+                            {
+                                return state.m_playerId == playerEntity;
+                            });
+
+                        if (coinStateIterator != coinStates.end())
+                        {
+                            float coinsDropped = coinStateIterator->m_coins * (GetRespawnPenaltyPercent() * 0.01f);
+
+                            gemSpawnerComponent->RPC_SpawnGemWithValue(
+                                playerEntity, playerTranslation, GetRespawnGemTag(), static_cast<uint16_t>(coinsDropped));
+                        }
+                        else
+                        {
+                            gemSpawnerComponent->RPC_SpawnGem(
+                                playerEntity, playerTranslation, GetRespawnGemTag());
+                        }
+                            
+                    }
+                }
             }
         }
         else
