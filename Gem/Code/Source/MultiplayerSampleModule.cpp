@@ -46,6 +46,7 @@ namespace MultiplayerSample
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
+                ScriptableDecalComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     HUDComponent::CreateDescriptor(),
                     UiGameOverComponent::CreateDescriptor(),
@@ -53,7 +54,6 @@ namespace MultiplayerSample
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                     UiRestBetweenRoundsComponent::CreateDescriptor(),
                     UiStartMenuComponent::CreateDescriptor(),
-                    ScriptableDecalComponent::CreateDescriptor(),
                 #endif
             });
 

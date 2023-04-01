@@ -75,6 +75,9 @@ set(FILES
 
     Source/Components/RpcTesterComponent.cpp
     Source/Components/RpcTesterComponent.h
+    
+    Source/Components/ScriptableDecalComponent.cpp
+    Source/Components/ScriptableDecalComponent.h
 
     Source/GameState/GameStateMatchEnded.h
     Source/GameState/GameStateMatchEnded.cpp
