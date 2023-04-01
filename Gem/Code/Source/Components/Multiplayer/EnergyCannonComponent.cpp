@@ -85,7 +85,7 @@ namespace MultiplayerSample
                 const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
                 const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
                 const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
-                ballComponent->RPC_LaunchBall(cannonTm.GetTranslation() + effectOffset, forward, GetNetEntityId());
+                ballComponent->RPC_LaunchBall(cannonTm.GetTranslation() + cannonTm.TransformVector(effectOffset), forward, GetNetEntityId());
 
                 // Enqueue our ball kill event
                 m_killEvent.Enqueue(GetBallLifetimeMs(), false);
