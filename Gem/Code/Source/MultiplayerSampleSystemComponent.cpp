@@ -112,7 +112,7 @@ namespace MultiplayerSample
         AZStd::shared_ptr<AzFramework::Scene> scene = AzFramework::SceneSystemInterface::Get()->GetScene(name);
         if (scene)
         {
-            AZ::RPI::Scene* renderScene = scene->FindSubsystemInScene<AZ::RPI::Scene>();
+            AZ::RPI::ScenePtr renderScene = *scene->FindSubsystemInScene<AZ::RPI::ScenePtr>();
             if (renderScene)
             {
                 return renderScene->GetId();

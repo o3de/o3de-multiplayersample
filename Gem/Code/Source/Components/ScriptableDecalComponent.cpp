@@ -14,6 +14,7 @@
 #include <AzCore/std/chrono/chrono.h>
 
 #include <Atom/RPI.Public/Scene.h>
+#include <Atom/RPI.Public/Material/Material.h>
 
 namespace MultiplayerSample
 {
@@ -155,6 +156,6 @@ namespace MultiplayerSample
 
     bool ScriptableDecalComponent::HeapCompare(const DecalInstance& value1, const DecalInstance& value2)
     {
-        return value1.m_despawnMs < value2.m_despawnMs;
+        return value1.m_despawnMs > value2.m_despawnMs;
     }
 }
