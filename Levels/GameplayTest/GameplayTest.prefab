@@ -66,6 +66,13 @@
                     "$type": "MultiplayerSample::ExampleFilteredEntityComponent"
                 }
             },
+            "Component_[2838838923760404239]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 2838838923760404239,
+                "m_template": {
+                    "$type": "MultiplayerSample::ScriptableDecalComponent"
+                }
+            },
             "Component_[3902259769182016681]": {
                 "$type": "EditorLockComponent",
                 "Id": 3902259769182016681
@@ -12536,8 +12543,43 @@
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[6858561294880275950]/Controller/Configuration/materials/0/Value/MaterialAsset/assetHint",
-                    "value": "spacecannon/spacecannon_base_mat.azmaterial"
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ColliderConfiguration/MaterialSlots/Slots/0/Name",
+                    "value": "base_MAT"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Asset/assetId/guid",
+                    "value": "{251F7A49-FA34-57EC-919D-399EAF8F9770}"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Asset/assetId/subId",
+                    "value": 1397975047
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Asset/assetHint",
+                    "value": "spacecannon/spacecannon.pxmesh"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Configuration/PhysicsAsset/assetId/guid",
+                    "value": "{251F7A49-FA34-57EC-919D-399EAF8F9770}"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Configuration/PhysicsAsset/assetId/subId",
+                    "value": 1397975047
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Configuration/PhysicsAsset/loadBehavior",
+                    "value": "QueueLoad"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[660556807508]/Components/Component_[9112722425705082704]/ShapeConfiguration/PhysicsAsset/Configuration/PhysicsAsset/assetHint",
+                    "value": "spacecannon/spacecannon.pxmesh"
                 }
             ]
         },
