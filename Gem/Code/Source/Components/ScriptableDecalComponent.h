@@ -42,7 +42,7 @@ namespace MultiplayerSample
         {
             SpawnDecalConfig m_config;
             DecalHandle m_handle;
-            uint32_t m_despawnMs = 0;
+            uint32_t m_animationStartTimeMs = 0;
         };
 
         // DecalRequestBus::Handler...
@@ -56,6 +56,7 @@ namespace MultiplayerSample
         AZ::Render::DecalFeatureProcessorInterface* m_decalFeatureProcessor = nullptr;
 
         AZStd::vector<DecalInstance> m_decalHeap;
-        AZStd::vector<DecalInstance> m_animatingDecals;
+        AZStd::vector<DecalInstance> m_fadingInDecals;
+        AZStd::vector<DecalInstance> m_fadingOutDecals;
     };
 }
