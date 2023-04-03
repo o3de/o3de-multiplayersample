@@ -8,6 +8,7 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzFramework/API/ApplicationAPI.h>
 #include <Multiplayer/Session/SessionNotifications.h>
 
 namespace MultiplayerSample
@@ -15,6 +16,7 @@ namespace MultiplayerSample
     class MultiplayerSampleAWSGameLiftServerSystemComponent
         : public AZ::Component
         , public Multiplayer::SessionNotificationBus::Handler
+        , public AzFramework::LevelLoadBlockerBus::Handler
     {
     public: 
         AZ_COMPONENT(MultiplayerSampleAWSGameLiftServerSystemComponent, "{0b0d2c48-058d-4207-b2c5-2778e50ec1c9}");
@@ -40,5 +42,10 @@ namespace MultiplayerSample
         void OnDestroySessionEnd() override {};
         void OnUpdateSessionBegin(const Multiplayer::SessionConfig&, [[maybe_unused]] const AZStd::string& updateReason) override {};
         void OnUpdateSessionEnd() override {};
+
+        // AzFramework::LevelLoadBlockerBus::Handler overrides
+        bool ShouldBlockLevelLoading(const char* levelName) override;
+
+        AZStd::string m_loadedLevelName = "";
     };
 }
