@@ -22,8 +22,9 @@ namespace MultiplayerSample
         float m_scale = 1.0f;             // Scale in meters.
         float m_opacity = 1.0f;           // How visible the decal is.
         float m_attenutationAngle = 1.0f; // How much to attenuate based on the angle of the geometry vs the decal.
-        float m_lifeTime = 0.0f;          // Time until the decal begins to fade, in seconds.
-        float m_fadeTime = 1.0f;          // Time it takes the decal to fade, in seconds.
+        float m_lifeTime = 0.0f;          // Length of time the decal lives between fading in and out, in seconds.
+        float m_fadeInTime = 0.1f;        // Time it takes the decal to fade in, in seconds.
+        float m_fadeOutTime = 1.0f;       // Time it takes the decal to fade out, in seconds.
         float m_thickness = 1.0f;         // How thick the decal should be on the z axis.
         uint8_t m_sortKey = 0;            // Higher numbers sort in front of lower numbers.
     };
@@ -38,7 +39,8 @@ namespace MultiplayerSample
                 ->Field("Opacity", &SpawnDecalConfig::m_opacity)
                 ->Field("AttenuationAngle", &SpawnDecalConfig::m_attenutationAngle)
                 ->Field("LifeTime", &SpawnDecalConfig::m_lifeTime)
-                ->Field("FadeTime", &SpawnDecalConfig::m_fadeTime)
+                ->Field("FadeInTime", &SpawnDecalConfig::m_fadeInTime)
+                ->Field("FadeOutTime", &SpawnDecalConfig::m_fadeOutTime)
                 ->Field("Thickness", &SpawnDecalConfig::m_thickness)
                 ->Field("SortKey", &SpawnDecalConfig::m_sortKey)
                 ;
@@ -55,12 +57,14 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_attenutationAngle, "Angle attenuation", "How much to attenuate the opacity of the decal based on the different in the angle between the decal and the surface.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                         ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_lifeTime, "Life time", "How long before the decal should begin to fade out, in seconds.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_lifeTime, "Life time", "Length of time the decal lives between fading in and out, in seconds")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_fadeTime, "Fade time", "How long the decal should spend fading out at the end of its life time.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_fadeInTime, "Fade in time", "How long the decal should spend fading in when it is first spawned.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_fadeOutTime, "Fade out time", "How long the decal should spend fading out at the end of its life time.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_thickness, "Thickness", "How thick the decal should be on the z axis.")
-                    ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_sortKey, "Sort key", "Used to sort the decal with other decals. Higher numbered decals show on top of lower number decals.")
                     ;
             }
@@ -78,7 +82,8 @@ namespace MultiplayerSample
                 ->Property("opacity", BehaviorValueProperty(&SpawnDecalConfig::m_opacity))
                 ->Property("m_attenutationAngle", BehaviorValueProperty(&SpawnDecalConfig::m_attenutationAngle))
                 ->Property("m_lifeTime", BehaviorValueProperty(&SpawnDecalConfig::m_lifeTime))
-                ->Property("m_fadeTime", BehaviorValueProperty(&SpawnDecalConfig::m_fadeTime))
+                ->Property("m_fadeInTime", BehaviorValueProperty(&SpawnDecalConfig::m_fadeInTime))
+                ->Property("m_fadeOutTime", BehaviorValueProperty(&SpawnDecalConfig::m_fadeOutTime))
                 ->Property("m_thickness", BehaviorValueProperty(&SpawnDecalConfig::m_thickness))
                 ->Property("m_sortKey", BehaviorValueProperty(&SpawnDecalConfig::m_sortKey))
                 ;

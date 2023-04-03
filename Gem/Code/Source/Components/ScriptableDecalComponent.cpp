@@ -11,7 +11,7 @@
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/std/chrono/chrono.h>
+#include <AzCore/Time/ITime.h>
 
 #include <Atom/RPI.Public/Scene.h>
 #include <Atom/RPI.Public/Material/Material.h>
@@ -81,6 +81,20 @@ namespace MultiplayerSample
     {
         AZ::TickBus::Handler::BusDisconnect();
         DecalRequestBus::Handler::BusDisconnect();
+
+        auto removeDecalsFromList = [&](AZStd::vector<DecalInstance>& container)
+        {
+            for (const DecalInstance& instance : container)
+            {
+                m_decalFeatureProcessor->ReleaseDecal(instance.m_handle);
+            }
+            container.clear();
+        };
+
+        removeDecalsFromList(m_fadingInDecals);
+        removeDecalsFromList(m_fadingOutDecals);
+        removeDecalsFromList(m_decalHeap);
+
         m_decalFeatureProcessor = nullptr;
     }
 
@@ -96,51 +110,89 @@ namespace MultiplayerSample
         m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenutationAngle);
         m_decalFeatureProcessor->SetDecalSortKey(handle, config.m_sortKey);
 
-        auto now = AZStd::chrono::steady_clock::now().time_since_epoch();
-        auto nowMs = AZStd::chrono::duration_cast<AZStd::chrono::milliseconds>(now).count();
-        uint32_t currentTimeMs = static_cast<uint32_t>(nowMs);
+        uint32_t currentTimeMs = static_cast<uint32_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs());
 
-        if (config.m_lifeTime > 0.0)
+        if (config.m_fadeInTime > 0.0f)
+        {
+            m_fadingInDecals.push_back({ config, handle, currentTimeMs });
+        }
+        else if (config.m_lifeTime > 0.0f)
         {
             uint32_t lifetimeMs = static_cast<uint32_t>(config.m_lifeTime * 1000.0f);
             uint32_t despawnTimeMs = currentTimeMs + lifetimeMs;
 
-            m_decalHeap.push_back({ config , handle, despawnTimeMs });
+            // Store decals in a min heap sorted by when they need to start animating the fade out.
+            // This makes it very cheap to check each frame if any decals need to change to the fade-out state.
+            m_decalHeap.push_back({ config, handle, despawnTimeMs });
             AZStd::push_heap(m_decalHeap.begin(), m_decalHeap.end(), HeapCompare);
         }
         else
         {
-            m_animatingDecals.push_back({ config , handle, currentTimeMs });
+            m_fadingOutDecals.push_back({ config, handle, currentTimeMs });
         }
     }
 
-    void ScriptableDecalComponent::OnTick([[maybe_unused]] float deltaTime, AZ::ScriptTimePoint time)
+    void ScriptableDecalComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
-        uint32_t currentTimeMs = static_cast<uint32_t>(time.GetMilliseconds());
+        uint32_t currentTimeMs = static_cast<uint32_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs());
+
+        for (size_t i = 0; i < m_fadingInDecals.size();)
+        {
+            DecalInstance& decalInstance = m_fadingInDecals.at(i);
+            AZ_Printf("ScriptableDecalComponent", "Current Time: %u, Animation Start Time: %u", currentTimeMs, decalInstance.m_animationStartTimeMs);
+            uint32_t currentFadeTimeMs = currentTimeMs - decalInstance.m_animationStartTimeMs;
+            float fadeInTimeMsFloat = decalInstance.m_config.m_fadeInTime * 1000.0f;
+
+            float opacity = AZStd::GetMin(1.0f, currentFadeTimeMs / fadeInTimeMsFloat);
+            opacity *= decalInstance.m_config.m_opacity;
+            m_decalFeatureProcessor->SetDecalOpacity(decalInstance.m_handle, opacity);
+
+            uint32_t fadeInTimeMs = static_cast<uint32_t>(fadeInTimeMsFloat);
+            if (currentFadeTimeMs > fadeInTimeMs)
+            {
+                uint32_t lifetimeMs = static_cast<uint32_t>(decalInstance.m_config.m_lifeTime * 1000.0f);
+                // Fade out animation starts after the fade in time and life time have passed.
+                uint32_t despawnTimeMs = fadeInTimeMs + lifetimeMs; 
+                decalInstance.m_animationStartTimeMs += despawnTimeMs;
+
+                m_decalHeap.push_back(decalInstance);
+                AZStd::push_heap(m_decalHeap.begin(), m_decalHeap.end(), HeapCompare);
+
+                // Replace this instance with the one on the back
+                decalInstance = m_fadingInDecals.back();
+                m_fadingInDecals.pop_back();
+
+                // Don't increment, next iteration needs to process the item just moved to this spot.
+            }
+            else
+            {
+                ++i;
+            }
+        }
 
         // Check to see if any decals need to despawn
-        while (!m_decalHeap.empty() && m_decalHeap.front().m_despawnMs < currentTimeMs)
+        while (!m_decalHeap.empty() && m_decalHeap.front().m_animationStartTimeMs < currentTimeMs)
         {
             AZStd::pop_heap(m_decalHeap.begin(), m_decalHeap.end(), HeapCompare);
-            m_animatingDecals.push_back(m_decalHeap.back());
+            m_fadingOutDecals.push_back(m_decalHeap.back());
             m_decalHeap.pop_back();
         }
 
         // Animate despawning decals, remove those that are expired.
-        for (size_t i = 0; i < m_animatingDecals.size();)
+        for (size_t i = 0; i < m_fadingOutDecals.size();)
         {
-            DecalInstance& decalInstance = m_animatingDecals.at(i);
+            DecalInstance& decalInstance = m_fadingOutDecals.at(i);
 
-            float currentFadeTimeMs = static_cast<float>(currentTimeMs - decalInstance.m_despawnMs);
-            float totalFadeTimeMs = decalInstance.m_config.m_fadeTime * 1000.0f;
+            float currentFadeTimeMs = static_cast<float>(currentTimeMs - decalInstance.m_animationStartTimeMs);
+            float totalFadeTimeMs = decalInstance.m_config.m_fadeOutTime * 1000.0f;
             if (currentFadeTimeMs > totalFadeTimeMs)
             {
                 // Despawn the decal, it's done animating;
                 m_decalFeatureProcessor->ReleaseDecal(decalInstance.m_handle);
 
                 // Replace this instance with the one on the back
-                decalInstance = m_animatingDecals.back();
-                m_animatingDecals.pop_back();
+                decalInstance = m_fadingOutDecals.back();
+                m_fadingOutDecals.pop_back();
 
                 // Don't increment, next iteration needs to process the item just moved to this spot.
             }
@@ -156,6 +208,6 @@ namespace MultiplayerSample
 
     bool ScriptableDecalComponent::HeapCompare(const DecalInstance& value1, const DecalInstance& value2)
     {
-        return value1.m_despawnMs > value2.m_despawnMs;
+        return value1.m_animationStartTimeMs > value2.m_animationStartTimeMs;
     }
 }
