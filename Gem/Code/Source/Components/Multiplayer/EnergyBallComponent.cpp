@@ -12,6 +12,7 @@
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
+#include <WeaponNotificationBus.h>
 
 #if AZ_TRAIT_CLIENT
 #   include <PopcornFX/PopcornFXBus.h>
@@ -124,7 +125,13 @@ namespace MultiplayerSample
             {
                 shouldTerminate = true;
 
-                Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
+                // The hit normal appears to be invalid (0, 0, 0) coming out of overlaps like we use in our gather
+                // Default to using the travel direction
+                const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(result.m_position, result.m_position - m_direction, AZ::Transform::Axis::ZPositive);
+                const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
+                const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+                WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
+
                 if (handle.Exists())
                 {
                     // Presently set to 1 until we capture falloff range

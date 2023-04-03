@@ -45,19 +45,19 @@ namespace MultiplayerSample
             OnWeaponDamage,
             OnConfirmedHitPlayer);
 
-        void OnWeaponActivate(const AZ::Transform& transform) override
+        void OnWeaponActivate(AZ::EntityId shooterEntityId, const AZ::Transform& transform) override
         {
-            Call(FN_OnWeaponActivate, transform);
+            Call(FN_OnWeaponActivate, shooterEntityId, transform);
         }
 
-        void OnWeaponImpact(const AZ::Transform& transform) override
+        void OnWeaponImpact(AZ::EntityId shooterEntityId, const AZ::Transform& transform, AZ::EntityId hitEntityId) override
         {
-            Call(FN_OnWeaponImpact, transform);
+            Call(FN_OnWeaponImpact, shooterEntityId, transform, hitEntityId);
         }
 
-        void OnWeaponDamage(const AZ::Transform& transform) override
+        void OnWeaponDamage(AZ::EntityId shooterEntityId, const AZ::Transform& transform, AZ::EntityId hitEntityId) override
         {
-            Call(FN_OnWeaponDamage, transform);
+            Call(FN_OnWeaponDamage, shooterEntityId, transform, hitEntityId);
         }
 
         void OnConfirmedHitPlayer(AZ::EntityId byPlayerEntity, AZ::EntityId otherPlayerEntity) override
@@ -183,7 +183,7 @@ namespace MultiplayerSample
         }
 
         m_onWeaponActivateEvent.Signal(activationInfo);
-        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponActivate, activationInfo.m_activateEvent.m_initialTransform);
+        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponActivate, GetEntity()->GetId(), activationInfo.m_activateEvent.m_initialTransform);
 
 #if AZ_TRAIT_CLIENT
         if (cl_WeaponsDrawDebug && m_debugDraw)
@@ -237,7 +237,9 @@ namespace MultiplayerSample
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
             const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
-            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, hitTransform);
+            const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+            const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
 
 #if AZ_TRAIT_CLIENT
 	        if (cl_WeaponsDrawDebug && m_debugDraw)
@@ -320,7 +322,9 @@ namespace MultiplayerSample
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
             const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
-            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponDamage, hitTransform);
+            const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+            const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponDamage, GetEntity()->GetId(), hitTransform, hitEntityId);
 
 #if AZ_TRAIT_CLIENT
             if (cl_WeaponsDrawDebug && m_debugDraw)
@@ -334,7 +338,6 @@ namespace MultiplayerSample
                 );
             }
 
-            Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
             if (handle.Exists())
             {
                 if (const AZ::Entity* entity = handle.GetEntity())
