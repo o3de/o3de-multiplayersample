@@ -37,7 +37,7 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_CLIENT
-    void EnergyCannonComponent::HandleRPC_BallLaunched([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    void EnergyCannonComponent::HandleRPC_TriggerBuildup([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
     }
@@ -67,6 +67,12 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_SERVER
+    void EnergyCannonComponentController::OnTriggerBuildup()
+    {
+        // This RPC starts the buildup effect on the client, we want it to start before the actual ball launch event occurs to make everyhing line up nicely
+        RPC_TriggerBuildup();
+    }
+
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
         // Re-using the same ball entity.
@@ -79,11 +85,11 @@ namespace MultiplayerSample
                 const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
                 const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
                 const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
-                ballComponent->RPC_LaunchBall(cannonTm.GetTranslation() + effectOffset, forward, GetNetEntityId());
-                RPC_BallLaunched();
+                ballComponent->RPC_LaunchBall(cannonTm.GetTranslation() + cannonTm.TransformVector(effectOffset), forward, GetNetEntityId());
 
                 // Enqueue our ball kill event
                 m_killEvent.Enqueue(GetBallLifetimeMs(), false);
+                m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
             }
         }
     }

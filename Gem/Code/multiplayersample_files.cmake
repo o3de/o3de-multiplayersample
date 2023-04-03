@@ -79,15 +79,6 @@ set(FILES
     Source/Components/ScriptableDecalComponent.cpp
     Source/Components/ScriptableDecalComponent.h
 
-    Source/GameState/GameStateMatchEnded.h
-    Source/GameState/GameStateMatchEnded.cpp
-    Source/GameState/GameStateMatchInProgress.h
-    Source/GameState/GameStateMatchInProgress.cpp
-    Source/GameState/GameStatePreparingMatch.h
-    Source/GameState/GameStatePreparingMatch.cpp
-    Source/GameState/GameStateWaitingForPlayers.h
-    Source/GameState/GameStateWaitingForPlayers.cpp
-
     Source/Weapons/BaseWeapon.cpp
     Source/Weapons/BaseWeapon.h
     Source/Weapons/IWeapon.h
