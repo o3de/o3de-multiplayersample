@@ -19,12 +19,13 @@ namespace MultiplayerSample
         AZ_RTTI(MultiplayerSample::SpawnDecalConfig, "{FC3DA616-174B-48FD-9BFB-BC277132FB47}");
         inline static void Reflect(AZ::ReflectContext* context);
 
-        float m_scale = 1.0f;             // Scale in meters
-        float m_opacity = 1.0f;           // How visible the decal is
-        float m_attenutationAngle = 1.0f; // How much to attenuate based on the angle of the geometry vs the decal
+        float m_scale = 1.0f;             // Scale in meters.
+        float m_opacity = 1.0f;           // How visible the decal is.
+        float m_attenutationAngle = 1.0f; // How much to attenuate based on the angle of the geometry vs the decal.
         float m_lifeTime = 0.0f;          // Time until the decal begins to fade, in seconds.
         float m_fadeTime = 1.0f;          // Time it takes the decal to fade, in seconds.
-        uint8_t m_sortKey = 0;            // Higher numbers sort in front of lower numbers
+        float m_thickness = 1.0f;         // How thick the decal should be on the z axis.
+        uint8_t m_sortKey = 0;            // Higher numbers sort in front of lower numbers.
     };
 
     void SpawnDecalConfig::Reflect(AZ::ReflectContext* context)
@@ -38,6 +39,7 @@ namespace MultiplayerSample
                 ->Field("AttenuationAngle", &SpawnDecalConfig::m_attenutationAngle)
                 ->Field("LifeTime", &SpawnDecalConfig::m_lifeTime)
                 ->Field("FadeTime", &SpawnDecalConfig::m_fadeTime)
+                ->Field("Thickness", &SpawnDecalConfig::m_thickness)
                 ->Field("SortKey", &SpawnDecalConfig::m_sortKey)
                 ;
 
@@ -57,6 +59,8 @@ namespace MultiplayerSample
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_fadeTime, "Fade time", "How long the decal should spend fading out at the end of its life time.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_thickness, "Thickness", "How thick the decal should be on the z axis.")
+                    ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_sortKey, "Sort key", "Used to sort the decal with other decals. Higher numbered decals show on top of lower number decals.")
                     ;
             }
@@ -74,6 +78,8 @@ namespace MultiplayerSample
                 ->Property("opacity", BehaviorValueProperty(&SpawnDecalConfig::m_opacity))
                 ->Property("m_attenutationAngle", BehaviorValueProperty(&SpawnDecalConfig::m_attenutationAngle))
                 ->Property("m_lifeTime", BehaviorValueProperty(&SpawnDecalConfig::m_lifeTime))
+                ->Property("m_fadeTime", BehaviorValueProperty(&SpawnDecalConfig::m_fadeTime))
+                ->Property("m_thickness", BehaviorValueProperty(&SpawnDecalConfig::m_thickness))
                 ->Property("m_sortKey", BehaviorValueProperty(&SpawnDecalConfig::m_sortKey))
                 ;
         }

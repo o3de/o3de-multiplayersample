@@ -88,9 +88,9 @@ namespace MultiplayerSample
     {
         DecalHandle handle = m_decalFeatureProcessor->AcquireDecal();
 
-        AZ::Transform transform = worldTm * AZ::Transform::CreateUniformScale(config.m_scale);
+        AZ::Vector3 scale = AZ::Vector3(config.m_scale, config.m_scale, config.m_scale * config.m_thickness);
 
-        m_decalFeatureProcessor->SetDecalTransform(handle, transform);
+        m_decalFeatureProcessor->SetDecalTransform(handle, worldTm, scale);
         m_decalFeatureProcessor->SetDecalMaterial(handle, materialAssetId);
         m_decalFeatureProcessor->SetDecalOpacity(handle, config.m_opacity);
         m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenutationAngle);
