@@ -53,10 +53,18 @@ namespace MultiplayerSample
         }
     }
 
-    void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location)
+    void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
-        AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), location);
+        AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitEvent.m_target);
         m_effect.TriggerEffect(transform);
+
+        for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
+        {
+            const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
+            const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+            const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
+        }
 
         PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
         if (emitterRequests != nullptr)
@@ -90,6 +98,7 @@ namespace MultiplayerSample
     void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId)
     {
         m_shooterNetEntityId = owningNetEntityId;
+        m_hitEvent.m_hitEntities.clear();
 
         m_filteredNetEntityIds.clear();
         m_filteredNetEntityIds.insert(owningNetEntityId);
@@ -98,6 +107,9 @@ namespace MultiplayerSample
 
         // Move the entity to the start position
         GetEntity()->GetTransform()->SetWorldTranslation(startingPosition);
+
+        // We want to sweep our transform during intersect tests to avoid the ball tunneling through targets
+        m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
 
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::EnablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
@@ -115,23 +127,22 @@ namespace MultiplayerSample
         const AZ::Vector3& position = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
         const HitEffect& effect = GetHitEffect();
 
+        // Sweep from our last checked transform to our current position to avoid tunneling
+        const ActivateEvent activateEvent{ m_lastSweepTransform, position, m_shooterNetEntityId, GetNetEntityId() };
+
         IntersectResults results;
-        const ActivateEvent activateEvent{ GetEntity()->GetTransform()->GetWorldTM(), position, m_shooterNetEntityId, GetNetEntityId() };
         GatherEntities(GetGatherParams(), activateEvent, m_filteredNetEntityIds, results);
+
         if (!results.empty())
         {
-            bool shouldTerminate = false;
             for (const IntersectResult& result : results)
             {
-                shouldTerminate = true;
+                // The hit position and normal coming out of swept overlap checks appear to be all zero vectors
+                // For now we'll use the final entity position and direction of travel as placeholders for our visual effects
+                const HitEntity hitEntity{ position, -m_direction, result.m_netEntityId };
+                m_hitEvent.m_hitEntities.emplace_back(hitEntity);
 
-                // The hit normal appears to be invalid (0, 0, 0) coming out of overlaps like we use in our gather
-                // Default to using the travel direction
-                const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(result.m_position, result.m_position - m_direction, AZ::Transform::Axis::ZPositive);
                 const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
-                const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
-                WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
-
                 if (handle.Exists())
                 {
                     // Presently set to 1 until we capture falloff range
@@ -156,16 +167,19 @@ namespace MultiplayerSample
                 }
             }
 
-            if (shouldTerminate)
-            {
-                HideEnergyBall();
-            }
+            HideEnergyBall();
         }
+
+        // Update our last sweep transform for the next time we check collision
+        m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
     }
 
     void EnergyBallComponentController::HideEnergyBall()
     {
-        RPC_BallExplosion(GetEntity()->GetTransform()->GetWorldTM().GetTranslation());
+        m_hitEvent.m_target = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
+        m_hitEvent.m_shooterNetEntityId = m_shooterNetEntityId;
+        m_hitEvent.m_projectileNetEntityId = GetNetEntityId();
+        RPC_BallExplosion(m_hitEvent);
 
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::DisablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, AZ::Vector3::CreateZero());
