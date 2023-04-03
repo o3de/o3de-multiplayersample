@@ -12,9 +12,6 @@
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
 
-#include <GameState/GameStateMatchEnded.h>
-#include <GameState/GameStateMatchInProgress.h>
-#include <GameState/GameStatePreparingMatch.h>
 #include <Source/Components/Multiplayer/GemSpawnerComponent.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
@@ -22,8 +19,6 @@
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
-#include <GameState/GameStateRequestBus.h>
-#include <GameState/GameStateWaitingForPlayers.h>
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
@@ -34,6 +29,14 @@
 #   include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
 #   include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #   include <LyShine/Bus/UiCursorBus.h>
+#endif
+
+#if AZ_TRAIT_SERVER
+#   include <GameState/GameStateRequestBus.h>
+#   include <GameState/GameStateWaitingForPlayers.h>
+#   include <GameState/GameStatePreparingMatch.h>
+#   include <GameState/GameStateMatchInProgress.h>
+#   include <GameState/GameStateMatchEnded.h>
 #endif
 
 namespace MultiplayerSample
@@ -120,7 +123,7 @@ namespace MultiplayerSample
         }
 
         // Disable player actions if the match hasn't started and we're still waiting for more players to join
-        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetFirstMatchStartHostTime())
+        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetMatchStartHostTime())
         {
             return AllowedPlayerActions::RotationOnly;
         }
@@ -153,9 +156,9 @@ namespace MultiplayerSample
         return aznumeric_cast<int32_t>(GetPlayerCount());
     }
 
-    AZ::TimeMs NetworkMatchComponent::GetFirstMatchStartHostTime() const
+    AZ::TimeMs NetworkMatchComponent::GetMatchStartHostTime() const
     {
-        return NetworkMatchComponentBase::GetFirstMatchStartHostTime();
+        return NetworkMatchComponentBase::GetMatchStartHostTime();
     }
 
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
@@ -175,7 +178,7 @@ namespace MultiplayerSample
 
     void NetworkMatchComponent::AddFirstMatchStartHostTime(AZ::Event<AZ::TimeMs>::Handler& handler)
     {
-        this->FirstMatchStartHostTimeAddEvent(handler);
+        this->MatchStartHostTimeAddEvent(handler);
     }
 
 #if AZ_TRAIT_SERVER
@@ -232,26 +235,28 @@ namespace MultiplayerSample
             AZ::SimpleLcgRandom randomNumberGenerator(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
             m_playerNameRandomStartingIndexPrefix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size();
             m_playerNameRandomStartingIndexPostfix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size();
+        
+
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
+                {
+                    return AZStd::make_shared<GameStateWaitingForPlayers>(this);
+                });
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStatePreparingMatch>([this]()
+                {
+                    return AZStd::make_shared<GameStatePreparingMatch>(this);
+                });
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchInProgress>([this]()
+                {
+                    return AZStd::make_shared<GameStateMatchInProgress>(this);
+                });
+
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchEnded>([this]()
+                {
+                    return AZStd::make_shared<GameStateMatchEnded>(this);
+                });
+
+            GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
         #endif
-
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
-            {
-                return AZStd::make_shared<GameStateWaitingForPlayers>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStatePreparingMatch>([this]()
-            {
-                return AZStd::make_shared<GameStatePreparingMatch>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchInProgress>([this]()
-            {
-                return AZStd::make_shared<GameStateMatchInProgress>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchEnded>([this]()
-            {
-                return AZStd::make_shared<GameStateMatchEnded>(this);
-            });
-
-        GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
 
         PlayerMatchLifecycleBus::Handler::BusConnect();
     }
@@ -260,13 +265,14 @@ namespace MultiplayerSample
     {
         PlayerMatchLifecycleBus::Handler::BusDisconnect();
 
+#if AZ_TRAIT_SERVER
         GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::PopAllGameStates);
 
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateWaitingForPlayers>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStatePreparingMatch>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchInProgress>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchEnded>();
-#if AZ_TRAIT_SERVER
+
         m_roundTickEvent.RemoveFromQueue();
         m_restTickEvent.RemoveFromQueue();
 #endif
@@ -550,13 +556,6 @@ namespace MultiplayerSample
             AZ_Warning("NetworkMatchComponentController", false, "An unknown player reported depleted armor: %llu", aznumeric_cast<AZ::u64>(playerEntity));
         }
 #endif   
-    }
-
-    void NetworkMatchComponentController::OnFirstMatchHostTimeChange([[maybe_unused]]AZ::TimeMs hostTime)
-    {
-#if AZ_TRAIT_SERVER
-        SetFirstMatchStartHostTime(hostTime);
-#endif
     }
 
 #if AZ_TRAIT_SERVER

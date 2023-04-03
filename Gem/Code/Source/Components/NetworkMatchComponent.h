@@ -57,7 +57,7 @@ namespace MultiplayerSample
         //! Returns the time the first match begins
         //! Host Time is the time in milliseconds since the host server application has started.
         //! @result the time the first match begins
-        virtual AZ::TimeMs GetFirstMatchStartHostTime() const = 0;
+        virtual AZ::TimeMs GetMatchStartHostTime() const = 0;
 
         //! Adds an event handler to the round number AZ::Event
         //! @param handler the handler to add the the requested component event
@@ -108,7 +108,7 @@ namespace MultiplayerSample
         int32_t GetCurrentRoundNumber() const override;
         int32_t GetTotalRoundCount() const override;
         int32_t GetTotalPlayerCount() const override;
-        AZ::TimeMs GetFirstMatchStartHostTime() const override;
+        AZ::TimeMs GetMatchStartHostTime() const override;
         void AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler) override;
         void AddRoundTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
         void AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler) override;
@@ -145,7 +145,6 @@ namespace MultiplayerSample
 
         //! PlayerMatchLifecycleBus overrides
         //! @{
-        void OnFirstMatchHostTimeChange(AZ::TimeMs hostTime) override;
         void OnPlayerArmorZero(Multiplayer::NetEntityId playerEntity) override;
         //! )@
 
