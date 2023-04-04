@@ -196,7 +196,8 @@ namespace MultiplayerSample
             }
             else
             {
-                float opacity = 1.0f - (currentFadeTimeMs / totalFadeTimeMs);
+                // Clamp our minimum fade time to 1 millisecond to avoid potential divide by zero
+                float opacity = 1.0f - (currentFadeTimeMs / AZStd::max(totalFadeTimeMs, 1.0f));
                 opacity *= decalInstance.m_config.m_opacity;
                 m_decalFeatureProcessor->SetDecalOpacity(decalInstance.m_handle, opacity);
                 ++i;
