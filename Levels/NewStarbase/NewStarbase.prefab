@@ -94,6 +94,13 @@
                 "$type": "EditorDisabledCompositionComponent",
                 "Id": 16239496886950819870
             },
+            "Component_[16520239860090643580]": {
+                "$type": "GenericComponentWrapper",
+                "Id": 16520239860090643580,
+                "m_template": {
+                    "$type": "MultiplayerSample::ScriptableDecalComponent"
+                }
+            },
             "Component_[17471965783633674556]": {
                 "$type": "AZ::Render::RenderDebugEditorComponent",
                 "Id": 17471965783633674556
@@ -11160,7 +11167,8 @@
                         "Entity_[60296164746127]",
                         "Entity_[60309049648015]",
                         "Entity_[102544484832835]",
-                        "Entity_[2310094587453688]"
+                        "Entity_[2310094587453688]",
+                        "Entity_[689364352119803]"
                     ]
                 },
                 "Component_[9277695270015777859]": {
@@ -11554,6 +11562,71 @@
                 "Component_[7299355232964032618]": {
                     "$type": "EditorLockComponent",
                     "Id": 7299355232964032618
+                }
+            }
+        },
+        "Entity_[689364352119803]": {
+            "Id": "Entity_[689364352119803]",
+            "Name": "AmbientAudio",
+            "Components": {
+                "Component_[1109165014613855942]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 1109165014613855942,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
+                "Component_[12437199707940482581]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 12437199707940482581
+                },
+                "Component_[13145606173679161518]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 13145606173679161518
+                },
+                "Component_[14774980749977237053]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 14774980749977237053
+                },
+                "Component_[17049943556665966323]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 17049943556665966323
+                },
+                "Component_[1792864520108972294]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 1792864520108972294
+                },
+                "Component_[1980429043338195521]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 1980429043338195521,
+                    "Play Trigger": {
+                        "controlName": "play_sx_amb_ext_general"
+                    },
+                    "Stop Trigger": {
+                        "controlName": "stop_sx_amb_ext_general"
+                    },
+                    "Plays Immediately": true
+                },
+                "Component_[2050855293059692604]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 2050855293059692604
+                },
+                "Component_[4567703689688181026]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 4567703689688181026,
+                    "Parent Entity": "Entity_[60274689909647]"
+                },
+                "Component_[5334430927586120432]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 5334430927586120432
+                },
+                "Component_[612576140938853376]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 612576140938853376
+                },
+                "Component_[9778753844251016872]": {
+                    "$type": "EditorBoxShapeComponent",
+                    "Id": 9778753844251016872
                 }
             }
         },
@@ -19208,26 +19281,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": -1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/HitEffect/HitMagnitude",
-                    "value": 25.0
                 }
             ]
         },
@@ -20801,21 +20854,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": -1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
                     "value": "../Entity_[86087443358607]"
                 },
@@ -20868,21 +20906,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": 84.67543029785156
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
@@ -20913,16 +20936,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -179.99989318847656
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
@@ -20953,21 +20966,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": -1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
@@ -30847,7 +30845,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30887,7 +30885,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30927,7 +30925,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30967,7 +30965,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31007,7 +31005,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31047,7 +31045,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31087,7 +31085,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31127,7 +31125,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -35214,31 +35212,6 @@
         "Instance_[436387970701411]": {
             "Source": "Prefabs/Energy_Cannon_with_Energy_Ball.prefab",
             "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/EffectOffset/0",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[656261840212]/Components/Component_[16569145727191893785]/m_template/ExplosionEffect/EffectOffset/2",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
-                },
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Parent Entity",
@@ -46863,16 +46836,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -179.99989318847656
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
@@ -46903,21 +46866,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": 1.5932101011276243
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/BallLifetimeMs",
-                    "value": 5000
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": -1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
@@ -46948,37 +46896,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": -90.00000762939453
-                },
-                {
-                    "op": "add",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[13923402908884303580]",
-                    "value": {
-                        "$type": "GenericComponentWrapper",
-                        "Id": 13923402908884303580,
-                        "m_template": {
-                            "$type": "MultiplayerSample::EnergyCannonComponent",
-                            "Id": 0,
-                            "RateOfFireMs": 4000,
-                            "BallLifetimeMs": 3800,
-                            "FiringEffect": {
-                                "ParticleAsset": {
-                                    "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}",
-                                    "subId": 0
-                                },
-                                "AudioTrigger": "play_sx_int_energyballtrap_buildup",
-                                "EffectOffset": [
-                                    -1.0,
-                                    0.0,
-                                    1.100000023841858
-                                ]
-                            },
-                            "EnergyBallEntity": "../Instance_[195069310473740]/Entity_[656261840212]"
-                        }
-                    }
-                },
-                {
-                    "op": "remove",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]"
                 }
             ]
         },
@@ -47009,21 +46926,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[16896350622714100755]/Transform Data/Rotate/2",
                     "value": 89.99994659423828
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/0",
-                    "value": 1.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/1",
-                    "value": 0.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[660556807508]/Components/Component_[15034031694382477776]/m_template/FiringEffect/EffectOffset/2",
-                    "value": 1.100000023841858
                 }
             ]
         },
