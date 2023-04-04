@@ -348,7 +348,7 @@ namespace MultiplayerSample
     bool HitEntity::Serialize(AzNetworking::ISerializer& serializer)
     {
         return serializer.Serialize(m_hitPosition, "HitPosition")
-            && serializer.Serialize(m_hitNormal, "HitNoraml")
+            && serializer.Serialize(m_hitNormal, "HitNormal")
             && serializer.Serialize(m_hitNetEntityId, "HitNetEntityId");
     }
 
@@ -358,7 +358,7 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<HitEntity>()
-                ->Version(0)
+                ->Version(1)
                 ->Field("HitPosition", &HitEntity::m_hitPosition)
                 ->Field("HitNormal", &HitEntity::m_hitNormal)
                 ->Field("HitNetEntityId", &HitEntity::m_hitNetEntityId);
@@ -392,7 +392,7 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<HitEvent>()
-                ->Version(0)
+                ->Version(1)
                 ->Field("Target", &HitEvent::m_target)
                 ->Field("ShooterNetEntityId", &HitEvent::m_shooterNetEntityId)
                 ->Field("HitEntities", &HitEvent::m_hitEntities);
