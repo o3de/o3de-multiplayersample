@@ -19,14 +19,15 @@ namespace MultiplayerSample
         AZ_RTTI(MultiplayerSample::SpawnDecalConfig, "{FC3DA616-174B-48FD-9BFB-BC277132FB47}");
         inline static void Reflect(AZ::ReflectContext* context);
 
-        float m_scale = 1.0f;             // Scale in meters.
-        float m_opacity = 1.0f;           // How visible the decal is.
-        float m_attenuationAngle = 1.0f;  // How much to attenuate based on the angle of the geometry vs the decal.
+        AZ::Data::AssetId m_materialAssetId; // Asset Id of the material.
+        float m_scale = 1.0f;                // Scale in meters.
+        float m_opacity = 1.0f;              // How visible the decal is.
+        float m_attenuationAngle = 1.0f;     // How much to attenuate based on the angle of the geometry vs the decal.
         float m_lifeTimeSec = 0.0f;          // Length of time the decal lives between fading in and out, in seconds.
         float m_fadeInTimeSec = 0.1f;        // Time it takes the decal to fade in, in seconds.
         float m_fadeOutTimeSec = 1.0f;       // Time it takes the decal to fade out, in seconds.
-        float m_thickness = 1.0f;         // How thick the decal should be on the z axis.
-        uint8_t m_sortKey = 0;            // Higher numbers sort in front of lower numbers.
+        float m_thickness = 1.0f;            // How thick the decal should be on the z axis.
+        uint8_t m_sortKey = 0;               // Higher numbers sort in front of lower numbers.
     };
 
     void SpawnDecalConfig::Reflect(AZ::ReflectContext* context)
@@ -35,6 +36,7 @@ namespace MultiplayerSample
         {
             serializeContext->Class<MultiplayerSample::SpawnDecalConfig>()
                 ->Version(0)
+                ->Field("MaterialAssetId", &SpawnDecalConfig::m_materialAssetId)
                 ->Field("Scale", &SpawnDecalConfig::m_scale)
                 ->Field("Opacity", &SpawnDecalConfig::m_opacity)
                 ->Field("AttenuationAngle", &SpawnDecalConfig::m_attenuationAngle)
@@ -50,11 +52,16 @@ namespace MultiplayerSample
                 editContext->Class<SpawnDecalConfig>("SpawnDecalConfig", "Configuration settings for spawning a decal.")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_scale, "Scale", "The scale of the decal.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_materialAssetId, "Material", "The material for the decal.")
+                    ->DataElement(AZ::Edit::UIHandlers::Slider, &SpawnDecalConfig::m_scale, "Scale", "The scale of the decal.")
+                        ->Attribute(AZ::Edit::Attributes::Min, 0.01f)
+                        ->Attribute(AZ::Edit::Attributes::Max, 100.0f)
+                        ->Attribute(AZ::Edit::Attributes::SoftMin, 0.01f)
+                        ->Attribute(AZ::Edit::Attributes::SoftMax, 5.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Slider, &SpawnDecalConfig::m_opacity, "Opacity", "The opacity of the decal.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                         ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_attenuationAngle, "Angle attenuation", "How much to attenuate the opacity of the decal based on the different in the angle between the decal and the surface.")
+                    ->DataElement(AZ::Edit::UIHandlers::Slider, &SpawnDecalConfig::m_attenutationAngle, "Angle attenuation", "How much to attenuate the opacity of the decal based on the different in the angle between the decal and the surface.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                         ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &SpawnDecalConfig::m_lifeTimeSec, "Life time", "Length of time the decal lives between fading in and out, in seconds")
@@ -78,6 +85,7 @@ namespace MultiplayerSample
                 ->Attribute(AZ::Script::Attributes::Module, "decals")
                 ->Constructor()
                 ->Constructor<const SpawnDecalConfig&>()
+                ->Property("material", BehaviorValueProperty(&SpawnDecalConfig::m_materialAssetId))
                 ->Property("scale", BehaviorValueProperty(&SpawnDecalConfig::m_scale))
                 ->Property("opacity", BehaviorValueProperty(&SpawnDecalConfig::m_opacity))
                 ->Property("attenuationAngle", BehaviorValueProperty(&SpawnDecalConfig::m_attenuationAngle))
@@ -107,7 +115,7 @@ namespace MultiplayerSample
          * \param materialAssetId The asset ID of the material to use for the decal
          * \param config The configuration of the decal to spawn (opacity, scale, etc).
          */
-        virtual void SpawnDecal(const AZ::Transform& worldTm, AZ::Data::AssetId materialAssetId, const SpawnDecalConfig& config) = 0;
+        virtual void SpawnDecal(const AZ::Transform& worldTm, const SpawnDecalConfig& config) = 0;
     };
 
     using DecalRequestBus = AZ::EBus<DecalRequests>;

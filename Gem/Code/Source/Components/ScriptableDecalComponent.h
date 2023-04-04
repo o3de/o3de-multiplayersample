@@ -46,7 +46,7 @@ namespace MultiplayerSample
         };
 
         // DecalRequestBus::Handler...
-        void SpawnDecal(const AZ::Transform& worldTm, AZ::Data::AssetId materialAssetId, const SpawnDecalConfig& config) override;
+        void SpawnDecal(const AZ::Transform& worldTm, const SpawnDecalConfig& config) override;
 
         // TickBus::Handler...
         virtual void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;

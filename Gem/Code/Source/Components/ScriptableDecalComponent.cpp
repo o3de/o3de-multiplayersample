@@ -97,14 +97,21 @@ namespace MultiplayerSample
         m_decalFeatureProcessor = nullptr;
     }
 
-    void ScriptableDecalComponent::SpawnDecal(const AZ::Transform& worldTm, AZ::Data::AssetId materialAssetId, const SpawnDecalConfig& config)
+    void ScriptableDecalComponent::SpawnDecal(const AZ::Transform& worldTm, const SpawnDecalConfig& config)
     {
         DecalHandle handle = m_decalFeatureProcessor->AcquireDecal();
 
         AZ::Vector3 scale = AZ::Vector3(config.m_scale, config.m_scale, config.m_scale * config.m_thickness);
 
+        // Check for bad state.
+        if (config.m_scale <= 0.0f || !config.m_materialAssetId.IsValid() || config.m_opacity <= 0.0f ||
+            (config.m_fadeInTime + config.m_lifeTime + config.m_fadeOutTime <= 0.0f))
+        {
+            return;
+        }
+
         m_decalFeatureProcessor->SetDecalTransform(handle, worldTm, scale);
-        m_decalFeatureProcessor->SetDecalMaterial(handle, materialAssetId);
+        m_decalFeatureProcessor->SetDecalMaterial(handle, config.m_materialAssetId);
         m_decalFeatureProcessor->SetDecalOpacity(handle, config.m_opacity);
         m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenuationAngle);
         m_decalFeatureProcessor->SetDecalSortKey(handle, config.m_sortKey);
