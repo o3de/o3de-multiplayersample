@@ -64,6 +64,7 @@ namespace MultiplayerSample
     void PlayerIdentityComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
         #if AZ_TRAIT_CLIENT
+            AZ::TickBus::Handler::BusDisconnect();
         #endif
     }
 

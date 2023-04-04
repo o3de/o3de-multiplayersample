@@ -5,23 +5,20 @@
  *
  */
 
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Preprocessor/EnumReflectUtils.h>
 
 #include <GameplayEffectsNotificationBus.h>
 #include <MultiplayerSampleTypes.h>
 #include <UiGameOverBus.h>
 
-#include <GameState/GameStateMatchEnded.h>
-#include <GameState/GameStateMatchInProgress.h>
-#include <GameState/GameStatePreparingMatch.h>
+#include <Source/Components/Multiplayer/GemSpawnerComponent.h>
 #include <Source/Components/Multiplayer/MatchPlayerCoinsComponent.h>
 #include <Source/Components/Multiplayer/PlayerIdentityComponent.h>
 #include <Source/Components/NetworkTeleportCompatibleComponent.h>
 #include <Source/Components/NetworkHealthComponent.h>
 #include <Source/Components/NetworkMatchComponent.h>
 #include <Source/Components/NetworkRandomComponent.h>
-#include <GameState/GameStateRequestBus.h>
-#include <GameState/GameStateWaitingForPlayers.h>
 
 #include "NetworkRandomComponent.h"
 #include "Multiplayer/GemSpawnerComponent.h"
@@ -32,6 +29,14 @@
 #   include <AzFramework/Input/Buses/Requests/InputSystemCursorRequestBus.h>
 #   include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #   include <LyShine/Bus/UiCursorBus.h>
+#endif
+
+#if AZ_TRAIT_SERVER
+#   include <GameState/GameStateRequestBus.h>
+#   include <GameState/GameStateWaitingForPlayers.h>
+#   include <GameState/GameStatePreparingMatch.h>
+#   include <GameState/GameStateMatchInProgress.h>
+#   include <GameState/GameStateMatchEnded.h>
 #endif
 
 namespace MultiplayerSample
@@ -117,6 +122,12 @@ namespace MultiplayerSample
             return AllowedPlayerActions::RotationOnly;
         }
 
+        // Disable player actions if the match hasn't started and we're still waiting for more players to join
+        if ( AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() < GetMatchStartHostTime())
+        {
+            return AllowedPlayerActions::RotationOnly;
+        }
+
         return AllowedPlayerActions::All;
     }
 
@@ -145,6 +156,11 @@ namespace MultiplayerSample
         return aznumeric_cast<int32_t>(GetPlayerCount());
     }
 
+    AZ::TimeMs NetworkMatchComponent::GetMatchStartHostTime() const
+    {
+        return NetworkMatchComponentBase::GetMatchStartHostTime();
+    }
+
     void NetworkMatchComponent::AddRoundNumberEventHandler(AZ::Event<uint16_t>::Handler& handler)
     {
         RoundNumberAddEvent(handler);
@@ -158,6 +174,11 @@ namespace MultiplayerSample
     void NetworkMatchComponent::AddRoundRestTimeRemainingEventHandler(AZ::Event<RoundTimeSec>::Handler& handler)
     {
         RoundRestTimeRemainingAddEvent(handler);
+    }
+
+    void NetworkMatchComponent::AddFirstMatchStartHostTime(AZ::Event<AZ::TimeMs>::Handler& handler)
+    {
+        this->MatchStartHostTimeAddEvent(handler);
     }
 
 #if AZ_TRAIT_SERVER
@@ -214,26 +235,28 @@ namespace MultiplayerSample
             AZ::SimpleLcgRandom randomNumberGenerator(aznumeric_cast<int64_t>(AZ::GetElapsedTimeMs()));
             m_playerNameRandomStartingIndexPrefix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePrefix.size();
             m_playerNameRandomStartingIndexPostfix = randomNumberGenerator.GetRandom() % AutoAssignedPlayerNamePostfix.size();
+        
+
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
+                {
+                    return AZStd::make_shared<GameStateWaitingForPlayers>(this);
+                });
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStatePreparingMatch>([this]()
+                {
+                    return AZStd::make_shared<GameStatePreparingMatch>(this);
+                });
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchInProgress>([this]()
+                {
+                    return AZStd::make_shared<GameStateMatchInProgress>(this);
+                });
+
+            GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchEnded>([this]()
+                {
+                    return AZStd::make_shared<GameStateMatchEnded>(this);
+                });
+
+            GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
         #endif
-
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateWaitingForPlayers>([this]()
-            {
-                return AZStd::make_shared<GameStateWaitingForPlayers>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStatePreparingMatch>([this]()
-            {
-                return AZStd::make_shared<GameStatePreparingMatch>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchInProgress>([this]()
-            {
-                return AZStd::make_shared<GameStateMatchInProgress>(this);
-            });
-        GameState::GameStateRequests::AddGameStateFactoryOverrideForType<GameStateMatchEnded>([this]()
-            {
-                return AZStd::make_shared<GameStateMatchEnded>(this);
-            });
-
-        GameState::GameStateRequests::CreateAndPushNewOverridableGameStateOfType<GameStateWaitingForPlayers>();
 
         PlayerMatchLifecycleBus::Handler::BusConnect();
     }
@@ -242,13 +265,14 @@ namespace MultiplayerSample
     {
         PlayerMatchLifecycleBus::Handler::BusDisconnect();
 
+#if AZ_TRAIT_SERVER
         GameState::GameStateRequestBus::Broadcast(&GameState::GameStateRequestBus::Events::PopAllGameStates);
 
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateWaitingForPlayers>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStatePreparingMatch>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchInProgress>();
         GameState::GameStateRequests::RemoveGameStateFactoryOverrideForType<GameStateMatchEnded>();
-#if AZ_TRAIT_SERVER
+
         m_roundTickEvent.RemoveFromQueue();
         m_restTickEvent.RemoveFromQueue();
 #endif
@@ -327,6 +351,27 @@ namespace MultiplayerSample
             results.m_playerStates.push_back(state);
         }
 
+        // Print the player results to server.log for tracking tournament winners.
+        // Sort the players by score (highest score is 1st)
+        // If scores are matching, then sort by remaining armor.
+        AZStd::sort(results.m_playerStates.begin(), results.m_playerStates.end(), [](const PlayerState& a, const PlayerState& b)
+            {
+                if (a.m_score == b.m_score)
+                {
+                    return a.m_remainingArmor > b.m_remainingArmor;
+                }
+                return a.m_score > b.m_score;
+            });
+
+        AZStd::string prettyPrintMatchResults = "";
+        prettyPrintMatchResults += AZStd::string::format("Match Results (%u players)\n", results.m_playerStates.size());
+        for (const PlayerState& playerState : results.m_playerStates)
+        {
+            prettyPrintMatchResults += AZStd::string::format("\tPlayer %s score %u, armor %u.\n", playerState.m_playerName.c_str(), playerState.m_score, playerState.m_remainingArmor);
+        }
+        AZ_Info("NetworkMatchComponentController", prettyPrintMatchResults.c_str());
+
+
         FindWinner(results, potentialWinners);
 
         RPC_EndMatch(results);
@@ -400,6 +445,9 @@ namespace MultiplayerSample
 
     void NetworkMatchComponentController::EndRound()
     {
+        // As soon as a round ends, remove all the gems until the next round begins.
+        GetGemSpawnerComponentController()->RemoveGems();
+
         // Check if we're in-between rounds, or if this is the end of the match...
         if (GetRoundNumber() < GetTotalRounds()) // In-between
         {
@@ -467,7 +515,40 @@ namespace MultiplayerSample
         {
             if (Multiplayer::ConstNetworkEntityHandle playerHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(playerEntity))
             {
+                AZ::Vector3 playerTranslation = playerHandle.Exists() 
+                    ? playerHandle.GetEntity()->GetTransform()->GetWorldTranslation() 
+                    : AZ::Vector3::CreateZero();
                 RespawnPlayer(playerEntity, PlayerResetOptions{ true, GetRespawnPenaltyPercent() });
+                if (playerHandle.Exists())
+                {
+                    MultiplayerSample::GemSpawnerComponent* gemSpawnerComponent = GetParent().GetGemSpawnerComponent();
+
+                    if (gemSpawnerComponent)
+                    {
+                        const AZStd::vector<PlayerCoinState>& coinStates = GetMatchPlayerCoinsComponentController()->GetParent().
+                            GetPlayerCoinCounts();
+
+                        const auto coinStateIterator = AZStd::find_if(
+                            coinStates.begin(), coinStates.end(), [playerEntity](const PlayerCoinState& state)
+                            {
+                                return state.m_playerId == playerEntity;
+                            });
+
+                        if (coinStateIterator != coinStates.end())
+                        {
+                            float coinsDropped = coinStateIterator->m_coins * (GetRespawnPenaltyPercent() * 0.01f);
+
+                            gemSpawnerComponent->RPC_SpawnGemWithValue(
+                                playerEntity, playerTranslation, GetRespawnGemTag(), static_cast<uint16_t>(coinsDropped));
+                        }
+                        else
+                        {
+                            gemSpawnerComponent->RPC_SpawnGem(
+                                playerEntity, playerTranslation, GetRespawnGemTag());
+                        }
+                            
+                    }
+                }
             }
         }
         else
