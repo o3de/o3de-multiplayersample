@@ -210,10 +210,7 @@
                                             "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
                                         },
                                         "isNullPointer": false,
-                                        "$type": "MultiplayerSample::SpawnDecalConfig",
-                                        "value": {
-                                            "LifeTime": 2.0
-                                        }
+                                        "$type": "MultiplayerSample::SpawnDecalConfig"
                                     },
                                     "VariableId": {
                                         "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
@@ -235,8 +232,8 @@
                                         "value": {
                                             "Scale": 2.0,
                                             "Opacity": 0.800000011920929,
-                                            "LifeTime": 4.0,
-                                            "FadeTime": 2.0
+                                            "LifeTimeSec": 8.0,
+                                            "FadeOutTimeSec": 4.0
                                         }
                                     },
                                     "InputControlVisibility": {
@@ -352,6 +349,7 @@
                         "$type": "MultiplayerSample::EnergyCannonComponent",
                         "RateOfFireMs": 4000,
                         "BallLifetimeMs": 3800,
+                        "BuildUpTimeMs": 3300,
                         "FiringEffect": {
                             "ParticleAsset": {
                                 "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"

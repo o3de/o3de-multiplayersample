@@ -67,7 +67,6 @@ namespace MultiplayerSample
 
     void ScriptableDecalComponent::Activate()
     {
-        AZ_Printf("ScriptableDecalComponent", "Activate");
         m_decalFeatureProcessor = AZ::RPI::Scene::GetFeatureProcessorForEntity<AZ::Render::DecalFeatureProcessorInterface>(GetEntityId());
         if (m_decalFeatureProcessor)
         {
@@ -107,18 +106,18 @@ namespace MultiplayerSample
         m_decalFeatureProcessor->SetDecalTransform(handle, worldTm, scale);
         m_decalFeatureProcessor->SetDecalMaterial(handle, materialAssetId);
         m_decalFeatureProcessor->SetDecalOpacity(handle, config.m_opacity);
-        m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenutationAngle);
+        m_decalFeatureProcessor->SetDecalAttenuationAngle(handle, config.m_attenuationAngle);
         m_decalFeatureProcessor->SetDecalSortKey(handle, config.m_sortKey);
 
         uint32_t currentTimeMs = static_cast<uint32_t>(AZ::Interface<AZ::ITime>::Get()->GetElapsedTimeMs());
 
-        if (config.m_fadeInTime > 0.0f)
+        if (config.m_fadeInTimeSec > 0.0f)
         {
             m_fadingInDecals.push_back({ config, handle, currentTimeMs });
         }
-        else if (config.m_lifeTime > 0.0f)
+        else if (config.m_lifeTimeSec > 0.0f)
         {
-            uint32_t lifetimeMs = static_cast<uint32_t>(config.m_lifeTime * 1000.0f);
+            uint32_t lifetimeMs = static_cast<uint32_t>(config.m_lifeTimeSec * 1000.0f);
             uint32_t despawnTimeMs = currentTimeMs + lifetimeMs;
 
             // Store decals in a min heap sorted by when they need to start animating the fade out.
@@ -139,9 +138,8 @@ namespace MultiplayerSample
         for (size_t i = 0; i < m_fadingInDecals.size();)
         {
             DecalInstance& decalInstance = m_fadingInDecals.at(i);
-            AZ_Printf("ScriptableDecalComponent", "Current Time: %u, Animation Start Time: %u", currentTimeMs, decalInstance.m_animationStartTimeMs);
             uint32_t currentFadeTimeMs = currentTimeMs - decalInstance.m_animationStartTimeMs;
-            float fadeInTimeMsFloat = decalInstance.m_config.m_fadeInTime * 1000.0f;
+            float fadeInTimeMsFloat = decalInstance.m_config.m_fadeInTimeSec * 1000.0f;
 
             float opacity = AZStd::GetMin(1.0f, currentFadeTimeMs / fadeInTimeMsFloat);
             opacity *= decalInstance.m_config.m_opacity;
@@ -150,7 +148,7 @@ namespace MultiplayerSample
             uint32_t fadeInTimeMs = static_cast<uint32_t>(fadeInTimeMsFloat);
             if (currentFadeTimeMs > fadeInTimeMs)
             {
-                uint32_t lifetimeMs = static_cast<uint32_t>(decalInstance.m_config.m_lifeTime * 1000.0f);
+                uint32_t lifetimeMs = static_cast<uint32_t>(decalInstance.m_config.m_lifeTimeSec * 1000.0f);
                 // Fade out animation starts after the fade in time and life time have passed.
                 uint32_t despawnTimeMs = fadeInTimeMs + lifetimeMs; 
                 decalInstance.m_animationStartTimeMs += despawnTimeMs;
@@ -184,7 +182,7 @@ namespace MultiplayerSample
             DecalInstance& decalInstance = m_fadingOutDecals.at(i);
 
             float currentFadeTimeMs = static_cast<float>(currentTimeMs - decalInstance.m_animationStartTimeMs);
-            float totalFadeTimeMs = decalInstance.m_config.m_fadeOutTime * 1000.0f;
+            float totalFadeTimeMs = decalInstance.m_config.m_fadeOutTimeSec * 1000.0f;
             if (currentFadeTimeMs > totalFadeTimeMs)
             {
                 // Despawn the decal, it's done animating;
