@@ -137,9 +137,7 @@ namespace MultiplayerSample
         {
             for (const IntersectResult& result : results)
             {
-                // The hit position and normal coming out of swept overlap checks appear to be all zero vectors
-                // For now we'll use the final entity position and direction of travel as placeholders for our visual effects
-                const HitEntity hitEntity{ position, -m_direction, result.m_netEntityId };
+                const HitEntity hitEntity{ result.m_position, result.m_normal, result.m_netEntityId };
                 m_hitEvent.m_hitEntities.emplace_back(hitEntity);
 
                 const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(result.m_netEntityId);
