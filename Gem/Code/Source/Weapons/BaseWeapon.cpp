@@ -144,7 +144,7 @@ namespace MultiplayerSample
     {
         HitEvent hitEvent
         {
-            AZ::Transform::CreateFromQuaternionAndTranslation(eventData.m_initialTransform.GetRotation(), eventData.m_targetPosition),
+            eventData.m_targetPosition,
             eventData.m_shooterId,
             Multiplayer::InvalidNetEntityId,
             HitEntities()
@@ -161,7 +161,7 @@ namespace MultiplayerSample
                 }
             }
 
-            hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_netEntityId });
+            hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_normal, gatherResult.m_netEntityId });
         }
 
         WeaponHitInfo hitInfo(*this, hitEvent);

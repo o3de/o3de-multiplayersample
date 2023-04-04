@@ -187,6 +187,68 @@
                     "$type": "EditorLockComponent",
                     "Id": 7697210517306281973
                 },
+                "Component_[8308919018390390778]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 8308919018390390778,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
+                            "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
+                        },
+                        "sourceName": "WeaponImpactDecal.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
+                                "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "MultiplayerSample::SpawnDecalConfig"
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
+                                    },
+                                    "VariableName": "Weapon Impact Decal Config",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "MultiplayerSample::SpawnDecalConfig",
+                                        "value": {
+                                            "Scale": 2.0,
+                                            "Opacity": 0.800000011920929,
+                                            "LifeTimeSec": 8.0,
+                                            "FadeOutTimeSec": 4.0
+                                        }
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
+                                    },
+                                    "VariableName": "Weapon Impact Decal Config",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
                 "Component_[8670461081840355986]": {
                     "$type": "EditorInspectorComponent",
                     "Id": 8670461081840355986,
@@ -287,6 +349,7 @@
                         "$type": "MultiplayerSample::EnergyCannonComponent",
                         "RateOfFireMs": 4000,
                         "BallLifetimeMs": 3800,
+                        "BuildUpTimeMs": 3300,
                         "FiringEffect": {
                             "ParticleAsset": {
                                 "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"

@@ -47,7 +47,7 @@ namespace MultiplayerSample
             return nullptr;
         }
 
-        static void CollectHits(AzPhysics::SceneQueryHits& result, IntersectResults& outResults)
+        static void CollectHits(AzPhysics::SceneQueryHits& result, IntersectResults& outResults, const AZ::Vector3& defaultPosition, const AZ::Vector3& defaultNormal)
         {
             auto* networkEntityManager = AZ::Interface<Multiplayer::INetworkEntityManager>::Get();
             AZ_Assert(networkEntityManager, "Multiplayer entity manager must be initialized");
@@ -55,8 +55,11 @@ namespace MultiplayerSample
             for (const AzPhysics::SceneQueryHit& hit : result.m_hits)
             {
                 IntersectResult intersectResult;
-                intersectResult.m_position = hit.m_position;
-                intersectResult.m_normal = hit.m_normal;
+
+                // Certain queries may return zero vectors if the hit position and normal can't easily be determined
+                // Use defaults if we detect zero vectors coming out of the scene query results
+                intersectResult.m_position = (hit.m_position.GetLengthSq() > AZ::Constants::Tolerance) ? hit.m_position : defaultPosition;
+                intersectResult.m_normal = (hit.m_normal.GetLengthSq() > AZ::Constants::Tolerance) ? hit.m_normal : defaultNormal;
                 intersectResult.m_materialName = hit.m_physicsMaterialId.ToString<AZStd::string>();
                 intersectResult.m_netEntityId = networkEntityManager->GetNetEntityIdById(hit.m_entityId);
                 outResults.emplace_back(intersectResult);
@@ -128,7 +131,7 @@ namespace MultiplayerSample
                 };
 
                 AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
-                CollectHits(result, outResults);
+                CollectHits(result, outResults, filter.m_initialPose.GetTranslation(), AZ::Vector3::CreateZero());
             }
             else if (intersectShape == GatherShape::Point)
             {
@@ -143,7 +146,7 @@ namespace MultiplayerSample
                 request.m_reportMultipleHits = (filter.m_intersectMultiple == HitMultiple::Yes);
 
                 AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
-                CollectHits(result, outResults);
+                CollectHits(result, outResults, filter.m_initialPose.GetTranslation(), -request.m_direction);
             }
             else
             {
@@ -159,7 +162,7 @@ namespace MultiplayerSample
                 request.m_reportMultipleHits = (filter.m_intersectMultiple == HitMultiple::Yes);
 
                 AzPhysics::SceneQueryHits result = sceneInterface->QueryScene(sceneHandle, &request);
-                CollectHits(result, outResults);
+                CollectHits(result, outResults, filter.m_initialPose.GetTranslation(), -request.m_direction);
             }
             
             return outResults.size();

@@ -13,7 +13,7 @@
 #include <Source/Weapons/SceneQuery.h>
 
 #if AZ_TRAIT_CLIENT
-#include <DebugDraw/DebugDrawBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
