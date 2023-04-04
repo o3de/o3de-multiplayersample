@@ -105,7 +105,7 @@ namespace MultiplayerSample
 
         // Check for bad state.
         if (config.m_scale <= 0.0f || !config.m_materialAssetId.IsValid() || config.m_opacity <= 0.0f ||
-            (config.m_fadeInTime + config.m_lifeTime + config.m_fadeOutTime <= 0.0f))
+            (config.m_fadeInTimeSec + config.m_lifeTimeSec + config.m_fadeOutTimeSec <= 0.0f))
         {
             return;
         }
