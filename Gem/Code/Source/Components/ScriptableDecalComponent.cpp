@@ -181,8 +181,9 @@ namespace MultiplayerSample
         {
             DecalInstance& decalInstance = m_fadingOutDecals.at(i);
 
+            // Clamp our minimum total fade time to 1 millisecond to avoid any potential divide-by-zero
+            float totalFadeTimeMs = AZStd::max(decalInstance.m_config.m_fadeOutTimeSec * 1000.0f, 1.0f);
             float currentFadeTimeMs = static_cast<float>(currentTimeMs - decalInstance.m_animationStartTimeMs);
-            float totalFadeTimeMs = decalInstance.m_config.m_fadeOutTimeSec * 1000.0f;
             if (currentFadeTimeMs > totalFadeTimeMs)
             {
                 // Despawn the decal, it's done animating;
@@ -196,8 +197,7 @@ namespace MultiplayerSample
             }
             else
             {
-                // Clamp our minimum fade time to 1 millisecond to avoid potential divide by zero
-                float opacity = 1.0f - (currentFadeTimeMs / AZStd::max(totalFadeTimeMs, 1.0f));
+                float opacity = 1.0f - (currentFadeTimeMs / totalFadeTimeMs);
                 opacity *= decalInstance.m_config.m_opacity;
                 m_decalFeatureProcessor->SetDecalOpacity(decalInstance.m_handle, opacity);
                 ++i;
