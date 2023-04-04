@@ -59,14 +59,25 @@ namespace MultiplayerSample
         m_onRoundNumberChangedHandler.Disconnect();
     }
 
-    void UiGameOverComponent::DisplaySecondsRemainingUI(uint16_t secondsRemaining)
+    void UiGameOverComponent::DisplaySecondsRemainingUI()
     {
+        const AZ::TimeMs currentHostTime = AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs();
+        const AZ::TimeMs matchStartTime = AZ::Interface<INetworkMatch>::Get()->GetMatchStartHostTime();
+
+        const uint16_t secondsRemaining = aznumeric_cast<uint16_t>(AZStd::floor(AZ::TimeMsToSeconds(matchStartTime - currentHostTime)));
         LyShine::EntityArray rankNumberUIElements;
         UiElementBus::EventResult(rankNumberUIElements, m_timeRemainingUntilNewMatchUIContainer, &UiElementBus::Events::GetChildElements);
 
-        for(uint16_t uiNumbersIdx = 0; uiNumbersIdx < rankNumberUIElements.size(); ++uiNumbersIdx)
+        const uint16_t rankNumberUiCount = aznumeric_cast<uint16_t>(rankNumberUIElements.size());
+        for(uint16_t uiNumbersIdx = 0; uiNumbersIdx < rankNumberUiCount; ++uiNumbersIdx)
         {
             UiElementBus::Event(rankNumberUIElements[uiNumbersIdx]->GetId(), &UiElementBus::Events::SetIsEnabled, secondsRemaining == uiNumbersIdx);
+        }
+
+        // Remove this event to update the timer ui once the time reaches 0
+        if (secondsRemaining == 0)
+        {
+            m_onSecondsRemainingChanged.RemoveFromQueue();
         }
     }
 
@@ -74,8 +85,7 @@ namespace MultiplayerSample
     {
         if (enabled)
         {
-            m_secondsRemainingUntilNewMatch = RestSecondsBetweenMatches;
-            DisplaySecondsRemainingUI(m_secondsRemainingUntilNewMatch);
+            DisplaySecondsRemainingUI();
             m_onSecondsRemainingChanged.Enqueue(AZ::TimeMs{ 1000 }, true);
         }
         else
@@ -151,6 +161,5 @@ namespace MultiplayerSample
                 UiElementBus::Event(rankNumbers[i]->GetId(), &UiElementBus::Events::SetIsEnabled, i == clientPlayerRank);
             }
         }
-
     }
 }

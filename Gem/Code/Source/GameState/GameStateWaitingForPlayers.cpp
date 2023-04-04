@@ -19,6 +19,7 @@ namespace MultiplayerSample
 
 
     GameStateWaitingForPlayers::GameStateWaitingForPlayers([[maybe_unused]] NetworkMatchComponentController* controller)
+        : m_controller(controller)
     {
         PlayerIdentityNotificationBus::Handler::BusConnect();
     }
@@ -30,7 +31,8 @@ namespace MultiplayerSample
         // The first player has joined, start the timer before starting the first match
         const AZ::TimeMs firstMatchDelayMs = AZ::SecondsToTimeMs(sv_MpsFirstMatchDelaySeconds);
         const AZ::TimeMs firstMatchHostTime = AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs() + firstMatchDelayMs;
-        PlayerMatchLifecycleBus::Broadcast(&PlayerMatchLifecycleNotifications::OnFirstMatchHostTimeChange, firstMatchHostTime);
+
+        m_controller->SetMatchStartHostTime(firstMatchHostTime);
         m_beginMatchEvent.Enqueue(firstMatchDelayMs);
     }
 

@@ -29,15 +29,12 @@ namespace MultiplayerSample
         //! }@
 
     private:
-#if AZ_TRAIT_SERVER
         NetworkMatchComponentController* m_controller = nullptr;
-#endif
-        AZ::TimeMs m_finishingTime = AZ::Time::ZeroTimeMs;
 
-        void OnFinishedMatchTick();
+        void OnFinishedMatch();
         AZ::ScheduledEvent m_finishingEvent{ [this]()
         {
-            OnFinishedMatchTick();
+            OnFinishedMatch();
         }, AZ::Name("GameStateMatchEnded") };
     };
 }
