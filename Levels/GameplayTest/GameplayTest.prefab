@@ -125,7 +125,9 @@
                     "Instance_[1238918361381]/ContainerEntity",
                     "Instance_[990233405078]/ContainerEntity",
                     "Instance_[44514490248300]/ContainerEntity",
-                    "Instance_[2090718165100]/ContainerEntity"
+                    "Instance_[2090718165100]/ContainerEntity",
+                    "Entity_[58675766534237]",
+                    "Entity_[65620728651869]"
                 ]
             }
         }
@@ -9458,6 +9460,63 @@
                 }
             }
         },
+        "Entity_[58675766534237]": {
+            "Id": "Entity_[58675766534237]",
+            "Name": "Entity1",
+            "Components": {
+                "Component_[1564579359098008703]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 1564579359098008703
+                },
+                "Component_[1583886573387337257]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 1583886573387337257
+                },
+                "Component_[1599556715635956538]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 1599556715635956538,
+                    "Parent Entity": "Entity_[356758116574]"
+                },
+                "Component_[182684816949089822]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 182684816949089822
+                },
+                "Component_[18383991349715326993]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 18383991349715326993
+                },
+                "Component_[2468027482281909558]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 2468027482281909558
+                },
+                "Component_[2542323688986700822]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 2542323688986700822
+                },
+                "Component_[6320071983558034252]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6320071983558034252
+                },
+                "Component_[822474388037324817]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 822474388037324817
+                },
+                "Component_[946491408433644840]": {
+                    "$type": "AZ::Render::EditorDecalComponent",
+                    "Id": 946491408433644840,
+                    "Controller": {
+                        "Configuration": {
+                            "Material": {
+                                "assetId": {
+                                    "guid": "{FD203077-616F-53C5-9553-660CCB88DB7B}"
+                                },
+                                "assetHint": "materials/decal/scorch_01_decal.azmaterial"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "Entity_[59174749379851]": {
             "Id": "Entity_[59174749379851]",
             "Name": "PortalDoorExit",
@@ -11999,6 +12058,95 @@
                 "Component_[7900137566441380515]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 7900137566441380515
+                }
+            }
+        },
+        "Entity_[65620728651869]": {
+            "Id": "Entity_[65620728651869]",
+            "Name": "Entity2",
+            "Components": {
+                "Component_[10427838477792877486]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 10427838477792877486,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{767B3209-EDF7-503A-BF3D-6A69DAABC966}",
+                                    "subId": 285003870
+                                },
+                                "assetHint": "materialeditor/viewportmodels/plane_1x1.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[11393312123194692172]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 11393312123194692172
+                },
+                "Component_[13104606539848280989]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 13104606539848280989,
+                    "Parent Entity": "Entity_[356758116574]",
+                    "Transform Data": {
+                        "Translate": [
+                            2.204439640045166,
+                            -0.008930683135986328,
+                            0.057300567626953125
+                        ],
+                        "UniformScale": 2.0
+                    }
+                },
+                "Component_[16512771681106166866]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 16512771681106166866
+                },
+                "Component_[17277842634194432886]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17277842634194432886
+                },
+                "Component_[18121800483497343639]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 18121800483497343639
+                },
+                "Component_[3153834620830596663]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 3153834620830596663
+                },
+                "Component_[3989326645846422706]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 3989326645846422706
+                },
+                "Component_[6015355918026910469]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 6015355918026910469
+                },
+                "Component_[9627456584850740108]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 9627456584850740108,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 1803671422
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{FD203077-616F-53C5-9553-660CCB88DB7B}"
+                                            },
+                                            "assetHint": "materials/decal/scorch_01_decal.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[9841147481569766159]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 9841147481569766159
                 }
             }
         },
