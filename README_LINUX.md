@@ -117,7 +117,7 @@ The server launcher can be run as follows
 
 ```shell
 cd /path/to/o3de-multiplayersample/build
-./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=server.cfg
+./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=launch_server.cfg
 ```
 
 > Notice the launch_server.cfg is passed into the commandline. Any file passed into the console-command-file argument will be used when starting up the application.
@@ -130,7 +130,7 @@ If you do not need to see rendered output on your servers, you can reduce resour
 Note: Parameters to use null renderer must be passed on the commandline as the console-command-file is parsed after rendering is configured.
 
 ```shell
-./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=server.cfg
+./bin/profile/MultiplayerSample.ServerLauncher --console-command-file=launch_server.cfg
 ```
 
 #### Running the Client
@@ -138,7 +138,7 @@ A client can be run with:
 
 ```shell
 > cd /path/to/o3de-multiplayersample/build
-> ./bin/profile/MultiplayerSample.GameLauncher --console-command-file=client.cfg
+> ./bin/profile/MultiplayerSample.GameLauncher --console-command-file=launch_client.cfg
 ```
 
 This will connect a client to the local server and start a multiplayer session.
