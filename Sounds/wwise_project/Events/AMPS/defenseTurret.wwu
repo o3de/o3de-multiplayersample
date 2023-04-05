@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{CF19DCBF-DBAF-47EA-BB92-20770380FC6C}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{5D3AE987-B23A-43C3-8065-135D4594325B}">
+	<Events>
+		<WorkUnit Name="defenseTurret" ID="{CF19DCBF-DBAF-47EA-BB92-20770380FC6C}" OwnerID="{5D3AE987-B23A-43C3-8065-135D4594325B}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_int_defenseturret_explosion" ID="{BC484A22-52BD-48A7-958B-8905E405A9DC}">
+					<ChildrenList>
+						<Action Name="" ID="{D5C7C25B-DDCC-4BB9-B105-1E7E362FC02D}" ShortID="553150482">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_defenseTurret_explosion" ID="{8E0E7595-3673-4675-AE41-C7B955D875FD}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{8A02BE52-BAD5-404B-8AE5-72177C038C68}" ShortID="720879175">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="stop_sx_int_defenseturret_projectileloop" ID="{ADF03BF2-DAFD-4FA1-BAC6-6CEC22FD0EFD}" WorkUnitID="{CF19DCBF-DBAF-47EA-BB92-20770380FC6C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_defenseturret_projectileloop" ID="{445FBCD9-FCA2-41BE-B2E0-FF4E640AAC7B}">
+					<ChildrenList>
+						<Action Name="" ID="{B74B6AD9-069F-41A0-8477-4F2F152DD374}" ShortID="7506059">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_defenseTurret_projectileLoop" ID="{D07EF289-6771-4D6A-BAB6-DA5C6D669922}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{E5562F28-B18F-48CC-A7AB-7A34134DE6A9}" ShortID="803697822">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+								<Property Name="SeekPercent" Type="Real64" Value="50">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{601D5F8C-C327-4215-9149-16EB6E21BA6A}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="40"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_defenseTurret_projectileLoop" ID="{D07EF289-6771-4D6A-BAB6-DA5C6D669922}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_defenseturret_shot" ID="{DB3FD57F-2912-411A-A8C7-B803677A0908}">
+					<ChildrenList>
+						<Action Name="" ID="{BCF895CE-0FA3-4C66-BAEC-C5CC0A81C0F4}" ShortID="313185842">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_defenseTurret_shot" ID="{26EFE111-B99D-40A0-9332-5B788083104E}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_int_defenseturret_projectileloop" ID="{ADF03BF2-DAFD-4FA1-BAC6-6CEC22FD0EFD}">
+					<ChildrenList>
+						<Action Name="" ID="{A7A27179-1CC9-4277-9C4A-67F503EF42D3}" ShortID="691808380">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_defenseTurret_projectileLoop" ID="{D07EF289-6771-4D6A-BAB6-DA5C6D669922}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
