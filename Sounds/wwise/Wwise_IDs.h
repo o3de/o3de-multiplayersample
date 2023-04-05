@@ -19,6 +19,9 @@ namespace AK
         static const AkUniqueID MUTE_ALL = 1739713018U;
         static const AkUniqueID PLAY_SX_AMB_EXT_GENERAL = 1593597659U;
         static const AkUniqueID PLAY_SX_ENV_LAMP_LOOP = 1589077493U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_EXPLOSION = 2266137558U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_PROJECTILE = 3206590360U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_SHOT = 2868583817U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_BUILDUP = 1394544692U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_IMPACT = 3130133043U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_ONCOOLDOWN = 2009335613U;
@@ -30,6 +33,7 @@ namespace AK
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_BUILDUP = 4040956934U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_EXPLO = 3532523743U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 3971492149U;
+        static const AkUniqueID PLAY_SX_INT_SPEEDPOWERUP_ACTIVATE = 3161638329U;
         static const AkUniqueID PLAY_SX_INT_TELEPORTER_ACTIVATE = 2479494560U;
         static const AkUniqueID PLAY_SX_INT_TELEPORTER_IDLE = 2491323057U;
         static const AkUniqueID PLAY_SX_PLAYER_ARMOR_BREAKING = 2969244755U;
@@ -55,14 +59,36 @@ namespace AK
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_READY = 2608530362U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_FIRE = 2665115109U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_IMPACT = 172245811U;
+        static const AkUniqueID SET_STATE_GAME_FRONTEND = 3902232197U;
+        static const AkUniqueID SET_STATE_GAME_GAMEPLAY = 2811141629U;
+        static const AkUniqueID SET_STATE_GAME_MENU = 2210118524U;
+        static const AkUniqueID SET_STATE_GAME_NONE = 4117323863U;
         static const AkUniqueID STOP_SX_AMB_EXT_GENERAL = 802626345U;
         static const AkUniqueID STOP_SX_ENV_LAMP_LOOP = 860941867U;
+        static const AkUniqueID STOP_SX_INT_DEFENSETURRET_PROJECTILE = 2900548186U;
         static const AkUniqueID STOP_SX_INT_ENERGYBALLTRAP_PROJECTILE = 2825372966U;
         static const AkUniqueID STOP_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 1399787879U;
         static const AkUniqueID STOP_SX_INT_TELEPORTER_IDLE = 1815794527U;
         static const AkUniqueID STOP_SX_WPN_BUBBLEGUN_PROJECTILE = 3507985354U;
         static const AkUniqueID UNMUTE_ALL = 4003578643U;
     } // namespace EVENTS
+
+    namespace STATES
+    {
+        namespace GAME
+        {
+            static const AkUniqueID GROUP = 702482391U;
+
+            namespace STATE
+            {
+                static const AkUniqueID FRONTEND = 4212191649U;
+                static const AkUniqueID GAMEPLAY = 89505537U;
+                static const AkUniqueID MENU = 2607556080U;
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace GAME
+
+    } // namespace STATES
 
     namespace SWITCHES
     {
