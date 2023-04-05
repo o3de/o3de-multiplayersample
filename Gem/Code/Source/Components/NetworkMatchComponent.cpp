@@ -364,7 +364,7 @@ namespace MultiplayerSample
             });
 
         AZStd::string prettyPrintMatchResults = "";
-        prettyPrintMatchResults += AZStd::string::format("Match Results (%u players)\n", results.m_playerStates.size());
+        prettyPrintMatchResults += AZStd::string::format("Match Results (%lu players)\n", results.m_playerStates.size());
         for (const PlayerState& playerState : results.m_playerStates)
         {
             prettyPrintMatchResults += AZStd::string::format("\tPlayer %s score %u, armor %u.\n", playerState.m_playerName.c_str(), playerState.m_score, playerState.m_remainingArmor);
