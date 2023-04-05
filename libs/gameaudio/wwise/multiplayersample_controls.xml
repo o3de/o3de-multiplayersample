@@ -30,6 +30,18 @@
 		<ATLTrigger atl_name="Play_Sound_Gun_Firing" path="z_placeholders">
 			<WwiseEvent wwise_name="Play_Sound_Gun_Firing"/>
 		</ATLTrigger>
+		<ATLTrigger atl_name="set_state_game_none" path="Events/_Globals/States/Game">
+			<WwiseEvent wwise_name="set_state_game_none"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="set_state_game_menu" path="Events/_Globals/States/Game">
+			<WwiseEvent wwise_name="set_state_game_menu"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="set_state_game_gameplay" path="Events/_Globals/States/Game">
+			<WwiseEvent wwise_name="set_state_game_gameplay"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="set_state_game_frontend" path="Events/_Globals/States/Game">
+			<WwiseEvent wwise_name="set_state_game_frontend"/>
+		</ATLTrigger>
 		<ATLTrigger atl_name="stop_sx_env_lamp_loop" path="Events/SX/LVL">
 			<WwiseEvent wwise_name="stop_sx_env_lamp_loop"/>
 		</ATLTrigger>
@@ -113,6 +125,21 @@
 		</ATLTrigger>
 		<ATLTrigger atl_name="play_sx_wpn_laserpistol_fire" path="Events/SX/WPN/laserPistol">
 			<WwiseEvent wwise_name="play_sx_wpn_laserpistol_fire"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_speedpowerup_activate" path="Events/SX/INT/speedPowerup">
+			<WwiseEvent wwise_name="play_sx_int_speedpowerup_activate"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="stop_sx_int_defenseturret_projectileloop" path="Events/SX/INT/defenseTurret">
+			<WwiseEvent wwise_name="stop_sx_int_defenseturret_projectileloop"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_defenseturret_shot" path="Events/SX/INT/defenseTurret">
+			<WwiseEvent wwise_name="play_sx_int_defenseturret_shot"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_defenseturret_projectileloop" path="Events/SX/INT/defenseTurret">
+			<WwiseEvent wwise_name="play_sx_int_defenseturret_projectileloop"/>
+		</ATLTrigger>
+		<ATLTrigger atl_name="play_sx_int_defenseturret_explosion" path="Events/SX/INT/defenseTurret">
+			<WwiseEvent wwise_name="play_sx_int_defenseturret_explosion"/>
 		</ATLTrigger>
 		<ATLTrigger atl_name="stop_sx_int_teleporter_idle" path="Events/SX/INT/teleporter">
 			<WwiseEvent wwise_name="stop_sx_int_teleporter_idle"/>
@@ -208,6 +235,28 @@
 		</ATLRtpc>
 	</AudioRtpcs>
 	<AudioSwitches>
+		<ATLSwitch atl_name="Game" path="GameSyncs/States">
+			<ATLSwitchState atl_name="FrontEnd">
+				<WwiseState wwise_name="Game">
+					<WwiseValue wwise_name="FrontEnd"/>
+				</WwiseState>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="Gameplay">
+				<WwiseState wwise_name="Game">
+					<WwiseValue wwise_name="Gameplay"/>
+				</WwiseState>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="Menu">
+				<WwiseState wwise_name="Game">
+					<WwiseValue wwise_name="Menu"/>
+				</WwiseState>
+			</ATLSwitchState>
+			<ATLSwitchState atl_name="None">
+				<WwiseState wwise_name="Game">
+					<WwiseValue wwise_name="None"/>
+				</WwiseState>
+			</ATLSwitchState>
+		</ATLSwitch>
 		<ATLSwitch atl_name="Surface" path="GameSyncs/Switches/Physics">
 			<ATLSwitchState atl_name="Concrete">
 				<WwiseSwitch wwise_name="Surface">
