@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{5006F684-C70B-4BF6-9E09-86C6532756E0}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{E8F53651-A80E-47A5-A3D1-FE5D411A6327}">
+	<Events>
+		<WorkUnit Name="bubbleGun" ID="{5006F684-C70B-4BF6-9E09-86C6532756E0}" OwnerID="{E8F53651-A80E-47A5-A3D1-FE5D411A6327}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_wpn_bubblegun_fire" ID="{624DC077-3E40-4059-8E74-18F4F7782353}">
+					<ChildrenList>
+						<Action Name="" ID="{5B965090-5473-46FB-BA1A-CA8187EEAC42}" ShortID="120030212">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_fire" ID="{3D30DE0A-4CF1-408B-A2B6-E5FFDD1776EF}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_impact" ID="{1218610B-061A-43E2-89D4-ECE6786C984E}">
+					<ChildrenList>
+						<Action Name="" ID="{FD3B09EF-EBEC-4568-B315-0E11EE78285A}" ShortID="48581857">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_impact" ID="{0D9C3F92-5D5C-4DD5-9D6D-847F2A693AB9}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{E4859103-CFD0-4927-AA85-87B390E09727}" ShortID="1056236037">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_projectile" ID="{D8503B8F-5FC1-4FDF-8A28-5EB2CFD8F27F}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_explosion" ID="{7F874964-9271-4C03-B6E1-9B096AB6DD04}">
+					<ChildrenList>
+						<Action Name="" ID="{05A85061-2EBD-497E-8D06-2974E8E0C993}" ShortID="906267765">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_projectile" ID="{D8503B8F-5FC1-4FDF-8A28-5EB2CFD8F27F}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{D3030DDA-3176-44C7-831C-DD17E749ADC4}" ShortID="675974833">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_explosion" ID="{31AA59D2-2141-428D-A6A0-D4C187895783}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_cooldown" ID="{3C82E031-C335-4DF4-92B4-E09DFCB90206}">
+					<ChildrenList>
+						<Action Name="" ID="{8239CC2E-1F3F-4C8E-91C4-CBF374382CF9}" ShortID="470112908">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_cooldown" ID="{8E30E3A2-6F8E-4C40-8DA6-1FA4FDA68649}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_ready" ID="{1D9FFE45-BF78-40ED-8D86-DCC507948F70}">
+					<ChildrenList>
+						<Action Name="" ID="{8A49B13B-0A12-4ECD-8336-E6DFCE1100F1}" ShortID="518373866">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_ready" ID="{118C12CF-D4A4-4F00-8BDA-C1690688A093}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_wpn_bubblegun_projectile" ID="{9E698253-449D-4227-9C73-7BB210383D47}">
+					<ChildrenList>
+						<Action Name="" ID="{52985E26-3BA6-4BB8-8D85-F8893C848576}" ShortID="447285032">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_projectile" ID="{D8503B8F-5FC1-4FDF-8A28-5EB2CFD8F27F}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_projectile" ID="{C567D145-A186-404C-97A3-0675E7756C6E}">
+					<ChildrenList>
+						<Action Name="" ID="{E88FF9B7-976D-4A3B-A815-8C610DA00758}" ShortID="1002508510">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_projectile" ID="{D8503B8F-5FC1-4FDF-8A28-5EB2CFD8F27F}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_wpn_bubblegun_buildup" ID="{EE62A603-D2B1-45BA-8E74-DF15B41E3676}">
+					<ChildrenList>
+						<Action Name="" ID="{0A18EFC0-4902-4297-AD60-263EFB0BD371}" ShortID="404035108">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_wpn_bubbleGun_buildup" ID="{AECF22A5-1C08-4E49-8958-81DF4CEA4C06}" WorkUnitID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

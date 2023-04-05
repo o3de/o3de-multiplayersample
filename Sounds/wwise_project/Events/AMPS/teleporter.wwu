@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9280D571-E077-4273-BE2F-92C4E42F8DF1}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{5D3AE987-B23A-43C3-8065-135D4594325B}">
+	<Events>
+		<WorkUnit Name="teleporter" ID="{9280D571-E077-4273-BE2F-92C4E42F8DF1}" OwnerID="{5D3AE987-B23A-43C3-8065-135D4594325B}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_int_teleporter_activate" ID="{3C5F4354-C671-41F4-A1E2-6B5777C87900}">
+					<ChildrenList>
+						<Action Name="" ID="{2B73797E-BE01-4561-BC0D-FDB121A50805}" ShortID="713534394">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_teleporter_activate" ID="{1FDF3977-BF55-431F-BF82-01497FE2688C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_teleporter_idle" ID="{8F688EFE-210A-46A8-963C-00FF3FA7A1EB}">
+					<ChildrenList>
+						<Action Name="" ID="{1B5305A6-F2E7-4F05-B1A6-432958822A0F}" ShortID="460735492">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{ACF03B52-C0BC-4890-95DD-374B657A302A}" ShortID="24364970">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{2FABFBD2-BA95-4DDA-B893-B2CA5328432E}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="40"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_int_teleporter_idle" ID="{09E442B7-D17C-4E77-A6AC-16483F2C91E9}">
+					<ChildrenList>
+						<Action Name="" ID="{2B7EF360-068A-4BD4-B9E0-B94EA8D46E45}" ShortID="455138360">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_teleporter_loop" ID="{D7945CD0-C24B-464C-AD49-BB6C722139B2}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

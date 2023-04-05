@@ -51,6 +51,19 @@
 									<PropertyList>
 										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
 										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{D56FBDEF-CC36-4917-A1F1-1853470B3656}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-16</Value>
@@ -106,6 +119,19 @@
 										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{15838389-CC32-4869-94ED-1EBF1AFBFD19}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-12</Value>
@@ -272,6 +298,19 @@
 										<Property Name="3DSpatialization" Type="int16" Value="2"/>
 										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{24E63959-42D1-46A9-941A-95E602A274FF}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-20</Value>
@@ -1094,6 +1133,936 @@
 											<ObjectLists/>
 											<ActiveSourceList>
 												<ActiveSource Name="sx_int_teleporter_loop_01" ID="{93BC3602-8A99-4412-8DFE-3583833B5DF8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="SpeedPowerup" ID="{BAF6DF7F-7879-4309-ACB4-B96CADDF9E57}" ShortID="449269870">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_int_speedPowerup_activate" ID="{2861C38A-4BB1-4D86-9236-C9503774B5C6}" ShortID="192954751">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{BF916377-D542-4977-BB77-03A5D6C5E91A}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="50"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-13</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_speedPowerup_activate_01" ID="{A3052DCD-8980-46DC-B3D6-196F875DE49C}" ShortID="764085888">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_speedPowerup_activate_01" ID="{94E9CE60-E16F-4E85-BCA5-2C55E5BC80BA}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\speedPowerup\sx_int_speedPowerup_activate_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="193808421"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_speedPowerup_activate_01" ID="{94E9CE60-E16F-4E85-BCA5-2C55E5BC80BA}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="DefenseTurret" ID="{C17284D5-EE56-4864-BCD4-F916AFC77FB1}" ShortID="635917576">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_INT_Trap" ID="{AFE142B5-7438-4098-9291-18BCDCD34D7B}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_int_defenseTurret_explosion" ID="{8E0E7595-3673-4675-AE41-C7B955D875FD}" ShortID="35320905">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{A341F1BE-4D7E-4AB9-BCA7-6444ABA43C8E}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Impact_Default" ID="{02FD8E94-C99D-4362-9DCD-BAF59B93A518}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_defenseTurret_explosion_01" ID="{F52E89D3-3786-4F71-9B06-5A660FA680F6}" ShortID="997750169">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_01" ID="{3083D90F-99CC-4934-ADE1-917ED67F9EED}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="767823187"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_01" ID="{3083D90F-99CC-4934-ADE1-917ED67F9EED}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_explosion_02" ID="{953A2D7E-5281-49B1-BDAB-75A55233EC2E}" ShortID="91425448">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_02" ID="{4E940152-A803-439D-B36E-A389CD209A8B}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1048852510"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_02" ID="{4E940152-A803-439D-B36E-A389CD209A8B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_explosion_03" ID="{AECDB342-CC85-47FB-A063-A6F1F803FD1F}" ShortID="753421708">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_03" ID="{EE996E58-E84F-4001-B3F9-62C589AA555A}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="502231871"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_03" ID="{EE996E58-E84F-4001-B3F9-62C589AA555A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_explosion_04" ID="{A3BA8684-9C86-4C7B-B93C-8C078D90F4F0}" ShortID="613394258">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_04" ID="{D0E697F3-C92E-4929-B16E-4F701BF61B6A}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="840070773"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_04" ID="{D0E697F3-C92E-4929-B16E-4F701BF61B6A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_explosion_05" ID="{3957457D-16F7-46FD-9CF9-78A329B74D9C}" ShortID="796813206">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_05" ID="{B21D798F-AFF6-419E-A62D-474C18FE2D4E}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="951377037"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_05" ID="{B21D798F-AFF6-419E-A62D-474C18FE2D4E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_explosion_06" ID="{47FB19D2-9BBE-41A9-8E46-7451B994AC38}" ShortID="644505016">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_explosion_06" ID="{E8A586C5-6F38-4A21-880E-038275124EEF}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_explosion_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="388567366"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_explosion_06" ID="{E8A586C5-6F38-4A21-880E-038275124EEF}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_int_defenseTurret_projectileLoop" ID="{D07EF289-6771-4D6A-BAB6-DA5C6D669922}" ShortID="78638399">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{0A21965B-4BA9-4249-840B-162354409168}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-24</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Projectile_Default" ID="{875233F6-6B3F-48E9-9ECD-11FB1B195CCC}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_01" ID="{19742168-833F-4082-82DF-794FC112CAD6}" ShortID="762640080">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_01" ID="{C5C38551-02F3-45BA-8723-DAA6019EDA46}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="451382406"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_01" ID="{C5C38551-02F3-45BA-8723-DAA6019EDA46}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_02" ID="{2DE08952-0513-49BF-AB74-8117DF12AA7B}" ShortID="80388681">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_02" ID="{AC2BCD72-7FA3-4AAB-BA7A-8F3718FB6C86}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="415259056"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_02" ID="{AC2BCD72-7FA3-4AAB-BA7A-8F3718FB6C86}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_03" ID="{107C8AFF-98C6-4E11-A48E-819F38714046}" ShortID="907656338">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_03" ID="{6D17FF03-5149-4658-A04C-A2056CAD3E71}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="285992919"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_03" ID="{6D17FF03-5149-4658-A04C-A2056CAD3E71}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_04" ID="{3918E8A0-77F1-4ACF-AD33-D00687F2506B}" ShortID="669726842">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_04" ID="{6F244EDB-62BD-4422-9F99-911E02430679}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="413414353"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_04" ID="{6F244EDB-62BD-4422-9F99-911E02430679}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_05" ID="{7932BE63-7BB5-4387-B918-C63D99914652}" ShortID="771961226">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_05" ID="{49698676-DFE6-4310-B1B0-2071E01D80FD}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="598016926"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_05" ID="{49698676-DFE6-4310-B1B0-2071E01D80FD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_projectileLoop_06" ID="{8CBEB8E8-38C9-4911-9D6A-610D6867D826}" ShortID="241969368">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_projectileLoop_06" ID="{53404115-686D-4589-82E5-AD9A43F84D82}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_projectileLoop_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="504506559"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_projectileLoop_06" ID="{53404115-686D-4589-82E5-AD9A43F84D82}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_int_defenseTurret_shot" ID="{26EFE111-B99D-40A0-9332-5B788083104E}" ShortID="310372889">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{38D0FAE9-3E2B-414B-ACC6-9235DEB1FA30}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="40"/>
+															<Property Name="Min" Type="Real64" Value="-40"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-12</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Fire_Default" ID="{735A8852-2B4F-4658-879C-B45EA3EE9407}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_int_defenseTurret_shot_01" ID="{0E8AE7F7-061E-4F5A-AA80-5A196EB2E319}" ShortID="1035278726">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_01" ID="{BC41DE9C-CD5A-497F-9A8F-6B928DE9265C}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="547501906"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_01" ID="{BC41DE9C-CD5A-497F-9A8F-6B928DE9265C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_shot_02" ID="{2A64BFF9-6E31-4ADF-9DE6-44C5AE5DA6A5}" ShortID="370203068">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_02" ID="{C077AFAC-17C3-4CED-B38B-B5766B4CAFD4}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="511165376"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_02" ID="{C077AFAC-17C3-4CED-B38B-B5766B4CAFD4}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_shot_03" ID="{46CF072D-B163-4021-82C5-99A5716A10EE}" ShortID="599235624">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_03" ID="{337E06C5-B84B-43F7-9F3F-F344715FAF87}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="591324023"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_03" ID="{337E06C5-B84B-43F7-9F3F-F344715FAF87}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_shot_04" ID="{8C854844-6F9A-4843-8FF6-A368210EBE4D}" ShortID="224419976">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_04" ID="{EA88E2DC-589F-4AD5-AEB8-107B49BD1948}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="902528358"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_04" ID="{EA88E2DC-589F-4AD5-AEB8-107B49BD1948}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_shot_05" ID="{EAC012BB-87FC-43EB-9C43-F753DF60C401}" ShortID="819475284">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_05" ID="{A636575F-429C-41AA-83EF-A07A53BC11A8}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="218966848"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_05" ID="{A636575F-429C-41AA-83EF-A07A53BC11A8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_int_defenseTurret_shot_06" ID="{001A474C-CB69-4105-9E73-B2A62D098CA9}" ShortID="273193899">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="INT" ID="{F112B44E-7349-4F64-821F-E3CC2DAB05DC}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_int_defenseTurret_shot_06" ID="{6C634D4F-494E-41DD-B884-F639454D4170}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\defenseTurret\sx_int_defenseTurret_shot_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="173745043"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_int_defenseTurret_shot_06" ID="{6C634D4F-494E-41DD-B884-F639454D4170}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>

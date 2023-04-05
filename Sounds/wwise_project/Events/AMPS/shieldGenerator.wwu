@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{D49A7F17-5E56-4DE2-816D-4286ED6A3BE2}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{5D3AE987-B23A-43C3-8065-135D4594325B}">
+	<Events>
+		<WorkUnit Name="shieldGenerator" ID="{D49A7F17-5E56-4DE2-816D-4286ED6A3BE2}" OwnerID="{5D3AE987-B23A-43C3-8065-135D4594325B}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_int_malfunctioningshieldgenerator_buildup" ID="{14C1E7BF-5B9E-43FF-8083-618230E2B7B8}">
+					<ChildrenList>
+						<Action Name="" ID="{A8FE24AA-051F-4471-AC7B-253CDA898514}" ShortID="205586822">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_buildUp" ID="{62399925-3AE3-499B-AB20-D8FF1037A822}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_malfunctioningshieldgenerator_idle" ID="{8D875A6A-108D-4C08-9A16-851A7A80EA24}">
+					<ChildrenList>
+						<Action Name="" ID="{6BDAFBC2-05B1-490F-8CFC-112C7761CACD}" ShortID="997584170">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{CA39850E-7BDB-4A34-90E1-F2F882682C0C}" ShortID="357455969">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64" Value="50">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{39B5BB1D-8A46-437B-85CA-4A1C2EADE40C}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="40"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_malfunctioningshieldgenerator_explo" ID="{A910A681-E6E6-47EF-9061-B9753C009A61}">
+					<ChildrenList>
+						<Action Name="" ID="{E99C5AA4-277F-4D59-BA82-95573711373E}" ShortID="287725219">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_explo" ID="{01E0DEFE-B2F5-4AF4-AFD5-4D242E317371}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{4BC2142E-AA7E-41F0-A4E2-336C0ED62181}" ShortID="592893929">
+							<PropertyList>
+								<Property Name="AbsoluteOrRelative" Type="int16" Value="1"/>
+								<Property Name="ActionType" Type="int16" Value="12"/>
+								<Property Name="FadeInCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="2"/>
+								<Property Name="Volume" Type="Real64" Value="-12"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{E51425A8-4870-4304-ACA2-83D5F32BF986}" ShortID="786633629">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="16"/>
+								<Property Name="Delay" Type="Real64" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+								<Property Name="FadeTime" Type="Real64" Value="1"/>
+								<Property Name="Volume" Type="Real64" Value="-6"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{E7E7B892-065E-4A71-B167-B80B6F6AE07B}" ShortID="528820851">
+							<PropertyList>
+								<Property Name="AbsoluteOrRelative" Type="int16" Value="1"/>
+								<Property Name="ActionType" Type="int16" Value="13"/>
+								<Property Name="FadeInCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+								<Property Name="Pitch" Type="int32" Value="-1200"/>
+								<Property Name="Volume" Type="Real64" Value="-12"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{D8CA4CEC-9E8D-4E40-BA65-A578A2A32B9E}" ShortID="797702470">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="18"/>
+								<Property Name="Delay" Type="Real64" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+								<Property Name="FadeTime" Type="Real64" Value="1"/>
+								<Property Name="Volume" Type="Real64" Value="-6"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_int_malfunctioningshieldgenerator_idle" ID="{6E863577-C6E8-4563-BA13-E739D818DF44}">
+					<ChildrenList>
+						<Action Name="" ID="{6ECBCFB5-299A-4916-8F5A-9CCC69383E91}" ShortID="993264331">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_malfunctioningShieldGenerator_idle" ID="{9296EE8C-3BD6-4B3F-A169-EA06BE7E2C0C}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
