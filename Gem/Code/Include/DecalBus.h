@@ -19,6 +19,8 @@ namespace MultiplayerSample
         AZ_RTTI(MultiplayerSample::SpawnDecalConfig, "{FC3DA616-174B-48FD-9BFB-BC277132FB47}");
         inline static void Reflect(AZ::ReflectContext* context);
 
+        virtual ~SpawnDecalConfig() = default;
+
         AZ::Data::AssetId m_materialAssetId; // Asset Id of the material.
         float m_scale = 1.0f;                // Scale in meters.
         float m_opacity = 1.0f;              // How visible the decal is.

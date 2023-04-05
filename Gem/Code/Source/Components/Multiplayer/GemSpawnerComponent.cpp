@@ -185,7 +185,7 @@ namespace MultiplayerSample
 
     AZStd::optional<const GemSpawnable> GemSpawnerComponentController::GetGemSpawnable(AZ::Crc32 gemTag) const
     {
-        for (const GemSpawnable gemType : GetParent().GetGemSpawnables())
+        for (const GemSpawnable& gemType : GetParent().GetGemSpawnables())
         {
             if (gemTag == AZ::Crc32(gemType.m_tag.c_str()))
             {
