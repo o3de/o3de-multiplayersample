@@ -28,8 +28,6 @@ Many of the FX have a **Color Intensity** property that you can modify to adjust
 
 The Armor Power Up is not a particle system, but rather mesh and shader asset.
 
-![](./readme_media/ArmorPowerUp.mp4)
-
 <video type="video/mp4" src="./readme_media/ArmorPowerUp.mp4" width=400 loop="true">
 
 The effect is triggered by the **Slider** property on the `ArmorPowerUp.material`.
