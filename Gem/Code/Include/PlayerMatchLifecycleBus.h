@@ -17,11 +17,6 @@ namespace MultiplayerSample
     {
     public:
         virtual ~PlayerMatchLifecycleNotifications() = default;
-
-        //! Notification containing the time when the first match will begin
-        //! @param hostTimeMs The multiplayer host time when the match will begin
-        virtual void OnFirstMatchHostTimeChange([[maybe_unused]] AZ::TimeMs hostTimeMs) {}
-
         virtual void OnGameTimerChange([[maybe_unused]] float currentTimeSec, [[maybe_unused]] float totalTimeSec) {}
         virtual void OnPlayerArmorZero([[maybe_unused]] Multiplayer::NetEntityId playerEntity) {}
     };
