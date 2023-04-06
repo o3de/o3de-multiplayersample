@@ -22,7 +22,7 @@ Some of the FX are split into multiple parts (for example, Blast, Projectile, an
 
 Many of the FX have a **Color Intensity** property that you can modify to adjust the emissive effect. The emissive effect requires that the **PostFX Layer** and **Bloom** components are added to the scene.
 
-![Post FX Layer and Bloom components](./readme_media/image1.png)
+![Post FX Layer and Bloom components](readme_media/image1.png)
 
 ## Armor Power Up
 
