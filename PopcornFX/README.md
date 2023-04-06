@@ -22,17 +22,17 @@ Some of the FX are split into multiple parts (for example, Blast, Projectile, an
 
 Many of the FX have a **Color Intensity** property that you can modify to adjust the emissive effect. The emissive effect requires that the **PostFX Layer** and **Bloom** components are added to the scene.
 
-<img src="readme_media/image1.png">
+![Post FX Layer and Bloom components](./readme_media/image1.png)
 
 ## Armor Power Up
 
 The Armor Power Up is not a particle system, but rather mesh and shader asset.
 
-<img src="readme_media/image35.gif" width=420></br></br>
+![](./readme_media/image35.gif width=420)
 
 The effect is triggered by the **Slider** property on the `ArmorPowerUp.material`.
 
-<img src="readme_media/image16.png" width=420></br></br>
+![](./readme_media/image16.png)
 
 The `Script_ArmorPowerUp.scriptcanvas` is a test Script Canvas that loops the Armor Power Up FX.
 
@@ -42,7 +42,7 @@ The Bubble Gun VFX is split into the following three parts:
 
 | **Blast** | **Projectile** | **Explosion** |
 | - | - | - |
-| <img src="readme_media/image24.gif" width=300> | <img src="readme_media/image25.gif" width=350> | <img src="readme_media/image29.gif" width=350> |
+| ![](./readme_media/image24.gif | width=300) | ![](./readme_media/image25.gif | width=300) | ![](./readme_media/image29.gif | width=300) |
 
 The following properties are available to adjust the look of Bubble Gun VFX:
 
