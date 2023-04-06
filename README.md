@@ -28,7 +28,7 @@ Note: There's no penalty for respawn if you are knocked off the level or use the
 ### Player Controls
 
 * Move using: `w,a,s,d` 
-* Sprint: Hold `shift`
+* Sprint: Tab `shift` to sprint, tap again to walk
 * Jump: `space` 
 * Look around: use mouse
 * Fire primary weapon: `left mouse button`
