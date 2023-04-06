@@ -24,9 +24,7 @@ namespace AK
         static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_SHOT = 2868583817U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_BUILDUP = 1394544692U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_IMPACT = 3130133043U;
-        static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_ONCOOLDOWN = 2009335613U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_PROJECTILE = 3442601232U;
-        static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_RISING = 149130571U;
         static const AkUniqueID PLAY_SX_INT_ENERGYCOLLECTOR_EXPLOSION = 599142529U;
         static const AkUniqueID PLAY_SX_INT_GEM_PICKUP = 3972513212U;
         static const AkUniqueID PLAY_SX_INT_JUMPPAD_LAUNCH = 544525055U;
@@ -41,7 +39,6 @@ namespace AK
         static const AkUniqueID PLAY_SX_PLAYER_EXERTION = 1387321888U;
         static const AkUniqueID PLAY_SX_PLAYER_FOOTSTEP = 2558021178U;
         static const AkUniqueID PLAY_SX_PLAYER_KNOCKDOWN = 76446992U;
-        static const AkUniqueID PLAY_SX_PLAYER_LADDER_CLIMB = 3686292530U;
         static const AkUniqueID PLAY_SX_PLAYER_PAIN = 411195352U;
         static const AkUniqueID PLAY_SX_UI_GAME_COUNTDOWN = 1622843585U;
         static const AkUniqueID PLAY_SX_UI_GAME_END = 517894047U;
@@ -49,12 +46,9 @@ namespace AK
         static const AkUniqueID PLAY_SX_UI_GAME_FANFARE_VICTORY = 1060136708U;
         static const AkUniqueID PLAY_SX_UI_GAME_ROUND_END = 3115542230U;
         static const AkUniqueID PLAY_SX_UI_GAME_ROUND_START = 2382033085U;
-        static const AkUniqueID PLAY_SX_UI_GAME_SHUTDOWN = 2153376150U;
-        static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_BUILDUP = 1913852464U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_COOLDOWN = 3452843118U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_EXPLOSION = 546806306U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_FIRE = 2192863753U;
-        static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_IMPACT = 2679540967U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_PROJECTILE = 3867312284U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_READY = 2608530362U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_FIRE = 2665115109U;
