@@ -9,7 +9,6 @@
 
 #include <AzCore/Component/Component.h>
 
-
 namespace MultiplayerSample
 {
     class MultiplayerSampleSystemComponent
@@ -31,5 +30,7 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
+
+        static AZ::Uuid GetRenderSceneIdByName(const AZStd::string& name);
     };
 }

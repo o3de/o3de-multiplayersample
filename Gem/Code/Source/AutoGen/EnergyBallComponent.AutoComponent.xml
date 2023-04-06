@@ -30,6 +30,6 @@
     </RemoteProcedure>
 
     <RemoteProcedure Name="RPC_BallExplosion" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball explodes.">
-        <Param Type="AZ::Vector3" Name="Location"/>
+        <Param Type="HitEvent" Name="HitEvent"/>
     </RemoteProcedure>
 </Component>
