@@ -29,8 +29,6 @@ namespace MultiplayerSample
         //! }@
 
     private:
-        NetworkMatchComponentController* m_controller = nullptr;
-
         void BeginMatch();
         AZ::ScheduledEvent m_beginMatchEvent{ [this]() 
             {

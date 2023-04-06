@@ -102,7 +102,7 @@ namespace MultiplayerSample
 
     void HUDComponent::UpdateFirstMatchTimerUi()
     {
-        const AZ::TimeMs timeRemainingUntilMatchStartMs = AZ::Interface<INetworkMatch>::Get()->GetMatchStartHostTime() - AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs();
+        const AZ::TimeMs timeRemainingUntilMatchStartMs = AZ::Interface<INetworkMatch>::Get()->GetFirstMatchStartHostTime() - AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetCurrentHostTimeMs();
 
         // Update the UI to display the time remaining until the first match begins
         if (timeRemainingUntilMatchStartMs > AZ::Time::ZeroTimeMs)
