@@ -149,7 +149,7 @@ namespace MultiplayerSample
     void GameEffect::TriggerEffect([[maybe_unused]] const AZ::Transform& transform) const
     {
 #if AZ_TRAIT_CLIENT
-        const AZ::Vector3 offsetPosition = transform.GetTranslation() + m_effectOffset;
+        const AZ::Vector3 offsetPosition = transform.TransformPoint(m_effectOffset);
         AZ::Transform transformOffset = transform;
         transformOffset.SetTranslation(offsetPosition);
         if (m_emitter != nullptr)
@@ -167,5 +167,10 @@ namespace MultiplayerSample
             m_audioProxy->ExecuteTrigger(m_audioTriggerId);
         }
 #endif
+    }
+
+    const AZ::Vector3& GameEffect::GetEffectOffset() const
+    {
+        return m_effectOffset;
     }
 }

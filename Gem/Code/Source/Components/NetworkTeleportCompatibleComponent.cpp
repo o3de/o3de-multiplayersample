@@ -10,7 +10,7 @@
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzFramework/Physics/RigidBodyBus.h>
+#include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 
 namespace MultiplayerSample
 {
@@ -63,7 +63,7 @@ namespace MultiplayerSample
         
         // disable physics (needed to move rigid bodies)
         // see: https://github.com/o3de/o3de/issues/2541
-        Physics::RigidBodyRequestBus::Event(selfId, &Physics::RigidBodyRequestBus::Events::DisablePhysics);
+        AzPhysics::SimulatedBodyComponentRequestsBus::Event(selfId, &AzPhysics::SimulatedBodyComponentRequestsBus::Events::DisablePhysics);
 
         // move self and increment resetCount to prevent transform interpolation
         AZ::TransformBus::Event(selfId,
@@ -73,7 +73,7 @@ namespace MultiplayerSample
         netTransform->SetResetCount(netTransform->GetResetCount() + 1);
 
         // re-enable physics
-        Physics::RigidBodyRequestBus::Event(selfId, &Physics::RigidBodyRequestBus::Events::EnablePhysics);
+        AzPhysics::SimulatedBodyComponentRequestsBus::Event(selfId, &AzPhysics::SimulatedBodyComponentRequestsBus::Events::EnablePhysics);
 
         NotifyTeleport(teleportedLocation);
     }

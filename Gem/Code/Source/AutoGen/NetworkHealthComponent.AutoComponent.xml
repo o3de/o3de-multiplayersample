@@ -12,7 +12,7 @@
 
     <ArchetypeProperty Type="float" Name="MaxHealth" Init="100.0f" ExposeToEditor="true" Description="Maximum health" />
 
-    <RemoteProcedure Name="SendHealthDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="false" Description="Health changed RPC">
+    <RemoteProcedure Name="SendHealthDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Health changed RPC">
         <Param Type="float" Name="deltaHealth" />
     </RemoteProcedure>
 

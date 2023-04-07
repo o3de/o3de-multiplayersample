@@ -15,6 +15,35 @@
 
 namespace MultiplayerSample
 {
+    void EnergyCannonComponent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<EnergyCannonComponent, EnergyCannonComponentBase>()
+                ->Version(1);
+        }
+        EnergyCannonComponentBase::Reflect(context);
+    }
+
+    void EnergyCannonComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        m_effect = GetFiringEffect();
+        m_effect.Initialize();
+    }
+
+    void EnergyCannonComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+    }
+
+#if AZ_TRAIT_CLIENT
+    void EnergyCannonComponent::HandleRPC_TriggerBuildup([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+    }
+#endif
+
+
     EnergyCannonComponentController::EnergyCannonComponentController(EnergyCannonComponent& parent)
         : EnergyCannonComponentControllerBase(parent)
     {
@@ -23,14 +52,9 @@ namespace MultiplayerSample
     void EnergyCannonComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_SERVER
-        if (const auto registry = AZ::SettingsRegistry::Get())
+        if (GetRateOfFireMs() > AZ::TimeMs{ 0 })
         {
-            AZ::s64 firingPeriod = 0;
-            registry->Get(firingPeriod, EnergyCannonFiringPeriodSetting);
-            if (firingPeriod > 0)
-            {
-                m_firingEvent.Enqueue(AZ::TimeMs{ firingPeriod }, true);
-            }
+            m_firingEvent.Enqueue(GetRateOfFireMs(), true);
         }
 #endif
     }
@@ -43,22 +67,43 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_SERVER
+    void EnergyCannonComponentController::OnTriggerBuildup()
+    {
+        // This RPC starts the buildup effect on the client, we want it to start before the actual ball launch event occurs to make everyhing line up nicely
+        RPC_TriggerBuildup();
+    }
+
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
         // Re-using the same ball entity.
         AZ::Entity* ball = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(ball,
-            &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
+        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
         if (ball)
         {
             if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
             {
                 const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
                 const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
-                ballComponent->RPC_LaunchBall(cannonTm.GetTranslation(), forward);
+                const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
+                ballComponent->RPC_LaunchBall(cannonTm.TransformPoint(effectOffset), forward, GetNetEntityId());
 
-                GameplayEffectsNotificationBus::Broadcast(&GameplayEffectsNotificationBus::Events::OnPositionalEffect,
-                    SoundEffect::EnergyBallTrapBuildup, GetEntity()->GetTransform()->GetWorldTranslation());
+                // Enqueue our ball kill event
+                m_killEvent.Enqueue(GetBallLifetimeMs(), false);
+                m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
+            }
+        }
+    }
+
+    void EnergyCannonComponentController::OnKillEnergyBall()
+    {
+        // Re-using the same ball entity.
+        AZ::Entity* ball = nullptr;
+        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
+        if (ball)
+        {
+            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
+            {
+                ballComponent->RPC_KillBall();
             }
         }
     }

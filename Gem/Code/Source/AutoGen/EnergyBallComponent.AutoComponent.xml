@@ -3,17 +3,33 @@
 <Component
     Name="EnergyBallComponent"
     Namespace="MultiplayerSample"
-    OverrideComponent="false"
+    OverrideComponent="true"
     OverrideController="true"
     OverrideInclude="Source/Components/Multiplayer/EnergyBallComponent.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
-    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkRigidBodyComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkRigidBodyComponent.h" />
+    <Include File="Source/Effects/GameEffect.h" />
+    <Include File="Source/Weapons/WeaponTypes.h" />
 
-    <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true"
-        GenerateEventBindings="true" Description="Launching an energy from a specified position in a specified direction.">
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <ArchetypeProperty Type="GameEffect" Name="ExplosionEffect" Init="" ExposeToEditor="true" Description="Specifies the effect to play upon exploding" />
+    <ArchetypeProperty Type="GatherParams" Name="GatherParams" Init="" ExposeToEditor="true" Description="Specifies the types of intersections to test for on the projectile" />
+    <ArchetypeProperty Type="HitEffect" Name="HitEffect" Init="" ExposeToEditor="true" Description="Specifies the damage effects to apply on hit" />
+
+    <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Launching an energy from a specified position in a specified direction.">
         <Param Type="AZ::Vector3" Name="StartingPosition"/>
         <Param Type="AZ::Vector3" Name="Direction"/>
+        <Param Type="Multiplayer::NetEntityId" Name="OwningNetEntityId" />
+    </RemoteProcedure>
+
+    <RemoteProcedure Name="RPC_KillBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Kills a launched energy ball." />
+
+    <RemoteProcedure Name="RPC_BallLaunched" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball launches.">
+        <Param Type="AZ::Vector3" Name="Location"/>
+    </RemoteProcedure>
+
+    <RemoteProcedure Name="RPC_BallExplosion" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball explodes.">
+        <Param Type="HitEvent" Name="HitEvent"/>
     </RemoteProcedure>
 </Component>

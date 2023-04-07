@@ -19,6 +19,9 @@
 #include <Source/Effects/GameEffect.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 
+#include <AzFramework/Scene/Scene.h>
+#include <Atom/RPI.Public/Scene.h>
+
 namespace MultiplayerSample
 {
     using namespace AzNetworking;
@@ -28,6 +31,8 @@ namespace MultiplayerSample
         ReflectWeaponEnums(context);
         GatherParams::Reflect(context);
         HitEffect::Reflect(context);
+        HitEntity::Reflect(context);
+        HitEvent::Reflect(context);
         WeaponParams::Reflect(context);
         GameEffect::Reflect(context);
 
@@ -38,8 +43,7 @@ namespace MultiplayerSample
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<MultiplayerSampleSystemComponent, AZ::Component>()
-                ->Version(0)
-                ;
+                ->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
@@ -49,6 +53,21 @@ namespace MultiplayerSample
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ;
             }
+        }
+
+        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            // This will put these methods into the 'azlmbr.atomtools.general' module
+            auto addGeneral = [](AZ::BehaviorContext::GlobalMethodBuilder methodBuilder)
+            {
+                methodBuilder->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                    ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                    ->Attribute(AZ::Script::Attributes::Module, "MultiplayerSample.general");
+            };
+
+            addGeneral(behaviorContext->Method(
+                "GetRenderSceneIdByName", &MultiplayerSampleSystemComponent::GetRenderSceneIdByName, nullptr,
+                "Gets an RPI scene ID based on the name of the AzFramework Scene."));
         }
     }
 
@@ -86,6 +105,20 @@ namespace MultiplayerSample
 
     void MultiplayerSampleSystemComponent::Deactivate()
     {
+    }
+
+    AZ::Uuid MultiplayerSampleSystemComponent::GetRenderSceneIdByName(const AZStd::string& name)
+    {
+        AZStd::shared_ptr<AzFramework::Scene> scene = AzFramework::SceneSystemInterface::Get()->GetScene(name);
+        if (scene)
+        {
+            AZ::RPI::ScenePtr renderScene = *scene->FindSubsystemInScene<AZ::RPI::ScenePtr>();
+            if (renderScene)
+            {
+                return renderScene->GetId();
+            }
+        }
+        return AZ::Uuid::CreateInvalid();
     }
 }
 

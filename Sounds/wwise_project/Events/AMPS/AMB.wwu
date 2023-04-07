@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{DE9FC369-2076-4F07-9C00-6203DBF0184F}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{8511C95E-B420-4253-A69E-69820604C20C}">
 	<Events>
-		<WorkUnit Name="AMB" ID="{DE9FC369-2076-4F07-9C00-6203DBF0184F}" OwnerID="{8511C95E-B420-4253-A69E-69820604C20C}" PersistMode="Nested"/>
+		<WorkUnit Name="AMB" ID="{DE9FC369-2076-4F07-9C00-6203DBF0184F}" OwnerID="{8511C95E-B420-4253-A69E-69820604C20C}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_amb_ext_general" ID="{118E75AA-7412-45A0-AAA9-52CD47DB9E41}">
+					<ChildrenList>
+						<Action Name="" ID="{E12EFB24-AB65-4232-BD67-8F6925C157F0}" ShortID="745775555">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_amb_ext_generalWindLoop" ID="{F55CE3A4-96C3-4E54-8267-FBB6A47AAAE1}" WorkUnitID="{FF882DA0-D34E-47CD-9819-576540D5FB1C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{90FAC99A-15CA-4434-89B0-2906D678B469}" ShortID="355469111">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64" Value="50">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{813D250F-9D3B-45B4-8143-1B30257417AB}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="40"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_amb_ext_generalWindLoop_01" ID="{D5B887EE-2886-4A8E-BAC5-02801D416970}" WorkUnitID="{FF882DA0-D34E-47CD-9819-576540D5FB1C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_amb_ext_general" ID="{878488C5-91CC-4BD6-BB55-865BCF349D98}">
+					<ChildrenList>
+						<Action Name="" ID="{5D8B88D1-AA79-4563-80EF-6DD90C7FED26}" ShortID="925183539">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+								<Property Name="Scope" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_amb_ext_generalWindLoop" ID="{F55CE3A4-96C3-4E54-8267-FBB6A47AAAE1}" WorkUnitID="{FF882DA0-D34E-47CD-9819-576540D5FB1C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>
