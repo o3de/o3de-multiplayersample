@@ -19,13 +19,13 @@ namespace MultiplayerSample
         virtual ~WeaponNotifications() = default;
 
         //! Called on a local player that has activated a weapon.
-        virtual void OnWeaponActivate([[maybe_unused]] const AZ::Transform& transform) {}
+        virtual void OnWeaponActivate([[maybe_unused]] AZ::EntityId shooterEntityId, [[maybe_unused]] const AZ::Transform& transform) {}
 
         //! Called on a local player that has predictively impacted something with a weapon.
-        virtual void OnWeaponImpact([[maybe_unused]] const AZ::Transform& transform) {}
+        virtual void OnWeaponImpact([[maybe_unused]] AZ::EntityId shooterEntityId, [[maybe_unused]] const AZ::Transform& transform, [[maybe_unused]] AZ::EntityId hitEntityId) {}
 
         //! Called on a local player that has confirmed damaged something with a weapon.
-        virtual void OnWeaponDamage([[maybe_unused]] const AZ::Transform& transform) {}
+        virtual void OnWeaponDamage([[maybe_unused]] AZ::EntityId shooterEntityId, [[maybe_unused]] const AZ::Transform& transform, [[maybe_unused]] AZ::EntityId hitEntityId) {}
 
         //! Called on a local player that has been confirmed to hit a player with a weapon.
         virtual void OnConfirmedHitPlayer([[maybe_unused]] AZ::EntityId byPlayerEntity, [[maybe_unused]] AZ::EntityId otherPlayerEntity) {}

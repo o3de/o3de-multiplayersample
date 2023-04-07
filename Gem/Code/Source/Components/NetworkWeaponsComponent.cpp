@@ -28,7 +28,7 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_WeaponsDrawDebug, false, nullptr, AZ::ConsoleFunctorFlags::Null, "If enabled, weapons will debug draw various important events");
-    AZ_CVAR(float, cl_WeaponsDrawDebugSize, 0.25f, nullptr, AZ::ConsoleFunctorFlags::Null, "The size of sphere to debug draw during weapon events");
+    AZ_CVAR(float, cl_WeaponsDrawDebugSize, 0.125f, nullptr, AZ::ConsoleFunctorFlags::Null, "The size of sphere to debug draw during weapon events");
     AZ_CVAR(float, cl_WeaponsDrawDebugDurationSec, 10.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "The number of seconds to display debug draw data");
     AZ_CVAR(float, sv_WeaponsImpulseScalar, 750.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
     AZ_CVAR(float, sv_WeaponsStartPositionClampRange, 1.f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor between the where the client and server say a shot started");
@@ -45,19 +45,19 @@ namespace MultiplayerSample
             OnWeaponDamage,
             OnConfirmedHitPlayer);
 
-        void OnWeaponActivate(const AZ::Transform& transform) override
+        void OnWeaponActivate(AZ::EntityId shooterEntityId, const AZ::Transform& transform) override
         {
-            Call(FN_OnWeaponActivate, transform);
+            Call(FN_OnWeaponActivate, shooterEntityId, transform);
         }
 
-        void OnWeaponImpact(const AZ::Transform& transform) override
+        void OnWeaponImpact(AZ::EntityId shooterEntityId, const AZ::Transform& transform, AZ::EntityId hitEntityId) override
         {
-            Call(FN_OnWeaponImpact, transform);
+            Call(FN_OnWeaponImpact, shooterEntityId, transform, hitEntityId);
         }
 
-        void OnWeaponDamage(const AZ::Transform& transform) override
+        void OnWeaponDamage(AZ::EntityId shooterEntityId, const AZ::Transform& transform, AZ::EntityId hitEntityId) override
         {
-            Call(FN_OnWeaponDamage, transform);
+            Call(FN_OnWeaponDamage, shooterEntityId, transform, hitEntityId);
         }
 
         void OnConfirmedHitPlayer(AZ::EntityId byPlayerEntity, AZ::EntityId otherPlayerEntity) override
@@ -183,7 +183,7 @@ namespace MultiplayerSample
         }
 
         m_onWeaponActivateEvent.Signal(activationInfo);
-        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponActivate, activationInfo.m_activateEvent.m_initialTransform);
+        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponActivate, GetEntity()->GetId(), activationInfo.m_activateEvent.m_initialTransform);
 
 #if AZ_TRAIT_CLIENT
         if (cl_WeaponsDrawDebug && m_debugDraw)
@@ -233,10 +233,14 @@ namespace MultiplayerSample
         }
 
         m_onWeaponPredictHitEvent.Signal(hitInfo);
-        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, hitInfo.m_hitEvent.m_hitTransform);
 
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
+            const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
+            const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+            const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
+
 #if AZ_TRAIT_CLIENT
 	        if (cl_WeaponsDrawDebug && m_debugDraw)
             {
@@ -245,6 +249,14 @@ namespace MultiplayerSample
                     hitEntity.m_hitPosition,
                     cl_WeaponsDrawDebugSize,
                     AZ::Colors::Orange,
+                    cl_WeaponsDrawDebugDurationSec
+                );
+
+                m_debugDraw->DrawLineLocationToLocation
+                (
+                    hitEntity.m_hitPosition,
+                    hitEntity.m_hitPosition + hitEntity.m_hitNormal,
+                    AZ::Colors::Black,
                     cl_WeaponsDrawDebugDurationSec
                 );
             }
@@ -275,9 +287,6 @@ namespace MultiplayerSample
 
                 if (entityHandle != nullptr && entityHandle.GetEntity() != nullptr)
                 {
-                    [[maybe_unused]] const AZ::Vector3& hitCenter = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
-                    [[maybe_unused]] const AZ::Vector3& hitPoint = hitEntity.m_hitPosition;
-
                     const WeaponParams& weaponParams = hitInfo.m_weapon.GetParams();
                     const HitEffect effect = weaponParams.m_damageEffect;
 
@@ -289,9 +298,8 @@ namespace MultiplayerSample
                     // Look for physics rigid body component and make impact updates
                     if (Multiplayer::NetworkRigidBodyComponent* rigidBodyComponent = entityHandle.GetEntity()->FindComponent<Multiplayer::NetworkRigidBodyComponent>())
                     {
-                        const AZ::Vector3 hitLocation = hitInfo.m_hitEvent.m_hitTransform.GetTranslation();
-                        // IMPORTANT this impulse is for directional/traced hits only, not suitable for explosions
-                        const AZ::Vector3 impulse = hitInfo.m_hitEvent.m_hitTransform.GetBasisY() * damage * sv_WeaponsImpulseScalar;
+                        const AZ::Vector3 hitLocation = hitEntity.m_hitPosition;
+                        const AZ::Vector3 impulse = -hitEntity.m_hitNormal * damage * sv_WeaponsImpulseScalar;
                         rigidBodyComponent->SendApplyImpulse(impulse, hitLocation);
                     }
 
@@ -306,7 +314,6 @@ namespace MultiplayerSample
 #endif
 
         m_onWeaponConfirmHitEvent.Signal(hitInfo);
-        WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponDamage, hitInfo.m_hitEvent.m_hitTransform);
 
         // If we're a simulated weapon, or if the weapon is not predictive, then issue material hit effects since the predicted callback above will not get triggered
         // Note that materialfx are not hooked up currently as the engine currently doesn't support them
@@ -314,6 +321,11 @@ namespace MultiplayerSample
 
         for (const auto& hitEntity : hitInfo.m_hitEvent.m_hitEntities)
         {
+            const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
+            const Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetNetworkEntityManager()->GetEntity(hitEntity.m_hitNetEntityId);
+            const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
+            WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponDamage, GetEntity()->GetId(), hitTransform, hitEntityId);
+
 #if AZ_TRAIT_CLIENT
             if (cl_WeaponsDrawDebug && m_debugDraw)
             {
@@ -326,8 +338,6 @@ namespace MultiplayerSample
                 );
             }
 
-            Multiplayer::ConstNetworkEntityHandle handle = Multiplayer::GetMultiplayer()->GetNetworkEntityManager()->GetEntity(
-                hitEntity.m_hitNetEntityId);
             if (handle.Exists())
             {
                 if (const AZ::Entity* entity = handle.GetEntity())

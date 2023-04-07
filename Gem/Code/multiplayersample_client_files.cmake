@@ -6,6 +6,8 @@
 #
 
 set(FILES
+    Include/DecalBus.h
+
     Source/Components/UI/UiGameOverComponent.cpp
     Source/Components/UI/UiGameOverComponent.h
     Source/Components/UI/HUDComponent.cpp
