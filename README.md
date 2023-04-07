@@ -2,7 +2,7 @@
 
 ![MPS SplashScreen](Documentation/Media/splashscreen.png)
 
-The MultiplayerSample Project is a third-person multiplayer game built on Open 3D Engine (O3DE), where robots battle one another for dominance in a multi-tiered starbase.
+The MultiplayerSample Project is a third-person multiplayer game built on Open 3D Engine (O3DE), where robots battle one another for dominance in an under construction, multi-tiered starbase.
 
 <span style="background-color:#4F3C3C">**NOTE:** For Linux setup, see the guide in [README_LINUX.md](README_LINUX.md)</span>
 
@@ -15,18 +15,20 @@ Do you risk it all to win?
 Game features:
 
 * 3rd-person character setup
-* Weapons (laser pistols) with a reticle, projectile, and visual FX.
+* Weapons (laser pistols) with a reticle, projectile, and visual effects
+* Environmental dangers, including energy cannons and malfunctioning shield towers
+* Jump pads to boost players high into the air
 * A configurable number of rounds (default: 3 rounds)
 * Configurable gem spawning patterns per round to drive player exploration
 * Support for 1 to 15 players
-* Rich sounds and Visual FX support
+* Rich sounds and visual effects support
 * Teleporters to aid player exploration
 * Many points of extensibility
 
 ### Player controls
 
 * Move using: **W,A,S,D**
-* Sprint: Hold **Shift**
+* Speed toggle (sprint or walk): Tap **Shift**
 * Jump: **Space**
 * Look around: **Mouse drag**
 * Fire primary weapon: **Left mouse button**
@@ -212,7 +214,7 @@ Under project root, there are two files: `launch_client.cfg` and `launch_server.
 The server launcher can be run with the following command:
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg 
+build\windows\bin\profile\MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg 
 ```
 
 Note that the `launch_server.cfg` configuration file is passed with the `--console-command-file` argument.
@@ -232,7 +234,7 @@ If you do not need to see rendered output on your server, you can reduce resourc
 <span style="background-color:#4F3C3C">**NOTE:** Parameters to use null renderer must be passed on the command line as the console-command-file is parsed after rendering is configured.</span>
 
 ```shell
-MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg -rhi=null -NullRenderer
+build\windows\bin\profile\MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg -rhi=null -NullRenderer
 ```
 
 ### Option #4 - Launch the server in O3DE Editor
@@ -248,7 +250,7 @@ Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o
 The client launcher can be run with the following command:
 
 ```shell
-MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg
+build\windows\bin\profile\MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg
 ```
 
 This command starts the client and connects to the server specified in `launch_client.cfg`.
