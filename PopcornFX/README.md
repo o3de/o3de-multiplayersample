@@ -1,6 +1,6 @@
 # PopcornFX Assets - O3DE Multiplayer Sample
 
-The Multiplayer Sample includes nine visual FX assets created with PopcornFX. This README documents the these FX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
+The Multiplayer Sample includes several visual FX assets created with PopcornFX. This README documents the these FX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
 
 The PopcornFX project containing all the source assets can be found in the following directory:
 `<multiplayer-sample-root>/PopcornFX/PopcornProject.pkproj`.
@@ -28,11 +28,12 @@ Many of the FX have a **Color Intensity** property that you can modify to adjust
 
 The Armor Power Up is not a particle system, but rather mesh and shader asset.
 
-<video type="video/mp4" src="./readme_media/ArmorPowerUp.mp4" width=400 loop="true">
+![Armor Power Up example](readme_media/image35.gif)
+
 
 The effect is triggered by the **Slider** property on the `ArmorPowerUp.material`.
 
-![](./readme_media/image16.png)
+![Armor Power Up material](./readme_media/image16.png)
 
 The `Script_ArmorPowerUp.scriptcanvas` is a test Script Canvas that loops the Armor Power Up FX.
 
@@ -42,11 +43,11 @@ The Bubble Gun VFX is split into the following three parts:
 
 | **Blast** | **Projectile** | **Explosion** |
 | - | - | - |
-| ![](./readme_media/image24.gif | width=300) | ![](./readme_media/image25.gif | width=300) | ![](./readme_media/image29.gif | width=300) |
+| ![Bubble Gun Blast](./readme_media/image24.gif) | ![Bubble Gun Projectile](./readme_media/image25.gif) | ![Bubble Gun Explosion](./readme_media/image29.gif) |
 
 The following properties are available to adjust the look of Bubble Gun VFX:
 
-<img src="readme_media/image26.png" width=420>
+![Bubble Gun Properties](./readme_media/image26.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -60,11 +61,11 @@ The Defense Turret VFX is split into the following three parts:
 
 | **Blast** | **Projectile** | **Explosion** |
 | - | - | - |
-| <img src="readme_media/image31.gif" width=350> | <img src="readme_media/image33.gif" width=350> | <img src="readme_media/image32.gif" width=350> |
+| ![Defense Turret Blast](./readme_media/image31.gif) | ![Defense Turret Projectile](./readme_media/image33.gif)| ![Defense Turret Explosion](./readme_media/image32.gif) |
 
 The following properties are available to adjust the look of the Defense Turret VFX:
 
-<img src="readme_media/image9.png" width=420>
+![Defense Turret Properties](./readme_media/image9.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -74,7 +75,7 @@ The following properties are available to adjust the look of the Defense Turret 
 
 The Explosion FX needs to be oriented with the **Impact Normal** attribute. You can set this up in Script Canvas.
 
-<img src="readme_media/image12.png" width=420>
+![Defense Turret explosion impact normal](./readme_media/image12.png)
 
 ## Energy Ball Trap
 
@@ -84,11 +85,11 @@ The Energy Ball Trap VFX is split into the following three parts:
 **Projectile**
 **Explosion**
 
-<img src="readme_media/image37.gif" width=800></br>
+![Energy Ball build up, projectile, exploasion](./readme_media/image37.gif)
 
 The following properties are available to adjust the look of the Energy Ball Trap VFX:
 
-<img src="readme_media/image13.png" width=420>
+![Energy Ball properties](./readme_media/image13.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -97,17 +98,17 @@ The following properties are available to adjust the look of the Energy Ball Tra
 
 For a smooth transition between the three parts, each part needs to start at the same frame the previous part ends. You can trigger the FX in Script Canvas.
 
-<img src="readme_media/image10.png" width=420>
+![Energy Ball emitter component controls](./readme_media/image10.png)
 
 ## Energy Collector
 
 The Energy Collector is a simple single emitter. It just needs to be placed accurately on an entity and triggered by Script Canvas.
 
-<img src="readme_media/image36.gif" width=420></br>
+![Energy Collector](./readme_media/image36.gif)
 
 The following properties are available to adjust the look of Energy Collector VFX:
 
-<img src="readme_media/image18.png" width=420>
+![Energy Collector properties](./readme_media/image18.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -119,11 +120,11 @@ The following properties are available to adjust the look of Energy Collector VF
 
 The Jump Pad is a simple single emitter. It just needs to be placed accurately in a level and triggered by Script Canvas.
 
-<img src="readme_media/image34.gif" width=420></br>
+![Jump Pad](./readme_media/image34.gif)
 
 The following properties are available to adjust the look of Energy Collector VFX:
 
-<img src="readme_media/image27.png" width=420>
+![Jump Pad properties](./readme_media/image27.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -135,23 +136,23 @@ The following properties are available to adjust the look of Energy Collector VF
 
 To trigger the Jump Pad VFX, the **Launch** property must be toggled. It doesn't matter if the boolean is true or false. The VFX will trigger if the state of the **Launch** property changes.
 
-<img src="readme_media/image30.png" width=420></br>
+![Jump Pad Launch property](./readme_media/image30.png)
 
 The test Script Canvas `script_VFXTestTriggerJumpPad` loops the Jump Pad VFX.
 
 ## Laser Gun
 
-<img src="readme_media/image21.gif" width=500><br>
+![Laser Gun](./readme_media/image21.gif)
 
 The Laser Gun VFX is split into the following three parts:
 
 | **Blast** | **Ray** | **Explosion** |
 | - | - | - |
-| <img src="readme_media/image17.gif" width=350> | <img src="readme_media/image22.gif" width=350> | <img src="readme_media/image11.gif" width=350> |
+| ![Laser Gun Blast](./readme_media/image17.gif) | ![Laser Gun Ray](./readme_media/image22.gif) | ![Laser Gun Explosion](./readme_media/image11.gif) |
 
 The following properties are available to adjust the look of Laser Gun VFX:
 
-<img src="readme_media/image6.png" width=420>
+![Laser Gun properties](./readme_media/image6.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -173,12 +174,12 @@ The Malfunctioning Shield Generator VFX is split into the following three parts:
 
 For a smooth transition between the three parts, each part needs to start at the same frame the previous part ends. You can trigger the FX in Script Canvas.
 
-<img src="readme_media/image38.gif" width=800></br>
+![Malfunctioning Shield Generator](./readme_media/image38.gif)
 
 The following properties are available to adjust the look of Malfunctioning Shield Generator VFX:
 
-<img src="readme_media/image14.png" width=420>
-<img src="readme_media/image15.png" width=420><br>
+![Malfunctioning Shield Generator Distortion Power property](./readme_media/image14.png)
+![Malfunctioning Shield Generator Frequency property](./readme_media/image15.png)
 
 | Property | Description |
 | :-- | :-- |
@@ -193,11 +194,11 @@ The Speed Power Up VFX is one emitter but three stages that are triggered automa
 **Idle**
 **Fade Out**
 
-<img src="readme_media/image23.gif" width=420></br>
+![Speed Power Up](./readme_media/image23.gif)
 
 The following properties are available to adjust the look of Speed Power Up VFX:
 
-<img src="readme_media/image19.png"><br>
+![Speed Power Up Properties](./readme_media/image19.png)
 
 | Property | Description |
 | :-- | :-- |
