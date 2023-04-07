@@ -1,6 +1,6 @@
 # PopcornFX Assets - O3DE Multiplayer Sample
 
-The Multiplayer Sample includes several visual FX assets created with PopcornFX. This README documents the these FX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
+The Multiplayer Sample includes several visual effects (VFX) assets created with PopcornFX. VFX are combinations of particle emitters, textures, materials, and meshes that create all sorts of phenomenae, such as fire, smoke, explosions, electrical arcs, and weather such as rain and snow. This README documents the these VFX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
 
 The PopcornFX project containing all the source assets can be found in the following directory:
 `<multiplayer-sample-root>/PopcornFX/PopcornProject.pkproj`.
@@ -18,9 +18,9 @@ The **PopcornFX** Gem depends on the following additional Gems:
 
 ## General information
 
-Some of the FX are split into multiple parts (for example, Blast, Projectile, and Explosion). Splitting the FX makes it easier to integrate the FX into varied gameplay scenarios.
+Some of the VFX are split into multiple parts (for example, Blast, Projectile, and Explosion). Splitting the VFX makes it easier to integrate them into varied gameplay scenarios.
 
-Many of the FX have a **Color Intensity** property that you can modify to adjust the emissive effect. The emissive effect requires that the **PostFX Layer** and **Bloom** components are added to the scene.
+Many of the VFX have a **Color Intensity** property that you can modify to adjust the emissive effect. The emissive effect requires that the **PostFX Layer** and **Bloom** components are added to the scene.
 
 ![Post FX Layer and Bloom components](readme_media/image1.png)
 
@@ -30,12 +30,11 @@ The Armor Power Up is not a particle system, but rather mesh and shader asset.
 
 ![Armor Power Up example](readme_media/image35.gif)
 
-
 The effect is triggered by the **Slider** property on the `ArmorPowerUp.material`.
 
 ![Armor Power Up material](./readme_media/image16.png)
 
-The `Script_ArmorPowerUp.scriptcanvas` is a test Script Canvas that loops the Armor Power Up FX.
+The `Script_ArmorPowerUp.scriptcanvas` is a test Script Canvas that loops the Armor Power Up VFX.
 
 ## Bubble Gun
 
@@ -73,7 +72,7 @@ The following properties are available to adjust the look of the Defense Turret 
 | **Global Scale** | Scales the size of the VFX. |
 | **Color Intensity** | Sets the intensity of the emissive effect. |
 
-The Explosion FX needs to be oriented with the **Impact Normal** attribute. You can set this up in Script Canvas.
+The Explosion VFX needs to be oriented with the **Impact Normal** attribute. You can set this up in Script Canvas.
 
 ![Defense Turret explosion impact normal](./readme_media/image12.png)
 
@@ -96,7 +95,7 @@ The following properties are available to adjust the look of the Energy Ball Tra
 | **Global Scale** | Scales the size of the VFX. |
 | **Color Intensity** | Sets the intensity of the emissive effect. |
 
-For a smooth transition between the three parts, each part needs to start at the same frame the previous part ends. You can trigger the FX in Script Canvas.
+For a smooth transition between the three parts, each part needs to start at the same frame the previous part ends. You can trigger the VFX in Script Canvas.
 
 ![Energy Ball emitter component controls](./readme_media/image10.png)
 
