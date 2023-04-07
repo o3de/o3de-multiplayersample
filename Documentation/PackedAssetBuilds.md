@@ -9,7 +9,7 @@ The guide below covers how to make profile packaged builds which are very useful
 
 
 ### Install WWise
-Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. WWise is needed to process and pacakge audio assets in the project.
+Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. WWise is needed to process and package audio assets in the project.
 
 ![WWise installer options](Media/wwise_installer_options.png)
 
@@ -17,7 +17,7 @@ Inside the installer select the version to use.  Install version **2021.1.11.793
 
 ![WWise version selection](Media/wwise_installer_version_selection.png)
 
-> REBOOT. Otherwise, the environment settings won't get picked up for any builds in Visual Studio, only in builds that you do from the command-line in a command-line prompt opened after the installer finishes.
+> REBOOT (or logout / login). Otherwise, the environment settings won't get picked up for any builds in Visual Studio. They will only apply to command-line builds, and only for any command-line windows that have been opened after the installer finishes.
 
 ### Build profile build and process assets
 
