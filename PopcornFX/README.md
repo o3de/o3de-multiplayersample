@@ -1,6 +1,6 @@
 # PopcornFX Assets - O3DE Multiplayer Sample
 
-The Multiplayer Sample includes several visual effects (VFX) assets created with PopcornFX. VFX are combinations of particle emitters, textures, materials, and meshes that create all sorts of phenomenae, such as fire, smoke, explosions, electrical arcs, and weather such as rain and snow. This README documents the these VFX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
+The Multiplayer Sample includes several visual effects (VFX) assets created with PopcornFX. VFX are combinations of particle emitters, textures, materials, and meshes that create all sorts of phenomenae, such as fire, smoke, explosions, electrical arcs, and weather such as rain and snow. This README documents these VFX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
 
 The PopcornFX project containing all the source assets can be found in the following directory:
 `<multiplayer-sample-root>/PopcornFX/PopcornProject.pkproj`.
@@ -127,7 +127,7 @@ The following properties are available to adjust the look of Energy Collector VF
 
 | Property | Description |
 | :-- | :-- |
-| **Burst** | Sets duration of the launch. |
+| **Bursts** | Sets duration of the launch. |
 | **Color** | Sets the color and alpha of the VFX. |
 | **Brightness** | Scales the glow effect of the VFX. |
 | **Light Range** | Sets the reach of the glow effect of the VFX. |
@@ -202,6 +202,6 @@ The following properties are available to adjust the look of Speed Power Up VFX:
 | Property | Description |
 | :-- | :-- |
 | **Global Scale** | Scales the size of the VFX. |
-| **Particles Count** | Sets the trail particle count. Higher values give the vFX a more opaque look. |
+| **Particles Count** | Sets the trail particle count. Higher values give the VFX a more opaque look. |
 | **Color Wind** | Sets the color and alpha of the wind trail. |
 | **Duration** | Sets an approximate time (in seconds) for the **Idle** stage of the VFX. |
