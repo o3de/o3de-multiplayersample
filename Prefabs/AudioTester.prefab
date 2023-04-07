@@ -1,0 +1,243 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "AudioTester",
+        "Components": {
+            "Component_[10771816014653156071]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 10771816014653156071
+            },
+            "Component_[11293977127301106512]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 11293977127301106512
+            },
+            "Component_[11842396216403492068]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 11842396216403492068,
+                "Parent Entity": ""
+            },
+            "Component_[11850476595661781615]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 11850476595661781615
+            },
+            "Component_[121787168491731610]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 121787168491731610,
+                "Child Entity Order": [
+                    "Entity_[6965274095963021]"
+                ]
+            },
+            "Component_[17985148416456617429]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 17985148416456617429
+            },
+            "Component_[2498614448801032912]": {
+                "$type": "EditorLockComponent",
+                "Id": 2498614448801032912
+            },
+            "Component_[420281792215043353]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 420281792215043353
+            },
+            "Component_[6728962689319964626]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 6728962689319964626
+            },
+            "Component_[9136230458715201140]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 9136230458715201140
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[6965274095963021]": {
+            "Id": "Entity_[6965274095963021]",
+            "Name": "AudioTester",
+            "Components": {
+                "Component_[1129645059265878589]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 1129645059265878589,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 2550554072125678362
+                        },
+                        {
+                            "ComponentId": 16648286050622538978,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 4715578865992448574,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 4944205303087278559,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 11910621560338542549,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[11910621560338542549]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 11910621560338542549,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{01D1BB2F-D8F8-5670-92EB-6A42C40DB760}",
+                                    "subId": 284890816
+                                },
+                                "assetHint": "objects/ico_sphere.azmodel"
+                            },
+                            "IsRayTracingEnabled": false
+                        }
+                    }
+                },
+                "Component_[12024577114812690591]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 12024577114812690591
+                },
+                "Component_[14830090687721601712]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 14830090687721601712
+                },
+                "Component_[16478684767981735270]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 16478684767981735270
+                },
+                "Component_[16625350912860414258]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 16625350912860414258
+                },
+                "Component_[16648286050622538978]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 16648286050622538978,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{3B45E09C-D620-53C8-A342-3117CECC96C9}",
+                            "path": "scriptcanvas/AudioTester.scriptcanvas"
+                        },
+                        "sourceName": "AudioTester.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{3B45E09C-D620-53C8-A342-3117CECC96C9}",
+                                "path": "scriptcanvas/AudioTester.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 1
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "EntityId",
+                                        "value": ""
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{BE25183B-D17F-4162-87CB-7C7C80F34115}"
+                                    },
+                                    "VariableName": "AudioSource",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.5
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{C087A563-5298-4C3C-8212-272708FE530F}"
+                                    },
+                                    "VariableName": "Interval",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 1
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "EntityId",
+                                        "value": ""
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{BE25183B-D17F-4162-87CB-7C7C80F34115}"
+                                    },
+                                    "VariableName": "AudioSource",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.5
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{C087A563-5298-4C3C-8212-272708FE530F}"
+                                    },
+                                    "VariableName": "Interval",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[2550554072125678362]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 2550554072125678362,
+                    "Parent Entity": "ContainerEntity",
+                    "Transform Data": {
+                        "UniformScale": 0.5
+                    }
+                },
+                "Component_[4203670937516928245]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 4203670937516928245
+                },
+                "Component_[4715578865992448574]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 4715578865992448574,
+                    "Play Trigger": {
+                        "controlName": "play_sx_wpn_laserpistol_fire"
+                    },
+                    "Plays Immediately": true
+                },
+                "Component_[4944205303087278559]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 4944205303087278559,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
+                "Component_[8610786346043925804]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 8610786346043925804
+                },
+                "Component_[9281373507911229053]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 9281373507911229053
+                }
+            }
+        }
+    }
+}
