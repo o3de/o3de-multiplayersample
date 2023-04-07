@@ -3,7 +3,6 @@
 	<ProjectInfo>
 		<Project Name="wwise_project" ID="{5FD1A7DD-18EB-40F8-93D7-F05C61524D61}">
 			<Platforms>
-				<Platform Name="Linux" ReferencePlatform="Linux" ID="{E343B56A-FC13-4809-B325-D55B3D98BED9}"/>
 				<Platform Name="Windows" ReferencePlatform="Windows" ID="{76613168-484C-4109-A51D-39963BFA5411}"/>
 			</Platforms>
 			<LanguageList>
@@ -17,56 +16,50 @@
 				<Property Name="ExternalSourcesInputPath" Type="string">
 					<ValueList>
 						<Value Platform="Windows"></Value>
-						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="ExternalSourcesOutputPath" Type="string">
 					<ValueList>
 						<Value Platform="Windows">GeneratedSoundBanks\Windows</Value>
-						<Value Platform="Linux">GeneratedSoundBanks\Linux</Value>
 					</ValueList>
 				</Property>
 				<Property Name="GlobalVoiceInstancesLimit" Type="int16">
 					<ValueList>
 						<Value Platform="Windows">256</Value>
-						<Value Platform="Linux">256</Value>
 					</ValueList>
 				</Property>
-				<Property Name="SoundBankHeaderFilePath" Type="string" Value="GeneratedSoundBanks"/>
+				<Property Name="SoundBankGenerateHeaderFile" Type="bool" Value="True"/>
+				<Property Name="SoundBankHeaderFilePath" Type="string" Value="..\wwise"/>
 				<Property Name="SoundBankPaths" Type="string">
 					<ValueList>
-						<Value Platform="Windows">..\wwise\</Value>
-						<Value Platform="Linux">..\wwise\</Value>
+						<Value Platform="Windows">GeneratedSoundBanks\Windows\</Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPostGenerateCustomCmdDescription" Type="string">
 					<ValueList>
+						<Value>Copy content from GeneratedSoundbanks to HeaderFilePath.</Value>
 						<Value Platform="Windows">Copy Streamed Files</Value>
-						<Value Platform="Linux">Copy Streamed Files</Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPostGenerateCustomCmdLines" Type="string">
 					<ValueList>
+						<Value>xcopy "$(WwiseProjectPath)\GeneratedSoundBanks\Windows" "$(HeaderFilePath)" /E /R /H /Y</Value>
 						<Value Platform="Windows">"$(CopyStreamedFilesExePath)" -info "$(InfoFilePath)" -outputpath "$(SoundBankPath)" -banks "$(SoundBankListAsTextFile)" -languages "$(LanguageList)"</Value>
-						<Value Platform="Linux">"$(CopyStreamedFilesExePath)" -info "$(InfoFilePath)" -outputpath "$(SoundBankPath)" -banks "$(SoundBankListAsTextFile)" -languages "$(LanguageList)"</Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPreGenerateCustomCmdDescription" Type="string">
 					<ValueList>
 						<Value Platform="Windows"></Value>
-						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPreGenerateCustomCmdLines" Type="string">
 					<ValueList>
 						<Value Platform="Windows"></Value>
-						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="VolumeThreshold" Type="Real64">
 					<ValueList>
 						<Value Platform="Windows">-80</Value>
-						<Value Platform="Linux">-80</Value>
 					</ValueList>
 				</Property>
 				<Property Name="WwiseVersionWhenCreated" Type="string" Value="Branch=wwise_v2021.1|Build=7883|VersionName=v2021.1.10|Config=Release"/>
