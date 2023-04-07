@@ -32,22 +32,12 @@ Build and run MPS as per the [README.md](../README.md) and ensure all assets are
 
 ### Build AssetBuilder
 
-You will need to build the [AssetBundler](https://development--o3deorg.netlify.app/docs/user-guide/packaging/asset-bundler/overview/) tool if not built.
+You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/packaging/asset-bundler/overview/) tool if not built.
 
 For example:
 ```shell
 cmake --build build\windows --target AssetBundler --config profile -- /m /nologo
 ```
-
-### Reprocess MultiplayerSample_Dependencies.xml
-
-> Step only required if  https://github.com/o3de/o3de/issues/15338 is still open.
-
-* Run AssetProcessor 
-* Open the Assets tab
-* Open the Product Assets tab
-* Search for `multiplayersample_dependencies.xml`, right-click on it, and choose "Reprocess Source Asset"
-* Close AssetProcessor
 
 ### Build monolithic game
 
@@ -75,7 +65,7 @@ build\windows\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-
 Follow steps for "Create a bundle for game assets", "Create a bundle for engine assets" and "Add bundles to the release game layout" from https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
 
 * The "default seed lists" choice should choose all but 4 seed lists to make the `engine_pc.pak`
-* The other 4 seed lists should all get selected to make the `game_pc.pak`
+* The other [seed lists](https://github.com/o3de/o3de-multiplayersample/tree/development/AssetBundling/SeedLists) should all get selected to make the `game_pc.pak`.
 
 > It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
@@ -96,14 +86,14 @@ copy c:\your\path\to\o3de-multiplayersample\AssetBundling\Bundles\*.pak %1\Cache
 rem Copy the executables and DLLs
 copy c:\your\path\to\o3de-multiplayersample\build\windows_mono\bin\profile\*.* %1
  
-rem Copy the AWSCore files?
+rem Copy the AWSCore files
 copy c:\your\path\to\o3de-multiplayersample\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
  
 rem Copy the launch_client / launch_server files
 copy c:\your\path\to\o3de-multiplayersample\launch_*.* %1
  
 rem Copy the PIX DLLs if PIX is enabled in the build
-:: copy D:\ly\lyengine\3rdParty\WinPixEventRuntime\bin\x64 %1
+:: copy c:\your\path\to\3rdParty\WinPixEventRuntime\bin\x64 %1
 ```
 
 It's recommended during testing you track the commit IDs used from o3de, o3de-multiplayersample, and o3de-multiplayersample-assets to have as reference. 
@@ -119,13 +109,6 @@ MultiplayerSample.GameLauncher.exe --console-command-file=launch_client.cfg -bg_
 ```
 
 After running, check the output logs to verify there aren't any crashes, missing assets, etc. If any assets are missing, go back to the AssetBundler step, add the assets, and repeat.
-
-### Run the Launchers from Visual Studio
-Rename the o3de-multiplayersample/Cache/pc folder to pc-loose
-Create an o3de-multiplayersample/Cache/pc folder
-Copy the engine_pc.pak and game_pc.pak files into that folder
-Use the same command-line parameters as above
-
 
 ## Linux profile packaged builds
 
