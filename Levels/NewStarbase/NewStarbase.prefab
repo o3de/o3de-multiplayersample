@@ -5615,17 +5615,6 @@
                         }
                     ]
                 },
-                "Component_[14656916305107071056]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 14656916305107071056,
-                    "m_template": {
-                        "$type": "UiCanvasAssetRefComponent",
-                        "CanvasAssetRef": {
-                            "AssetPath": "uicanvases/basichud.uicanvas"
-                        },
-                        "IsAutoLoad": true
-                    }
-                },
                 "Component_[14991708255372455207]": {
                     "$type": "GenericComponentWrapper",
                     "Id": 14991708255372455207,
@@ -7032,8 +7021,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 10570841151104281131,
                     "Child Entity Order": [
-                        "Instance_[40811569245770]/ContainerEntity",
-                        "Instance_[33861064421678]/ContainerEntity",
+                        "Instance_[41051175095817]/ContainerEntity",
                         "Entity_[86130393031567]",
                         "Entity_[330587046617999]",
                         "Instance_[244590891542927]/ContainerEntity",
@@ -27886,31 +27874,6 @@
                 }
             ]
         },
-        "Instance_[33861064421678]": {
-            "Source": "Prefabs/In-Game_Menu.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Parent Entity",
-                    "value": "../Entity_[34368826042616]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/0",
-                    "value": -6.191044807434082
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/1",
-                    "value": -9.9924898147583
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/2",
-                    "value": -9.91865348815918
-                }
-            ]
-        },
         "Instance_[34369300484124]": {
             "Source": "Prefabs/GamePlay_Effects.prefab",
             "Patches": [
@@ -34296,28 +34259,13 @@
                 }
             ]
         },
-        "Instance_[40811569245770]": {
-            "Source": "Prefabs/PlayerDisconnectScreen.prefab",
+        "Instance_[41051175095817]": {
+            "Source": "Prefabs/UI.prefab",
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[6880895285612044579]/Parent Entity",
+                    "path": "/ContainerEntity/Components/Component_[11968026641926863763]/Parent Entity",
                     "value": "../Entity_[34368826042616]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[6880895285612044579]/Transform Data/Translate/0",
-                    "value": 9.894573211669922
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[6880895285612044579]/Transform Data/Translate/1",
-                    "value": -34.20396041870117
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[6880895285612044579]/Transform Data/Translate/2",
-                    "value": -12.782957077026367
                 }
             ]
         },
