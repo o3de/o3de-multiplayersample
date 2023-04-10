@@ -5,7 +5,7 @@
     "ClassData": {
         "m_scriptCanvas": {
             "Id": {
-                "id": 1028464377588241
+                "id": 75968292384294
             },
             "Name": "Script Canvas Graph",
             "Components": {
@@ -16,7 +16,7 @@
                         "m_nodes": [
                             {
                                 "Id": {
-                                    "id": 1028498737326609
+                                    "id": 75998357155366
                                 },
                                 "Name": "EBusEventHandler",
                                 "Components": {
@@ -257,7 +257,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028490147392017
+                                    "id": 75989767220774
                                 },
                                 "Name": "EBusEventHandler",
                                 "Components": {
@@ -422,7 +422,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1057004435270161
+                                    "id": 75985472253478
                                 },
                                 "Name": "SendScriptEvent",
                                 "Components": {
@@ -461,9 +461,43 @@
                                                     "ConnectionType": 2,
                                                     "SlotType": 1
                                                 }
+                                            },
+                                            {
+                                                "id": {
+                                                    "m_id": "{4A3FF70F-9E87-4650-BFDA-B4AC78510DD3}"
+                                                },
+                                                "contracts": [
+                                                    {
+                                                        "$type": "SlotTypeContract"
+                                                    }
+                                                ],
+                                                "slotName": "ShouldShow",
+                                                "toolTip": "True to show the screen, false to hide it",
+                                                "Descriptor": {
+                                                    "ConnectionType": 1,
+                                                    "SlotType": 2
+                                                },
+                                                "DataType": 1
                                             }
                                         ],
-                                        "m_version": 2,
+                                        "Datums": [
+                                            {
+                                                "isOverloadedStorage": false,
+                                                "scriptCanvasType": {
+                                                    "m_type": 0
+                                                },
+                                                "isNullPointer": false,
+                                                "$type": "bool",
+                                                "value": true,
+                                                "label": "ShouldShow"
+                                            }
+                                        ],
+                                        "m_version": 3,
+                                        "m_eventSlotMapping": {
+                                            "{D54A54F1-1FC5-4B46-8D1F-1F22641591F7}": {
+                                                "m_id": "{4A3FF70F-9E87-4650-BFDA-B4AC78510DD3}"
+                                            }
+                                        },
                                         "m_scriptEventAssetId": {
                                             "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
                                         },
@@ -471,7 +505,7 @@
                                             "assetId": {
                                                 "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
                                             },
-                                            "loadBehavior": "QueueLoad",
+                                            "loadBehavior": "PreLoad",
                                             "assetHint": "scripts/uiscriptevents.scriptevents"
                                         },
                                         "m_busId": {
@@ -485,7 +519,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028481557457425
+                                    "id": 75994062188070
                                 },
                                 "Name": "SC-Node(ExecuteConsoleCommand)",
                                 "Components": {
@@ -569,7 +603,104 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028477262490129
+                                    "id": 83205312278054
+                                },
+                                "Name": "SendScriptEvent",
+                                "Components": {
+                                    "Component_[16079307514105179462]": {
+                                        "$type": "SendScriptEvent",
+                                        "Id": 16079307514105179462,
+                                        "Slots": [
+                                            {
+                                                "id": {
+                                                    "m_id": "{3B816E7C-4511-4F10-BEB4-787182A7975E}"
+                                                },
+                                                "contracts": [
+                                                    {
+                                                        "$type": "SlotTypeContract"
+                                                    }
+                                                ],
+                                                "slotName": "In",
+                                                "toolTip": "Fires the specified ScriptEvent when signaled",
+                                                "Descriptor": {
+                                                    "ConnectionType": 1,
+                                                    "SlotType": 1
+                                                }
+                                            },
+                                            {
+                                                "id": {
+                                                    "m_id": "{361769A0-9E16-4736-99F7-A127289C18B3}"
+                                                },
+                                                "contracts": [
+                                                    {
+                                                        "$type": "SlotTypeContract"
+                                                    }
+                                                ],
+                                                "slotName": "Out",
+                                                "toolTip": "Trigged after the ScriptEvent has been signaled and returns",
+                                                "Descriptor": {
+                                                    "ConnectionType": 2,
+                                                    "SlotType": 1
+                                                }
+                                            },
+                                            {
+                                                "id": {
+                                                    "m_id": "{95ED6842-484A-4F25-9F99-B5AE548209F4}"
+                                                },
+                                                "contracts": [
+                                                    {
+                                                        "$type": "SlotTypeContract"
+                                                    }
+                                                ],
+                                                "slotName": "ShouldShow",
+                                                "toolTip": "True to show the screen, false to hide it",
+                                                "Descriptor": {
+                                                    "ConnectionType": 1,
+                                                    "SlotType": 2
+                                                },
+                                                "DataType": 1
+                                            }
+                                        ],
+                                        "Datums": [
+                                            {
+                                                "isOverloadedStorage": false,
+                                                "scriptCanvasType": {
+                                                    "m_type": 0
+                                                },
+                                                "isNullPointer": false,
+                                                "$type": "bool",
+                                                "value": false,
+                                                "label": "ShouldShow"
+                                            }
+                                        ],
+                                        "m_version": 3,
+                                        "m_eventSlotMapping": {
+                                            "{8378A620-A1DC-4B95-8685-28C1FDC490F7}": {
+                                                "m_id": "{95ED6842-484A-4F25-9F99-B5AE548209F4}"
+                                            }
+                                        },
+                                        "m_scriptEventAssetId": {
+                                            "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
+                                        },
+                                        "m_asset": {
+                                            "assetId": {
+                                                "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
+                                            },
+                                            "loadBehavior": "QueueLoad",
+                                            "assetHint": "scripts/uiscriptevents.scriptevents"
+                                        },
+                                        "m_busId": {
+                                            "Value": 1315383204
+                                        },
+                                        "m_eventId": {
+                                            "Value": 2992876575
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "Id": {
+                                    "id": 76002652122662
                                 },
                                 "Name": "EBusEventHandler",
                                 "Components": {
@@ -734,7 +865,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028503032293905
+                                    "id": 75981177286182
                                 },
                                 "Name": "EBusEventHandler",
                                 "Components": {
@@ -899,17 +1030,17 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1056029477693969
+                                    "id": 85013493509670
                                 },
                                 "Name": "SendScriptEvent",
                                 "Components": {
-                                    "Component_[5430305384906321733]": {
+                                    "Component_[18058680068902574673]": {
                                         "$type": "SendScriptEvent",
-                                        "Id": 5430305384906321733,
+                                        "Id": 18058680068902574673,
                                         "Slots": [
                                             {
                                                 "id": {
-                                                    "m_id": "{CD00C918-C983-41CE-B95A-1EB230939808}"
+                                                    "m_id": "{A4D22096-91C2-4B1B-8BFF-1F88CE9F1A8B}"
                                                 },
                                                 "contracts": [
                                                     {
@@ -925,7 +1056,7 @@
                                             },
                                             {
                                                 "id": {
-                                                    "m_id": "{1B97D4FD-61CD-4019-BC19-C83E52F2D9DE}"
+                                                    "m_id": "{65341295-59B5-42E9-802E-06CF3E815E9F}"
                                                 },
                                                 "contracts": [
                                                     {
@@ -938,72 +1069,43 @@
                                                     "ConnectionType": 2,
                                                     "SlotType": 1
                                                 }
-                                            }
-                                        ],
-                                        "m_version": 2,
-                                        "m_scriptEventAssetId": {
-                                            "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
-                                        },
-                                        "m_asset": {
-                                            "assetId": {
-                                                "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
                                             },
-                                            "loadBehavior": "QueueLoad",
-                                            "assetHint": "scripts/uiscriptevents.scriptevents"
-                                        },
-                                        "m_busId": {
-                                            "Value": 1315383204
-                                        },
-                                        "m_eventId": {
-                                            "Value": 4159260782
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "Id": {
-                                    "id": 1055127534561809
-                                },
-                                "Name": "SendScriptEvent",
-                                "Components": {
-                                    "Component_[7140488093064118821]": {
-                                        "$type": "SendScriptEvent",
-                                        "Id": 7140488093064118821,
-                                        "Slots": [
                                             {
                                                 "id": {
-                                                    "m_id": "{C206A412-74BC-4961-8B81-7064A07DFD97}"
+                                                    "m_id": "{C61037F6-C89E-4009-AF41-A4D365F10845}"
                                                 },
                                                 "contracts": [
                                                     {
                                                         "$type": "SlotTypeContract"
                                                     }
                                                 ],
-                                                "slotName": "In",
-                                                "toolTip": "Fires the specified ScriptEvent when signaled",
+                                                "slotName": "ShouldShow",
+                                                "toolTip": "True to show the screen, false to hide it",
                                                 "Descriptor": {
                                                     "ConnectionType": 1,
-                                                    "SlotType": 1
-                                                }
-                                            },
-                                            {
-                                                "id": {
-                                                    "m_id": "{9248B2F3-6477-440D-A9B2-3E6495ECB793}"
+                                                    "SlotType": 2
                                                 },
-                                                "contracts": [
-                                                    {
-                                                        "$type": "SlotTypeContract"
-                                                    }
-                                                ],
-                                                "slotName": "Out",
-                                                "toolTip": "Trigged after the ScriptEvent has been signaled and returns",
-                                                "Descriptor": {
-                                                    "ConnectionType": 2,
-                                                    "SlotType": 1
-                                                }
+                                                "DataType": 1
                                             }
                                         ],
-                                        "m_version": 2,
+                                        "Datums": [
+                                            {
+                                                "isOverloadedStorage": false,
+                                                "scriptCanvasType": {
+                                                    "m_type": 0
+                                                },
+                                                "isNullPointer": false,
+                                                "$type": "bool",
+                                                "value": false,
+                                                "label": "ShouldShow"
+                                            }
+                                        ],
+                                        "m_version": 3,
+                                        "m_eventSlotMapping": {
+                                            "{8378A620-A1DC-4B95-8685-28C1FDC490F7}": {
+                                                "m_id": "{C61037F6-C89E-4009-AF41-A4D365F10845}"
+                                            }
+                                        },
                                         "m_scriptEventAssetId": {
                                             "guid": "{53CB5ACB-6533-5BBD-B562-2A984307AB09}"
                                         },
@@ -1018,7 +1120,7 @@
                                             "Value": 1315383204
                                         },
                                         "m_eventId": {
-                                            "Value": 4159260782
+                                            "Value": 2992876575
                                         }
                                     }
                                 }
@@ -1027,7 +1129,7 @@
                         "m_connections": [
                             {
                                 "Id": {
-                                    "id": 1028507327261201
+                                    "id": 76006947089958
                                 },
                                 "Name": "srcEndpoint=(UiButtonNotificationBus Handler: OnConnected), destEndpoint=(UiButtonNotificationBus Handler: Connect)",
                                 "Components": {
@@ -1036,7 +1138,7 @@
                                         "Id": 11981214346165651552,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1028477262490129
+                                                "id": 76002652122662
                                             },
                                             "slotId": {
                                                 "m_id": "{1196B610-CAAA-4E65-82E1-185DA50248D2}"
@@ -1044,7 +1146,7 @@
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1028503032293905
+                                                "id": 75981177286182
                                             },
                                             "slotId": {
                                                 "m_id": "{FA99194F-158E-4430-BE91-41DCD38C9C13}"
@@ -1055,7 +1157,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028511622228497
+                                    "id": 76011242057254
                                 },
                                 "Name": "srcEndpoint=(UiButtonNotificationBus Handler: ExecutionSlot:OnButtonClick), destEndpoint=(ExecuteConsoleCommand: In)",
                                 "Components": {
@@ -1064,7 +1166,7 @@
                                         "Id": 10748104048025390661,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1028503032293905
+                                                "id": 75981177286182
                                             },
                                             "slotId": {
                                                 "m_id": "{E6782F9A-BA87-4105-9F8E-83A56C0FCE20}"
@@ -1072,7 +1174,7 @@
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1028481557457425
+                                                "id": 75994062188070
                                             },
                                             "slotId": {
                                                 "m_id": "{911424A5-59CD-452B-9411-0636EC7D0175}"
@@ -1083,7 +1185,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028515917195793
+                                    "id": 76015537024550
                                 },
                                 "Name": "srcEndpoint=(UiButtonNotificationBus Handler: OnConnected), destEndpoint=(UiButtonNotificationBus Handler: Connect)",
                                 "Components": {
@@ -1092,7 +1194,7 @@
                                         "Id": 13330218788003102614,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1028503032293905
+                                                "id": 75981177286182
                                             },
                                             "slotId": {
                                                 "m_id": "{1196B610-CAAA-4E65-82E1-185DA50248D2}"
@@ -1100,7 +1202,7 @@
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1028490147392017
+                                                "id": 75989767220774
                                             },
                                             "slotId": {
                                                 "m_id": "{6447E883-AE5D-4099-BF0C-E410581D83C0}"
@@ -1111,7 +1213,7 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1028537392032273
+                                    "id": 76019831991846
                                 },
                                 "Name": "srcEndpoint=(EntityBus Handler: ExecutionSlot:OnEntityActivated), destEndpoint=(UiButtonNotificationBus Handler: Connect)",
                                 "Components": {
@@ -1120,7 +1222,7 @@
                                         "Id": 17739048204484515595,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1028498737326609
+                                                "id": 75998357155366
                                             },
                                             "slotId": {
                                                 "m_id": "{74C7529D-94A1-434D-83E2-CC1BE55F6697}"
@@ -1128,7 +1230,7 @@
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1028477262490129
+                                                "id": 76002652122662
                                             },
                                             "slotId": {
                                                 "m_id": "{FA99194F-158E-4430-BE91-41DCD38C9C13}"
@@ -1139,44 +1241,16 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1055784664558097
+                                    "id": 84171679919654
                                 },
                                 "Name": "srcEndpoint=(UiButtonNotificationBus Handler: ExecutionSlot:OnButtonClick), destEndpoint=(Send Script Event: In)",
                                 "Components": {
-                                    "Component_[10179091642669964846]": {
+                                    "Component_[11658318120071725282]": {
                                         "$type": "{64CA5016-E803-4AC4-9A36-BDA2C890C6EB} Connection",
-                                        "Id": 10179091642669964846,
+                                        "Id": 11658318120071725282,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1028477262490129
-                                            },
-                                            "slotId": {
-                                                "m_id": "{E6782F9A-BA87-4105-9F8E-83A56C0FCE20}"
-                                            }
-                                        },
-                                        "targetEndpoint": {
-                                            "nodeId": {
-                                                "id": 1055127534561809
-                                            },
-                                            "slotId": {
-                                                "m_id": "{C206A412-74BC-4961-8B81-7064A07DFD97}"
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "Id": {
-                                    "id": 1057695925004817
-                                },
-                                "Name": "srcEndpoint=(UiButtonNotificationBus Handler: ExecutionSlot:OnButtonClick), destEndpoint=(Send Script Event: In)",
-                                "Components": {
-                                    "Component_[5428890315836077259]": {
-                                        "$type": "{64CA5016-E803-4AC4-9A36-BDA2C890C6EB} Connection",
-                                        "Id": 5428890315836077259,
-                                        "sourceEndpoint": {
-                                            "nodeId": {
-                                                "id": 1028490147392017
+                                                "id": 75989767220774
                                             },
                                             "slotId": {
                                                 "m_id": "{F5A4728B-04AB-4BCB-9227-0AC4620D6952}"
@@ -1184,10 +1258,10 @@
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1056029477693969
+                                                "id": 83205312278054
                                             },
                                             "slotId": {
-                                                "m_id": "{CD00C918-C983-41CE-B95A-1EB230939808}"
+                                                "m_id": "{3B816E7C-4511-4F10-BEB4-787182A7975E}"
                                             }
                                         }
                                     }
@@ -1195,27 +1269,55 @@
                             },
                             {
                                 "Id": {
-                                    "id": 1058146896570897
+                                    "id": 84588291747366
                                 },
                                 "Name": "srcEndpoint=(Send Script Event: Out), destEndpoint=(Send Script Event: In)",
                                 "Components": {
-                                    "Component_[3100982266751916535]": {
+                                    "Component_[2146067601962355965]": {
                                         "$type": "{64CA5016-E803-4AC4-9A36-BDA2C890C6EB} Connection",
-                                        "Id": 3100982266751916535,
+                                        "Id": 2146067601962355965,
                                         "sourceEndpoint": {
                                             "nodeId": {
-                                                "id": 1056029477693969
+                                                "id": 83205312278054
                                             },
                                             "slotId": {
-                                                "m_id": "{1B97D4FD-61CD-4019-BC19-C83E52F2D9DE}"
+                                                "m_id": "{361769A0-9E16-4736-99F7-A127289C18B3}"
                                             }
                                         },
                                         "targetEndpoint": {
                                             "nodeId": {
-                                                "id": 1057004435270161
+                                                "id": 75985472253478
                                             },
                                             "slotId": {
                                                 "m_id": "{73C493D9-B68D-4BFF-81AF-BE1DE46632A6}"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "Id": {
+                                    "id": 85808062459430
+                                },
+                                "Name": "srcEndpoint=(UiButtonNotificationBus Handler: ExecutionSlot:OnButtonClick), destEndpoint=(Send Script Event: In)",
+                                "Components": {
+                                    "Component_[9497824414611508912]": {
+                                        "$type": "{64CA5016-E803-4AC4-9A36-BDA2C890C6EB} Connection",
+                                        "Id": 9497824414611508912,
+                                        "sourceEndpoint": {
+                                            "nodeId": {
+                                                "id": 76002652122662
+                                            },
+                                            "slotId": {
+                                                "m_id": "{E6782F9A-BA87-4105-9F8E-83A56C0FCE20}"
+                                            }
+                                        },
+                                        "targetEndpoint": {
+                                            "nodeId": {
+                                                "id": 85013493509670
+                                            },
+                                            "slotId": {
+                                                "m_id": "{A4D22096-91C2-4B1B-8BFF-1F88CE9F1A8B}"
                                             }
                                         }
                                     }
@@ -1225,19 +1327,37 @@
                         "m_scriptEventAssets": [
                             [
                                 {
-                                    "id": 1055127534561809
+                                    "id": 75985472253478
                                 },
                                 {}
                             ],
                             [
                                 {
-                                    "id": 1056029477693969
+                                    "id": 75972587351590
                                 },
                                 {}
                             ],
                             [
                                 {
-                                    "id": 1057004435270161
+                                    "id": 75976882318886
+                                },
+                                {}
+                            ],
+                            [
+                                {
+                                    "id": 75985472253478
+                                },
+                                {}
+                            ],
+                            [
+                                {
+                                    "id": 83205312278054
+                                },
+                                {}
+                            ],
+                            [
+                                {
+                                    "id": 85013493509670
                                 },
                                 {}
                             ]
@@ -1252,16 +1372,16 @@
                     "GraphCanvasData": [
                         {
                             "Key": {
-                                "id": 1028464377588241
+                                "id": 75968292384294
                             },
                             "Value": {
                                 "ComponentData": {
                                     "{5F84B500-8C45-40D1-8EFC-A5306B241444}": {
                                         "$type": "SceneComponentSaveData",
                                         "ViewParams": {
-                                            "Scale": 0.5606913310107077,
-                                            "AnchorX": 920.29248046875,
-                                            "AnchorY": -135.5469512939453
+                                            "Scale": 0.40509948665523626,
+                                            "AnchorX": -116.02088165283203,
+                                            "AnchorY": -459.146484375
                                         }
                                     }
                                 }
@@ -1269,7 +1389,7 @@
                         },
                         {
                             "Key": {
-                                "id": 1028477262490129
+                                "id": 75981177286182
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1279,8 +1399,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            440.0,
-                                            180.0
+                                            920.0,
+                                            100.0
                                         ]
                                     },
                                     "{9E81C95F-89C0-4476-8E82-63CCC4E52E04}": {
@@ -1296,14 +1416,14 @@
                                     },
                                     "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
                                         "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{54F52264-8520-4AF0-AF7A-937D71BAD1C8}"
+                                        "PersistentId": "{D60A6D1B-B8AC-4881-ABA4-00513998FCE3}"
                                     }
                                 }
                             }
                         },
                         {
                             "Key": {
-                                "id": 1028481557457425
+                                "id": 75985472253478
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1317,8 +1437,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            1180.0,
-                                            600.0
+                                            1780.0,
+                                            440.0
                                         ]
                                     },
                                     "{B0B99C8A-03AF-4CF6-A926-F65C874C3D97}": {
@@ -1327,14 +1447,14 @@
                                     },
                                     "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
                                         "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{B5A077A0-10A9-4855-BB44-110A6B33A599}"
+                                        "PersistentId": "{9890F2CB-3365-4590-B030-0CF210572D46}"
                                     }
                                 }
                             }
                         },
                         {
                             "Key": {
-                                "id": 1028490147392017
+                                "id": 75989767220774
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1344,8 +1464,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            1260.0,
-                                            200.0
+                                            1420.0,
+                                            100.0
                                         ]
                                     },
                                     "{9E81C95F-89C0-4476-8E82-63CCC4E52E04}": {
@@ -1368,7 +1488,38 @@
                         },
                         {
                             "Key": {
-                                "id": 1028498737326609
+                                "id": 75994062188070
+                            },
+                            "Value": {
+                                "ComponentData": {
+                                    "{24CB38BB-1705-4EC5-8F63-B574571B4DCD}": {
+                                        "$type": "NodeSaveData"
+                                    },
+                                    "{328FF15C-C302-458F-A43D-E1794DE0904E}": {
+                                        "$type": "GeneralNodeTitleComponentSaveData",
+                                        "PaletteOverride": "MethodNodeTitlePalette"
+                                    },
+                                    "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
+                                        "$type": "GeometrySaveData",
+                                        "Position": [
+                                            900.0,
+                                            460.0
+                                        ]
+                                    },
+                                    "{B0B99C8A-03AF-4CF6-A926-F65C874C3D97}": {
+                                        "$type": "StylingComponentSaveData",
+                                        "SubStyle": ".method"
+                                    },
+                                    "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
+                                        "$type": "PersistentIdComponentSaveData",
+                                        "PersistentId": "{B5A077A0-10A9-4855-BB44-110A6B33A599}"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "Key": {
+                                "id": 75998357155366
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1402,7 +1553,7 @@
                         },
                         {
                             "Key": {
-                                "id": 1028503032293905
+                                "id": 76002652122662
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1412,8 +1563,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            820.0,
-                                            180.0
+                                            440.0,
+                                            100.0
                                         ]
                                     },
                                     "{9E81C95F-89C0-4476-8E82-63CCC4E52E04}": {
@@ -1429,14 +1580,14 @@
                                     },
                                     "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
                                         "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{D60A6D1B-B8AC-4881-ABA4-00513998FCE3}"
+                                        "PersistentId": "{54F52264-8520-4AF0-AF7A-937D71BAD1C8}"
                                     }
                                 }
                             }
                         },
                         {
                             "Key": {
-                                "id": 1055127534561809
+                                "id": 83205312278054
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1450,8 +1601,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            780.0,
-                                            600.0
+                                            1420.0,
+                                            440.0
                                         ]
                                     },
                                     "{B0B99C8A-03AF-4CF6-A926-F65C874C3D97}": {
@@ -1460,14 +1611,14 @@
                                     },
                                     "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
                                         "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{6C38ED37-1298-463C-881A-CA2C2248D2C3}"
+                                        "PersistentId": "{3674E724-EAC2-4756-88D9-E4E535051C18}"
                                     }
                                 }
                             }
                         },
                         {
                             "Key": {
-                                "id": 1056029477693969
+                                "id": 85013493509670
                             },
                             "Value": {
                                 "ComponentData": {
@@ -1481,8 +1632,8 @@
                                     "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
                                         "$type": "GeometrySaveData",
                                         "Position": [
-                                            1620.0,
-                                            400.0
+                                            460.0,
+                                            440.0
                                         ]
                                     },
                                     "{B0B99C8A-03AF-4CF6-A926-F65C874C3D97}": {
@@ -1491,38 +1642,7 @@
                                     },
                                     "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
                                         "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{0A4D0754-A7B8-4674-9AAD-BA45A680D7D1}"
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "Key": {
-                                "id": 1057004435270161
-                            },
-                            "Value": {
-                                "ComponentData": {
-                                    "{24CB38BB-1705-4EC5-8F63-B574571B4DCD}": {
-                                        "$type": "NodeSaveData"
-                                    },
-                                    "{328FF15C-C302-458F-A43D-E1794DE0904E}": {
-                                        "$type": "GeneralNodeTitleComponentSaveData",
-                                        "PaletteOverride": "MethodNodeTitlePalette"
-                                    },
-                                    "{7CC444B1-F9B3-41B5-841B-0C4F2179F111}": {
-                                        "$type": "GeometrySaveData",
-                                        "Position": [
-                                            1960.0,
-                                            400.0
-                                        ]
-                                    },
-                                    "{B0B99C8A-03AF-4CF6-A926-F65C874C3D97}": {
-                                        "$type": "StylingComponentSaveData",
-                                        "SubStyle": ".method"
-                                    },
-                                    "{B1F49A35-8408-40DA-B79E-F1E3B64322CE}": {
-                                        "$type": "PersistentIdComponentSaveData",
-                                        "PersistentId": "{9890F2CB-3365-4590-B030-0CF210572D46}"
+                                        "PersistentId": "{21AE89DE-782C-45F8-A6B3-E3C25F7BF197}"
                                     }
                                 }
                             }
@@ -1543,7 +1663,7 @@
                                 "Value": 1
                             },
                             {
-                                "Key": 12248403817518671740,
+                                "Key": 12248403815865748175,
                                 "Value": 2
                             },
                             {
