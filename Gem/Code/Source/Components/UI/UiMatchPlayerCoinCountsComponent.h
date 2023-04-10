@@ -9,7 +9,9 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 #include <AzCore/std/containers/vector.h>
+#include <Components/NetworkMatchComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
 namespace MultiplayerSample
