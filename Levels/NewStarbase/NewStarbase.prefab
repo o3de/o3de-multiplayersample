@@ -5557,6 +5557,7 @@
                     "Id": 110022581788315572,
                     "m_template": {
                         "$type": "MultiplayerSample::NetworkMatchComponent",
+                        "RoundDuration": 180.0,
                         "RespawnPenaltyPercent": 20,
                         "RespawnGemTag": "Respawn Gem"
                     }
@@ -5613,17 +5614,6 @@
                             "SortIndex": 8
                         }
                     ]
-                },
-                "Component_[14656916305107071056]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 14656916305107071056,
-                    "m_template": {
-                        "$type": "UiCanvasAssetRefComponent",
-                        "CanvasAssetRef": {
-                            "AssetPath": "uicanvases/basichud.uicanvas"
-                        },
-                        "IsAutoLoad": true
-                    }
                 },
                 "Component_[14991708255372455207]": {
                     "$type": "GenericComponentWrapper",
@@ -7031,7 +7021,7 @@
                     "$type": "EditorEntitySortComponent",
                     "Id": 10570841151104281131,
                     "Child Entity Order": [
-                        "Instance_[33861064421678]/ContainerEntity",
+                        "Instance_[41051175095817]/ContainerEntity",
                         "Entity_[86130393031567]",
                         "Entity_[330587046617999]",
                         "Instance_[244590891542927]/ContainerEntity",
@@ -7625,9 +7615,9 @@
                     "Parent Entity": "Entity_[34518792723445]",
                     "Transform Data": {
                         "Translate": [
-                            23.59280776977539,
-                            -2.8519210815429688,
-                            10.822330474853516
+                            -9.615331649780273,
+                            35.865257263183594,
+                            10.719728469848633
                         ],
                         "Rotate": [
                             0.0,
@@ -19054,21 +19044,6 @@
             "Patches": [
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 18.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 15.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Parent Entity",
                     "value": "../Entity_[86096033293199]"
                 },
@@ -19091,6 +19066,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Rotate/2",
                     "value": -36.1596565246582
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
+                    "value": 15.7
                 }
             ]
         },
@@ -19125,17 +19105,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 14.5
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 18.0
                 }
             ]
         },
@@ -20666,6 +20636,61 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[18056289439526005371]/Transform Data/UniformScale",
                     "value": 0.7151455283164978
+                }
+            ]
+        },
+        "Instance_[1736511902346826]": {
+            "Source": "JumpPad/jumppad.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10406703446304744333]/Parent Entity",
+                    "value": "../Entity_[86126098064271]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10406703446304744333]/Transform Data/Translate/0",
+                    "value": 55.309024810791016
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10406703446304744333]/Transform Data/Translate/1",
+                    "value": -76.3629379272461
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[10406703446304744333]/Transform Data/Translate/2",
+                    "value": -4.629184722900391
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/0",
+                    "value": -10.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/1",
+                    "value": 20.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[39629120857318069]/configuration/propertyOverrides/overrides/0/Datum/value/2",
+                    "value": 60.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[4578986180761630609]/Transform Data/Translate/0",
+                    "value": -9.59792709350586
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[4578986180761630609]/Transform Data/Translate/1",
+                    "value": -1.703883171081543
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[1104171344821059]/Components/Component_[4578986180761630609]/Transform Data/Translate/2",
+                    "value": 9.807077407836914
                 }
             ]
         },
@@ -27181,26 +27206,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[1340886723482881960]/Transform Data/Rotate/2",
                     "value": -73.40956115722656
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[721662789418]/Components/Component_[10112924460877714862]/ColliderConfiguration/Trigger",
-                    "value": true
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[721662789418]/Components/Component_[10112924460877714862]/ColliderConfiguration/InSceneQueries",
-                    "value": false
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[721662789418]/Components/Component_[7332157232204005176]/Transform Data/Translate/1",
-                    "value": 0.1118488311767578
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[721662789418]/Components/Component_[7332157232204005176]/Transform Data/Translate/2",
-                    "value": 0.0000019073486328125
                 }
             ]
         },
@@ -27856,31 +27861,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[15151136896214454413]/Transform Data/Translate/2",
                     "value": 13.22199249267578
-                }
-            ]
-        },
-        "Instance_[33861064421678]": {
-            "Source": "Prefabs/In-Game_Menu.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Parent Entity",
-                    "value": "../Entity_[34368826042616]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/0",
-                    "value": -6.191044807434082
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/1",
-                    "value": -9.9924898147583
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[14705142480132192566]/Transform Data/Translate/2",
-                    "value": -9.91865348815918
                 }
             ]
         },
@@ -29571,16 +29551,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Translate/2",
                     "value": 13.827112197875977
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
                 }
             ]
         },
@@ -30845,7 +30815,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30885,7 +30855,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30925,7 +30895,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30965,7 +30935,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31005,7 +30975,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31045,7 +31015,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31085,7 +31055,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31125,7 +31095,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -34271,6 +34241,16 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[13582569891791771894]/Transform Data/Rotate/2",
                     "value": 90.00000762939453
+                }
+            ]
+        },
+        "Instance_[41051175095817]": {
+            "Source": "Prefabs/UI.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[11968026641926863763]/Parent Entity",
+                    "value": "../Entity_[34368826042616]"
                 }
             ]
         },
@@ -42070,7 +42050,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 22.0
+                    "value": 18.0
                 }
             ]
         },
@@ -42099,18 +42079,8 @@
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 16.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 45.0
                 }
             ]
         },
@@ -42139,13 +42109,8 @@
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
+                    "value": 16.75
                 }
             ]
         },
@@ -42175,7 +42140,12 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 20.0
+                    "value": 19.5
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
+                    "value": 4.0
                 }
             ]
         },
@@ -42209,13 +42179,13 @@
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
+                    "value": 21.0
                 },
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 4.0
                 }
             ]
         },
@@ -42250,12 +42220,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 20.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
+                    "value": 17.5
                 }
             ]
         },
@@ -42290,12 +42255,32 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 14.0
+                    "value": 16.5
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value/MaterialAssetId/guid",
+                    "value": "{00000000-0000-0000-0000-000000000000}"
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value/Scale",
+                    "value": 1.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value/LifeTimeSec",
+                    "value": 0.0
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value/FadeInTimeSec",
+                    "value": 0.10000000149011612
+                },
+                {
+                    "op": "replace",
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value/FadeOutTimeSec",
+                    "value": 1.0
                 }
             ]
         },
@@ -42326,16 +42311,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2815070735218165771]/Transform Data/Rotate/2",
                     "value": -36.1596565246582
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
                 }
             ]
         },
@@ -42369,8 +42344,8 @@
                 },
                 {
                     "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
+                    "value": 15.0
                 }
             ]
         },
@@ -42550,7 +42525,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 15.0
+                    "value": 17.0
                 }
             ]
         },
@@ -47020,17 +46995,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 16.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 15.9
                 }
             ]
         },
@@ -62115,12 +62080,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 10.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 18.5
                 }
             ]
         },
@@ -62190,17 +62150,7 @@
                 {
                     "op": "replace",
                     "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/0/Datum/value",
-                    "value": 13.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/1/Datum/value",
-                    "value": 5.0
-                },
-                {
-                    "op": "replace",
-                    "path": "/Entities/Entity_[38393244868340]/Components/Component_[16396523672802690395]/configuration/propertyOverrides/overrides/2/Datum/value",
-                    "value": 5.0
+                    "value": 18.0
                 }
             ]
         },
