@@ -29,6 +29,12 @@ namespace MultiplayerSample
 #endif
 
     private:
+        void DebugDraw();
+        AZ::ScheduledEvent m_debugDrawEvent{ [this]()
+        {
+            DebugDraw();
+        }, AZ::Name("EnergyBallDebugDraw") };
+
         GameEffect m_effect;
     };
 

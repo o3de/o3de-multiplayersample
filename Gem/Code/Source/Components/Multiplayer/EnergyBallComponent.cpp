@@ -16,11 +16,13 @@
 
 #if AZ_TRAIT_CLIENT
 #   include <PopcornFX/PopcornFXBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
 {
     AZ_CVAR(float, sv_EnergyBallImpulseScalar, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
+    AZ_CVAR(bool, cl_EnergyBallDebugDraw, false, nullptr, AZ::ConsoleFunctorFlags::Null, "When turned on this will debug draw a sphere at the energy balls location");
 
     void EnergyBallComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -49,12 +51,20 @@ namespace MultiplayerSample
         PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
         if (emitterRequests != nullptr)
         {
+            emitterRequests->SetVisible(true);
             emitterRequests->Start();
+        }
+
+        if (cl_EnergyBallDebugDraw)
+        {
+            m_debugDrawEvent.Enqueue(AZ::TimeMs{ 10 }, true);
         }
     }
 
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
+        m_debugDrawEvent.RemoveFromQueue();
+
         AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitEvent.m_target);
         m_effect.TriggerEffect(transform);
 
@@ -73,6 +83,23 @@ namespace MultiplayerSample
         }
     }
 #endif
+
+    void EnergyBallComponent::DebugDraw()
+    {
+#if AZ_TRAIT_CLIENT
+        if (cl_EnergyBallDebugDraw)
+        {
+            DebugDraw::DebugDrawRequests* debugDraw = DebugDraw::DebugDrawRequestBus::FindFirstHandler();
+            debugDraw->DrawSphereAtLocation
+            (
+                GetEntity()->GetTransform()->GetWorldTM().GetTranslation(),
+                0.2f,
+                AZ::Colors::Green,
+                0.1f
+            );
+        }
+#endif
+    }
 
 
     EnergyBallComponentController::EnergyBallComponentController(EnergyBallComponent& parent)
