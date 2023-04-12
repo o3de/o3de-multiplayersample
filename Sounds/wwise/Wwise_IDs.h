@@ -19,17 +19,19 @@ namespace AK
         static const AkUniqueID MUTE_ALL = 1739713018U;
         static const AkUniqueID PLAY_SX_AMB_EXT_GENERAL = 1593597659U;
         static const AkUniqueID PLAY_SX_ENV_LAMP_LOOP = 1589077493U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_EXPLOSION = 2266137558U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_PROJECTILE = 3206590360U;
+        static const AkUniqueID PLAY_SX_INT_DEFENSETURRET_SHOT = 2868583817U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_BUILDUP = 1394544692U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_IMPACT = 3130133043U;
-        static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_ONCOOLDOWN = 2009335613U;
         static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_PROJECTILE = 3442601232U;
-        static const AkUniqueID PLAY_SX_INT_ENERGYBALLTRAP_RISING = 149130571U;
         static const AkUniqueID PLAY_SX_INT_ENERGYCOLLECTOR_EXPLOSION = 599142529U;
         static const AkUniqueID PLAY_SX_INT_GEM_PICKUP = 3972513212U;
         static const AkUniqueID PLAY_SX_INT_JUMPPAD_LAUNCH = 544525055U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_BUILDUP = 4040956934U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_EXPLO = 3532523743U;
         static const AkUniqueID PLAY_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 3971492149U;
+        static const AkUniqueID PLAY_SX_INT_SPEEDPOWERUP_ACTIVATE = 3161638329U;
         static const AkUniqueID PLAY_SX_INT_TELEPORTER_ACTIVATE = 2479494560U;
         static const AkUniqueID PLAY_SX_INT_TELEPORTER_IDLE = 2491323057U;
         static const AkUniqueID PLAY_SX_PLAYER_ARMOR_BREAKING = 2969244755U;
@@ -37,7 +39,6 @@ namespace AK
         static const AkUniqueID PLAY_SX_PLAYER_EXERTION = 1387321888U;
         static const AkUniqueID PLAY_SX_PLAYER_FOOTSTEP = 2558021178U;
         static const AkUniqueID PLAY_SX_PLAYER_KNOCKDOWN = 76446992U;
-        static const AkUniqueID PLAY_SX_PLAYER_LADDER_CLIMB = 3686292530U;
         static const AkUniqueID PLAY_SX_PLAYER_PAIN = 411195352U;
         static const AkUniqueID PLAY_SX_UI_GAME_COUNTDOWN = 1622843585U;
         static const AkUniqueID PLAY_SX_UI_GAME_END = 517894047U;
@@ -45,24 +46,43 @@ namespace AK
         static const AkUniqueID PLAY_SX_UI_GAME_FANFARE_VICTORY = 1060136708U;
         static const AkUniqueID PLAY_SX_UI_GAME_ROUND_END = 3115542230U;
         static const AkUniqueID PLAY_SX_UI_GAME_ROUND_START = 2382033085U;
-        static const AkUniqueID PLAY_SX_UI_GAME_SHUTDOWN = 2153376150U;
-        static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_BUILDUP = 1913852464U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_COOLDOWN = 3452843118U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_EXPLOSION = 546806306U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_FIRE = 2192863753U;
-        static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_IMPACT = 2679540967U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_PROJECTILE = 3867312284U;
         static const AkUniqueID PLAY_SX_WPN_BUBBLEGUN_READY = 2608530362U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_FIRE = 2665115109U;
         static const AkUniqueID PLAY_SX_WPN_LASERPISTOL_IMPACT = 172245811U;
+        static const AkUniqueID SET_STATE_GAME_FRONTEND = 3902232197U;
+        static const AkUniqueID SET_STATE_GAME_GAMEPLAY = 2811141629U;
+        static const AkUniqueID SET_STATE_GAME_MENU = 2210118524U;
+        static const AkUniqueID SET_STATE_GAME_NONE = 4117323863U;
         static const AkUniqueID STOP_SX_AMB_EXT_GENERAL = 802626345U;
         static const AkUniqueID STOP_SX_ENV_LAMP_LOOP = 860941867U;
+        static const AkUniqueID STOP_SX_INT_DEFENSETURRET_PROJECTILE = 2900548186U;
         static const AkUniqueID STOP_SX_INT_ENERGYBALLTRAP_PROJECTILE = 2825372966U;
         static const AkUniqueID STOP_SX_INT_MALFUNCTIONINGSHIELDGENERATOR_IDLE = 1399787879U;
         static const AkUniqueID STOP_SX_INT_TELEPORTER_IDLE = 1815794527U;
         static const AkUniqueID STOP_SX_WPN_BUBBLEGUN_PROJECTILE = 3507985354U;
         static const AkUniqueID UNMUTE_ALL = 4003578643U;
     } // namespace EVENTS
+
+    namespace STATES
+    {
+        namespace GAME
+        {
+            static const AkUniqueID GROUP = 702482391U;
+
+            namespace STATE
+            {
+                static const AkUniqueID FRONTEND = 4212191649U;
+                static const AkUniqueID GAMEPLAY = 89505537U;
+                static const AkUniqueID MENU = 2607556080U;
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace GAME
+
+    } // namespace STATES
 
     namespace SWITCHES
     {
