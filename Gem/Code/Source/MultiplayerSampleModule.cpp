@@ -20,6 +20,7 @@
     #include <Components/UI/HUDComponent.h>
     #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
+    #include <Components/UI/UiSettingsComponent.h>
     #include <Components/UI/UiStartMenuComponent.h>
 #endif
 
@@ -53,6 +54,7 @@ namespace MultiplayerSample
                     UiPlayerArmorComponent::CreateDescriptor(),
                     UiMatchPlayerCoinCountsComponent::CreateDescriptor(),
                     UiRestBetweenRoundsComponent::CreateDescriptor(),
+                    UiSettingsComponent::CreateDescriptor(),
                     UiStartMenuComponent::CreateDescriptor(),
                 #endif
             });
