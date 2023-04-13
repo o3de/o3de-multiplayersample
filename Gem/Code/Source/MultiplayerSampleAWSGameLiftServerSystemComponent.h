@@ -26,7 +26,6 @@ namespace MultiplayerSample
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
-        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
     protected:
         // AZ::Component interface implementation
@@ -36,12 +35,12 @@ namespace MultiplayerSample
 
         // Multiplayer::SessionNotificationBus::Handler overrides
         bool OnSessionHealthCheck() override;
-        bool OnCreateSessionBegin(const Multiplayer::SessionConfig& sessionConfig) override;
-        void OnCreateSessionEnd() override {};
-        bool OnDestroySessionBegin() override { return true; };
-        void OnDestroySessionEnd() override {};
-        void OnUpdateSessionBegin(const Multiplayer::SessionConfig&, [[maybe_unused]] const AZStd::string& updateReason) override {};
-        void OnUpdateSessionEnd() override {};
+        bool OnCreateSessionBegin(const Multiplayer::SessionConfig&) override { return true; }
+        void OnCreateSessionEnd() override;
+        bool OnDestroySessionBegin() override { return true; }
+        void OnDestroySessionEnd() override {}
+        void OnUpdateSessionBegin(const Multiplayer::SessionConfig&, [[maybe_unused]] const AZStd::string& updateReason) override {}
+        void OnUpdateSessionEnd() override {}
 
         // AzFramework::LevelLoadBlockerBus::Handler overrides
         bool ShouldBlockLevelLoading(const char* levelName) override;

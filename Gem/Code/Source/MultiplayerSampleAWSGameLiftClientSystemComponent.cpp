@@ -45,7 +45,7 @@ namespace MultiplayerSample
 
     void MultiplayerSampleAWSGameLiftClientSystemComponent::Init()
     {
-        m_playerId = AZ::Uuid().Create().ToString<AZStd::string>();
+        m_playerId = AZ::Uuid::Create().ToString<AZStd::string>();
     }
 
     void MultiplayerSampleAWSGameLiftClientSystemComponent::Activate()

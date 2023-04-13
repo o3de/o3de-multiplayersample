@@ -10,8 +10,6 @@
 #include <Components/AttachPlayerWeaponComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
-#include <Components/PerfTest/NetworkRandomImpulseComponent.h>
-#include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
@@ -21,10 +19,11 @@
     #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
     #include <Components/UI/UiRestBetweenRoundsComponent.h>
     #include <Components/UI/UiStartMenuComponent.h>
-    #include <Source/MultiplayerSampleAWSGameLiftClientSystemComponent.h> 
+    #include <Source/MultiplayerSampleAWSGameLiftClientSystemComponent.h>
 #endif
 #if AZ_TRAIT_SERVER  && !AZ_TRAIT_CLIENT
     #include <Source/MultiplayerSampleAWSGameLiftServerSystemComponent.h>
+    #include <AzCore/Console/IConsole.h>
 #endif
 
 #include <Source/AutoGen/AutoComponentTypes.h>
@@ -73,15 +72,37 @@ namespace MultiplayerSample
          */
         AZ::ComponentTypeList GetRequiredSystemComponents() const override
         {
-            return AZ::ComponentTypeList{
+            AZ::ComponentTypeList requiredSystemComponents{
                 azrtti_typeid<MultiplayerSampleSystemComponent>(),
                 #if AZ_TRAIT_CLIENT
                     azrtti_typeid<MultiplayerSampleAWSGameLiftClientSystemComponent>(),
                 #endif
-                #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
-                    azrtti_typeid<MultiplayerSampleAWSGameLiftServerSystemComponent>(),
-                #endif
             };
+
+            // Only activate the MultiplayerSample AWS GameLift server system component if this a dedicated server running on GameLift.
+            #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+                if (const auto console = AZ::Interface<AZ::IConsole>::Get())
+                {
+                    bool sv_gameLiftEnabled = false;
+                    if (console->GetCvarValue("sv_gameLiftEnabled", sv_gameLiftEnabled) == AZ::GetValueResult::Success)
+                    {
+                        if (sv_gameLiftEnabled)
+                        {
+                            requiredSystemComponents.push_back(azrtti_typeid<MultiplayerSampleAWSGameLiftServerSystemComponent>());
+                        }
+                    }
+                    else
+                    {
+                        AZ_Assert(false, "MultiplayerSample expecting to access an invalid sv_gameLiftEnabled. Please update code to properly check if GameLift is enabled in order to enable it's custom GameLift server system component.")
+                    }
+                }
+                else
+                {
+                    AZ_Assert(false, "MultiplayerSample expecting to check AZ::Console, but it's not available. Please update code to properly check if this server is running on GameLift.")
+                }
+            #endif
+            
+            return requiredSystemComponents;
         }
     };
 }

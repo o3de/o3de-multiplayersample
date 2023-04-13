@@ -21,8 +21,9 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 
 2. From another terminal within the root of the MultiplayerSample project, start the server launcher (assumes the executable is the result of a `profile` build):
     ```sh
-    ./build/bin/profile/MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg
+    ./build/windows/bin/profile/MultiplayerSample.ServerLauncher.exe --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --loadlevel=NewStarbase
     ```
+Note: You may be inclined to move these cvars into a cfg file and start the game by passing the --console-command-file parameter, but don't. Some cvars are used during a system component Activate(), but the console-command-file is executed after all system components have been activated. (example: sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent::Activate()).
 
 3. Create a game session with the below command:
     ```sh
@@ -32,5 +33,5 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 
 4. Finally, start the game launcher with the follow command:
     ```sh
-    ./build/bin/profile/MultiplayerSample.GameLauncher.exe --console-command-file=launch_client_gameliftlocal.cfg --cl_gameliftLocalEndpoint "http://localhost:8080"
+    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MultiplayerSampleAWSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
     ```

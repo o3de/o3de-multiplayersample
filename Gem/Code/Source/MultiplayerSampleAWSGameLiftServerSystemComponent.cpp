@@ -10,8 +10,6 @@
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/Serialization/EditContextConstants.inl>
 
 #include <Request/AWSGameLiftServerRequestBus.h>
 
@@ -43,10 +41,6 @@ namespace MultiplayerSample
         required.push_back(AZ_CRC_CE("AWSGameLiftServerService"));
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
-    {
-    }
-
     void MultiplayerSampleAWSGameLiftServerSystemComponent::Init()
     {
     }
@@ -73,13 +67,11 @@ namespace MultiplayerSample
         return true;
     }
 
-    bool MultiplayerSampleAWSGameLiftServerSystemComponent::OnCreateSessionBegin([[maybe_unused]] const Multiplayer::SessionConfig& sessionConfig)
+    void MultiplayerSampleAWSGameLiftServerSystemComponent::OnCreateSessionEnd()
     {
-        // Add here: additional logic, if needed, to ready server process for hosting a session.
-
         AzFramework::LevelLoadBlockerBus::Handler::BusDisconnect();
 
-        if (m_loadedLevelName != "")
+        if (!m_loadedLevelName.empty())
         {
             AZ_Info("MultiplayerSampleAWSGameLiftServerSystemComponent", "Session requested by Amazon GameLift. Attempting to load level: '%s'", m_loadedLevelName.c_str());
 
@@ -92,8 +84,6 @@ namespace MultiplayerSample
                 "MultiplayerSampleAWSGameLiftServerSystemComponent",
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
-
-        return true;
     }
 
     bool MultiplayerSampleAWSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)
