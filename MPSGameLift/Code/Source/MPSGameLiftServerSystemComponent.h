@@ -11,15 +11,15 @@
 #include <AzFramework/API/ApplicationAPI.h>
 #include <Multiplayer/Session/SessionNotifications.h>
 
-namespace MultiplayerSample
+namespace MPSGameLift
 {
-    class MultiplayerSampleAWSGameLiftServerSystemComponent
+    class MPSGameLiftServerSystemComponent
         : public AZ::Component
         , public Multiplayer::SessionNotificationBus::Handler
         , public AzFramework::LevelLoadBlockerBus::Handler
     {
     public: 
-        AZ_COMPONENT(MultiplayerSampleAWSGameLiftServerSystemComponent, "{0b0d2c48-058d-4207-b2c5-2778e50ec1c9}");
+        AZ_COMPONENT(MPSGameLiftServerSystemComponent, "{2D3C2443-1F3E-477E-8C26-506E62972E67}");
 
         static void Reflect(AZ::ReflectContext* context);
 

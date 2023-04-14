@@ -10,13 +10,13 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Console/IConsole.h>
 
-namespace MultiplayerSample
+namespace MPSGameLift
 {
-    class MultiplayerSampleAWSGameLiftClientSystemComponent
+    class MPSGameLiftClientSystemComponent
         : public AZ::Component
     {
     public:
-        AZ_COMPONENT(MultiplayerSampleAWSGameLiftClientSystemComponent, "{09b3eb68-8a50-485b-a4b0-38c5626ca78e}");
+        AZ_COMPONENT(MPSGameLiftClientSystemComponent, "{939D9813-2DCA-4625-B4E1-E63A6A652A26}");
 
         static void Reflect(AZ::ReflectContext* context);
 
@@ -32,7 +32,7 @@ namespace MultiplayerSample
         void Deactivate() override;
 
         void JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
-        AZ_CONSOLEFUNC(MultiplayerSampleAWSGameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing game session");
+        AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing game session");
 
     private:
         void JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId);

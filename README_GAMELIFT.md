@@ -8,6 +8,7 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 
 1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), if you don't already have it. You will need it to create a game session with GameLiftLocal.
 1. Download the [AmazonGameLift Server SDK](https://gamelift-release.s3-us-west-2.amazonaws.com/GameLift_06_03_2021.zip) and extract the "GameLiftLocal-1.0.5" directory somewhere easy to find.
+1. Enable the "AWSGameLift" and "MPSGameLift" gem by adding them to MultiplayerSample/Gem/Code/enabled_gems.cmake
 1. Build the server and game launchers for MultiplayerSample as normal, per [top-level README](/README.md).
 
 
@@ -33,5 +34,5 @@ Note: You may be inclined to move these cvars into a cfg file and start the game
 
 4. Finally, start the game launcher with the follow command:
     ```sh
-    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MultiplayerSampleAWSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
+    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
     ```

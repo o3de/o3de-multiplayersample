@@ -14,7 +14,6 @@ ly_add_target(
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
         multiplayersample_client_files.cmake
-        multiplayersample_gamelift_client_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
@@ -40,8 +39,6 @@ ly_add_target(
             Gem::ImGui.Static
             Gem::LyShine.Static
             Gem::GameState.Static
-            Gem::AWSCore.Static
-            Gem::AWSGameLift.Client.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
@@ -55,7 +52,6 @@ ly_add_target(
     FILES_CMAKE
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
-        multiplayersample_gamelift_server_files.cmake
         multiplayersample_server_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
@@ -75,7 +71,6 @@ ly_add_target(
             Gem::Multiplayer.Server.Static
             Gem::PhysX.Static
             Gem::GameState.Static
-            Gem::AWSGameLift.Server.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
@@ -90,7 +85,6 @@ ly_add_target(
         multiplayersample_autogen_files.cmake
         multiplayersample_files.cmake
         multiplayersample_client_files.cmake
-        multiplayersample_gamelift_client_files.cmake
         multiplayersample_server_files.cmake
         ${pal_dir}/multiplayersample_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
     INCLUDE_DIRECTORIES
@@ -116,9 +110,6 @@ ly_add_target(
             Gem::ImGui.Static
             Gem::LyShine.Static
             Gem::GameState.Static
-            Gem::AWSCore.Static
-            Gem::AWSGameLift.Client.Static
-            Gem::AWSGameLift.Server.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp

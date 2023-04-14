@@ -5,58 +5,58 @@
  *
  */
 
-#include "MultiplayerSampleAWSGameLiftClientSystemComponent.h"
+#include "MPSGameLiftClientSystemComponent.h"
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <Request/AWSGameLiftRequestBus.h>
 #include <Request/AWSGameLiftSessionRequestBus.h>
 #include <Request/AWSGameLiftJoinSessionRequest.h>
 
-namespace MultiplayerSample
+namespace MPSGameLift
 {
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::Reflect(AZ::ReflectContext* context)
+    void MPSGameLiftClientSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<MultiplayerSampleAWSGameLiftClientSystemComponent, AZ::Component>()
+            serialize->Class<MPSGameLiftClientSystemComponent, AZ::Component>()
                 ->Version(0)
                 ;
         }
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    void MPSGameLiftClientSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
-        provided.push_back(AZ_CRC_CE("MultiplayerSampleAWSGameLiftClientService"));
+        provided.push_back(AZ_CRC_CE("MPSGameLiftClientService"));
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    void MPSGameLiftClientSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC_CE("MultiplayerSampleAWSGameLiftClientService"));
+        incompatible.push_back(AZ_CRC_CE("MPSGameLiftClientService"));
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    void MPSGameLiftClientSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC_CE("AWSGameLiftClientService"));
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    void MPSGameLiftClientSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::Init()
+    void MPSGameLiftClientSystemComponent::Init()
     {
         m_playerId = AZ::Uuid::Create().ToString<AZStd::string>();
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::Activate()
+    void MPSGameLiftClientSystemComponent::Activate()
     {
         AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
     } 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::Deactivate()
+    void MPSGameLiftClientSystemComponent::Deactivate()
     {
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
+    void MPSGameLiftClientSystemComponent::JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters)
     {
         if (consoleFunctionParameters.size() != 1)
         {
@@ -67,7 +67,7 @@ namespace MultiplayerSample
         JoinSessionInternal(consoleFunctionParameters[0], m_playerId);
     }
 
-    void MultiplayerSampleAWSGameLiftClientSystemComponent::JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId)
+    void MPSGameLiftClientSystemComponent::JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId)
     {
         AWSGameLift::AWSGameLiftJoinSessionRequest request;
         request.m_sessionId = sessionId;

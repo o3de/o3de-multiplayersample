@@ -5,7 +5,7 @@
  *
  */
 
-#include "MultiplayerSampleAWSGameLiftServerSystemComponent.h"
+#include "MPSGameLiftServerSystemComponent.h"
 
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Interface/Interface.h>
@@ -13,39 +13,39 @@
 
 #include <Request/AWSGameLiftServerRequestBus.h>
 
-namespace MultiplayerSample
+namespace MPSGameLift
 {
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::Reflect(AZ::ReflectContext* context)
+    void MPSGameLiftServerSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<MultiplayerSampleAWSGameLiftServerSystemComponent, AZ::Component>()
+            serialize->Class<MPSGameLiftServerSystemComponent, AZ::Component>()
                 ->Version(0)
                 ;
         }
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    void MPSGameLiftServerSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
-        provided.push_back(AZ_CRC_CE("MultiplayerSampleAWSGameLiftServerService"));
+        provided.push_back(AZ_CRC_CE("MPSGameLiftServerService"));
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    void MPSGameLiftServerSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC_CE("MultiplayerSampleAWSGameLiftServerService"));
+        incompatible.push_back(AZ_CRC_CE("MPSGameLiftServerService"));
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    void MPSGameLiftServerSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC_CE("MultiplayerService"));
         required.push_back(AZ_CRC_CE("AWSGameLiftServerService"));
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::Init()
+    void MPSGameLiftServerSystemComponent::Init()
     {
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::Activate()
+    void MPSGameLiftServerSystemComponent::Activate()
     {
         Multiplayer::SessionNotificationBus::Handler::BusConnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusConnect();
@@ -54,26 +54,26 @@ namespace MultiplayerSample
             &AWSGameLift::AWSGameLiftServerRequestBus::Events::NotifyGameLiftProcessReady);
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::Deactivate()
+    void MPSGameLiftServerSystemComponent::Deactivate()
     {
         Multiplayer::SessionNotificationBus::Handler::BusDisconnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusDisconnect();
     }
 
-    bool MultiplayerSampleAWSGameLiftServerSystemComponent::OnSessionHealthCheck()
+    bool MPSGameLiftServerSystemComponent::OnSessionHealthCheck()
     {
         // Add here: additional checks against game stats or other conditions, if needed, to determine session health.
         // For now, sufficient to return true so Amazon GameLift knows server process is responsive.
         return true;
     }
 
-    void MultiplayerSampleAWSGameLiftServerSystemComponent::OnCreateSessionEnd()
+    void MPSGameLiftServerSystemComponent::OnCreateSessionEnd()
     {
         AzFramework::LevelLoadBlockerBus::Handler::BusDisconnect();
 
         if (!m_loadedLevelName.empty())
         {
-            AZ_Info("MultiplayerSampleAWSGameLiftServerSystemComponent", "Session requested by Amazon GameLift. Attempting to load level: '%s'", m_loadedLevelName.c_str());
+            AZ_Info("MPSGameLiftServerSystemComponent", "Session requested by Amazon GameLift. Attempting to load level: '%s'", m_loadedLevelName.c_str());
 
             auto loadLevelCommand = AZStd::string::format("LoadLevel %s", m_loadedLevelName.c_str());
             AZ::Interface<AZ::IConsole>::Get()->PerformCommand(loadLevelCommand.c_str());
@@ -81,21 +81,21 @@ namespace MultiplayerSample
         else
         {
             AZ_Info(
-                "MultiplayerSampleAWSGameLiftServerSystemComponent",
+                "MPSGameLiftServerSystemComponent",
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
     }
 
-    bool MultiplayerSampleAWSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)
+    bool MPSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)
     {
         m_loadedLevelName = levelName;
         if (levelName)
         {
-            AZ_Info("MultiplayerSampleAWSGameLiftServerSystemComponent", "Interrupted load of level: '%s'", levelName);
+            AZ_Info("MPSGameLiftServerSystemComponent", "Interrupted load of level: '%s'", levelName);
         }
         else
         {
-            AZ_Info("MultiplayerSampleAWSGameLiftServerSystemComponent", "Interrupted level load, but no level provided!");
+            AZ_Info("MPSGameLiftServerSystemComponent", "Interrupted level load, but no level provided!");
         }
         
         return true;
