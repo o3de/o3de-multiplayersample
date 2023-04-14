@@ -67,7 +67,7 @@ namespace MPSGameLift
         JoinSessionInternal(consoleFunctionParameters[0], m_playerId);
     }
 
-    void MPSGameLiftClientSystemComponent::JoinSessionInternal(const AZStd::string& sessionId, const AZStd::string& playerId)
+    void MPSGameLiftClientSystemComponent::JoinSessionInternal(AZStd::string_view sessionId, AZStd::string_view playerId)
     {
         AWSGameLift::AWSGameLiftJoinSessionRequest request;
         request.m_sessionId = sessionId;
