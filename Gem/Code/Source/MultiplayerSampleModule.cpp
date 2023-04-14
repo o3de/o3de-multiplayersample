@@ -63,11 +63,9 @@ namespace MultiplayerSample
          */
         AZ::ComponentTypeList GetRequiredSystemComponents() const override
         {
-            AZ::ComponentTypeList requiredSystemComponents{
+            return AZ::ComponentTypeList{
                 azrtti_typeid<MultiplayerSampleSystemComponent>(),
             };
-            
-            return requiredSystemComponents;
         }
     };
 }
