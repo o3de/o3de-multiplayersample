@@ -25,6 +25,8 @@ Game features:
 * Teleporters to aid player exploration
 * Many points of extensibility
 
+> A player can win the whole game early by reaching a score of 400. See the [GamePlay Configuration Docs](Documentation/GamplayConfiguration.md)
+
 ### Player controls
 
 * Move using: **W,A,S,D**
