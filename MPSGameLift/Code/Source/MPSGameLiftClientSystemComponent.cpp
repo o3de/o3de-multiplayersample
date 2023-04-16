@@ -45,7 +45,6 @@ namespace MPSGameLift
 
     void MPSGameLiftClientSystemComponent::Init()
     {
-        m_playerId = AZ::Uuid::Create().ToString<AZStd::string>();
     }
 
     void MPSGameLiftClientSystemComponent::Activate()
@@ -67,11 +66,11 @@ namespace MPSGameLift
         JoinSessionInternal(consoleFunctionParameters[0], m_playerId);
     }
 
-    void MPSGameLiftClientSystemComponent::JoinSessionInternal(AZStd::string_view sessionId, AZStd::string_view playerId)
+    void MPSGameLiftClientSystemComponent::JoinSessionInternal(AZStd::string_view sessionId, const AZ::Uuid& playerId)
     {
         AWSGameLift::AWSGameLiftJoinSessionRequest request;
         request.m_sessionId = sessionId;
-        request.m_playerId = playerId;
+        request.m_playerId = playerId.ToString<AZStd::string>();
 
         AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Broadcast(
             &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::JoinSessionAsync, request);
