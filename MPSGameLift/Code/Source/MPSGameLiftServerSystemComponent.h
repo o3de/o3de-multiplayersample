@@ -45,6 +45,6 @@ namespace MPSGameLift
         // AzFramework::LevelLoadBlockerBus::Handler overrides
         bool ShouldBlockLevelLoading(const char* levelName) override;
 
-        AZStd::string m_loadedLevelName = "";
+        AZStd::string m_loadedLevelName;
     };
 }
