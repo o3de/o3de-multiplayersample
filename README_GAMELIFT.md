@@ -37,11 +37,4 @@ Note: You may be inclined to move these cvars into a cfg file and start the game
     ```sh
     ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
     ```
-
-
-1. Paste in JSON blob
-Paste the custom player session token and click on Connect. Note: PlayerId passed into create-player-session shouldn't be the player id passed into the JSON block; keep these unique. 
-
-`
-{\n"FleetId": "fleet-6ae4d52f-4a6b-4591-99da-122d37922490",\n"GameSessionId": "arn:aws:gamelift:us-west-2::gamesession/fleet-6ae4d52f-4a6b-4591-99da-122d37922490/gsess-f2c14a63-e5fe-462f-9f8e-6be95b9dda26",\n"IpAddress": "35.87.147.200",\n"PlayerId": "abc123",\n"PlayerSessionId": "psess-abbf0c36-14a6-4497-8441-1a89119d2bca"\n}
-`
+1. The game launch should be connected to the server and your player can run around.
