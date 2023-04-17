@@ -13,7 +13,9 @@
     #include <MPSGameLiftClientSystemComponent.h>
 #endif
 
-#if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+ // We only want this logic to execute in dedicated server builds, not in the Editor or Unified builds.
+#define AZ_DEDICATED_SERVER_ONLY (AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT)
+#if AZ_DEDICATED_SERVER_ONLY
     #include <MPSGameLiftServerSystemComponent.h>
     #include <AzCore/Console/IConsole.h>
 #endif
@@ -54,25 +56,24 @@ namespace MPSGameLift
             #endif
 
             // Only activate the MultiplayerSample GameLift server system component if this a dedicated server running on GameLift.
-            #if (AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT)
-                if (const auto console = AZ::Interface<AZ::IConsole>::Get())
+            #if AZ_DEDICATED_SERVER_ONLY
+                const auto console = AZ::Interface<AZ::IConsole>::Get();
+                if (console == nullptr)
                 {
-                    bool sv_gameLiftEnabled = false;
-                    if (console->GetCvarValue("sv_gameLiftEnabled", sv_gameLiftEnabled) == AZ::GetValueResult::Success)
-                    {
-                        if (sv_gameLiftEnabled)
-                        {
-                            requiredSystemComponents.push_back(azrtti_typeid<MPSGameLiftServerSystemComponent>());
-                        }
-                    }
-                    else
-                    {
-                        AZ_Assert(false, "MultiplayerSample expecting to access an invalid sv_gameLiftEnabled. Please update code to properly check if GameLift is enabled in order to enable it's custom GameLift server system component.")
-                    }
+                    AZ_Assert(false, "MultiplayerSample expecting to check AZ::Console, but it's not available. Please update code to properly check if this server is running on GameLift.");
+                    return requiredSystemComponents;
                 }
-                else
+
+                bool sv_gameLiftEnabled = false;
+                if (console->GetCvarValue("sv_gameLiftEnabled", sv_gameLiftEnabled) != AZ::GetValueResult::Success)
                 {
-                    AZ_Assert(false, "MultiplayerSample expecting to check AZ::Console, but it's not available. Please update code to properly check if this server is running on GameLift.")
+                    AZ_Assert(false, "MultiplayerSample expecting to access an invalid sv_gameLiftEnabled. Please update code to properly check if GameLift is enabled in order to enable it's custom GameLift server system component.")
+                    return requiredSystemComponents;
+                }
+
+                if (sv_gameLiftEnabled)
+                {
+                    requiredSystemComponents.push_back(azrtti_typeid<MPSGameLiftServerSystemComponent>());
                 }
             #endif
 
