@@ -11,16 +11,19 @@
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
 #include <WeaponNotificationBus.h>
 
 #if AZ_TRAIT_CLIENT
 #   include <PopcornFX/PopcornFXBus.h>
+#   include <DebugDraw/DebugDrawBus.h>
 #endif
 
 namespace MultiplayerSample
 {
     AZ_CVAR(float, sv_EnergyBallImpulseScalar, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
+    AZ_CVAR(bool, cl_EnergyBallDebugDraw, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When turned on this will draw the current energy ball location");
 
     void EnergyBallComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -37,27 +40,71 @@ namespace MultiplayerSample
     {
         m_effect = GetExplosionEffect();
         m_effect.Initialize();
+
+#if AZ_TRAIT_CLIENT
+        // The energy ball particle effect defaults to active in the component, so initialize wasActive to true for the first state.
+        m_wasActive = true;
+        AZ::TickBus::Handler::BusConnect();
+#endif
     }
 
     void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_CLIENT
+        AZ::TickBus::Handler::BusDisconnect();
+#endif
+    }
+
+    void EnergyBallComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
+#if AZ_TRAIT_CLIENT
+        bool active = GetBallActive();
+
+        // Turn on the energy ball VFX. Physics on the server side will cause the energy ball to move.
+        if (active != m_wasActive)
+        {
+            if (active)
+            {
+                bool startSuccess = false;
+
+                // Set to true to call "Kill" which is deferred, or false to call "Terminate" which is immediate.
+                constexpr bool KillOnRestart = true;
+
+                PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(startSuccess,
+                    GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Restart, KillOnRestart);
+
+                AZ_Error("EnergyBall", startSuccess, "Restart call for Energy Ball was unsuccessful.");
+            }
+            else
+            {
+                bool killSuccess = false;
+
+                // This would ideally use Kill instead of Terminate, but there is a bug in PopcornFX 2.15.4 that if Kill is
+                // called on the first tick (which can happen), then the effect will get stuck in a permanent waiting-to-die state,
+                // and no amount of Restart calls will ever make it show up again.
+                PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(killSuccess,
+                    GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Terminate);
+
+                AZ_Error("EnergyBall", killSuccess, "Kill call for Energy Ball was unsuccessful.");
+            }
+            m_wasActive = active;
+        }
+
+        if (active && cl_EnergyBallDebugDraw)
+        {
+            DebugDraw();
+        }
+#endif
     }
 
 #if AZ_TRAIT_CLIENT
-    void EnergyBallComponent::HandleRPC_BallLaunched([[maybe_unused]] AzNetworking::IConnection* invokingConnection, [[maybe_unused]] const AZ::Vector3& location)
-    {
-        PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
-        if (emitterRequests != nullptr)
-        {
-            emitterRequests->Start();
-        }
-    }
-
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
+        // Crate an explosion effect wherever the ball was last at.
         AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitEvent.m_target);
         m_effect.TriggerEffect(transform);
 
+        // Notify every entity that was hit that they've received a weapon impact.
         for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
         {
             const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
@@ -65,11 +112,49 @@ namespace MultiplayerSample
             const AZ::EntityId hitEntityId = handle.Exists() ? handle.GetEntity()->GetId() : AZ::EntityId();
             WeaponNotificationBus::Broadcast(&WeaponNotificationBus::Events::OnWeaponImpact, GetEntity()->GetId(), hitTransform, hitEntityId);
         }
+    }
 
-        PopcornFX::PopcornFXEmitterComponentRequests* emitterRequests = PopcornFX::PopcornFXEmitterComponentRequestBus::FindFirstHandler(GetEntity()->GetId());
-        if (emitterRequests != nullptr)
+    void EnergyBallComponent::DebugDraw()
+    {
+        if (cl_EnergyBallDebugDraw)
         {
-            emitterRequests->Kill();
+            // Each draw only lasts one frame.
+            constexpr float DrawDuration = 0.0f;
+
+            auto* shapeConfig = GetGatherParams().GetCurrentShapeConfiguration();
+            if (shapeConfig->GetShapeType() == Physics::ShapeType::Sphere)
+            {
+                const Physics::SphereShapeConfiguration* sphere = static_cast<const Physics::SphereShapeConfiguration*>(shapeConfig);
+                float debugRadius = sphere->m_radius;
+
+                DebugDraw::DebugDrawRequestBus::Broadcast(
+                    &DebugDraw::DebugDrawRequestBus::Events::DrawSphereAtLocation,
+                    GetEntity()->GetTransform()->GetWorldTM().GetTranslation(),
+                    debugRadius,
+                    AZ::Colors::Green,
+                    DrawDuration
+                );
+            }
+            else if (shapeConfig->GetShapeType() == Physics::ShapeType::Box)
+            {
+                const Physics::BoxShapeConfiguration* box = static_cast<const Physics::BoxShapeConfiguration*>(shapeConfig);
+                AZ::Obb obb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+                    GetEntity()->GetTransform()->GetWorldTM().GetTranslation(),
+                    GetEntity()->GetTransform()->GetWorldTM().GetRotation(),
+                    box->m_dimensions / 2.0f
+                );
+
+                DebugDraw::DebugDrawRequestBus::Broadcast(
+                    &DebugDraw::DebugDrawRequestBus::Events::DrawObb,
+                    obb,
+                    AZ::Colors::Green,
+                    DrawDuration
+                );
+            }
+            else if (shapeConfig->GetShapeType() == Physics::ShapeType::Capsule)
+            {
+                AZ_Error("EnergyBall", false, "Capsule shape type not currently supported with energy ball debug visualization.");
+            }
         }
     }
 #endif
@@ -83,20 +168,29 @@ namespace MultiplayerSample
     void EnergyBallComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_SERVER
-        m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
+        SetBallActive(false);
 #endif
     }
 
     void EnergyBallComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_SERVER
-        m_collisionCheckEvent.RemoveFromQueue();
+        SetBallActive(false);
 #endif
     }
 
 #if AZ_TRAIT_SERVER
-    void EnergyBallComponentController::HandleRPC_LaunchBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId)
+    void EnergyBallComponentController::HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId)
     {
+        if (GetBallActive())
+        {
+            return;
+        }
+
+        m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
+
+        SetBallActive(true);
+
         m_shooterNetEntityId = owningNetEntityId;
         m_hitEvent.m_hitEntities.clear();
 
@@ -106,15 +200,14 @@ namespace MultiplayerSample
         m_direction = direction;
 
         // Move the entity to the start position
-        GetEntity()->GetTransform()->SetWorldTranslation(startingPosition);
+        GetNetworkTransformComponentController()->HandleMultiplayerTeleport(invokingConnection, startingPosition);
 
         // We want to sweep our transform during intersect tests to avoid the ball tunneling through targets
         m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
 
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::EnablePhysics);
+        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::EnablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
 
-        RPC_BallLaunched(startingPosition);
     }
 
     void EnergyBallComponentController::HandleRPC_KillBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
@@ -124,6 +217,11 @@ namespace MultiplayerSample
 
     void EnergyBallComponentController::CheckForCollisions()
     {
+        if (!GetBallActive())
+        {
+            return;
+        }
+
         const AZ::Vector3& position = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
         const HitEffect& effect = GetHitEffect();
 
@@ -174,17 +272,22 @@ namespace MultiplayerSample
 
     void EnergyBallComponentController::HideEnergyBall()
     {
+        if (!GetBallActive())
+        {
+            return;
+        }
+
+        SetBallActive(false);
+        m_collisionCheckEvent.RemoveFromQueue();
+
         m_hitEvent.m_target = GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
         m_hitEvent.m_shooterNetEntityId = m_shooterNetEntityId;
         m_hitEvent.m_projectileNetEntityId = GetNetEntityId();
-        RPC_BallExplosion(m_hitEvent);
 
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::DisablePhysics);
+        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::DisablePhysics);
         Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, AZ::Vector3::CreateZero());
 
-        // move self and increment resetCount to prevent transform interpolation
-        AZ::TransformBus::Event(GetEntityId(), &AZ::TransformBus::Events::SetWorldTranslation, AZ::Vector3::CreateAxisZ(-1000.f));
-        GetNetworkTransformComponentController()->ModifyResetCount()++;
+        RPC_BallExplosion(m_hitEvent);
     }
 #endif
 }
