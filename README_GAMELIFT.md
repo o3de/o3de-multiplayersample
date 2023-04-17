@@ -37,4 +37,4 @@ Note: You may be inclined to move these cvars into a cfg file and start the game
     ```sh
     ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
     ```
-1. The game launch should be connected to the server and your player can run around.
+1. The game launcher should be connected to the server and your player can run around.
