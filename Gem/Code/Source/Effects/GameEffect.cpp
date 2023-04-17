@@ -48,7 +48,10 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx != nullptr)
         {
-            m_popcornFx->DestroyEffect(m_emitter);
+            if (m_popcornFx->IsEffectAlive(m_emitter))
+            {
+                m_popcornFx->DestroyEffect(m_emitter);
+            }
             m_emitter = nullptr;
         }
 
@@ -72,8 +75,11 @@ namespace MultiplayerSample
 
         if (m_popcornFx != nullptr)
         {
-            const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(true, false, AZ::Transform::CreateIdentity());
-            m_emitter = m_popcornFx->SpawnEffectById(m_particleAssetId, params);
+            if (m_particleAssetId.IsValid())
+            {
+                const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(true, false, AZ::Transform::CreateIdentity());
+                m_emitter = m_popcornFx->SpawnEffectById(m_particleAssetId, params);
+            }
         }
 
         if (m_audioSystem != nullptr)
@@ -91,10 +97,18 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx != nullptr)
         {
-            int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
-            if (attrId >= 0)
+            if (m_popcornFx->IsEffectAlive(m_emitter))
             {
-                return m_popcornFx->EffectSetAttributeAsFloat(m_emitter, attrId, value);
+                int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
+                if (attrId >= 0)
+                {
+                    return m_popcornFx->EffectSetAttributeAsFloat(m_emitter, attrId, value);
+                }
+            }
+            else
+            {
+                AZ_Assert(false, "Setting attribute on an emitter that isn't active.");
+                return false;
             }
         }
 #endif
@@ -106,10 +120,18 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx != nullptr)
         {
-            int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
-            if (attrId >= 0)
+            if (m_popcornFx->IsEffectAlive(m_emitter))
             {
-                return m_popcornFx->EffectSetAttributeAsFloat2(m_emitter, attrId, value);
+                int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
+                if (attrId >= 0)
+                {
+                    return m_popcornFx->EffectSetAttributeAsFloat2(m_emitter, attrId, value);
+                }
+            }
+            else
+            {
+                AZ_Assert(false, "Setting attribute on an emitter that isn't active.");
+                return false;
             }
         }
 #endif
@@ -121,10 +143,18 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx != nullptr)
         {
-            int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
-            if (attrId >= 0)
+            if (m_popcornFx->IsEffectAlive(m_emitter))
             {
-                return m_popcornFx->EffectSetAttributeAsFloat3(m_emitter, attrId, value);
+                int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
+                if (attrId >= 0)
+                {
+                    return m_popcornFx->EffectSetAttributeAsFloat3(m_emitter, attrId, value);
+                }
+            }
+            else
+            {
+                AZ_Assert(false, "Setting attribute on an emitter that isn't active.");
+                return false;
             }
         }
 #endif
@@ -136,10 +166,18 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx != nullptr)
         {
-            int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
-            if (attrId >= 0)
+            if (m_popcornFx->IsEffectAlive(m_emitter))
             {
-                return m_popcornFx->EffectSetAttributeAsFloat4(m_emitter, attrId, value);
+                int32_t attrId = m_popcornFx->EffectGetAttributeId(m_emitter, attributeName);
+                if (attrId >= 0)
+                {
+                    return m_popcornFx->EffectSetAttributeAsFloat4(m_emitter, attrId, value);
+                }
+            }
+            else
+            {
+                AZ_Assert(false, "Setting attribute on an emitter that isn't active.");
+                return false;
             }
         }
 #endif
@@ -156,8 +194,16 @@ namespace MultiplayerSample
         {
             if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
             {
-                popcornFx->EffectSetTransform(m_emitter, transformOffset);
-                popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
+                if (m_popcornFx->IsEffectAlive(m_emitter))
+                {
+                    popcornFx->EffectSetTransform(m_emitter, transformOffset);
+                    popcornFx->EffectSetTeleportThisFrame(m_emitter);
+                    popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
+                }
+                else
+                {
+                    AZ_Assert(false, "Triggering an inactive emitter.");
+                }
             }
         }
 
