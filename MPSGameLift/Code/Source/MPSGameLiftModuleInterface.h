@@ -9,8 +9,10 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
 #include <Unified/MPSGameLiftSystemComponent.h>
+
 #if AZ_TRAIT_CLIENT
     #include <MPSGameLiftClientSystemComponent.h>
+    #include <Components/UI/UiGameLiftConnectJsonMenuComponent.h>
 #endif
 
  // We only want this logic to execute in dedicated server builds, not in the Editor or Unified builds.
@@ -20,6 +22,7 @@
     #include <AzCore/Console/IConsole.h>
 #endif
 
+#pragma optimize("",off)
 namespace MPSGameLift
 {
     class MPSGameLiftModuleInterface
@@ -35,8 +38,9 @@ namespace MPSGameLift
                 MPSGameLiftSystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
+                    UiGameLiftConnectJsonMenuComponent::CreateDescriptor(),
                 #endif
-                #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+                #if AZ_DEDICATED_SERVER_ONLY
                     MPSGameLiftServerSystemComponent::CreateDescriptor(),
                 #endif
                 });
@@ -81,3 +85,4 @@ namespace MPSGameLift
         }
     };
 }// namespace MPSGameLift
+#pragma optimize("",on)

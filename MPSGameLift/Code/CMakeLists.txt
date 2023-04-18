@@ -57,10 +57,13 @@ ly_add_target(
             AZ::AzCore
             AZ::AzFramework
             Gem::Multiplayer.Client
+            Gem::LyShine
+
         PRIVATE
             Gem::Multiplayer.Client.Static
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
+            Gem::LyShine.Static
 )
 
 ly_add_target(
@@ -104,10 +107,13 @@ ly_add_target(
             AZ::AzCore
             AZ::AzFramework
             Gem::Multiplayer
+            Gem::LyShine
+
         PRIVATE
             Gem::Multiplayer.Unified.Static
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
+            Gem::LyShine.Static
 )
 
 # Here add ${gem_name} target, it depends on the Private Object library and Public API interface

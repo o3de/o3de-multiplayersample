@@ -8,4 +8,6 @@
 set(FILES
     Source/MPSGameLiftClientSystemComponent.cpp
     Source/MPSGameLiftClientSystemComponent.h
+    Source/Components/UI/UiGameLiftConnectJsonMenuComponent.cpp
+    Source/Components/UI/UiGameLiftConnectJsonMenuComponent.h
 )
