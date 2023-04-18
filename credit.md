@@ -28,7 +28,7 @@
 
 ## Special Thanks
 
-* Adobe for contributing the Y-Bot character model and it’s animations.
+* Adobe for contributing the Y-Bot character model and its animations.
 * KitBash3D for contributing the High Tech Streets set.
 * Hexany Audio & Owen Cooper for creating the game’s audio.
 * PopcornFX for creating the game’s VFX.
