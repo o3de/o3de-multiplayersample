@@ -313,52 +313,6 @@
 									</ChildrenList>
 									<ObjectLists/>
 								</RandomSequenceContainer>
-								<RandomSequenceContainer Name="sx_ui_game_shutdown" ID="{D8F42F3B-707B-49E3-9585-AA0F04D2F474}" ShortID="539820758">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-15</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<Sound Name="sx_ui_game_shutdown_01" ID="{D44E96D4-84BD-4A69-B2C6-6D1128EB39F8}" ShortID="1027096618">
-											<PropertyList>
-												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="sx_ui_game_shutdown_01" ID="{B9DC95D3-4A0B-47DC-91A6-77231CE23142}">
-													<Language>SFX</Language>
-													<AudioFile>Hexany\ui\sx_ui_game_shutdown_01.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="632172693"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ObjectLists/>
-											<ActiveSourceList>
-												<ActiveSource Name="sx_ui_game_shutdown_01" ID="{B9DC95D3-4A0B-47DC-91A6-77231CE23142}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-									</ChildrenList>
-									<ObjectLists/>
-								</RandomSequenceContainer>
 							</ChildrenList>
 							<ObjectLists/>
 						</ActorMixer>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{8582AA88-0A9A-4FEC-BCB9-77D0CA9E8774}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{5D3AE987-B23A-43C3-8065-135D4594325B}">
+	<Events>
+		<WorkUnit Name="energyBallTrap" ID="{8582AA88-0A9A-4FEC-BCB9-77D0CA9E8774}" OwnerID="{5D3AE987-B23A-43C3-8065-135D4594325B}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="play_sx_int_energyballtrap_impact" ID="{4BD8BF4B-C265-4D3D-A9F5-00BA8DBF3173}">
+					<ChildrenList>
+						<Action Name="" ID="{5BABD659-278C-48DA-84EA-6405F7E20885}" ShortID="400091114">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_energyBallTrap_impact" ID="{70E8307B-25EA-4A9F-8569-959ED06A13CB}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stop_sx_int_energyballtrap_projectile" ID="{3714147F-B604-47AA-87DE-0B70D2AE676F}">
+					<ChildrenList>
+						<Action Name="" ID="{7FB106EA-03E9-4016-BA24-E6923DA0D51F}" ShortID="686360877">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_energyballtrap_buildup" ID="{E26765DC-56E5-444D-BA2E-6084A800C1EF}">
+					<ChildrenList>
+						<Action Name="" ID="{F6D72A11-88DB-425D-A30E-6BD6A3F0F637}" ShortID="849759192">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_energyBallTrap_buildup" ID="{13873A13-8973-4020-9FFB-501BD5BA5865}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_int_energyballtrap_projectile" ID="{4C9F5296-5B71-4CC3-8E72-63D2B8BEBAD9}">
+					<ChildrenList>
+						<Action Name="" ID="{C08664F7-3F9F-4C68-AC9A-1B3BC0BFA70A}" ShortID="187484371">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_int_energyBallTrap_projectile" ID="{6532E75E-4F40-4806-8BC9-24CE451B2221}" WorkUnitID="{91FC1C7C-6270-4F53-848A-9AD118F4D59E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

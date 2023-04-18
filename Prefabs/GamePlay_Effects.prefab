@@ -54,6 +54,17 @@
             "Id": "Entity_[39735885905361]",
             "Name": "GamePlay Effects",
             "Components": {
+                "Component_[10499912846971790039]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 10499912846971790039,
+                    "Play Trigger": {
+                        "controlName": "play_sx_amb_ext_general"
+                    },
+                    "Stop Trigger": {
+                        "controlName": "stop_sx_amb_ext_general"
+                    },
+                    "Plays Immediately": true
+                },
                 "Component_[11946705441174808443]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 11946705441174808443
@@ -99,6 +110,13 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 16666566038828336824
                 },
+                "Component_[3179767639590962629]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3179767639590962629,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
                 "Component_[4614452708224633330]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 4614452708224633330
@@ -122,8 +140,6 @@
                         "ArmorBreaking": "play_sx_player_armor_breaking",
                         "ArmorMend": "",
                         "PlayerOuch": "play_sx_player_pain",
-                        "LadderClimb": "play_sx_player_ladder_climb",
-                        "ShutDown": "play_sx_ui_game_shutdown",
                         "CountDown": "play_sx_ui_game_countdown",
                         "GemPickup": "play_sx_int_gem_pickup",
                         "VictoryFanfare": "play_sx_ui_game_fanfare_victory",
@@ -133,17 +149,14 @@
                         "GameEnd": "play_sx_ui_game_end",
                         "LaserPistolMuzzleFlash": "play_sx_wpn_laserpistol_fire",
                         "LaserPistolImpact": "play_sx_wpn_laserpistol_impact",
-                        "BubbleGunBuildup": "play_sx_wpn_bubblegun_buildup",
                         "BubbleGunMuzzleFlash": "play_sx_wpn_bubblegun_fire",
                         "BubbleGunProjectile": "play_sx_wpn_bubblegun_projectile",
                         "BubbleGunImpact": "play_sx_wpn_bubblegun_impact",
                         "JumpPadLaunch": "play_sx_int_jumppad_launch",
                         "TeleporterUse": "play_sx_int_jumppad_launch",
-                        "EnergyBallTrapRisingOutOfTheGround": "play_sx_int_energyballtrap_rising",
                         "EnergyBallTrapBuildup": "play_sx_int_energyballtrap_buildup",
                         "EnergyBallTrapProjectile": "play_sx_int_energyballtrap_projectile",
-                        "EnergyBallTrapImpact": "play_sx_int_energyballtrap_impact",
-                        "EnergyBallTrapOnCooldown": "play_sx_int_energyballtrap_oncooldown"
+                        "EnergyBallTrapImpact": "play_sx_int_energyballtrap_impact"
                     }
                 },
                 "Component_[8376277465513176068]": {

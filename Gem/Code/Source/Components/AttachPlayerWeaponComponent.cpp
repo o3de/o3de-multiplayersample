@@ -5,6 +5,7 @@
  *
  */
 
+#include <AzCore/Asset/AssetSerializer.h>
 #include <AzCore/Math/Transform.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
