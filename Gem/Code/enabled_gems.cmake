@@ -66,4 +66,6 @@ set(ENABLED_GEMS
     Terrain
     Profiler
     Stars
+    AWSGameLift
+    MPSGameLift
 )
