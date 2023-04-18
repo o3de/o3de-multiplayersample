@@ -42,62 +42,53 @@ namespace MultiplayerSample
         m_effect.Initialize();
 
 #if AZ_TRAIT_CLIENT
-        // The energy ball particle effect defaults to active in the component, so initialize wasActive to true for the first state.
-        m_wasActive = true;
-        AZ::TickBus::Handler::BusConnect();
+        BallActiveAddEvent(m_ballActiveHandler);
 #endif
     }
 
     void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_CLIENT
-        AZ::TickBus::Handler::BusDisconnect();
+        m_ballActiveHandler.Disconnect();
 #endif
     }
 
-    void EnergyBallComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+#if AZ_TRAIT_CLIENT
+    void EnergyBallComponent::OnBallActiveChanged(bool active)
     {
-#if AZ_TRAIT_CLIENT
-        bool active = GetBallActive();
-
-        // Turn on the energy ball VFX. Physics on the server side will cause the energy ball to move.
-        if (active != m_wasActive)
+        if (active)
         {
-            if (active)
+            bool startSuccess = false;
+
+            // Set to true to call "Kill" which is deferred, or false to call "Terminate" which is immediate.
+            constexpr bool KillOnRestart = true;
+
+            PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(startSuccess,
+                GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Restart, KillOnRestart);
+
+            AZ_Error("EnergyBall", startSuccess, "Restart call for Energy Ball was unsuccessful.");
+
+            if (cl_EnergyBallDebugDraw)
             {
-                bool startSuccess = false;
-
-                // Set to true to call "Kill" which is deferred, or false to call "Terminate" which is immediate.
-                constexpr bool KillOnRestart = true;
-
-                PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(startSuccess,
-                    GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Restart, KillOnRestart);
-
-                AZ_Error("EnergyBall", startSuccess, "Restart call for Energy Ball was unsuccessful.");
+                m_debugDrawEvent.Enqueue(AZ::TimeMs{ 0 }, true);
             }
-            else
-            {
-                bool killSuccess = false;
-
-                // This would ideally use Kill instead of Terminate, but there is a bug in PopcornFX 2.15.4 that if Kill is
-                // called on the first tick (which can happen), then the effect will get stuck in a permanent waiting-to-die state,
-                // and no amount of Restart calls will ever make it show up again.
-                PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(killSuccess,
-                    GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Terminate);
-
-                AZ_Error("EnergyBall", killSuccess, "Kill call for Energy Ball was unsuccessful.");
-            }
-            m_wasActive = active;
         }
-
-        if (active && cl_EnergyBallDebugDraw)
+        else
         {
-            DebugDraw();
+            bool killSuccess = false;
+
+            // This would ideally use Kill instead of Terminate, but there is a bug in PopcornFX 2.15.4 that if Kill is
+            // called on the first tick (which can happen), then the effect will get stuck in a permanent waiting-to-die state,
+            // and no amount of Restart calls will ever make it show up again.
+            PopcornFX::PopcornFXEmitterComponentRequestBus::EventResult(killSuccess,
+                GetEntity()->GetId(), &PopcornFX::PopcornFXEmitterComponentRequestBus::Events::Terminate);
+
+            AZ_Error("EnergyBall", killSuccess, "Kill call for Energy Ball was unsuccessful.");
+
+            m_debugDrawEvent.RemoveFromQueue();
         }
-#endif
     }
 
-#if AZ_TRAIT_CLIENT
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
         // Crate an explosion effect wherever the ball was last at.

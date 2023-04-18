@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <AzCore/Component/TickBus.h>
 #include <Source/AutoGen/EnergyBallComponent.AutoComponent.h>
 #include <Source/Weapons/WeaponGathers.h>
 
@@ -15,7 +14,6 @@ namespace MultiplayerSample
 {
     class EnergyBallComponent
         : public EnergyBallComponentBase
-        , public AZ::TickBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::EnergyBallComponent, s_energyBallComponentConcreteUuid, MultiplayerSample::EnergyBallComponentBase);
@@ -25,7 +23,6 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
 #if AZ_TRAIT_CLIENT
         void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent) override;
 #endif
@@ -33,9 +30,19 @@ namespace MultiplayerSample
     private:
 #if AZ_TRAIT_CLIENT
         void DebugDraw();
+        void OnBallActiveChanged(bool active);
+
+        AZ::ScheduledEvent m_debugDrawEvent{ [this]()
+        {
+            DebugDraw();
+        }, AZ::Name("EnergyBallDebugDraw") };
+
+        AZ::Event<bool>::Handler m_ballActiveHandler{ [this](bool active)
+        {
+            OnBallActiveChanged(active);
+        } };
 #endif
-        // Track the previous "ball active" state so we know whether or not to flip the energy ball particle effect state.
-        bool m_wasActive = true;
+
         GameEffect m_effect;
     };
 
