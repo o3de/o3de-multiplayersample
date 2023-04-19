@@ -10,7 +10,8 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 1. Enable the "AWSGameLift" and "MPSGameLift" gem by adding them to MultiplayerSample/Gem/Code/enabled_gems.cmake
 1. Build the server and game launchers for MultiplayerSample as normal, per [top-level README](/README.md).
 1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
-    a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region. This should be removed once we properly parse the game/player session which contains the fleet-id, region-id, etc  
+    a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region. 
+    b. This step will be removed once we properly parse the game-session data which contains the fleet-id, region-id, etc  
 
 ## Build Server for Windows
 1. WiP Step: Build a profile pak server build
