@@ -2535,6 +2535,11 @@
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 16817453197198982078
                 },
+                "Component_[2619917249643206097]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 2619917249643206097,
+                    "Configuration": "For more information about lighting please see the level design guide in the documentation folder. <Add Link>"
+                },
                 "Component_[376094705505411548]": {
                     "$type": "EditorEntitySortComponent",
                     "Id": 376094705505411548,
@@ -4486,6 +4491,11 @@
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 7186247374812053450,
                     "Parent Entity": "Entity_[60274689909647]"
+                },
+                "Component_[7963844296059785842]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 7963844296059785842,
+                    "Configuration": "This is a simple 1x1 tile terrain. The spawners operating within the bounds of the box for the terrain spawner. The child entity height is an image gradient signal that loads a height map asset to generate the height map, which is then sampled by the parent terrain entity, via the terrain height grandient list component. The matching macro color map and macro normal map are loaded in the terrain macro material component. "
                 },
                 "Component_[9388349147874105140]": {
                     "$type": "EditorTerrainLayerSpawnerComponent",
@@ -7097,6 +7107,11 @@
                     "$type": "EditorInspectorComponent",
                     "Id": 17057238313917441482
                 },
+                "Component_[17703777834056015433]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 17703777834056015433,
+                    "Configuration": "This is currently not contributing to global illumination. This is where we would add one or more reflection probes to bake reflections for the level geometry."
+                },
                 "Component_[2149849594454303666]": {
                     "$type": "EditorOnlyEntityComponent",
                     "Id": 2149849594454303666
@@ -8527,6 +8542,11 @@
                 "Component_[15744299950611104828]": {
                     "$type": "EditorDisabledCompositionComponent",
                     "Id": 15744299950611104828
+                },
+                "Component_[1684972590650734165]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 1684972590650734165,
+                    "Configuration": "The sun properties of the sky atmosphere contains a  reference to the child sun entity. The transform of the child sun entity determines the position of the sun in the sky atmpshpere. The sky atmosphere is baked into the image based lighting that is loaded into the Global illlumination sample's lighting information from the sky light, the sky atmosphere and the sun entity."
                 },
                 "Component_[1728065122520318572]": {
                     "$type": "EditorLockComponent",
@@ -11239,6 +11259,11 @@
                     "$type": "EditorEntityIconComponent",
                     "Id": 11895140916889160460
                 },
+                "Component_[13025475667675684062]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 13025475667675684062,
+                    "Configuration": "This 3rd person spring-arm camera is controlled by each client's player."
+                },
                 "Component_[16880285896855930892]": {
                     "$type": "{CA11DA46-29FF-4083-B5F6-E02C3A8C3A3D} EditorCameraComponent",
                     "Id": 16880285896855930892,
@@ -11246,7 +11271,7 @@
                         "Configuration": {
                             "Field of View": 55.0,
                             "Far Clip Plane Distance": 4096.0,
-                            "EditorEntityId": 10557690388680515673
+                            "EditorEntityId": 17729197467549002539
                         }
                     }
                 },
@@ -11612,6 +11637,11 @@
                 "Component_[612576140938853376]": {
                     "$type": "EditorPendingCompositionComponent",
                     "Id": 612576140938853376
+                },
+                "Component_[7829044378931254902]": {
+                    "$type": "EditorCommentComponent",
+                    "Id": 7829044378931254902,
+                    "Configuration": "Global ambient \"background\" audio for the level is hooked up here. Individual prefabs may have their own ambient sounds."
                 },
                 "Component_[9778753844251016872]": {
                     "$type": "EditorBoxShapeComponent",
@@ -30814,7 +30844,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30854,7 +30884,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30894,7 +30924,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30934,7 +30964,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -30974,7 +31004,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31014,7 +31044,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31054,7 +31084,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
@@ -31094,7 +31124,7 @@
                 {
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[2563122736071885678]/Transform Data/Rotate/1",
-                    "value": 1.2738307587564779e-12
+                    "value": 1.273830758756478e-12
                 },
                 {
                     "op": "replace",
