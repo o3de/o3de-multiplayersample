@@ -73,6 +73,9 @@ set(FILES
     Source/Components/Multiplayer/EnergyCannonComponent.cpp
     Source/Components/Multiplayer/EnergyCannonComponent.h
 
+    Source/Components/BackgroundMusicComponent.cpp
+    Source/Components/BackgroundMusicComponent.h
+
     Source/Components/RpcTesterComponent.cpp
     Source/Components/RpcTesterComponent.h
     
