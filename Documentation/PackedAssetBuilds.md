@@ -1,7 +1,7 @@
 # Packaged MultiplayerSample Builds
 To make relocatable client and server builds for the MultiplayerSample, we recommend making packaged builds. These package builds will contain the Game or Server Launcher and the bundled assets needed to run the launcher outside of the developer environment.
 
-You can make both release packaged builds or profile packaged builds, see https://www.o3de.org/docs/user-guide/packaging/windows-release-builds/.
+You can make both release packaged builds or profile packaged builds. For more information about creating release builds, see the O3DE documentation on [Creating a Project Game Release Layout for Windows](https://www.o3de.org/docs/user-guide/packaging/windows-release-builds/).
 
 The guide below covers how to make profile packaged builds which are very useful for early sharing and play testing.
 
@@ -44,10 +44,10 @@ cmake --build build\windows --target AssetBundler --config profile -- /m /nologo
 Build a second version of the executables as monolithic pak builds.
 
 ``` shell
-// Create build files for a monolithic build that also disables all user/project registry settings overrides
+# Create build files for a monolithic build that also disables all user/project registry settings overrides
 cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_3RDPARTY_PATH=c:\your\path\to\3rdParty -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0
 
-// Build the profile versions of all the executables
+# Build the profile versions of all the executables
 cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile -- /m /nologo
 ```
 
@@ -56,7 +56,7 @@ The outputs in windows_mono\bin\profile can be copied and run anywhere, once the
 
 ### Bundle Content
 
-Run the  AssetBundler
+Run the AssetBundler
 
 ```
 build\windows\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
