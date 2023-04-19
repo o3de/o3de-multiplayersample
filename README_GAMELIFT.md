@@ -5,7 +5,6 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 ## Running with [GameLift](https://docs.aws.amazon.com/gamelift/index.html)
 
 ### Setup
-
 1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), if you don't already have it. You will need it to create a game session with GameLiftLocal.
 1. Enable the "AWSGameLift" and "MPSGameLift" gem by adding them to MultiplayerSample/Gem/Code/enabled_gems.cmake
 1. Build the server and game launchers for MultiplayerSample as normal, per [top-level README](/README.md).
@@ -13,9 +12,42 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
     a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region. 
     b. This step will be removed once we properly parse the game-session data which contains the fleet-id, region-id, etc  
 
-## Build Server for Windows
-1. WiP Step: Build a profile pak server build
+## Build Server for Windows (WiP)
+1. WiP Step: Build a profile pak server/game build
     a. This step should be replaced by building a proper release build
+1. Build Monolithic Server
+    a. cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0
+    b. cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile -- /m /nologo
+1. Bundle Content
+    a. build\windows\bin\profile\AssetBundler.exe
+    b. Follow steps for "Create a bundle for game assets" and "Create a bundle for engine assets" and "Add bundles to the release game layout" here: https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
+
+The "default seed lists" choice should choose all but 4 seed lists to make the engine_pc.pak
+The other 4 seed lists should all get selected to make the game_pc.pak
+It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
+1. Create the Launcher Zip file
+   Use the following .bat file or equivalent copy steps to create a directory with the launchers in it:
+   ```sh
+    rem Use this by calling 'make_release D:\my\output\GameLiftPackageWindows' to make a release directory
+    mkdir %1
+    mkdir %1\Cache
+    mkdir %1\Cache\pc
+    mkdir %1\Gems
+    mkdir %1\Gems\AWSCore
+    
+    rem Copy the pak files
+    copy D:\github\o3de-multiplayersample\AssetBundling\Bundles\*.pak %1\Cache\pc
+    
+    rem Copy the executables and DLLs
+    copy D:\github\o3de-multiplayersample\build\windows_mono\bin\profile\*.* %1
+    
+    rem Copy the AWSCore files
+    copy D:\github\o3de-multiplayersample\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
+    
+    rem Copy the launch_client / launch_server files
+    copy D:\github\o3de-multiplayersample\launch_*.* %1
+    ```
+
 
 ## Prepare for GameLift
 ### Upload the build to GameLift
@@ -29,7 +61,7 @@ This returns the build id which will be used in the next steps. Example Build ID
 After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
 
 `
-aws gamelift create-fleet --region us-west-2 --name GlLyTest2F --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-f447776f-b4ba-4f1e-99cf-09d49f114942 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\Bin64vc141.Release.Dedicated\MultiplayerSampleLauncher_Server.exe, Parameters= --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --loadlevel=NewStarbase, ConcurrentExecutions=10}]" --ec2-inbound-permissions "FromPort=33435,ToPort=33435,IpRange=0.0.0.0/0,Protocol=UDP" "FromPort=33235,ToPort=33235,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region us-west-2 --name GlLyTest2F --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-f447776f-b4ba-4f1e-99cf-09d49f114942 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --loadlevel=NewStarbase, ConcurrentExecutions=10}]" --ec2-inbound-permissions "FromPort=33435,ToPort=33435,IpRange=0.0.0.0/0,Protocol=UDP" "FromPort=33235,ToPort=33235,IpRange=0.0.0.0/0,Protocol=UDP"
 `
 
 Record the fleet-id for the next step.
