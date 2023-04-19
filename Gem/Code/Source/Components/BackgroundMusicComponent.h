@@ -34,6 +34,7 @@ namespace MultiplayerSample
 
     private:
         size_t m_trackIndex = 0;
+        bool m_shuffle = false;
         AZStd::vector<AZStd::string> m_playlist;
         Audio::IAudioSystem* m_audioSystem = nullptr;
         Audio::TATLIDType m_currentTrackTriggerId = INVALID_AUDIO_CONTROL_ID;

@@ -20,6 +20,7 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<BackgroundMusicComponent, AZ::Component>()
+                ->Field("Shuffle", &BackgroundMusicComponent::m_shuffle)
                 ->Field("Playlist", &BackgroundMusicComponent::m_playlist)
                 ->Version(1);
 
@@ -30,6 +31,7 @@ namespace MultiplayerSample
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "MultiplayerSample")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &BackgroundMusicComponent::m_shuffle, "Shuffle", "If true, the playlist will be shuffled and play in a randomized ordering")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &BackgroundMusicComponent::m_playlist, "Playlist", "The set of background music audio triggers to play");
             }
         }
@@ -54,6 +56,16 @@ namespace MultiplayerSample
     {
 #if AZ_TRAIT_CLIENT
         m_audioSystem = AZ::Interface<Audio::IAudioSystem>::Get();
+
+        if (m_shuffle)
+        {
+            // Basic Knuth shuffle
+            for (size_t index = m_playlist.size() - 1; index >= 1; --index)
+            {
+                size_t shuffleElement = rand() % (index + 1);
+                AZStd::swap(m_playlist[index], m_playlist[shuffleElement]);
+            }
+        }
 
         if (m_audioSystem != nullptr)
         {
