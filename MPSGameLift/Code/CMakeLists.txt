@@ -64,6 +64,7 @@ ly_add_target(
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
             Gem::LyShine.Static
+
 )
 
 ly_add_target(
@@ -133,6 +134,8 @@ ly_add_target(
             Gem::${gem_name}.API
         PRIVATE
             Gem::Multiplayer.Client.Static
+            Gem::AWSCore.Static
+            Gem::AWSGameLift.Client.Static
             Gem::${gem_name}.Client.Private.Object
 )
 
@@ -219,6 +222,9 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             PUBLIC
                 AZ::AzToolsFramework
+                Gem::Multiplayer.Unified.Static
+                Gem::AWSCore.Static
+                Gem::AWSGameLift.Client.Static
                 $<TARGET_OBJECTS:Gem::${gem_name}.Unified.Private.Object>
     )
 

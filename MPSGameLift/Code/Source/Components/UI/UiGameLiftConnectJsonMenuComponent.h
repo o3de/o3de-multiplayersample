@@ -11,6 +11,9 @@
 #include <AzCore/Component/Component.h>
 #include <Multiplayer/IMultiplayer.h>
 
+#include <Request/AWSGameLiftJoinSessionRequest.h>
+#include <Multiplayer/Session/ISessionRequests.h>
+
 namespace MPSGameLift
 {
     /*!
@@ -18,7 +21,8 @@ namespace MPSGameLift
      * \brief Ui component used for connecting to GameLift using a JSON string containing the fleet-id, game-session, player-session, etc.
     */
     class UiGameLiftConnectJsonMenuComponent
-        : public AZ::Component
+        : public AZ::Component,
+          Multiplayer::SessionAsyncRequestNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(MPSGameLift::UiGameLiftConnectJsonMenuComponent, "{328C97C3-D4BC-4A07-94F1-E1462908FC7A}");
@@ -33,16 +37,25 @@ namespace MPSGameLift
         void Deactivate() override;
 
     private:
+        //! Multiplayer::SessionAsyncRequestNotificationBus overrides...
+        void OnCreateSessionAsyncComplete(const AZStd::string& ) override {}
+        void OnSearchSessionsAsyncComplete(const Multiplayer::SearchSessionsResponse& ) override {}
+        void OnJoinSessionAsyncComplete(bool joinSessionsResponse) override;
+        void OnLeaveSessionAsyncComplete() override {}
+        
         // Listen for disconnect events to know if connecting to the host server failed
         void OnConnectToHostFailed();
         Multiplayer::EndpointDisconnectedEvent::Handler m_onConnectToHostFailed{[this]([[maybe_unused]] Multiplayer::MultiplayerAgentType agent) { OnConnectToHostFailed(); }};
 
         void OnButtonClicked(AZ::EntityId buttonEntityId) const;
+        void OnJSONChanged(const AZStd::string& gameLiftJsonString);
 
         AZ::EntityId m_connectButtonUi;
-        AZ::EntityId m_exitButtonUi;
-        AZ::EntityId m_ipAddressTextInputUi;
+        AZ::EntityId m_quitButtonUi;
+        AZ::EntityId m_jsonInputUi;
         AZ::EntityId m_attemptConnectionBlockerUi;
         AZ::EntityId m_connectToHostFailedUi;
+        AZ::EntityId m_jsonParseFailTextUi;
+        AWSGameLift::AWSGameLiftJoinSessionRequest m_request;
     };
 } // namespace MultiplayerSample
