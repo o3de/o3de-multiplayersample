@@ -7,7 +7,6 @@ The guide below covers how to make profile packaged builds which are very useful
 
 ## Windows Profile PAK Setup
 
-
 ### Install WWise
 Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. WWise is needed to process and package audio assets in the project.
 
@@ -96,7 +95,9 @@ rem Copy the PIX DLLs if PIX is enabled in the build
 :: copy c:\your\path\to\3rdParty\WinPixEventRuntime\bin\x64 %1
 ```
 
-It's recommended during testing you track the commit IDs used from o3de, o3de-multiplayersample, and o3de-multiplayersample-assets to have as reference. 
+Note: The script above will copy everything from the profile directory. You can either remove files you don't require such as .pdb files to save space, or modify the script to copy just whats needed.
+
+It's recommended during testing that you include source information for your build, such as the commit IDs for o3de, o3de-multiplayersample, and o3de-multiplayersample-assets.
 You can add this as .txt file in the build folder.
 
 Zip up the directory before running it to make sure the zip is "pure" without any logs or artifacts.
