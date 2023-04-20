@@ -18,7 +18,7 @@
 #include <Components/BackgroundMusicComponent.h>
 #include <Components/ScriptableDecalComponent.h>
 #include <Source/AutoGen/AutoComponentTypes.h>
-#include "MultiplayerSampleSystemComponent.h"
+#include <MultiplayerSampleSystemComponent.h>
 
 #if AZ_TRAIT_CLIENT
 #   include <Components/UI/HUDComponent.h>
@@ -26,6 +26,7 @@
 #   include <Components/UI/UiRestBetweenRoundsComponent.h>
 #   include <Components/UI/UiSettingsComponent.h>
 #   include <Components/UI/UiStartMenuComponent.h>
+    #include <UserSettings/MultiplayerSampleUserSettings.h>
 #endif
 
 namespace MultiplayerSample
@@ -72,6 +73,13 @@ namespace MultiplayerSample
                 azrtti_typeid<MultiplayerSampleSystemComponent>(),
             };
         }
+
+#if AZ_TRAIT_CLIENT
+        // This needs to be created as a part of the MultiplayerSampleModule, not during any sort of System Component activation.
+        // It will affect registry keys that get read by System Components as a part of their activation and we can't guarantee
+        // that those other core System Components will get started after our game-specific one.
+        MultiplayerSampleUserSettings m_userSettings;
+#endif
     };
 }
 
