@@ -24,11 +24,25 @@ namespace MultiplayerSample
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
 #if AZ_TRAIT_CLIENT
-        void HandleRPC_BallLaunched(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& location) override;
         void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent) override;
 #endif
 
     private:
+#if AZ_TRAIT_CLIENT
+        void DebugDraw();
+        void OnBallActiveChanged(bool active);
+
+        AZ::ScheduledEvent m_debugDrawEvent{ [this]()
+        {
+            DebugDraw();
+        }, AZ::Name("EnergyBallDebugDraw") };
+
+        AZ::Event<bool>::Handler m_ballActiveHandler{ [this](bool active)
+        {
+            OnBallActiveChanged(active);
+        } };
+#endif
+
         GameEffect m_effect;
     };
 
