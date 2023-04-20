@@ -57,6 +57,8 @@ These instructions use the following installation paths. Be sure to substitute y
 
 <span style="background-color:#4F3C3C">**NOTE:** You can clone the project to any local directory. If you clone the project inside an existing Git repository directory (for example, the directory that contains your local O3DE engine repository) you should add the o3de-multiplayersample project directory to the Git exclude file for the existing Git repository.</span>
 
+It is expected that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same branch. If using development o3de-multiplayersample, then match with development branches of o3de, and o3de-multiplayersample. If using a release version of o3de, then checkout the corresponding tags for o3de-multiplayer and o3de-multiplayersample-assets ie `git checkout tags/<tag> -b local branch name>`.
+
 ### Option #1 (Recommended) - Cloning into a directory outside the engine repository directory
 
 1. In a terminal, `cd` to the local directory where you'd like to clone the project, for example:
