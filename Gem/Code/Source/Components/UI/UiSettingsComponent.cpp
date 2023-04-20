@@ -67,7 +67,7 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::Activate()
     {
-        // Make sure to load and apply the current user settings when this component activates.
+        // Loads and applies the current user settings when this component activates.
         // The user settings should *already* be loaded and applied at Launcher startup, but connecting to the server
         // and switching levels can cause some engine settings to reset themselves, so this will reapply the desired
         // user settings again.

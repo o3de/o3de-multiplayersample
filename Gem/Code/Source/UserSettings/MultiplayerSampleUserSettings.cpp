@@ -20,12 +20,12 @@
 
 namespace MultiplayerSample
 {
-	MultiplayerSampleUserSettings::MultiplayerSampleUserSettings()
+    MultiplayerSampleUserSettings::MultiplayerSampleUserSettings()
         : m_graphicsApiKey(BaseRegistryKey + FixedString("/ApiName"))
         , m_masterVolumeKey(BaseRegistryKey + FixedString("/MasterVolume"))
         , m_textureQualityKey(BaseRegistryKey + FixedString("/TextureQuality"))
 
-	{
+    {
         MultiplayerSampleUserSettingsRequestBus::Handler::BusConnect();
 
         // Create a full path including filename for the user settings file.
@@ -37,18 +37,21 @@ namespace MultiplayerSample
         Load();
     }
 
-	MultiplayerSampleUserSettings::~MultiplayerSampleUserSettings()
-	{
+    MultiplayerSampleUserSettings::~MultiplayerSampleUserSettings()
+    {
         MultiplayerSampleUserSettingsRequestBus::Handler::BusDisconnect();
 
         // Always auto-save the user settings on destruction.
         Save();
-	}
+    }
 
     void MultiplayerSampleUserSettings::Load()
     {
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
+            // Read the setreg file from a loose file into a string in memory. This isn't technically a "cfg" file,
+            // but the method does the exact set of steps needed here to read a loose file into memory, so even though
+            // it has a slightly misleading name, it keeps us from duplicating the code.
             AZ::Outcome<AZStd::string, AZStd::string> userSettings = 
                 AzFramework::FileFunc::GetCfgFileContents(AZStd::string(m_userSettingsPath.FixedMaxPathString()));
 
@@ -56,6 +59,10 @@ namespace MultiplayerSample
             {
                 // Merge the user settings file under the base "/O3DE/MultiplayerSample/User/Settings" key.
                 // This will ensure that it cannot overwrite any other engine settings.
+                // MergeSettings() is used here instead of MergeSettingsFile() because MergeSettingsFile() uses
+                // FileIOBase to read in the file, which will attempt to read it from a PAK file in PAK file builds.
+                // Our settings file will always be a loose file, so we instead read it into a buffer beforehand and then
+                // apply it here from the in-memory buffer.
                 [[maybe_unused]] auto mergeSuccess = registry->MergeSettings(userSettings.GetValue(),
                     AZ::SettingsRegistryInterface::Format::JsonMergePatch, BaseRegistryKey);
 
@@ -136,6 +143,8 @@ namespace MultiplayerSample
                     Audio::ObjectRequest::SetParameterValue setParameter;
                     setParameter.m_audioObjectId = INVALID_AUDIO_OBJECT_ID;
                     setParameter.m_parameterId = rtpcId;
+                    // Master volume in the audio system is expected to be 0.0 (min) - 1.0 (max), but we're using 0 - 100 as integers,
+                    // so convert it from 0 - 100 to the 0 - 1 range.
                     setParameter.m_value = masterVolume / 100.0f;
                     AZ::Interface<Audio::IAudioSystem>::Get()->PushRequest(AZStd::move(setParameter));
                 }

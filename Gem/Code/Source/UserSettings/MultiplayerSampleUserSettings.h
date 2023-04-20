@@ -53,14 +53,14 @@ namespace MultiplayerSample
     // settings need to be loaded before system components are initialized because the Atom system components load the graphics
     // API. All of the other settings are changeable at any time and would have allowed this class to get created later in the
     // boot process.
-	class MultiplayerSampleUserSettings : public MultiplayerSampleUserSettingsRequestBus::Handler
-	{
-	public:
-		MultiplayerSampleUserSettings();
-		~MultiplayerSampleUserSettings();
+    class MultiplayerSampleUserSettings : public MultiplayerSampleUserSettingsRequestBus::Handler
+    {
+    public:
+        MultiplayerSampleUserSettings();
+        ~MultiplayerSampleUserSettings() override;
 
         void Load() override;
-		void Save() override;
+        void Save() override;
 
         AZStd::string GetGraphicsApi() override;
         void SetGraphicsApi(const AZStd::string& apiName) override;
