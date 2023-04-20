@@ -6,6 +6,7 @@
  */
 
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
+#include <Source/Components/Multiplayer/EnergyCannonComponent.h>
 #include <Source/AutoGen/NetworkHealthComponent.AutoComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
@@ -68,6 +69,16 @@ namespace MultiplayerSample
 
             AZ_Error("EnergyBall", startSuccess, "Restart call for Energy Ball was unsuccessful.");
 
+            const Multiplayer::ConstNetworkEntityHandle cannonHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(GetShooterNetEntityId());
+            if (cannonHandle.Exists())
+            {
+                const EnergyCannonComponent* cannonComponent = cannonHandle.FindComponent<EnergyCannonComponent>();
+                if (cannonComponent != nullptr)
+                {
+                    cannonComponent->KillBuildupEffect();
+                }
+            }
+
             if (cl_EnergyBallDebugDraw)
             {
                 m_debugDrawEvent.Enqueue(AZ::TimeMs{ 0 }, true);
@@ -75,6 +86,9 @@ namespace MultiplayerSample
         }
         else
         {
+            // Crate an explosion effect wherever the ball was last at.
+            m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+
             bool killSuccess = false;
 
             // This would ideally use Kill instead of Terminate, but there is a bug in PopcornFX 2.15.4 that if Kill is
@@ -91,10 +105,6 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
-        // Crate an explosion effect wherever the ball was last at.
-        AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitEvent.m_target);
-        m_effect.TriggerEffect(transform);
-
         // Notify every entity that was hit that they've received a weapon impact.
         for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
         {
@@ -180,9 +190,10 @@ namespace MultiplayerSample
 
         m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
 
+        SetShooterNetEntityId(owningNetEntityId);
         SetBallActive(true);
+        SetVelocity(direction * GetGatherParams().m_travelSpeed);
 
-        m_shooterNetEntityId = owningNetEntityId;
         m_hitEvent.m_hitEntities.clear();
 
         m_filteredNetEntityIds.clear();
@@ -196,14 +207,8 @@ namespace MultiplayerSample
         // We want to sweep our transform during intersect tests to avoid the ball tunneling through targets
         m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
 
-        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::EnablePhysics);
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
-
-    }
-
-    void EnergyBallComponentController::HandleRPC_KillBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
-    {
-        HideEnergyBall();
+        // Enqueue our kill event
+        m_killEvent.Enqueue(GetLifetimeMs(), false);
     }
 
     void EnergyBallComponentController::CheckForCollisions()
@@ -254,14 +259,14 @@ namespace MultiplayerSample
                 }
             }
 
-            HideEnergyBall();
+            KillEnergyBall();
         }
 
         // Update our last sweep transform for the next time we check collision
         m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
     }
 
-    void EnergyBallComponentController::HideEnergyBall()
+    void EnergyBallComponentController::KillEnergyBall()
     {
         if (!GetBallActive())
         {
@@ -275,10 +280,9 @@ namespace MultiplayerSample
         m_hitEvent.m_shooterNetEntityId = m_shooterNetEntityId;
         m_hitEvent.m_projectileNetEntityId = GetNetEntityId();
 
-        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::DisablePhysics);
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, AZ::Vector3::CreateZero());
-
         RPC_BallExplosion(m_hitEvent);
+
+        Multiplayer::GetNetworkEntityManager()->MarkForRemoval(GetNetBindComponent()->GetEntityHandle());
     }
 #endif
 }

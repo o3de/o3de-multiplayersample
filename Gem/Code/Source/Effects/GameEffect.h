@@ -52,6 +52,9 @@ namespace MultiplayerSample
         //! @param transform the root transform to move the effect to prior to triggering
         void TriggerEffect(const AZ::Transform& transform) const;
 
+        //! Stops the attached effect if it's executing.
+        void StopEffect() const;
+
         //! Returns the configured effect offset.
         //! @return the effect offset
         const AZ::Vector3& GetEffectOffset() const;

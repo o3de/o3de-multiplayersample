@@ -1,0 +1,502 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "BubbleBall",
+        "Components": {
+            "Component_[10871125625515253016]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 10871125625515253016
+            },
+            "Component_[12634749549834205438]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 12634749549834205438
+            },
+            "Component_[14235561675031778756]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 14235561675031778756
+            },
+            "Component_[15921048014448900323]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 15921048014448900323
+            },
+            "Component_[17650303905363265135]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 17650303905363265135
+            },
+            "Component_[5127270790774572754]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 5127270790774572754
+            },
+            "Component_[6541643502893033863]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 6541643502893033863
+            },
+            "Component_[807659450713963181]": {
+                "$type": "EditorLockComponent",
+                "Id": 807659450713963181
+            },
+            "Component_[8920904243037658492]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 8920904243037658492,
+                "Parent Entity": ""
+            },
+            "Component_[9022375421549681993]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 9022375421549681993,
+                "Child Entity Order": [
+                    "Entity_[11287293335908]"
+                ]
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[11287293335908]": {
+            "Id": "Entity_[11287293335908]",
+            "Name": "Bubble Ball",
+            "Components": {
+                "Component_[10306762055022788925]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 10306762055022788925
+                },
+                "Component_[10375256730531750003]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 10375256730531750003
+                },
+                "Component_[12889870600493739301]": {
+                    "$type": "PopcornFXEmitterEditorComponent",
+                    "Id": 12889870600493739301,
+                    "ParticleSystem": {
+                        "assetId": {
+                            "guid": "{DB9F4732-99BC-5A53-BBBB-1B32E9852F54}"
+                        },
+                        "assetHint": "popcornfx/particles/bubblegun/fx_bubblegun_projectile.pkfx"
+                    },
+                    "PrewarmTime": 0.0,
+                    "AttributeList": {
+                        "Attributes": [
+                            {
+                                "Name": "Global Size",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Distortion Power",
+                                "Type": 31
+                            },
+                            {
+                                "Name": "Trail Lifetime",
+                                "Type": 31
+                            }
+                        ],
+                        "AttributesRawData": "AACAQAAAAAAAAAAAAAAAAAAA4EAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAA"
+                    },
+                    "EditorAttributeList": {
+                        "AttributeCategories": [
+                            {
+                                "Attributes": [
+                                    {
+                                        "ValueFX": 4.0
+                                    },
+                                    {
+                                        "ValueFX": 7.0
+                                    },
+                                    {
+                                        "ValueFX": 1.0
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "Component_[1317909201307914089]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 1317909201307914089
+                },
+                "Component_[147163556142342236]": {
+                    "$type": "EditorAudioTriggerComponent",
+                    "Id": 147163556142342236,
+                    "Play Trigger": {
+                        "controlName": "play_sx_wpn_bubblegun_projectile"
+                    }
+                },
+                "Component_[14745079858933335176]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 14745079858933335176,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[15147782715820726746]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 15147782715820726746
+                },
+                "Component_[15983379144838108017]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 15983379144838108017,
+                    "m_template": {
+                        "$type": "AudioProxyComponent"
+                    }
+                },
+                "Component_[16569145727191893785]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 16569145727191893785,
+                    "m_template": {
+                        "$type": "MultiplayerSample::EnergyBallComponent",
+                        "ExplosionEffect": {
+                            "ParticleAsset": {
+                                "guid": "{6BAABCAA-C35A-5462-BF44-40A4AD099D70}"
+                            },
+                            "AudioTrigger": "play_sx_wpn_bubblegun_explosion"
+                        },
+                        "GatherParams": {
+                            "GatherShape": 2,
+                            "CastDistance": 0.0,
+                            "TravelSpeed": 3.0,
+                            "BulletDrop": false,
+                            "Sphere": {
+                                "Radius": 0.30000001192092896
+                            }
+                        },
+                        "HitEffect": {
+                            "HitMagnitude": 45.0
+                        },
+                        "LifetimeMs": 15000
+                    }
+                },
+                "Component_[17042691414245108129]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 17042691414245108129,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{91448B60-A25A-55D7-8D37-64D4DAE02C3F}",
+                            "path": "scriptcanvas/PlayerSeekingBubbleBall.scriptcanvas"
+                        },
+                        "sourceName": "PlayerSeekingBubbleBall.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{91448B60-A25A-55D7-8D37-64D4DAE02C3F}",
+                                "path": "scriptcanvas/PlayerSeekingBubbleBall.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 8
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "Vector3",
+                                        "value": [
+                                            0.0,
+                                            0.0,
+                                            0.0
+                                        ]
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{0A63D168-93D5-4BF4-96EC-E125B11129F2}"
+                                    },
+                                    "VariableName": "Gravity",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{3AD1C822-C24C-4D3F-881A-638E6641EA8F}"
+                                    },
+                                    "VariableName": "MaxSpeed",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{647C4A2B-485D-49D9-AA62-CB31879C98A0}"
+                                    },
+                                    "VariableName": "PlayerSeekSpeed",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{9BF61014-2245-45D8-A63F-18F916845D63}"
+                                    },
+                                    "VariableName": "Damping",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.0
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{D5437F6A-A0FA-4895-B038-9401ED2FD33D}"
+                                    },
+                                    "VariableName": "PlayerSearchDistance",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 8
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "Vector3",
+                                        "value": [
+                                            0.0,
+                                            0.0,
+                                            0.019999999552965164
+                                        ]
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{0A63D168-93D5-4BF4-96EC-E125B11129F2}"
+                                    },
+                                    "VariableName": "Gravity",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.75
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{3AD1C822-C24C-4D3F-881A-638E6641EA8F}"
+                                    },
+                                    "VariableName": "MaxSpeed",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 3.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{647C4A2B-485D-49D9-AA62-CB31879C98A0}"
+                                    },
+                                    "VariableName": "PlayerSeekSpeed",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 0.05
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{9BF61014-2245-45D8-A63F-18F916845D63}"
+                                    },
+                                    "VariableName": "Damping",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 8.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{D5437F6A-A0FA-4895-B038-9401ED2FD33D}"
+                                    },
+                                    "VariableName": "PlayerSearchDistance",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[425805608025666933]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 425805608025666933,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4846885455041562164]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 4846885455041562164
+                },
+                "Component_[7697210517306281973]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 7697210517306281973
+                },
+                "Component_[8308919018390390778]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 8308919018390390778,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
+                            "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
+                        },
+                        "sourceName": "WeaponImpactDecal.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
+                                "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
+                            },
+                            "variables": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "MultiplayerSample::SpawnDecalConfig"
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
+                                    },
+                                    "VariableName": "Weapon Impact Decal Config",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overrides": [
+                                {
+                                    "Datum": {
+                                        "isOverloadedStorage": false,
+                                        "scriptCanvasType": {
+                                            "m_type": 4,
+                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "MultiplayerSample::SpawnDecalConfig",
+                                        "value": {
+                                            "MaterialAssetId": {
+                                                "guid": "{FD203077-616F-53C5-9553-660CCB88DB7B}"
+                                            },
+                                            "Scale": 1.5,
+                                            "Opacity": 0.5,
+                                            "LifeTimeSec": 8.0,
+                                            "FadeOutTimeSec": 4.0
+                                        }
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
+                                    },
+                                    "VariableName": "Weapon Impact Decal Config",
+                                    "InitialValueSource": 1
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[8670461081840355986]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8670461081840355986,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 14745079858933335176
+                        },
+                        {
+                            "ComponentId": 15983379144838108017,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 12889870600493739301,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 8308919018390390778,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 17042691414245108129,
+                            "SortIndex": 4
+                        },
+                        {
+                            "ComponentId": 425805608025666933,
+                            "SortIndex": 5
+                        },
+                        {
+                            "ComponentId": 8772152848682895905,
+                            "SortIndex": 6
+                        },
+                        {
+                            "ComponentId": 147163556142342236,
+                            "SortIndex": 7
+                        },
+                        {
+                            "ComponentId": 16569145727191893785,
+                            "SortIndex": 8
+                        }
+                    ]
+                },
+                "Component_[8772152848682895905]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8772152848682895905,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[9370914006782848444]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 9370914006782848444
+                }
+            }
+        }
+    }
+}

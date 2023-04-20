@@ -12,6 +12,7 @@
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
 #include <Source/Components/Multiplayer/EnergyCannonComponent.h>
+#include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 
 namespace MultiplayerSample
 {
@@ -40,6 +41,11 @@ namespace MultiplayerSample
     void EnergyCannonComponent::HandleRPC_TriggerBuildup([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+    }
+
+    void EnergyCannonComponent::KillBuildupEffect() const
+    {
+        m_effect.StopEffect();
     }
 #endif
 
@@ -75,37 +81,39 @@ namespace MultiplayerSample
 
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
-        // Re-using the same ball entity.
-        AZ::Entity* ball = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
-        if (ball)
-        {
-            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
-            {
-                const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
-                const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
-                const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
-                ballComponent->RPC_LaunchBall(cannonTm.TransformPoint(effectOffset), forward, GetNetEntityId());
+        const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
+        const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
+        const AZ::Vector3 ballPosition = cannonTm.TransformPoint(effectOffset);
+        const AZ::Vector3 forward = cannonTm.TransformVector(GetFireVector());
 
-                // Enqueue our ball kill event
-                m_killEvent.Enqueue(GetBallLifetimeMs(), false);
-                m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
-            }
-        }
-    }
-
-    void EnergyCannonComponentController::OnKillEnergyBall()
-    {
-        // Re-using the same ball entity.
-        AZ::Entity* ball = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
-        if (ball)
+        PrefabCallbacks callbacks;
+        callbacks.m_onActivateCallback = [this, ballPosition, forward](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket, AzFramework::SpawnableConstEntityContainerView view)
         {
-            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
+            if (view.empty())
             {
-                ballComponent->RPC_KillBall();
+                return;
             }
-        }
+
+            const auto ticketId = ticket->GetId();
+            for (const AZ::Entity* entity : view)
+            {
+                if (EnergyBallComponent* ballComponent = entity->FindComponent<EnergyBallComponent>())
+                {
+                    ballComponent->RPC_LaunchBall(ballPosition, forward, GetNetEntityId());
+                    m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
+                }
+            }
+
+            // Save the spawn ticket, otherwise the prefab will immediately despawn due to the ticket's destruction
+            m_spawnedProjectiles.insert(AZStd::make_pair(ticketId, AZStd::move(ticket)));
+        };
+
+        GetParent().GetNetworkPrefabSpawnerComponent()->SpawnPrefabAsset
+        (
+            AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), ballPosition),
+            GetProjectileSpawnable(),
+            AZStd::move(callbacks)
+        );
     }
 #endif
 }

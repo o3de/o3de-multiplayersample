@@ -215,6 +215,22 @@ namespace MultiplayerSample
 #endif
     }
 
+    void GameEffect::StopEffect() const
+    {
+#if AZ_TRAIT_CLIENT
+        if (m_emitter != nullptr)
+        {
+            if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+            {
+                if (m_popcornFx->IsEffectAlive(m_emitter))
+                {
+                    m_popcornFx->DestroyEffect(m_emitter);
+                }
+            }
+        }
+#endif
+    }
+
     const AZ::Vector3& GameEffect::GetEffectOffset() const
     {
         return m_effectOffset;

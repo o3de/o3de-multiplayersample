@@ -1,58 +1,58 @@
 {
     "ContainerEntity": {
         "Id": "ContainerEntity",
-        "Name": "Energy_Cannon_with_Energy_Ball",
+        "Name": "BubbleCannon",
         "Components": {
-            "Component_[10776806227424993011]": {
+            "Component_[11001270654282643547]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 11001270654282643547
+            },
+            "Component_[12617755861961541756]": {
                 "$type": "EditorDisabledCompositionComponent",
-                "Id": 10776806227424993011
+                "Id": 12617755861961541756
             },
-            "Component_[1582631749689011759]": {
-                "$type": "EditorLockComponent",
-                "Id": 1582631749689011759
-            },
-            "Component_[16023438301805375808]": {
+            "Component_[1321664764349957244]": {
                 "$type": "EditorPrefabComponent",
-                "Id": 16023438301805375808
+                "Id": 1321664764349957244
             },
-            "Component_[16896350622714100755]": {
+            "Component_[13448855395315457750]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 13448855395315457750
+            },
+            "Component_[1392263484156039254]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 1392263484156039254,
+                "Child Entity Order": [
+                    "Entity_[10746127456612]"
+                ]
+            },
+            "Component_[17194855693624462444]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 17194855693624462444
+            },
+            "Component_[2997603619889818047]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 2997603619889818047
+            },
+            "Component_[3400743385441374090]": {
                 "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                "Id": 16896350622714100755,
+                "Id": 3400743385441374090,
                 "Parent Entity": ""
             },
-            "Component_[18281482096600336918]": {
-                "$type": "EditorVisibilityComponent",
-                "Id": 18281482096600336918
+            "Component_[5728354788904342666]": {
+                "$type": "EditorLockComponent",
+                "Id": 5728354788904342666
             },
-            "Component_[2651178569416212958]": {
-                "$type": "EditorEntityIconComponent",
-                "Id": 2651178569416212958
-            },
-            "Component_[3130122397781833956]": {
+            "Component_[8871860021798450429]": {
                 "$type": "EditorInspectorComponent",
-                "Id": 3130122397781833956
-            },
-            "Component_[4936340828823247495]": {
-                "$type": "EditorOnlyEntityComponent",
-                "Id": 4936340828823247495
-            },
-            "Component_[7159406200914287776]": {
-                "$type": "EditorPendingCompositionComponent",
-                "Id": 7159406200914287776
-            },
-            "Component_[7378270248857110777]": {
-                "$type": "EditorEntitySortComponent",
-                "Id": 7378270248857110777,
-                "Child Entity Order": [
-                    "Entity_[660556807508]"
-                ]
+                "Id": 8871860021798450429
             }
         }
     },
     "Entities": {
-        "Entity_[660556807508]": {
-            "Id": "Entity_[660556807508]",
-            "Name": "Energy Cannon",
+        "Entity_[10746127456612]": {
+            "Id": "Entity_[10746127456612]",
+            "Name": "Bubble Cannon",
             "Components": {
                 "Component_[12185129918259758752]": {
                     "$type": "AZ::Render::EditorMeshComponent",
@@ -61,10 +61,10 @@
                         "Configuration": {
                             "ModelAsset": {
                                 "assetId": {
-                                    "guid": "{251F7A49-FA34-57EC-919D-399EAF8F9770}",
-                                    "subId": 269561695
+                                    "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                    "subId": 269172407
                                 },
-                                "assetHint": "spacecannon/spacecannon.azmodel"
+                                "assetHint": "defenceturret/defenceturret.azmodel"
                             }
                         }
                     }
@@ -106,30 +106,30 @@
                     "Id": 15034031694382477776,
                     "m_template": {
                         "$type": "MultiplayerSample::EnergyCannonComponent",
-                        "RateOfFireMs": 5000,
-                        "BuildUpTimeMs": 3300,
+                        "RateOfFireMs": 1500,
+                        "BuildUpTimeMs": 100,
                         "FiringEffect": {
                             "ParticleAsset": {
-                                "guid": "{F16C718B-7B3D-5F6B-877C-0CA15AAE7544}"
+                                "guid": "{8D79CA21-1BF9-59A5-8C2F-FE52D54B9E6B}"
                             },
-                            "AudioTrigger": "play_sx_int_energyballtrap_buildup",
+                            "AudioTrigger": "play_sx_wpn_bubblegun_fire",
                             "EffectOffset": [
                                 0.0,
-                                -0.30000001192092896,
-                                0.6000000238418579
+                                0.25,
+                                2.0
                             ]
                         },
                         "FireVector": [
                             0.0,
-                            -1.0,
-                            0.0
+                            0.5,
+                            0.8659999966621399
                         ],
                         "ProjectileSpawnable": {
                             "assetId": {
-                                "guid": "{EF1C280A-0044-5786-918F-8613DC58EF30}",
-                                "subId": 1578967396
+                                "guid": "{10056BEC-1313-5F27-90E0-9BE6E69A171D}",
+                                "subId": 1668259951
                             },
-                            "assetHint": "prefabs/energy_ball.spawnable"
+                            "assetHint": "prefabs/bubbleball.spawnable"
                         }
                     }
                 },
@@ -148,10 +148,7 @@
                 "Component_[3533828349650165605]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 3533828349650165605,
-                    "Parent Entity": "ContainerEntity",
-                    "Transform Data": {
-                        "UniformScale": 2.0
-                    }
+                    "Parent Entity": "ContainerEntity"
                 },
                 "Component_[372014937584893874]": {
                     "$type": "GenericComponentWrapper",
@@ -177,9 +174,9 @@
                                 "{}": {
                                     "MaterialAsset": {
                                         "assetId": {
-                                            "guid": "{7F678F45-39F0-573F-A178-34E76532397E}"
+                                            "guid": "{6750615E-D0A9-5759-B55A-A68B64343574}"
                                         },
-                                        "assetHint": "spacecannon/spacecannon_base_mat.azmaterial"
+                                        "assetHint": "defenceturret/defenceturret_opaque_mat.azmaterial"
                                     }
                                 }
                             }
@@ -218,11 +215,6 @@
                                 "assetHint": "spacecannon/spacecannon.pxmesh"
                             },
                             "Configuration": {
-                                "Scale": [
-                                    2.0,
-                                    2.0,
-                                    2.0
-                                ],
                                 "PhysicsAsset": {
                                     "assetId": {
                                         "guid": "{251F7A49-FA34-57EC-919D-399EAF8F9770}",

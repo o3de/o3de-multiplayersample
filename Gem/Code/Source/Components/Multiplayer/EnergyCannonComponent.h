@@ -26,6 +26,9 @@ namespace MultiplayerSample
         void HandleRPC_TriggerBuildup(AzNetworking::IConnection* invokingConnection) override;
 #endif
 
+        // Invoked directly by the energy ball projectile component on the client
+        void KillBuildupEffect() const;
+
     private:
         GameEffect m_effect;
     };
@@ -53,11 +56,7 @@ namespace MultiplayerSample
             OnFireEnergyBall();
         }, AZ::Name("FireEnergyCannon")};
 
-        void OnKillEnergyBall();
-        AZ::ScheduledEvent m_killEvent{ [this]()
-        {
-            OnKillEnergyBall();
-        }, AZ::Name("KillEnergyBall") };
+        AZStd::unordered_map<AzFramework::EntitySpawnTicket::Id, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedProjectiles;
 #endif
     };
 }
