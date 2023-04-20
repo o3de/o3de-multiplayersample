@@ -13,18 +13,18 @@
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>
+#include <Components/BackgroundMusicComponent.h>
 #include <Components/ScriptableDecalComponent.h>
-#if AZ_TRAIT_CLIENT
-    #include <Components/UI/HUDComponent.h>
-    #include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
-    #include <Components/UI/UiRestBetweenRoundsComponent.h>
-    #include <Components/UI/UiSettingsComponent.h>
-    #include <Components/UI/UiStartMenuComponent.h>
-#endif
-
 #include <Source/AutoGen/AutoComponentTypes.h>
-
 #include "MultiplayerSampleSystemComponent.h"
+
+#if AZ_TRAIT_CLIENT
+#   include <Components/UI/HUDComponent.h>
+#   include <Components/UI/UiMatchPlayerCoinCountsComponent.h>
+#   include <Components/UI/UiRestBetweenRoundsComponent.h>
+#   include <Components/UI/UiSettingsComponent.h>
+#   include <Components/UI/UiStartMenuComponent.h>
+#endif
 
 namespace MultiplayerSample
 {
@@ -45,6 +45,7 @@ namespace MultiplayerSample
                 ExampleFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
+                BackgroundMusicComponent::CreateDescriptor(),
                 ScriptableDecalComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     HUDComponent::CreateDescriptor(),
