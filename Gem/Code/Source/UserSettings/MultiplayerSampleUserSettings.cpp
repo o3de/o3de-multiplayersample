@@ -245,11 +245,9 @@ namespace MultiplayerSample
         {
             if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
             {
-                // This is roughly what it takes to change the screen resolution, but it gets complicated by Dpi scaling
-                // and whether or not the window is currently fullscreen. The code below is temporarily removed until the
-                // logic can be enhanced to account for these other conditions.
-
-                /*
+                // This will technically change the window resolution to whatever is requrested, but it should 
+                // ideally take into account the current DPI scaling and what the maximum resolution of the monitor is.
+                
                 // Change the resolution if the window doesn't exist yet.
                 AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
                 console->PerformCommand(commandString.c_str());
@@ -263,11 +261,19 @@ namespace MultiplayerSample
                     windowHandle,
                     &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
 
-                AzFramework::WindowRequestBus::Event(
-                    windowHandle,
-                    &AzFramework::WindowRequestBus::Events::ResizeClientArea, 
-                    AzFramework::WindowSize(resolution.first, resolution.second), AzFramework::WindowPosOptions());
-                */
+                bool fullscreen = false;
+                AzFramework::WindowRequestBus::EventResult(
+                    fullscreen, windowHandle,
+                    &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                // Don't resize if we're in fullscreen mode.
+                if (!fullscreen)
+                {
+                    AzFramework::WindowRequestBus::Event(
+                        windowHandle,
+                        &AzFramework::WindowRequestBus::Events::ResizeClientArea,
+                        AzFramework::WindowSize(resolution.first, resolution.second), AzFramework::WindowPosOptions());
+                }
             }
 
             registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<uint64_t>(resolution.first));
