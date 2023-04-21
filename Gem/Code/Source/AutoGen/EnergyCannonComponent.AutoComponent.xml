@@ -11,13 +11,12 @@
     <Include File="Source/Effects/GameEffect.h" />
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
-    <ComponentRelation Constraint="Required" HasController="false" Name="NetworkPrefabSpawnerComponent" Namespace="MultiplayerSample" Include="Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h" />
 
     <ArchetypeProperty Type="AZ::TimeMs" Name="RateOfFireMs" Init="AZ::TimeMs{ 0 }" Container="Object" ExposeToEditor="true" Description="Specifies the rate in milliseconds at which to fire projectiles." />
     <ArchetypeProperty Type="AZ::TimeMs" Name="BuildUpTimeMs" Init="AZ::TimeMs{ 0 }" Container="Object" ExposeToEditor="true" Description="Specifies the number of milliseconds to start the build-up effect before shooting the next energy ball." />
     <ArchetypeProperty Type="GameEffect" Name="FiringEffect" Init="" Container="Object" ExposeToEditor="true" Description="Specifies the effect to play upon firing." />
     <ArchetypeProperty Type="AZ::Vector3" Name="FireVector" Init="AZ::Vector3::CreateZero()" Container="Object" ExposeToEditor="true" Description="The direction of fire for projectiles." />
-    <ArchetypeProperty Type="AzFramework::SpawnableAsset" Name="ProjectileSpawnable" ExposeToEditor="true" Description="The projectile asset to spawn." />
+    <ArchetypeProperty Type="Multiplayer::NetworkSpawnable" Name="ProjectileSpawnable" ExposeToEditor="true" Description="The projectile asset to spawn." />
 
     <RemoteProcedure Name="RPC_TriggerBuildup" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients to start the buildup event." />
 </Component>

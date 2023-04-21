@@ -125,11 +125,13 @@
                             0.8659999966621399
                         ],
                         "ProjectileSpawnable": {
-                            "assetId": {
-                                "guid": "{10056BEC-1313-5F27-90E0-9BE6E69A171D}",
-                                "subId": 1668259951
-                            },
-                            "assetHint": "prefabs/bubbleball.spawnable"
+                            "Spawnable": {
+                                "assetId": {
+                                    "guid": "{10056BEC-1313-5F27-90E0-9BE6E69A171D}",
+                                    "subId": 2235376842
+                                },
+                                "assetHint": "prefabs/bubbleball.network.spawnable"
+                            }
                         }
                     }
                 },
@@ -149,13 +151,6 @@
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 3533828349650165605,
                     "Parent Entity": "ContainerEntity"
-                },
-                "Component_[372014937584893874]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 372014937584893874,
-                    "m_template": {
-                        "$type": "NetworkPrefabSpawnerComponent"
-                    }
                 },
                 "Component_[398718130345139058]": {
                     "$type": "EditorEntitySortComponent",

@@ -86,34 +86,28 @@ namespace MultiplayerSample
         const AZ::Vector3 ballPosition = cannonTm.TransformPoint(effectOffset);
         const AZ::Vector3 forward = cannonTm.TransformVector(GetFireVector());
 
-        PrefabCallbacks callbacks;
-        callbacks.m_onActivateCallback = [this, ballPosition, forward](AZStd::shared_ptr<AzFramework::EntitySpawnTicket> ticket, AzFramework::SpawnableConstEntityContainerView view)
+        const Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(GetProjectileSpawnable().m_spawnableAsset.GetHint().c_str()));
+
+        const AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), ballPosition);
+
+        Multiplayer::INetworkEntityManager::EntityList entityList =
+            Multiplayer::GetNetworkEntityManager()->CreateEntitiesImmediate(prefabEntityId, Multiplayer::NetEntityRole::Authority, transform);
+
+        Multiplayer::NetworkEntityHandle spawnedEntity;
+        if (!entityList.empty())
         {
-            if (view.empty())
-            {
-                return;
-            }
+            spawnedEntity = entityList[0];
+        }
+        else
+        {
+            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.", prefabEntityId.m_prefabName.GetCStr());
+        }
 
-            const auto ticketId = ticket->GetId();
-            for (const AZ::Entity* entity : view)
-            {
-                if (EnergyBallComponent* ballComponent = entity->FindComponent<EnergyBallComponent>())
-                {
-                    ballComponent->RPC_LaunchBall(ballPosition, forward, GetNetEntityId());
-                    m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
-                }
-            }
-
-            // Save the spawn ticket, otherwise the prefab will immediately despawn due to the ticket's destruction
-            m_spawnedProjectiles.insert(AZStd::make_pair(ticketId, AZStd::move(ticket)));
-        };
-
-        GetParent().GetNetworkPrefabSpawnerComponent()->SpawnPrefabAsset
-        (
-            AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), ballPosition),
-            GetProjectileSpawnable(),
-            AZStd::move(callbacks)
-        );
+        if (EnergyBallComponent* ballComponent = spawnedEntity.FindComponent<EnergyBallComponent>())
+        {
+            ballComponent->RPC_LaunchBall(ballPosition, forward, GetNetEntityId());
+            m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
+        }
     }
 #endif
 }

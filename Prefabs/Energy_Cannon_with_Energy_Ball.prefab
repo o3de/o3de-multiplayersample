@@ -125,11 +125,13 @@
                             0.0
                         ],
                         "ProjectileSpawnable": {
-                            "assetId": {
-                                "guid": "{EF1C280A-0044-5786-918F-8613DC58EF30}",
-                                "subId": 1578967396
-                            },
-                            "assetHint": "prefabs/energy_ball.spawnable"
+                            "Spawnable": {
+                                "assetId": {
+                                    "guid": "{EF1C280A-0044-5786-918F-8613DC58EF30}",
+                                    "subId": 2851397279
+                                },
+                                "assetHint": "prefabs/energy_ball.network.spawnable"
+                            }
                         }
                     }
                 },
@@ -151,13 +153,6 @@
                     "Parent Entity": "ContainerEntity",
                     "Transform Data": {
                         "UniformScale": 2.0
-                    }
-                },
-                "Component_[372014937584893874]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 372014937584893874,
-                    "m_template": {
-                        "$type": "NetworkPrefabSpawnerComponent"
                     }
                 },
                 "Component_[398718130345139058]": {

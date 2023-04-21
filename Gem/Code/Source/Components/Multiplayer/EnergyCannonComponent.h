@@ -55,8 +55,6 @@ namespace MultiplayerSample
         {
             OnFireEnergyBall();
         }, AZ::Name("FireEnergyCannon")};
-
-        AZStd::unordered_map<AzFramework::EntitySpawnTicket::Id, AZStd::shared_ptr<AzFramework::EntitySpawnTicket>> m_spawnedProjectiles;
 #endif
     };
 }
