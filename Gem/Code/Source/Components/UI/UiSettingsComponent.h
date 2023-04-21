@@ -23,6 +23,10 @@ namespace MultiplayerSample
         AZ::EntityId m_rightButtonEntity;
     };
 
+    // This component is attached to the UI Settings screen and handles the logic for changing the user setting values
+    // when the UI toggles are toggled. It activates on level load, not on settings screen navigation as one might think.
+    // On activation, it reapplies all of the MPS user settings while initializing the toggles to help ensure that the
+    // previously-applied settings weren't overridden by the server or by level loads.
     class UiSettingsComponent
         : public AZ::Component
         , public AzFramework::WindowNotificationBus::Handler
