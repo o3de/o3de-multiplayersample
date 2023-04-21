@@ -50,6 +50,8 @@ namespace MultiplayerSample
                 ->Field("GraphicsApi", &UiSettingsComponent::m_graphicsApiToggle)
                 ->Field("TextureQuality", &UiSettingsComponent::m_textureQualityToggle)
                 ->Field("MasterVolume", &UiSettingsComponent::m_masterVolumeToggle)
+                ->Field("Fullscreen", &UiSettingsComponent::m_fullscreenToggle)
+                ->Field("Resolution", &UiSettingsComponent::m_resolutionToggle)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -60,13 +62,28 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_graphicsApiToggle, "Graphics Api", "The Graphics Api toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_textureQualityToggle, "Texture Quality", "The Texture Quality toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_masterVolumeToggle, "Master Volume", "The Master Volume toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_fullscreenToggle, "Fullscreen", "The Fullscreen toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_resolutionToggle, "Resolution", "The Resolution toggle elements.")
                     ;
             }
         }
     }
 
+    AzFramework::NativeWindowHandle UiSettingsComponent::GetWindowHandle()
+    {
+        AzFramework::NativeWindowHandle windowHandle = nullptr;
+        AzFramework::WindowSystemRequestBus::BroadcastResult(
+            windowHandle,
+            &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+        return windowHandle;
+    }
+
     void UiSettingsComponent::Activate()
     {
+        // Listen for window notifications so that we can detect fullscreen/windowed changes.
+        AzFramework::WindowNotificationBus::Handler::BusConnect(GetWindowHandle());
+
         // Loads and applies the current user settings when this component activates.
         // The user settings should *already* be loaded and applied at Launcher startup, but connecting to the server
         // and switching levels can cause some engine settings to reset themselves, so this will reapply the desired
@@ -74,45 +91,32 @@ namespace MultiplayerSample
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Load);
 
         // Initialize the toggles to the current values
-        OnGraphicsApiToggle(ToggleDirection::None);
-        OnTextureQualityToggle(ToggleDirection::None);
-        OnMasterVolumeToggle(ToggleDirection::None);
-
-        // Start listening for button presses
-        UiButtonBus::Event(m_graphicsApiToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) 
-            { 
-                OnGraphicsApiToggle(ToggleDirection::Left); 
-            });
-        UiButtonBus::Event(m_graphicsApiToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnGraphicsApiToggle(ToggleDirection::Right);
-            });
-        UiButtonBus::Event(m_textureQualityToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnTextureQualityToggle(ToggleDirection::Left);
-            });
-        UiButtonBus::Event(m_textureQualityToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnTextureQualityToggle(ToggleDirection::Right);
-            });
-        UiButtonBus::Event(m_masterVolumeToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnMasterVolumeToggle(ToggleDirection::Left);
-            });
-        UiButtonBus::Event(m_masterVolumeToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnMasterVolumeToggle(ToggleDirection::Right);
-            });
+        InitializeToggle(m_graphicsApiToggle, OnGraphicsApiToggle);
+        InitializeToggle(m_textureQualityToggle, OnTextureQualityToggle);
+        InitializeToggle(m_masterVolumeToggle, OnMasterVolumeToggle);
+        InitializeToggle(m_fullscreenToggle, OnFullscreenToggle);
+        InitializeToggle(m_resolutionToggle, OnResolutionToggle);
     }
 
     void UiSettingsComponent::Deactivate()
     {
+        AzFramework::WindowNotificationBus::Handler::BusDisconnect();
+    }
+
+    void UiSettingsComponent::InitializeToggle(UiToggle& toggle, AZStd::function<void(UiToggle&, ToggleDirection)> toggleUpdateFn)
+    {
+        toggleUpdateFn(toggle, ToggleDirection::None);
+
+        UiButtonBus::Event(toggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
+            [&toggle, toggleUpdateFn]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
+            {
+                toggleUpdateFn(toggle, ToggleDirection::Left);
+            });
+        UiButtonBus::Event(toggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
+            [&toggle, toggleUpdateFn]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
+            {
+                toggleUpdateFn(toggle, ToggleDirection::Right);
+            });
     }
 
     template<typename ValueType>
@@ -145,7 +149,7 @@ namespace MultiplayerSample
         }
     }
 
-    void UiSettingsComponent::OnGraphicsApiToggle(ToggleDirection toggleDirection)
+    void UiSettingsComponent::OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
         // This list is expected to match the values in AZ::RHI::ApiIndex.
         const AZStd::vector<AZStd::pair<AZStd::string, AZStd::string>> valuesToLabels =
@@ -170,7 +174,7 @@ namespace MultiplayerSample
         // Rotate the index based on toggle direction.
         uint32_t graphicsApiIndex = GetRotatedIndex(valuesToLabels, graphicsApi, toggleDirection);
 
-        UiTextBus::Event(m_graphicsApiToggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[graphicsApiIndex].second);
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[graphicsApiIndex].second);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(
             &MultiplayerSampleUserSettingsRequestBus::Events::SetGraphicsApi, valuesToLabels[graphicsApiIndex].first);
@@ -178,7 +182,7 @@ namespace MultiplayerSample
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
     }
 
-    void UiSettingsComponent::OnTextureQualityToggle(ToggleDirection toggleDirection)
+    void UiSettingsComponent::OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
         const AZStd::vector<AZStd::pair<int16_t, AZStd::string>> valuesToLabels =
         {
@@ -199,7 +203,7 @@ namespace MultiplayerSample
         // Rotate the index based on toggle direction.
         uint32_t textureQualityIndex = GetRotatedIndex(valuesToLabels, textureQuality, toggleDirection);
 
-        UiTextBus::Event(m_textureQualityToggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[textureQualityIndex].second);
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[textureQualityIndex].second);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(
             &MultiplayerSampleUserSettingsRequestBus::Events::SetTextureQuality, valuesToLabels[textureQualityIndex].first);
@@ -207,7 +211,7 @@ namespace MultiplayerSample
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
     }
 
-    void UiSettingsComponent::OnMasterVolumeToggle(ToggleDirection toggleDirection)
+    void UiSettingsComponent::OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
         const AZStd::vector<AZStd::pair<uint8_t, AZStd::string>> valuesToLabels =
         {
@@ -235,12 +239,87 @@ namespace MultiplayerSample
         // Rotate the index based on toggle direction.
         uint32_t masterVolumeIndex = GetRotatedIndex(valuesToLabels, masterVolume, toggleDirection);
 
-        UiTextBus::Event(m_masterVolumeToggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[masterVolumeIndex].second);
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[masterVolumeIndex].second);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(
             &MultiplayerSampleUserSettingsRequestBus::Events::SetMasterVolume, valuesToLabels[masterVolumeIndex].first);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<bool, AZStd::string>> valuesToLabels =
+        {
+            { false, "Windowed" },
+            { true, "Fullscreen" },
+        };
+
+        // Get the current fullscreen state. Unlike the other settings, we'll get this from the current window state so that we
+        // handle things like Alt-enter that can change our windowing state regardless of what our user settings thinks.
+
+        // Start by defaulting to the user setting.
+        bool fullscreen = false;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            fullscreen, &MultiplayerSampleUserSettingsRequestBus::Events::GetFullscreen);
+
+        // Next, try to get the current state from the window. If it fails to get the state, we'll auto-default to the
+        // user setting value that we fetched above.
+        AzFramework::WindowRequestBus::EventResult(fullscreen,
+            GetWindowHandle(), &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+        // Rotate the index based on toggle direction.
+        uint32_t fullscreenIndex = GetRotatedIndex(valuesToLabels, fullscreen, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[fullscreenIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetFullscreen, valuesToLabels[fullscreenIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string>> valuesToLabels =
+        {
+            { {1280, 720}, "1280 x 720" },
+            { {1920, 1080}, "1920 x 1080" },
+            { {1920, 1200}, "1920 x 1200" },
+            { {2560, 1440}, "2560 x 1440" },
+            { {2560, 1600}, "2560 x 1600" },
+            { {3840, 2160}, "3840 x 2160" },
+            { {3840, 2400}, "3840 x 2400" },
+        };
+
+        // Get the current resolution value.
+        AZStd::pair<uint32_t, uint32_t> resolution = { 1920, 1080 };
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            resolution, &MultiplayerSampleUserSettingsRequestBus::Events::GetResolution);
+
+        // Rotate the index based on toggle direction.
+        uint32_t resolutionIndex = GetRotatedIndex(valuesToLabels, resolution, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[resolutionIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetResolution, valuesToLabels[resolutionIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnWindowResized([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    {
+        // Refresh the windowed / fullscreen setting. There is no direct notification for fullscreen changes,
+        // so we detect it indirectly by listening for OnWindowResized and OnRefreshRateChanged messages.
+        OnFullscreenToggle(m_fullscreenToggle, ToggleDirection::None);
+    }
+
+    void UiSettingsComponent::OnRefreshRateChanged([[maybe_unused]] uint32_t refreshRate)
+    {
+        // Refresh the windowed / fullscreen setting. There is no direct notification for fullscreen changes,
+        // so we detect it indirectly by listening for OnWindowResized and OnRefreshRateChanged messages.
+        OnFullscreenToggle(m_fullscreenToggle, ToggleDirection::None);
     }
 
 }

@@ -9,6 +9,7 @@
 
 
 #include <AzCore/Component/Component.h>
+#include <AzFramework/Windowing/WindowBus.h>
 
 namespace MultiplayerSample
 {
@@ -24,6 +25,7 @@ namespace MultiplayerSample
 
     class UiSettingsComponent
         : public AZ::Component
+        , public AzFramework::WindowNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(UiSettingsComponent, "{6F0F5495-E766-444C-808E-4EB91AD891D6}");
@@ -33,6 +35,12 @@ namespace MultiplayerSample
         void Activate() override;
         void Deactivate() override;
     private:
+        // WindowNotificationBus overrides
+        void OnWindowResized(uint32_t width, uint32_t height) override;
+        void OnRefreshRateChanged([[maybe_unused]] uint32_t refreshRate) override;
+
+        static AzFramework::NativeWindowHandle GetWindowHandle();
+
         enum class ToggleDirection
         {
             None,
@@ -40,9 +48,13 @@ namespace MultiplayerSample
             Right
         };
 
-        void OnGraphicsApiToggle(ToggleDirection toggleDirection);
-        void OnTextureQualityToggle(ToggleDirection toggleDirection);
-        void OnMasterVolumeToggle(ToggleDirection toggleDirection);
+        void InitializeToggle(UiToggle& toggle, AZStd::function<void(UiToggle&, ToggleDirection)> toggleUpdateFn);
+
+        static void OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
 
         template<typename ValueType>
         static uint32_t GetRotatedIndex(
@@ -52,5 +64,7 @@ namespace MultiplayerSample
         UiToggle m_graphicsApiToggle;
         UiToggle m_textureQualityToggle;
         UiToggle m_masterVolumeToggle;
+        UiToggle m_fullscreenToggle;
+        UiToggle m_resolutionToggle;
     };
 }
