@@ -119,11 +119,11 @@ These instructions use the following installation paths. Be sure to substitute y
 
 ## Step 1a. Ensure your branches match
 
-Before building the proeject, ensure that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same named branches. For example, if you are using the **development** branch of o3de-multiplayersample, then it must be matched with the **development** branches of o3de, and o3de-multiplayersample. Ensure that you update the submodules in o3de-multiplayersample-assets, when switching branches in that repository.
+Before building the proeject, ensure that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same named branches. For example, if you are using the **development** branch of o3de-multiplayersample, then it must be matched with the **development** branches of o3de, and o3de-multiplayersample. Ensure that you update the submodules in o3de-multiplayersample-assets when switching branches in that repository.
 
-If you're using a release or installer version of O3DE, then you must checkout versions of the sample repositories that match the release. O3DE uses standard Git [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to identify the release compatible version of each repository. 
+If you're using a release or installer version of O3DE, then you must checkout versions of the sample repositories that match the release. O3DE uses standard Git [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to identify the release-compatible version of each repository. 
 
-For each O3DE release, repositories that have been updated to match the release, should have a matching tag for the release. You can see all defined tags using the [Tags](https://github.com/o3de/o3de-multiplayersample/tags] view in each repository.
+For each O3DE release, repositories that have been updated to match the release should have a matching tag for the release. You can see all defined tags using the [Tags](https://github.com/o3de/o3de-multiplayersample/tags] view in each repository.
 
 Branches can be checked out using standard Git commands, for example, `git checkout tags/<tag> -b <local branch name>`.
 
