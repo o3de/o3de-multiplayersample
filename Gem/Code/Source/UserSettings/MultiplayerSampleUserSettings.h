@@ -44,6 +44,14 @@ namespace MultiplayerSample
         // Anything lower doesn't really provide any benefit.
         virtual int16_t GetTextureQuality() = 0;
         virtual void SetTextureQuality(int16_t textureQuality) = 0;
+
+        // Change between fullscreen and windowed.
+        virtual bool GetFullscreen() = 0;
+        virtual void SetFullscreen(bool fullscreen) = 0;
+
+        // Change the rendering resolution (width, height)
+        virtual AZStd::pair<uint32_t, uint32_t> GetResolution() = 0;
+        virtual void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) = 0;
     };
 
     using MultiplayerSampleUserSettingsRequestBus = AZ::EBus<MultiplayerSampleUserSettingsRequests>;
@@ -70,6 +78,14 @@ namespace MultiplayerSample
 
         int16_t GetTextureQuality() override;
         void SetTextureQuality(int16_t textureQuality) override;
+
+        bool GetFullscreen() override;
+        void SetFullscreen(bool fullscreen) override;
+
+
+        AZStd::pair<uint32_t, uint32_t> GetResolution() override;
+        void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) override;
+
     private:
         using FixedString = AZStd::fixed_string<256>;
 
@@ -82,6 +98,9 @@ namespace MultiplayerSample
         const FixedString m_graphicsApiKey;
         const FixedString m_textureQualityKey;
         const FixedString m_masterVolumeKey;
+        const FixedString m_fullscreenKey;
+        const FixedString m_resolutionWidthKey;
+        const FixedString m_resolutionHeightKey;
 
         // The path to the user settings file.
         AZ::IO::FixedMaxPath m_userSettingsPath;
