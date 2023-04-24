@@ -125,7 +125,7 @@ namespace MultiplayerSample
     uint8_t MultiplayerSampleUserSettings::GetMasterVolume()
     {
         // Default to full volume (100)
-        uint64_t masterVolume = 100;
+        AZ::u64 masterVolume = 100;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -158,13 +158,13 @@ namespace MultiplayerSample
                 }
             }
 
-            registry->Set(m_masterVolumeKey.c_str(), aznumeric_cast<uint64_t>(masterVolume));
+            registry->Set(m_masterVolumeKey.c_str(), aznumeric_cast<AZ::u64>(masterVolume));
         }
     }
 
     int16_t MultiplayerSampleUserSettings::GetTextureQuality()
     {
-        int64_t textureQuality = 1;
+        AZ::s64 textureQuality = 1;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -184,7 +184,7 @@ namespace MultiplayerSample
                 pool->SetMipBias(textureQuality);
             }
 
-            registry->Set(m_textureQualityKey.c_str(), aznumeric_cast<int64_t>(textureQuality));
+            registry->Set(m_textureQualityKey.c_str(), aznumeric_cast<AZ::s64>(textureQuality));
         }
     }
 
@@ -227,8 +227,8 @@ namespace MultiplayerSample
 
     AZStd::pair<uint32_t, uint32_t> MultiplayerSampleUserSettings::GetResolution()
     {
-        uint64_t width = 1920;
-        uint64_t height = 1080;
+        AZ::u64 width = 1920;
+        AZ::u64 height = 1080;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -276,8 +276,8 @@ namespace MultiplayerSample
                 }
             }
 
-            registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<uint64_t>(resolution.first));
-            registry->Set(m_resolutionHeightKey.c_str(), aznumeric_cast<uint64_t>(resolution.second));
+            registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<AZ::u64>(resolution.first));
+            registry->Set(m_resolutionHeightKey.c_str(), aznumeric_cast<AZ::u64>(resolution.second));
         }
     }
 
