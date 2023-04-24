@@ -22,7 +22,7 @@ The implementation of this setting is more complex than the other settings becau
 
 The Texture Quality setting controls the "mip bias", which is the highest mip level to load for each streamed texture. A value of `0` is the highest-resolution mipmap, `1` is the second-highest mipmap, and so on. This value exposes the tradeoff between quality and memory - the highest-resolution textures look the best but use the most VRAM. The user can choose to lower the quality and lower the VRAM usage, which can help with performance.
 
-In O3DE, the mip bias is exposed through a cvar, a settings registry key, and an API. The settings screen uses the API to directly modify the setting.
+In O3DE, the mip bias is exposed through a [CVAR](https://www.o3de.org/docs/user-guide/appendix/cvars/), a settings registry key, and an API. The settings screen uses the API to directly modify the setting.
 
 ### Audio Volume
 
