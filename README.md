@@ -20,9 +20,10 @@ Game features:
 * Jump pads to boost players high into the air
 * A configurable number of rounds (default: 3 rounds)
 * Configurable gem spawning patterns per round to drive player exploration
-* Support for 1 to 15 players
+* Support for 1 to 10 players
 * Rich sounds and visual effects support
 * Teleporters to aid player exploration and to demonstrate moving players.
+* [User Settings screen](Documentation/SettingsScreen.md)
 * Many points of extensibility
 
 > A player can win the whole game early by reaching a score of 400. See the [Gameplay Configuration](Documentation/GamplayConfiguration.md) docs.
@@ -323,6 +324,7 @@ You can contribute by [reporting issues and making feature requests](https://git
 | [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions                                         |
 | [Release Notes](Documentation/ReleaseNotes.md)                  | Release notes and known issues per major release                          |
 | [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings                                           |
+| [SettingsScreen](Documentation/SettingsScreen.md)               | How to use and extend the settings screen |
 | [Packaging MPS](Documentation/PackedAssetBuilds.md)             | How to build and package MPS for distribution or running servers remotely |
 
 ## O3DE Useful Links
