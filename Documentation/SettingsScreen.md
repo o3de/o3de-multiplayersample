@@ -39,7 +39,7 @@ The fullscreen/windowed mode selection is controlled by the `r_fullscreen` cvar.
 ## Modifying and extending the settings screen
 
 See the following source files for the settings screen implementation:
-* https://github.com/o3de/o3de-multiplayersample/blob/development/Gem/Code/Source/UserSettings/MultiplayerSampleUserSettings.cpp
+* [https://github.com/o3de/o3de-multiplayersample/blob/development/Gem/Code/Source/UserSettings/MultiplayerSampleUserSettings.cpp](https://github.com/o3de/o3de-multiplayersample/blob/development/Gem/Code/Source/UserSettings/MultiplayerSampleUserSettings.cpp)
 * [https://github.com/o3de/o3de-multiplayersample/blob/development/Gem/Code/Source/Components/UI/UiSettingsComponent.cpp](https://github.com/o3de/o3de-multiplayersample/blob/development/Gem/Code/Source/Components/UI/UiSettingsComponent.cpp)
 
 The `MultiplayerSampleUserSettings.cpp` file contains the backend logic for loading and saving the user settings and applying the settings to the engine. The default values for each setting can be found here as well. More settings could be exposed and implemented here.
