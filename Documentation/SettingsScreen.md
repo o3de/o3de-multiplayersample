@@ -34,7 +34,7 @@ Volume controls for the audio system are exposed through an API, and not through
 
 The Fullscreen setting controls whether the launcher is running in a window on the desktop or in fullscreen mode.
 
-The fullscreen/windowed mode selection is controlled by the `r_fullscreen` cvar. The settings screen demonstrates how to set the cvar from a user setting.
+The fullscreen/windowed mode selection is controlled by the `r_fullscreen` CVAR. The settings screen demonstrates how to set the cvar from a user setting.
 
 ## Modifying and extending the settings screen
 
