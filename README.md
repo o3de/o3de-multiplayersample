@@ -22,7 +22,7 @@ Game features:
 * Configurable gem spawning patterns per round to drive player exploration
 * Support for 1 to 15 players
 * Rich sounds and visual effects support
-* Teleporters to aid player exploration
+* Teleporters to aid player exploration and to demonstrate moving players.
 * Many points of extensibility
 
 > A player can win the whole game early by reaching a score of 400. See the [Gameplay Configuration](Documentation/GamplayConfiguration.md) docs.
@@ -73,7 +73,7 @@ These instructions use the following installation paths. Be sure to substitute y
    Cloning into 'o3de-multiplayersample'...
    ```
 
-3. Clone the assets. In this example the assets are cloned beside the muliplayersample project.
+3. Clone the assets. In this example the assets are cloned beside the multiplayersample project.
 
    ```shell
    git clone https://github.com/o3de/o3de-multiplayersample-assets.git
@@ -159,7 +159,7 @@ If you've already built the O3DE engine, use the O3DE project manager to open an
 
 1. Run `o3de.exe`. If you used the engine build instructions from the [Getting Started](https://www.o3de.org/docs/welcome-guide/) guide, `o3de.exe` can be found at `C:/o3de/build/windows/bin/profile/o3de.exe`.
 
-1. (Optional) If MultiplayerSample is not in the **My Projects** view, then click the **New Project...** drop down and select **Open Existing Project**. Select the o3de-mulitplayersample project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
+1. (Optional) If MultiplayerSample is not in the **My Projects** view, then click the **New Project...** drop down and select **Open Existing Project**. Select the o3de-multiplayersample project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
 
 1. You can choose **Build** in Project Manager to build the project, and skip the following **Step 3. Configure and build** steps.
 
@@ -289,9 +289,9 @@ When debugging set `net_UdpTimeoutConnections` to false. This prevents connectio
 
 This project ships with several levels, the ones of note are:
 
-1. `NewStarBase` - The main game level. Also the default level.
-2. `GamePlayTest` - Everything needed for gameplay, but in a tiny, fast-loading level. All game objects (Gems, HUD, and so on) are included.
-3. `StartMenu` - An example menu to join, host, and connect to servers.
+1. `NewStarBase` - The main game level (the default level for gameplay).
+2. `StartMenu` - An example menu to join, host, and connect to servers.
+3. `GamePlayTest` - Everything needed for gameplay, but in a tiny, fast-loading level. All game objects (Gems, HUD, and so on) are included.
 4. `MultiplayerScriptingSample` - An example of scripts for Multiplayer.
 
 Other levels in the project are used for testing or performance evaluation purposes and are considered experimental.
@@ -306,10 +306,12 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 ## Documentation
 
-| Link                                                            | Description                       |
-|-----------------------------------------------------------------|-----------------------------------|
-| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions |
-| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings   |
+| Link                                                            | Description                                                               |
+|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions                                         |
+| [Release Notes](Documentation/ReleaseNotes.md)                  | Release notes and known issues per major release                          |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings                                           |
+| [Packaging MPS](Documentation/PackedAssetBuilds.md)             | How to build and package MPS for distribution or running servers remotely |
 
 ## O3DE Useful Links
 
