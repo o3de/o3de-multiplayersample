@@ -117,7 +117,7 @@ These instructions use the following installation paths. Be sure to substitute y
    echo o3de-multiplayersample-assets > C:/o3de/.git/info/exclude
    ```
 
-## Step 1a. Ensure your branches match
+### Step 1a. Ensure your branches match
 
 Before building the project, ensure that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same named branches. For example, if you are using the **development** branch of o3de-multiplayersample, then it must be matched with the **development** branches of o3de, and o3de-multiplayersample-assets. Ensure that you update the submodules in o3de-multiplayersample-assets when switching branches in that repository.
 
@@ -126,6 +126,16 @@ If you're using a release or installer version of O3DE, then you must checkout v
 For each O3DE release, repositories that have been updated to match the release should have a matching tag for the release. You can see all defined tags using the [Tags](https://github.com/o3de/o3de-multiplayersample/tags] view in each repository.
 
 Branches can be checked out using standard Git commands, for example, `git checkout tags/<tag> -b <local branch name>`.
+
+### Step 1b. Verify you have the LFS files.
+
+Verify that you have all of the files from the LFS endpoint. For each cloned repository, run:
+
+```
+git lfs pull
+```
+
+If using your own fork, complete LFS setup by updating the [LFS Url](https://www.o3de.org/docs/welcome-guide/setup/setup-from-github/#fork-and-clone)
 
 ## Step 2. Register the engine, the project, and the Gems
 
