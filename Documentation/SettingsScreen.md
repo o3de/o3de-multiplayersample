@@ -28,7 +28,7 @@ In O3DE, the mip bias is exposed through a [CVAR](https://www.o3de.org/docs/user
 
 The Audio Volume setting controls the master volume for the entire audio system, from 0 (min) to 100 (max). The audio system has data-driven volume channels; each project's audio setup may have a different set of more granular volume controls, such as for music, sound effects, voice, and ambient noise. This setting implements a master volume control, but any of the more granular controls would be implemented in a similar way.
 
-Volume controls for the audio system are exposed through an API, and not through any cvar or settings registry keys. The settings screen uses the API directly to modify the value.
+Volume controls for the audio system are exposed through an API, and not through any CVAR or settings registry keys. The settings screen uses the API directly to modify the value.
 
 ### Fullscreen
 
