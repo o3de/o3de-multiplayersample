@@ -6,30 +6,16 @@
  */
 
 #include <Atom/RHI/Factory.h>
-#include <AzCore/Console/IConsole.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Serialization/EditContext.h>
-#include <IAudioSystem.h>
 #include <LyShine/Bus/UiButtonBus.h>
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
 #include <Source/Components/UI/UiSettingsComponent.h>
+#include <Source/UserSettings/MultiplayerSampleUserSettings.h>
 
 namespace MultiplayerSample
 {
-    void MpsSettings::Reflect(AZ::ReflectContext* context)
-    {
-        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
-        {
-            serializeContext->Class<MpsSettings>()
-                ->Version(0)
-                ->Field("GraphicsApi", &MpsSettings::m_atomApiType)
-                ->Field("MasterVolume", &MpsSettings::m_masterVolume)
-                ->Field("TextureQuality", &MpsSettings::m_streamingImageMipBias)
-                ;
-        }
-    }
-
     void UiToggle::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -40,7 +26,6 @@ namespace MultiplayerSample
                 ->Field("LeftButton", &UiToggle::m_leftButtonEntity)
                 ->Field("RightButton", &UiToggle::m_rightButtonEntity)
                 ;
-
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
@@ -56,7 +41,6 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::Reflect(AZ::ReflectContext* context)
     {
-        MpsSettings::Reflect(context);
         UiToggle::Reflect(context);
 
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -66,6 +50,8 @@ namespace MultiplayerSample
                 ->Field("GraphicsApi", &UiSettingsComponent::m_graphicsApiToggle)
                 ->Field("TextureQuality", &UiSettingsComponent::m_textureQualityToggle)
                 ->Field("MasterVolume", &UiSettingsComponent::m_masterVolumeToggle)
+                ->Field("Fullscreen", &UiSettingsComponent::m_fullscreenToggle)
+                ->Field("Resolution", &UiSettingsComponent::m_resolutionToggle)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -76,155 +62,264 @@ namespace MultiplayerSample
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_graphicsApiToggle, "Graphics Api", "The Graphics Api toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_textureQualityToggle, "Texture Quality", "The Texture Quality toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_masterVolumeToggle, "Master Volume", "The Master Volume toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_fullscreenToggle, "Fullscreen", "The Fullscreen toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_resolutionToggle, "Resolution", "The Resolution toggle elements.")
                     ;
             }
         }
     }
 
+    AzFramework::NativeWindowHandle UiSettingsComponent::GetWindowHandle()
+    {
+        AzFramework::NativeWindowHandle windowHandle = nullptr;
+        AzFramework::WindowSystemRequestBus::BroadcastResult(
+            windowHandle,
+            &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+        return windowHandle;
+    }
+
     void UiSettingsComponent::Activate()
     {
-        // Initialize our user settings 
+        // Listen for window notifications so that we can detect fullscreen/windowed changes.
+        AzFramework::WindowNotificationBus::Handler::BusConnect(GetWindowHandle());
 
-        // Initialize the current streaming image mip bias setting.
-        if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
-        {
-            int16_t mipBias = 0;
-            console->GetCvarValue("r_streamingImageMipBias", mipBias);
-            m_settings.m_streamingImageMipBias = aznumeric_cast<uint8_t>(mipBias);
-        }
-
-        // Initialize the graphics API type
-        m_settings.m_atomApiType = AZ::RHI::Factory::Get().GetAPIUniqueIndex();
-
-        // There's currently no way to initialize the master volume, this doesn't seem to be fetchable anywhere.
+        // Loads and applies the current user settings when this component activates.
+        // The user settings should *already* be loaded and applied at Launcher startup, but connecting to the server
+        // and switching levels can cause some engine settings to reset themselves, so this will reapply the desired
+        // user settings again.
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Load);
 
         // Initialize the toggles to the current values
-        OnGraphicsApiToggle(ToggleDirection::None);
-        OnTextureQualityToggle(ToggleDirection::None);
-        OnMasterVolumeToggle(ToggleDirection::None);
-
-        // Start listening for button presses
-        UiButtonBus::Event(m_graphicsApiToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) 
-            { 
-                OnGraphicsApiToggle(ToggleDirection::Left); 
-            });
-        UiButtonBus::Event(m_graphicsApiToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnGraphicsApiToggle(ToggleDirection::Right);
-            });
-        UiButtonBus::Event(m_textureQualityToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnTextureQualityToggle(ToggleDirection::Left);
-            });
-        UiButtonBus::Event(m_textureQualityToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnTextureQualityToggle(ToggleDirection::Right);
-            });
-        UiButtonBus::Event(m_masterVolumeToggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnMasterVolumeToggle(ToggleDirection::Left);
-            });
-        UiButtonBus::Event(m_masterVolumeToggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
-            [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
-            {
-                OnMasterVolumeToggle(ToggleDirection::Right);
-            });
+        InitializeToggle(m_graphicsApiToggle, OnGraphicsApiToggle);
+        InitializeToggle(m_textureQualityToggle, OnTextureQualityToggle);
+        InitializeToggle(m_masterVolumeToggle, OnMasterVolumeToggle);
+        InitializeToggle(m_fullscreenToggle, OnFullscreenToggle);
+        InitializeToggle(m_resolutionToggle, OnResolutionToggle);
     }
 
     void UiSettingsComponent::Deactivate()
     {
+        AzFramework::WindowNotificationBus::Handler::BusDisconnect();
     }
 
-    void UiSettingsComponent::OnGraphicsApiToggle(ToggleDirection toggleDirection)
+    void UiSettingsComponent::InitializeToggle(UiToggle& toggle, AZStd::function<void(UiToggle&, ToggleDirection)> toggleUpdateFn)
     {
-        // This list is expected to match the values in AZ::RHI::ApiIndex.
-        const char* labels[] =
-        {
-            "Null",
-            "DirectX 12",
-            "Vulkan",
-            "Metal"
-        };
+        toggleUpdateFn(toggle, ToggleDirection::None);
 
-        const size_t NumLabels = AZ_ARRAY_SIZE(labels);
-
-        if (toggleDirection != ToggleDirection::None)
-        {
-            m_settings.m_atomApiType = (toggleDirection == ToggleDirection::Right)
-                ? (m_settings.m_atomApiType + 1) % NumLabels
-                : (m_settings.m_atomApiType + (NumLabels - 1)) % NumLabels
-                ;
-        }
-
-        UiTextBus::Event(m_graphicsApiToggle.m_labelEntity, &UiTextInterface::SetText, labels[m_settings.m_atomApiType]);
-    }
-
-    void UiSettingsComponent::OnTextureQualityToggle(ToggleDirection toggleDirection)
-    {
-        const char* labels[] =
-        {
-            "Ultra (4K)",
-            "High (2K)",
-            "Medium (1K)",
-            "Low (512)",
-            "Very Low (256)",
-            "Extremely Low (128)",
-            "Rock Bottom (64)"
-        };
-
-        const size_t NumLabels = AZ_ARRAY_SIZE(labels);
-
-        if (toggleDirection != ToggleDirection::None)
-        {
-            // As we go from left to right on our settings, we want our textureQuality number to go from 6 down to 0
-            // because smaller mip bias numbers mean higher-resolution textures.
-            m_settings.m_streamingImageMipBias = (toggleDirection == ToggleDirection::Right)
-                ? (m_settings.m_streamingImageMipBias + (NumLabels - 1)) % NumLabels
-                : (m_settings.m_streamingImageMipBias + 1) % NumLabels
-                ;
-        }
-
-        AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get();
-        if (console)
-        {
-            AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_streamingImageMipBias %" PRId16, m_settings.m_streamingImageMipBias);
-            console->PerformCommand(commandString.c_str());
-        }
-
-        UiTextBus::Event(m_textureQualityToggle.m_labelEntity, &UiTextInterface::SetText, labels[m_settings.m_streamingImageMipBias]);
-    }
-
-    void UiSettingsComponent::OnMasterVolumeToggle(ToggleDirection toggleDirection)
-    {
-        if (toggleDirection != ToggleDirection::None)
-        {
-            m_settings.m_masterVolume = (toggleDirection == ToggleDirection::Right)
-                ? (m_settings.m_masterVolume + 10) % 110
-                : (m_settings.m_masterVolume + 100) % 110
-                ;
-        }
-
-        auto audioSystem = AZ::Interface<Audio::IAudioSystem>::Get();
-        if (audioSystem)
-        {
-            Audio::TAudioObjectID rtpcId = audioSystem->GetAudioRtpcID("Volume_Master");
-
-            if (rtpcId != INVALID_AUDIO_CONTROL_ID)
+        UiButtonBus::Event(toggle.m_leftButtonEntity, &UiButtonInterface::SetOnClickCallback,
+            [&toggle, toggleUpdateFn]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
             {
-                Audio::ObjectRequest::SetParameterValue setParameter;
-                setParameter.m_audioObjectId = INVALID_AUDIO_OBJECT_ID;
-                setParameter.m_parameterId = rtpcId;
-                setParameter.m_value = m_settings.m_masterVolume / 100.0f;
-                AZ::Interface<Audio::IAudioSystem>::Get()->PushRequest(AZStd::move(setParameter));
+                toggleUpdateFn(toggle, ToggleDirection::Left);
+            });
+        UiButtonBus::Event(toggle.m_rightButtonEntity, &UiButtonInterface::SetOnClickCallback,
+            [&toggle, toggleUpdateFn]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position)
+            {
+                toggleUpdateFn(toggle, ToggleDirection::Right);
+            });
+    }
+
+    template<typename ValueType>
+    uint32_t UiSettingsComponent::GetRotatedIndex(
+        const AZStd::vector<AZStd::pair<ValueType, AZStd::string>>& valuesToLabels,
+        const ValueType& value, ToggleDirection toggleDirection)
+    {
+        const size_t totalValues = valuesToLabels.size();
+
+        uint32_t curIndex = 0;
+
+        // Loop through and look for the correct value
+        for (size_t index = 0; index < totalValues; index++)
+        {
+            if (value == valuesToLabels[index].first)
+            {
+                curIndex = aznumeric_cast<uint32_t>(index);
+                break;
             }
         }
 
-        UiTextBus::Event(m_masterVolumeToggle.m_labelEntity, &UiTextInterface::SetText, AZStd::string::format("%d", m_settings.m_masterVolume));
+        switch (toggleDirection)
+        {
+        case ToggleDirection::Left:
+            return aznumeric_cast<uint32_t>((curIndex + (totalValues - 1)) % totalValues);
+        case ToggleDirection::Right:
+            return aznumeric_cast<uint32_t>((curIndex + 1) % totalValues);
+        default:
+            return curIndex;
+        }
+    }
+
+    void UiSettingsComponent::OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        // This list is expected to match the values in AZ::RHI::ApiIndex.
+        const AZStd::vector<AZStd::pair<AZStd::string, AZStd::string>> valuesToLabels =
+        {
+            { "null", "Null" },
+            { "dx12", "DirectX 12" },
+            { "vulkan", "Vulkan" },
+            { "metal", "Metal" }
+        };
+
+        // Get the current api selection.
+        AZStd::string graphicsApi;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            graphicsApi, &MultiplayerSampleUserSettingsRequestBus::Events::GetGraphicsApi);
+
+        // If there isn't anything stored in the user settings yet, default to the currently-loaded api.
+        if (graphicsApi.empty())
+        {
+            graphicsApi = AZ::RHI::Factory::Get().GetName().GetStringView();
+        }
+
+        // Rotate the index based on toggle direction.
+        uint32_t graphicsApiIndex = GetRotatedIndex(valuesToLabels, graphicsApi, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[graphicsApiIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetGraphicsApi, valuesToLabels[graphicsApiIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<int16_t, AZStd::string>> valuesToLabels =
+        {
+            { aznumeric_cast<int16_t>(6), "Rock Bottom (64)" },
+            { aznumeric_cast<int16_t>(5), "Extremely Low (128)" },
+            { aznumeric_cast<int16_t>(4), "Very Low (256)" },
+            { aznumeric_cast<int16_t>(3), "Low (512)" },
+            { aznumeric_cast<int16_t>(2), "Medium (1K)" },
+            { aznumeric_cast<int16_t>(1), "High (2K)" },
+            { aznumeric_cast<int16_t>(0), "Ultra (4K)" },
+        };
+
+        // Get the current texture quality value.
+        int16_t textureQuality = 0;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            textureQuality, &MultiplayerSampleUserSettingsRequestBus::Events::GetTextureQuality);
+
+        // Rotate the index based on toggle direction.
+        uint32_t textureQualityIndex = GetRotatedIndex(valuesToLabels, textureQuality, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[textureQualityIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetTextureQuality, valuesToLabels[textureQualityIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<uint8_t, AZStd::string>> valuesToLabels =
+        {
+            { aznumeric_cast<uint8_t>(0), "0 (off)" },
+            { aznumeric_cast<uint8_t>(10), "10" },
+            { aznumeric_cast<uint8_t>(20), "20" },
+            { aznumeric_cast<uint8_t>(30), "30" },
+            { aznumeric_cast<uint8_t>(40), "40" },
+            { aznumeric_cast<uint8_t>(50), "50" },
+            { aznumeric_cast<uint8_t>(60), "60" },
+            { aznumeric_cast<uint8_t>(70), "70" },
+            { aznumeric_cast<uint8_t>(80), "80" },
+            { aznumeric_cast<uint8_t>(90), "90" },
+            { aznumeric_cast<uint8_t>(100), "100 (max)" },
+        };
+
+        // Get the current master volume value.
+        uint8_t masterVolume = 0;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            masterVolume, &MultiplayerSampleUserSettingsRequestBus::Events::GetMasterVolume);
+
+        // Make sure our master volume is a multiple of 10.
+        masterVolume = (masterVolume / 10) * 10;
+
+        // Rotate the index based on toggle direction.
+        uint32_t masterVolumeIndex = GetRotatedIndex(valuesToLabels, masterVolume, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[masterVolumeIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetMasterVolume, valuesToLabels[masterVolumeIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<bool, AZStd::string>> valuesToLabels =
+        {
+            { false, "Windowed" },
+            { true, "Fullscreen" },
+        };
+
+        // Get the current fullscreen state. Unlike the other settings, we'll get this from the current window state so that we
+        // handle things like Alt-enter that can change our windowing state regardless of what our user settings thinks.
+
+        // Start by defaulting to the user setting.
+        bool fullscreen = false;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            fullscreen, &MultiplayerSampleUserSettingsRequestBus::Events::GetFullscreen);
+
+        // Next, try to get the current state from the window. If it fails to get the state, we'll auto-default to the
+        // user setting value that we fetched above.
+        AzFramework::WindowRequestBus::EventResult(fullscreen,
+            GetWindowHandle(), &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+        // Rotate the index based on toggle direction.
+        uint32_t fullscreenIndex = GetRotatedIndex(valuesToLabels, fullscreen, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[fullscreenIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetFullscreen, valuesToLabels[fullscreenIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        const AZStd::vector<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string>> valuesToLabels =
+        {
+            { {1280, 720}, "1280 x 720" },
+            { {1920, 1080}, "1920 x 1080" },
+            { {1920, 1200}, "1920 x 1200" },
+            { {2560, 1440}, "2560 x 1440" },
+            { {2560, 1600}, "2560 x 1600" },
+            { {3840, 2160}, "3840 x 2160" },
+            { {3840, 2400}, "3840 x 2400" },
+        };
+
+        // Get the current resolution value.
+        AZStd::pair<uint32_t, uint32_t> resolution = { 1920, 1080 };
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            resolution, &MultiplayerSampleUserSettingsRequestBus::Events::GetResolution);
+
+        // Rotate the index based on toggle direction.
+        uint32_t resolutionIndex = GetRotatedIndex(valuesToLabels, resolution, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[resolutionIndex].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetResolution, valuesToLabels[resolutionIndex].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnWindowResized([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    {
+        // Refresh the windowed / fullscreen setting. There is no direct notification for fullscreen changes,
+        // so we detect it indirectly by listening for OnWindowResized and OnRefreshRateChanged messages.
+        OnFullscreenToggle(m_fullscreenToggle, ToggleDirection::None);
+    }
+
+    void UiSettingsComponent::OnRefreshRateChanged([[maybe_unused]] uint32_t refreshRate)
+    {
+        // Refresh the windowed / fullscreen setting. There is no direct notification for fullscreen changes,
+        // so we detect it indirectly by listening for OnWindowResized and OnRefreshRateChanged messages.
+        OnFullscreenToggle(m_fullscreenToggle, ToggleDirection::None);
     }
 
 }
