@@ -10,11 +10,13 @@
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/StreamingImagePool.h>
 
+#include <AzCore/Console/IConsole.h>
 #include <AzCore/IO/GenericStreams.h>
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzFramework/FileFunc/FileFunc.h>
+#include <AzFramework/Windowing/WindowBus.h>
 #include <IAudioSystem.h>
 #include <UserSettings/MultiplayerSampleUserSettings.h>
 
@@ -24,7 +26,9 @@ namespace MultiplayerSample
         : m_graphicsApiKey(BaseRegistryKey + FixedString("/ApiName"))
         , m_masterVolumeKey(BaseRegistryKey + FixedString("/MasterVolume"))
         , m_textureQualityKey(BaseRegistryKey + FixedString("/TextureQuality"))
-
+        , m_fullscreenKey(BaseRegistryKey + FixedString("/Fullscreen"))
+        , m_resolutionWidthKey(BaseRegistryKey + FixedString("/Resolution/Width"))
+        , m_resolutionHeightKey(BaseRegistryKey + FixedString("/Resolution/Height"))
     {
         MultiplayerSampleUserSettingsRequestBus::Handler::BusConnect();
 
@@ -73,11 +77,15 @@ namespace MultiplayerSample
             AZStd::string apiName = GetGraphicsApi();
             uint8_t masterVolume = GetMasterVolume();
             int16_t textureQuality = GetTextureQuality();
+            bool fullscreen = GetFullscreen();
+            AZStd::pair<uint32_t, uint32_t> resolution = GetResolution();
 
             // Set the settings values, which will notify the engine as well as write the keys back into the registry.
             SetGraphicsApi(apiName);
             SetMasterVolume(masterVolume);
             SetTextureQuality(textureQuality);
+            SetFullscreen(fullscreen);
+            SetResolution(resolution);
         }
     }
 
@@ -177,6 +185,99 @@ namespace MultiplayerSample
             }
 
             registry->Set(m_textureQualityKey.c_str(), aznumeric_cast<int64_t>(textureQuality));
+        }
+    }
+
+    bool MultiplayerSampleUserSettings::GetFullscreen()
+    {
+        bool fullscreen = false;
+
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            registry->Get(fullscreen, m_fullscreenKey.c_str());
+        }
+
+        return fullscreen;
+    }
+
+    void MultiplayerSampleUserSettings::SetFullscreen(bool fullscreen)
+    {
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
+            {
+                // Change the fullscreen state if we haven't created the window yet.
+                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_fullscreen %u", fullscreen ? 1 : 0);
+                console->PerformCommand(commandString.c_str());
+
+                // Change the fullscreen state if the window already exists
+                AzFramework::NativeWindowHandle windowHandle = nullptr;
+                AzFramework::WindowSystemRequestBus::BroadcastResult(
+                    windowHandle,
+                    &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+                AzFramework::WindowRequestBus::Event(
+                    windowHandle,
+                    &AzFramework::WindowRequestBus::Events::SetFullScreenState, fullscreen);
+            }
+
+            registry->Set(m_fullscreenKey.c_str(), fullscreen);
+        }
+    }
+
+    AZStd::pair<uint32_t, uint32_t> MultiplayerSampleUserSettings::GetResolution()
+    {
+        uint64_t width = 1920;
+        uint64_t height = 1080;
+
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            registry->Get(width, m_resolutionWidthKey.c_str());
+            registry->Get(height, m_resolutionHeightKey.c_str());
+        }
+
+        return { aznumeric_cast<uint32_t>(width), aznumeric_cast<uint32_t>(height) };
+    }
+
+    void MultiplayerSampleUserSettings::SetResolution(AZStd::pair<uint32_t, uint32_t> resolution)
+    {
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
+            {
+                // This will technically change the window resolution to whatever is requrested, but it should 
+                // ideally take into account the current DPI scaling and what the maximum resolution of the monitor is.
+                
+                // Change the resolution if the window doesn't exist yet.
+                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
+                console->PerformCommand(commandString.c_str());
+
+                commandString = AZ::CVarFixedString::format("r_height %u", resolution.second);
+                console->PerformCommand(commandString.c_str());
+
+                // Change the resolution if the window already exists.
+                AzFramework::NativeWindowHandle windowHandle = nullptr;
+                AzFramework::WindowSystemRequestBus::BroadcastResult(
+                    windowHandle,
+                    &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+                bool fullscreen = false;
+                AzFramework::WindowRequestBus::EventResult(
+                    fullscreen, windowHandle,
+                    &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                // Don't resize if we're in fullscreen mode.
+                if (!fullscreen)
+                {
+                    AzFramework::WindowRequestBus::Event(
+                        windowHandle,
+                        &AzFramework::WindowRequestBus::Events::ResizeClientArea,
+                        AzFramework::WindowSize(resolution.first, resolution.second), AzFramework::WindowPosOptions());
+                }
+            }
+
+            registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<uint64_t>(resolution.first));
+            registry->Set(m_resolutionHeightKey.c_str(), aznumeric_cast<uint64_t>(resolution.second));
         }
     }
 
