@@ -35,7 +35,7 @@ namespace MPSGameLift
         AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing game session");
 
     private:
-        void JoinSessionInternal(AZStd::string_view sessionId, const AZ::Uuid& playerId);
+        void JoinSessionInternal(AZStd::string_view gameSessionId, const AZ::Uuid& playerId);
 
         AZ::Uuid m_playerId = AZ::Uuid::Create(); // Unique identifier for the current player inside the game session
     };
