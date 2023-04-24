@@ -135,7 +135,9 @@ Verify that you have all of the files from the LFS endpoint. For each cloned rep
 git lfs pull
 ```
 
-If using your own fork, complete LFS setup by updating the [LFS Url](https://www.o3de.org/docs/welcome-guide/setup/setup-from-github/#fork-and-clone)
+If using your own fork, complete LFS setup by updating the [LFS Url](https://www.o3de.org/docs/welcome-guide/setup/setup-from-github/#fork-and-clone). 
+
+If you have problems with working with LFS, see the troubleshooting guide: https://github.com/o3de/o3de/wiki/Git-LFS-Troubleshooting.
 
 ## Step 2. Register the engine, the project, and the Gems
 
