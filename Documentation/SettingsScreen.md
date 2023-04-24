@@ -1,4 +1,4 @@
-# SettingsScreen.md
+# Settings Screen
 
 The settings screen contains a set of controls for modifying various options in O3DE. This screen demonstrates how to expose settings from O3DE to the user and how to persist those settings to a file. 
 
