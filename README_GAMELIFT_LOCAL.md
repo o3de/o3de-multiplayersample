@@ -24,18 +24,30 @@ This README covers testing and running MultiplayerSample with Amazon GameLift Lo
 
 1. From another terminal within the root of the MultiplayerSample project, start the server launcher (assumes the executable is the result of a `profile` build):
     ```sh
-    ./build/windows/bin/profile/MultiplayerSample.ServerLauncher.exe --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --loadlevel=NewStarbase
+    ./build/windows/bin/profile/MultiplayerSample.ServerLauncher.exe --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --loadlevel=newstarbase
     ```
-Note: You may be inclined to move these cvars into a cfg file and start the game by passing the --console-command-file parameter, but don't. Some cvars are used during a system component Activate(), but the console-command-file is executed after all system components have been activated. (example: sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent::Activate()).
+    sv_gameLiftEnabled: Causes the GameLift gem connect to GameLift on app startup
+    sv_dedicated_host_onstartup: Stops the Multiplayer Gem from automatically hosting on startup and instead wait for GameLift to tell the server when it's okay to begin hosting (and which port to listen in on for connections) 
+
+Note: You may be inclined to move these cvars into a cfg file and start the server by passing the --console-command-file parameter, but don't. Some cvars are used during a system component Activate(), but the console-command-file is executed after all system components have been activated.
+For example, sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent::Activate().
 
 1. Create a game session with the below command:
     ```sh
-    aws gamelift create-game-session --endpoint-url http://localhost:8080 --maximum-player-session-count 2 --fleet-id fleet-123 --game-session-id hello-mps
+    aws gamelift create-game-session --endpoint-url http://localhost:8080 --maximum-player-session-count 2 --fleet-id fleet-123 --game-session-id hello-mps --game-properties Key=loadlevel,Value=NewStarbase
     ```
     You should observe logs in the `GameLiftLocal` terminal which indicate it handled the create-game-session request, and see the `ServerLauncher` load its level.
 
-1. Finally, start the game launcher with the follow command:
-    ```sh
-    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
-    ```
+1. Finally, start the game launcher and connect to the server.
+    Option 1: Command Line
+        ```sh
+        ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
+        ```
+    Option 2: JSON Menu
+        ```sh
+        ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --cl_gameliftLocalEndpoint "http://localhost:8080"
+        ```
+        Provide JSON and click 'Connect':
+        { "GameSessionId": "hello-mps", "PlayerId": "<any_unique_id>", "PlayerSessionId": "not_required_for_gamelift_local" }
+
 1. The game launcher should be connected to the server and your player can run around.
