@@ -130,7 +130,7 @@ Branches can be checked out using standard Git commands, for example, `git check
 
 ### Step 1b. Verify you have the LFS files.
 
-Verify that you have all of the files from the LFS endpoint. For each cloned repository, run:
+Verify that you have all the files from the LFS endpoint. For each cloned repository, run:
 
 ```
 git lfs pull
@@ -324,7 +324,7 @@ You can contribute by [reporting issues and making feature requests](https://git
 | [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions                                         |
 | [Release Notes](Documentation/ReleaseNotes.md)                  | Release notes and known issues per major release                          |
 | [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings                                           |
-| [SettingsScreen](Documentation/SettingsScreen.md)               | How to use and extend the settings screen |
+| [SettingsScreen](Documentation/SettingsScreen.md)               | How to use and extend the settings screen                                 |
 | [Packaging MPS](Documentation/PackedAssetBuilds.md)             | How to build and package MPS for distribution or running servers remotely |
 
 ## O3DE Useful Links
