@@ -18,7 +18,7 @@ namespace MPSGameLift
 {
     /*!
      * \class UiGameLiftConnectJsonMenuComponent
-     * \brief Ui component used for connecting to GameLift using a JSON string containing the fleet-id, game-session, player-session, etc.
+     * \brief An example ui component used for connecting to GameLift using a user-provided JSON string that contains the game-session-id and player-session-id.
     */
     class UiGameLiftConnectJsonMenuComponent
         : public AZ::Component,

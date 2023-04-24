@@ -22,7 +22,6 @@
 #include <Request/AWSGameLiftSessionRequestBus.h>
 
 
-#pragma optimize("",off)
 namespace MPSGameLift
 {
     void UiGameLiftConnectJsonMenuComponent::Reflect(AZ::ReflectContext* context)
@@ -189,4 +188,3 @@ namespace MPSGameLift
 
     
 } // namespace MultiplayerSample
-#pragma optimize("",on)
