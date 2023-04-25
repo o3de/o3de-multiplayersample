@@ -45,7 +45,7 @@ For example, sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent:
         ```
     Option 2: JSON Menu
         ```sh
-        ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --cl_gameliftLocalEndpoint "http://localhost:8080"
+        ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --cl_gameliftLocalEndpoint "http://localhost:8080" --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
         ```
         Provide JSON and click 'Connect':
         { "GameSessionId": "hello-mps", "PlayerId": "<any_unique_id>", "PlayerSessionId": "not_required_for_gamelift_local" }

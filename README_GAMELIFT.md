@@ -92,7 +92,7 @@ Record GameSessionId for the next step. Example: arn:aws:gamelift:us-west-2::gam
 
 Launch the game client with:
 ```sh
-    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe
+    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 `
 aws gamelift create-player-session --region us-west-2 --game-session-id <GameSessionId> --player-id Player1
