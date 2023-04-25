@@ -2,7 +2,7 @@
 
 This README covers testing and running MultiplayerSample with Amazon GameLift.
 
-## Running with [GameLift](https://docs.aws.amazon.com/gamelift/index.html)
+## Running with [Amazon GameLift](https://docs.aws.amazon.com/gamelift/index.html)
 
 ### Setup
 1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), if you don't already have it. You will need it to interact with Amazon GameLift.
