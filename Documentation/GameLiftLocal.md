@@ -1,4 +1,4 @@
-# MultiplayerSample Project with Amazon GameLift
+# MultiplayerSample Project with Amazon GameLift Local
 
 This README covers testing and running MultiplayerSample with Amazon GameLift Local.
 
