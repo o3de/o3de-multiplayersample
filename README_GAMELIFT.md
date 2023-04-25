@@ -36,7 +36,7 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
 1. Create the Launcher Zip file
    Use the following .bat file or equivalent copy steps to create a directory with the launchers in it:
    ```sh
-    rem Use this by calling 'make_release D:\my\output\GameLiftPackageWindows' to make a release directory
+    rem Use this by calling 'make_release C:\GameLiftPackageWindows' to make a release directory
     mkdir %1
     mkdir %1\Cache
     mkdir %1\Cache\pc
@@ -44,13 +44,13 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
     mkdir %1\Gems\AWSCore
     
     rem Copy the pak files
-    copy D:\github\o3de-multiplayersample\AssetBundling\Bundles\*.pak %1\Cache\pc
+    copy .\AssetBundling\Bundles\*.pak %1\Cache\pc
     
     rem Copy the executables and DLLs
-    copy D:\github\o3de-multiplayersample\build\windows_mono\bin\profile\*.* %1
+    copy .\build\windows_mono\bin\profile\*.* %1
     
     rem Copy the AWSCore files
-    copy D:\github\o3de-multiplayersample\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
+    copy .\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
 1. Test the profile pak server and game locally
     ```sh
     C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 -sv_terminateOnPlayerExit=true --console-command-file=launch_server.cfg
