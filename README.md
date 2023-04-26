@@ -294,12 +294,12 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 ## Documentation
 
-| Link                                                            | Description                       |
-|-----------------------------------------------------------------|-----------------------------------|
-| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions |
-| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings   |
-| [GameLift Setup](Documentation/GameLift.md)                     | How to deploy to GameLift         |
-| [GameLift Local Setup](Documentation/GameLiftLocal.md)          | How to test GameLift locally      |
+| Link                                                                             | Description                       |
+|----------------------------------------------------------------------------------|-----------------------------------|
+| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings   |
+| [GameLift Setup](Documentation/Hosting/AmazonGameLift/GameLift.md)               | How to deploy to GameLift         |
+| [GameLift Local Setup](Documentation/Hosting/AmazonGameLift/GameLiftLocal.md)    | How to test GameLift locally      |
 
 ## O3DE Useful Links
 
