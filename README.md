@@ -20,10 +20,13 @@ Game features:
 * Jump pads to boost players high into the air
 * A configurable number of rounds (default: 3 rounds)
 * Configurable gem spawning patterns per round to drive player exploration
-* Support for 1 to 15 players
+* Support for 1 to 10 players
 * Rich sounds and visual effects support
-* Teleporters to aid player exploration
+* Teleporters to aid player exploration and to demonstrate moving players.
+* [User Settings screen](Documentation/SettingsScreen.md)
 * Many points of extensibility
+
+> A player can win the whole game early by reaching a score of 400. See the [Gameplay Configuration](Documentation/GamplayConfiguration.md) docs.
 
 ### Player controls
 
@@ -71,7 +74,7 @@ These instructions use the following installation paths. Be sure to substitute y
    Cloning into 'o3de-multiplayersample'...
    ```
 
-3. Clone the assets. In this example the assets are cloned beside the muliplayersample project.
+3. Clone the assets. In this example the assets are cloned beside the multiplayersample project.
 
    ```shell
    git clone https://github.com/o3de/o3de-multiplayersample-assets.git
@@ -115,6 +118,28 @@ These instructions use the following installation paths. Be sure to substitute y
    echo o3de-multiplayersample-assets > C:/o3de/.git/info/exclude
    ```
 
+### Step 1a. Ensure your branches match
+
+Before building the project, ensure that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same named branches. For example, if you are using the **development** branch of o3de-multiplayersample, then it must be matched with the **development** branches of o3de, and o3de-multiplayersample-assets. Ensure that you update the submodules in o3de-multiplayersample-assets when switching branches in that repository.
+
+If you're using a release or installer version of O3DE, then you must checkout versions of the sample repositories that match the release. O3DE uses standard Git [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to identify the release-compatible version of each repository. 
+
+For each O3DE release, repositories that have been updated to match the release should have a matching tag for the release. You can see all defined tags using the [Tags](https://github.com/o3de/o3de-multiplayersample/tags] view in each repository.
+
+Branches can be checked out using standard Git commands, for example, `git checkout tags/<tag> -b <local branch name>`.
+
+### Step 1b. Verify you have the LFS files.
+
+Verify that you have all the files from the LFS endpoint. For each cloned repository, run:
+
+```
+git lfs pull
+```
+
+If using your own fork, complete LFS setup by updating the [LFS Url](https://www.o3de.org/docs/welcome-guide/setup/setup-from-github/#fork-and-clone). 
+
+If you have problems with working with LFS, see the troubleshooting guide: https://github.com/o3de/o3de/wiki/Git-LFS-Troubleshooting.
+
 ## Step 2. Register the engine, the project, and the Gems
 
 ### Option #1 - Use the CLI
@@ -147,7 +172,7 @@ If you've already built the O3DE engine, use the O3DE project manager to open an
 
 1. Run `o3de.exe`. If you used the engine build instructions from the [Getting Started](https://www.o3de.org/docs/welcome-guide/) guide, `o3de.exe` can be found at `C:/o3de/build/windows/bin/profile/o3de.exe`.
 
-1. (Optional) If MultiplayerSample is not in the **My Projects** view, then click the **New Project...** drop down and select **Open Existing Project**. Select the o3de-mulitplayersample project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
+1. (Optional) If MultiplayerSample is not in the **My Projects** view, then click the **New Project...** drop down and select **Open Existing Project**. Select the o3de-multiplayersample project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
 
 1. You can choose **Build** in Project Manager to build the project, and skip the following **Step 3. Configure and build** steps.
 
@@ -277,9 +302,9 @@ When debugging set `net_UdpTimeoutConnections` to false. This prevents connectio
 
 This project ships with several levels, the ones of note are:
 
-1. `NewStarBase` - The main game level. Also the default level.
-2. `GamePlayTest` - Everything needed for gameplay, but in a tiny, fast-loading level. All game objects (Gems, HUD, and so on) are included.
-3. `StartMenu` - An example menu to join, host, and connect to servers.
+1. `NewStarBase` - The main game level (the default level for gameplay).
+2. `StartMenu` - An example menu to join, host, and connect to servers.
+3. `GamePlayTest` - Everything needed for gameplay, but in a tiny, fast-loading level. All game objects (Gems, HUD, and so on) are included.
 4. `MultiplayerScriptingSample` - An example of scripts for Multiplayer.
 
 Other levels in the project are used for testing or performance evaluation purposes and are considered experimental.
@@ -294,12 +319,15 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 ## Documentation
 
-| Link                                                                             | Description                       |
-|----------------------------------------------------------------------------------|-----------------------------------|
-| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions |
-| [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings   |
-| [GameLift Setup](Documentation/Hosting/AmazonGameLift/GameLift.md)               | How to deploy to GameLift         |
-| [GameLift Local Setup](Documentation/Hosting/AmazonGameLift/GameLiftLocal.md)    | How to test GameLift locally      |
+| Link                                                                             | Description                                                               |
+|----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions                                         |
+| [Release Notes](Documentation/ReleaseNotes.md)                                   | Release notes and known issues per major release                          |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings                                           |
+| [SettingsScreen](Documentation/SettingsScreen.md)                                | How to use and extend the settings screen                                 |
+| [Packaging MPS](Documentation/PackedAssetBuilds.md)                              | How to build and package MPS for distribution or running servers remotely |
+| [GameLift Setup](Documentation/Hosting/AmazonGameLift/GameLift.md)               | How to deploy to GameLift                                                 |
+| [GameLift Local Setup](Documentation/Hosting/AmazonGameLift/GameLiftLocal.md)    | How to test GameLift locally                                              |
 
 ## O3DE Useful Links
 

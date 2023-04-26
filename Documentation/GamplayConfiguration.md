@@ -37,6 +37,26 @@ Gem Spawn Points should be created wherever you want a gem to appear in the leve
 -   **Tag** - Here you will enter the tags that correspond with the gems you want to spawn in this location. Entry [0] should be the Gem Spawn tag (set above in the Gem Spawn Tables Per Round component). Additional entries correspond with the gem(s) type you want to spawn in this location. You can add more than one gem type here. When this happens, the Gem Weight will influence which gem spawns each time. e.g. If you add yellow and green gems and give each a weight of 1, there will be an even chance of either to spawn. If one is set to greater than 1, that gem is more likely to spawn.
 -   **Script Canvas & Mesh & Material components** - By default, gem spawn points have no visual indicator in the editor as gems only appear in those positions when the game is running. To allow you to visualize gem spawn points in the editor we add the mesh component and assign the gem model and a material that matches the gem that will appear in game. Then, when the game starts, we hide the placeholder gem models using the script canvas component
 
+## Tunable Registry Settings
+
+The file `Registry\multiplayersample.setreg` contains a number of tunable settings:
+
+```
+	"MultiplayerSample": {
+		"Settings": {
+			"WinningCoinCount": 400,              # Condition to win the game early
+			"EnergyBall": {                       # Controls the impact of the energy balls
+				"KnockbackDistanceMeters": 2.0,
+				"Speed": 15.0,
+				"ArmorDamage": 10
+			},
+			"EnergyCannon": {                     # Controls for energy cannons
+				"FiringPeriodMilliseconds": 2000
+			}
+```
+
+> Some of the code still references `coins` as an early build used coin pickups rather than gems.
+
 ## **Setting Up Teleporters**
 
 Teleporters are another new feature introduced in the MPS. These can be setup to teleport players anywhere in the level when they pass through the teleport volume.

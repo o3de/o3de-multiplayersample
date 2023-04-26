@@ -86,6 +86,28 @@
 							<Class name="AZ::u64" field="id" value="16687506677739" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 						</Class>
 					</Class>
+					<Class name="UiToggle" field="Fullscreen" type="{60AD7DDE-1730-41D8-BB82-630FF8008370}">
+						<Class name="EntityId" field="Label" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16730456350699" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+						<Class name="EntityId" field="LeftButton" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16739046285291" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+						<Class name="EntityId" field="RightButton" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16743341252587" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+					</Class>
+					<Class name="UiToggle" field="Resolution" type="{60AD7DDE-1730-41D8-BB82-630FF8008370}">
+						<Class name="EntityId" field="Label" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16786290925547" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+						<Class name="EntityId" field="LeftButton" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16794880860139" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+						<Class name="EntityId" field="RightButton" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
+							<Class name="AZ::u64" field="id" value="16799175827435" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
+						</Class>
+					</Class>
 				</Class>
 			</Class>
 			<Class name="bool" field="IsDependencyReady" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
@@ -1095,7 +1117,7 @@
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -1241,9 +1263,9 @@
 									</Class>
 									<Class name="Offsets" field="Offsets" type="{F681BA9D-245C-4630-B20E-05DD752FAD57}">
 										<Class name="float" field="left" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="top" value="-71.8750000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="top" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 										<Class name="float" field="right" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="bottom" value="28.1250038" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="bottom" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									</Class>
 									<Class name="Vector2" field="Pivot" value="0.5000000 0.5000000" type="{3D80F623-C85C-4741-90D0-E4E66164E6BF}"/>
 									<Class name="float" field="Rotation" value="0.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -1266,16 +1288,16 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="4000596796298634214" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Low" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="DirectX 12" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="0.0000000 0.0000000 0.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
-									<Class name="float" field="FontSize" value="80.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="unsigned int" field="EffectIndex" value="0" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
 									<Class name="int" field="TextHAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
 									<Class name="int" field="TextVAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
@@ -1514,7 +1536,7 @@
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -1660,9 +1682,9 @@
 									</Class>
 									<Class name="Offsets" field="Offsets" type="{F681BA9D-245C-4630-B20E-05DD752FAD57}">
 										<Class name="float" field="left" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="top" value="-71.8750000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="top" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 										<Class name="float" field="right" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="bottom" value="28.1250038" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="bottom" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									</Class>
 									<Class name="Vector2" field="Pivot" value="0.5000000 0.5000000" type="{3D80F623-C85C-4741-90D0-E4E66164E6BF}"/>
 									<Class name="float" field="Rotation" value="0.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -1685,16 +1707,16 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="4000596796298634214" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Low" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="Medium (1K)" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="0.0000000 0.0000000 0.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
-									<Class name="float" field="FontSize" value="80.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="unsigned int" field="EffectIndex" value="0" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
 									<Class name="int" field="TextHAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
 									<Class name="int" field="TextVAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
@@ -1933,7 +1955,7 @@
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -2079,9 +2101,9 @@
 									</Class>
 									<Class name="Offsets" field="Offsets" type="{F681BA9D-245C-4630-B20E-05DD752FAD57}">
 										<Class name="float" field="left" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="top" value="-71.8750000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="top" value="-50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 										<Class name="float" field="right" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
-										<Class name="float" field="bottom" value="28.1250038" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+										<Class name="float" field="bottom" value="50.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									</Class>
 									<Class name="Vector2" field="Pivot" value="0.5000000 0.5000000" type="{3D80F623-C85C-4741-90D0-E4E66164E6BF}"/>
 									<Class name="float" field="Rotation" value="0.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -2104,16 +2126,16 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="4000596796298634214" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Low" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="40" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="0.0000000 0.0000000 0.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
-									<Class name="float" field="FontSize" value="80.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
+									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="unsigned int" field="EffectIndex" value="0" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
 									<Class name="int" field="TextHAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
 									<Class name="int" field="TextVAlignment" value="1" type="{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}"/>
@@ -3835,11 +3857,11 @@
 										<Class name="AZ::u64" field="Id" value="10674354919225820364" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
 									<Class name="unsigned int" field="Id" value="176" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
-									<Class name="bool" field="IsEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsVisibleInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsVisibleInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsExpandedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsExpandedInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="AZStd::vector&lt;ChildEntityIdOrderEntry, allocator&gt;" field="ChildEntityIdOrder" type="{0DE523D9-AEAE-5FC4-9D40-967A2E2B8A62}">
 										<Class name="ChildEntityIdOrderEntry" field="element" version="1" type="{D6F3CC55-6C7C-4D64-818F-FA3378EC8DA2}">
 											<Class name="EntityId" field="ChildEntityId" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
@@ -3936,13 +3958,13 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="3068610810953516373" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Setting 4" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="Fullscreen" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="1.0000000 1.0000000 1.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -4113,13 +4135,13 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="4000596796298634214" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Low" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="Windowed" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="0.0000000 0.0000000 0.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="80.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -4177,8 +4199,8 @@
 										<Class name="AZ::u64" field="Id" value="7398167135878938608" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
 									<Class name="unsigned int" field="Id" value="180" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
-									<Class name="bool" field="IsEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsVisibleInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsVisibleInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsExpandedInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
@@ -4258,7 +4280,7 @@
 									<Class name="bool" field="IsVisibleInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsExpandedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsExpandedInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="AZStd::vector&lt;ChildEntityIdOrderEntry, allocator&gt;" field="ChildEntityIdOrder" type="{0DE523D9-AEAE-5FC4-9D40-967A2E2B8A62}">
 										<Class name="ChildEntityIdOrderEntry" field="element" version="1" type="{D6F3CC55-6C7C-4D64-818F-FA3378EC8DA2}">
 											<Class name="EntityId" field="ChildEntityId" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
@@ -4355,13 +4377,13 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="3068610810953516373" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Setting 5" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="Resolution" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="1.0000000 1.0000000 1.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="100.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -4532,13 +4554,13 @@
 									<Class name="AZ::Component" field="BaseClass1" type="{EDFCB2CF-F75D-43BE-B26B-F35821B29247}">
 										<Class name="AZ::u64" field="Id" value="4000596796298634214" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
-									<Class name="AZStd::string" field="Text" value="Low" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+									<Class name="AZStd::string" field="Text" value="1280 x 720" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 									<Class name="bool" field="MarkupEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="Color" field="Color" value="0.0000000 0.0000000 0.0000000 1.0000000" type="{7894072A-9050-4F0F-901B-34B1A0D29417}"/>
 									<Class name="float" field="Alpha" value="1.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
 									<Class name="SimpleAssetReference&lt;FontAsset&gt;" field="FontFileName" version="1" type="{4953F80A-F59C-5F38-9E84-AFEB8F438CC4}">
 										<Class name="SimpleAssetReferenceBase" field="BaseClass1" version="1" type="{E16CA6C5-5C78-4AD9-8E9B-F8C1FB4D1DB8}">
-											<Class name="AZStd::string" field="AssetPath" value="fonts/vera-bold.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
+											<Class name="AZStd::string" field="AssetPath" value="fonts/anton/anton-regular.font" type="{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}"/>
 										</Class>
 									</Class>
 									<Class name="float" field="FontSize" value="80.0000000" type="{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}"/>
@@ -4596,8 +4618,8 @@
 										<Class name="AZ::u64" field="Id" value="7398167135878938608" type="{D6597933-47CD-4FC8-B911-63F3E2B0993A}"/>
 									</Class>
 									<Class name="unsigned int" field="Id" value="187" type="{43DA906B-7DEF-4CA8-9790-854106D3F983}"/>
-									<Class name="bool" field="IsEnabled" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsVisibleInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsEnabled" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsVisibleInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsExpandedInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
@@ -4677,7 +4699,7 @@
 									<Class name="bool" field="IsVisibleInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectableInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="bool" field="IsSelectedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
-									<Class name="bool" field="IsExpandedInEditor" value="false" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
+									<Class name="bool" field="IsExpandedInEditor" value="true" type="{A0CA880C-AFE4-43CB-926C-59AC48496112}"/>
 									<Class name="AZStd::vector&lt;ChildEntityIdOrderEntry, allocator&gt;" field="ChildEntityIdOrder" type="{0DE523D9-AEAE-5FC4-9D40-967A2E2B8A62}">
 										<Class name="ChildEntityIdOrderEntry" field="element" version="1" type="{D6F3CC55-6C7C-4D64-818F-FA3378EC8DA2}">
 											<Class name="EntityId" field="ChildEntityId" version="1" type="{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}">
