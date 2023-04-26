@@ -12,7 +12,7 @@
 #if AZ_TRAIT_CLIENT
 #   include <PopcornFX/PopcornFXBus.h>
 #endif
-
+#pragma optimize("", off)
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_KillEffectOnRestart, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Controls whether or not to kill current effects on restart");
@@ -188,14 +188,16 @@ namespace MultiplayerSample
     {
 #if AZ_TRAIT_CLIENT
         const AZ::Vector3 offsetPosition = transform.TransformPoint(m_effectOffset);
-        AZ::Transform transformOffset = transform;
-        transformOffset.SetTranslation(offsetPosition);
+
         if (m_emitter != nullptr)
         {
             if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
             {
                 if (m_popcornFx->IsEffectAlive(m_emitter))
                 {
+                    AZ::Transform transformOffset = transform;
+                    transformOffset.SetTranslation(offsetPosition);
+
                     popcornFx->EffectSetTransform(m_emitter, transformOffset);
                     popcornFx->EffectSetTeleportThisFrame(m_emitter);
                     popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
@@ -224,7 +226,7 @@ namespace MultiplayerSample
             {
                 if (m_popcornFx->IsEffectAlive(m_emitter))
                 {
-                    m_popcornFx->DestroyEffect(m_emitter);
+                    m_popcornFx->EffectKill(m_emitter);
                 }
             }
         }
@@ -236,3 +238,4 @@ namespace MultiplayerSample
         return m_effectOffset;
     }
 }
+#pragma optimize("", on)

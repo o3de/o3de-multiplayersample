@@ -19,4 +19,5 @@
     <ArchetypeProperty Type="Multiplayer::NetworkSpawnable" Name="ProjectileSpawnable" ExposeToEditor="true" Description="The projectile asset to spawn." />
 
     <RemoteProcedure Name="RPC_TriggerBuildup" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients to start the buildup event." />
+    <RemoteProcedure Name="RPC_StopBuildup" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients to stop the buildup event." />
 </Component>

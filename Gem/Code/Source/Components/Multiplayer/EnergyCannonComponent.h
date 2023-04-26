@@ -24,10 +24,8 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_CLIENT
         void HandleRPC_TriggerBuildup(AzNetworking::IConnection* invokingConnection) override;
+        void HandleRPC_StopBuildup(AzNetworking::IConnection* invokingConnection) override;
 #endif
-
-        // Invoked directly by the energy ball projectile component on the client
-        void KillBuildupEffect() const;
 
     private:
         GameEffect m_effect;

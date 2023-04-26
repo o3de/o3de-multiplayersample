@@ -6,12 +6,12 @@
  */
 
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
-#include <Source/Components/Multiplayer/EnergyCannonComponent.h>
 #include <Source/AutoGen/NetworkHealthComponent.AutoComponent.h>
 #include <Multiplayer/Components/NetworkTransformComponent.h>
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/EBus/IEventScheduler.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
 #include <WeaponNotificationBus.h>
@@ -69,16 +69,6 @@ namespace MultiplayerSample
 
             AZ_Error("EnergyBall", startSuccess, "Restart call for Energy Ball was unsuccessful.");
 
-            const Multiplayer::ConstNetworkEntityHandle cannonHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(GetShooterNetEntityId());
-            if (cannonHandle.Exists())
-            {
-                const EnergyCannonComponent* cannonComponent = cannonHandle.FindComponent<EnergyCannonComponent>();
-                if (cannonComponent != nullptr)
-                {
-                    cannonComponent->KillBuildupEffect();
-                }
-            }
-
             if (cl_EnergyBallDebugDraw)
             {
                 m_debugDrawEvent.Enqueue(AZ::TimeMs{ 0 }, true);
@@ -105,7 +95,10 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
-        // Notify every entity that was hit that they've received a weapon impact.
+        // Create an explosion effect at our current location.
+        m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+
+        // Notify every entity that was hit that they've received a weapon impact, this allows for blast decals.
         for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
         {
             const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
@@ -190,7 +183,6 @@ namespace MultiplayerSample
 
         m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
 
-        SetShooterNetEntityId(owningNetEntityId);
         SetBallActive(true);
         SetVelocity(direction * GetGatherParams().m_travelSpeed);
 
@@ -282,7 +274,21 @@ namespace MultiplayerSample
 
         RPC_BallExplosion(m_hitEvent);
 
-        Multiplayer::GetNetworkEntityManager()->MarkForRemoval(GetNetBindComponent()->GetEntityHandle());
+        // Wait 5 seconds before cleaning up the entity so that the explosion effect has a chance to play out
+        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lamda triggers
+        const Multiplayer::NetEntityId netEntityId = GetNetEntityId();
+        AZ::Interface<AZ::IEventScheduler>::Get()->AddCallback([netEntityId]
+            {
+                // Fetch the entity handle, ensure its still valid
+                const Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
+                if (entityHandle.Exists())
+                {
+                    Multiplayer::GetNetworkEntityManager()->MarkForRemoval(entityHandle);
+                }
+            },
+            AZ::Name("Cleanup"),
+            AZ::TimeMs{ 5000 }
+        );
     }
 #endif
 }

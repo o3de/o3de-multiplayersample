@@ -12,7 +12,6 @@
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <Source/Components/Multiplayer/EnergyBallComponent.h>
 #include <Source/Components/Multiplayer/EnergyCannonComponent.h>
-#include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 
 namespace MultiplayerSample
 {
@@ -43,7 +42,7 @@ namespace MultiplayerSample
         m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
     }
 
-    void EnergyCannonComponent::KillBuildupEffect() const
+    void EnergyCannonComponent::HandleRPC_StopBuildup([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
     {
         m_effect.StopEffect();
     }
@@ -81,6 +80,8 @@ namespace MultiplayerSample
 
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
+        RPC_StopBuildup();
+
         const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
         const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
         const AZ::Vector3 ballPosition = cannonTm.TransformPoint(effectOffset);

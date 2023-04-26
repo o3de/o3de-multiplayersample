@@ -18,7 +18,6 @@
     <ArchetypeProperty Type="HitEffect" Name="HitEffect" Init="" ExposeToEditor="true" Description="Specifies the damage effects to apply on hit" />
     <ArchetypeProperty Type="AZ::TimeMs" Name="LifetimeMs" Init="AZ::TimeMs{ 0 }" Container="Object" ExposeToEditor="true" Description="Specifies the duration in milliseconds that the projectile should live for" />
 
-    <NetworkProperty Type="Multiplayer::NetEntityId" Name="ShooterNetEntityId" Init="Multiplayer::InvalidNetEntityId" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="The net entityId of the entity that shot the energy ball" />
     <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="The energy balls current velocity" />
     <NetworkProperty Type="bool" Name="BallActive" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="Track whether or not the energy ball is currently active" />
 
