@@ -7,8 +7,7 @@ This README covers testing and running MultiplayerSample with Amazon GameLift.
 ### Setup
 1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), if you don't already have it. You will need it to interact with Amazon GameLift.
 1. Enable the "AWSGameLift" and "MPSGameLift" gem by adding them to MultiplayerSample/Gem/Code/enabled_gems.cmake
-1. Build the server and game launchers for MultiplayerSample as normal, per [top-level README](/README.md).
-1. Build AssetBundler.exe
+1. Build the server, game launchers, and asset bundler for MultiplayerSample as normal, per [top-level README](/README.md).
     ```sh
     cmake --build build\windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher AssetBundler --config profile -- /m /nologo
     ```
