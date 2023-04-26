@@ -12,7 +12,7 @@
 
 #if AZ_TRAIT_CLIENT
     #include <MPSGameLiftClientSystemComponent.h>
-    #include <Components/UI/UiGameLiftConnectJsonMenuComponent.h>
+    #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
 #endif
 
  // We only want this logic to execute in dedicated server builds, not in the Editor or Unified builds.
@@ -22,7 +22,6 @@
     #include <AzCore/Console/IConsole.h>
 #endif
 
-#pragma optimize("",off)
 namespace MPSGameLift
 {
     class MPSGameLiftModuleInterface
@@ -38,7 +37,7 @@ namespace MPSGameLift
                 MPSGameLiftSystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
-                    UiGameLiftConnectJsonMenuComponent::CreateDescriptor(),
+                    UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),
                 #endif
                 #if AZ_DEDICATED_SERVER_ONLY
                     MPSGameLiftServerSystemComponent::CreateDescriptor(),
@@ -85,4 +84,3 @@ namespace MPSGameLift
         }
     };
 }// namespace MPSGameLift
-#pragma optimize("",on)

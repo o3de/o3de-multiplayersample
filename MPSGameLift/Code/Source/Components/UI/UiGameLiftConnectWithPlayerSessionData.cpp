@@ -6,7 +6,7 @@
  *
  */
 
-#include <Components/UI/UiGameLiftConnectJsonMenuComponent.h>
+#include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
@@ -24,40 +24,40 @@
 
 namespace MPSGameLift
 {
-    void UiGameLiftConnectJsonMenuComponent::Reflect(AZ::ReflectContext* context)
+    void UiGameLiftConnectWithPlayerSessionData::Reflect(AZ::ReflectContext* context)
     {
         if (const auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<UiGameLiftConnectJsonMenuComponent, AZ::Component>()
+            serializeContext->Class<UiGameLiftConnectWithPlayerSessionData, AZ::Component>()
                 ->Version(1)
-                ->Field("ConnectButton", &UiGameLiftConnectJsonMenuComponent::m_connectButtonUi)
-                ->Field("ExitButton", &UiGameLiftConnectJsonMenuComponent::m_quitButtonUi)
-                ->Field("JsonInput", &UiGameLiftConnectJsonMenuComponent::m_jsonInputUi)
-                ->Field("AttemptConnectionBlockerUi", &UiGameLiftConnectJsonMenuComponent::m_attemptConnectionBlockerUi)
-                ->Field("ConnectToHostFailedUi", &UiGameLiftConnectJsonMenuComponent::m_connectToHostFailedUi)
-                ->Field("JsonParseFailTextUi", &UiGameLiftConnectJsonMenuComponent::m_jsonParseFailTextUi)
+                ->Field("ConnectButton", &UiGameLiftConnectWithPlayerSessionData::m_connectButtonUi)
+                ->Field("ExitButton", &UiGameLiftConnectWithPlayerSessionData::m_quitButtonUi)
+                ->Field("PlayerSessionDataInputUi", &UiGameLiftConnectWithPlayerSessionData::m_playerSessionDataJsonInputUi)
+                ->Field("AttemptConnectionBlockerUi", &UiGameLiftConnectWithPlayerSessionData::m_attemptConnectionBlockerUi)
+                ->Field("ConnectToHostFailedUi", &UiGameLiftConnectWithPlayerSessionData::m_connectToHostFailedUi)
+                ->Field("JsonParseFailTextUi", &UiGameLiftConnectWithPlayerSessionData::m_jsonParseFailTextUi)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
-                editContext->Class<UiGameLiftConnectJsonMenuComponent>("UiGameLiftConnectJsonMenuComponent", "Component to setup the start menu")
+                editContext->Class<UiGameLiftConnectWithPlayerSessionData>("UiGameLiftConnectWithPlayerSessionData", "Component to setup the start menu")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "Multiplayer Sample UI")
                     ->Attribute(AZ::Edit::Attributes::Icon, "Icons/Components/Component_Placeholder.svg")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("CanvasUI"))
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_connectButtonUi, "Connect Button", "The ui button hosting a game (only available for unified launchers which can run as a client-host).")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_quitButtonUi, "Quit Button", "The ui button to quit the app.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_jsonInputUi, "GameLift JSON TextInput", "The ui text input providing the game and player session id.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_attemptConnectionBlockerUi, "Attempt Connection Blocker", "Fullscreen ui for blocking user input while the client tries to connect.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_connectToHostFailedUi, "Connection To Host Failed", "Ui to inform the user that connecting to the host failed.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectJsonMenuComponent::m_jsonParseFailTextUi, "Json Parse Fail Text", "Ui to inform the user that current JSON string is missing some expected data.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectButtonUi, "Connect Button", "The ui button hosting a game (only available for unified launchers which can run as a client-host).")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_quitButtonUi, "Quit Button", "The ui button to quit the app.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_playerSessionDataJsonInputUi, "GameLift Player Session Text Input", "The ui text input providing the game session and player session id.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_attemptConnectionBlockerUi, "Attempt Connection Blocker", "Fullscreen ui for blocking user input while the client tries to connect.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectToHostFailedUi, "Connection To Host Failed", "Ui to inform the user that connecting to the host failed.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_jsonParseFailTextUi, "Json Parse Fail Text", "Ui to inform the user that current JSON string is missing some expected data.")
                     ;
             }
         }
     }
 
-    void UiGameLiftConnectJsonMenuComponent::Activate()
+    void UiGameLiftConnectWithPlayerSessionData::Activate()
     {
         Multiplayer::SessionAsyncRequestNotificationBus::Handler::BusConnect();
         UiCursorBus::Broadcast(&UiCursorInterface::IncrementVisibleCounter);
@@ -66,7 +66,7 @@ namespace MPSGameLift
         UiButtonBus::Event(m_quitButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
         UiButtonBus::Event(m_connectButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
         UiButtonBus::Event(m_connectToHostFailedUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
-        UiTextInputBus::Event(m_jsonInputUi, &UiTextInputInterface::SetOnChangeCallback, [this]([[maybe_unused]] AZ::EntityId entityId, const AZStd::string& gameLiftJsonString) { OnJSONChanged(gameLiftJsonString); });
+        UiTextInputBus::Event(m_playerSessionDataJsonInputUi, &UiTextInputInterface::SetOnChangeCallback, [this]([[maybe_unused]] AZ::EntityId entityId, const AZStd::string& gameLiftJsonString) { OnJSONChanged(gameLiftJsonString); });
 
         // Hide the attempting connection ui until the player tries to connect
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
@@ -80,7 +80,7 @@ namespace MPSGameLift
         OnJSONChanged("");
     }
 
-    void UiGameLiftConnectJsonMenuComponent::Deactivate()
+    void UiGameLiftConnectWithPlayerSessionData::Deactivate()
     {
         m_onConnectToHostFailed.Disconnect();
         UiCursorBus::Broadcast(&UiCursorInterface::DecrementVisibleCounter);
@@ -88,14 +88,14 @@ namespace MPSGameLift
         Multiplayer::SessionAsyncRequestNotificationBus::Handler::BusDisconnect();
     }
 
-    void UiGameLiftConnectJsonMenuComponent::OnJSONChanged(const AZStd::string& gameLiftJsonString)
+    void UiGameLiftConnectWithPlayerSessionData::OnJSONChanged(const AZStd::string& gameLiftJsonString)
     {
         // Disable the connect button until checking to make sure the user has provided the proper GameLift information in JSON format
         UiInteractableBus::Event(m_connectButtonUi, &UiInteractableInterface::SetIsHandlingEvents, false);
 
         if (gameLiftJsonString.empty())
         {
-            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Please provide GameLift JSON!");
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Please provide GameLift GameSessionId and PlayerSessionId in JSON format!");
             return;
         }
         
@@ -142,41 +142,45 @@ namespace MPSGameLift
         UiInteractableBus::Event(m_connectButtonUi, &UiInteractableInterface::SetIsHandlingEvents, true);
     }
 
-    void UiGameLiftConnectJsonMenuComponent::OnButtonClicked(AZ::EntityId buttonEntityId) const
+    void UiGameLiftConnectWithPlayerSessionData::OnButtonClicked(AZ::EntityId buttonEntityId) const
     {
         const auto console = AZ::Interface<AZ::IConsole>::Get();
         if (!console)
         {
-            AZ_Assert(false, "UiGameLiftConnectJsonMenuComponent attempting to use console commands before AZ::Console is available.");
+            AZ_Assert(false, "UiGameLiftConnectWithPlayerSessionData attempting to use console commands before AZ::Console is available.");
             return;
         }
 
         if (buttonEntityId == m_quitButtonUi)
         {
             console->PerformCommand("quit");
+            return;
         }
-        else if (buttonEntityId == m_connectButtonUi)
+        
+        if (buttonEntityId == m_connectButtonUi)
         {
             // Enable blocker ui while we attempt connection
             UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
 
             AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Broadcast(
                 &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::JoinSessionAsync, m_request);
+            return;
         }
-        else if (buttonEntityId == m_connectToHostFailedUi)
+        
+        if (buttonEntityId == m_connectToHostFailedUi)
         {
             // Player acknowledged connection failed. Close the warning popup.
             UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, false);
         }
     }
 
-    void UiGameLiftConnectJsonMenuComponent::OnConnectToHostFailed()
+    void UiGameLiftConnectWithPlayerSessionData::OnConnectToHostFailed()
     {
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
         UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
     }
 
-    void UiGameLiftConnectJsonMenuComponent::OnJoinSessionAsyncComplete(bool joinSessionsResponse)
+    void UiGameLiftConnectWithPlayerSessionData::OnJoinSessionAsyncComplete(bool joinSessionsResponse)
     {
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
 

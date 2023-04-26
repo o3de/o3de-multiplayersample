@@ -17,15 +17,15 @@
 namespace MPSGameLift
 {
     /*!
-     * \class UiGameLiftConnectJsonMenuComponent
+     * \class UiGameLiftConnectWithPlayerSessionData
      * \brief An example ui component used for connecting to GameLift using a user-provided JSON string that contains the game-session-id and player-session-id.
     */
-    class UiGameLiftConnectJsonMenuComponent
+    class UiGameLiftConnectWithPlayerSessionData
         : public AZ::Component,
           Multiplayer::SessionAsyncRequestNotificationBus::Handler
     {
     public:
-        AZ_COMPONENT(MPSGameLift::UiGameLiftConnectJsonMenuComponent, "{328C97C3-D4BC-4A07-94F1-E1462908FC7A}");
+        AZ_COMPONENT(MPSGameLift::UiGameLiftConnectWithPlayerSessionData, "{328C97C3-D4BC-4A07-94F1-E1462908FC7A}");
 
         /*
         * Reflects component data into the reflection contexts, including the serialization, edit, and behavior contexts.
@@ -52,7 +52,7 @@ namespace MPSGameLift
 
         AZ::EntityId m_connectButtonUi;
         AZ::EntityId m_quitButtonUi;
-        AZ::EntityId m_jsonInputUi;
+        AZ::EntityId m_playerSessionDataJsonInputUi;
         AZ::EntityId m_attemptConnectionBlockerUi;
         AZ::EntityId m_connectToHostFailedUi;
         AZ::EntityId m_jsonParseFailTextUi;
