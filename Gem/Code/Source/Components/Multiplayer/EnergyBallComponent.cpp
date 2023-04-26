@@ -76,7 +76,7 @@ namespace MultiplayerSample
         }
         else
         {
-            // Crate an explosion effect wherever the ball was last at.
+            // Create an explosion effect wherever the ball was last at.
             m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
 
             bool killSuccess = false;
