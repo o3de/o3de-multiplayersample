@@ -72,6 +72,9 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
     rem Copy the executables and DLLs
     copy .\build\windows_mono\bin\profile\*.* %1
     
+    rem Copy launch_server.cfg
+    copy .\launch_server.cfg %1
+
     rem Copy the AWSCore files
     copy .\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
     ```
