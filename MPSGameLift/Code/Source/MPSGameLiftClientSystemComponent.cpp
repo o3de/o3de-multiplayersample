@@ -38,11 +38,7 @@ namespace MPSGameLift
     {
         required.push_back(AZ_CRC_CE("AWSGameLiftClientService"));
     }
-
-    void MPSGameLiftClientSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
-    {
-    }
-
+    
     void MPSGameLiftClientSystemComponent::Init()
     {
     }
