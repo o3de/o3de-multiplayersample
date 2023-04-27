@@ -36,18 +36,28 @@ For example, sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent:
     ```sh
     aws gamelift create-game-session --endpoint-url http://localhost:8080 --maximum-player-session-count 2 --fleet-id fleet-123 --game-session-id hello-mps --game-properties Key=loadlevel,Value=NewStarbase
     ```
+
     You should observe logs in the `GameLiftLocal` terminal which indicate it handled the create-game-session request, and see the `ServerLauncher` load its level.
 
 1. Finally, start the game launcher and connect to the server.
+
     Option 1: Command Line
-        ```sh
-        ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
-        ```
+
+    ```sh
+    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --MPSGameLiftClientSystemComponent.JoinSession hello-mps --cl_gameliftLocalEndpoint "http://localhost:8080"
+    ```
+
     Option 2: JSON Menu
+
+    1. Launch game and load the GameLift connection menu level
+
         ```sh
         ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --cl_gameliftLocalEndpoint "http://localhost:8080" --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
         ```
-        Provide JSON and click 'Connect':
-        { "GameSessionId": "hello-mps", "PlayerId": "<any_unique_id>", "PlayerSessionId": "not_required_for_gamelift_local" }
 
+    1. Provide JSON and click 'Connect':
+
+        ```json
+        { "GameSessionId": "hello-mps", "PlayerId": "<any_unique_id>", "PlayerSessionId": "not_required_for_gamelift_local" }
+        ```
 1. The game launcher should be connected to the server and your player can run around.

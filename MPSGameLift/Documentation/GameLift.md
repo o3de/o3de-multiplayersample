@@ -26,6 +26,15 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
         ![Enable GameLift Gems](Media/enable_gamelift_gems.jpg)
     4. Click "Save"
 
+
+    ---
+    **NOTE**
+
+    Due to [bug-15829](https://github.com/o3de/o3de/issues/15829) please also add "AWSGameLift" to project.json's _gem_names_ list.
+
+    ---
+    
+
 1. Build the server, game launchers, and asset bundler for MultiplayerSample
     ```sh
     cmake --build build\windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher AssetBundler --config profile -- /m /nologo
@@ -98,17 +107,17 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
 ## Prepare for GameLift
 ### Upload the build to GameLift
 Note: Builds are tied to Fleets; you may want to delete the existing build and fleet via the AWS Gamelift dashboard just so you don't accidentally reference old builds or old fleets in future steps. 
-`
+```sh
 aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2
-`
+```
 Record BuildId for the next step. Example: build-fe4a2b2c-8ae5-4757-99a6-0ff372d03512
 
 ### Create Fleet
 After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
 
-`
+```sh
 aws gamelift create-fleet --region us-west-2 --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
-`
+```
 ---
 **NOTE**
 
@@ -119,22 +128,22 @@ The ec2-instance-type and fleet-type determines the kind of AWS resources used; 
 Record the FleetId for the next step. Example: fleet-1a49fc3e-892a-40fc-b2e9-aa7e11983182
 
 ### Create and Join Game Session
-`
+```sh
 aws gamelift create-game-session --region us-west-2 --fleet-id <FleetId> --name foogamesession1 --maximum-player-session-count 3
-`
+```
 Record GameSessionId for the next step. Example: arn:aws:gamelift:us-west-2::gamesession/fleet-1a49fc3e-892a-40fc-b2e9-aa7e11983182/gsess-4745e6ab-6cc0-44c7-b78d-acab9534f206
 
 Launch the game client with:
 ```sh
-    ./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
-`
+```sh
 aws gamelift create-player-session --region us-west-2 --game-session-id <GameSessionId> --player-id Player1
-`
+```
 Note: PlayerId passed into create-player-session shouldn't be the player id passed into these JSON block; keep these unique. 
 Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: psess-50311090-9283-4fb0-ad1a-94468e60fa16
 
 Paste in the game session and player session and click Connect. 
-`
+```json
 { "GameSessionId": "<GameSessionId>", "PlayerId": "player_id", "PlayerSessionId": "<PlayerSessionId>" }
-`
+```
