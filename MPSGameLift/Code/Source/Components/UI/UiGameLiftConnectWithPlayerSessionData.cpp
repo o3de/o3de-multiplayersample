@@ -46,12 +46,12 @@ namespace MPSGameLift
                     ->Attribute(AZ::Edit::Attributes::Icon, "Icons/Components/Component_Placeholder.svg")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("CanvasUI"))
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectButtonUi, "Connect Button", "The ui button hosting a game (only available for unified launchers which can run as a client-host).")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_quitButtonUi, "Quit Button", "The ui button to quit the app.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_playerSessionDataJsonInputUi, "GameLift Player Session Text Input", "The ui text input providing the game session and player session id.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_attemptConnectionBlockerUi, "Attempt Connection Blocker", "Fullscreen ui for blocking user input while the client tries to connect.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectToHostFailedUi, "Connection To Host Failed", "Ui to inform the user that connecting to the host failed.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_jsonParseFailTextUi, "Json Parse Fail Text", "Ui to inform the user that current JSON string is missing some expected data.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectButtonUi, "Connect Button", "The UI button hosting a game (only available for unified launchers which can run as a client-host).")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_quitButtonUi, "Quit Button", "The UI button to quit the app.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_playerSessionDataJsonInputUi, "GameLift Player Session Text Input", "The UI text input providing the game session and player session id.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_attemptConnectionBlockerUi, "Attempt Connection Blocker", "Fullscreen UI for blocking user input while the client tries to connect.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_connectToHostFailedUi, "Connection To Host Failed", "UI to inform the user that connecting to the host failed.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiGameLiftConnectWithPlayerSessionData::m_jsonParseFailTextUi, "Json Parse Fail Text", "UI to inform the user that current JSON string is missing some expected data.")
                     ;
             }
         }
