@@ -29,8 +29,14 @@ This README covers testing and running MultiplayerSample with Amazon GameLift Lo
     sv_gameLiftEnabled: Causes the GameLift gem connect to GameLift on app startup
     sv_dedicated_host_onstartup: Stops the Multiplayer Gem from automatically hosting on startup and instead wait for GameLift to tell the server when it's okay to begin hosting (and which port to listen in on for connections) 
 
-Note: You may be inclined to move these [cvars](https://www.o3de.org/docs/user-guide/appendix/cvars/) into a cfg file and start the server by passing the --console-command-file parameter, but don't. Some cvars are used during a system component Activate(), but the console-command-file is executed after all system components have been activated.
-For example, sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent::Activate().
+    ---
+    **NOTE**
+
+    You may be inclined to move these [cvars](https://www.o3de.org/docs/user-guide/appendix/cvars/) into a cfg file and start the server by passing the --console-command-file parameter, but don't. Some cvars are used during a system component Activate(), but the console-command-file is executed after all system components have been activated.
+    
+    For example, sv_gameLiftEnabled is used inside AWSGameLiftServerSystemComponent::Activate().
+
+    ---
 
 1. Create a game session with the below command:
     ```sh

@@ -36,13 +36,13 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     
 
 1. Build the server, game launchers, and asset bundler for MultiplayerSample
-    ```sh
-    cmake --build build\windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher AssetBundler --config profile -- /m /nologo
-    ```
+
+    `cmake --build build\windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher AssetBundler --config profile -- /m `
+
 1. Build all the assets
-    ```sh
-    cmake --build build\windows --target MultiplayerSample.Assets --config profile -- /m /nologo
-    ```
+
+    `cmake --build build\windows --target MultiplayerSample.Assets --config profile -- /m`
+
 1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
 
     a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region.
@@ -52,9 +52,9 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 ## Build Server for Windows
 1. Build Monolithic Server
 
-    a. cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0
+    a. `cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0`
 
-    b. cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
+    b. `cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo`
 1. Bundle Content
 
     a. Open .\build\windows\bin\profile\AssetBundler.exe
@@ -89,15 +89,18 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
     ```
 1. Test the profile pak server and game locally
     Run the server in headless mode using `rhi=null` and `NullRenderer` parameters; the server appears as a white screen in headless mode.
-    ```sh
-    C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 -sv_terminateOnPlayerExit=true --console-command-file=launch_server.cfg
-    ```
     
-    ```sh
-    C:\GameLiftPackageWindows\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 --connect
-    ```
+    `C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 -sv_terminateOnPlayerExit=true --console-command-file=launch_server.cfg`
+    
+    `C:\GameLiftPackageWindows\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 --connect`
+
+    ---
+    **NOTE**
 
     Note: launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.
+
+    ---
+
 1. Open C:\GameLiftPackageWindows\user\log\Server.log
     You should see the "New Starbase" level loaded
     ```
@@ -106,7 +109,14 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
 
 ## Prepare for GameLift
 ### Upload the build to GameLift
-Note: Builds are tied to Fleets; you may want to delete the existing build and fleet via the AWS Gamelift dashboard just so you don't accidentally reference old builds or old fleets in future steps. 
+
+---
+**NOTE**
+
+Builds are tied to Fleets; you may want to delete the existing build and fleet via the AWS Gamelift dashboard just so you don't accidentally reference old builds or old fleets in future steps.
+
+---
+ 
 ```sh
 aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2
 ```
