@@ -326,8 +326,7 @@ You can contribute by [reporting issues and making feature requests](https://git
 | [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings                                           |
 | [SettingsScreen](Documentation/SettingsScreen.md)                                | How to use and extend the settings screen                                 |
 | [Packaging MPS](Documentation/PackedAssetBuilds.md)                              | How to build and package MPS for distribution or running servers remotely |
-| [GameLift Setup](Documentation/Hosting/AmazonGameLift/GameLift.md)               | How to deploy to GameLift                                                 |
-| [GameLift Local Setup](Documentation/Hosting/AmazonGameLift/GameLiftLocal.md)    | How to test GameLift locally                                              |
+| [GameLift Setup](MPSGameLift/README.md)                                          | How to enable AWS GameLift integration                                    |
 
 ## O3DE Useful Links
 
