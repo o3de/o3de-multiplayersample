@@ -275,7 +275,7 @@ namespace MultiplayerSample
         RPC_BallExplosion(m_hitEvent);
 
         // Wait 5 seconds before cleaning up the entity so that the explosion effect has a chance to play out
-        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lamda triggers
+        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lambda triggers
         const Multiplayer::NetEntityId netEntityId = GetNetEntityId();
         AZ::Interface<AZ::IEventScheduler>::Get()->AddCallback([netEntityId]
             {
