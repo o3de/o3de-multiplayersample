@@ -76,7 +76,7 @@ namespace MultiplayerSample
         }
         else
         {
-            // Crate an explosion effect wherever the ball was last at.
+            // Create an explosion effect wherever the ball was last at.
             m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
 
             bool killSuccess = false;
@@ -275,11 +275,11 @@ namespace MultiplayerSample
         RPC_BallExplosion(m_hitEvent);
 
         // Wait 5 seconds before cleaning up the entity so that the explosion effect has a chance to play out
-        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lamda triggers
+        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lambda triggers
         const Multiplayer::NetEntityId netEntityId = GetNetEntityId();
         AZ::Interface<AZ::IEventScheduler>::Get()->AddCallback([netEntityId]
             {
-                // Fetch the entity handle, ensure its still valid
+                // Fetch the entity handle, ensure it's still valid
                 const Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
                 if (entityHandle.Exists())
                 {
