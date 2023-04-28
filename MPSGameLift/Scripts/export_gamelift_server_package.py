@@ -78,11 +78,11 @@ if (args.code):
     if (process_command(["cmake", "-B", monolithic_build_folder, "-S", o3de_context.project_path, "-G", "Visual Studio 16", "-DLY_MONOLITHIC_GAME=1", "-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0"])):
         quit()
 
-    if (process_command(["cmake", "--build", monolithic_build_folder, "--target", "MultiplayerSample.ServerLauncher", "--config", "profile", "--", "/m"])):
+    if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "profile", "--", "/m"])):
         quit()
 
 # Build Assets
 if (args.assets):
     # Process assets
-    if (process_command(["cmake", "--build", build_folder, "--target", "MultiplayerSample.Assets", "--config", "profile", "--", "/m"]) != 0):
+    if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.Assets", "--config", "profile", "--", "/m"]) != 0):
         quit()
