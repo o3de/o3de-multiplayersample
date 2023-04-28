@@ -287,7 +287,7 @@ namespace MultiplayerSample
                 }
             },
             AZ::Name("Cleanup"),
-            AZ::TimeMs{ 5000 }
+            GetLingertimeMs()
         );
     }
 #endif

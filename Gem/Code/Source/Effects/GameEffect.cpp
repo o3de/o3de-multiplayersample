@@ -12,7 +12,7 @@
 #if AZ_TRAIT_CLIENT
 #   include <PopcornFX/PopcornFXBus.h>
 #endif
-#pragma optimize("", off)
+
 namespace MultiplayerSample
 {
     AZ_CVAR(bool, cl_KillEffectOnRestart, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Controls whether or not to kill current effects on restart");
@@ -238,4 +238,3 @@ namespace MultiplayerSample
         return m_effectOffset;
     }
 }
-#pragma optimize("", on)
