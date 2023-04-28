@@ -279,7 +279,7 @@ namespace MultiplayerSample
         const Multiplayer::NetEntityId netEntityId = GetNetEntityId();
         AZ::Interface<AZ::IEventScheduler>::Get()->AddCallback([netEntityId]
             {
-                // Fetch the entity handle, ensure its still valid
+                // Fetch the entity handle, ensure it's still valid
                 const Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
                 if (entityHandle.Exists())
                 {
