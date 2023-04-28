@@ -12,49 +12,18 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     C:\> aws --version
     aws-cli/2.10.0 Python/3.11.2 Windows/10 exe/AMD64 prompt/off
     ```
-1. Enable the "AWSGameLift" and "MPSGameLift" gems
-
-    Option 1: Commandline
-    ```sh
-    <path-to-o3de-engine>\scripts\o3de.bat enable-gem -pp <path-to-multiplayer-sample> -gn MPSGameLift
-    ```
-    Option 2: Project Manager
-    1. Open Project Manager
-    2. Select the "Configure Gems" options for Multiplayer Sample
-    3. Enable "AWSGameLift" and "MPSGameLift" gems
-
-        ![Enable GameLift Gems](Media/enable_gamelift_gems.jpg)
-    4. Click "Save"
-
-
-    ---
-    **NOTE**
-
-    Due to [bug-15829](https://github.com/o3de/o3de/issues/15829) please also add "AWSGameLift" to project.json's _gem_names_ list.
-
-    ---
-    
-
-1. Build the server, game launchers, and asset bundler for MultiplayerSample
-
-    `cmake --build build\windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher AssetBundler --config profile -- /m `
-
-1. Build all the assets
-
-    `cmake --build build\windows --target MultiplayerSample.Assets --config profile -- /m`
-
 1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
 
     a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region.
 
     b. This step will be removed once we properly parse the game-session data which contains the fleet-id, region-id, etc  
 
-## Build Server for Windows
-1. Build Monolithic Server
+1. Use Export Project to Compile Code and Build Assets
 
-    a. `cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0`
-
-    b. `cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo`
+    ```sh
+    <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO
+    ```
+    
 1. Bundle Content
 
     a. Open .\build\windows\bin\profile\AssetBundler.exe
@@ -64,6 +33,7 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 The "default seed lists" choice should choose all but 4 seed lists to make the engine_pc.pak
 The other 4 seed lists should all get selected to make the game_pc.pak
 It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
+
 1. Create the Launcher Zip file
    Use the following .bat file or equivalent copy steps to create a directory with the launchers in it:
    Run from MultiplayerSample project root directory...
@@ -97,7 +67,7 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
     ---
     **NOTE**
 
-    Note: launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.
+    Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.
 
     ---
 
@@ -150,8 +120,12 @@ Launch the game client with:
 ```sh
 aws gamelift create-player-session --region us-west-2 --game-session-id <GameSessionId> --player-id Player1
 ```
-Note: PlayerId passed into create-player-session shouldn't be the player id passed into these JSON block; keep these unique. 
+---
+**NOTE**
+PlayerId passed into create-player-session shouldn't be the player id passed into these JSON block; keep these unique. 
 Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: psess-50311090-9283-4fb0-ad1a-94468e60fa16
+
+---
 
 Paste in the game session and player session and click Connect. 
 ```json
