@@ -9,8 +9,10 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
 #include <Unified/MPSGameLiftSystemComponent.h>
+
 #if AZ_TRAIT_CLIENT
     #include <MPSGameLiftClientSystemComponent.h>
+    #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
 #endif
 
  // We only want this logic to execute in dedicated server builds, not in the Editor or Unified builds.
@@ -35,8 +37,9 @@ namespace MPSGameLift
                 MPSGameLiftSystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
+                    UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),
                 #endif
-                #if AZ_TRAIT_SERVER && !AZ_TRAIT_CLIENT
+                #if AZ_DEDICATED_SERVER_ONLY
                     MPSGameLiftServerSystemComponent::CreateDescriptor(),
                 #endif
                 });

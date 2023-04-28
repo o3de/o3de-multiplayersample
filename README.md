@@ -319,13 +319,14 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 ## Documentation
 
-| Link                                                            | Description                                                               |
-|-----------------------------------------------------------------|---------------------------------------------------------------------------|
-| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions                                         |
-| [Release Notes](Documentation/ReleaseNotes.md)                  | Release notes and known issues per major release                          |
-| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings                                           |
-| [SettingsScreen](Documentation/SettingsScreen.md)               | How to use and extend the settings screen                                 |
-| [Packaging MPS](Documentation/PackedAssetBuilds.md)             | How to build and package MPS for distribution or running servers remotely |
+| Link                                                                             | Description                                                               |
+|----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions                                         |
+| [Release Notes](Documentation/ReleaseNotes.md)                                   | Release notes and known issues per major release                          |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings                                           |
+| [SettingsScreen](Documentation/SettingsScreen.md)                                | How to use and extend the settings screen                                 |
+| [Packaging MPS](Documentation/PackedAssetBuilds.md)                              | How to build and package MPS for distribution or running servers remotely |
+| [GameLift Setup](MPSGameLift/README.md)                                          | How to enable AWS GameLift integration                                    |
 
 ## O3DE Useful Links
 

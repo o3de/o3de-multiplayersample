@@ -38,11 +38,7 @@ namespace MPSGameLift
     {
         required.push_back(AZ_CRC_CE("AWSGameLiftClientService"));
     }
-
-    void MPSGameLiftClientSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
-    {
-    }
-
+    
     void MPSGameLiftClientSystemComponent::Init()
     {
     }
@@ -66,10 +62,10 @@ namespace MPSGameLift
         JoinSessionInternal(consoleFunctionParameters[0], m_playerId);
     }
 
-    void MPSGameLiftClientSystemComponent::JoinSessionInternal(AZStd::string_view sessionId, const AZ::Uuid& playerId)
+    void MPSGameLiftClientSystemComponent::JoinSessionInternal(AZStd::string_view gameSessionId, const AZ::Uuid& playerId)
     {
         AWSGameLift::AWSGameLiftJoinSessionRequest request;
-        request.m_sessionId = sessionId;
+        request.m_sessionId = gameSessionId;
         request.m_playerId = playerId.ToString<AZStd::string>();
 
         AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Broadcast(
