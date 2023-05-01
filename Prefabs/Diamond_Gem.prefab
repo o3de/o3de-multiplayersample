@@ -1,0 +1,323 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Diamond_Gem",
+        "Components": {
+            "Component_[10125565454363449462]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 10125565454363449462
+            },
+            "Component_[11616608064955764464]": {
+                "$type": "EditorLockComponent",
+                "Id": 11616608064955764464
+            },
+            "Component_[14420415435941492777]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 14420415435941492777,
+                "Parent Entity": ""
+            },
+            "Component_[16658210229650050843]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 16658210229650050843
+            },
+            "Component_[17525452758123850391]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 17525452758123850391
+            },
+            "Component_[17732870171162402051]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 17732870171162402051
+            },
+            "Component_[3049469311269314187]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 3049469311269314187
+            },
+            "Component_[3508758042453871737]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 3508758042453871737
+            },
+            "Component_[5637162846755298890]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 5637162846755298890,
+                "Child Entity Order": [
+                    "Entity_[1163027216739]"
+                ]
+            },
+            "Component_[6816615275679857030]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 6816615275679857030
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[1163027216739]": {
+            "Id": "Entity_[1163027216739]",
+            "Name": "Diamond Gem",
+            "Components": {
+                "Component_[11153673147495975095]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 11153673147495975095
+                },
+                "Component_[11667213342982191799]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 11667213342982191799
+                },
+                "Component_[12404836632210058281]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 12404836632210058281,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{70930829-EF52-5336-9CB0-9694B77058FF}",
+                                    "subId": 279298071
+                                },
+                                "assetHint": "pick_ups/gems/gem_one.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[13644541024230291784]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 13644541024230291784
+                },
+                "Component_[14439860670826727286]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 14439860670826727286,
+                    "Child Entity Order": [
+                        "Entity_[37608714952349]"
+                    ]
+                },
+                "Component_[2525855628774008689]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 2525855628774008689,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": [
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 2390400490
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{349C8F72-3319-5DB7-9519-5C70807B7871}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_exterior_white.azmaterial"
+                                        }
+                                    }
+                                },
+                                {
+                                    "Key": {
+                                        "materialSlotStableId": 4270312937
+                                    },
+                                    "Value": {
+                                        "MaterialAsset": {
+                                            "assetId": {
+                                                "guid": "{630822BA-9310-5417-8212-3F29C14B0C2B}"
+                                            },
+                                            "assetHint": "pick_ups/gems/skins/gem_interior_white.azmaterial"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[3117152326793893835]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3117152326793893835,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[4684877471957022317]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 4684877471957022317,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 6627174300642616873
+                        },
+                        {
+                            "ComponentId": 3117152326793893835,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 8324971338110981697,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 6047658345822598543,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 12404836632210058281,
+                            "SortIndex": 4
+                        },
+                        {
+                            "ComponentId": 10824307280319942103,
+                            "SortIndex": 5
+                        },
+                        {
+                            "ComponentId": 4709323619022222983,
+                            "SortIndex": 6
+                        }
+                    ]
+                },
+                "Component_[4709323619022222983]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 4709323619022222983,
+                    "ColliderConfiguration": {
+                        "Trigger": true,
+                        "InSceneQueries": false,
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.6499999761581421
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object",
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{EF76347C-319F-584E-9DDE-A06D328F4304}",
+                                            "subId": 1
+                                        },
+                                        "assetHint": "physx/glass.physicsmaterial"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "ShapeType": 0,
+                        "Sphere": {
+                            "Radius": 1.0
+                        }
+                    },
+                    "DebugDrawSettings": {
+                        "LocallyEnabled": false
+                    }
+                },
+                "Component_[6047658345822598543]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6047658345822598543,
+                    "m_template": {
+                        "$type": "MultiplayerSample::GemComponent",
+                        "VerticalAmplitude": 0.5
+                    }
+                },
+                "Component_[6168639890567694195]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 6168639890567694195
+                },
+                "Component_[6627174300642616873]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 6627174300642616873,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[7858479129415370824]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 7858479129415370824
+                },
+                "Component_[8324971338110981697]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8324971338110981697,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[9503189652770780952]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 9503189652770780952
+                },
+                "Component_[957135423684634937]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 957135423684634937
+                }
+            }
+        },
+        "Entity_[37608714952349]": {
+            "Id": "Entity_[37608714952349]",
+            "Name": "Light",
+            "Components": {
+                "Component_[10679717109517866341]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 10679717109517866341
+                },
+                "Component_[15143373003546758218]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 15143373003546758218,
+                    "Parent Entity": "Entity_[1163027216739]",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            0.6626076698303223
+                        ]
+                    }
+                },
+                "Component_[16007806676337486522]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 16007806676337486522
+                },
+                "Component_[16311585053906035725]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 16311585053906035725
+                },
+                "Component_[16368840976946453278]": {
+                    "$type": "AZ::Render::EditorAreaLightComponent",
+                    "Id": 16368840976946453278,
+                    "Controller": {
+                        "Configuration": {
+                            "LightType": 6,
+                            "Color": [
+                                0.2235293984413147,
+                                0.3137255012989044,
+                                0.34117650985717773
+                            ],
+                            "Intensity": 20.0,
+                            "AttenuationRadiusMode": 0,
+                            "AttenuationRadius": 2.0
+                        }
+                    }
+                },
+                "Component_[1837964497805604673]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 1837964497805604673
+                },
+                "Component_[5552077184261565579]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 5552077184261565579
+                },
+                "Component_[6495367082034390797]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 6495367082034390797
+                },
+                "Component_[7449658507171144048]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 7449658507171144048
+                },
+                "Component_[8116240443190111049]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 8116240443190111049
+                },
+                "Component_[8259679155451845488]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8259679155451845488,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[9317568044731960784]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9317568044731960784,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                }
+            }
+        }
+    }
+}

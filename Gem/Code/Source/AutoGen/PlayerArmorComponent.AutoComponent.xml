@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="PlayerArmorComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="false"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/PlayerArmorComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkHealthComponent" Namespace="MultiplayerSample" Include="Components/NetworkHealthComponent.h" />
+
+    <ArchetypeProperty Type="float" Name="StartingArmor" Init="100.f" Suffix="armor" ExposeToEditor="true" Description="The starting amount of armor for a player." />
+</Component>

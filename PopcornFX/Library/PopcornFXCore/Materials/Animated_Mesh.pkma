@@ -1,0 +1,130 @@
+Version = 2.15.0.15760;
+CParticleRendererFeatureSet	$6B70D015
+{
+	RendererFeatures = {
+		"$A8FC2215",
+		"$18565271",
+		"$8F7B32AE",
+		"$35A36C4E",
+		"$48A1612A",
+		"$889B8BF4",
+		"$E0B8480E",
+		"$9B409ABD",
+		"$9154DFA0",
+		"$8BF32864",
+		"$ECD07C82",
+		"$B408CF5C",
+		"$D857A09F",
+		"$4B933A29",
+		"$4B954A29",
+		"$EAC726E3",
+		"$3BE1856D",
+		"$1A35A1FF",
+		"$F22CBF26",
+	};
+}
+CParticleRendererFeatureDesc	$A8FC2215
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "GeometryMesh";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$18565271
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Opaque";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$8F7B32AE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Diffuse";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$35A36C4E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$8BF32864
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Lit";
+}
+CParticleRendererFeatureDesc	$ECD07C82
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "LegacyLit";
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "MeshAtlas";
+}
+CParticleRendererFeatureDesc	$4B933A29
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "AlphaRemap";
+}
+CParticleRendererFeatureDesc	$4B954A29
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Emissive";
+}
+CParticleRendererFeatureDesc	$9154DFA0
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "DiffuseRamp";
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	VertexShader = "Library/PopcornFXCore/Shaders/AnimatedMesh.vert";
+	FragmentShader = "Library/PopcornFXCore/Shaders/Default_Mesh.frag";
+}
+CParticleRendererFeatureDesc	$3BE1856D
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$1A35A1FF
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "UseVertexColors";
+}
+CParticleRendererFeatureDesc	$48A1612A
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimation";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$E0B8480E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationInterpolate";
+}
+CParticleRendererFeatureDesc	$9B409ABD
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationInterpolateTracks";
+}
+CParticleRendererFeatureDesc	$889B8BF4
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/SkeletalAnimationTexture.pkri";
+	RendererFeatureName = "SkeletalAnimationUseBonesScale";
+}
+CParticleRendererFeatureDesc	$B408CF5C
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$F22CBF26
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "MeshLOD";
+}

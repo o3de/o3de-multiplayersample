@@ -1,0 +1,22 @@
+<EngineDependencies versionnumber="1.0.0">
+    <Dependency path="*.azshadervariant*" optional="false" /> <!-- The wildcard includes azshadervarianttree assets too -->
+    <!-- The dependency system uses glob style wildcards. This means the wildcards don't include directory markers. -->
+    <!-- This is only necessary for systems that do not output product dependencies. Once this system supports product dependencies, this can be removed. -->
+    <Dependency path="popcornfx/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/content/spacesoldiersweapons/textures/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/library/persistantstudios/weapons/alien/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/meshes/bubblegun/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/textures/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/textures/*/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/textures/malfunctionningshieldgenerator/mshieldgen/*.streamingimage" optional="false" />
+    <Dependency path="popcornfx/*.pkfx" optional="false" />
+    <Dependency path="popcornfx/particles/*.pkfx" optional="false" />
+    <Dependency path="popcornfx/particles/*/*.pkfx" optional="false" />
+    <Dependency path="popcornfx/library/popcornfxcore/*.pkfx" optional="false" />
+    <Dependency path="popcornfx/library/popcornfxcore/templates/*.pkfx" optional="false" />
+    <Dependency path="popcornfx/*.azmodel" optional="false" />
+    <Dependency path="popcornfx/meshes/*.azmodel" optional="false" />
+    <Dependency path="popcornfx/meshes/*/*.azmodel" optional="false" />
+    <Dependency path="popcornfx/content/spacesoldiersweapons/meshes/*.azmodel" optional="false" />
+    <Dependency path="popcornfx/library/persistantstudios/weapons/alien/*.azmodel" optional="false" />
+</EngineDependencies>

@@ -6,8 +6,5 @@
 # 
 
 set(FILES
-    Materials/UVs.azsl
-    Materials/UVs.materialtype
-    Materials/UVs.shader
     Shaders/CommonVS.azsli
 ) 

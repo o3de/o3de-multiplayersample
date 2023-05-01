@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}" SchemaVersion="103" RootDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}" ParentDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}">
+	<AudioObjects>
+		<WorkUnit Name="UI" ID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}" OwnerID="{AAEBA70B-BECE-4AC8-BE18-6CB0721C5DC7}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="27"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="UI" ID="{8EF9D8B8-3FFF-4AF5-B38B-AF48CFDA1F3C}" ShortID="820545732">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="27"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+						<Property Name="OverrideOutput" Type="bool" Value="True"/>
+						<Property Name="OverridePositioning" Type="bool" Value="True"/>
+						<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<ActorMixer Name="Game" ID="{67449F8D-D211-4FAF-9D83-96903E1E4020}" ShortID="1033280735">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_ui_game_countdown" ID="{9B548ABF-74A8-4141-8F5F-49F2142EDB3E}" ShortID="924978797">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_countdown_01" ID="{B394FCB2-4ECF-4F5E-8437-626E250C32F9}" ShortID="725001930">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_countdown_01" ID="{5FF3E25F-A922-469F-AFCB-CAD9C0066099}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_countdown_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="607171534"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_countdown_01" ID="{5FF3E25F-A922-469F-AFCB-CAD9C0066099}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_ui_game_end" ID="{79AB47FD-A9AC-4653-AFBF-8F58D84830DC}" ShortID="82751734">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_end_01" ID="{C5B95BA9-17E1-4191-A77D-25FEF3779706}" ShortID="6192961">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_end_01" ID="{9E5DDB41-5CD9-4994-8188-659F15D1E506}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_end_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="497598"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_end_01" ID="{9E5DDB41-5CD9-4994-8188-659F15D1E506}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_ui_game_fanfare_defeat" ID="{A7738B45-F531-4F6D-A7C6-7AC65B02957A}" ShortID="89659774">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_fanfare_defeat_01" ID="{01D923DF-E797-468D-BEF2-4B73BDE5D26B}" ShortID="984985507">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_fanfare_defeat_01" ID="{F76622B2-B76B-4A4C-BC60-1DB021217FD0}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_fanfare_defeat_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="722615873"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_fanfare_defeat_01" ID="{F76622B2-B76B-4A4C-BC60-1DB021217FD0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_ui_game_fanfare_victory" ID="{3D7F8758-E86F-4580-B40A-34BD2FF91EED}" ShortID="643759417">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_fanfare_victory_01" ID="{83DFEC1D-31B2-45C4-8D51-95075A7106DE}" ShortID="362215795">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_fanfare_victory_01" ID="{F80445E2-5E3D-412D-A01B-CF31F6790ADD}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_fanfare_victory_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="383527426"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_fanfare_victory_01" ID="{F80445E2-5E3D-412D-A01B-CF31F6790ADD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_ui_game_round_end" ID="{2AA7B77D-164F-43AE-BFA4-C9E8EB4E2781}" ShortID="99861302">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_round_end_01" ID="{11C90E3A-E25F-4873-BBC4-07FD0F69C7F5}" ShortID="180456710">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_round_end_01" ID="{33EC9D78-7776-4161-AC53-6DF21558C1D5}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_round_end_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1021271043"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_round_end_01" ID="{33EC9D78-7776-4161-AC53-6DF21558C1D5}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_ui_game_round_start" ID="{59B8079E-46AC-4C8D-BB33-0999E2B9F55B}" ShortID="885389283">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_ui_game_round_start_01" ID="{32ECCC41-F861-42CC-807B-67770CB7F8B2}" ShortID="930453346">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="UI" ID="{4501D640-488B-476D-BD7C-A0E7CB8164BF}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_ui_game_round_start_01" ID="{3BC60DE1-E404-43A2-9F90-53D90DCEB7AD}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\ui\sx_ui_game_round_start_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="143134843"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_ui_game_round_start_01" ID="{3BC60DE1-E404-43A2-9F90-53D90DCEB7AD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

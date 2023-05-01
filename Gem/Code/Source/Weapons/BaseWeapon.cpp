@@ -20,19 +20,14 @@ namespace MultiplayerSample
         , m_weaponParams(constructParams.m_weaponParams)
         , m_weaponListener(constructParams.m_weaponListener)
     {
-/*
-        @TODO: Need a replacement fx and material fx system
-        ArchetypeAssetLibrary* assetLibsInstance = ArchetypeAssetLibrary::GetInstance();
-        NV_ASSERT(assetLibsInstance != nullptr, "Asset library is NULL");
+        m_activateEffect = constructParams.m_weaponParams.m_activateFx;
+        m_activateEffect.Initialize();
 
-        const ClientEffect* activateEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetActivateFx().c_str());
-        const ClientEffect* impactEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetImpactFx().c_str());
-        const ClientEffect* damageEffect = assetLibsInstance->GetArchetype<ClientEffect>(m_Params.GetDamageFx().c_str());
+        m_impactEffect = constructParams.m_weaponParams.m_impactFx;
+        m_impactEffect.Initialize();
 
-        m_ActivateEffect = activateEffect ? *activateEffect : ClientEffect();
-        m_ImpactEffect = impactEffect ? *impactEffect : ClientEffect();
-        m_DamageEffect = damageEffect ? *damageEffect : ClientEffect();
-*/
+        m_damageEffect = constructParams.m_weaponParams.m_damageFx;
+        m_damageEffect.Initialize();
     }
 
     WeaponIndex BaseWeapon::GetWeaponIndex() const
@@ -88,24 +83,27 @@ namespace MultiplayerSample
         m_fireParams = fireParams;
     }
 
-    const ClientEffect& BaseWeapon::GetActivateEffect() const
+    void BaseWeapon::ExecuteActivateEffect(const AZ::Transform& activateTransform, const AZ::Vector3& target) const
     {
-        return m_activateEffect;
+        m_activateEffect.SetAttribute("Max Length", target.GetDistance(activateTransform.GetTranslation()));
+        m_activateEffect.SetAttribute("Hit Position", target);
+        m_activateEffect.TriggerEffect(activateTransform);
     }
 
-    const ClientEffect& BaseWeapon::GetImpactEffect() const
+    void BaseWeapon::ExecuteImpactEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const
     {
-        return m_impactEffect;
+        const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
+        m_impactEffect.SetAttribute("Hit Normal", (activatePosition - hitPosition).GetNormalized());
+        m_impactEffect.SetAttribute("Hit Position", hitPosition);
+        m_impactEffect.TriggerEffect(hitTransform);
     }
 
-    const ClientEffect& BaseWeapon::GetDamageEffect() const
+    void BaseWeapon::ExecuteDamageEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const
     {
-        return m_damageEffect;
-    }
-
-    int32_t BaseWeapon::GetAmmoTypeSurfaceIndex() const
-    {
-        return m_ammoSurfaceTypeIndex;
+        const AZ::Transform hitTransform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitPosition);
+        m_damageEffect.SetAttribute("Hit Normal", (activatePosition - hitPosition).GetNormalized());
+        m_damageEffect.SetAttribute("Hit Position", hitPosition);
+        m_damageEffect.TriggerEffect(hitTransform);
     }
 
     bool BaseWeapon::ActivateInternal(WeaponState& weaponState, bool validateFiringState)
@@ -127,7 +125,7 @@ namespace MultiplayerSample
         const bool result = MultiplayerSample::GatherEntities(m_weaponParams.m_gatherParams, eventData, m_gatheredNetEntityIds, outResults);
         if (gp_PauseOnWeaponGather && (outResults.size() > 0))
         {
-            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_scale 0");
+            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_simulationTickScale 0");
         }
         return result;
     }
@@ -137,7 +135,7 @@ namespace MultiplayerSample
         ShotResult result = MultiplayerSample::GatherEntitiesMultisegment(m_weaponParams.m_gatherParams, m_gatheredNetEntityIds, deltaTime, inOutActiveShot, outResults);
         if (gp_PauseOnWeaponGather && (outResults.size() > 0))
         {
-            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_scale 0");
+            AZ::Interface<AZ::IConsole>::Get()->PerformCommand("t_simulationTickScale 0");
         }
         return result;
     }
@@ -146,7 +144,7 @@ namespace MultiplayerSample
     {
         HitEvent hitEvent
         {
-            AZ::Transform::CreateFromQuaternionAndTranslation(eventData.m_initialTransform.GetRotation(), eventData.m_targetPosition),
+            eventData.m_targetPosition,
             eventData.m_shooterId,
             Multiplayer::InvalidNetEntityId,
             HitEntities()
@@ -163,7 +161,7 @@ namespace MultiplayerSample
                 }
             }
 
-            hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_netEntityId });
+            hitEvent.m_hitEntities.emplace_back(HitEntity{ gatherResult.m_position, gatherResult.m_normal, gatherResult.m_netEntityId });
         }
 
         WeaponHitInfo hitInfo(*this, hitEvent);

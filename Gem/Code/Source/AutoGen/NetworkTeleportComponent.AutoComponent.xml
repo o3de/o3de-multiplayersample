@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkTeleportComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/NetworkTeleportComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Include File="Source/Effects/GameEffect.h" />
+
+    <ArchetypeProperty Type="GameEffect" Name="TeleportEffect" Init="" ExposeToEditor="true" Description="Specifies the effect to play upon teleportation" />
+    <ArchetypeProperty Type="AZ::EntityId" Name="Destination" Init="" ExposeToEditor="true"/>
+
+    <RemoteProcedure
+        Name="NotifyTeleport"
+        InvokeFrom="Authority"
+        HandleOn="Client"
+        IsPublic="false"
+        IsReliable="false"
+        GenerateEventBindings="false"
+        Description="Teleport occurred RPC">
+    </RemoteProcedure>
+</Component>

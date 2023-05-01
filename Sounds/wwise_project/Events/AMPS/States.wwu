@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B8199B7A-04E3-437C-B10C-DC8E0BFE6EA5}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{3272610B-33C9-4166-B811-375C322D0280}">
+	<Events>
+		<WorkUnit Name="States" ID="{B8199B7A-04E3-437C-B10C-DC8E0BFE6EA5}" OwnerID="{3272610B-33C9-4166-B811-375C322D0280}" PersistMode="Nested">
+			<ChildrenList>
+				<Folder Name="Game" ID="{23D90936-95A3-4AEE-969F-AFA3A8C1BDC9}" ShortID="649225999">
+					<ChildrenList>
+						<Event Name="set_state_game_menu" ID="{7F91CC8D-6A4E-4BC4-8A08-056BED36C2AA}">
+							<ChildrenList>
+								<Action Name="" ID="{2EC550EE-8216-4D1A-BEA6-14CA7284E1B7}" ShortID="532827674">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Menu" ID="{585613D8-7829-497D-AF5F-001E3800B2A0}" WorkUnitID="{F466FCAE-09E7-4E01-95AD-F2A7142F6B1F}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="set_state_game_frontend" ID="{5B1F6E5F-78AF-4455-9F1F-760498E19B2D}">
+							<ChildrenList>
+								<Action Name="" ID="{FE8DEC60-3241-447F-B240-DBBFD37451BB}" ShortID="443091115">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="FrontEnd" ID="{6A6B4BC1-F9CB-4834-AAFE-EA9A0C8307C7}" WorkUnitID="{F466FCAE-09E7-4E01-95AD-F2A7142F6B1F}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="set_state_game_gameplay" ID="{533A7DF7-06DC-4B2C-9C91-B5D039030D13}">
+							<ChildrenList>
+								<Action Name="" ID="{98357C4F-328E-4F9A-92FD-8A505501EE73}" ShortID="191392931">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Gameplay" ID="{A4B2D308-EF32-4565-833E-C0C0062F28C9}" WorkUnitID="{F466FCAE-09E7-4E01-95AD-F2A7142F6B1F}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="set_state_game_none" ID="{8EACA171-F1C4-4519-8164-47C0895B4766}">
+							<ChildrenList>
+								<Action Name="" ID="{AACAD23A-4847-4AA1-ADB8-4D42F43E2373}" ShortID="527758296">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="None" ID="{C285CE40-D480-4E2C-921B-47BB767EF7EA}" WorkUnitID="{F466FCAE-09E7-4E01-95AD-F2A7142F6B1F}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

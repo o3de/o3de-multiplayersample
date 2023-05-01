@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}" SchemaVersion="103">
+	<Attenuations>
+		<WorkUnit Name="AMPS" ID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="WPN" ID="{AF4F516B-D8DE-4320-B4A5-0B9CCA5742AC}" ShortID="737723447">
+					<ChildrenList>
+						<Attenuation Name="ATN_WPN_Fire_Default" ID="{735A8852-2B4F-4658-879C-B45EA3EE9407}" ShortID="395059656">
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{C862181B-01B8-4B4F-8CAC-A700F06EB1EE}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>4</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>60</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>90</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{84A952DA-51B7-4804-B060-E8D99110165C}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>50</XPos>
+													<YPos>40</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>60</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{220FD10E-F9ED-4BC6-9CC5-C5F64A847D0F}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>40</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="Spread" ID="{211436F0-B0CD-439E-8BC3-9174B849BE2D}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="1"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>100</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>100</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>16</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>0</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_WPN_Impact_Default" ID="{02FD8E94-C99D-4362-9DCD-BAF59B93A518}" ShortID="506241271">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="40"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{CC437B01-D18D-4B52-BB43-DED56689AF71}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>38</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{29A6ED50-6EB2-4A38-8792-DC534E9B9155}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>50</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{A37B2274-26B3-4872-B6FE-0E04B3DBAF86}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>SCurve</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>16</XPos>
+													<YPos>28</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>38</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None">
+										<Curve Name="Spread" ID="{51EC5E9C-5B49-4799-AB47-61DD153D44C1}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="1"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>100</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>0.4</XPos>
+													<YPos>100</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>6.4</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>0</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_WPN_Projectile_Default" ID="{875233F6-6B3F-48E9-9ECD-11FB1B195CCC}" ShortID="164817628">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="10"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{769F8389-45C6-4596-B2C1-344B6B07ED1D}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_WPN_Explosion_Large" ID="{10812A45-46F3-492A-A38E-A2FF15AC8130}" ShortID="688939232">
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{7116B302-B44B-4B06-B5FB-34054A74732A}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>SCurve</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>3.33333333333333</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>-6</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>60.16548</XPos>
+													<YPos>-18</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>97.51773</XPos>
+													<YPos>-18</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{63239F8B-5F4E-4EA3-A3BE-112D602AB43A}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>3.5461</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>60</XPos>
+													<YPos>50</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>64</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{07B2FD5F-815C-4D28-B571-BA3FC7825FEC}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>27.18676</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>35</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="Spread" ID="{C4374277-CCE5-4A22-9C29-6BB5642C43C2}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="1"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>100</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>2</XPos>
+													<YPos>100</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>6</XPos>
+													<YPos>80</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>0</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Player" ID="{58F24B37-E586-4C36-84CF-2A53BCD25975}" ShortID="42341575">
+					<ChildrenList>
+						<Attenuation Name="ATN_Player_Footstep" ID="{2CBFBB08-A412-464C-A918-162ED89CF12D}" ShortID="9304360">
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{F85A2118-FA10-4ADD-888E-C277A3B8AD09}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>50</XPos>
+													<YPos>-19.35387</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>80</XPos>
+													<YPos>-200</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{0479A20F-E173-4692-81E7-F4CE1DF9C5E1}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>2</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>30</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{4DF45A60-A84A-4CFC-B6BA-D0244F347FA5}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>2</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>SCurve</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20</XPos>
+													<YPos>42</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>41</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_Player_Vocal" ID="{34BA0793-0676-4024-9BC1-70EE08D65091}" ShortID="563079459">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="50"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{F39FC552-A810-4D4E-B57E-647A4C7B1FDD}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>0.5</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>46.867615</XPos>
+													<YPos>-17.54564</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>50</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{F4A0429C-6557-4E8F-9E6C-70F7EC423595}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10.04728</XPos>
+													<YPos>31</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>50</XPos>
+													<YPos>40</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{CAECF3AC-752A-40F7-B681-4D49C39C571F}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>36</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>50</XPos>
+													<YPos>41</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_Player_Foley" ID="{D1468F89-B5C8-485A-80D3-B8D1BC0B99C8}" ShortID="328882184">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="25"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{50126EF7-7F4E-431D-9452-352346F35B04}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>0.25</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>12.52955</XPos>
+													<YPos>-16</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Constant</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20</XPos>
+													<YPos>-16</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>25</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{A8A8B4AB-335F-4E6E-A9DB-3909360027D4}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>0.5</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>25</XPos>
+													<YPos>40</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{6C912B60-499A-4036-818A-37C05A9CF1D7}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log1</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>11.02837</XPos>
+													<YPos>38</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>25</XPos>
+													<YPos>47</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" ShortID="1045757703">
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{ED7319F1-9AA2-482E-84BF-C79CC438C7FF}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>95.03547</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{C097C854-1E30-45C7-91C5-01A586162B18}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>40</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{2475BF8F-1E05-4013-A011-D7A8A1F264EE}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>100</XPos>
+													<YPos>45</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="ENV" ID="{5D635415-88BA-42A1-AF5A-BE2D3C8DC7F7}" ShortID="802730428"/>
+				<Folder Name="INT" ID="{BFA227DB-358D-414D-8E7D-8FE006F848FE}" ShortID="170141906">
+					<ChildrenList>
+						<Attenuation Name="ATN_INT_Default" ID="{F4475714-3770-46C9-92A5-6067FD1C17BB}" ShortID="997860463">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="22"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{A9B2EB1E-08A0-4005-9E42-A8CADB9CEF67}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>-16</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20.00001</XPos>
+													<YPos>-16</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{8AD619ED-833A-4EAD-AE81-96169F44FD02}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>2</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>50</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{9DEF3A15-B7F2-4864-B270-84B205E9B1BF}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>55</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_INT_Trap" ID="{AFE142B5-7438-4098-9291-18BCDCD34D7B}" ShortID="432914534">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="80"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{D4C030C8-D805-4C04-9173-30EC56C6100C}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>3.2</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>72</XPos>
+													<YPos>-20</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>80</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{008D69E7-1A4A-447B-9FB1-E0C627D9648E}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>40</XPos>
+													<YPos>40</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>80</XPos>
+													<YPos>60</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{99E5D64C-2A30-4215-8B11-51B01C50ABD8}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>80</XPos>
+													<YPos>40</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="Spread" ID="{7F32F242-F7C8-4017-A3AF-EA37AB4C3A72}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="1"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>100</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>0.8</XPos>
+													<YPos>100</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>12.8</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>80</XPos>
+													<YPos>0</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+						<Attenuation Name="ATN_INT_JumpPad" ID="{B20BF362-B310-4C42-AC31-ED627834073C}" ShortID="762028383">
+							<PropertyList>
+								<Property Name="RadiusMax" Type="Real64" Value="22"/>
+							</PropertyList>
+							<CurveUsageInfoList>
+								<VolumeDryUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="VolumeDry" ID="{B5B9BB04-0799-43B4-B1D1-10E463D709E9}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="3"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>10</XPos>
+													<YPos>-12</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>20.00001</XPos>
+													<YPos>-12</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>-200</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</VolumeDryUsage>
+								<VolumeWetGameUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetGameUsage>
+								<VolumeWetUserUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+								</VolumeWetUserUsage>
+								<LowPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="LowPassFilter" ID="{AD26CD4B-7891-4C52-B059-83EC5D49DDA6}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>2</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>50</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</LowPassFilterUsage>
+								<HighPassFilterUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="HighPassFilter" ID="{6F44C84A-641E-4E67-8D32-B8F4AF3CACF3}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="65537"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>0</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log2</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>55</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</HighPassFilterUsage>
+								<SpreadUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+										<Curve Name="Spread" ID="{35F9FD4A-75D5-43C4-B97E-4E51763F3C15}">
+											<PropertyList>
+												<Property Name="Flags" Type="int32" Value="1"/>
+											</PropertyList>
+											<PointList>
+												<Point>
+													<XPos>0</XPos>
+													<YPos>100</YPos>
+													<Flags>5</Flags>
+												</Point>
+												<Point>
+													<XPos>1</XPos>
+													<YPos>100</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>5</XPos>
+													<YPos>85</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Log3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>12.5</XPos>
+													<YPos>0</YPos>
+													<Flags>0</Flags>
+													<SegmentShape>Exp3</SegmentShape>
+												</Point>
+												<Point>
+													<XPos>22</XPos>
+													<YPos>0</YPos>
+													<Flags>37</Flags>
+												</Point>
+											</PointList>
+										</Curve>
+									</CurveUsageInfo>
+								</SpreadUsage>
+								<FocusUsage>
+									<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+								</FocusUsage>
+							</CurveUsageInfoList>
+						</Attenuation>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Attenuations>
+</WwiseDocument>

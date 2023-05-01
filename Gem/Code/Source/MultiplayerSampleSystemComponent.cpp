@@ -16,12 +16,11 @@
 #include <Source/Weapons/WeaponTypes.h>
 #include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
-#include <Source/Spawners/RoundRobinSpawner.h>
-
-#include <Multiplayer/IMultiplayer.h>
+#include <Source/Effects/GameEffect.h>
 #include <Multiplayer/Components/NetBindComponent.h>
-#include <Multiplayer/ConnectionData/IConnectionData.h>
-#include <Multiplayer/ReplicationWindows/IReplicationWindow.h>
+
+#include <AzFramework/Scene/Scene.h>
+#include <Atom/RPI.Public/Scene.h>
 
 namespace MultiplayerSample
 {
@@ -30,16 +29,21 @@ namespace MultiplayerSample
     void MultiplayerSampleSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         ReflectWeaponEnums(context);
-        ClientEffect::Reflect(context);
         GatherParams::Reflect(context);
         HitEffect::Reflect(context);
+        HitEntity::Reflect(context);
+        HitEvent::Reflect(context);
         WeaponParams::Reflect(context);
+        GameEffect::Reflect(context);
+
+        GemSpawnable::Reflect(context);
+        GemWeightChance::Reflect(context);
+        RoundSpawnTable::Reflect(context);
 
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<MultiplayerSampleSystemComponent, AZ::Component>()
-                ->Version(0)
-                ;
+                ->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
@@ -49,6 +53,21 @@ namespace MultiplayerSample
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ;
             }
+        }
+
+        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            // This will put these methods into the 'azlmbr.atomtools.general' module
+            auto addGeneral = [](AZ::BehaviorContext::GlobalMethodBuilder methodBuilder)
+            {
+                methodBuilder->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                    ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                    ->Attribute(AZ::Script::Attributes::Module, "MultiplayerSample.general");
+            };
+
+            addGeneral(behaviorContext->Method(
+                "GetRenderSceneIdByName", &MultiplayerSampleSystemComponent::GetRenderSceneIdByName, nullptr,
+                "Gets an RPI scene ID based on the name of the AzFramework Scene."));
         }
     }
 
@@ -80,59 +99,26 @@ namespace MultiplayerSample
 
     void MultiplayerSampleSystemComponent::Activate()
     {
-        AZ::TickBus::Handler::BusConnect();
-
         //! Register our gems multiplayer components to assign NetComponentIds
         RegisterMultiplayerComponents();
-
-        AZ::Interface<Multiplayer::IMultiplayerSpawner>::Register(this);
-        m_playerSpawner = AZStd::make_unique<RoundRobinSpawner>();
-        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Register(m_playerSpawner.get());
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()
     {
-        AZ::Interface<MultiplayerSample::IPlayerSpawner>::Unregister(m_playerSpawner.get());
-        AZ::Interface<Multiplayer::IMultiplayerSpawner>::Unregister(this);
-        AZ::TickBus::Handler::BusDisconnect();
     }
 
-    void MultiplayerSampleSystemComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    AZ::Uuid MultiplayerSampleSystemComponent::GetRenderSceneIdByName(const AZStd::string& name)
     {
-        ;
-    }
-
-    int MultiplayerSampleSystemComponent::GetTickOrder()
-    {
-        // Tick immediately after the multiplayer system component
-        return AZ::TICK_PLACEMENT + 2;
-    }
-
-    Multiplayer::NetworkEntityHandle MultiplayerSampleSystemComponent::OnPlayerJoin([[maybe_unused]] uint64_t userId, [[maybe_unused]] const Multiplayer::MultiplayerAgentDatum& agentDatum)
-    {
-        const AZStd::pair<Multiplayer::PrefabEntityId, AZ::Transform> entityParams = AZ::Interface<IPlayerSpawner>::Get()->GetNextPlayerSpawn();
-
-        Multiplayer::INetworkEntityManager::EntityList entityList = Multiplayer::GetNetworkEntityManager()->CreateEntitiesImmediate(
-            entityParams.first, Multiplayer::NetEntityRole::Authority, entityParams.second);
-
-        Multiplayer::NetworkEntityHandle controlledEntity;
-        if (!entityList.empty())
+        AZStd::shared_ptr<AzFramework::Scene> scene = AzFramework::SceneSystemInterface::Get()->GetScene(name);
+        if (scene)
         {
-            controlledEntity = entityList[0];
+            AZ::RPI::ScenePtr renderScene = *scene->FindSubsystemInScene<AZ::RPI::ScenePtr>();
+            if (renderScene)
+            {
+                return renderScene->GetId();
+            }
         }
-        else
-        {
-            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.",
-                entityParams.first.m_prefabName.GetCStr());
-        }
-
-        return controlledEntity;
-    }
-
-    void MultiplayerSampleSystemComponent::OnPlayerLeave(
-        Multiplayer::ConstNetworkEntityHandle entityHandle, [[maybe_unused]] const Multiplayer::ReplicationSet& replicationSet, [[maybe_unused]] AzNetworking::DisconnectReason reason)
-    {
-        AZ::Interface<Multiplayer::IMultiplayer>::Get()->GetNetworkEntityManager()->MarkForRemoval(entityHandle);
+        return AZ::Uuid::CreateInvalid();
     }
 }
 

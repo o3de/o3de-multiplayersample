@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{6CE550BF-CF71-43E4-985D-8FC19995C3F9}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="Default O3DE Work Unit" ID="{6CE550BF-CF71-43E4-985D-8FC19995C3F9}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="mute_all" ID="{61A64DBA-8991-49B9-83B1-AB0B50ECB768}">
+					<ChildrenList>
+						<Action Name="" ID="{57ABCE89-3C19-48E7-B134-3D6D05B9BA8D}" ShortID="277870023">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="4"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.25"/>
+								<Property Name="Scope" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="unmute_all" ID="{70A4895C-CCC0-4A20-9EF2-84369B7AB656}">
+					<ChildrenList>
+						<Action Name="" ID="{54D3BDB6-14E8-4FF0-B542-FBE01457392A}" ShortID="412750752">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.25"/>
+								<Property Name="Scope" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="get_focus" ID="{9C546699-874C-4944-921A-3AFA45EA389F}">
+					<ChildrenList>
+						<Action Name="" ID="{7786DCAE-FFA5-4139-99EB-B43AB8996995}" ShortID="300486804">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.25"/>
+								<Property Name="Scope" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="lose_focus" ID="{46F2D4CD-D503-4063-8D3D-A2A0A0E156FF}">
+					<ChildrenList>
+						<Action Name="" ID="{B4C1CFDC-D205-42F4-B487-54098A09EFF9}" ShortID="577708608">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="4"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.25"/>
+								<Property Name="Scope" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="do_nothing" ID="{59644E92-2831-425C-ACD3-BF068AAE1F77}">
+					<ChildrenList>
+						<Action Name="" ID="{4599C36D-7735-41D4-B8C6-07C717506577}" ShortID="473161540"/>
+						<Action Name="" ID="{EA54B31A-9789-475C-B3D1-6BC334158C87}" ShortID="599963739">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+							</PropertyList>
+							<ReferenceList/>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
