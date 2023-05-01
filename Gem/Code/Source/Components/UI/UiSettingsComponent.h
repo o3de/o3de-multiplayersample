@@ -40,8 +40,7 @@ namespace MultiplayerSample
         void Deactivate() override;
     private:
         // WindowNotificationBus overrides
-        void OnWindowResized(uint32_t width, uint32_t height) override;
-        void OnRefreshRateChanged([[maybe_unused]] uint32_t refreshRate) override;
+        void OnFullScreenModeChanged(bool fullscreen) override;
 
         static AzFramework::NativeWindowHandle GetWindowHandle();
 

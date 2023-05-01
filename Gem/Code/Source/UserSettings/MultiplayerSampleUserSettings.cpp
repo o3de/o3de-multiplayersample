@@ -9,6 +9,9 @@
 #include <Atom/RPI.Public/Image/ImageSystem.h>
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/StreamingImagePool.h>
+#include <Atom/RPI.Public/RenderPipeline.h>
+#include <Atom/RPI.Public/RPISystemInterface.h>
+#include <Atom/Bootstrap/DefaultWindowBus.h>
 
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/IO/GenericStreams.h>
@@ -202,23 +205,62 @@ namespace MultiplayerSample
 
     void MultiplayerSampleUserSettings::SetFullscreen(bool fullscreen)
     {
+        if (m_changingResolution)
+        {
+            return;
+        }
+
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
             if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
             {
-                // Change the fullscreen state if we haven't created the window yet.
-                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_fullscreen %u", fullscreen ? 1 : 0);
-                console->PerformCommand(commandString.c_str());
-
                 // Change the fullscreen state if the window already exists
                 AzFramework::NativeWindowHandle windowHandle = nullptr;
                 AzFramework::WindowSystemRequestBus::BroadcastResult(
                     windowHandle,
                     &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
 
-                AzFramework::WindowRequestBus::Event(
-                    windowHandle,
-                    &AzFramework::WindowRequestBus::Events::SetFullScreenState, fullscreen);
+                if (windowHandle)
+                {
+                    bool isFullscreen = false;
+                    AzFramework::WindowRequestBus::EventResult(
+                        isFullscreen, windowHandle,
+                        &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                    if (isFullscreen != fullscreen) 
+                    {
+                        m_changingResolution = true;
+
+                        AzFramework::WindowRequestBus::Event(
+                            windowHandle,
+                            &AzFramework::WindowRequestBus::Events::SetFullScreenState, fullscreen);
+
+                        m_changingResolution = false;
+                    }
+                }
+                else
+                {
+                    m_changingResolution = true;
+
+                    // Change the fullscreen state if we haven't created the window yet.
+                    AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_fullscreen %u", fullscreen ? 1 : 0);
+                    console->PerformCommand(commandString.c_str());
+
+                    m_changingResolution = false;
+                }
+
+                if (fullscreen)
+                {
+                    // TODO: When going to fullscreen, set Atom's rendering resolution to our current resolution settings.
+                }
+                else
+                {
+                    // When leaving fullscreen, set the window resolution to the current requested resolution.
+                    // This is necessary because by default, leaving fullscreen will return the window back to its
+                    // pre-fullscreen state. But if we've changed the requested resolution between now and then, we
+                    // want to make sure we end up with a window that matches the currently-requested resolution instead.
+                    SetResolution(GetResolution());
+                }
             }
 
             registry->Set(m_fullscreenKey.c_str(), fullscreen);
@@ -241,19 +283,17 @@ namespace MultiplayerSample
 
     void MultiplayerSampleUserSettings::SetResolution(AZStd::pair<uint32_t, uint32_t> resolution)
     {
+        if (m_changingResolution)
+        {
+            return;
+        }
+
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
             if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
             {
                 // This will technically change the window resolution to whatever is requrested, but it should 
                 // ideally take into account the current DPI scaling and what the maximum resolution of the monitor is.
-                
-                // Change the resolution if the window doesn't exist yet.
-                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
-                console->PerformCommand(commandString.c_str());
-
-                commandString = AZ::CVarFixedString::format("r_height %u", resolution.second);
-                console->PerformCommand(commandString.c_str());
 
                 // Change the resolution if the window already exists.
                 AzFramework::NativeWindowHandle windowHandle = nullptr;
@@ -261,24 +301,81 @@ namespace MultiplayerSample
                     windowHandle,
                     &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
 
-                bool fullscreen = false;
-                AzFramework::WindowRequestBus::EventResult(
-                    fullscreen, windowHandle,
-                    &AzFramework::WindowRequestBus::Events::GetFullScreenState);
-
-                // Don't resize if we're in fullscreen mode.
-                if (!fullscreen)
+                if (windowHandle)
                 {
-                    AzFramework::WindowRequestBus::Event(
-                        windowHandle,
-                        &AzFramework::WindowRequestBus::Events::ResizeClientArea,
-                        AzFramework::WindowSize(resolution.first, resolution.second), AzFramework::WindowPosOptions());
+                    bool fullscreen = false;
+                    AzFramework::WindowRequestBus::EventResult(
+                        fullscreen, windowHandle,
+                        &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                    // Don't resize if we're in fullscreen mode.
+                    if (!fullscreen)
+                    {
+                        auto maxResolution = GetMaxResolution();
+
+                        AzFramework::WindowSize desiredSize = {
+                            AZStd::min(resolution.first, maxResolution.first), AZStd::min(resolution.second, maxResolution.second) };
+
+                        AzFramework::WindowSize windowSize = desiredSize;
+                        AzFramework::WindowRequestBus::EventResult(
+                            windowSize, windowHandle,
+                            &AzFramework::WindowRequestBus::Events::GetClientAreaSize);
+
+                        if ((desiredSize.m_height != windowSize.m_height) || (desiredSize.m_width != windowSize.m_width))
+                        {
+                            m_changingResolution = true;
+
+                            AzFramework::WindowRequestBus::Event(
+                                windowHandle,
+                                &AzFramework::WindowRequestBus::Events::ResizeClientArea,
+                                AzFramework::WindowSize(
+                                    AZStd::min(resolution.first, maxResolution.first), AZStd::min(resolution.second, maxResolution.second)),
+                                AzFramework::WindowPosOptions());
+
+                            m_changingResolution = false;
+                        }
+                    }
+                    else
+                    {
+                        m_changingResolution = true;
+
+                        // TODO: Change Atom resolution here based on the resolution settings.
+
+                        m_changingResolution = false;
+                    }
+                }
+                else
+                {
+                    m_changingResolution = true;
+
+                    // Change the resolution if the window doesn't exist yet.
+                    AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
+                    console->PerformCommand(commandString.c_str());
+
+                    commandString = AZ::CVarFixedString::format("r_height %u", resolution.second);
+                    console->PerformCommand(commandString.c_str());
+
+                    m_changingResolution = false;
                 }
             }
 
             registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<AZ::u64>(resolution.first));
             registry->Set(m_resolutionHeightKey.c_str(), aznumeric_cast<AZ::u64>(resolution.second));
         }
+    }
+
+    AZStd::pair<uint32_t, uint32_t> MultiplayerSampleUserSettings::GetMaxResolution()
+    {
+        AzFramework::NativeWindowHandle windowHandle = nullptr;
+        AzFramework::WindowSystemRequestBus::BroadcastResult(
+            windowHandle,
+            &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+        AzFramework::WindowSize windowSize = { AZStd::numeric_limits<uint32_t>::max(), AZStd::numeric_limits<uint32_t>::max() };
+        AzFramework::WindowRequestBus::EventResult(
+            windowSize, windowHandle, &AzFramework::WindowRequestBus::Events::GetMaximumClientAreaSize);
+
+        return { windowSize.m_width, windowSize.m_height };
     }
 
     void MultiplayerSampleUserSettings::Save()
