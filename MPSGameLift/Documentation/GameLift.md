@@ -23,6 +23,12 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     ```sh
     <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO
     ```
+    ---
+    **Important**
+
+    The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
+
+    ---
     
 1. Bundle Content
 

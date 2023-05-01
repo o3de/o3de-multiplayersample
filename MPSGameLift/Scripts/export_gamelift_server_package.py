@@ -36,8 +36,8 @@ parser.add_argument('--assets', action='store_true', help='Build assets')
 
 args = parser.parse_args(o3de_context.args)
 
-if not args.code and not args.assets:
-    user_input = input('No build command specified. Do you want to build code, assets, or both? (c/a/b): ')
+while not args.code and not args.assets:
+    user_input = input('No build command specified. Do you want to build code, assets, or both? (c/a/b). Quit(q): ')
     if user_input.lower() == 'c':
         args.code = True
     elif user_input.lower() == 'a':
@@ -45,8 +45,12 @@ if not args.code and not args.assets:
     elif user_input.lower() == 'b':
         args.code = True
         args.assets = True
+    elif user_input.lower() == 'q':
+        quit()
     else:
         print('Invalid input. Please enter c, a, or b.')
+
+build_folder = os.path.join(o3de_context.project_path, "build", "windows")
 
 # Build code
 if (args.code):
@@ -59,19 +63,15 @@ if (args.code):
         quit()
 
     # Build server launcher
-    build_folder = os.path.join(o3de_context.project_path, "build", "windows")
     os.makedirs(build_folder, exist_ok=True)
     o3de_logger.info(f"Building {project_name}.ServerLauncher")
 
     if (process_command(["cmake", "-B", build_folder, "-S", o3de_context.project_path, "-G", "Visual Studio 16"])):
         quit()
 
-    if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "profile", "--", "/m"]) != 0):
+    if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.ServerLauncher", "AssetBundler", "--config", "profile", "--", "/m"]) != 0):
         quit()
         
-    if (process_command(["cmake", "--build", build_folder, "--target", f"AssetBundler", "--config", "profile", "--", "/m"]) != 0):
-        quit()
-
     # Build monolithic server launcher build
     monolithic_build_folder = os.path.join(o3de_context.project_path, "build", "windows_mono")
     os.makedirs(monolithic_build_folder, exist_ok=True)
