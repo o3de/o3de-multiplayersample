@@ -188,14 +188,16 @@ namespace MultiplayerSample
     {
 #if AZ_TRAIT_CLIENT
         const AZ::Vector3 offsetPosition = transform.TransformPoint(m_effectOffset);
-        AZ::Transform transformOffset = transform;
-        transformOffset.SetTranslation(offsetPosition);
+
         if (m_emitter != nullptr)
         {
             if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
             {
                 if (m_popcornFx->IsEffectAlive(m_emitter))
                 {
+                    AZ::Transform transformOffset = transform;
+                    transformOffset.SetTranslation(offsetPosition);
+
                     popcornFx->EffectSetTransform(m_emitter, transformOffset);
                     popcornFx->EffectSetTeleportThisFrame(m_emitter);
                     popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
@@ -211,6 +213,22 @@ namespace MultiplayerSample
         {
             m_audioProxy->SetPosition(offsetPosition);
             m_audioProxy->ExecuteTrigger(m_audioTriggerId);
+        }
+#endif
+    }
+
+    void GameEffect::StopEffect() const
+    {
+#if AZ_TRAIT_CLIENT
+        if (m_emitter != nullptr)
+        {
+            if (PopcornFX::PopcornFXRequests* popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler())
+            {
+                if (m_popcornFx->IsEffectAlive(m_emitter))
+                {
+                    m_popcornFx->EffectKill(m_emitter);
+                }
+            }
         }
 #endif
     }

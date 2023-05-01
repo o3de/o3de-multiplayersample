@@ -41,6 +41,11 @@ namespace MultiplayerSample
     {
         m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
     }
+
+    void EnergyCannonComponent::HandleRPC_StopBuildup([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
+    {
+        m_effect.StopEffect();
+    }
 #endif
 
 
@@ -75,36 +80,34 @@ namespace MultiplayerSample
 
     void EnergyCannonComponentController::OnFireEnergyBall()
     {
-        // Re-using the same ball entity.
-        AZ::Entity* ball = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
-        if (ball)
-        {
-            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
-            {
-                const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
-                const AZ::Vector3 forward = cannonTm.TransformVector(AZ::Vector3::CreateAxisY(-1.f));
-                const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
-                ballComponent->RPC_LaunchBall(cannonTm.TransformPoint(effectOffset), forward, GetNetEntityId());
+        RPC_StopBuildup();
 
-                // Enqueue our ball kill event
-                m_killEvent.Enqueue(GetBallLifetimeMs(), false);
-                m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
-            }
+        const AZ::Transform& cannonTm = GetEntity()->GetTransform()->GetWorldTM();
+        const AZ::Vector3 effectOffset = GetFiringEffect().GetEffectOffset();
+        const AZ::Vector3 ballPosition = cannonTm.TransformPoint(effectOffset);
+        const AZ::Vector3 forward = cannonTm.TransformVector(GetFireVector());
+
+        const Multiplayer::PrefabEntityId prefabEntityId(AZ::Name(GetProjectileSpawnable().m_spawnableAsset.GetHint().c_str()));
+
+        const AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), ballPosition);
+
+        Multiplayer::INetworkEntityManager::EntityList entityList =
+            Multiplayer::GetNetworkEntityManager()->CreateEntitiesImmediate(prefabEntityId, Multiplayer::NetEntityRole::Authority, transform);
+
+        Multiplayer::NetworkEntityHandle spawnedEntity;
+        if (!entityList.empty())
+        {
+            spawnedEntity = entityList[0];
         }
-    }
-
-    void EnergyCannonComponentController::OnKillEnergyBall()
-    {
-        // Re-using the same ball entity.
-        AZ::Entity* ball = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(ball, &AZ::ComponentApplicationBus::Events::FindEntity, GetEnergyBallEntity());
-        if (ball)
+        else
         {
-            if (EnergyBallComponent* ballComponent = ball->FindComponent<EnergyBallComponent>())
-            {
-                ballComponent->RPC_KillBall();
-            }
+            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.", prefabEntityId.m_prefabName.GetCStr());
+        }
+
+        if (EnergyBallComponent* ballComponent = spawnedEntity.FindComponent<EnergyBallComponent>())
+        {
+            ballComponent->RPC_LaunchBall(ballPosition, forward, GetNetEntityId());
+            m_triggerBuildupEvent.Enqueue(GetRateOfFireMs() - GetBuildUpTimeMs(), false);
         }
     }
 #endif

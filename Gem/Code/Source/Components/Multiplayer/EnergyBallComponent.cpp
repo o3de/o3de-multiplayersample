@@ -11,6 +11,7 @@
 #include <Multiplayer/Components/NetworkRigidBodyComponent.h>
 #include <MultiplayerSampleTypes.h>
 #include <AzCore/Component/TransformBus.h>
+#include <AzCore/EBus/IEventScheduler.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <AzFramework/Physics/RigidBodyBus.h>
 #include <WeaponNotificationBus.h>
@@ -75,6 +76,9 @@ namespace MultiplayerSample
         }
         else
         {
+            // Create an explosion effect wherever the ball was last at.
+            m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+
             bool killSuccess = false;
 
             // This would ideally use Kill instead of Terminate, but there is a bug in PopcornFX 2.15.4 that if Kill is
@@ -91,11 +95,10 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
-        // Crate an explosion effect wherever the ball was last at.
-        AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), hitEvent.m_target);
-        m_effect.TriggerEffect(transform);
+        // Create an explosion effect at our current location.
+        m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
 
-        // Notify every entity that was hit that they've received a weapon impact.
+        // Notify every entity that was hit that they've received a weapon impact, this allows for blast decals.
         for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
         {
             const AZ::Transform hitTransform = AZ::Transform::CreateLookAt(hitEntity.m_hitPosition, hitEntity.m_hitPosition + hitEntity.m_hitNormal, AZ::Transform::Axis::ZPositive);
@@ -181,8 +184,8 @@ namespace MultiplayerSample
         m_collisionCheckEvent.Enqueue(AZ::TimeMs{ 10 }, true);
 
         SetBallActive(true);
+        SetVelocity(direction * GetGatherParams().m_travelSpeed);
 
-        m_shooterNetEntityId = owningNetEntityId;
         m_hitEvent.m_hitEntities.clear();
 
         m_filteredNetEntityIds.clear();
@@ -196,14 +199,8 @@ namespace MultiplayerSample
         // We want to sweep our transform during intersect tests to avoid the ball tunneling through targets
         m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
 
-        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::EnablePhysics);
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, direction * GetGatherParams().m_travelSpeed);
-
-    }
-
-    void EnergyBallComponentController::HandleRPC_KillBall([[maybe_unused]] AzNetworking::IConnection* invokingConnection)
-    {
-        HideEnergyBall();
+        // Enqueue our kill event
+        m_killEvent.Enqueue(GetLifetimeMs(), false);
     }
 
     void EnergyBallComponentController::CheckForCollisions()
@@ -254,14 +251,14 @@ namespace MultiplayerSample
                 }
             }
 
-            HideEnergyBall();
+            KillEnergyBall();
         }
 
         // Update our last sweep transform for the next time we check collision
         m_lastSweepTransform = GetEntity()->GetTransform()->GetWorldTM();
     }
 
-    void EnergyBallComponentController::HideEnergyBall()
+    void EnergyBallComponentController::KillEnergyBall()
     {
         if (!GetBallActive())
         {
@@ -275,10 +272,23 @@ namespace MultiplayerSample
         m_hitEvent.m_shooterNetEntityId = m_shooterNetEntityId;
         m_hitEvent.m_projectileNetEntityId = GetNetEntityId();
 
-        AzPhysics::SimulatedBodyComponentRequestsBus::Event(GetEntityId(), &AzPhysics::SimulatedBodyComponentRequestsBus::Events::DisablePhysics);
-        Physics::RigidBodyRequestBus::Event(GetEntityId(), &Physics::RigidBodyRequestBus::Events::SetLinearVelocity, AZ::Vector3::CreateZero());
-
         RPC_BallExplosion(m_hitEvent);
+
+        // Wait 5 seconds before cleaning up the entity so that the explosion effect has a chance to play out
+        // Capture just the netEntityId in case we have a level change or some other operation that clears out entities before our lambda triggers
+        const Multiplayer::NetEntityId netEntityId = GetNetEntityId();
+        AZ::Interface<AZ::IEventScheduler>::Get()->AddCallback([netEntityId]
+            {
+                // Fetch the entity handle, ensure it's still valid
+                const Multiplayer::ConstNetworkEntityHandle entityHandle = Multiplayer::GetNetworkEntityManager()->GetEntity(netEntityId);
+                if (entityHandle.Exists())
+                {
+                    Multiplayer::GetNetworkEntityManager()->MarkForRemoval(entityHandle);
+                }
+            },
+            AZ::Name("Cleanup"),
+            GetLingertimeMs()
+        );
     }
 #endif
 }

@@ -57,15 +57,19 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId) override;
-        void HandleRPC_KillBall(AzNetworking::IConnection* invokingConnection) override;
         void CheckForCollisions();
-        void HideEnergyBall();
+        void KillEnergyBall();
 
     private:
         AZ::ScheduledEvent m_collisionCheckEvent{ [this]()
         {
             CheckForCollisions();
         }, AZ::Name("EnergyBallCheckForCollisions") };
+
+        AZ::ScheduledEvent m_killEvent{ [this]()
+        {
+            KillEnergyBall();
+        }, AZ::Name("KillEnergyBall") };
 
         AZ::Vector3 m_direction = AZ::Vector3::CreateZero();
         AZ::Transform m_lastSweepTransform = AZ::Transform::CreateIdentity();
