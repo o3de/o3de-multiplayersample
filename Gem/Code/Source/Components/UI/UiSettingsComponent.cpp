@@ -290,6 +290,9 @@ namespace MultiplayerSample
     {
         const AZStd::vector<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string>> valuesToLabels =
         {
+            // This set of resolutions was selected because they're the set that we offer in O3DE in the IMGUI debug menus.
+            // Feel free to add or remove resolution pairs from this list as appropriate.
+
             { { 800, 450}, "800 x 450 (16:9)" },
             { {1280, 720}, "1280 x 720 (16:9)" },
             { {1600, 900}, "1600 x 900 (16:9)" },
@@ -297,7 +300,7 @@ namespace MultiplayerSample
             { {2560, 1440}, "2560 x 1440 (16:9)" },
             { {3440, 1935}, "3440 x 1935 (16:9)" },
             { {3840, 2160}, "3840 x 2160 (16:9)" },
-            /**/
+
             { { 800, 500}, "800 x 500 (16:10)" },
             { {1280, 800}, "1280 x 800 (16:10)" },
             { {1600, 1000}, "1600 x 1000 (16:10)" },
@@ -321,7 +324,6 @@ namespace MultiplayerSample
             { {2560, 1920}, "2560 x 1920 (4:3)" },
             { {3440, 2580}, "3440 x 2580 (4:3)" },
             { {3840, 2880}, "3840 x 2880 (4:3)" },
-            /**/
         };
 
         // Get the max supported resolution for the monitor that the window is currently on.
@@ -358,8 +360,7 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::OnFullScreenModeChanged([[maybe_unused]] bool fullscreen)
     {
-
-        // Refresh the windowed / fullscreen setting. 
+        // Refresh the windowed / fullscreen setting and toggle in case the user changes the current mode by pressing Alt-Enter.
         OnFullscreenToggle(m_fullscreenToggle, ToggleDirection::None);
     }
 }
