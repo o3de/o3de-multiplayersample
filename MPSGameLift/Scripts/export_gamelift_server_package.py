@@ -33,9 +33,11 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('--code', action='store_true', help='Build code')
 parser.add_argument('--assets', action='store_true', help='Build assets')
+parser.add_argument('-g', '--generator', choices=['Visual Studio 16', 'Visual Studio 17'], help='Which compiler do you want to use?')
 
 args = parser.parse_args(o3de_context.args)
 
+# Help user choose to build code, assets, or both if they didn't specify via command-line
 while not args.code and not args.assets:
     user_input = input('No build command specified. Do you want to build code, assets, or both? (c/a/b). Quit(q): ')
     if user_input.lower() == 'c':
@@ -47,9 +49,17 @@ while not args.code and not args.assets:
         args.assets = True
     elif user_input.lower() == 'q':
         quit()
-    else:
-        print('Invalid input. Please enter c, a, or b.')
 
+# Help user choose their compiler if they didn't specify via command-line
+while not args.generator:
+    user_input = input('Select generator:\n 1. Visual Studio 16\n 2. Visual Studio 17.\n Quit(q)\n')
+    if user_input == '1':
+        args.generator = "Visual Studio 16"
+    if user_input == '2':
+        args.generator = "Visual Studio 17"
+    elif user_input.lower() == 'q':
+        quit()
+        
 build_folder = os.path.join(o3de_context.project_path, "build", "windows")
 
 # Build code
@@ -66,7 +76,7 @@ if (args.code):
     os.makedirs(build_folder, exist_ok=True)
     o3de_logger.info(f"Building {project_name}.ServerLauncher")
 
-    if (process_command(["cmake", "-B", build_folder, "-S", o3de_context.project_path, "-G", "Visual Studio 16"])):
+    if (process_command(["cmake", "-B", build_folder, "-S", o3de_context.project_path, "-G", args.generator])):
         quit()
 
     if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.ServerLauncher", "AssetProcessor", "AssetBundler", "AssetBundlerBatch", "--config", "profile", "--", "/m"]) != 0):
@@ -75,7 +85,7 @@ if (args.code):
     # Build monolithic server launcher build
     monolithic_build_folder = os.path.join(o3de_context.project_path, "build", "windows_mono")
     os.makedirs(monolithic_build_folder, exist_ok=True)
-    if (process_command(["cmake", "-B", monolithic_build_folder, "-S", o3de_context.project_path, "-G", "Visual Studio 16", "-DLY_MONOLITHIC_GAME=1", "-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0"])):
+    if (process_command(["cmake", "-B", monolithic_build_folder, "-S", o3de_context.project_path, "-G", args.generator, "-DLY_MONOLITHIC_GAME=1", "-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0"])):
         quit()
 
     if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "profile", "--", "/m"])):
