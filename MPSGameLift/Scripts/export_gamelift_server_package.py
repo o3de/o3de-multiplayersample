@@ -69,7 +69,7 @@ if (args.code):
     if (process_command(["cmake", "-B", build_folder, "-S", o3de_context.project_path, "-G", "Visual Studio 16"])):
         quit()
 
-    if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.ServerLauncher", "AssetBundler", "--config", "profile", "--", "/m"]) != 0):
+    if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.ServerLauncher", "AssetProcessor", "AssetBundler", "AssetBundlerBatch", "--config", "profile", "--", "/m"]) != 0):
         quit()
         
     # Build monolithic server launcher build
@@ -85,4 +85,59 @@ if (args.code):
 if (args.assets):
     # Process assets
     if (process_command(["cmake", "--build", build_folder, "--target", f"{project_name}.Assets", "--config", "profile", "--", "/m"]) != 0):
+        quit()
+
+    if (process_command(["cmake", "--build", build_folder, "--target", "AssetBundler", "AssetBundlerBatch", "--config", "profile", "--", "/m"]) != 0):
+        quit()
+
+    # Create a game asset list by using the game seed list
+    platform = "pc"
+    asset_bundler_batch = os.path.join(build_folder, "bin", "profile", "AssetBundlerBatch.exe")
+    asset_list_directory = os.path.join(o3de_context.project_path, "AssetBundling", "AssetLists" )
+    seed_list_directory = os.path.join(o3de_context.project_path, "AssetBundling", "SeedLists" )
+    game_asset_list_path = os.path.join(asset_list_directory, f"game_{platform}.assetlist")
+    engine_asset_list_path = os.path.join(asset_list_directory, f"engine_{platform}.assetlist")
+
+    generate_asset_list_command = f"{asset_bundler_batch} assetLists --assetListFile {game_asset_list_path} --platform {platform} --allowOverwrites"
+    
+    # Add all the .seed files found inside <project>/AssetBundling/SeedLists
+    seed_file_extension = ".seed"
+    
+    seed_files = [os.path.join(seed_list_directory, f) for f in os.listdir(seed_list_directory) if f.endswith(seed_file_extension)]
+
+    if not seed_files:
+        o3de_logger.error(f"Building assets failed! Could not find any game seed files inside {seed_list_directory}")
+        quit()
+
+    for file in seed_files:
+        generate_asset_list_command += str(f" --seedListFile ")
+        generate_asset_list_command += str(os.path.join(seed_list_directory, file))
+
+    if (process_command(generate_asset_list_command.split()) != 0):
+        quit()
+
+
+    if (process_command([asset_bundler_batch, "assetLists", "--assetListFile", game_asset_list_path, "--platform", platform, "--allowOverwrites",
+                         "--seedListFile", os.path.join(seed_list_directory, "BasePopcornFxSeedList.seed"), 
+                         "--seedListFile", os.path.join(seed_list_directory, "GameSeedList.seed"), 
+                         "--seedListFile", os.path.join(seed_list_directory, "ProfileOnlySeedList.seed"), 
+                         "--seedListFile", os.path.join(seed_list_directory, "VFXSeedList.seed")]) != 0):
+        quit()
+
+    # Create a engine asset list by using the engine seed list
+    if (process_command([asset_bundler_batch, "assetLists", "--assetListFile", engine_asset_list_path, "--platform", platform, "--allowOverwrites",
+                         "--addDefaultSeedListFiles"]) != 0):
+        quit()
+
+    # Bundle game asset using game asset list
+    bundles_directory = os.path.join(o3de_context.project_path, "AssetBundling", "Bundles" )
+    if (process_command([asset_bundler_batch, "bundles", "--maxSize", "2048", "--platform", platform, "--allowOverwrites",
+                         "--outputBundlePath", os.path.join(bundles_directory, "game.pak"),
+                         "--assetListFile", game_asset_list_path]) != 0):
+        quit()
+
+    # Bundle engine asset using engine asset list
+    if (process_command([asset_bundler_batch, "bundles", "--maxSize", "2048", "--platform", platform, "--allowOverwrites",
+                         "--outputBundlePath", os.path.join(bundles_directory, "engine.pak"),
+                         "--assetListFile", engine_asset_list_path]) != 0):
         quit()

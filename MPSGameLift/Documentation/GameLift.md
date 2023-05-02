@@ -30,14 +30,12 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 
     ---
     
-1. Bundle Content
+    ---
+    **Important**
 
-    a. Open .\build\windows\bin\profile\AssetBundler.exe
+    The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
 
-    b. Follow steps for "Create a bundle for game assets" and "Create a bundle for engine assets" and "Add bundles to the release game layout" here: https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
-
-The "default seed lists" choice should choose all but 4 seed lists to make the engine_pc.pak
-The other 4 seed lists should all get selected to make the game_pc.pak
+    ---
 It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
 1. Create the Launcher Zip file
