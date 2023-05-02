@@ -282,7 +282,6 @@ namespace MultiplayerSample
                 &MultiplayerSampleUserSettingsRequestBus::Events::SetFullscreen, valuesToLabels[fullscreenIndex].first);
 
             MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
-
         }
     }
 
@@ -291,38 +290,43 @@ namespace MultiplayerSample
         const AZStd::vector<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string>> valuesToLabels =
         {
             // This set of resolutions was selected because they're the set that we offer in O3DE in the IMGUI debug menus.
-            // Feel free to add or remove resolution pairs from this list as appropriate.
-
-            { { 800, 450}, "800 x 450 (16:9)" },
-            { {1280, 720}, "1280 x 720 (16:9)" },
-            { {1600, 900}, "1600 x 900 (16:9)" },
-            { {1920, 1080}, "1920 x 1080 (16:9)" },
-            { {2560, 1440}, "2560 x 1440 (16:9)" },
-            { {3440, 1935}, "3440 x 1935 (16:9)" },
-            { {3840, 2160}, "3840 x 2160 (16:9)" },
-
-            { { 800, 500}, "800 x 500 (16:10)" },
-            { {1280, 800}, "1280 x 800 (16:10)" },
-            { {1600, 1000}, "1600 x 1000 (16:10)" },
-            { {1920, 1200}, "1920 x 1200 (16:10)" },
-            { {2560, 1600}, "2560 x 1600 (16:10)" },
-            { {3440, 2150}, "3440 x 2150 (16:10)" },
-            { {3840, 2400}, "3840 x 2400 (16:10)" },
+            // Feel free to add, remove or reorder resolution pairs from this list as appropriate.
+            // There is logic below for filtering out resolutions that are too large that assumes that the smallest 
+            // resolution is the first entry on the list, so just keep that in mind when altering this list.
 
             { { 800, 334}, "800 x 334 (43:18)" },
-            { {1280, 535}, "1280 x 535 (43:18)" },
-            { {1600, 669}, "1600 x 669 (43:18)" },
-            { {1920, 803}, "1920 x 803 (43:18)" },
-            { {2560, 1071}, "2560 x 1071 (43:18)" },
-            { {3440, 1440}, "3440 x 1440 (43:18)" },
-            { {3840, 1607}, "3840 x 1607 (43:18)" },
-
+            { { 800, 450}, "800 x 450 (16:9)" },
+            { { 800, 500}, "800 x 500 (16:10)" },
             { { 800, 600}, "800 x 600 (4:3)" },
+
+            { {1280, 535}, "1280 x 535 (43:18)" },
+            { {1280, 720}, "1280 x 720 (16:9)" },
+            { {1280, 800}, "1280 x 800 (16:10)" },
             { {1280, 960}, "1280 x 960 (4:3)" },
+
+            { {1600, 669}, "1600 x 669 (43:18)" },
+            { {1600, 900}, "1600 x 900 (16:9)" },
+            { {1600, 1000}, "1600 x 1000 (16:10)" },
             { {1600, 1200}, "1600 x 1200 (4:3)" },
+
+            { {1920, 803}, "1920 x 803 (43:18)" },
+            { {1920, 1080}, "1920 x 1080 (16:9)" },
+            { {1920, 1200}, "1920 x 1200 (16:10)" },
             { {1920, 1440}, "1920 x 1440 (4:3)" },
+
+            { {2560, 1071}, "2560 x 1071 (43:18)" },
+            { {2560, 1440}, "2560 x 1440 (16:9)" },
+            { {2560, 1600}, "2560 x 1600 (16:10)" },
             { {2560, 1920}, "2560 x 1920 (4:3)" },
+
+            { {3440, 1440}, "3440 x 1440 (43:18)" },
+            { {3440, 1935}, "3440 x 1935 (16:9)" },
+            { {3440, 2150}, "3440 x 2150 (16:10)" },
             { {3440, 2580}, "3440 x 2580 (4:3)" },
+
+            { {3840, 1607}, "3840 x 1607 (43:18)" },
+            { {3840, 2160}, "3840 x 2160 (16:9)" },
+            { {3840, 2400}, "3840 x 2400 (16:10)" },
             { {3840, 2880}, "3840 x 2880 (4:3)" },
         };
 
