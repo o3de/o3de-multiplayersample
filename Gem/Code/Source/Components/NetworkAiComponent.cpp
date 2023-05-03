@@ -7,6 +7,7 @@
 
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Components/NetworkPlayerMovementComponent.h>
+#include <Source/Components/NetworkRandomComponent.h>
 #include <Source/Components/NetworkWeaponsComponent.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 #include <Multiplayer/Components/LocalPredictionPlayerInputComponent.h>
@@ -21,32 +22,9 @@ namespace MultiplayerSample
     NetworkAiComponentController::NetworkAiComponentController(NetworkAiComponent& parent)
         : NetworkAiComponentControllerBase(parent)
     {
-    }
+	}
 
-    void NetworkAiComponentController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceEnableAutonomousUpdate();
-            }
-        }
-    }
-
-    void NetworkAiComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
-    {
-        if (GetEnabled())
-        {
-            Multiplayer::LocalPredictionPlayerInputComponentController* playerInputController = GetLocalPredictionPlayerInputComponentController();
-            if (playerInputController != nullptr)
-            {
-                playerInputController->ForceDisableAutonomousUpdate();
-            }
-        }
-    }
-
+#if AZ_TRAIT_SERVER
     void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
@@ -56,16 +34,16 @@ namespace MultiplayerSample
         if (GetRemainingTimeMs() <= 0)
         {
             // Determine a new directive after 500 to 9500 ms
-            SetRemainingTimeMs(m_lcg.GetRandomFloat() * (GetActionIntervalMaxMs() - GetActionIntervalMinMs()) + GetActionIntervalMinMs());
+            SetRemainingTimeMs(GetNetworkRandomComponentController()->GetRandomFloat() * (GetActionIntervalMaxMs() - GetActionIntervalMinMs()) + GetActionIntervalMinMs());
             SetTurnRate(1.f / GetRemainingTimeMs());
 
             // Randomize new target yaw and pitch and compute the delta from the current yaw and pitch respectively
-            SetTargetYawDelta(-movementController.m_viewYaw + (m_lcg.GetRandomFloat() * 2.f - 1.f));
-            SetTargetPitchDelta(-movementController.m_viewPitch + (m_lcg.GetRandomFloat() - 0.5f));
+            SetTargetYawDelta(-movementController.m_viewYaw + (GetNetworkRandomComponentController()->GetRandomFloat() * 2.f - 1.f));
+            SetTargetPitchDelta(-movementController.m_viewPitch + (GetNetworkRandomComponentController()->GetRandomFloat() - 0.5f));
 
             // Randomize the action and strafe direction (used only if we decide to strafe)
-            SetAction(static_cast<Action>(m_lcg.GetRandom() % static_cast<int>(Action::COUNT)));
-            SetStrafingRight(static_cast<bool>(m_lcg.GetRandom() % 2));
+            SetAction(static_cast<Action>(GetNetworkRandomComponentController()->GetRandomInt() % static_cast<int>(Action::COUNT)));
+            SetStrafingRight(static_cast<bool>(GetNetworkRandomComponentController()->GetRandomInt() % 2));
         }
 
         // Translate desired motion into inputs
@@ -124,7 +102,7 @@ namespace MultiplayerSample
             if (GetShotFired())
             {
                 // Fire weapon between 100 and 10000 ms from now
-                SetTimeToNextShot(m_lcg.GetRandomFloat() * (GetFireIntervalMaxMs() - GetFireIntervalMinMs()) + GetFireIntervalMinMs());
+                SetTimeToNextShot(GetNetworkRandomComponentController()->GetRandomFloat() * (GetFireIntervalMaxMs() - GetFireIntervalMinMs()) + GetFireIntervalMinMs());
                 SetShotFired(false);
                 weaponsController.m_weaponFiring = false;
             }
@@ -137,12 +115,12 @@ namespace MultiplayerSample
     }
 
     void NetworkAiComponentController::ConfigureAi(
-            float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs, uint64_t seed)
+        float fireIntervalMinMs, float fireIntervalMaxMs, float actionIntervalMinMs, float actionIntervalMaxMs)
     {
         SetFireIntervalMinMs(fireIntervalMinMs);
         SetFireIntervalMaxMs(fireIntervalMaxMs);
         SetActionIntervalMinMs(actionIntervalMinMs);
         SetActionIntervalMaxMs(actionIntervalMaxMs);
-        m_lcg.SetSeed(seed);
     }
+#endif
 }

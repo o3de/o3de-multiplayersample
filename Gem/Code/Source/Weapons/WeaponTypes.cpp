@@ -10,6 +10,10 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 
+#if AZ_TRAIT_CLIENT
+#   include <PopcornFX/PopcornFXBus.h>
+#endif
+
 namespace MultiplayerSample
 {
     const char* GetEnumString(WeaponType value)
@@ -88,6 +92,36 @@ namespace MultiplayerSample
             AZ::EditContext* editContext = serializeContext->GetEditContext();
             if (editContext)
             {
+                editContext->Enum<SoundEffect>("SoundEffect", "Valid sound effects to use within MultiplayerSample")
+                    ->Value("Unused", SoundEffect::Unused)
+                    ->Value("PlayerFootSteps", SoundEffect::PlayerFootSteps)
+                    ->Value("PlayerKnockedDown", SoundEffect::PlayerKnockedDown)
+                    ->Value("ArmorBreaking", SoundEffect::ArmorBreaking)
+                    ->Value("ArmorMend", SoundEffect::ArmorMend)
+                    ->Value("PlayerOuch", SoundEffect::PlayerOuch)
+                    ->Value("LadderClimb", SoundEffect::LadderClimb)
+                    ->Value("ShutDown", SoundEffect::ShutDown)
+                    ->Value("CountDown", SoundEffect::CountDown)
+                    ->Value("GemPickup", SoundEffect::GemPickup)
+                    ->Value("VictoryFanfare", SoundEffect::VictoryFanfare)
+                    ->Value("LosingFanfare", SoundEffect::LosingFanfare)
+                    ->Value("RoundStart", SoundEffect::RoundStart)
+                    ->Value("RoundEnd", SoundEffect::RoundEnd)
+                    ->Value("GameEnd", SoundEffect::GameEnd)
+                    ->Value("LaserPistolMuzzleFlash", SoundEffect::LaserPistolMuzzleFlash)
+                    ->Value("LaserPistolImpact", SoundEffect::LaserPistolImpact)
+                    ->Value("BubbleGunBuildup", SoundEffect::BubbleGunBuildup)
+                    ->Value("BubbleGunMuzzleFlash", SoundEffect::BubbleGunMuzzleFlash)
+                    ->Value("BubbleGunProjectile", SoundEffect::BubbleGunProjectile)
+                    ->Value("BubbleGunImpact", SoundEffect::BubbleGunImpact)
+                    ->Value("JumpPadLaunch", SoundEffect::JumpPadLaunch)
+                    ->Value("TeleporterUse", SoundEffect::TeleporterUse)
+                    ->Value("EnergyBallTrapRisingOutOfTheGround", SoundEffect::EnergyBallTrapRisingOutOfTheGround)
+                    ->Value("EnergyBallTrapBuildup", SoundEffect::EnergyBallTrapBuildup)
+                    ->Value("EnergyBallTrapProjectile", SoundEffect::EnergyBallTrapProjectile)
+                    ->Value("EnergyBallTrapImpact", SoundEffect::EnergyBallTrapImpact)
+                    ->Value("EnergyBallTrapOnCooldown", SoundEffect::EnergyBallTrapOnCooldown);
+
                 editContext->Enum<CharacterAnimState>("CharacterAnimState", "Various MultiplayerSample character animation states")
                     ->Value("Idle", CharacterAnimState::Idle)
                     ->Value("Sprinting", CharacterAnimState::Sprinting)
@@ -124,40 +158,6 @@ namespace MultiplayerSample
                     ->Value("None", EffectDirection::None)
                     ->Value("WeaponDirection", EffectDirection::WeaponDirection)
                     ->Value("EntityDirection", EffectDirection::EntityDirection);
-            }
-        }
-    }
-
-    bool ClientEffect::Serialize(AzNetworking::ISerializer& serializer)
-    {
-        return serializer.Serialize(m_effectName, "EffectName")
-            && serializer.Serialize(m_lifespan, "Lifespan")
-            && serializer.Serialize(m_travelToTarget, "TravelToTarget")
-            && serializer.Serialize(m_effectDirection, "EffectDirection");
-    }
-
-    void ClientEffect::Reflect(AZ::ReflectContext* context)
-    {
-        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serializeContext)
-        {
-            serializeContext->Class<ClientEffect>()
-                ->Version(1)
-                ->Field("EffectName", &ClientEffect::m_effectName)
-                ->Field("Lifespan", &ClientEffect::m_lifespan)
-                ->Field("TravelToTarget", &ClientEffect::m_travelToTarget)
-                ->Field("EffectDirection", &ClientEffect::m_effectDirection);
-
-            AZ::EditContext* editContext = serializeContext->GetEditContext();
-            if (editContext)
-            {
-                editContext->Class<ClientEffect>("ClientEffect", "Parameters that control client effect spawning")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_effectName, "EffectName", "The effect to play upon weapon hit confirmation")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_lifespan, "Lifespan", "The lifespan value to provide the effects manager")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ClientEffect::m_travelToTarget, "TravelToTarget", "If true, effect will travel from origin to target position over it's lifetime")
-                    ->DataElement(AZ::Edit::UIHandlers::ComboBox, &ClientEffect::m_effectDirection, "EffectDirection", "The orientation to use when spawning the effect")
-                    ;
             }
         }
     }
@@ -274,15 +274,15 @@ namespace MultiplayerSample
         if (serializeContext)
         {
             serializeContext->Class<WeaponParams>()
-                ->Version(1)
+                ->Version(6)
                 ->Field("WeaponType", &WeaponParams::m_weaponType)
+                ->Field("WeaponMaxAimDistance", &WeaponParams::m_weaponMaxAimDistance)
                 ->Field("CooldownTimeMs", &WeaponParams::m_cooldownTimeMs)
                 ->Field("AnimFlag", &WeaponParams::m_animFlag)
                 ->Field("ActivateFx", &WeaponParams::m_activateFx)
                 ->Field("ImpactFx", &WeaponParams::m_impactFx)
                 ->Field("DamageFx", &WeaponParams::m_damageFx)
                 ->Field("ProjectileAsset", &WeaponParams::m_projectileAsset)
-                ->Field("AmmoMaterialType", &WeaponParams::m_ammoMaterialType)
                 ->Field("GatherParams", &WeaponParams::m_gatherParams)
                 ->Field("DamageEffect", &WeaponParams::m_damageEffect)
                 ->Field("LocallyPredicted", &WeaponParams::m_locallyPredicted);
@@ -293,13 +293,13 @@ namespace MultiplayerSample
                 editContext->Class<WeaponParams>("WeaponParams", "Parameters that control the behaviour of a weapon")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_weaponType, "WeaponType", "The basic type of weapon")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_weaponMaxAimDistance, "WeaponMaxAimDistance", "The maximum distance of a raycast to locate a target when firing.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_cooldownTimeMs, "CooldownTimeMs", "The number of milliseconds needed before the weapon can activate again")
                     ->DataElement(AZ::Edit::UIHandlers::ComboBox, &WeaponParams::m_animFlag, "AnimFlag", "The animation flag to raise on the character when starting a fire sequence")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_activateFx, "ActivateFx", "The effect to play upon weapon activation")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_impactFx, "ImpactFx", "The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageFx, "DamageFx", "The effect to play for each hit entitiy. Played authoritatively only")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_projectileAsset, "ProjectileAsset", "If a projectile weapon, the archetype asset name for projectile properties")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_ammoMaterialType, "AmmoMaterialType", "The material type name (out of GameSDK/libs/materialeffects/surfacetypes.xml) to use for driving impact effects")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_gatherParams, "GatherParams", "The type of gather to perform for shape-cast weapons")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_damageEffect, "DamageEffect", "The modifier parameters to apply to hit entities for damage")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &WeaponParams::m_locallyPredicted, "LocallyPredicted", "If true, autonomous clients predict activations and hits");
@@ -348,14 +348,69 @@ namespace MultiplayerSample
     bool HitEntity::Serialize(AzNetworking::ISerializer& serializer)
     {
         return serializer.Serialize(m_hitPosition, "HitPosition")
+            && serializer.Serialize(m_hitNormal, "HitNormal")
             && serializer.Serialize(m_hitNetEntityId, "HitNetEntityId");
+    }
+
+    void HitEntity::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<HitEntity>()
+                ->Version(1)
+                ->Field("HitPosition", &HitEntity::m_hitPosition)
+                ->Field("HitNormal", &HitEntity::m_hitNormal)
+                ->Field("HitNetEntityId", &HitEntity::m_hitNetEntityId);
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->Class<HitEntity>("HitEntity")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
+                ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                ->Constructor<>()
+                ->Property("HitPosition", BehaviorValueProperty(&HitEntity::m_hitPosition))
+                ->Property("HitNormal", BehaviorValueProperty(&HitEntity::m_hitNormal))
+                ->Property("HitNetEntityId", BehaviorValueProperty(&HitEntity::m_hitNetEntityId))
+                ;
+        }
     }
 
     bool HitEvent::Serialize(AzNetworking::ISerializer& serializer)
     {
-        return serializer.Serialize(m_hitTransform, "HitTransform")
+        return serializer.Serialize(m_target, "Target")
             && serializer.Serialize(m_shooterNetEntityId, "ShooterNetEntityId")
             && serializer.Serialize(m_hitEntities, "HitEntities");
+    }
+
+    void HitEvent::Reflect(AZ::ReflectContext* context)
+    {
+        AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
+        if (serializeContext)
+        {
+            serializeContext->Class<HitEvent>()
+                ->Version(1)
+                ->Field("Target", &HitEvent::m_target)
+                ->Field("ShooterNetEntityId", &HitEvent::m_shooterNetEntityId)
+                ->Field("HitEntities", &HitEvent::m_hitEntities);
+        }
+
+        AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context);
+        if (behaviorContext)
+        {
+            behaviorContext->Class<HitEvent>("HitEvent")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Module, "multiplayersample")
+                ->Attribute(AZ::Script::Attributes::Category, "MultiplayerSample")
+                ->Constructor<>()
+                ->Property("Target", BehaviorValueProperty(&HitEvent::m_target))
+                ->Property("ShooterNetEntityId", BehaviorValueProperty(&HitEvent::m_shooterNetEntityId))
+                ->Property("HitEntities", BehaviorValueProperty(&HitEvent::m_hitEntities))
+                ;
+        }
     }
 
     bool FireParams::operator!=(const FireParams& rhs) const
@@ -366,7 +421,8 @@ namespace MultiplayerSample
 
     bool FireParams::Serialize(AzNetworking::ISerializer& serializer)
     {
-        return serializer.Serialize(m_targetPosition, "TargetPosition")
+        return serializer.Serialize(m_sourcePosition, "SourcePosition")
+            && serializer.Serialize(m_targetPosition, "TargetPosition")
             && serializer.Serialize(m_targetId, "TargetId");
     }
 }

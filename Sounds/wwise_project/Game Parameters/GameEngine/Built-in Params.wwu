@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{027FA53E-BB70-43C3-849F-6A97AE8C9671}" SchemaVersion="103">
+	<GameParameters>
+		<WorkUnit Name="Built-in Params" ID="{027FA53E-BB70-43C3-849F-6A97AE8C9671}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Distance" ID="{3AB73936-BB4F-4A21-8903-A0FE02EA2783}" ShortID="1047698094">
+					<ChildrenList>
+						<GameParameter Name="Distance_100" ID="{F3EEAFF4-46E7-4EAD-9336-DAE7EB3F7B50}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="1"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Distance_1000" ID="{6E6314F2-1870-4431-9A3F-D1F592760A4A}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="1"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+								<Property Name="Max" Type="Real64" Value="1000"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Distance_10000" ID="{709EB988-5740-40FE-9C8A-ED9C9BCBD8A3}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="1"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+								<Property Name="Max" Type="Real64" Value="10000"/>
+							</PropertyList>
+						</GameParameter>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Spatialization" ID="{84249847-2812-4B1B-BC40-A6B94D1AAB5C}" ShortID="487808953">
+					<ChildrenList>
+						<GameParameter Name="Diffraction" ID="{46987FA0-EBDF-4D7E-AC38-218C3DB9ED91}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="8"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Obstruction" ID="{686AD302-4979-4680-93A4-4FA8D4814F4B}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="5"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Occlusion" ID="{18F5D7C4-9785-464F-8EBF-1868C914FBE7}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="6"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Azimuth" ID="{8E427819-A024-47B4-B731-F17DCFE0191E}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="2"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+								<Property Name="Max" Type="Real64" Value="180"/>
+								<Property Name="Min" Type="Real64" Value="-180"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="Elevation" ID="{0161502A-405D-456E-B653-F5A438B0B913}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="3"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+								<Property Name="Max" Type="Real64" Value="90"/>
+								<Property Name="Min" Type="Real64" Value="-90"/>
+							</PropertyList>
+						</GameParameter>
+						<GameParameter Name="TransmissionLoss" ID="{A754CED1-3C58-414B-B4D6-B2C2B35208CB}">
+							<PropertyList>
+								<Property Name="BindToBuiltInParam" Type="int16" Value="9"/>
+								<Property Name="InitialValue" Type="Real64" Value="0"/>
+							</PropertyList>
+						</GameParameter>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</GameParameters>
+</WwiseDocument>

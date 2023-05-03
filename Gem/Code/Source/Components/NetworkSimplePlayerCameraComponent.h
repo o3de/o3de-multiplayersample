@@ -9,6 +9,12 @@
 
 #include <Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.h>
 #include <AzCore/Component/TickBus.h>
+#include <AzFramework/Physics/Common/PhysicsTypes.h>
+
+namespace AzPhysics
+{
+    class SceneInterface;
+}
 
 namespace MultiplayerSample
 {
@@ -30,6 +36,10 @@ namespace MultiplayerSample
         float GetCameraPitchPrevious() const;
         float GetCameraRollPrevious() const;
 
+        AZ::Transform GetCameraTransform(bool collisionEnabled) const;
+
+        void SetSprintMode(bool sprintMode);
+
     private:
         //! AZ::TickBus interface
         //! @{
@@ -37,7 +47,16 @@ namespace MultiplayerSample
         int GetTickOrder() override;
         //! @}
 
+        void ApplySpringArm(AZ::Transform& inOutTransform) const;
+
         AZ::Entity* m_activeCameraEntity = nullptr;
         bool m_aiEnabled = false;
+        bool m_sprinting = false;
+        float m_originalFov = 0.0f;
+        float m_currentFov = 0.0f;
+        float m_currentZoom = 0.0f;
+        AzPhysics::SceneInterface* m_physicsSceneInterface = nullptr;
+        AzPhysics::SceneHandle m_physicsSceneHandle = AzPhysics::InvalidSceneHandle;
+        mutable float m_springArmDist = 0.0f;
     };
 }

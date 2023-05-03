@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0AD14DD5-1CBD-4F2A-B1DE-F678C986F4EB}" SchemaVersion="103" RootDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}" ParentDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}">
+	<AudioObjects>
+		<WorkUnit Name="Player" ID="{0AD14DD5-1CBD-4F2A-B1DE-F678C986F4EB}" OwnerID="{AAEBA70B-BECE-4AC8-BE18-6CB0721C5DC7}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="23"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Player" ID="{E71203F1-C2FA-4E18-A8EC-8F7F531C4860}" ShortID="79767531">
+					<PropertyList>
+						<Property Name="3DSpatialization" Type="int16" Value="2"/>
+						<Property Name="Color" Type="int16" Value="23"/>
+						<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+						<Property Name="OverrideOutput" Type="bool" Value="True"/>
+						<Property Name="OverridePositioning" Type="bool" Value="True"/>
+						<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+						<Property Name="UserAuxSendVolume0" Type="Real64">
+							<ValueList>
+								<Value>-6</Value>
+							</ValueList>
+							<RTPCList>
+								<RTPC Name="" ID="{4CF5D91B-806B-40C8-913B-4EDE9BAF7353}" ShortID="505055821">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="Distance_100" ID="{F3EEAFF4-46E7-4EAD-9336-DAE7EB3F7B50}" WorkUnitID="{027FA53E-BB70-43C3-849F-6A97AE8C9671}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{33EB447F-2245-408B-8C65-FAADD7E1E3CD}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>2</XPos>
+												<YPos>-200</YPos>
+												<Flags>0</Flags>
+												<SegmentShape>SCurve</SegmentShape>
+											</Point>
+											<Point>
+												<XPos>50</XPos>
+												<YPos>0</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Attenuation">
+							<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+						</Reference>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+						<Reference Name="UserAuxSend0">
+							<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<ActorMixer Name="Vocal" ID="{11AF5650-586C-4A6B-B959-F8075073F47F}" ShortID="101101572">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+								<Property Name="MaxSoundPerInstance" Type="int16">
+									<ValueList>
+										<Value>1</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="UseMaxSoundPerInstance" Type="bool">
+									<ValueList>
+										<Value>True</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_Player_Vocal" ID="{34BA0793-0676-4024-9BC1-70EE08D65091}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_player_exertion" ID="{D444457E-155F-492E-8A20-BB716CE4649B}" ShortID="645820842">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="OverridePriority" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{20FB68BF-AD9E-485B-AE08-E9933F0141D2}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="80"/>
+															<Property Name="Min" Type="Real64" Value="-80"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Priority" Type="int16">
+											<ValueList>
+												<Value>40</Value>
+											</ValueList>
+										</Property>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-18</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_char_vocal_exert_01" ID="{DC397E1D-1A70-48C5-BE7A-751BCF15FD83}" ShortID="540868618">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_01" ID="{C04D1C94-AE48-4B32-85A4-EF30DB1EBAF2}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="680794406"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_01" ID="{C04D1C94-AE48-4B32-85A4-EF30DB1EBAF2}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_exert_02" ID="{F7B37B3D-8C9E-45D9-9B7A-C86817BCB990}" ShortID="83542186">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_02" ID="{83BA07DE-760E-48F0-A67A-61D421B8D78A}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="203621214"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_02" ID="{83BA07DE-760E-48F0-A67A-61D421B8D78A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_exert_03" ID="{0ED86391-A2E7-473A-AC74-D83C677656CA}" ShortID="749267521">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_03" ID="{67BB56A2-AC1A-48FB-9BD7-1CABCA152B89}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="367787682"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_03" ID="{67BB56A2-AC1A-48FB-9BD7-1CABCA152B89}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_exert_04" ID="{69C10262-E59F-4FB4-91BD-02105999029C}" ShortID="171343894">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_04" ID="{05A8A1C9-5CBD-4F69-8850-F2B1BA74AC78}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="171896143"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_04" ID="{05A8A1C9-5CBD-4F69-8850-F2B1BA74AC78}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_exert_05" ID="{52697985-A900-415F-A952-71BE2C501803}" ShortID="962801051">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_05" ID="{E9AEFAE4-EDFD-440E-8612-C285FAEFD110}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="802864656"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_05" ID="{E9AEFAE4-EDFD-440E-8612-C285FAEFD110}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_exert_06" ID="{B8BA16D1-8213-43EB-855F-1D69A38970A7}" ShortID="809262973">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_exert_06" ID="{7645C871-F8B3-4A04-8650-01B3A355C747}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_exert_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="666118070"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_exert_06" ID="{7645C871-F8B3-4A04-8650-01B3A355C747}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_player_pain" ID="{13911024-07BA-4613-B59D-F89D0D5D5511}" ShortID="728727936">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="InitialDelay" Type="Real64">
+											<ValueList>
+												<Value>0.1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+										<Property Name="OverridePriority" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{22DF3695-91AC-4FAA-8C33-F70F82B0BD13}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="80"/>
+															<Property Name="Min" Type="Real64" Value="-80"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Priority" Type="int16">
+											<ValueList>
+												<Value>60</Value>
+											</ValueList>
+										</Property>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-13</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_char_vocal_pain_01" ID="{5BB5132C-7397-473D-B01A-4B8F97F885BC}" ShortID="15314451">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_01" ID="{8045490A-114A-43F1-ADBA-2FBDC81EA989}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="652690095"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_01" ID="{8045490A-114A-43F1-ADBA-2FBDC81EA989}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_pain_02" ID="{346E5F2B-5D00-4DE0-B724-E44220F28554}" ShortID="956389350">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_02" ID="{D6EC396B-4D97-4F35-BEBD-C6529E28E557}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1002645214"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_02" ID="{D6EC396B-4D97-4F35-BEBD-C6529E28E557}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_pain_03" ID="{904077DD-1937-4B9C-9801-94E363450156}" ShortID="574281900">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_03" ID="{ECD70EA1-2CAA-47D7-B803-5FE64D9BB000}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="334879080"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_03" ID="{ECD70EA1-2CAA-47D7-B803-5FE64D9BB000}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_pain_04" ID="{CA502D0E-F30A-4BF9-BD62-C7D559547A26}" ShortID="407061460">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_04" ID="{626C4BD3-6994-4C14-BEE8-6887B9FE4D0C}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="269709427"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_04" ID="{626C4BD3-6994-4C14-BEE8-6887B9FE4D0C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_pain_05" ID="{28E28947-81BD-4EA3-8585-7BD4A79C0B80}" ShortID="282912898">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_05" ID="{547EB122-A5DF-4493-B809-9B885A457AD4}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="963582234"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_05" ID="{547EB122-A5DF-4493-B809-9B885A457AD4}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_vocal_pain_06" ID="{17B88030-2D90-49C6-9567-6D5FA82133B4}" ShortID="67108381">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_vocal_pain_06" ID="{BB1A5A04-B310-42A7-87C0-F2E7F2D1980E}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_vocal_pain_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="866554696"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_vocal_pain_06" ID="{BB1A5A04-B310-42A7-87C0-F2E7F2D1980E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="Foley" ID="{EBB2A474-1956-4825-85FE-200612D2A0E4}" ShortID="325437792">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_Player_Foley" ID="{D1468F89-B5C8-485A-80D3-B8D1BC0B99C8}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_player_knockdown" ID="{0E73ED35-DB3F-427D-A4B4-E101DF26D6FD}" ShortID="1002117091">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-18</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_char_foley_knockdown_01" ID="{6E75BB5F-E64A-418D-A756-2C6BA74C84E7}" ShortID="836429775">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_foley_knockdown_01" ID="{B72CD026-C00C-4F3C-88A0-FC55C0598475}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_foley_knockdown_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="9512686"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_foley_knockdown_01" ID="{B72CD026-C00C-4F3C-88A0-FC55C0598475}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="Footsteps" ID="{231A252D-801E-4A4C-8971-EEE22589923C}" ShortID="94649356">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+								<Property Name="MaxSoundPerInstance" Type="int16">
+									<ValueList>
+										<Value>12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+								<Property Name="UseMaxSoundPerInstance" Type="bool">
+									<ValueList>
+										<Value>True</Value>
+									</ValueList>
+								</Property>
+								<Property Name="UserAuxSendVolume0" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{C8728DA8-FDC3-4E7E-BDBA-BFB2614D7A9B}" ShortID="279898161">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Distance_100" ID="{F3EEAFF4-46E7-4EAD-9336-DAE7EB3F7B50}" WorkUnitID="{027FA53E-BB70-43C3-849F-6A97AE8C9671}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{A80528F5-B6B4-476E-BB61-42F3066935AF}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>2</XPos>
+														<YPos>-200</YPos>
+														<Flags>0</Flags>
+														<SegmentShape>SCurve</SegmentShape>
+													</Point>
+													<Point>
+														<XPos>50</XPos>
+														<YPos>0</YPos>
+														<Flags>0</Flags>
+														<SegmentShape>SCurve</SegmentShape>
+													</Point>
+													<Point>
+														<XPos>100</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="ATN_Player_Footstep" ID="{2CBFBB08-A412-464C-A918-162ED89CF12D}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+								<Reference Name="UserAuxSend0">
+									<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SwitchContainer Name="sx_player_footstep (Surface)" ID="{9BA29C5C-574D-4B7A-A611-76838032F196}" ShortID="1073283893">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-18</Value>
+											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{1126E801-D185-4A40-A58A-C61544E5BDF6}" ShortID="198074128">
+													<ReferenceList>
+														<Reference Name="ControlInput">
+															<ObjectRef Name="Velocity" ID="{F57DCC68-303A-43A8-A338-D5352274478F}" WorkUnitID="{9C07B0EB-9E59-49DA-AC16-8DF7F1A9ADB7}"/>
+														</Reference>
+													</ReferenceList>
+													<Curve Name="" ID="{99FDF48E-DD0E-4EFE-A7D3-E032CB2D5DA4}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3"/>
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-9</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>1</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="DefaultSwitchOrState">
+											<ObjectRef Name="Concrete" ID="{B14FAA96-8A3C-4226-A4DC-B002918E495B}" WorkUnitID="{3DC4F2B2-01D8-4D02-B034-AA7B7B724BEF}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+										<Reference Name="SwitchGroupOrStateGroup">
+											<ObjectRef Name="Surface" ID="{F47BD221-0002-4369-AF56-D35B9FB6C7A1}" WorkUnitID="{3DC4F2B2-01D8-4D02-B034-AA7B7B724BEF}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<RandomSequenceContainer Name="sx_char_footstep_metal_A" ID="{7F59E2CE-60C4-4AE1-A12E-EAAC050FF7F1}" ShortID="57044280">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-4</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="sx_char_footstep_metal_A_01" ID="{01EA4CE8-E144-4CE5-828B-15C17A9BEB33}" ShortID="627901887">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_01" ID="{ADE86200-3387-441F-9A46-AD2D81C6B320}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="281453555"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_01" ID="{ADE86200-3387-441F-9A46-AD2D81C6B320}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_A_02" ID="{80DA6B2C-3257-4977-BD3D-9744D9E8DC60}" ShortID="869425781">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_02" ID="{EAFB013A-C34C-474F-9F45-D40302904C2B}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="710301379"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_02" ID="{EAFB013A-C34C-474F-9F45-D40302904C2B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_A_03" ID="{CB4E7206-01E6-4EFD-B431-0EACCB72D6CB}" ShortID="87426051">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_03" ID="{693D29CD-2A37-4964-86E5-B8C9797E2997}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="880847990"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_03" ID="{693D29CD-2A37-4964-86E5-B8C9797E2997}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_A_04" ID="{C67F8F68-0B9B-411E-809E-4EFE053F02FF}" ShortID="859192812">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_04" ID="{4709504B-8462-451B-B5F4-3929390DB92B}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_04.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="266151203"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_04" ID="{4709504B-8462-451B-B5F4-3929390DB92B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_A_05" ID="{02CD2EA5-1541-4F96-B258-FC605C86A85C}" ShortID="202227171">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_05" ID="{8D9A6D2E-7161-4753-822C-435E7649BE8B}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_05.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="169441683"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_05" ID="{8D9A6D2E-7161-4753-822C-435E7649BE8B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_A_06" ID="{CF15BF81-DD67-4CC7-952A-7BD804124332}" ShortID="453100164">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_A_06" ID="{084ECC53-09ED-4F04-910D-8F8F4ACC7573}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_A_06.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="739310202"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_A_06" ID="{084ECC53-09ED-4F04-910D-8F8F4ACC7573}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<ObjectLists/>
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="sx_char_footstep_metal_B" ID="{654808B5-8A34-456F-9678-D7BCF9CEF40C}" ShortID="326718887">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-2</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="sx_char_footstep_metal_B_01" ID="{78227A89-013F-481C-B92A-AE80F693F846}" ShortID="1056903408">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_01" ID="{EE50A472-F73E-4826-A5DF-E0A1413FA730}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="705962988"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_01" ID="{EE50A472-F73E-4826-A5DF-E0A1413FA730}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_B_02" ID="{2BD7B85D-4383-4DC3-8069-DE6AEA14F32D}" ShortID="519690715">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_02" ID="{05DB32E1-E9EC-4E70-ADAF-DB75D8A08BFF}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="747533071"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_02" ID="{05DB32E1-E9EC-4E70-ADAF-DB75D8A08BFF}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_B_03" ID="{B6A9ACBB-5669-431B-9120-FC88450CBF23}" ShortID="1070786585">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_03" ID="{5986A7E9-8148-409E-A3FF-2F4316748365}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="381984160"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_03" ID="{5986A7E9-8148-409E-A3FF-2F4316748365}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_B_04" ID="{993711CB-E56C-4119-8490-4064212A322E}" ShortID="163398779">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_04" ID="{092B539D-46A1-43B9-8D00-49171A0C679F}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_04.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="262500066"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_04" ID="{092B539D-46A1-43B9-8D00-49171A0C679F}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_B_05" ID="{E215AB18-E7A9-464A-970A-548AB7AB3344}" ShortID="393582590">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_05" ID="{BFC248FB-29E6-45DC-ADD9-8F4DA2DD8CF7}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_05.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="469471376"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_05" ID="{BFC248FB-29E6-45DC-ADD9-8F4DA2DD8CF7}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="sx_char_footstep_metal_B_06" ID="{02929544-A36B-41F5-99BD-87C82C3D173B}" ShortID="396537510">
+													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="sx_char_footstep_metal_B_06" ID="{EDE0D55D-7152-47A4-BD2B-286A88DB1AD5}">
+															<Language>SFX</Language>
+															<AudioFile>Hexany\player\footsteps\sx_char_footstep_metal_B_06.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="292329284"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists/>
+													<ActiveSourceList>
+														<ActiveSource Name="sx_char_footstep_metal_B_06" ID="{EDE0D55D-7152-47A4-BD2B-286A88DB1AD5}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<ObjectLists/>
+										</RandomSequenceContainer>
+									</ChildrenList>
+									<ObjectLists/>
+									<GroupingInfo>
+										<GroupingBehaviorList>
+											<GroupingBehavior>
+												<ItemRef Name="sx_char_footstep_metal_B" ID="{654808B5-8A34-456F-9678-D7BCF9CEF40C}"/>
+											</GroupingBehavior>
+											<GroupingBehavior>
+												<ItemRef Name="sx_char_footstep_metal_A" ID="{7F59E2CE-60C4-4AE1-A12E-EAAC050FF7F1}"/>
+											</GroupingBehavior>
+										</GroupingBehaviorList>
+										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Glass" ID="{4B939950-C2D6-49A6-84CF-7B584953EA70}"/>
+												<ItemList>
+													<ItemRef Name="sx_char_footstep_metal_A" ID="{7F59E2CE-60C4-4AE1-A12E-EAAC050FF7F1}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Tile" ID="{F8757C88-C3ED-4A93-9BD9-92C72F369F11}"/>
+												<ItemList>
+													<ItemRef Name="sx_char_footstep_metal_B" ID="{654808B5-8A34-456F-9678-D7BCF9CEF40C}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Concrete" ID="{B14FAA96-8A3C-4226-A4DC-B002918E495B}"/>
+												<ItemList>
+													<ItemRef Name="sx_char_footstep_metal_A" ID="{7F59E2CE-60C4-4AE1-A12E-EAAC050FF7F1}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Metal" ID="{1F87DD9E-9661-401E-8B8F-C3EA053A42EB}"/>
+												<ItemList>
+													<ItemRef Name="sx_char_footstep_metal_B" ID="{654808B5-8A34-456F-9678-D7BCF9CEF40C}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Dirt" ID="{1DF4CACE-901A-4631-8A73-437163291A91}"/>
+												<ItemList>
+													<ItemRef Name="sx_char_footstep_metal_A" ID="{7F59E2CE-60C4-4AE1-A12E-EAAC050FF7F1}"/>
+												</ItemList>
+											</Grouping>
+										</GroupingList>
+									</GroupingInfo>
+								</SwitchContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="Gameplay" ID="{1DC76E79-B9B9-4C57-91DD-B122FFBFFF4E}" ShortID="907077822">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_player_armor_breaking" ID="{8EF29755-5E68-4C65-BB2D-699ACB861272}" ShortID="847561949">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_char_shieldBreak_01" ID="{9D78E1FD-848F-416E-A796-271569C65FF7}" ShortID="920629255">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_shieldBreak_01" ID="{C424DAF4-AEA0-43AF-A6D9-A31EB4366005}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_shieldBreak_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="121450020"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_shieldBreak_01" ID="{C424DAF4-AEA0-43AF-A6D9-A31EB4366005}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_shieldBreak_02" ID="{50773A20-8D6B-46D5-B377-2BBAD4E1619F}" ShortID="955867977">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_shieldBreak_02" ID="{509ED077-FCAF-47EF-A73F-410F4161175F}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_shieldBreak_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="763940756"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_shieldBreak_02" ID="{509ED077-FCAF-47EF-A73F-410F4161175F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_char_shieldBreak_03" ID="{8BD32AA4-0C97-4D71-B096-58B20D558FB6}" ShortID="202580424">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_char_shieldBreak_03" ID="{459801CE-C617-4851-87E9-2EDC0C8799F9}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_char_shieldBreak_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="308177254"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_char_shieldBreak_03" ID="{459801CE-C617-4851-87E9-2EDC0C8799F9}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_player_armor_mend" ID="{749D1AB5-A275-4CBC-896D-86EAF9433184}" ShortID="996421111">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+										<Property Name="PriorityDistanceFactor" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-12</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_Player_Default" ID="{FBAC22E1-6462-4EE3-938F-D28EB1F09354}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_player_armor_mend_01" ID="{CCDB1957-7071-4B14-8543-C8DBF50F9598}" ShortID="570246818">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Player" ID="{A5BE54AE-6D98-477F-83E7-D2BE8A93F86B}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_player_armor_mend_01" ID="{DD4D7642-90E3-42FE-AFCB-E3430A62FD96}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\player\sx_player_armor_mend_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="473855705"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_player_armor_mend_01" ID="{DD4D7642-90E3-42FE-AFCB-E3430A62FD96}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

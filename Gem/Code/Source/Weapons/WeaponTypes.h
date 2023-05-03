@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Source/MultiplayerSampleTypes.h>
+#include <Source/Effects/GameEffect.h>
 #include <Multiplayer/MultiplayerTypes.h>
 #include <AzCore/RTTI/TypeSafeIntegral.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
@@ -72,21 +73,6 @@ namespace MultiplayerSample
 
     using AssetStringType = AZStd::string; //< @TODO, Replace with proper asset reference types
 
-    // @TODO: This needs to be hooked up to O3DE's effect system once it comes online
-    //! Parameters that control client effect spawning.
-    struct ClientEffect
-    {
-        AZ_TYPE_INFO(ClientEffect, "{B0B4E78C-51EC-4103-BC57-4C54ED36E3DB}");
-
-        AssetStringType m_effectName;  // The effect to play upon weapon hit confirmation
-        float m_lifespan = 1.0f;       // The lifespan value to provide the effects manager
-        bool m_travelToTarget = false; // If true, effect will travel from origin to target position over it's lifetime
-        EffectDirection m_effectDirection = EffectDirection::None; // The orientation to use when spawning the effect
-
-        bool Serialize(AzNetworking::ISerializer& serializer);
-        static void Reflect(AZ::ReflectContext* context);
-    };
-
     //! Parameters that control entity gathers on weapon or projectile activates.
     struct GatherParams
     {
@@ -131,15 +117,15 @@ namespace MultiplayerSample
 
         WeaponType m_weaponType = WeaponType::None; // The type of this weapon
         AZ::TimeMs m_cooldownTimeMs = AZ::TimeMs{ 0 }; // The number of milliseconds needed before the weapon can activate again
+        float m_weaponMaxAimDistance = 1.0f; // The max range of a raycast when searching for a target
         CharacterAnimState m_animFlag = CharacterAnimState::Shooting; // The animation flag to raise on the network animation when firing this weapon
-        AssetStringType m_activateFx;       // The effect to play upon weapon activation
-        AssetStringType m_impactFx;         // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
-        AssetStringType m_damageFx;         // The effect to play for each hit entitiy. Played authoritatively only
-        AssetStringType m_projectileAsset;  // If a projectile weapon, the prefab asset name for the projectile entity
-        AssetStringType m_ammoMaterialType; // The effects material type of the ammo for bullet decals and other material effects (@TODO: Requires a replacement for the material effects system)
-        GatherParams m_gatherParams;        // The type of gather to perform for trace weapons
-        HitEffect m_damageEffect;           // Parameters controlling damage distribution on hit
-        bool m_locallyPredicted = true;     // Whether or not this weapon is locally predicted or waits round trip to display on a client
+        GameEffect m_activateFx; // The effect to play upon weapon activation
+        GameEffect m_impactFx; // The effect to play at the point of impact upon weapon hit. Played predictively for autonomous clients, and authoritatively for simulated clients
+        GameEffect m_damageFx; // The effect to play for each hit entitiy. Played authoritatively only
+        AssetStringType m_projectileAsset; // If a projectile weapon, the prefab asset name for the projectile entity
+        GatherParams m_gatherParams; // The type of gather to perform for trace weapons
+        HitEffect m_damageEffect; // Parameters controlling damage distribution on hit
+        bool m_locallyPredicted = true; // Whether or not this weapon is locally predicted or waits round trip to display on a client
 
         static void Reflect(AZ::ReflectContext* context);
     };
@@ -184,22 +170,29 @@ namespace MultiplayerSample
     //! Single hit entity in a weapon hit event.
     struct HitEntity
     {
+        AZ_TYPE_INFO(HitEntity, "{A7A0A64A-816C-4675-9A02-652A72CD2255}");
+
         AZ::Vector3 m_hitPosition = AZ::Vector3::CreateZero(); // Location where the entity was hit, NOT the location of the projectile or weapon in the case of area damage
+        AZ::Vector3 m_hitNormal = AZ::Vector3::CreateZero();
         Multiplayer::NetEntityId m_hitNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the entity which was hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
+        static void Reflect(AZ::ReflectContext* context);
     };
-    using HitEntities = AZStd::fixed_vector<HitEntity, MaxHitEntities>;
+    using HitEntities = AZStd::vector<HitEntity>;
 
     //! Structure containing details for a single weapon hit event.
     struct HitEvent
     {
-        AZ::Transform m_hitTransform = AZ::Transform::CreateIdentity(); // Transform of the hit event, NOT the location of the entity that was hit in the case of area damage
+        AZ_TYPE_INFO(HitEvent, "{573515BB-E806-42C1-9F2C-2AA1B8E2EEF0}");
+
+        AZ::Vector3 m_target = AZ::Vector3::CreateZero(); // Target of the hit event, NOT the location of the entity that was hit in the case of area damage
         Multiplayer::NetEntityId m_shooterNetEntityId    = Multiplayer::InvalidNetEntityId; // Entity Id of the shooter
         Multiplayer::NetEntityId m_projectileNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the projectile, InvalidNetEntityId if this was a trace weapon hit
         HitEntities m_hitEntities; // Information about the entities that were hit
 
         bool Serialize(AzNetworking::ISerializer& serializer);
+        static void Reflect(AZ::ReflectContext* context);
     };
 
     //! Structure containing details for a single fire event.

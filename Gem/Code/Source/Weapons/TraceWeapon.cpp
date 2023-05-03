@@ -33,7 +33,14 @@ namespace MultiplayerSample
             if (isMultiSegmented)
             {
                 ActiveShot activeShot{ eventData.m_initialTransform, eventData.m_targetPosition, LifetimeSec{ 0.0f } };
-                weaponState.m_activeShots.emplace_back(activeShot);
+                if (weaponState.m_activeShots.size() < weaponState.m_activeShots.max_size())
+                { 
+                    weaponState.m_activeShots.emplace_back(activeShot);
+                }
+                else
+                {
+                    AZ_Assert(false, "Attempting to add too many active shots to the TraceWeapon.");
+                }
             }
             else if (GatherEntities(eventData, gatherResults))
             {

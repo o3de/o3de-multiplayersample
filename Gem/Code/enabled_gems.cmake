@@ -1,6 +1,6 @@
 #
 # Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
-# 
+#
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 #
 #
@@ -16,7 +16,9 @@ set(ENABLED_GEMS
     SceneProcessing
     GraphCanvas
     Multiplayer
+    Multiplayer_ScriptCanvas
     AudioSystem
+    AudioEngineWwise
     Camera
     EMotionFX
     PhysX
@@ -33,11 +35,11 @@ set(ENABLED_GEMS
     GraphModel
     LandscapeCanvas
     NvCloth
-    Blast
     Maestro
     TextureAtlas
     LmbrCentral
     LyShine
+    LyShineExamples
     HttpRequestor
     Atom
     AWSCore
@@ -52,4 +54,16 @@ set(ENABLED_GEMS
     PrefabBuilder
     MaterialEditor
     UiBasics
+    character_mps
+    props_mps
+    landscape_mps
+    kb3d_mps
+    level_art_mps
+    particlefx_mps
+    pbr_material_pack_mps
+    PopcornFX
+    DiffuseProbeGrid
+    Terrain
+    Profiler
+    Stars
 )

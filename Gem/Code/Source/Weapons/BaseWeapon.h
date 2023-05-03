@@ -30,7 +30,7 @@ namespace MultiplayerSample
         //! Constructor.
         //! @param constructParams the set of construction params for the weapon instance
         BaseWeapon(const ConstructParams& constructParams);
-        ~BaseWeapon() override = default;
+        ~BaseWeapon() = default;
         
         //! IWeapon interface
         //! @{
@@ -41,10 +41,9 @@ namespace MultiplayerSample
         bool TryStartFire(WeaponState& weaponState, const FireParams& fireParams) override;
         const FireParams& GetFireParams() const override;
         void SetFireParams(const FireParams& fireParams) override;
-        const ClientEffect& GetActivateEffect() const override;
-        const ClientEffect& GetImpactEffect() const override;
-        const ClientEffect& GetDamageEffect() const override;
-        int32_t GetAmmoTypeSurfaceIndex() const override;
+        void ExecuteActivateEffect(const AZ::Transform& activateTransform, const AZ::Vector3& target) const override;
+        void ExecuteImpactEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const override;
+        void ExecuteDamageEffect(const AZ::Vector3& activatePosition, const AZ::Vector3& hitPosition) const override;
         //! @}
 
     protected:
@@ -78,13 +77,13 @@ namespace MultiplayerSample
         const WeaponParams m_weaponParams;
 
         WeaponListener& m_weaponListener;
-        ClientEffect m_activateEffect;
-        ClientEffect m_impactEffect;
-        ClientEffect m_damageEffect;
-        FireParams   m_fireParams;
-        NetEntityIdSet m_gatheredNetEntityIds;
 
-        int32_t m_ammoSurfaceTypeIndex = -1;
+        GameEffect m_activateEffect;
+        GameEffect m_impactEffect;
+        GameEffect m_damageEffect;
+
+        FireParams m_fireParams;
+        NetEntityIdSet m_gatheredNetEntityIds;
     };
 
     //! Factory function to create an appropriate IWeapon instance given the provided ConstructParams.

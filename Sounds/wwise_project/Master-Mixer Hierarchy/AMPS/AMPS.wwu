@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}" SchemaVersion="103">
+	<Busses>
+		<WorkUnit Name="AMPS" ID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}" PersistMode="Standalone">
+			<ChildrenList>
+				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{C314732A-FA3B-4F7A-847B-37BD99E78C5B}" ShortID="291454288">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="Volume_Master" ID="{78897677-B23A-458F-99E0-7053C9C317C5}" WorkUnitID="{5CF86069-9ED6-4AB8-A33B-33B99E8C32D1}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{4E3AF841-8567-4F7A-BFB4-588598A89B12}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="AudioDevice">
+							<ObjectRef Name="System" ID="{33B22B96-3C59-4270-9EC0-18CE98F3F5DF}" WorkUnitID="{25614088-E6E3-47E6-A856-E0F957F76A16}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<WorkUnit Name="Mixer_Main" ID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}" PersistMode="Reference"/>
+					</ChildrenList>
+					<ObjectLists/>
+				</Bus>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>

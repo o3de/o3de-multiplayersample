@@ -20,6 +20,8 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         void HandleSendHealthDelta(AzNetworking::IConnection* invokingConnection, const float& healthDelta) override;
+#endif
     };
 }

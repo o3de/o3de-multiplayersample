@@ -24,6 +24,10 @@ namespace MultiplayerSample
     const WeaponIndex PrimaryWeaponIndex   = WeaponIndex{ 0 };
     const WeaponIndex SecondaryWeaponIndex = WeaponIndex{ 1 };
 
+    using OnWeaponActivateEvent = AZ::Event<const WeaponActivationInfo&>;
+    using OnWeaponPredictHitEvent = AZ::Event<const WeaponHitInfo&>;
+    using OnWeaponConfirmHitEvent = AZ::Event<const WeaponHitInfo&>;
+
     class NetworkWeaponsComponent
         : public NetworkWeaponsComponentBase
         , private WeaponListener
@@ -39,10 +43,18 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_CLIENT
         void HandleSendConfirmHit(AzNetworking::IConnection* invokingConnection, const WeaponIndex& weaponIndex, const HitEvent& hitEvent) override;
+#endif
         void ActivateWeaponWithParams(WeaponIndex weaponIndex, WeaponState& weaponState, const FireParams& fireParams, bool validateActivations);
 
         IWeapon* GetWeapon(WeaponIndex weaponIndex) const;
+
+        void AddOnWeaponActivateEventHandler(OnWeaponActivateEvent::Handler& handler);
+        void AddOnWeaponPredictHitEventHandler(OnWeaponPredictHitEvent::Handler& handler);
+        void AddOnWeaponConfirmHitEventHandler(OnWeaponConfirmHitEvent::Handler& handler);
+
+        AZ::Vector3 GetCurrentShotStartPosition();
 
     private:
         //! WeaponListener interface
@@ -55,6 +67,7 @@ namespace MultiplayerSample
         void OnWeaponConfirmHit(const WeaponHitInfo& hitInfo);
 
         void OnUpdateActivationCounts(int32_t index, uint8_t value);
+        void OnTickSimulatedWeapons(float seconds);
 
         using WeaponPointer = AZStd::unique_ptr<IWeapon>;
         AZStd::array<WeaponPointer, MaxWeaponsPerComponent> m_weapons;
@@ -64,6 +77,15 @@ namespace MultiplayerSample
         AZStd::array<int32_t, MaxWeaponsPerComponent> m_fireBoneJointIds;
 
         DebugDraw::DebugDrawRequests* m_debugDraw = nullptr;
+
+        OnWeaponActivateEvent m_onWeaponActivateEvent;
+        OnWeaponPredictHitEvent m_onWeaponPredictHitEvent;
+        OnWeaponConfirmHitEvent m_onWeaponConfirmHitEvent;
+
+        AZ::ScheduledEvent m_tickSimulatedWeapons{[this]()
+        {
+            OnTickSimulatedWeapons(AZ::TimeMsToSeconds(m_tickSimulatedWeapons.TimeInQueueMs()));
+        }, AZ::Name("TickSimulatedWeapons")};
     };
 
     class NetworkWeaponsComponentController
@@ -107,7 +129,8 @@ namespace MultiplayerSample
         // This means these values can and will migrate between hosts (and lose any stored state)
         // We will need to consider moving these values to Authority to Server network properties if the design doesn't change
         bool m_aiEnabled = false;
-        bool m_weaponDrawn = false;
+        bool m_weaponDrawn = true;
+        bool m_weaponDrawnChanged = false;
         WeaponActivationBitset m_weaponFiring;
     };
 }

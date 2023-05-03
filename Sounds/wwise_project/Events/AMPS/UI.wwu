@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{DD1BA76B-FBD1-4DB6-A83D-5866E4D1E9E5}" SchemaVersion="103" RootDocumentID="{5EB6A947-AE29-4177-BEA7-75AF5B08CEB0}" ParentDocumentID="{E5F4F469-906C-4147-B0E4-CD832E5C1948}">
+	<Events>
+		<WorkUnit Name="UI" ID="{DD1BA76B-FBD1-4DB6-A83D-5866E4D1E9E5}" OwnerID="{E5F4F469-906C-4147-B0E4-CD832E5C1948}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="27"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="play_sx_ui_game_round_start" ID="{1A52CAE8-C12A-4608-BA9F-9FF3F6DFCBCB}">
+					<ChildrenList>
+						<Action Name="" ID="{B5744F04-2FB7-4198-9E68-781653CA666C}" ShortID="125208878">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_round_start_01" ID="{32ECCC41-F861-42CC-807B-67770CB7F8B2}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_ui_game_round_end" ID="{3B77E252-7D43-472E-935C-D419166D36CB}">
+					<ChildrenList>
+						<Action Name="" ID="{C0D30CB4-970A-408C-8F22-52462CBFA52B}" ShortID="896728726">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_round_end_01" ID="{11C90E3A-E25F-4873-BBC4-07FD0F69C7F5}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_ui_game_fanfare_defeat" ID="{40C1E6C6-454D-4CA4-8DC3-F7D752D8E4D1}">
+					<ChildrenList>
+						<Action Name="" ID="{81690988-894A-4BFD-927A-BDBCC47CE9FC}" ShortID="846571613">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_fanfare_defeat_01" ID="{01D923DF-E797-468D-BEF2-4B73BDE5D26B}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_ui_game_countdown" ID="{FD12C219-DF25-4807-AD3A-3C825331EA23}">
+					<ChildrenList>
+						<Action Name="" ID="{71BD3F37-366E-4DB5-AB9C-D850FFC157C1}" ShortID="757026197">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_countdown_01" ID="{B394FCB2-4ECF-4F5E-8437-626E250C32F9}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_ui_game_end" ID="{FF5FCC99-F31A-44F9-8C44-384CD33B57BA}">
+					<ChildrenList>
+						<Action Name="" ID="{E8DCF720-EA47-4217-B919-3DD3C2B12D88}" ShortID="176245184">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_end_01" ID="{C5B95BA9-17E1-4191-A77D-25FEF3779706}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="play_sx_ui_game_fanfare_victory" ID="{AAEFCC8D-5DBC-4C87-AFF6-AC05228EAFA7}">
+					<ChildrenList>
+						<Action Name="" ID="{AAA8CB18-EBD6-4CB1-8123-7C143A7B32C8}" ShortID="1006391437">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="sx_ui_game_fanfare_victory_01" ID="{83DFEC1D-31B2-45C4-8D51-95075A7106DE}" WorkUnitID="{DEBF739E-3942-49F6-B7FC-3D79C6727A46}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

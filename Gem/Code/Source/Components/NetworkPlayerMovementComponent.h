@@ -10,6 +10,7 @@
 #include <Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
+#include <AzFramework/Physics/CharacterBus.h>
 
 namespace MultiplayerSample
 {
@@ -32,6 +33,7 @@ namespace MultiplayerSample
     class NetworkPlayerMovementComponentController
         : public NetworkPlayerMovementComponentControllerBase
         , private StartingPointInput::InputEventNotificationBus::MultiHandler
+        , protected Physics::CharacterNotificationBus::Handler
     {
     public:
         NetworkPlayerMovementComponentController(NetworkPlayerMovementComponent& parent);
@@ -43,13 +45,23 @@ namespace MultiplayerSample
 
         void CreateInput(Multiplayer::NetworkInput& input, float deltaTime) override;
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
+
+#if AZ_TRAIT_SERVER
+        void HandleApplyImpulse(AzNetworking::IConnection* connection, const AZ::Vector3& impulse, const bool& external) override;
+        void HandleSetVelocity(AzNetworking::IConnection* connection, const AZ::Vector3& velocity, const bool& external) override;
+#endif
         //! @}
     
+    protected:
+        void OnCharacterActivated(const AZ::EntityId& entityId) override;
+
     private:
         friend class NetworkAiComponentController;
 
-        void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput);
+        void UpdateVelocity(const NetworkPlayerMovementComponentNetworkInput& playerInput, float deltaTime, bool& jumpTriggered, bool& movingDownward);
         float NormalizeHeading(float heading) const;
+
+        AZ::Vector3 GetSlopeHeading(float targetHeading) const;
 
         //! AZ::InputEventNotificationBus interface
         //! @{
@@ -58,10 +70,24 @@ namespace MultiplayerSample
         void OnHeld(float value) override;
         //! @}
 
+#if AZ_TRAIT_SERVER
         void UpdateAI();
-
         AZ::ScheduledEvent m_updateAI;
         NetworkAiComponentController* m_networkAiComponentController = nullptr;
+#endif
+
+#if AZ_TRAIT_CLIENT
+        void UpdateLocalBot();
+        AZ::ScheduledEvent m_updateLocalBot;
+        AZ::SimpleLcgRandom m_botLcg;
+
+        float m_botRemainingTime;
+        float m_botTurnRate;
+        float m_botTargetYawDelta;
+        float m_botTargetPitchDelta;
+        Action m_botAction;
+        bool m_botStrafingRight;
+#endif
 
         // Technically these values should never migrate hosts since they are maintained by the autonomous client
         // But due to how the stress test chaos monkey operates, it puppets these values on the server to mimic a client
@@ -75,6 +101,8 @@ namespace MultiplayerSample
         float m_viewYaw = 0.0f;
         float m_viewPitch = 0.0f;
 
+        bool m_toggleSprint = false;
+
         bool m_forwardDown = false;
         bool m_leftDown = false;
         bool m_backwardDown = false;
@@ -83,5 +111,9 @@ namespace MultiplayerSample
         bool m_jumping = false;
         bool m_crouching = false;
         bool m_aiEnabled = false;
+        float m_gravity = -9.81f;
+        float m_gravityMultiplier = 1.0f;
+        float m_stepHeight = 0.1f;
+        float m_radius = 0.3f;
     };
 }

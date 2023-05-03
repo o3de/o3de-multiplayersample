@@ -6,19 +6,19 @@
 #
 
 set(FILES
+    Include/GameplayEffectsNotificationBus.h
+    Include/PlayerKnockbackBus.h
     Include/NetworkPrefabSpawnerInterface.h
-    Source/AutoGen/NetworkAiComponent.AutoComponent.xml
-    Source/AutoGen/NetworkAnimationComponent.AutoComponent.xml
-    Source/AutoGen/NetworkHealthComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomComponent.AutoComponent.xml
-    Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
-    Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
-    Source/AutoGen/NetworkStressTestComponent.AutoComponent.xml
-    Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
-    Source/AutoGen/NetworkTestSpawnerComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomImpulseComponent.AutoComponent.xml
-    Source/AutoGen/NetworkRandomTranslateComponent.AutoComponent.xml
+    Include/PlayerCoinCollectorBus.h
+    Include/PlayerIdentityBus.h
+    Include/PlayerMatchLifecycleBus.h
+    Include/WeaponNotificationBus.h
+    Include/UiCoinCountBus.h
+    Include/UiGameOverBus.h
+    Include/UiPlayerArmorBus.h
+
+    Source/Components/AttachPlayerWeaponComponent.h
+    Source/Components/AttachPlayerWeaponComponent.cpp
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
@@ -27,10 +27,14 @@ set(FILES
     Source/Components/NetworkAnimationComponent.h
     Source/Components/NetworkHealthComponent.cpp
     Source/Components/NetworkHealthComponent.h
-    Source/Components/NetworkPlayerSpawnerComponent.cpp
-    Source/Components/NetworkPlayerSpawnerComponent.h
+    Source/Components/NetworkMatchComponent.cpp
+    Source/Components/NetworkMatchComponent.h
     Source/Components/NetworkRandomComponent.cpp
     Source/Components/NetworkRandomComponent.h
+    Source/Components/NetworkTeleportComponent.cpp
+    Source/Components/NetworkTeleportComponent.h
+    Source/Components/NetworkTeleportCompatibleComponent.cpp
+    Source/Components/NetworkTeleportCompatibleComponent.h
     Source/Components/NetworkWeaponsComponent.cpp
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp
@@ -47,9 +51,37 @@ set(FILES
     Source/Components/NetworkStressTestComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
-    Source/Spawners/IPlayerSpawner.h
-    Source/Spawners/RoundRobinSpawner.h
-    Source/Spawners/RoundRobinSpawner.cpp
+
+    Source/Components/UI/UiCoinCountComponent.cpp
+    Source/Components/UI/UiCoinCountComponent.h
+    Source/Components/Multiplayer/GameplayEffectsComponent.cpp
+    Source/Components/Multiplayer/GameplayEffectsComponent.h
+    Source/Components/Multiplayer/GemComponent.cpp
+    Source/Components/Multiplayer/GemComponent.h
+    Source/Components/Multiplayer/GemSpawnerComponent.cpp
+    Source/Components/Multiplayer/GemSpawnerComponent.h
+    Source/Components/Multiplayer/MatchPlayerCoinsComponent.cpp
+    Source/Components/Multiplayer/MatchPlayerCoinsComponent.h
+    Source/Components/Multiplayer/PlayerArmorComponent.cpp
+    Source/Components/Multiplayer/PlayerArmorComponent.h
+    Source/Components/Multiplayer/PlayerCoinCollectorComponent.cpp
+    Source/Components/Multiplayer/PlayerCoinCollectorComponent.h
+    Source/Components/Multiplayer/PlayerIdentityComponent.cpp
+    Source/Components/Multiplayer/PlayerIdentityComponent.h
+    Source/Components/Multiplayer/EnergyBallComponent.cpp
+    Source/Components/Multiplayer/EnergyBallComponent.h
+    Source/Components/Multiplayer/EnergyCannonComponent.cpp
+    Source/Components/Multiplayer/EnergyCannonComponent.h
+
+    Source/Components/BackgroundMusicComponent.cpp
+    Source/Components/BackgroundMusicComponent.h
+
+    Source/Components/RpcTesterComponent.cpp
+    Source/Components/RpcTesterComponent.h
+    
+    Source/Components/ScriptableDecalComponent.cpp
+    Source/Components/ScriptableDecalComponent.h
+
     Source/Weapons/BaseWeapon.cpp
     Source/Weapons/BaseWeapon.h
     Source/Weapons/IWeapon.h
@@ -63,6 +95,8 @@ set(FILES
     Source/Weapons/WeaponTypes.h
     Source/Weapons/SceneQuery.cpp
     Source/Weapons/SceneQuery.h
+    Source/Effects/GameEffect.cpp
+    Source/Effects/GameEffect.h
     Source/MultiplayerSampleSystemComponent.cpp
     Source/MultiplayerSampleSystemComponent.h
     Source/MultiplayerSampleTypes.h

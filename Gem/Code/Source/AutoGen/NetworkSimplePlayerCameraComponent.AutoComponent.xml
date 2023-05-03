@@ -12,6 +12,11 @@
 
     <Include File="Source/MultiplayerSampleTypes.h"/>
 
+    <ArchetypeProperty Type="bool" Name="EnableCollision" Init="true" ExposeToEditor="true" Description="Enable collision" />
+    <ArchetypeProperty Type="float" Name="CollisionOffset" Init="0.01" ExposeToEditor="true" Description="Collision offset" />
+    <ArchetypeProperty Type="float" Name="MinFollowDistance" Init="0.1" ExposeToEditor="true" Description="Minimum follow distance" />
+    <ArchetypeProperty Type="float" Name="MaxFollowDistance" Init="2.0" ExposeToEditor="true" Description="Maximum follow distance" />
+
     <NetworkProperty Type="AZ::Vector3" Name="AimAngles" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="Current aim direction of this player"/>
     <NetworkProperty Type="bool" Name="SyncAimImmediate" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="false" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="true" Description="Flag to force aim angles sync without interpolation"/>
 </Component>

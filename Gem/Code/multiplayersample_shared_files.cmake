@@ -6,5 +6,8 @@
 #
 
 set(FILES
+
     Source/MultiplayerSampleModule.cpp
+    Source/UserSettings/MultiplayerSampleUserSettings.h
+    Source/UserSettings/MultiplayerSampleUserSettings.cpp
 )

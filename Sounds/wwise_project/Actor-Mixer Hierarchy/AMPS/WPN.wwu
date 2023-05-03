@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}" SchemaVersion="103" RootDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}" ParentDocumentID="{EE918D89-863E-47BA-97E6-5BBA3225D513}">
+	<AudioObjects>
+		<WorkUnit Name="WPN" ID="{E7BC4DB7-8D31-45C6-97F3-4FD3BB654AC0}" OwnerID="{AAEBA70B-BECE-4AC8-BE18-6CB0721C5DC7}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="26"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="WPN" ID="{1258113D-96CD-48F9-9C39-F2B1B59B6488}" ShortID="21780853">
+					<PropertyList>
+						<Property Name="3DSpatialization" Type="int16" Value="2"/>
+						<Property Name="Color" Type="int16" Value="26"/>
+						<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+						<Property Name="OverrideOutput" Type="bool" Value="True"/>
+						<Property Name="OverridePositioning" Type="bool" Value="True"/>
+						<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+						<Property Name="UserAuxSendVolume0" Type="Real64">
+							<ValueList>
+								<Value>-6</Value>
+							</ValueList>
+							<RTPCList>
+								<RTPC Name="" ID="{C2840056-5ACF-425E-A220-E04087602386}" ShortID="246665797">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="Distance_100" ID="{F3EEAFF4-46E7-4EAD-9336-DAE7EB3F7B50}" WorkUnitID="{027FA53E-BB70-43C3-849F-6A97AE8C9671}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{6D5941F4-63E2-459C-9D50-60012E9F4921}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-24</YPos>
+												<Flags>5</Flags>
+												<SegmentShape>SCurve</SegmentShape>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Attenuation">
+							<ObjectRef Name="ATN_WPN_Fire_Default" ID="{735A8852-2B4F-4658-879C-B45EA3EE9407}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+						</Reference>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+						<Reference Name="UserAuxSend0">
+							<ObjectRef Name="RVB_EXT_Main" ID="{F8DF5907-D7A9-43AF-B130-2AB20EED85E3}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<ActorMixer Name="BubbleGun" ID="{AB19D110-54F4-4DF9-87F6-3DDE635795E8}" ShortID="47891662">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_wpn_bubbleGun_projectile" ID="{D8503B8F-5FC1-4FDF-8A28-5EB2CFD8F27F}" ShortID="546168485">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-15</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Projectile_Default" ID="{875233F6-6B3F-48E9-9ECD-11FB1B195CCC}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_bubbleGun_projectile_01" ID="{C119D791-1D6C-4446-8F55-DB25BB466CC4}" ShortID="120842271">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_projectile_01" ID="{C2AEC263-269A-4D64-9EC2-01B03CC740C3}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="1.43779938811189"/>
+														<Property Name="LoopEnd" Type="Real64" Value="4.9295979020979"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_projectile_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="3417510"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_projectile_01" ID="{C2AEC263-269A-4D64-9EC2-01B03CC740C3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_projectile_02" ID="{F5A187BA-8C3A-4F09-86ED-690A61769E83}" ShortID="120650211">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_projectile_02" ID="{936E96C7-0E8D-46DC-AFA8-F1F2C3DA36D0}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="1.38092463092463"/>
+														<Property Name="LoopEnd" Type="Real64" Value="5.02656565656566"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_projectile_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="197213929"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_projectile_02" ID="{936E96C7-0E8D-46DC-AFA8-F1F2C3DA36D0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_projectile_03" ID="{61070677-5026-4E80-A9A0-04A48005E7B3}" ShortID="282317623">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_projectile_03" ID="{00BBD8F3-8641-49A6-9CD8-36FC2EC5E7A9}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="1.53483061383061"/>
+														<Property Name="LoopEnd" Type="Real64" Value="5.1782602952603"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_projectile_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="929018906"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_projectile_03" ID="{00BBD8F3-8641-49A6-9CD8-36FC2EC5E7A9}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_projectile_04" ID="{32B3A8ED-0D31-4B28-88B8-7FF2BB58F46B}" ShortID="649618940">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_projectile_04" ID="{E0A6A403-60FF-42A0-964B-CFBD603EB273}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="1.39166695804196"/>
+														<Property Name="LoopEnd" Type="Real64" Value="4.75267395104895"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_projectile_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="147039142"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_projectile_04" ID="{E0A6A403-60FF-42A0-964B-CFBD603EB273}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_projectile_05" ID="{83C952B8-9EAE-48EB-9B34-C791A46AEF5A}" ShortID="202290547">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_projectile_05" ID="{DB9BB199-C11A-4501-998B-6A274493F752}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="1.37473776223776"/>
+														<Property Name="LoopEnd" Type="Real64" Value="5.08652972027972"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_projectile_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="665147114"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_projectile_05" ID="{DB9BB199-C11A-4501-998B-6A274493F752}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_wpn_bubbleGun_fire" ID="{3D30DE0A-4CF1-408B-A2B6-E5FFDD1776EF}" ShortID="772361667">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-13</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_bubbleGun_fire_02" ID="{65BBDCCD-B6EA-4D0C-BCBE-ED16160203F0}" ShortID="795354615">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_fire_02" ID="{07B15443-F600-45D1-B4B1-4EA8EAE6B466}">
+													<PropertyList>
+														<Property Name="VolumeOffset" Type="Real64">
+															<ValueList>
+																<Value>3</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_fire_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="11320092"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_fire_02" ID="{07B15443-F600-45D1-B4B1-4EA8EAE6B466}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_fire_03" ID="{261B020F-24AD-494B-B0FB-1D771EFA5AA2}" ShortID="953565706">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_fire_03" ID="{B87B3D1A-7733-4AA5-A299-C1BABF5A7242}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_fire_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="974747240"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_fire_03" ID="{B87B3D1A-7733-4AA5-A299-C1BABF5A7242}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_fire_04" ID="{8DF3FE87-B100-446A-BF10-7366E6FBDF78}" ShortID="155278423">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_fire_04" ID="{E1C1B3E5-607E-464C-9E85-44D60E00B335}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_fire_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="920405753"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_fire_04" ID="{E1C1B3E5-607E-464C-9E85-44D60E00B335}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_fire_05" ID="{D538CC05-BDD0-4821-BFEF-0EBF690A54D0}" ShortID="102890717">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_fire_05" ID="{4CA4C165-0255-4EA4-90C6-5B16C01FEF22}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_fire_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1052964441"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_fire_05" ID="{4CA4C165-0255-4EA4-90C6-5B16C01FEF22}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_fire_01" ID="{0B19F83D-2A92-4B0C-8784-80971AD87FC3}" ShortID="758718777">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_fire_01" ID="{197E25A9-FF44-4AE6-AD2A-ACB6EE4BC42F}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_fire_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="488479432"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_fire_01" ID="{197E25A9-FF44-4AE6-AD2A-ACB6EE4BC42F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_wpn_bubbleGun_explosion" ID="{31AA59D2-2141-428D-A6A0-D4C187895783}" ShortID="956012988">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-14</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Impact_Default" ID="{02FD8E94-C99D-4362-9DCD-BAF59B93A518}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_bubbleGun_explosion_01" ID="{1B700E69-224F-444D-89FF-87922A0CA7D1}" ShortID="799539561">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_explosion_01" ID="{2D460E1A-38A3-4BD9-A5D5-FB12EA748C07}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_explosion_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="124668205"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_explosion_01" ID="{2D460E1A-38A3-4BD9-A5D5-FB12EA748C07}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_explosion_02" ID="{F641CF36-423A-4B73-8844-DE29B05CA3D4}" ShortID="31331338">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_explosion_02" ID="{6395486F-574E-44AD-9555-F45DABA31DDE}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_explosion_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="42491057"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_explosion_02" ID="{6395486F-574E-44AD-9555-F45DABA31DDE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_explosion_03" ID="{D97A1F48-64D4-4E0A-B568-FD48FB500A98}" ShortID="632335724">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_explosion_03" ID="{C6AA0C98-9932-4D0C-86DF-13BC6861C10F}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_explosion_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="852602919"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_explosion_03" ID="{C6AA0C98-9932-4D0C-86DF-13BC6861C10F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_explosion_04" ID="{5644F857-A9D1-4025-B307-44E62DFEB46D}" ShortID="190673195">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_explosion_04" ID="{B7014716-F9F6-4E47-888D-A67D830AA105}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_explosion_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="786004063"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_explosion_04" ID="{B7014716-F9F6-4E47-888D-A67D830AA105}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_bubbleGun_explosion_05" ID="{353FE69A-BD30-4DC4-98E0-4F75C7D9AF07}" ShortID="115071050">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_explosion_05" ID="{1A6735B5-0F8D-426F-A521-4BBD9DA120D0}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_explosion_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="247044631"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_explosion_05" ID="{1A6735B5-0F8D-426F-A521-4BBD9DA120D0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_wpn_bubbleGun_cooldown" ID="{8E30E3A2-6F8E-4C40-8DA6-1FA4FDA68649}" ShortID="1067806036">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-22</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_bubbleGun_cooldown_01" ID="{DF449CC7-05A2-4F19-9D9E-6CB4C7FF258D}" ShortID="422519742">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_cooldown_01" ID="{54175E8E-18DC-4170-B41A-384665709AAE}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_cooldown_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="255850056"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_cooldown_01" ID="{54175E8E-18DC-4170-B41A-384665709AAE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_wpn_bubbleGun_ready" ID="{118C12CF-D4A4-4F00-8BDA-C1690688A093}" ShortID="421271454">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-17</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_bubbleGun_ready_01" ID="{DD35A1A4-A238-4A14-95EC-31BE8668FD88}" ShortID="883174889">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="ATN_Default_20" ID="{9A356296-FB49-4226-8845-131AFAB59884}" WorkUnitID="{FF701137-ABB4-4FD9-800E-7C2F77E85689}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="WPN" ID="{98A42EC1-C2A2-4DED-A5D6-8B31BF89D863}" WorkUnitID="{8B26C89C-CDEC-42FD-AE82-2A0A21AD7AAE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_bubbleGun_ready_01" ID="{C4C013C5-5A1F-4B2F-97AF-975D5787759F}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\bubbleGun\sx_wpn_bubbleGun_ready_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="938206060"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_bubbleGun_ready_01" ID="{C4C013C5-5A1F-4B2F-97AF-975D5787759F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+						<ActorMixer Name="LaserPistol" ID="{EDDB579D-D07E-4F19-BB5A-7E045FC48DA5}" ShortID="466269689">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="sx_wpn_laserPistol_fire" ID="{D55766D9-8B30-4D32-9612-42FD1E4B2516}" ShortID="152522450">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-9</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Fire_Default" ID="{735A8852-2B4F-4658-879C-B45EA3EE9407}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_laserPistol_fire_01" ID="{4F0AB9B5-41FA-447E-8846-84ABC883AA1B}" ShortID="639868807">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_01" ID="{EEA10BF0-A3C1-4D2E-A763-28963FC893A3}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="456739129"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_01" ID="{EEA10BF0-A3C1-4D2E-A763-28963FC893A3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_fire_02" ID="{373EDE7B-0505-4113-8E04-8635E7FAFD1E}" ShortID="567251032">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_02" ID="{9B9D2E91-DC0A-407B-B808-E08C7B855E0D}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1048334699"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_02" ID="{9B9D2E91-DC0A-407B-B808-E08C7B855E0D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_fire_03" ID="{61B73027-E073-435F-96F1-19D52390776F}" ShortID="768320051">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_03" ID="{1CEA5DC1-9192-4D4B-B81B-07F4DCDB0928}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="165026647"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_03" ID="{1CEA5DC1-9192-4D4B-B81B-07F4DCDB0928}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_fire_04" ID="{A04D2D0C-AD58-4338-9485-06AE23DD77DD}" ShortID="412357231">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_04" ID="{4447288A-F23F-48AA-8E0E-3A3DA5C2FAD8}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="42161482"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_04" ID="{4447288A-F23F-48AA-8E0E-3A3DA5C2FAD8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_fire_05" ID="{B2FF7D65-9318-4E73-BCC2-7C9B7AD9EED4}" ShortID="832718054">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_05" ID="{777FA963-2993-4473-9B71-06A7DFAA1DE6}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="691155528"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_05" ID="{777FA963-2993-4473-9B71-06A7DFAA1DE6}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_fire_06" ID="{7A2EC683-4C2C-4358-A9CE-CC7C1B8AD7B3}" ShortID="291296819">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_fire_06" ID="{52CC4A44-A888-4CB4-B3E2-52E451653FDD}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_fire_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="760219828"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_fire_06" ID="{52CC4A44-A888-4CB4-B3E2-52E451653FDD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="sx_wpn_laserPistol_impact" ID="{DBBF91A6-47A0-46AE-89BB-CC62BD1D96A0}" ShortID="282366400">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-19</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ATN_WPN_Impact_Default" ID="{02FD8E94-C99D-4362-9DCD-BAF59B93A518}" WorkUnitID="{0FF05D3F-153E-4D02-A6CC-FC77CC0CAD81}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="sx_wpn_laserPistol_impact_01" ID="{8816C301-6ED1-491A-AF1C-B756E3F1373A}" ShortID="608828488">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_01" ID="{89832436-FD2E-41DE-AE02-57FDE59E94E0}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="255660644"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_01" ID="{89832436-FD2E-41DE-AE02-57FDE59E94E0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_impact_02" ID="{BC5D25EC-505A-4A0C-AC5C-335EEFC93AEB}" ShortID="824598323">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_02" ID="{82DE0423-A455-4AD5-8210-A6B07A5E348F}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="742745465"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_02" ID="{82DE0423-A455-4AD5-8210-A6B07A5E348F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_impact_03" ID="{05AF8906-FC95-48B3-8B03-E98DBB7301B3}" ShortID="246284397">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_03" ID="{D7526D0C-FFDB-4462-B419-BAF37052EE26}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_03.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="583088710"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_03" ID="{D7526D0C-FFDB-4462-B419-BAF37052EE26}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_impact_04" ID="{6B3754BA-5F5A-43F2-8BA2-CB8071F6744F}" ShortID="355212106">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_04" ID="{2FB17A84-1260-4D82-82A6-FF1C7D019DFE}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_04.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="225835310"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_04" ID="{2FB17A84-1260-4D82-82A6-FF1C7D019DFE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_impact_05" ID="{E479DEA8-706B-4C02-BC11-A7D100AC8B4F}" ShortID="1011701376">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_05" ID="{DE15D6FB-530E-4C9A-ACBF-6DF266CB5F8B}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_05.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="602761124"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_05" ID="{DE15D6FB-530E-4C9A-ACBF-6DF266CB5F8B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="sx_wpn_laserPistol_impact_06" ID="{3CAE9753-64AE-43A1-9A71-DC0B11F20AC0}" ShortID="479317010">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0119FCBC-B171-4B2F-BB85-593A23CC9CD0}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F62C277B-2C60-43BB-A8B2-F1E94C3F98EC}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="sx_wpn_laserPistol_impact_06" ID="{815D544E-00DB-4364-8016-FADE55A07D5C}">
+													<Language>SFX</Language>
+													<AudioFile>Hexany\laserPistol\sx_wpn_laserPistol_impact_06.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="220888218"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists/>
+											<ActiveSourceList>
+												<ActiveSource Name="sx_wpn_laserPistol_impact_06" ID="{815D544E-00DB-4364-8016-FADE55A07D5C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists/>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<ObjectLists/>
+						</ActorMixer>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

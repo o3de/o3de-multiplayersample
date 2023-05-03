@@ -44,6 +44,7 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
+#if AZ_TRAIT_SERVER
         void HandleSpawnAiEntity();
 
         void HandleSpawnAIEntity(
@@ -52,8 +53,8 @@ namespace MultiplayerSample
             const float& fireIntervalMaxMs,
             const float& actionIntervalMinMs,
             const float& actionIntervalMaxMs,
-            const uint64_t& seed,
             const int& teamId);
+#endif
 
 #if defined(IMGUI_ENABLED)
         void OnImGuiMainMenuUpdate() override;
@@ -72,8 +73,10 @@ namespace MultiplayerSample
         float m_fireIntervalMaxMs = 10000.f;
         float m_actionIntervalMinMs = 500.f;
         float m_actionIntervalMaxMs = 10000.f;
-        uint64_t m_seed = 0;
         int m_teamID = 0;
+
+#if AZ_TRAIT_SERVER
         AZ::ScheduledEvent m_autoSpawnTimer;
+#endif
     };
 } // namespace MultiplayerSample

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="EnergyCannonComponent"
+    Namespace="MultiplayerSample"
+    OverrideComponent="true"
+    OverrideController="true"
+    OverrideInclude="Source/Components/Multiplayer/EnergyCannonComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Include File="Source/Effects/GameEffect.h" />
+
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <ArchetypeProperty Type="AZ::TimeMs" Name="RateOfFireMs" Init="" Container="Object" ExposeToEditor="true" 
+                       Description="Specifies the rate in milliseconds at which to fire projectiles, each cannon can only fire a single projectile at once so this also controls the projectile lifetime." />
+    <ArchetypeProperty Type="AZ::TimeMs" Name="BallLifetimeMs" Init="" Container="Object" ExposeToEditor="true"
+                       Description="Specifies the duration in milliseconds that the energy ball should live for. Must be less than the RateOfFireMs setting." />
+    <ArchetypeProperty Type="AZ::TimeMs" Name="BuildUpTimeMs" Init="" Container="Object" ExposeToEditor="true"
+                       Description="Specifies the number of milliseconds to start the build-up effect before shooting the next energy ball." />
+    <ArchetypeProperty Type="GameEffect" Name="FiringEffect" Init="" Container="Object" ExposeToEditor="true" Description="Specifies the effect to play upon firing" />
+    <ArchetypeProperty Type="AZ::EntityId" Name="EnergyBallEntity" ExposeToEditor="true" Description="The entity representing an energy ball." />
+
+    <RemoteProcedure Name="RPC_TriggerBuildup" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients to start the buildup event." />
+</Component>

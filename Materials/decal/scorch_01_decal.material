@@ -1,39 +1,15 @@
 {
-    "description": "",
-    "materialType": "Materials\\Types\\StandardPBR.materialtype",
-    "parentMaterial": "",
-    "propertyLayoutVersion": 3,
-    "properties": {
-        "baseColor": {
-            "textureMap": "Materials/decal/scorch_01_decal.tif"
-        },
-        "general": {
-            "applySpecularAA": false
-        },
-        "metallic": {
-            "useTexture": false
-        },
-        "normal": {
-            "useTexture": false
-        },
-        "opacity": {
-            "alphaSource": "Split",
-            "doubleSided": true,
-            "factor": 0.6899999976158142,
-            "mode": "Cutout",
-            "textureMap": "Materials/decal/scorch_01_decal.tif"
-        },
-        "roughness": {
-            "useTexture": false
-        },
-        "specularF0": {
-            "useTexture": false
-        },
-        "uv": {
-            "center": [
-                0.0,
-                1.0
-            ]
-        }
+    "materialType": "@gemroot:Atom_Feature_Common@/Assets/Materials/Types/StandardPBR.materialtype",
+    "materialTypeVersion": 5,
+    "propertyValues": {
+        "baseColor.textureBlendMode": "Lerp",
+        "baseColor.textureMap": "scorch_01/scorch_01_decal_02_basecolorA.tif",
+        "irradiance.irradianceColorSource": "BaseColor",
+        "normal.factor": 2.0,
+        "normal.textureMap": "scorch_01/scorch_01_decal_02_normal.png",
+        "opacity.alphaAffectsSpecular": 1.0,
+        "opacity.factor": 1.0,
+        "opacity.mode": "Blended",
+        "opacity.textureMap": "scorch_01/scorch_01_decal_02_opacity.png"
     }
 }
