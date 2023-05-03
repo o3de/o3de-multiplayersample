@@ -64,9 +64,9 @@ It's important to make sure that the bootstrap.game.profile.setreg file has been
 1. Test the profile pak server and game locally
     Run the server in headless mode using `rhi=null` and `NullRenderer` parameters; the server appears as a white screen in headless mode.
     
-    `C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 -sv_terminateOnPlayerExit=true --console-command-file=launch_server.cfg`
+    `C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 --console-command-file=launch_server.cfg`
     
-    `C:\GameLiftPackageWindows\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 --connect`
+    `<path-to-multiplayer-sample>\build\windows\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --connect`
 
     ---
     **NOTE**
