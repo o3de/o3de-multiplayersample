@@ -121,7 +121,7 @@ namespace MultiplayerSample
 
     template<typename ValueType>
     uint32_t UiSettingsComponent::GetRotatedIndex(
-        const AZStd::vector<AZStd::pair<ValueType, AZStd::string>>& valuesToLabels,
+        const AZStd::span<const AZStd::pair<ValueType, AZStd::string_view>> valuesToLabels,
         const ValueType& value, ToggleDirection toggleDirection)
     {
         const size_t totalValues = valuesToLabels.size();
@@ -152,13 +152,13 @@ namespace MultiplayerSample
     void UiSettingsComponent::OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
         // This list is expected to match the values in AZ::RHI::ApiIndex.
-        const AZStd::vector<AZStd::pair<AZStd::string, AZStd::string>> valuesToLabels =
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<AZStd::string_view, AZStd::string_view>>(
         {
             { "null", "Null" },
             { "dx12", "DirectX 12" },
             { "vulkan", "Vulkan" },
             { "metal", "Metal" }
-        };
+        });
 
         // Get the current api selection.
         AZStd::string graphicsApi;
@@ -172,7 +172,7 @@ namespace MultiplayerSample
         }
 
         // Rotate the index based on toggle direction.
-        uint32_t graphicsApiIndex = GetRotatedIndex(valuesToLabels, graphicsApi, toggleDirection);
+        uint32_t graphicsApiIndex = GetRotatedIndex<AZStd::string_view>(valuesToLabels, graphicsApi, toggleDirection);
 
         UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[graphicsApiIndex].second);
 
@@ -184,7 +184,7 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
-        const AZStd::vector<AZStd::pair<int16_t, AZStd::string>> valuesToLabels =
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<int16_t, AZStd::string_view>>(
         {
             { aznumeric_cast<int16_t>(6), "Rock Bottom (64)" },
             { aznumeric_cast<int16_t>(5), "Extremely Low (128)" },
@@ -193,7 +193,7 @@ namespace MultiplayerSample
             { aznumeric_cast<int16_t>(2), "Medium (1K)" },
             { aznumeric_cast<int16_t>(1), "High (2K)" },
             { aznumeric_cast<int16_t>(0), "Ultra (4K)" },
-        };
+        });
 
         // Get the current texture quality value.
         int16_t textureQuality = 0;
@@ -201,7 +201,7 @@ namespace MultiplayerSample
             textureQuality, &MultiplayerSampleUserSettingsRequestBus::Events::GetTextureQuality);
 
         // Rotate the index based on toggle direction.
-        uint32_t textureQualityIndex = GetRotatedIndex(valuesToLabels, textureQuality, toggleDirection);
+        uint32_t textureQualityIndex = GetRotatedIndex<int16_t>(valuesToLabels, textureQuality, toggleDirection);
 
         UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[textureQualityIndex].second);
 
@@ -213,7 +213,7 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
-        const AZStd::vector<AZStd::pair<uint8_t, AZStd::string>> valuesToLabels =
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<uint8_t, AZStd::string_view>>(
         {
             { aznumeric_cast<uint8_t>(0), "0 (off)" },
             { aznumeric_cast<uint8_t>(10), "10" },
@@ -226,7 +226,7 @@ namespace MultiplayerSample
             { aznumeric_cast<uint8_t>(80), "80" },
             { aznumeric_cast<uint8_t>(90), "90" },
             { aznumeric_cast<uint8_t>(100), "100 (max)" },
-        };
+        });
 
         // Get the current master volume value.
         uint8_t masterVolume = 0;
@@ -237,7 +237,7 @@ namespace MultiplayerSample
         masterVolume = (masterVolume / 10) * 10;
 
         // Rotate the index based on toggle direction.
-        uint32_t masterVolumeIndex = GetRotatedIndex(valuesToLabels, masterVolume, toggleDirection);
+        uint32_t masterVolumeIndex = GetRotatedIndex<uint8_t>(valuesToLabels, masterVolume, toggleDirection);
 
         UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[masterVolumeIndex].second);
 
@@ -249,16 +249,16 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
-        const AZStd::vector<AZStd::pair<bool, AZStd::string>> valuesToLabels =
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<bool, AZStd::string_view>>(
         {
             { false, "Windowed" },
             { true, "Fullscreen" },
-        };
+        });
 
         // Get the current fullscreen state. Unlike the other settings, we'll get this from the current window state so that we
         // handle things like Alt-enter that can change our windowing state regardless of what our user settings thinks.
 
-        // Start by getting the user setting as our default state.
+        // Start by getting the current user setting as the default state.
         bool fullscreen = false;
         MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
             fullscreen, &MultiplayerSampleUserSettingsRequestBus::Events::GetFullscreen);
@@ -270,24 +270,19 @@ namespace MultiplayerSample
             GetWindowHandle(), &AzFramework::WindowRequestBus::Events::GetFullScreenState);
 
         // Rotate the index based on toggle direction.
-        uint32_t fullscreenIndex = GetRotatedIndex(valuesToLabels, currentFullscreenState, toggleDirection);
+        uint32_t fullscreenIndex = GetRotatedIndex<bool>(valuesToLabels, currentFullscreenState, toggleDirection);
 
         UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[fullscreenIndex].second);
 
-        // Only set & save the state if the value has changed. We might get a lot of spurious notifications here, so
-        // we'll be more conservative with this setting than with the other settings.
-        if (valuesToLabels[fullscreenIndex].first != currentFullscreenState)
-        {
-            MultiplayerSampleUserSettingsRequestBus::Broadcast(
-                &MultiplayerSampleUserSettingsRequestBus::Events::SetFullscreen, valuesToLabels[fullscreenIndex].first);
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetFullscreen, valuesToLabels[fullscreenIndex].first);
 
-            MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
-        }
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
     }
 
     void UiSettingsComponent::OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
-        const AZStd::vector<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string>> valuesToLabels =
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<AZStd::pair<uint32_t, uint32_t>, AZStd::string_view>>(
         {
             // This set of resolutions was selected because they're the set that we offer in O3DE in the IMGUI debug menus.
             // Feel free to add, remove or reorder resolution pairs from this list as appropriate.
@@ -328,7 +323,7 @@ namespace MultiplayerSample
             { {3840, 2160}, "3840 x 2160 (16:9)" },
             { {3840, 2400}, "3840 x 2400 (16:10)" },
             { {3840, 2880}, "3840 x 2880 (4:3)" },
-        };
+        });
 
         // Get the max supported resolution for the monitor that the window is currently on.
         AzFramework::WindowSize maxWindowSize = { AZStd::numeric_limits<uint32_t>::max(), AZStd::numeric_limits<uint32_t>::max() };
@@ -341,7 +336,7 @@ namespace MultiplayerSample
             resolution, &MultiplayerSampleUserSettingsRequestBus::Events::GetResolution);
 
         // Rotate the index based on toggle direction.
-        uint32_t resolutionIndex = GetRotatedIndex(valuesToLabels, resolution, toggleDirection);
+        uint32_t resolutionIndex = GetRotatedIndex<AZStd::pair<uint32_t, uint32_t>>(valuesToLabels, resolution, toggleDirection);
 
         // If the resolution is too big for the monitor, keep rotating the index until we find one that fits
         // or until we reach the start of the list. The list starts with the smallest resolution, so if that one 
@@ -351,7 +346,7 @@ namespace MultiplayerSample
             (valuesToLabels[resolutionIndex].first.second > maxWindowSize.m_height)))
         {
             ToggleDirection searchDirection = (toggleDirection == ToggleDirection::None) ? ToggleDirection::Left : toggleDirection;
-            resolutionIndex = GetRotatedIndex(valuesToLabels, valuesToLabels[resolutionIndex].first, searchDirection);
+            resolutionIndex = GetRotatedIndex({ valuesToLabels }, valuesToLabels[resolutionIndex].first, searchDirection);
         }
 
         UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[resolutionIndex].second);

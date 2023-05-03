@@ -61,7 +61,7 @@ namespace MultiplayerSample
 
         template<typename ValueType>
         static uint32_t GetRotatedIndex(
-            const AZStd::vector<AZStd::pair<ValueType, AZStd::string>>& valuesToLabels,
+            const AZStd::span<const AZStd::pair<ValueType, AZStd::string_view>> valuesToLabels,
             const ValueType& value, ToggleDirection toggleDirection);
 
         UiToggle m_graphicsApiToggle;
