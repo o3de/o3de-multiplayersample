@@ -9,6 +9,9 @@
 #include <Atom/RPI.Public/Image/ImageSystem.h>
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/StreamingImagePool.h>
+#include <Atom/RPI.Public/RenderPipeline.h>
+#include <Atom/RPI.Public/RPISystemInterface.h>
+#include <Atom/Bootstrap/DefaultWindowBus.h>
 
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/IO/GenericStreams.h>
@@ -22,6 +25,15 @@
 
 namespace MultiplayerSample
 {
+    static constexpr const char* DefaultGraphicsApi = "";       // default to the platform-specific default graphics API
+    static constexpr AZ::u64 DefaultMasterVolume = 100;         // default to full volume (100)
+    static constexpr AZ::s64 DefaultTextureQuality = 1;         // default to one mip level below highest.
+    static constexpr bool DefaultFullscreenMode = false;        // default to windowed
+    static constexpr AZ::u64 DefaultResolutionWidth = 1920;     // default to 1080p
+    static constexpr AZ::u64 DefaultResolutionHeight = 1080;    // default to 1080p
+
+
+
     MultiplayerSampleUserSettings::MultiplayerSampleUserSettings()
         : m_graphicsApiKey(BaseRegistryKey + FixedString("/ApiName"))
         , m_masterVolumeKey(BaseRegistryKey + FixedString("/MasterVolume"))
@@ -92,7 +104,7 @@ namespace MultiplayerSample
     AZStd::string MultiplayerSampleUserSettings::GetGraphicsApi()
     {
         // Default to an empty string, which will just use the default API.
-        AZStd::string apiName;
+        AZStd::string apiName = DefaultGraphicsApi;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -125,7 +137,7 @@ namespace MultiplayerSample
     uint8_t MultiplayerSampleUserSettings::GetMasterVolume()
     {
         // Default to full volume (100)
-        AZ::u64 masterVolume = 100;
+        AZ::u64 masterVolume = DefaultMasterVolume;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -164,7 +176,7 @@ namespace MultiplayerSample
 
     int16_t MultiplayerSampleUserSettings::GetTextureQuality()
     {
-        AZ::s64 textureQuality = 1;
+        AZ::s64 textureQuality = DefaultTextureQuality;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -190,7 +202,7 @@ namespace MultiplayerSample
 
     bool MultiplayerSampleUserSettings::GetFullscreen()
     {
-        bool fullscreen = false;
+        bool fullscreen = DefaultFullscreenMode;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -202,23 +214,71 @@ namespace MultiplayerSample
 
     void MultiplayerSampleUserSettings::SetFullscreen(bool fullscreen)
     {
+        // Because of the way some of our fullscreen/resolution refresh notifications work on the UI settings screen,
+        // it's possible to get reentrancy with setting this value. We'll guard against reentrancy so that the top-level
+        // setting is the one that sticks.
+        if (m_changingResolution)
+        {
+            return;
+        }
+
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
             if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
             {
-                // Change the fullscreen state if we haven't created the window yet.
-                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_fullscreen %u", fullscreen ? 1 : 0);
-                console->PerformCommand(commandString.c_str());
-
-                // Change the fullscreen state if the window already exists
                 AzFramework::NativeWindowHandle windowHandle = nullptr;
                 AzFramework::WindowSystemRequestBus::BroadcastResult(
                     windowHandle,
                     &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
 
-                AzFramework::WindowRequestBus::Event(
-                    windowHandle,
-                    &AzFramework::WindowRequestBus::Events::SetFullScreenState, fullscreen);
+                if (!windowHandle)
+                {
+                    // Initialize the fullscreen state via CVARs if we haven't created the window yet.
+
+                    m_changingResolution = true;
+
+                    AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_fullscreen %u", fullscreen ? 1 : 0);
+                    console->PerformCommand(commandString.c_str());
+
+                    m_changingResolution = false;
+                }
+                else
+                {
+                    // Change the existing fullscreen state if the window already exists.
+
+                    bool isFullscreen = false;
+                    AzFramework::WindowRequestBus::EventResult(
+                        isFullscreen, windowHandle,
+                        &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                    if (isFullscreen != fullscreen) 
+                    {
+                        m_changingResolution = true;
+
+                        AzFramework::WindowRequestBus::Event(
+                            windowHandle,
+                            &AzFramework::WindowRequestBus::Events::SetFullScreenState, fullscreen);
+
+                        m_changingResolution = false;
+                    }
+                }
+
+                if (fullscreen)
+                {
+                    // Once Atom supports setting a rendering resolution to something other than the current window size,
+                    // this is where we'd want to make the appropriate API calls to change it when entering fullscreen mode.
+                    // Right now, fullscreen mode uses the full monitor resolution as Atom's resolution.
+                    // Ideally, we would like Atom to use the resolution that's set in the Resolution user setting regardless
+                    // of windowed or fullscreen, and would instead scale to fill the rullscreen real estate.
+                }
+                else
+                {
+                    // When leaving fullscreen, set the window resolution to the current requested resolution.
+                    // This is necessary because by default, leaving fullscreen will return the window back to its
+                    // pre-fullscreen state. But if we've changed the requested resolution between now and then, we
+                    // want to make sure we end up with a window that matches the currently-requested resolution instead.
+                    SetResolution(GetResolution());
+                }
             }
 
             registry->Set(m_fullscreenKey.c_str(), fullscreen);
@@ -227,8 +287,8 @@ namespace MultiplayerSample
 
     AZStd::pair<uint32_t, uint32_t> MultiplayerSampleUserSettings::GetResolution()
     {
-        AZ::u64 width = 1920;
-        AZ::u64 height = 1080;
+        AZ::u64 width = DefaultResolutionWidth;
+        AZ::u64 height = DefaultResolutionHeight;
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
@@ -241,44 +301,107 @@ namespace MultiplayerSample
 
     void MultiplayerSampleUserSettings::SetResolution(AZStd::pair<uint32_t, uint32_t> resolution)
     {
+        // Because of the way some of our fullscreen/resolution refresh notifications work on the UI settings screen,
+        // it's possible to get reentrancy with setting this value. We'll guard against reentrancy so that the top-level
+        // setting is the one that sticks.
+        if (m_changingResolution)
+        {
+            return;
+        }
+
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
             if (AZ::IConsole* console = AZ::Interface<AZ::IConsole>::Get(); console)
             {
-                // This will technically change the window resolution to whatever is requrested, but it should 
-                // ideally take into account the current DPI scaling and what the maximum resolution of the monitor is.
-                
-                // Change the resolution if the window doesn't exist yet.
-                AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
-                console->PerformCommand(commandString.c_str());
-
-                commandString = AZ::CVarFixedString::format("r_height %u", resolution.second);
-                console->PerformCommand(commandString.c_str());
-
-                // Change the resolution if the window already exists.
                 AzFramework::NativeWindowHandle windowHandle = nullptr;
                 AzFramework::WindowSystemRequestBus::BroadcastResult(
                     windowHandle,
                     &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
 
-                bool fullscreen = false;
-                AzFramework::WindowRequestBus::EventResult(
-                    fullscreen, windowHandle,
-                    &AzFramework::WindowRequestBus::Events::GetFullScreenState);
-
-                // Don't resize if we're in fullscreen mode.
-                if (!fullscreen)
+                if (!windowHandle)
                 {
-                    AzFramework::WindowRequestBus::Event(
-                        windowHandle,
-                        &AzFramework::WindowRequestBus::Events::ResizeClientArea,
-                        AzFramework::WindowSize(resolution.first, resolution.second), AzFramework::WindowPosOptions());
+                    // Initialize the resolution via CVARs if the window doesn't exist yet.
+
+                    m_changingResolution = true;
+
+                    AZ::CVarFixedString commandString = AZ::CVarFixedString::format("r_width %u", resolution.first);
+                    console->PerformCommand(commandString.c_str());
+
+                    commandString = AZ::CVarFixedString::format("r_height %u", resolution.second);
+                    console->PerformCommand(commandString.c_str());
+
+                    m_changingResolution = false;
+                }
+                else
+                {
+                    bool fullscreen = false;
+                    AzFramework::WindowRequestBus::EventResult(
+                        fullscreen, windowHandle,
+                        &AzFramework::WindowRequestBus::Events::GetFullScreenState);
+
+                    if (!fullscreen)
+                    {
+                        // If the window exists, and isn't in fullscreen mode, resize it to the requested resolution.
+                        // To prevent people from getting into a bad state, also clamp the resolution to the maximum
+                        // resolution that fits on the current monitor.
+
+                        auto maxResolution = GetMaxResolution();
+
+                        AzFramework::WindowSize desiredSize = {
+                            AZStd::min(resolution.first, maxResolution.first), AZStd::min(resolution.second, maxResolution.second) };
+
+                        AzFramework::WindowSize windowSize = desiredSize;
+                        AzFramework::WindowRequestBus::EventResult(
+                            windowSize, windowHandle,
+                            &AzFramework::WindowRequestBus::Events::GetClientAreaSize);
+
+                        if ((desiredSize.m_height != windowSize.m_height) || (desiredSize.m_width != windowSize.m_width))
+                        {
+                            m_changingResolution = true;
+
+                            AzFramework::WindowRequestBus::Event(
+                                windowHandle,
+                                &AzFramework::WindowRequestBus::Events::ResizeClientArea,
+                                AzFramework::WindowSize(
+                                    AZStd::min(resolution.first, maxResolution.first), AZStd::min(resolution.second, maxResolution.second)),
+                                AzFramework::WindowPosOptions());
+
+                            m_changingResolution = false;
+                        }
+                    }
+                    else
+                    {
+                        m_changingResolution = true;
+
+                        // Once Atom supports setting a rendering resolution to something other than the current window size,
+                        // this is where we'd want to make the appropriate API calls to change it when changing resolutions while
+                        // in fullscreen mode.
+                        // Right now, fullscreen mode uses the full monitor resolution as Atom's resolution.
+                        // Ideally, we would like Atom to use the resolution that's set in the Resolution user setting regardless
+                        // of windowed or fullscreen, and would instead scale to fill the rullscreen real estate.
+
+                        m_changingResolution = false;
+                    }
                 }
             }
 
             registry->Set(m_resolutionWidthKey.c_str(), aznumeric_cast<AZ::u64>(resolution.first));
             registry->Set(m_resolutionHeightKey.c_str(), aznumeric_cast<AZ::u64>(resolution.second));
         }
+    }
+
+    AZStd::pair<uint32_t, uint32_t> MultiplayerSampleUserSettings::GetMaxResolution()
+    {
+        AzFramework::NativeWindowHandle windowHandle = nullptr;
+        AzFramework::WindowSystemRequestBus::BroadcastResult(
+            windowHandle,
+            &AzFramework::WindowSystemRequestBus::Events::GetDefaultWindowHandle);
+
+        AzFramework::WindowSize windowSize = { AZStd::numeric_limits<uint32_t>::max(), AZStd::numeric_limits<uint32_t>::max() };
+        AzFramework::WindowRequestBus::EventResult(
+            windowSize, windowHandle, &AzFramework::WindowRequestBus::Events::GetMaximumClientAreaSize);
+
+        return { windowSize.m_width, windowSize.m_height };
     }
 
     void MultiplayerSampleUserSettings::Save()

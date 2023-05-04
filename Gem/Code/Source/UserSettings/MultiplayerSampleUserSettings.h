@@ -87,6 +87,8 @@ namespace MultiplayerSample
         void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) override;
 
     private:
+        AZStd::pair<uint32_t, uint32_t> GetMaxResolution();
+
         using FixedString = AZStd::fixed_string<256>;
 
         // The base registry key that all our user settings will live underneath.
@@ -104,6 +106,8 @@ namespace MultiplayerSample
 
         // The path to the user settings file.
         AZ::IO::FixedMaxPath m_userSettingsPath;
+
+        bool m_changingResolution = false;
     };
 
 } // namespace MultiplayerSample
