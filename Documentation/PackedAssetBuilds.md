@@ -1,11 +1,39 @@
 # Packaged MultiplayerSample Builds
+
 To make relocatable client and server builds for the MultiplayerSample, we recommend making packaged builds. These package builds will contain the Game or Server Launcher and the bundled assets needed to run the launcher outside of the developer environment.
 
 You can make both release packaged builds or profile packaged builds. For more information about creating release builds, see the O3DE documentation on [Creating a Project Game Release Layout for Windows](https://www.o3de.org/docs/user-guide/packaging/windows-release-builds/).
 
 The guide below covers how to make profile packaged builds which are very useful for early sharing and play testing.
 
+## Brief outline of the packaging steps
+
+1. Install WWise SDK (required for o3de-multiplayersample but optional for other projects)
+1. Use the engine from GitHub, not the installer
+1. Create a build for non-monolithic build of the engine
+1. Compile the engine with o3de-multiplayersample in profile non-monolithic mode
+1. Process all the assets using the Asset Processor from profile non-monolithic mode
+1. Create game bundles (.pak files) from the seed lists (a list of game assets)
+1. Create a build for monolithic build of the engine
+1. Compile the engine with o3de-multiplayersample in profile (and/or release) monolithic mode
+1. Create a folder for the packaged build outside of the engine, this will be the share-able folder of the packaged game
+1. Copy the monolithic game binaries and the game bundles to the packaged folder
+1. The packaged build is ready and can be shared without requiring the developer environment.
+
+## Pre-requisites
+
+*Important*: you can not use an installer to produce packaged builds. In order to produce a packaged build you will need to build the engine from source from GitHub.
+
+Additionally, we will need to compile the engine in non-monolithic profile build and in monolithic profile (and optionally release) mode.
+
+> Note, a monolithic build is a special build of O3DE engine and projects that combines all the gems used by the project into a single game executable. Additionally, monolithic builds do not build the Editor or the Asset Processor. Thus, a regular non-monolithic build is used to process assets and bundle them into .pak files, while a monolithic build is used to produce share-able game binaries.
+
+This guide uses `C:\git\o3de` is the source for the O3DE, cloned from GitHub.
+`C:\git\o3de-multiplayersample` is the location of the clone project. These paths are optional. If you choose to use different paths, amend the command scripts in the rest of the guide accordingly.
+
 ## Windows Profile PAK Setup
+
+Multiplayer Sample uses WWise gem and assets for audio effects. O3DE engine (and O3DE installers) do not include WWise support by default. In order to add the WWise support in the engine, one must first install WWise SDK and then re-build O3DE engine from source.
 
 ### Install WWise
 Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. WWise is needed to process and package audio assets in the project.
@@ -18,9 +46,52 @@ Inside the installer select the version to use.  Install version **2021.1.11.793
 
 > REBOOT (or logout / login). Otherwise, the environment settings won't get picked up for any builds in Visual Studio. They will only apply to command-line builds, and only for any command-line windows that have been opened after the installer finishes.
 
-### Build profile build and process assets
+### Build non-monolithic profile builds of the Engine
 
-Build and run MPS as per the [README.md](../README.md) and ensure all assets are built.
+Build a regular profile build of the game as per the [README.md](../README.md) in an engine-centric way. Be sure to build from the source engine and not the installer. Here is an example:
+
+Clone the engine from source.
+
+```shell
+C:\git> git clone https://github.com/o3de/o3de
+```
+
+Navigate to `C:\git\o3de`.
+Create a build folder for non-monolithic build of the engine, for example `C:\git\o3de\build_non_mono`.
+
+```shell
+C:\git\o3de> mkdir build_non_mono
+```
+> The location and the name of the build folder is optional.
+
+Configure the engine in a non-monolithic mode with o3de-multiplayersample project.
+
+```shell
+C:\git\o3de\build_non_mono> cmake .. -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+```
+
+> `-DLY_MONOLITHIC_GAME=OFF` is the default value but for clarity it's specified here explicitly.
+
+Build the Editor. This will compile the project and necessary gems to produce the required game assets.
+
+```shell
+C:\git\o3de\build_non_mono> cmake --build . --target Editor --config profile
+```
+
+Run the Asset Processor with o3de-multiplayersample and let all the assets get processed.
+
+```shell
+C:\git\o3de\build_non_mono> .\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
+```
+
+### Build AssetBuilder
+
+You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/packaging/asset-bundler/overview/) tool if not built to create game bundles (.pak files).
+
+For example:
+```shell
+C:\git\o3de\build_non_mono> cmake --build . --target AssetBundler --config profile
+```
 
 ### Test the profile build
 
@@ -29,28 +100,32 @@ Build and run MPS as per the [README.md](../README.md) and ensure all assets are
     * Verify that game can launch and connect to local server from editor
 * Validate local game launcher can connect to local server
 
-### Build AssetBuilder
-
-You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/packaging/asset-bundler/overview/) tool if not built.
-
-For example:
-```shell
-cmake --build build\windows --target AssetBundler --config profile -- /m /nologo
-```
 
 ### Build monolithic game
 
 Build a second version of the executables as monolithic pak builds.
 
-``` shell
+> A separate build folder is required for building monolithic binaries, separate from the non-monolithic build folder.
+
+```shell
+C:\git\o3de> mkdir build_mono
+C:\git\o3de> cd build_mono
+
 # Create build files for a monolithic build that also disables all user/project registry settings overrides
-cmake -B build\windows_mono -S . -G "Visual Studio 16" -DLY_3RDPARTY_PATH=c:\your\path\to\3rdParty -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0
+C:\git\o3de\build_mono> cmake .. -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 
 # Build the profile versions of all the executables
-cmake --build build\windows_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile -- /m /nologo
+C:\git\o3de\build_mono> cmake --build . --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile
 ```
 
-The outputs in windows_mono\bin\profile can be copied and run anywhere, once the pak files are put in the proper location.
+Profile monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\profile`.
+Optionally, you can build monolithic release game binaries.
+
+```shell
+C:\git\o3de\build_mono> cmake --build . --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
+```
+
+Release monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\release`. The contents of these folders can be copied and run anywhere, once the game bundles (.pak files) are put in the proper location.
 
 
 ### Bundle Content
@@ -58,7 +133,7 @@ The outputs in windows_mono\bin\profile can be copied and run anywhere, once the
 Run the AssetBundler
 
 ```
-build\windows\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
+build_non_mono\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
 ```
 
 Follow steps for "Create a bundle for game assets", "Create a bundle for engine assets" and "Add bundles to the release game layout" from https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
