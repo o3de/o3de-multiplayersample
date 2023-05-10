@@ -8,17 +8,13 @@ The guide below covers how to make profile packaged builds which are very useful
 
 ## Brief outline of the packaging steps
 
-1. Install WWise SDK (required for o3de-multiplayersample but optional for other projects)
+1. Install Wwise SDK (required for o3de-multiplayersample but optional for other projects)
 1. Use the engine from GitHub, not the installer
-1. Create a build for non-monolithic build of the engine
-1. Compile the engine with o3de-multiplayersample in profile non-monolithic mode
-1. Process all the assets using the Asset Processor from profile non-monolithic mode
-1. Create game bundles (.pak files) from the seed lists (a list of game assets)
-1. Create a build for monolithic build of the engine
-1. Compile the engine with o3de-multiplayersample in profile (and/or release) monolithic mode
-1. Create a folder for the packaged build outside of the engine, this will be the share-able folder of the packaged game
-1. Copy the monolithic game binaries and the game bundles to the packaged folder
-1. The packaged build is ready and can be shared without requiring the developer environment.
+1. Compile o3de-multiplayersample and the engine (non-monolithic)
+1. Process assets using the Asset Processor
+1. Create asset bundles (.pak files) from asset seed lists (a list of game assets)
+1. Compile o3de-multiplayersample and the engine (monolithic profile or release)
+1. Copy the game binaries and asset bundles to a release folder you can share
 
 ## Pre-requisites
 
@@ -33,20 +29,20 @@ This guide uses `C:\git\o3de` is the source for the O3DE, cloned from GitHub.
 
 ## Windows Profile PAK Setup
 
-Multiplayer Sample uses WWise gem and assets for audio effects. O3DE engine (and O3DE installers) do not include WWise support by default. In order to add the WWise support in the engine, one must first install WWise SDK and then re-build O3DE engine from source.
+Multiplayer Sample uses Wwise gem and assets for audio effects. O3DE engine (and O3DE installers) do not include Wwise support by default. In order to add the Wwise support in the engine, one must first install Wwise SDK and then re-build O3DE engine from source.
 
-### Install WWise
-Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. WWise is needed to process and package audio assets in the project.
+### Install Wwise
+Go to https://www.audiokinetic.com/download/, create a login, log in, and download the installer. Wwise is needed to process and package audio assets in the project.
 
-![WWise installer options](Media/wwise_installer_options.png)
+![Wwise installer options](Media/Wwise_installer_options.png)
 
 Inside the installer select the version to use.  Install version **2021.1.11.7933**, select both Authoring and SDK, Microsoft platform.
 
-![WWise version selection](Media/wwise_installer_version_selection.png)
+![Wwise version selection](Media/Wwise_installer_version_selection.png)
 
 > REBOOT (or logout / login). Otherwise, the environment settings won't get picked up for any builds in Visual Studio. They will only apply to command-line builds, and only for any command-line windows that have been opened after the installer finishes.
 
-### Build non-monolithic profile builds of the Engine
+### Build o3de-multiplayersample and the engine (non-monolithic)
 
 Build a regular profile build of the game as per the [README.md](../README.md) in an engine-centric way. Be sure to build from the source engine and not the installer. Here is an example:
 
@@ -67,7 +63,7 @@ C:\git\o3de> mkdir build_non_mono
 Configure the engine in a non-monolithic mode with o3de-multiplayersample project.
 
 ```shell
-C:\git\o3de\build_non_mono> cmake .. -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+C:\git\o3de> cmake -S . -B build_non_mono -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 ```
 
 > `-DLY_MONOLITHIC_GAME=OFF` is the default value but for clarity it's specified here explicitly.
@@ -75,13 +71,13 @@ C:\git\o3de\build_non_mono> cmake .. -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\
 Build the Editor. This will compile the project and necessary gems to produce the required game assets.
 
 ```shell
-C:\git\o3de\build_non_mono> cmake --build . --target Editor --config profile
+C:\git\o3de> cmake --build build_non_mono --target Editor --config profile
 ```
 
 Run the Asset Processor with o3de-multiplayersample and let all the assets get processed.
 
 ```shell
-C:\git\o3de\build_non_mono> .\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
+C:\git\o3de> .\build_non_mono\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
 ```
 
 ### Build AssetBuilder
@@ -90,16 +86,8 @@ You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/p
 
 For example:
 ```shell
-C:\git\o3de\build_non_mono> cmake --build . --target AssetBundler --config profile
+C:\git\o3de> cmake --build build_non_mono --target AssetBundler --config profile
 ```
-
-### Test the profile build
-
-* Open the game in editor
-    * load `NewStarBase` level
-    * Verify that game can launch and connect to local server from editor
-* Validate local game launcher can connect to local server
-
 
 ### Build monolithic game
 
@@ -109,20 +97,19 @@ Build a second version of the executables as monolithic pak builds.
 
 ```shell
 C:\git\o3de> mkdir build_mono
-C:\git\o3de> cd build_mono
 
 # Create build files for a monolithic build that also disables all user/project registry settings overrides
-C:\git\o3de\build_mono> cmake .. -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+C:\git\o3de> cmake -S .. -B build_mono -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 
 # Build the profile versions of all the executables
-C:\git\o3de\build_mono> cmake --build . --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile
+C:\git\o3de> cmake --build build_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile
 ```
 
 Profile monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\profile`.
 Optionally, you can build monolithic release game binaries.
 
 ```shell
-C:\git\o3de\build_mono> cmake --build . --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
+C:\git\o3de> cmake --build build_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
 ```
 
 Release monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\release`. The contents of these folders can be copied and run anywhere, once the game bundles (.pak files) are put in the proper location.
@@ -132,7 +119,7 @@ Release monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\
 
 Run the AssetBundler
 
-```
+```shell
 build_non_mono\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
 ```
 
@@ -190,7 +177,7 @@ After running, check the output logs to verify there aren't any crashes, missing
 
 Instructions for Linux are similar to Windows instructions above. All examples are Ubuntu 22.04 which is the primary Linux platform for O3DE. See https://www.o3de.org/docs/welcome-guide/requirements/ for more details.
 
-## Install WWise
+## Install Wwise
 See instructions above but install Wwise for Linux Ubuntu
 
 ### Build profile build and process assets
