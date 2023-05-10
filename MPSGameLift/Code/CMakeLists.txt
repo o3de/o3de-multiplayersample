@@ -64,7 +64,6 @@ ly_add_target(
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
             Gem::LyShine.Static
-
 )
 
 ly_add_target(
@@ -137,7 +136,6 @@ ly_add_target(
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
             Gem::${gem_name}.Client.Private.Object
-
     RUNTIME_DEPENDENCIES
         Gem::AWSGameLift.Clients
 )
@@ -159,7 +157,6 @@ ly_add_target(
         PRIVATE
             Gem::Multiplayer.Server.Static
             Gem::${gem_name}.Server.Private.Object
-
     RUNTIME_DEPENDENCIES
         Gem::AWSGameLift.Servers
 )
