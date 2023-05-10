@@ -18,7 +18,7 @@ The guide below covers how to make profile packaged builds which are very useful
 
 ## Pre-requisites
 
-*Important*: you can not use an installer to produce packaged builds. In order to produce a packaged build you will need to build the engine from source from GitHub.
+*Important*: you can not use an installer to produce packaged builds. In order to produce a packaged build, you will need to build the engine from source from GitHub.
 
 Additionally, we will need to compile the engine in non-monolithic profile build and in monolithic profile (and optionally release) mode.
 
@@ -53,17 +53,14 @@ C:\git> git clone https://github.com/o3de/o3de
 ```
 
 Navigate to `C:\git\o3de`.
-Create a build folder for non-monolithic build of the engine, for example `C:\git\o3de\build_non_mono`.
+Create a build folder for non-monolithic build of the engine, for example `C:\git\o3de\build\non_mono`.
 
-```shell
-C:\git\o3de> mkdir build_non_mono
-```
 > The location and the name of the build folder is optional.
 
 Configure the engine in a non-monolithic mode with o3de-multiplayersample project.
 
 ```shell
-C:\git\o3de> cmake -S . -B build_non_mono -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+C:\git\o3de> cmake -S . -B build\non_mono -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 ```
 
 > `-DLY_MONOLITHIC_GAME=OFF` is the default value but for clarity it's specified here explicitly.
@@ -71,13 +68,13 @@ C:\git\o3de> cmake -S . -B build_non_mono -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS
 Build the Editor. This will compile the project and necessary gems to produce the required game assets.
 
 ```shell
-C:\git\o3de> cmake --build build_non_mono --target Editor --config profile
+C:\git\o3de> cmake --build build\non_mono --target Editor --config profile
 ```
 
 Run the Asset Processor with o3de-multiplayersample and let all the assets get processed.
 
 ```shell
-C:\git\o3de> .\build_non_mono\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
+C:\git\o3de> .\build\non_mono\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
 ```
 
 ### Build AssetBuilder
@@ -86,7 +83,7 @@ You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/p
 
 For example:
 ```shell
-C:\git\o3de> cmake --build build_non_mono --target AssetBundler --config profile
+C:\git\o3de> cmake --build build\non_mono --target AssetBundler --config profile
 ```
 
 ### Build monolithic game
@@ -96,23 +93,21 @@ Build a second version of the executables as monolithic pak builds.
 > A separate build folder is required for building monolithic binaries, separate from the non-monolithic build folder.
 
 ```shell
-C:\git\o3de> mkdir build_mono
-
 # Create build files for a monolithic build that also disables all user/project registry settings overrides
-C:\git\o3de> cmake -S .. -B build_mono -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+C:\git\o3de> cmake -S . -B build\mono -DLY_MONOLITHIC_GAME=1 -DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 
 # Build the profile versions of all the executables
-C:\git\o3de> cmake --build build_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile
+C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config profile
 ```
 
-Profile monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\profile`.
+Profile monolithic game binaries will be located in `C:\git\o3de\build\mono\bin\profile`.
 Optionally, you can build monolithic release game binaries.
 
 ```shell
-C:\git\o3de> cmake --build build_mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
+C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
 ```
 
-Release monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\release`. The contents of these folders can be copied and run anywhere, once the game bundles (.pak files) are put in the proper location.
+Release monolithic game binaries will be located in `C:\git\o3de\build\mono\bin\release`. The contents of these folders can be copied and run anywhere, once the game bundles (.pak files) are put in the proper location.
 
 
 ### Bundle Content
@@ -120,7 +115,7 @@ Release monolithic game binaries will be located in `C:\git\o3de\build_mono\bin\
 Run the AssetBundler
 
 ```shell
-build_non_mono\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
+build\non_mono\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de-multiplayersample"
 ```
 
 Follow steps for "Create a bundle for game assets", "Create a bundle for engine assets" and "Add bundles to the release game layout" from https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
