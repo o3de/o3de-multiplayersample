@@ -9,6 +9,7 @@
 #include <Atom/RPI.Public/Image/ImageSystem.h>
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/StreamingImagePool.h>
+#include <Atom/RPI.Public/Pass/PassFilter.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 #include <Atom/RPI.Public/RPISystemInterface.h>
 #include <Atom/RPI.Public/Scene.h>
@@ -40,6 +41,8 @@ namespace MultiplayerSample
     static constexpr AZ::u64 DefaultResolutionWidth = 1920;     // default to 1080p
     static constexpr AZ::u64 DefaultResolutionHeight = 1080;    // default to 1080p
     static constexpr SpecularReflections DefaultReflectionType = SpecularReflections::None;   // default to no reflections
+    static constexpr Msaa DefaultMsaa = Msaa::X2;               // default to 2x MSAA
+    static constexpr bool DefaultTaa = true;                    // default to TAA enabled
 
 
     MultiplayerSampleUserSettings::MultiplayerSampleUserSettings()
@@ -54,6 +57,8 @@ namespace MultiplayerSample
         , m_resolutionWidthKey(BaseRegistryKey + FixedString("/Resolution/Width"))
         , m_resolutionHeightKey(BaseRegistryKey + FixedString("/Resolution/Height"))
         , m_reflectionSettingKey(BaseRegistryKey + FixedString("/Reflections"))
+        , m_msaaKey(BaseRegistryKey + FixedString("/MSAA"))
+        , m_taaKey(BaseRegistryKey + FixedString("/TAA"))
     {
         MultiplayerSampleUserSettingsRequestBus::Handler::BusConnect();
 
@@ -108,6 +113,8 @@ namespace MultiplayerSample
             SetFullscreen(GetFullscreen());
             SetResolution(GetResolution());
             SetReflectionSetting(GetReflectionSetting());
+            SetMsaa(GetMsaa());
+            SetTaa(GetTaa());
         }
     }
 
@@ -255,6 +262,84 @@ namespace MultiplayerSample
             }
 
             registry->Set(m_reflectionSettingKey.c_str(), aznumeric_cast<AZ::u64>(reflectionType));
+        }
+    }
+
+    Msaa MultiplayerSampleUserSettings::GetMsaa()
+    {
+        AZ::u64 msaa = DefaultMsaa;
+
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            registry->Get(msaa, m_msaaKey.c_str());
+        }
+
+        return static_cast<Msaa>(msaa);
+    }
+
+    void MultiplayerSampleUserSettings::SetMsaa(Msaa msaa)
+    {
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            if (auto rpiSystem = AZ::RPI::RPISystemInterface::Get(); rpiSystem)
+            {
+                auto multisampleState = rpiSystem->GetApplicationMultisampleState();
+                switch (msaa)
+                {
+                case Msaa::X1:
+                    multisampleState.m_samples = 1;
+                    break;
+                case Msaa::X2:
+                    multisampleState.m_samples = 2;
+                    break;
+                case Msaa::X4:
+                    multisampleState.m_samples = 4;
+                    break;
+                }
+                rpiSystem->SetApplicationMultisampleState(multisampleState);
+            }
+
+            registry->Set(m_msaaKey.c_str(), aznumeric_cast<AZ::u64>(msaa));
+        }
+    }
+
+    bool MultiplayerSampleUserSettings::GetTaa()
+    {
+        bool enabled = DefaultTaa;
+
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            registry->Get(enabled, m_taaKey.c_str());
+        }
+
+        return enabled;
+    }
+
+    void MultiplayerSampleUserSettings::SetTaa(bool enabled)
+    {
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            // Only try to set the settings if the scene system is active.
+            // If we try to set it too early, it will assert / crash.
+            if (AzFramework::SceneSystemInterface::Get())
+            {
+                AzFramework::EntityContextId entityContextId;
+                AzFramework::GameEntityContextRequestBus::BroadcastResult(
+                    entityContextId, &AzFramework::GameEntityContextRequestBus::Events::GetGameEntityContextId);
+
+                if (auto scene = AZ::RPI::Scene::GetSceneForEntityContextId(entityContextId); scene)
+                {
+                    AZ::RPI::PassFilter passFilter = AZ::RPI::PassFilter::CreateWithPassName(AZ::Name("TaaPass"), scene);
+                    AZ::RPI::PassSystemInterface::Get()->ForEachPass(
+                        passFilter, [enabled](AZ::RPI::Pass* pass) -> AZ::RPI::PassFilterExecutionFlow
+                        {
+                            pass->SetEnabled(enabled);
+                            return AZ::RPI::PassFilterExecutionFlow::ContinueVisitingPasses;
+                        });
+
+                    registry->Set(m_taaKey.c_str(), enabled);
+                }
+            }
         }
     }
 

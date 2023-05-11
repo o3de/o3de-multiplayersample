@@ -27,6 +27,13 @@ namespace MultiplayerSample
         ScreenSpaceAndRaytracing
     };
 
+    enum Msaa : uint8_t
+    {
+        X1,
+        X2,
+        X4
+    };
+
     // This provides a way to get/set every user setting that MultiplayerSample supports, and to save the user settings file.
     // Getting the values pulls them out of the saved user settings data, and setting the values both sets them in the user
     // settings and communicates the change to the appropriate part of the game engine to make the change take effect.
@@ -68,6 +75,14 @@ namespace MultiplayerSample
         virtual SpecularReflections GetReflectionSetting() = 0;
         virtual void SetReflectionSetting(SpecularReflections reflectionType) = 0;
 
+        // Change the MSAA setting
+        virtual Msaa GetMsaa() = 0;
+        virtual void SetMsaa(Msaa msaa) = 0;
+
+        // Enable/Disable TAA
+        virtual bool GetTaa() = 0;
+        virtual void SetTaa(bool enable) = 0;
+
         // Change the volume setting from 0 - 100 for the given channel
         virtual uint8_t GetVolume(VolumeChannel volumeChannel) = 0;
         virtual void SetVolume(VolumeChannel volumeChannel, uint8_t volume) = 0;
@@ -101,6 +116,12 @@ namespace MultiplayerSample
         SpecularReflections GetReflectionSetting() override;
         void SetReflectionSetting(SpecularReflections reflectionType) override;
 
+        Msaa GetMsaa() override;
+        void SetMsaa(Msaa msaa) override;
+
+        bool GetTaa() override;
+        void SetTaa(bool enable) override;
+
         uint8_t GetVolume(VolumeChannel volumeChannel) override;
         void SetVolume(VolumeChannel volumeChannel, uint8_t volume) override;
 
@@ -125,6 +146,8 @@ namespace MultiplayerSample
         const FixedString m_resolutionWidthKey;
         const FixedString m_resolutionHeightKey;
         const FixedString m_reflectionSettingKey;
+        const FixedString m_msaaKey;
+        const FixedString m_taaKey;
 
         // The path to the user settings file.
         AZ::IO::FixedMaxPath m_userSettingsPath;

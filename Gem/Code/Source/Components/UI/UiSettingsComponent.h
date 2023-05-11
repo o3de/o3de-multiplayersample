@@ -64,6 +64,8 @@ namespace MultiplayerSample
         static void OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnReflectionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMsaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnTaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
 
         template<typename ValueType>
         static uint32_t GetRotatedIndex(
@@ -74,7 +76,10 @@ namespace MultiplayerSample
         UiToggle m_textureQualityToggle;
         UiToggle m_fullscreenToggle;
         UiToggle m_resolutionToggle;
+
         UiToggle m_reflectionToggle;
+        UiToggle m_msaaToggle;
+        UiToggle m_taaToggle;
 
         UiToggle m_masterVolumeToggle;
         UiToggle m_musicVolumeToggle;
