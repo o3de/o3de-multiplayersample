@@ -1,6 +1,6 @@
 # MultiplayerSample Project with Amazon GameLift
 
-This README covers optional setup, testing and running on [Amazon GameLift](https://aws.amazon.com/gamelift/), an AWS service to make hosting and scaling game servers easier. It also provides guidance on how to test the Amazon GameLift integration on your local machine via GameLift Anywhere.
+This README covers optional setup, testing and running on [Amazon GameLift](https://aws.amazon.com/gamelift/), an AWS service to make hosting and scaling game servers easier. It also provides guidance on how to test the Amazon GameLift integration on your local machine via [Amazon GameLift Anywhere](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html).
 
 ## Prepare the build for [Amazon GameLift](https://docs.aws.amazon.com/gamelift/index.html)
 
@@ -12,6 +12,8 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     C:\> aws --version
     aws-cli/2.10.0 Python/3.11.2 Windows/10 exe/AMD64 prompt/off
     ```
+    Even if you have already installed the AWS CLI, ensure it is updated as some commands may not be available on older versions.
+
 1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
 
     a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region.
@@ -30,16 +32,15 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 
     ---
     
-It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
+It's important to make sure that the _bootstrap.game.profile.setreg_ file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
 ---
 **NOTE**
 
 This will not build the game client. If you need the client for testing, also run this command:
-```
+```sh
 cmake --build build\windows_mono --target MultiplayerSample.GameLauncher --config profile -- /m /nologo
 ```
-If building via Visual Studio, ensure the client is built as monolithic.
 
 ---
 
@@ -113,9 +114,9 @@ aws gamelift create-fleet --name AnywhereFleet --compute-type ANYWHERE --locatio
 ```
 
 If the operation was successful, the console will display the JSON result.
-Record the `FleetId` for the next steps. Example: fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789
+Record the `FleetId` for the next steps. Example: **fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
-### Register your local machina as a Compute
+### Register your local machine as a Compute
 
 Register your local machine as a GameLift Anywhere Compute.
 For ease of testing, we assume the Server and Client will be run on the same machine; so we can pass localhost (`127.0.0.1`) as the IP address.
@@ -126,8 +127,8 @@ aws gamelift register-compute --compute-name CustomCompute1 --fleet-id <FleetId>
 ```
 
 If the operation was successful, the console will display the JSON result.
-Record the `ComputeName` for the next steps. Example: CustomCompute1
-Also record the `GameLiftServiceSdkEndpoint` for later. Example: wss://us-west-2.api.amazongamelift.com
+Record the `ComputeName` for the next steps. Example: **CustomCompute1**
+Also record the `GameLiftServiceSdkEndpoint` for later. Example: **wss://us-west-2.api.amazongamelift.com**
 
 ### Get Compute auth token
 
@@ -136,7 +137,7 @@ aws gamelift get-compute-auth-token --fleet-id <FleedId> --compute-name <Compute
 ```
 
 If the operation was successful, the console will display the JSON result.
-Record the `AuthToken` for the next steps. Example: 123a4b5c-d6e7-8fgh-9i01-2jklm34no567
+Record the `AuthToken` for the next steps. Example: **123a4b5c-d6e7-8fgh-9i01-2jklm34no567**
 
 ## Start an instance of the Game Server executable on your machine
 
@@ -157,14 +158,14 @@ aws gamelift create-game-session --region <Region> --location custom-location-1 
 ```
 
 If the operation was successful, the console will display the JSON result.
-Record the `GameSessionId` for the next steps. Example: arn:aws:gamelift:us-west-2::gamesession/fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789/custom-location-1/gsess-ab1cd2ef-3gh4-5678-ijk9-0l1mn2o345p6
+Record the `GameSessionId` for the next steps. Example: **arn:aws:gamelift:us-west-2::gamesession/fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789/custom-location-1/gsess-ab1cd2ef-3gh4-5678-ijk9-0l1mn2o345p6**
 
 If the operation fails, make sure the server is running. Ensure that `InitSDK` and `ProcessReady` calls were successful.
 
 ### Start Client
 
 ```sh
-.\build\windows\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+.\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
@@ -183,7 +184,7 @@ aws gamelift create-player-session --region <Region> --game-session-id <GameSess
 ```
 
 If the operation was successful, the console will display the JSON result.
-Record the `PlayerSessionId` for the next steps. Example: psess-1a2b3c45-d6e7-89fg-0hij-12kl34m56no7
+Record the `PlayerSessionId` for the next steps. Example: **psess-1a2b3c45-d6e7-89fg-0hij-12kl34m56no7**
 
 ### Connect the Client
 
@@ -203,15 +204,15 @@ Builds are tied to Fleets; you may want to delete the existing build and fleet v
 ---
  
 ```sh
-aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2
+aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region eu-west-2
 ```
-Record BuildId for the next step. Example: build-1a23bc4d-456e-78fg-h9i0-jk1l23456789
+Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
 ### Create Fleet
 After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
 
 ```sh
-aws gamelift create-fleet --region us-west-2 --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region eu-west-2 --name GameLiftMPSTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-703e4631-6cb9-4850-8f32-3759ac9f2ce4 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
 ---
 **NOTE**
@@ -220,7 +221,7 @@ The ec2-instance-type and fleet-type determines the kind of AWS resources used; 
 
 ---
 
-Record the FleetId for the next step. Example: fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789
+Record the FleetId for the next step. Example: **fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
 ### Create and Join Game Session
 ```sh
@@ -230,15 +231,15 @@ Record GameSessionId for the next step. Example: arn:aws:gamelift:us-west-2::gam
 
 Launch the game client with:
 ```sh
-./build/windows/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+./build/windows_mono/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 ```sh
 aws gamelift create-player-session --region us-west-2 --game-session-id <GameSessionId> --player-id Player1
 ```
 ---
 **NOTE**
-PlayerId passed into create-player-session shouldn't be the player id passed into these JSON block; keep these unique. 
-Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: psess-50311090-9283-4fb0-ad1a-94468e60fa16
+PlayerId passed into create-player-session shouldn't be the player id passed into this JSON block; keep these unique. 
+Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: **psess-50311090-9283-4fb0-ad1a-94468e60fa16**
 
 ---
 
