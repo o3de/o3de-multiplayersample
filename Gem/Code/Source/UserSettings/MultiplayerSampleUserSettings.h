@@ -9,6 +9,7 @@
 #pragma once
 #include <AzCore/EBus/EBus.h>
 #include <AzCore/IO/Path/Path.h>
+#include <Atom/Bootstrap/BootstrapNotificationBus.h>
 
 namespace MultiplayerSample
 {
@@ -79,6 +80,10 @@ namespace MultiplayerSample
         virtual Msaa GetMsaa() = 0;
         virtual void SetMsaa(Msaa msaa) = 0;
 
+        // This is a workaround. The MSAA setting can currently only be applied at boot time or else
+        // it has the potential to lead to a graphics crash.
+        virtual void ApplyMsaaSetting() = 0;
+
         // Enable/Disable TAA
         virtual bool GetTaa() = 0;
         virtual void SetTaa(bool enable) = 0;
@@ -95,12 +100,18 @@ namespace MultiplayerSample
     // settings need to be loaded before system components are initialized because the Atom system components load the graphics
     // API. All of the other settings are changeable at any time and would have allowed this class to get created later in the
     // boot process.
-    class MultiplayerSampleUserSettings : public MultiplayerSampleUserSettingsRequestBus::Handler
+    class MultiplayerSampleUserSettings 
+        : public MultiplayerSampleUserSettingsRequestBus::Handler
+        , public AZ::Render::Bootstrap::NotificationBus::Handler
     {
     public:
         MultiplayerSampleUserSettings();
         ~MultiplayerSampleUserSettings() override;
 
+        // AZ::Render::Bootstrap::NotificationBus overrides...
+        void OnBootstrapSceneReady(AZ::RPI::Scene* bootstrapScene) override;
+
+        // MultiplayerSampleUserSettingsRequestBus overrides...
         void Load() override;
         void Save() override;
 
@@ -118,6 +129,7 @@ namespace MultiplayerSample
 
         Msaa GetMsaa() override;
         void SetMsaa(Msaa msaa) override;
+        void ApplyMsaaSetting() override;
 
         bool GetTaa() override;
         void SetTaa(bool enable) override;
@@ -129,6 +141,7 @@ namespace MultiplayerSample
         void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) override;
 
     private:
+        void SetMsaaInRenderer(Msaa msaa);
         AZStd::pair<uint32_t, uint32_t> GetMaxResolution();
 
         using FixedString = AZStd::fixed_string<256>;

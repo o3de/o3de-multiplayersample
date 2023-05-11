@@ -73,10 +73,33 @@ namespace MultiplayerSample
 
     MultiplayerSampleUserSettings::~MultiplayerSampleUserSettings()
     {
+        AZ::Render::Bootstrap::NotificationBus::Handler::BusDisconnect();
         MultiplayerSampleUserSettingsRequestBus::Handler::BusDisconnect();
 
         // Always auto-save the user settings on destruction.
         Save();
+    }
+
+    void MultiplayerSampleUserSettings::ApplyMsaaSetting()
+    {
+        // To apply the MSAA setting at the correct point in the boot process, we need to wait until the bootstrap scene is ready.
+        // To listen for that, we need to connect to the Bootstrap::NotificationBus. However, we can't connect to that bus until
+        // the scene system and main scene are created, which happens in the activation of the AzFrameworkConfigurationSystemComponent.
+
+        // So, we'll have the MultiplayerSampleSystemComponent depend on the AzFrameworkConfigurationSystemComponent, then on 
+        // activation, call ApplyMsaaSetting(), which tells us to connect to the Bootstrap::NotificationBus, which then will tell
+        // us when the bootstrap scene is ready so that we can apply the MSAA setting.
+
+        // If we're ever able to change the MSAA setting at runtime, we can remove this entire flow and just call 
+        // SetMsaaInRenderer() from the SetMsaa() call.
+
+        AZ::Render::Bootstrap::NotificationBus::Handler::BusConnect();
+    }
+
+    void MultiplayerSampleUserSettings::OnBootstrapSceneReady([[maybe_unused]] AZ::RPI::Scene* bootstrapScene)
+    {
+        // Only set the MSAA setting at boot time. Changing it at runtime can lead to crashes.
+        SetMsaaInRenderer(GetMsaa());
     }
 
     void MultiplayerSampleUserSettings::Load()
@@ -277,27 +300,37 @@ namespace MultiplayerSample
         return static_cast<Msaa>(msaa);
     }
 
+    void MultiplayerSampleUserSettings::SetMsaaInRenderer(Msaa msaa)
+    {
+        if (auto rpiSystem = AZ::RPI::RPISystemInterface::Get(); rpiSystem)
+        {
+            auto multisampleState = rpiSystem->GetApplicationMultisampleState();
+            switch (msaa)
+            {
+            case Msaa::X1:
+                multisampleState.m_samples = 1;
+                break;
+            case Msaa::X2:
+                multisampleState.m_samples = 2;
+                break;
+            case Msaa::X4:
+                multisampleState.m_samples = 4;
+                break;
+            }
+            rpiSystem->SetApplicationMultisampleState(multisampleState);
+        }
+    }
+
     void MultiplayerSampleUserSettings::SetMsaa(Msaa msaa)
     {
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
-            if (auto rpiSystem = AZ::RPI::RPISystemInterface::Get(); rpiSystem)
-            {
-                auto multisampleState = rpiSystem->GetApplicationMultisampleState();
-                switch (msaa)
-                {
-                case Msaa::X1:
-                    multisampleState.m_samples = 1;
-                    break;
-                case Msaa::X2:
-                    multisampleState.m_samples = 2;
-                    break;
-                case Msaa::X4:
-                    multisampleState.m_samples = 4;
-                    break;
-                }
-                rpiSystem->SetApplicationMultisampleState(multisampleState);
-            }
+            // Currently MSAA settings don't get changed at runtime because they have the potential
+            // to cause a TDR graphics driver crash on at least Vulkan, maybe others.
+            // This might be the result of mixing PSOs between the msaa variant and the non-msaa variant in the same frame.
+            // Until the problem gets tracked down and resolved, we'll only set the MSAA setting in the renderer at boot time.
+            // If this ever gets fixed, the call to SetMsaaInRenderer() can get moved to here, and the extra flow handling to call
+            // it sooner can get removed.
 
             registry->Set(m_msaaKey.c_str(), aznumeric_cast<AZ::u64>(msaa));
         }
