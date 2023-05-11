@@ -204,7 +204,7 @@ Builds are tied to Fleets; you may want to delete the existing build and fleet v
 ---
  
 ```sh
-aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region eu-west-2
+aws gamelift upload-build --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region <Region>
 ```
 Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
@@ -212,7 +212,7 @@ Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l2
 After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
 
 ```sh
-aws gamelift create-fleet --region eu-west-2 --name GameLiftMPSTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-703e4631-6cb9-4850-8f32-3759ac9f2ce4 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region <Region> --name GameLiftMPSTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-703e4631-6cb9-4850-8f32-3759ac9f2ce4 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
 ---
 **NOTE**
@@ -225,16 +225,16 @@ Record the FleetId for the next step. Example: **fleet-1a23bc4d-456e-78fg-h9i0-j
 
 ### Create and Join Game Session
 ```sh
-aws gamelift create-game-session --region us-west-2 --fleet-id <FleetId> --name foogamesession1 --maximum-player-session-count 3
+aws gamelift create-game-session --region <Region> --fleet-id <FleetId> --name foogamesession1 --maximum-player-session-count 3
 ```
-Record GameSessionId for the next step. Example: arn:aws:gamelift:us-west-2::gamesession/fleet-1a49fc3e-892a-40fc-b2e9-aa7e11983182/gsess-4745e6ab-6cc0-44c7-b78d-acab9534f206
+Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::gamesession/fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789/custom-location-1/gsess-ab1cd2ef-3gh4-5678-ijk9-0l1mn2o345p6**
 
 Launch the game client with:
 ```sh
 ./build/windows_mono/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 ```sh
-aws gamelift create-player-session --region us-west-2 --game-session-id <GameSessionId> --player-id Player1
+aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
 ```
 ---
 **NOTE**
