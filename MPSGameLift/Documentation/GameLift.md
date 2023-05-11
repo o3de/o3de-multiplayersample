@@ -1,8 +1,8 @@
 # MultiplayerSample Project with Amazon GameLift
 
-This README covers optional setup, testing and running on [Amazon GameLift](https://aws.amazon.com/gamelift/), an AWS service to make hosting and scaling game servers easier. 
+This README covers optional setup, testing and running on [Amazon GameLift](https://aws.amazon.com/gamelift/), an AWS service to make hosting and scaling game servers easier. It also provides guidance on how to test the Amazon GameLift integration on your local machine via GameLift Anywhere.
 
-## Running with [Amazon GameLift](https://docs.aws.amazon.com/gamelift/index.html)
+## Prepare the build for [Amazon GameLift](https://docs.aws.amazon.com/gamelift/index.html)
 
 ### Setup
 1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), if you don't already have it. You will need it to interact with Amazon GameLift.
@@ -30,12 +30,6 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 
     ---
     
-    ---
-    **Important**
-
-    The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
-
-    ---
 It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
 ---
@@ -45,6 +39,7 @@ This will not build the game client. If you need the client for testing, also ru
 ```
 cmake --build build\windows_mono --target MultiplayerSample.GameLauncher --config profile -- /m /nologo
 ```
+If building via Visual Studio, ensure the client is built as monolithic.
 
 ---
 
@@ -91,7 +86,6 @@ cmake --build build\windows_mono --target MultiplayerSample.GameLauncher --confi
     Entities from new root spawnable 'levels/newstarbase/newstarbase.spawnable' are ready
     ```
 
-# Prepare for GameLift
 
 ## Test your setup locally with GameLift Anywhere
 
@@ -107,7 +101,7 @@ When creating your custom location, the location name must start with `custom-`.
 aws gamelift create-location --location-name custom-location-1 --region <Region>
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `LocationName` for the next step. Example: custom-location-1
 
 ### Create a fleet
@@ -118,7 +112,7 @@ Creating an Anywhere fleet is a much faster process compared to creating a regul
 aws gamelift create-fleet --name AnywhereFleet --compute-type ANYWHERE --locations Location=custom-location-1 --region <Region>
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `FleetId` for the next steps. Example: fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789
 
 ### Register your local machina as a Compute
@@ -131,7 +125,7 @@ If your machine is accessible via a public IP address, change that value as appr
 aws gamelift register-compute --compute-name CustomCompute1 --fleet-id <FleetId> --ip-address 127.0.0.1 --location custom-location-1 --region <Region>
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `ComputeName` for the next steps. Example: CustomCompute1
 Also record the `GameLiftServiceSdkEndpoint` for later. Example: wss://us-west-2.api.amazongamelift.com
 
@@ -141,7 +135,7 @@ Also record the `GameLiftServiceSdkEndpoint` for later. Example: wss://us-west-2
 aws gamelift get-compute-auth-token --fleet-id <FleedId> --compute-name <ComputeName>
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `AuthToken` for the next steps. Example: 123a4b5c-d6e7-8fgh-9i01-2jklm34no567
 
 ## Start an instance of the Game Server executable on your machine
@@ -162,10 +156,10 @@ C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullR
 aws gamelift create-game-session --region <Region> --location custom-location-1 --fleet-id <FleetId> --name GameSession1 --maximum-player-session-count 3
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `GameSessionId` for the next steps. Example: arn:aws:gamelift:us-west-2::gamesession/fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789/custom-location-1/gsess-ab1cd2ef-3gh4-5678-ijk9-0l1mn2o345p6
 
-If the operation fails, make sure the server is running and the `InitSDK` call was successful.
+If the operation fails, make sure the server is running. Ensure that `InitSDK` and `ProcessReady` calls were successful.
 
 ### Start Client
 
@@ -174,7 +168,7 @@ If the operation fails, make sure the server is running and the `InitSDK` call w
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
-It is recommended to prepare this json object in advance as the `PlayerSessionId` generated in the next step is only valid for 60 seconds.
+It is recommended to prepare this JSON object in advance as the `PlayerSessionId` generated in the next step is only valid for 60 seconds.
 
 ```json
 { "GameSessionId": "<GameSessionId>", "PlayerId": "PlayerId", "PlayerSessionId": "<PlayerSessionId>" }
@@ -182,18 +176,18 @@ It is recommended to prepare this json object in advance as the `PlayerSessionId
 
 ### Create a Player Session
 
-Note: `PlayerId` from the json above and `--player-id` in the command below do not need to be the same
+Note: `PlayerId` from the JSON above and `--player-id` in the command below do not need to be the same
 
 ```sh
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
 ```
 
-If the operation was successful, the console will display the json result.
+If the operation was successful, the console will display the JSON result.
 Record the `PlayerSessionId` for the next steps. Example: psess-1a2b3c45-d6e7-89fg-0hij-12kl34m56no7
 
 ### Connect the Client
 
-Add the `PlayerSessionId` into the json and paste the json into the textarea inside the Client, then press "Connect".
+Add the `PlayerSessionId` into the JSON and paste the JSON into the textarea inside the Client, then press "Connect".
 The client should now successfully connect to your local server.
 
 
