@@ -60,30 +60,23 @@ Create a build folder for non-monolithic build of the engine, for example `C:\gi
 Configure the engine in a non-monolithic mode with o3de-multiplayersample project.
 
 ```shell
-C:\git\o3de> cmake -S . -B build\non_mono -DLY_MONOLITHIC_GAME=OFF -DLY_PROJECTS="C:\git\o3de-multiplayersample"
+C:\git\o3de> cmake -S . -B build\non_mono -DLY_MONOLITHIC_GAME=0 -DLY_PROJECTS="C:\git\o3de-multiplayersample"
 ```
 
-> `-DLY_MONOLITHIC_GAME=OFF` is the default value but for clarity it's specified here explicitly.
+> `-DLY_MONOLITHIC_GAME=0` is the default value but for clarity it's specified here explicitly.
 
-Build the Editor. This will compile the project and necessary gems to produce the required game assets.
+Build the Editor and the Asset Bundler. This will compile the project and necessary gems to produce the required game assets.
 
 ```shell
-C:\git\o3de> cmake --build build\non_mono --target Editor --config profile
+C:\git\o3de> cmake --build build\non_mono --target Editor --target AssetBundler --config profile
 ```
+
+> You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/packaging/asset-bundler/overview/) tool to create game bundles (.pak files).
 
 Run the Asset Processor with o3de-multiplayersample and let all the assets get processed.
 
 ```shell
 C:\git\o3de> .\build\non_mono\bin\profile\AssetProcessor.exe --project-path C:\git\o3de-multiplayersample
-```
-
-### Build AssetBuilder
-
-You will need to build the [AssetBundler](https://www.o3de.org/docs/user-guide/packaging/asset-bundler/overview/) tool if not built to create game bundles (.pak files).
-
-For example:
-```shell
-C:\git\o3de> cmake --build build\non_mono --target AssetBundler --config profile
 ```
 
 ### Build monolithic game
@@ -102,6 +95,8 @@ C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher Mu
 
 Profile monolithic game binaries will be located in `C:\git\o3de\build\mono\bin\profile`.
 Optionally, you can build monolithic release game binaries.
+
+> Release game binaries won't have to access to a developer console and/or certain logs. It is a good idea to get profile monolithic build to work before test the release monolithic binaries.
 
 ```shell
 C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
