@@ -12,6 +12,21 @@
 
 namespace MultiplayerSample
 {
+    enum VolumeChannel : uint8_t
+    {
+        MasterVolume,
+        MusicVolume,
+        SfxVolume,
+        Max
+    };
+
+    enum SpecularReflections : uint8_t
+    {
+        None,
+        ScreenSpace,
+        ScreenSpaceAndRaytracing
+    };
+
     // This provides a way to get/set every user setting that MultiplayerSample supports, and to save the user settings file.
     // Getting the values pulls them out of the saved user settings data, and setting the values both sets them in the user
     // settings and communicates the change to the appropriate part of the game engine to make the change take effect.
@@ -35,10 +50,6 @@ namespace MultiplayerSample
         virtual AZStd::string GetGraphicsApi() = 0;
         virtual void SetGraphicsApi(const AZStd::string& apiName) = 0;
 
-        // Change the master volume from 0 - 100.
-        virtual uint8_t GetMasterVolume() = 0;
-        virtual void SetMasterVolume(uint8_t masterVolume) = 0;
-
         // Change the texture quality. 0 = highest quality (highest mipmap), N = lowest quality (lowest mipmap).
         // There's no well-defined value for lowest quality so we'll just arbitrarily cap it at 6 (64x64 if mip 0 is 4096x4096). 
         // Anything lower doesn't really provide any benefit.
@@ -52,6 +63,14 @@ namespace MultiplayerSample
         // Change the rendering resolution (width, height)
         virtual AZStd::pair<uint32_t, uint32_t> GetResolution() = 0;
         virtual void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) = 0;
+
+        // Change the type of screen space reflections
+        virtual SpecularReflections GetReflectionSetting() = 0;
+        virtual void SetReflectionSetting(SpecularReflections reflectionType) = 0;
+
+        // Change the volume setting from 0 - 100 for the given channel
+        virtual uint8_t GetVolume(VolumeChannel volumeChannel) = 0;
+        virtual void SetVolume(VolumeChannel volumeChannel, uint8_t volume) = 0;
     };
 
     using MultiplayerSampleUserSettingsRequestBus = AZ::EBus<MultiplayerSampleUserSettingsRequests>;
@@ -73,15 +92,17 @@ namespace MultiplayerSample
         AZStd::string GetGraphicsApi() override;
         void SetGraphicsApi(const AZStd::string& apiName) override;
 
-        uint8_t GetMasterVolume() override;
-        void SetMasterVolume(uint8_t masterVolume) override;
-
         int16_t GetTextureQuality() override;
         void SetTextureQuality(int16_t textureQuality) override;
 
         bool GetFullscreen() override;
         void SetFullscreen(bool fullscreen) override;
 
+        SpecularReflections GetReflectionSetting() override;
+        void SetReflectionSetting(SpecularReflections reflectionType) override;
+
+        uint8_t GetVolume(VolumeChannel volumeChannel) override;
+        void SetVolume(VolumeChannel volumeChannel, uint8_t volume) override;
 
         AZStd::pair<uint32_t, uint32_t> GetResolution() override;
         void SetResolution(AZStd::pair<uint32_t, uint32_t> resolution) override;
@@ -99,10 +120,11 @@ namespace MultiplayerSample
         // These keep track of the specific registry keys used for each setting.
         const FixedString m_graphicsApiKey;
         const FixedString m_textureQualityKey;
-        const FixedString m_masterVolumeKey;
+        const FixedString m_volumeKey[VolumeChannel::Max];
         const FixedString m_fullscreenKey;
         const FixedString m_resolutionWidthKey;
         const FixedString m_resolutionHeightKey;
+        const FixedString m_reflectionSettingKey;
 
         // The path to the user settings file.
         AZ::IO::FixedMaxPath m_userSettingsPath;

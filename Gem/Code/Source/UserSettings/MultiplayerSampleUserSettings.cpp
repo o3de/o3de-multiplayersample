@@ -11,13 +11,16 @@
 #include <Atom/RPI.Public/Image/StreamingImagePool.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 #include <Atom/RPI.Public/RPISystemInterface.h>
+#include <Atom/RPI.Public/Scene.h>
 #include <Atom/Bootstrap/DefaultWindowBus.h>
+#include <Atom/Feature/SpecularReflections/SpecularReflectionsFeatureProcessorInterface.h>
 
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/IO/GenericStreams.h>
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <AzCore/Utils/Utils.h>
+#include <AzFramework/Entity/GameEntityContextBus.h>
 #include <AzFramework/FileFunc/FileFunc.h>
 #include <AzFramework/Windowing/WindowBus.h>
 #include <IAudioSystem.h>
@@ -26,21 +29,31 @@
 namespace MultiplayerSample
 {
     static constexpr const char* DefaultGraphicsApi = "";       // default to the platform-specific default graphics API
-    static constexpr AZ::u64 DefaultMasterVolume = 100;         // default to full volume (100)
+    static constexpr AZ::u64 DefaultVolume[VolumeChannel::Max] =
+    {
+        100,         // MasterVolume: default to full volume (100)
+        100,         // MusicVolume: default to full volume (100)
+        100,         // SfxVolume: default to full volume (100)
+    };
     static constexpr AZ::s64 DefaultTextureQuality = 1;         // default to one mip level below highest.
     static constexpr bool DefaultFullscreenMode = false;        // default to windowed
     static constexpr AZ::u64 DefaultResolutionWidth = 1920;     // default to 1080p
     static constexpr AZ::u64 DefaultResolutionHeight = 1080;    // default to 1080p
-
+    static constexpr SpecularReflections DefaultReflectionType = SpecularReflections::None;   // default to no reflections
 
 
     MultiplayerSampleUserSettings::MultiplayerSampleUserSettings()
         : m_graphicsApiKey(BaseRegistryKey + FixedString("/ApiName"))
-        , m_masterVolumeKey(BaseRegistryKey + FixedString("/MasterVolume"))
+        , m_volumeKey{
+            BaseRegistryKey + FixedString("/MasterVolume"),
+            BaseRegistryKey + FixedString("/MusicVolume"),
+            BaseRegistryKey + FixedString("/SfxVolume"),
+          }
         , m_textureQualityKey(BaseRegistryKey + FixedString("/TextureQuality"))
         , m_fullscreenKey(BaseRegistryKey + FixedString("/Fullscreen"))
         , m_resolutionWidthKey(BaseRegistryKey + FixedString("/Resolution/Width"))
         , m_resolutionHeightKey(BaseRegistryKey + FixedString("/Resolution/Height"))
+        , m_reflectionSettingKey(BaseRegistryKey + FixedString("/Reflections"))
     {
         MultiplayerSampleUserSettingsRequestBus::Handler::BusConnect();
 
@@ -85,19 +98,16 @@ namespace MultiplayerSample
                 AZ_Error("UserSettings", mergeSuccess, "Failed to merge user settings into the O3DE registry.");
             }
 
-            // Get the current settings values or the defaults if the keys don't exist.
-            AZStd::string apiName = GetGraphicsApi();
-            uint8_t masterVolume = GetMasterVolume();
-            int16_t textureQuality = GetTextureQuality();
-            bool fullscreen = GetFullscreen();
-            AZStd::pair<uint32_t, uint32_t> resolution = GetResolution();
-
-            // Set the settings values, which will notify the engine as well as write the keys back into the registry.
-            SetGraphicsApi(apiName);
-            SetMasterVolume(masterVolume);
-            SetTextureQuality(textureQuality);
-            SetFullscreen(fullscreen);
-            SetResolution(resolution);
+            // Get the current settings values (or the defaults if the keys don't exist) and pass the values back
+            // in to set the settings values, which will notify the engine as well as write the keys back into the registry.
+            SetGraphicsApi(GetGraphicsApi());
+            SetVolume(VolumeChannel::MasterVolume, GetVolume(VolumeChannel::MasterVolume));
+            SetVolume(VolumeChannel::MusicVolume, GetVolume(VolumeChannel::MusicVolume));
+            SetVolume(VolumeChannel::SfxVolume, GetVolume(VolumeChannel::SfxVolume));
+            SetTextureQuality(GetTextureQuality());
+            SetFullscreen(GetFullscreen());
+            SetResolution(GetResolution());
+            SetReflectionSetting(GetReflectionSetting());
         }
     }
 
@@ -134,43 +144,50 @@ namespace MultiplayerSample
         }
     }
 
-    uint8_t MultiplayerSampleUserSettings::GetMasterVolume()
+    uint8_t MultiplayerSampleUserSettings::GetVolume(VolumeChannel volumeChannel)
     {
         // Default to full volume (100)
-        AZ::u64 masterVolume = DefaultMasterVolume;
+        AZ::u64 masterVolume = DefaultVolume[volumeChannel];
 
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
-            registry->Get(masterVolume, m_masterVolumeKey.c_str());
+            registry->Get(masterVolume, m_volumeKey[volumeChannel].c_str());
         }
 
         // Make sure any hand-edited registry values stay within a valid range.
         return AZStd::clamp(aznumeric_cast<uint8_t>(masterVolume), aznumeric_cast<uint8_t>(0), aznumeric_cast<uint8_t>(100));
     }
 
-    void MultiplayerSampleUserSettings::SetMasterVolume(uint8_t masterVolume)
+    void MultiplayerSampleUserSettings::SetVolume(VolumeChannel volumeChannel, uint8_t masterVolume)
     {
         if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
         {
-            // Send a request to the audio system to change the master volume.
+            // Send a request to the audio system to change the volume.
             auto audioSystem = AZ::Interface<Audio::IAudioSystem>::Get();
             if (audioSystem)
             {
-                Audio::TAudioObjectID rtpcId = audioSystem->GetAudioRtpcID("Volume_Master");
+                static constexpr const char* volumeIds[] =
+                {
+                    "Volume_Master",
+                    "Volume_Music",
+                    "Volume_SFX",
+                };
+
+                Audio::TAudioObjectID rtpcId = audioSystem->GetAudioRtpcID(volumeIds[volumeChannel]);
 
                 if (rtpcId != INVALID_AUDIO_CONTROL_ID)
                 {
                     Audio::ObjectRequest::SetParameterValue setParameter;
                     setParameter.m_audioObjectId = INVALID_AUDIO_OBJECT_ID;
                     setParameter.m_parameterId = rtpcId;
-                    // Master volume in the audio system is expected to be 0.0 (min) - 1.0 (max), but we're using 0 - 100 as integers,
+                    // Volume in the audio system is expected to be 0.0 (min) - 1.0 (max), but we're using 0 - 100 as integers,
                     // so convert it from 0 - 100 to the 0 - 1 range.
                     setParameter.m_value = masterVolume / 100.0f;
                     AZ::Interface<Audio::IAudioSystem>::Get()->PushRequest(AZStd::move(setParameter));
                 }
             }
 
-            registry->Set(m_masterVolumeKey.c_str(), aznumeric_cast<AZ::u64>(masterVolume));
+            registry->Set(m_volumeKey[volumeChannel].c_str(), aznumeric_cast<AZ::u64>(masterVolume));
         }
     }
 
@@ -197,6 +214,47 @@ namespace MultiplayerSample
             }
 
             registry->Set(m_textureQualityKey.c_str(), aznumeric_cast<AZ::s64>(textureQuality));
+        }
+    }
+
+    SpecularReflections MultiplayerSampleUserSettings::GetReflectionSetting()
+    {
+        AZ::u64 reflectionType = static_cast<AZ::u64>(DefaultReflectionType);
+
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            registry->Get(reflectionType, m_reflectionSettingKey.c_str());
+        }
+
+        return static_cast<SpecularReflections>(reflectionType);
+    }
+
+    void MultiplayerSampleUserSettings::SetReflectionSetting(SpecularReflections reflectionType)
+    {
+        if (auto* registry = AZ::SettingsRegistry::Get(); registry != nullptr)
+        {
+            // Only try to set the settings if the scene system is active.
+            // If we try to set it too early, it will assert / crash.
+            if (AzFramework::SceneSystemInterface::Get())
+            {
+                AzFramework::EntityContextId entityContextId;
+                AzFramework::GameEntityContextRequestBus::BroadcastResult(
+                    entityContextId, &AzFramework::GameEntityContextRequestBus::Events::GetGameEntityContextId);
+
+                if (auto scene = AZ::RPI::Scene::GetSceneForEntityContextId(entityContextId); scene)
+                {
+                    if (auto reflectionFeatureProcessor =
+                        scene->GetFeatureProcessor<AZ::Render::SpecularReflectionsFeatureProcessorInterface>(); reflectionFeatureProcessor)
+                    {
+                        auto ssrOptions = reflectionFeatureProcessor->GetSSROptions();
+                        ssrOptions.m_enable = (reflectionType != SpecularReflections::None);
+                        ssrOptions.m_rayTracing = (reflectionType == SpecularReflections::ScreenSpaceAndRaytracing);
+                        reflectionFeatureProcessor->SetSSROptions(ssrOptions);
+                    }
+                }
+            }
+
+            registry->Set(m_reflectionSettingKey.c_str(), aznumeric_cast<AZ::u64>(reflectionType));
         }
     }
 
