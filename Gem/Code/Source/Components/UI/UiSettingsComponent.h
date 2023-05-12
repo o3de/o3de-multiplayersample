@@ -10,6 +10,8 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzFramework/Windowing/WindowBus.h>
+#include <Source/UserSettings/MultiplayerSampleUserSettings.h>
+
 
 namespace MultiplayerSample
 {
@@ -56,8 +58,14 @@ namespace MultiplayerSample
         static void OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMusicVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnSfxVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnVolumeToggle(VolumeChannel volumeChannel, UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnReflectionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMsaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnTaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
 
         template<typename ValueType>
         static uint32_t GetRotatedIndex(
@@ -66,8 +74,15 @@ namespace MultiplayerSample
 
         UiToggle m_graphicsApiToggle;
         UiToggle m_textureQualityToggle;
-        UiToggle m_masterVolumeToggle;
         UiToggle m_fullscreenToggle;
         UiToggle m_resolutionToggle;
+
+        UiToggle m_reflectionToggle;
+        UiToggle m_msaaToggle;
+        UiToggle m_taaToggle;
+
+        UiToggle m_masterVolumeToggle;
+        UiToggle m_musicVolumeToggle;
+        UiToggle m_sfxVolumeToggle;
     };
 }

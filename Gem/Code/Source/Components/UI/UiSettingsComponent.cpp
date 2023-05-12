@@ -6,6 +6,7 @@
  */
 
 #include <Atom/RHI/Factory.h>
+#include <Atom/RHI/FactoryManagerBus.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <LyShine/Bus/UiButtonBus.h>
@@ -49,9 +50,14 @@ namespace MultiplayerSample
                 ->Version(0)
                 ->Field("GraphicsApi", &UiSettingsComponent::m_graphicsApiToggle)
                 ->Field("TextureQuality", &UiSettingsComponent::m_textureQualityToggle)
-                ->Field("MasterVolume", &UiSettingsComponent::m_masterVolumeToggle)
                 ->Field("Fullscreen", &UiSettingsComponent::m_fullscreenToggle)
                 ->Field("Resolution", &UiSettingsComponent::m_resolutionToggle)
+                ->Field("Reflection", &UiSettingsComponent::m_reflectionToggle)
+                ->Field("MSAA", &UiSettingsComponent::m_msaaToggle)
+                ->Field("TAA", &UiSettingsComponent::m_taaToggle)
+                ->Field("MasterVolume", &UiSettingsComponent::m_masterVolumeToggle)
+                ->Field("MusicVolume", &UiSettingsComponent::m_musicVolumeToggle)
+                ->Field("SfxVolume", &UiSettingsComponent::m_sfxVolumeToggle)
                 ;
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
@@ -61,9 +67,14 @@ namespace MultiplayerSample
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("CanvasUI"))
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_graphicsApiToggle, "Graphics Api", "The Graphics Api toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_textureQualityToggle, "Texture Quality", "The Texture Quality toggle elements.")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_masterVolumeToggle, "Master Volume", "The Master Volume toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_fullscreenToggle, "Fullscreen", "The Fullscreen toggle elements.")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_resolutionToggle, "Resolution", "The Resolution toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_reflectionToggle, "Reflection", "The Reflection toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_msaaToggle, "MSAA", "The MSAA toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_taaToggle, "TAA", "The TAA toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_masterVolumeToggle, "Master Volume", "The Master Volume toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_musicVolumeToggle, "Music Volume", "The Music Volume toggle elements.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &UiSettingsComponent::m_sfxVolumeToggle, "SFX Volume", "The SFX Volume toggle elements.")
                     ;
             }
         }
@@ -93,9 +104,16 @@ namespace MultiplayerSample
         // Initialize the toggles to the current values
         InitializeToggle(m_graphicsApiToggle, OnGraphicsApiToggle);
         InitializeToggle(m_textureQualityToggle, OnTextureQualityToggle);
-        InitializeToggle(m_masterVolumeToggle, OnMasterVolumeToggle);
         InitializeToggle(m_fullscreenToggle, OnFullscreenToggle);
         InitializeToggle(m_resolutionToggle, OnResolutionToggle);
+
+        InitializeToggle(m_reflectionToggle, OnReflectionToggle);
+        InitializeToggle(m_msaaToggle, OnMsaaToggle);
+        InitializeToggle(m_taaToggle, OnTaaToggle);
+
+        InitializeToggle(m_masterVolumeToggle, OnMasterVolumeToggle);
+        InitializeToggle(m_musicVolumeToggle, OnMusicVolumeToggle);
+        InitializeToggle(m_sfxVolumeToggle, OnSfxVolumeToggle);
     }
 
     void UiSettingsComponent::Deactivate()
@@ -151,14 +169,41 @@ namespace MultiplayerSample
 
     void UiSettingsComponent::OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection)
     {
-        // This list is expected to match the values in AZ::RHI::ApiIndex.
-        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<AZStd::string_view, AZStd::string_view>>(
+        // Build up a list of supported graphics APIs dynamically the first time we're called.
+        static AZStd::vector<AZStd::pair<AZStd::string_view, AZStd::string_view>> valuesToLabels;
+        if (valuesToLabels.empty())
         {
-            { "null", "Null" },
-            { "dx12", "DirectX 12" },
-            { "vulkan", "Vulkan" },
-            { "metal", "Metal" }
-        });
+            // Create a list of Graphics APIs supported on this platform.
+            AZ::RHI::FactoryManagerBus::Broadcast(&AZ::RHI::FactoryManagerRequest::EnumerateFactories,
+                [](AZ::RHI::Factory* factory) -> bool
+                {
+                    auto name = factory->GetName().GetStringView();
+                    if (name == "null")
+                    {
+                        // Remove the Null API choice from the list. It's not something end users should want to choose.
+                    }
+                    else if (name == "dx12")
+                    {
+                        valuesToLabels.emplace_back(name, "DirectX 12");
+                    }
+                    else if (name == "vulkan")
+                    {
+                        valuesToLabels.emplace_back(name, "Vulkan");
+                    }
+                    else if (name == "metal")
+                    {
+                        valuesToLabels.emplace_back(name, "Metal");
+                    }
+                    else
+                    {
+                        // This is an unexpected API, use whatever name is provided as the display name.
+                        valuesToLabels.emplace_back(name, name);
+                    }
+
+                    // Keep enumerating through the full set.
+                    return true;
+                });
+        }
 
         // Get the current api selection.
         AZStd::string graphicsApi;
@@ -211,7 +256,98 @@ namespace MultiplayerSample
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
     }
 
+    void UiSettingsComponent::OnReflectionToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<SpecularReflections, AZStd::string_view>>(
+            {
+                { SpecularReflections::None, "None" },
+                { SpecularReflections::ScreenSpace, "Screen Space" },
+
+                // This choice can be enabled once raytraced reflections are considered stable.
+                //{ SpecularReflections::ScreenSpaceAndRaytracing, "Hybrid Raytraced" },
+            });
+
+        // Get the current reflection value.
+        SpecularReflections reflectionType = SpecularReflections::None;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            reflectionType, &MultiplayerSampleUserSettingsRequestBus::Events::GetReflectionSetting);
+
+        // Rotate the index based on toggle direction.
+        uint32_t index = GetRotatedIndex<SpecularReflections>(valuesToLabels, reflectionType, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[index].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetReflectionSetting, valuesToLabels[index].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnMsaaToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<Msaa, AZStd::string_view>>(
+            {
+                { Msaa::X1, "1x" },
+                { Msaa::X2, "2x" },
+                { Msaa::X4, "4x" },
+            });
+
+        // Get the current msaa value.
+        Msaa msaa = Msaa::X1;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            msaa, &MultiplayerSampleUserSettingsRequestBus::Events::GetMsaa);
+
+        // Rotate the index based on toggle direction.
+        uint32_t index = GetRotatedIndex<Msaa>(valuesToLabels, msaa, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[index].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetMsaa, valuesToLabels[index].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
+    void UiSettingsComponent::OnTaaToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<bool, AZStd::string_view>>(
+            {
+                { false, "Off" },
+                { true, "On" },
+            });
+
+        // Get the current TAA value.
+        bool enabled = false;
+        MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
+            enabled, &MultiplayerSampleUserSettingsRequestBus::Events::GetTaa);
+
+        // Rotate the index based on toggle direction.
+        uint32_t index = GetRotatedIndex<bool>(valuesToLabels, enabled, toggleDirection);
+
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[index].second);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetTaa, valuesToLabels[index].first);
+
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
+    }
+
     void UiSettingsComponent::OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        OnVolumeToggle(VolumeChannel::MasterVolume, toggle, toggleDirection);
+    }
+
+    void UiSettingsComponent::OnMusicVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        OnVolumeToggle(VolumeChannel::MusicVolume, toggle, toggleDirection);
+    }
+
+    void UiSettingsComponent::OnSfxVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection)
+    {
+        OnVolumeToggle(VolumeChannel::SfxVolume, toggle, toggleDirection);
+    }
+
+    void UiSettingsComponent::OnVolumeToggle(VolumeChannel volumeChannel, UiToggle& toggle, ToggleDirection toggleDirection)
     {
         constexpr auto valuesToLabels = AZStd::to_array<AZStd::pair<uint8_t, AZStd::string_view>>(
         {
@@ -228,21 +364,21 @@ namespace MultiplayerSample
             { aznumeric_cast<uint8_t>(100), "100 (max)" },
         });
 
-        // Get the current master volume value.
-        uint8_t masterVolume = 0;
+        // Get the current volume value.
+        uint8_t volume = 0;
         MultiplayerSampleUserSettingsRequestBus::BroadcastResult(
-            masterVolume, &MultiplayerSampleUserSettingsRequestBus::Events::GetMasterVolume);
+            volume, &MultiplayerSampleUserSettingsRequestBus::Events::GetVolume, volumeChannel);
 
-        // Make sure our master volume is a multiple of 10.
-        masterVolume = (masterVolume / 10) * 10;
+        // Make sure our volume is a multiple of 10.
+        volume = (volume / 10) * 10;
 
         // Rotate the index based on toggle direction.
-        uint32_t masterVolumeIndex = GetRotatedIndex<uint8_t>(valuesToLabels, masterVolume, toggleDirection);
+        uint32_t volumeIndex = GetRotatedIndex<uint8_t>(valuesToLabels, volume, toggleDirection);
 
-        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[masterVolumeIndex].second);
+        UiTextBus::Event(toggle.m_labelEntity, &UiTextInterface::SetText, valuesToLabels[volumeIndex].second);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(
-            &MultiplayerSampleUserSettingsRequestBus::Events::SetMasterVolume, valuesToLabels[masterVolumeIndex].first);
+            &MultiplayerSampleUserSettingsRequestBus::Events::SetVolume, volumeChannel, valuesToLabels[volumeIndex].first);
 
         MultiplayerSampleUserSettingsRequestBus::Broadcast(&MultiplayerSampleUserSettingsRequestBus::Events::Save);
     }
