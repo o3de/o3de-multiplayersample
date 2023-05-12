@@ -11,6 +11,11 @@
 #include <AzCore/IO/Path/Path.h>
 #include <Atom/Bootstrap/BootstrapNotificationBus.h>
 
+namespace AZ
+{
+    class SettingsRegistryInterface;
+}
+
 namespace MultiplayerSample
 {
     enum VolumeChannel : uint8_t
@@ -21,14 +26,14 @@ namespace MultiplayerSample
         Max
     };
 
-    enum SpecularReflections : uint8_t
+    enum class SpecularReflections : uint8_t
     {
         None,
         ScreenSpace,
         ScreenSpaceAndRaytracing
     };
 
-    enum Msaa : uint8_t
+    enum class Msaa : uint8_t
     {
         X1,
         X2,
@@ -144,23 +149,8 @@ namespace MultiplayerSample
         void SetMsaaInRenderer(Msaa msaa);
         AZStd::pair<uint32_t, uint32_t> GetMaxResolution();
 
-        using FixedString = AZStd::fixed_string<256>;
-
-        // The base registry key that all our user settings will live underneath.
-        // We keep them separate from the rest of the registry hierarchy to ensure that users can't
-        // edit their settings file by hand to overwrite any other registry keys that weren't intentionally exposed.
-        static inline constexpr FixedString BaseRegistryKey = "/O3DE/MultiplayerSample/User/Settings";
-
-        // These keep track of the specific registry keys used for each setting.
-        const FixedString m_graphicsApiKey;
-        const FixedString m_textureQualityKey;
-        const FixedString m_volumeKey[VolumeChannel::Max];
-        const FixedString m_fullscreenKey;
-        const FixedString m_resolutionWidthKey;
-        const FixedString m_resolutionHeightKey;
-        const FixedString m_reflectionSettingKey;
-        const FixedString m_msaaKey;
-        const FixedString m_taaKey;
+        // Cached pointer to the settings registry so that we don't have to fetch it for every setting.
+        AZ::SettingsRegistryInterface* m_registry = nullptr;
 
         // The path to the user settings file.
         AZ::IO::FixedMaxPath m_userSettingsPath;
