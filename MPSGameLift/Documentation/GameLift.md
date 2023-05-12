@@ -23,44 +23,21 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     ```sh
     <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO
     ```
+    A folder named "GameLiftWindowsServerPackage" containing the server will be created inside of the current working directory.
+
     ---
     **Important**
 
     The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
 
     ---
-    
+
     ---
     **Important**
-
-    The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
+    It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
     ---
-It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
-1. Create the Launcher Zip file
-   Use the following .bat file or equivalent copy steps to create a directory with the launchers in it:
-   Run from MultiplayerSample project root directory...
-   ```sh
-    rem Use this by calling 'make_release C:\GameLiftPackageWindows' to make a release directory
-    mkdir %1
-    mkdir %1\Cache
-    mkdir %1\Cache\pc
-    mkdir %1\Gems
-    mkdir %1\Gems\AWSCore
-    
-    rem Copy the pak files
-    copy .\AssetBundling\Bundles\*.pak %1\Cache\pc
-    
-    rem Copy the executables and DLLs
-    copy .\build\windows_mono\bin\profile\*.* %1
-    
-    rem Copy launch_server.cfg
-    copy .\launch_server.cfg %1
-
-    rem Copy the AWSCore files
-    copy .\build\windows_mono\bin\profile\Gems\AWSCore\*.* %1\Gems\AWSCore
-    ```
 1. Test the profile pak server and game locally
     Run the server in headless mode using `rhi=null` and `NullRenderer` parameters; the server appears as a white screen in headless mode.
     
@@ -106,6 +83,7 @@ aws gamelift create-fleet --region us-west-2 --name GameLiftO3DTest2016 --ec2-in
 **NOTE**
 
 The ec2-instance-type and fleet-type determines the kind of AWS resources used; your AWS account may incur costs.
+https://aws.amazon.com/ec2/pricing/reserved-instances/pricing/
 
 ---
 
@@ -113,7 +91,7 @@ Record the FleetId for the next step. Example: fleet-1a49fc3e-892a-40fc-b2e9-aa7
 
 ### Create and Join Game Session
 ```sh
-aws gamelift create-game-session --region us-west-2 --fleet-id <FleetId> --name foogamesession1 --maximum-player-session-count 3
+aws gamelift create-game-session --region us-west-2 --fleet-id <FleetId> --name foogamesession1 --maximum-player-session-count 10
 ```
 Record GameSessionId for the next step. Example: arn:aws:gamelift:us-west-2::gamesession/fleet-1a49fc3e-892a-40fc-b2e9-aa7e11983182/gsess-4745e6ab-6cc0-44c7-b78d-acab9534f206
 

@@ -10,10 +10,14 @@ Enables the project for AWS Gamelift and creates a Windows server package which 
 
 To use this script pass it into o3de.bat's export-project command: 
 <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py -ll INFO
+A folder named GameLiftPackageWindows containing the server will be created. 
+Test the server locally and upload the server package to GameLift. 
+    'aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2'
 """
 
 import os
 import argparse
+import shutil
 
 import o3de.export_project as exp
 import o3de.enable_gem as enable_gem
@@ -23,6 +27,10 @@ from o3de import manifest
 
 project_json_data = manifest.get_project_json_data(project_path=o3de_context.project_path)
 project_name = project_json_data.get('project_name')
+build_folder = os.path.join(o3de_context.project_path, "build", "windows")
+monolithic_build_folder = os.path.join(o3de_context.project_path, "build", "windows_mono")
+bundles_directory = os.path.join(o3de_context.project_path, "AssetBundling", "Bundles" )
+gamelift_package_folder_name = "GameLiftPackageWindows"
 
 o3de_logger.info(f"Exporting AWS GameLift Server Package for {project_name}")
 
@@ -34,8 +42,14 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--code', action='store_true', help='Build code')
 parser.add_argument('--assets', action='store_true', help='Build assets')
 parser.add_argument('-g', '--generator', choices=['Visual Studio 16', 'Visual Studio 17'], help='Which compiler do you want to use?')
+parser.add_argument('--no-clobber', action='store_true', dest='no_clobber', help='Do not create a new package if an existing GameLift server package exists.')
 
 args = parser.parse_args(o3de_context.args)
+
+# Check if the GameLift server package folder already exists
+if os.path.exists(gamelift_package_folder_name) and args.no_clobber:
+    print(f"{gamelift_package_folder_name} folder already exists. Respecting --no-clobber and exiting. No new package created.")
+    exit()
 
 # Help user choose to build code, assets, or both if they didn't specify via command-line
 while not args.code and not args.assets:
@@ -59,8 +73,6 @@ while not args.generator:
         args.generator = "Visual Studio 17"
     elif user_input.lower() == 'q':
         quit()
-        
-build_folder = os.path.join(o3de_context.project_path, "build", "windows")
 
 # Build code
 if (args.code):
@@ -80,7 +92,6 @@ if (args.code):
         quit()
         
     # Build monolithic server launcher build
-    monolithic_build_folder = os.path.join(o3de_context.project_path, "build", "windows_mono")
     os.makedirs(monolithic_build_folder, exist_ok=True)
     if (process_command(["cmake", "-B", monolithic_build_folder, "-S", o3de_context.project_path, "-G", args.generator, "-DLY_MONOLITHIC_GAME=1", "-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0"])):
         quit()
@@ -137,7 +148,6 @@ if (args.assets):
         quit()
 
     # Bundle game asset using game asset list
-    bundles_directory = os.path.join(o3de_context.project_path, "AssetBundling", "Bundles" )
     if (process_command([asset_bundler_batch, "bundles", "--maxSize", "2048", "--platform", platform, "--allowOverwrites",
                          "--outputBundlePath", os.path.join(bundles_directory, "game.pak"),
                          "--assetListFile", game_asset_list_path]) != 0):
@@ -148,3 +158,43 @@ if (args.assets):
                          "--outputBundlePath", os.path.join(bundles_directory, "engine.pak"),
                          "--assetListFile", engine_asset_list_path]) != 0):
         quit()
+
+# Add all the required exe's, dll's, and asset pak files into a folder to upload to GameLift
+gamelift_package_cache_dir = os.path.join(gamelift_package_folder_name, "Cache", "pc")
+gamelift_package_gems_dir = os.path.join(gamelift_package_folder_name, "Gems", "AWSCore")
+
+# Delete the old server package
+if os.path.exists(gamelift_package_folder_name):
+    shutil.rmtree(gamelift_package_folder_name)
+
+# Create the folders
+os.makedirs(gamelift_package_cache_dir, exist_ok=True)
+os.makedirs(gamelift_package_gems_dir, exist_ok=True)
+
+# Copy .exe and .dll files to GameLiftWindowsServerPackage directory
+build_dir = os.path.join(monolithic_build_folder, "bin", "profile")
+for file_name in os.listdir(build_dir):
+    file_path = os.path.join(build_dir, file_name)
+    if os.path.isfile(file_path) and file_name.lower().endswith(('.exe', '.dll')):
+        shutil.copy(file_path, gamelift_package_folder_name)
+
+# Copy launch_server.cfg file to GameLiftWindowsServerPackage directory
+launch_server_cfg_filepath = os.path.join(o3de_context.project_path, "launch_server.cfg")
+if os.path.isfile(launch_server_cfg_filepath):
+    shutil.copy(launch_server_cfg_filepath, gamelift_package_folder_name)
+else:
+    o3de_logger.error(f"Could not find serverlauncher.cfg! Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.")
+    quit()
+
+# Copy .pak files to Cache\pc directory
+for file_name in os.listdir(bundles_directory):
+    if file_name.endswith(".pak"):
+        file_path = os.path.join(bundles_directory, file_name)
+        shutil.copy(file_path, gamelift_package_cache_dir)
+
+# Copy files to Gems\AWSCore directory
+gems_files_dir = os.path.join(monolithic_build_folder, "bin", "profile", "Gems", "AWSCore")
+for file_name in os.listdir(gems_files_dir):
+    file_path = os.path.join(gems_files_dir, file_name)
+    if os.path.isfile(file_path):
+        shutil.copy(file_path, gamelift_package_gems_dir)
