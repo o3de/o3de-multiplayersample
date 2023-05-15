@@ -144,8 +144,8 @@ Record the `AuthToken` for the next steps. Example: **123a4b5c-d6e7-8fgh-9i01-2j
 To ensure GameLift recognizes your local machine as a Compute that is available to start game sessions, start a server locally with the appropriate credentials.
 
 Notes:
-- In the `HostId` property should be filled with the `ComputeName`
-- `ProcessId` can be omitted; a unique default `ProcessId` will be generated out of the timestamp.
+- In the `HostId` property should be filled with the `ComputeName`;
+- `ProcessId` can be omitted. A unique default `ProcessId` will be generated out of the timestamp.
 
 ```sh
 C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 --console-command-file=launch_server.cfg --sv_dedicated_host_onstartup=false --sv_gameLiftEnabled=true --sv_gameliftAnywhereEnabled=true --sv_gameliftAnywhereWebSocketUrl="<WebSocketUrl>" --sv_gameliftAnywhereAuthToken="<AuthToken>" --sv_gameliftAnywhereFleetId="<FleetId>" --sv_gameliftAnywhereHostId="<ComputeName>" --sv_gameliftAnywhereProcessId="<ProcessId>"
@@ -165,7 +165,7 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ### Start Client
 
 ```sh
-.\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
@@ -212,7 +212,7 @@ Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l2
 After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
 
 ```sh
-aws gamelift create-fleet --region <Region> --name GameLiftMPSTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id build-703e4631-6cb9-4850-8f32-3759ac9f2ce4 --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region <Region> --name GameLiftMPSTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, MaxConcurrentGameSessionActivations=2, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
 ---
 **NOTE**
@@ -231,15 +231,15 @@ Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::g
 
 Launch the game client with:
 ```sh
-./build/windows_mono/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>/build/windows_mono/bin/profile/MultiplayerSample.GameLauncher.exe --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
 ```
 ```sh
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
 ```
 ---
 **NOTE**
-PlayerId passed into create-player-session shouldn't be the player id passed into this JSON block; keep these unique. 
-Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: **psess-50311090-9283-4fb0-ad1a-94468e60fa16**
+PlayerId passed into create-player-session shouldn't be the same PlayerId passed into this JSON block; keep these unique. 
+Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: **psess-12345678-9012-3ab4-cd5e-67890f12gh34**
 
 ---
 
