@@ -17,6 +17,7 @@
 #include <Source/Components/NetworkStressTestComponent.h>
 #include <Source/Components/NetworkAiComponent.h>
 #include <Source/Effects/GameEffect.h>
+#include <Source/UserSettings/MultiplayerSampleUserSettings.h>
 #include <Multiplayer/Components/NetBindComponent.h>
 
 #include <AzFramework/Scene/Scene.h>
@@ -89,7 +90,9 @@ namespace MultiplayerSample
 
     void MultiplayerSampleSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
-        AZ_UNUSED(dependent);
+        // We're dependent on this to start first so that we can apply the MSAA setting at the correct point in the boot process.
+        // If we're ever able to apply the MSAA setting at runtime, this can get removed, along with the call to ApplyMsaaSetting().
+        dependent.push_back(AZ_CRC_CE("AzFrameworkConfigurationSystemComponentService"));
     }
 
     void MultiplayerSampleSystemComponent::Init()
@@ -101,6 +104,10 @@ namespace MultiplayerSample
     {
         //! Register our gems multiplayer components to assign NetComponentIds
         RegisterMultiplayerComponents();
+
+        // Tell the user settings that this is the correct point in the boot process to apply the MSAA setting.
+        MultiplayerSampleUserSettingsRequestBus::Broadcast(
+            &MultiplayerSampleUserSettingsRequestBus::Events::ApplyMsaaSetting);
     }
 
     void MultiplayerSampleSystemComponent::Deactivate()

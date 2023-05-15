@@ -52,7 +52,7 @@ while not args.code and not args.assets:
 
 # Help user choose their compiler if they didn't specify via command-line
 while not args.generator:
-    user_input = input('Select generator:\n 1. Visual Studio 16\n 2. Visual Studio 17.\n Quit(q)\n')
+    user_input = input('Select generator:\n 1. Visual Studio 16 (2019)\n 2. Visual Studio 17 (2022).\n Quit(q)\n')
     if user_input == '1':
         args.generator = "Visual Studio 16"
     if user_input == '2':
@@ -65,10 +65,7 @@ build_folder = os.path.join(o3de_context.project_path, "build", "windows")
 # Build code
 if (args.code):
     # Enable GameLift gems
-    o3de_logger.info(f"Enabling AWSGameLift and MPSGameLift gem")
-    if (enable_gem.enable_gem_in_project(gem_name="AWSGameLift", project_path=o3de_context.project_path) != 0):
-        quit()
-
+    o3de_logger.info(f"Enabling MPSGameLift gem")
     if (enable_gem.enable_gem_in_project(gem_name="MPSGameLift", project_path=o3de_context.project_path) != 0):
         quit()
 
