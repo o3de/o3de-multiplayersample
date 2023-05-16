@@ -34,6 +34,9 @@ namespace MultiplayerSample
 
     void EnergyCannonComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_CLIENT
+        m_effect = {};
+#endif
     }
 
 #if AZ_TRAIT_CLIENT
@@ -67,6 +70,7 @@ namespace MultiplayerSample
     void EnergyCannonComponentController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_SERVER
+        m_triggerBuildupEvent.RemoveFromQueue();
         m_firingEvent.RemoveFromQueue();
 #endif
     }
@@ -95,13 +99,15 @@ namespace MultiplayerSample
             Multiplayer::GetNetworkEntityManager()->CreateEntitiesImmediate(prefabEntityId, Multiplayer::NetEntityRole::Authority, transform);
 
         Multiplayer::NetworkEntityHandle spawnedEntity;
-        if (!entityList.empty())
+        if (entityList.size() == 1)
         {
             spawnedEntity = entityList[0];
         }
         else
         {
-            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled.", prefabEntityId.m_prefabName.GetCStr());
+            AZLOG_WARN("Attempt to spawn prefab %s failed. Check that prefab is network enabled and only contains a single entity. "
+                "If multiple entities are in the prefab, only the first one will get deleted. Spawn count: %zu", 
+                prefabEntityId.m_prefabName.GetCStr(), entityList.size());
         }
 
         if (EnergyBallComponent* ballComponent = spawnedEntity.FindComponent<EnergyBallComponent>())
