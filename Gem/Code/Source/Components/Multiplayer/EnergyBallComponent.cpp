@@ -44,12 +44,16 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_CLIENT
         BallActiveAddEvent(m_ballActiveHandler);
+
+        // Make sure to process the initial state of ballActive.
+        OnBallActiveChanged(GetBallActive());
 #endif
     }
 
     void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
 #if AZ_TRAIT_CLIENT
+        m_effect = {};
         m_ballActiveHandler.Disconnect();
 #endif
     }
@@ -95,8 +99,7 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::HandleRPC_BallExplosion([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent)
     {
-        // Create an explosion effect at our current location.
-        m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
+        // No need to trigger the explosion effect here, we can let the trigger in OnBallActiveChanged() handle it.
 
         // Notify every entity that was hit that they've received a weapon impact, this allows for blast decals.
         for (const HitEntity& hitEntity : hitEvent.m_hitEntities)
