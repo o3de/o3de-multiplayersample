@@ -32,6 +32,12 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
         discard;
 #endif
 
+#if 	defined(ParticlePass_OpaqueShadow)
+	float 	shadowDepth = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
+	fOutput.Output0 = vec2(shadowDepth, shadowDepth * shadowDepth);
+
+#else // !ParticlePass_OpaqueShadow
+
 #if     defined(HAS_Lit)
 	vec3    normalTex =  SAMPLE(Lit_NormalMap, fInput.fragUV0).xyz;
 	normalTex = 2.0f * normalTex.xyz - vec3(1.0f, 1.0f, 1.0f);
@@ -59,4 +65,5 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
     fOutput.Output1 = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
     fOutput.Output2 = VEC4_ZERO;
     fOutput.Output3 = normalSpec;
+#endif // !ParticlePass_OpaqueShadow
 }

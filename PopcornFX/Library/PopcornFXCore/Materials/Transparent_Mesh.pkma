@@ -1,11 +1,12 @@
-Version = 2.15.0.15760;
-CParticleRendererFeatureSet	$6B70D015
+Version = 2.16.0.16702;
+CParticleRendererMaterial	$6B70D015
 {
 	RendererFeatures = {
 		"$4126ECB5",
 		"$CF8BEC2E",
 		"$BF96EAFE",
 		"$35A36C4E",
+		"$B15452BE",
 		"$FF800025",
 		"$D857A09F",
 		"$9154ABA0",
@@ -95,4 +96,10 @@ CParticleRendererFeatureDesc	$D46EA531
 {
 	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
 	RendererFeatureName = "MeshLOD";
+}
+CParticleRendererFeatureDesc	$B15452BE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Culling";
+	Mandatory = true;
 }

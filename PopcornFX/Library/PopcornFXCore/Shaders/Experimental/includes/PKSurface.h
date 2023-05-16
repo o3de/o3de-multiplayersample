@@ -7,7 +7,7 @@
 #	define	PK_FORWARD_TINT_PASS
 #elif defined(ParticlePass_TransparentPostDisto) || defined(ParticlePass_Transparent)
 #	define	PK_FORWARD_COLOR_PASS
-#elif defined(ParticlePass_Opaque)
+#elif defined(ParticlePass_Opaque) || defined(ParticlePass_OpaqueShadow)
 #	define	PK_DEFERRED_COLOR_PASS
 #elif defined(ParticlePass_Decal)
 #	define	PK_DEFERRED_DECAL_PASS
