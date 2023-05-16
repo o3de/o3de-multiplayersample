@@ -1,5 +1,5 @@
-Version = 2.15.0.15760;
-CParticleRendererFeatureSet	$6B70D015
+Version = 2.16.0.16702;
+CParticleRendererMaterial	$6B70D015
 {
 	RendererFeatures = {
 		"$A8FC2215",
@@ -7,6 +7,7 @@ CParticleRendererFeatureSet	$6B70D015
 		"$8F7B32AE",
 		"$9154DFA0",
 		"$35A36C4E",
+		"$E2963AA1",
 		"$8BF32864",
 		"$ECD07C82",
 		"$1C9B3978",
@@ -101,4 +102,10 @@ CParticleRendererFeatureDesc	$1C9B3978
 {
 	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
 	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$E2963AA1
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "Culling";
+	Mandatory = true;
 }

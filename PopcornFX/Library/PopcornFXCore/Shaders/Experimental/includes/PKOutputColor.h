@@ -28,18 +28,21 @@ void	OutputFragmentColor(IN(SFragSurface) fSurf, OUT(SFragmentOutput) fOutput FS
 	if (GET_CONSTANT(Material, Opaque_Type) == 1 && fSurf.m_Diffuse.a < GET_CONSTANT(Material, Opaque_MaskThreshold))
 		discard;
 
+#	if defined(ParticlePass_OpaqueShadow)
+	fOutput.Output0 = vec2(fSurf.m_Depth, fSurf.m_Depth * fSurf.m_Depth);
+#	else
 	// In the case the of unlit opaque, we transfer the diffuse color to the emissve buffer:
-#	if !defined(HAS_Lit)
+#		if !defined(HAS_Lit)
 	fSurf.m_Emissive += fSurf.m_Diffuse.xyz;
 	fSurf.m_Diffuse = VEC4_ZERO;
 	fSurf.m_Roughness = -1.0f;
 	fSurf.m_Metalness = -1.0f;
-#	endif
-
+#		endif
 	fOutput.Output0 = fSurf.m_Diffuse;
 	fOutput.Output1 = fSurf.m_Depth;
 	fOutput.Output2 = vec4(fSurf.m_Emissive, 0.0f);
 	fOutput.Output3 = vec4(PackNormalSpheremap(fSurf.m_Normal FS_PARAMS), fSurf.m_Roughness, fSurf.m_Metalness);
+#	endif // !defined(ParticlePass_OpaqueShadow)
 
 #elif defined(PK_DEFERRED_DECAL_PASS)
 	fOutput.Output0 = vec4(fSurf.m_Diffuse.rgb * fSurf.m_Diffuse.a, fSurf.m_Diffuse.a);

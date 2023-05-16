@@ -157,6 +157,12 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
         discard;
 #endif
 
+#if 	defined(ParticlePass_OpaqueShadow)
+	float 	shadowDepth = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
+	fOutput.Output0 = vec2(shadowDepth, shadowDepth * shadowDepth);
+
+#else // !ParticlePass_OpaqueShadow
+
 #if     defined(HAS_Lit)
 
 #if defined(HAS_TransformUVs)
@@ -301,4 +307,5 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
     fOutput.Output1 = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
     fOutput.Output2 = emissive;
     fOutput.Output3 = normalSpec;
+#endif // !ParticlePass_OpaqueShadow
 }
