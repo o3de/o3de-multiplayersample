@@ -198,3 +198,7 @@ for file_name in os.listdir(gems_files_dir):
     file_path = os.path.join(gems_files_dir, file_name)
     if os.path.isfile(file_path):
         shutil.copy(file_path, gamelift_package_gems_dir)
+
+o3de_logger.info("Export Successful!\n"
+                 "Test the server locally and upload the server package to GameLift.\n"
+                 f"aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name {project_name} --build-version v1.0 --region us-west-2")
