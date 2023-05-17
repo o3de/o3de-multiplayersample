@@ -45,6 +45,30 @@ namespace MultiplayerSample
 
     GameEffect::~GameEffect()
     {
+        Destroy();
+    }
+
+    GameEffect::GameEffect(const GameEffect& gameEffect)
+    {
+        *this = gameEffect;
+    }
+
+    GameEffect& GameEffect::operator=(const GameEffect& gameEffect)
+    {
+        // Make sure the current emitter is destroyed before copying new settings over this one.
+        Destroy();
+
+        // Only copy the effect settings, but leave it in an uninitialized state. Each GameEffect instance should
+        // have its own emitter to manipulate and move around.
+        m_particleAssetId = gameEffect.m_particleAssetId;
+        m_audioTrigger = gameEffect.m_audioTrigger;
+        m_effectOffset = gameEffect.m_effectOffset;
+
+        return *this;
+    }
+
+    void GameEffect::Destroy()
+    {
 #if AZ_TRAIT_CLIENT
         if (m_popcornFx && m_emitter)
         {
@@ -58,6 +82,13 @@ namespace MultiplayerSample
         {
             m_audioSystem->RecycleAudioProxy(m_audioProxy);
         }
+
+        // Clear all of these out so that we know we need to call Initialize() again.
+        m_popcornFx = nullptr;
+        m_audioSystem = nullptr;
+        m_emitter = nullptr;
+        m_audioProxy = nullptr;
+        m_audioTriggerId = INVALID_AUDIO_CONTROL_ID;
 #endif
     }
 
@@ -87,6 +118,15 @@ namespace MultiplayerSample
             m_audioProxy->SetObstructionCalcType(Audio::ObstructionType::Ignore);
             m_audioTriggerId = m_audioSystem->GetAudioTriggerID(m_audioTrigger.c_str());
         }
+#endif
+    }
+
+    bool GameEffect::IsInitialized() const
+    {
+#if AZ_TRAIT_CLIENT
+        return (m_popcornFx && m_emitter);
+#else
+        return true;
 #endif
     }
 

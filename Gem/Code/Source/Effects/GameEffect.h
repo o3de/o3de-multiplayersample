@@ -35,10 +35,18 @@ namespace MultiplayerSample
         static void Reflect(AZ::ReflectContext* context);
 
         GameEffect() = default;
+        GameEffect(const GameEffect& gameEffect);
+        GameEffect& operator=(const GameEffect& gameEffect);
         ~GameEffect();
 
-        //! Initializes the effect.
+        //! Initializes the effect emitter.
         void Initialize();
+
+        //! Destroys the effect emitter;
+        void Destroy();
+
+        //! True if the effect is initialized, false if it isn't.
+        bool IsInitialized() const;
 
         //! Setters for setting custom effect attributes.
         //! @{
