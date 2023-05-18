@@ -191,6 +191,7 @@ namespace MultiplayerSample
         Multiplayer::NetEntityId m_projectileNetEntityId = Multiplayer::InvalidNetEntityId; // Entity Id of the projectile, InvalidNetEntityId if this was a trace weapon hit
         HitEntities m_hitEntities; // Information about the entities that were hit
 
+        bool operator!=(const HitEvent& rhs) const;
         bool Serialize(AzNetworking::ISerializer& serializer);
         static void Reflect(AZ::ReflectContext* context);
     };
