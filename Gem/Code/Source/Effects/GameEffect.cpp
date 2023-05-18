@@ -92,22 +92,31 @@ namespace MultiplayerSample
 #endif
     }
 
-    void GameEffect::Initialize()
+    void GameEffect::Initialize([[maybe_unused]] EmitterType emitterType)
     {
 #if AZ_TRAIT_CLIENT
         m_popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler();
         m_audioSystem = AZ::Interface<Audio::IAudioSystem>::Get();
+        m_emitterType = emitterType;
 
         if (m_popcornFx != nullptr)
         {
             if (m_particleAssetId.IsValid())
             {
-                // Spawn the emitter in a disabled state, and set it to always exist (i.e. don't auto-remove).
-                // GameEffect will keep reusing the same emitter.
-                constexpr bool EffectEnabled = false;
-                constexpr bool AutoRemove = false;
-                const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(EffectEnabled, AutoRemove, AZ::Transform::CreateIdentity());
-                m_emitter = m_popcornFx->SpawnEffectById(m_particleAssetId, params);
+                if (m_emitterType == EmitterType::ReusableEmitter)
+                {
+                    // Spawn the emitter in a disabled state, and set it to always exist (i.e. don't auto-remove).
+                    // GameEffect will keep reusing the same emitter.
+                    constexpr bool EffectEnabled = false;
+                    constexpr bool AutoRemove = false;
+                    const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(EffectEnabled, AutoRemove, AZ::Transform::CreateIdentity());
+                    m_emitter = m_popcornFx->SpawnEffectById(m_particleAssetId, params);
+                }
+                else
+                {
+                    // Don't spawn anything, just preload the particle asset.
+                    m_popcornFx->PreloadEffectById(m_particleAssetId);
+                }
             }
         }
 
@@ -133,6 +142,7 @@ namespace MultiplayerSample
     bool GameEffect::SetAttribute([[maybe_unused]] const char* attributeName, [[maybe_unused]] float value) const
     {
 #if AZ_TRAIT_CLIENT
+        AZ_Assert(m_emitterType == EmitterType::ReusableEmitter, "SetAttribute only supports reusable emitters.");
         if (m_popcornFx && m_emitter)
         {
             if (m_popcornFx->IsEffectAlive(m_emitter))
@@ -156,6 +166,7 @@ namespace MultiplayerSample
     bool GameEffect::SetAttribute([[maybe_unused]] const char* attributeName, [[maybe_unused]] const AZ::Vector2& value) const
     {
 #if AZ_TRAIT_CLIENT
+        AZ_Assert(m_emitterType == EmitterType::ReusableEmitter, "SetAttribute only supports reusable emitters.");
         if (m_popcornFx && m_emitter)
         {
             if (m_popcornFx->IsEffectAlive(m_emitter))
@@ -179,6 +190,7 @@ namespace MultiplayerSample
     bool GameEffect::SetAttribute([[maybe_unused]] const char* attributeName, [[maybe_unused]] const AZ::Vector3& value) const
     {
 #if AZ_TRAIT_CLIENT
+        AZ_Assert(m_emitterType == EmitterType::ReusableEmitter, "SetAttribute only supports reusable emitters.");
         if (m_popcornFx && m_emitter)
         {
             if (m_popcornFx->IsEffectAlive(m_emitter))
@@ -202,6 +214,7 @@ namespace MultiplayerSample
     bool GameEffect::SetAttribute([[maybe_unused]] const char* attributeName, [[maybe_unused]] const AZ::Vector4& value) const
     {
 #if AZ_TRAIT_CLIENT
+        AZ_Assert(m_emitterType == EmitterType::ReusableEmitter, "SetAttribute only supports reusable emitters.");
         if (m_popcornFx && m_emitter)
         {
             if (m_popcornFx->IsEffectAlive(m_emitter))
@@ -227,27 +240,39 @@ namespace MultiplayerSample
 #if AZ_TRAIT_CLIENT
         const AZ::Vector3 offsetPosition = transform.TransformPoint(m_effectOffset);
 
-        if (m_popcornFx && m_emitter)
+        if (m_popcornFx)
         {
-            if (m_popcornFx->IsEffectAlive(m_emitter))
+            AZ::Transform transformOffset = transform;
+            transformOffset.SetTranslation(offsetPosition);
+
+            if (m_emitterType == EmitterType::ReusableEmitter)
             {
-                AZ::Transform transformOffset = transform;
-                transformOffset.SetTranslation(offsetPosition);
+                if (m_emitter && m_popcornFx->IsEffectAlive(m_emitter))
+                {
+                    m_popcornFx->EffectSetTransform(m_emitter, transformOffset);
+                    m_popcornFx->EffectSetTeleportThisFrame(m_emitter);
 
-                m_popcornFx->EffectSetTransform(m_emitter, transformOffset);
-                m_popcornFx->EffectSetTeleportThisFrame(m_emitter);
+                    // It's important to do this *after* setting the transform. Otherwise, on the first time we trigger the effect,
+                    // it will spawn the effect briefly at (0, 0, 0) before moving and restarting it.
 
-                // It's important to do this *after* setting the transform. Otherwise, on the first time we trigger the effect,
-                // it will spawn the effect briefly at (0, 0, 0) before moving and restarting it.
+                    m_popcornFx->EffectEnable(m_emitter, true);
 
-                m_popcornFx->EffectEnable(m_emitter, true);
-
-                // EffectRestart will either Kill or Terminate the effect on restart.
-                m_popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
+                    // EffectRestart will either Kill or Terminate the effect on restart.
+                    m_popcornFx->EffectRestart(m_emitter, cl_KillEffectOnRestart);
+                }
+                else
+                {
+                    AZ_Assert(false, "Triggering an inactive emitter.");
+                }
             }
             else
             {
-                AZ_Assert(false, "Triggering an inactive emitter.");
+                // For fire-and-forget, spawn a new effect on each call to TriggerEffect(), and set it to auto-remove.
+                // We won't track it, and it will continue to run even if this GameEffect instance gets destroyed.
+                constexpr bool EffectEnabled = true;
+                constexpr bool AutoRemove = true;
+                const PopcornFX::SpawnParams params = PopcornFX::SpawnParams(EffectEnabled, AutoRemove, transformOffset);
+                m_popcornFx->SpawnEffectById(m_particleAssetId, params);
             }
         }
 
