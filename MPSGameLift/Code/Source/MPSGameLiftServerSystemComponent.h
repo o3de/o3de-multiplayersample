@@ -9,7 +9,10 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzFramework/API/ApplicationAPI.h>
+#include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Session/SessionNotifications.h>
+#include <AzCore/Console/ILogger.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 
 namespace MPSGameLift
 {
@@ -46,5 +49,20 @@ namespace MPSGameLift
         bool ShouldBlockLevelLoading(const char* levelName) override;
 
         AZStd::string m_loadedLevelName;
+
+        // Keep track if the server starts a game session but no players join
+        AZ::ScheduledEvent m_terminatedGameSession = AZ::ScheduledEvent([]
+            {
+                if (auto console = AZ::Interface<AZ::IConsole>::Get())
+                {
+                    float sv_gamesessionNoPlayerShutdownTimeoutSeconds = 0.0f;
+                    console->GetCvarValue("sv_gamesessionNoPlayerShutdownTimeoutSeconds", sv_gamesessionNoPlayerShutdownTimeoutSeconds);
+                    AZLOG_WARN("Terminating GameLift server due to zero players joining the game session after %f seconds.", sv_gamesessionNoPlayerShutdownTimeoutSeconds);
+
+                    Multiplayer::GetMultiplayer()->Terminate(AzNetworking::DisconnectReason::TerminatedByServer);
+                    AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::ExitMainLoop);
+                }
+            }, 
+            AZ::Name("MPSGameLiftServerSystemComponent No Player Joined Terminate GameSession "));
     };
 }
