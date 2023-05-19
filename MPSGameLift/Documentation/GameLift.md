@@ -83,7 +83,7 @@ aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-ins
 **NOTE**
 
 The ec2-instance-type and fleet-type determines the kind of AWS resources used; your AWS account may incur costs.
-https://aws.amazon.com/ec2/pricing/reserved-instances/pricing/
+https://aws.amazon.com/gamelift/pricing/
 
 ---
 
