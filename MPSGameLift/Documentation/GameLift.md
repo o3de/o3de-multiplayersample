@@ -34,11 +34,12 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 
     ---
     
----
+    ---
     **Important**
-    It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
----
+    Make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
+
+    ---
 
 ---
 **NOTE**
