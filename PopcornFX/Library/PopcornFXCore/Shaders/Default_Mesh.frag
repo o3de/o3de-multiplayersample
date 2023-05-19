@@ -144,6 +144,12 @@ vec2	fragUV0 = fInput.fragUV0;
         discard;
 #endif
 
+#if 	defined(ParticlePass_OpaqueShadow)
+	float 	shadowDepth = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
+	fOutput.Output0 = vec2(shadowDepth, shadowDepth * shadowDepth);
+
+#else // !ParticlePass_OpaqueShadow
+
 #if defined(HAS_DiffuseRamp)
 	color.rgb = SAMPLE(DiffuseRamp_RampMap, vec2(color.r, 0.0)).rgb;
 #endif
@@ -276,4 +282,5 @@ vec2	fragUV0 = fInput.fragUV0;
 	fOutput.Output1 = fInput.fragViewProjPosition.z / fInput.fragViewProjPosition.w;
 	fOutput.Output2 = emissive;
 	fOutput.Output3 = normalSpec;
+#endif  // !ParticlePass_OpaqueShadow
 }

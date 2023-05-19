@@ -1,4 +1,4 @@
-Version = 2.15.0.15760;
+Version = 2.16.0.16702;
 CEngineRendererInterface	$6B70D015
 {
 	InterfaceName = "Editor features";
@@ -50,6 +50,7 @@ CEngineRendererInterface	$6B70D015
 		"$5CBB6243",
 		"$71D528E3",
 		"$E75E73C7",
+		"$8D50578F",
 	};
 }
 CParticleRendererFeature	$81861AB7
@@ -2562,6 +2563,7 @@ CRHIRenderingSettings	$6DF50834
 		"$DD26542E",
 		"$A2DFDBD4",
 		"$DBCFAF80",
+		"$46727B95",
 	};
 }
 CRHIRenderingFeature	$EA67A6E3
@@ -5007,4 +5009,69 @@ CParticleNodePinOut	$87008ABA
 {
 	SelfName = "Value";
 	Owner = "$B5B5302A";
+}
+CParticleRendererFeature	$8D50578F
+{
+	FeatureName = "Culling";
+	Feature = "$A17480C0";
+	Properties = {
+		"$25BA4FE3",
+	};
+}
+CParticleNodeTemplateExport	$A17480C0
+{
+	InputPins = {
+		"$BF7ABB7B",
+	};
+	OutputPins = {
+		"$42A81400",
+	};
+	ExportedName = "Culling";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$BF7ABB7B
+{
+	SelfName = "DefaultValue";
+	Owner = "$A17480C0";
+}
+CParticleNodePinOut	$42A81400
+{
+	SelfName = "Value";
+	Owner = "$A17480C0";
+}
+CRHIRenderingFeature	$46727B95
+{
+	FeatureName = "Culling";
+}
+CParticleNodeTemplateExport	$25BA4FE3
+{
+	Description = {
+		"@eng:If disabled, enables back face culling.",
+	};
+	InputPins = {
+		"$7740541B",
+	};
+	OutputPins = {
+		"$C3ECE4FE",
+	};
+	ExportedName = "General.DoubleSided";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	DefaultValueB4 = bool4(true, false, false, false);
+}
+CParticleNodePinIn	$7740541B
+{
+	SelfName = "DefaultValue";
+	Owner = "$25BA4FE3";
+}
+CParticleNodePinOut	$C3ECE4FE
+{
+	SelfName = "Value";
+	Owner = "$25BA4FE3";
 }
