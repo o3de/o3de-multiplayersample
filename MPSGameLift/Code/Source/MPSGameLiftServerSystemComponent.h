@@ -64,5 +64,9 @@ namespace MPSGameLift
                 }
             }, 
             AZ::Name("MPSGameLiftServerSystemComponent No Player Joined Terminate GameSession "));
+
+        Multiplayer::ConnectionAcquiredEvent::Handler m_connectionAquiredEventHandler = Multiplayer::ConnectionAcquiredEvent::Handler([this]([[maybe_unused]] Multiplayer::MultiplayerAgentDatum agentDatum) -> void {
+            this->m_terminatedGameSession.RemoveFromQueue();
+            });
     };
 }
