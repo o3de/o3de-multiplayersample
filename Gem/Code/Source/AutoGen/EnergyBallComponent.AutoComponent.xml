@@ -17,18 +17,13 @@
     <ArchetypeProperty Type="GatherParams" Name="GatherParams" Init="" ExposeToEditor="true" Description="Specifies the types of intersections to test for on the projectile" />
     <ArchetypeProperty Type="HitEffect" Name="HitEffect" Init="" ExposeToEditor="true" Description="Specifies the damage effects to apply on hit" />
     <ArchetypeProperty Type="AZ::TimeMs" Name="LifetimeMs" Init="AZ::TimeMs{ 0 }" Container="Object" ExposeToEditor="true" Description="Specifies the duration in milliseconds that the projectile should live for" />
-    <ArchetypeProperty Type="AZ::TimeMs" Name="LingertimeMs" Init="AZ::TimeMs{ 0 }" Container="Object" ExposeToEditor="true" Description="Specifies how many milliseconds the entity should persist after death to allow it to run it's explosion effects" />
 
     <NetworkProperty Type="AZ::Vector3" Name="Velocity" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="The energy balls current velocity" />
-    <NetworkProperty Type="bool" Name="BallActive" Init="false" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="true" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="Track whether or not the energy ball is currently active" />
+    <NetworkProperty Type="HitEvent" Name="HitEvent" Init="{}" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToScript="true" ExposeToEditor="false" GenerateEventBindings="true" Description="Contains the hit information when the ball explodes." />
 
     <RemoteProcedure Name="RPC_LaunchBall" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Launch an energy ball from a specified position in a specified direction.">
         <Param Type="AZ::Vector3" Name="StartingPosition"/>
         <Param Type="AZ::Vector3" Name="Direction"/>
         <Param Type="Multiplayer::NetEntityId" Name="OwningNetEntityId" />
-    </RemoteProcedure>
-
-    <RemoteProcedure Name="RPC_BallExplosion" InvokeFrom="Authority" HandleOn="Client" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Triggered on clients whenever an energy ball explodes.">
-        <Param Type="HitEvent" Name="HitEvent"/>
     </RemoteProcedure>
 </Component>
