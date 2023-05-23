@@ -11,8 +11,8 @@ Enables the project for AWS Gamelift and creates a Windows server package which 
 To use this script pass it into o3de.bat's export-project command: 
 <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py -ll INFO
 A folder named GameLiftPackageWindows containing the server will be created. 
-Test the server locally and upload the server package to GameLift. 
-    'aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2'
+After this script runs, test the server locally and upload the server package to GameLift. 
+    'example: aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region us-west-2'
 """
 
 import os
@@ -214,4 +214,4 @@ for file_name in os.listdir(gems_files_dir):
 
 o3de_logger.info("Export Successful!\n"
                  "Test the server locally and upload the server package to GameLift.\n"
-                 f"aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name {project_name} --build-version v1.0 --region us-west-2")
+                 f"Example: aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root .\GameLiftPackageWindows\ --name {project_name} --build-version v1.0 --region us-west-2")
