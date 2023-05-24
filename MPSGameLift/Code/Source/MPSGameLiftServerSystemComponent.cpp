@@ -15,7 +15,7 @@
 
 AZ_CVAR(
     float,
-    sv_gamesessionNoPlayerShutdownTimeoutSeconds,
+    sv_gameSessionNoPlayerShutdownTimeoutSeconds,
     3600.0f,
     nullptr,
     AZ::ConsoleFunctorFlags::DontReplicate,
@@ -96,7 +96,7 @@ namespace MPSGameLift
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
 
-        m_gamesessionNoPlayerShutdown.Enqueue(AZ::SecondsToTimeMs(sv_gamesessionNoPlayerShutdownTimeoutSeconds));
+        m_gameSessionNoPlayerShutdown.Enqueue(AZ::SecondsToTimeMs(sv_gameSessionNoPlayerShutdownTimeoutSeconds));
     }
 
     bool MPSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)

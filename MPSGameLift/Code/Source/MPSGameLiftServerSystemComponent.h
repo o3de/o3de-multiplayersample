@@ -52,13 +52,13 @@ namespace MPSGameLift
         AZStd::string m_loadedLevelName;
 
         // Keep track if the server starts a game session but no players join
-        AZ::ScheduledEvent m_gamesessionNoPlayerShutdown = AZ::ScheduledEvent([]
+        AZ::ScheduledEvent m_gameSessionNoPlayerShutdown = AZ::ScheduledEvent([]
             {
                 if (auto console = AZ::Interface<AZ::IConsole>::Get())
                 {
-                    float sv_gamesessionNoPlayerShutdownTimeoutSeconds = 0.0f;
-                    console->GetCvarValue("sv_gamesessionNoPlayerShutdownTimeoutSeconds", sv_gamesessionNoPlayerShutdownTimeoutSeconds);
-                    AZLOG_WARN("Terminating GameLift server due to zero players joining the game session after %f seconds.", sv_gamesessionNoPlayerShutdownTimeoutSeconds);
+                    float sv_gameSessionNoPlayerShutdownTimeoutSeconds = 0.0f;
+                    console->GetCvarValue("sv_gameSessionNoPlayerShutdownTimeoutSeconds", sv_gameSessionNoPlayerShutdownTimeoutSeconds);
+                    AZLOG_WARN("Terminating GameLift server due to zero players joining the game session after %f seconds.", sv_gameSessionNoPlayerShutdownTimeoutSeconds);
 
                     Multiplayer::GetMultiplayer()->Terminate(AzNetworking::DisconnectReason::TerminatedByServer);
                     AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::ExitMainLoop);
@@ -67,7 +67,7 @@ namespace MPSGameLift
             AZ::Name("MPSGameLiftServerSystemComponent No Player Joined the Game Session so Shutdown the App"));
 
         Multiplayer::ConnectionAcquiredEvent::Handler m_connectionAquiredEventHandler = Multiplayer::ConnectionAcquiredEvent::Handler([this]([[maybe_unused]] Multiplayer::MultiplayerAgentDatum agentDatum) -> void {
-            this->m_gamesessionNoPlayerShutdown.RemoveFromQueue();
+            this->m_gameSessionNoPlayerShutdown.RemoveFromQueue();
             });
     };
 }
