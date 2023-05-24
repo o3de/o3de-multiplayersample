@@ -48,10 +48,11 @@ namespace MPSGameLift
         // AzFramework::LevelLoadBlockerBus::Handler overrides
         bool ShouldBlockLevelLoading(const char* levelName) override;
 
+    private:
         AZStd::string m_loadedLevelName;
 
         // Keep track if the server starts a game session but no players join
-        AZ::ScheduledEvent m_terminatedGameSession = AZ::ScheduledEvent([]
+        AZ::ScheduledEvent m_gamesessionNoPlayerShutdown = AZ::ScheduledEvent([]
             {
                 if (auto console = AZ::Interface<AZ::IConsole>::Get())
                 {
@@ -63,10 +64,10 @@ namespace MPSGameLift
                     AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::ExitMainLoop);
                 }
             }, 
-            AZ::Name("MPSGameLiftServerSystemComponent No Player Joined Terminate GameSession "));
+            AZ::Name("MPSGameLiftServerSystemComponent No Player Joined the Game Session so Shutdown the App"));
 
         Multiplayer::ConnectionAcquiredEvent::Handler m_connectionAquiredEventHandler = Multiplayer::ConnectionAcquiredEvent::Handler([this]([[maybe_unused]] Multiplayer::MultiplayerAgentDatum agentDatum) -> void {
-            this->m_terminatedGameSession.RemoveFromQueue();
+            this->m_gamesessionNoPlayerShutdown.RemoveFromQueue();
             });
     };
 }

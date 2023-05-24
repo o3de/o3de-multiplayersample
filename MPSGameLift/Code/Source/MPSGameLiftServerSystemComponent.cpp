@@ -58,6 +58,7 @@ namespace MPSGameLift
     {
         Multiplayer::SessionNotificationBus::Handler::BusConnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusConnect();
+        Multiplayer::GetMultiplayer()->AddConnectionAcquiredHandler(m_connectionAquiredEventHandler);
 
         AWSGameLift::AWSGameLiftServerRequestBus::Broadcast(
             &AWSGameLift::AWSGameLiftServerRequestBus::Events::NotifyGameLiftProcessReady);
@@ -65,6 +66,7 @@ namespace MPSGameLift
 
     void MPSGameLiftServerSystemComponent::Deactivate()
     {
+        m_connectionAquiredEventHandler.Disconnect();
         Multiplayer::SessionNotificationBus::Handler::BusDisconnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusDisconnect();
     }
@@ -94,7 +96,7 @@ namespace MPSGameLift
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
 
-        m_terminatedGameSession.Enqueue(AZ::SecondsToTimeMs(sv_gamesessionNoPlayerShutdownTimeoutSeconds));
+        m_gamesessionNoPlayerShutdown.Enqueue(AZ::SecondsToTimeMs(sv_gamesessionNoPlayerShutdownTimeoutSeconds));
     }
 
     bool MPSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)
