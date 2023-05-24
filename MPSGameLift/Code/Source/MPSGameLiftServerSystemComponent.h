@@ -66,6 +66,7 @@ namespace MPSGameLift
             }, 
             AZ::Name("MPSGameLiftServerSystemComponent No Player Joined the Game Session so Shutdown the App"));
 
+        // This event handler will subscribe to IMultiplayer and be triggered in the event a new connection is aquired by this server (ie: a player joining).
         Multiplayer::ConnectionAcquiredEvent::Handler m_connectionAquiredEventHandler = Multiplayer::ConnectionAcquiredEvent::Handler([this]([[maybe_unused]] Multiplayer::MultiplayerAgentDatum agentDatum) -> void {
             this->m_gameSessionNoPlayerShutdown.RemoveFromQueue();
             });

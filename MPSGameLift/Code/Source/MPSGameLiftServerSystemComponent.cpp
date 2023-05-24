@@ -96,6 +96,8 @@ namespace MPSGameLift
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
 
+        // Start a timer to shutdown this server if no players join.
+        // This scheduled event will be stopped if m_connectionAquiredEventHandler is triggered.
         m_gameSessionNoPlayerShutdown.Enqueue(AZ::SecondsToTimeMs(sv_gameSessionNoPlayerShutdownTimeoutSeconds));
     }
 
