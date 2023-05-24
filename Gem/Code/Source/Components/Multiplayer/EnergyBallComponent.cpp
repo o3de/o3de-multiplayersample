@@ -24,8 +24,8 @@
 namespace MultiplayerSample
 {
     AZ_CVAR(float, sv_EnergyBallImpulseScalar, 500.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "A fudge factor for imparting impulses on rigid bodies due to weapon hits");
-    AZ_CVAR(bool, cl_EnergyBallDebugDraw, true, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When turned on this will draw the current energy ball location");
-    AZ_CVAR(float, cl_EnergyBallDebugDrawSeconds, 2.0f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "The number of seconds of draw history to preserve for the energy ball");
+    AZ_CVAR(bool, cl_EnergyBallDebugDraw, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "When turned on this will draw the current energy ball location");
+    AZ_CVAR(float, cl_EnergyBallDebugDrawSeconds, 0.0f, nullptr, AZ::ConsoleFunctorFlags::DontReplicate, "The number of seconds of draw history to preserve for the energy ball");
 
     void EnergyBallComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -40,8 +40,6 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ_TracePrintf("EnergyBall", "OnActivate for entity %llu\n", GetNetEntityId());
-
 #if AZ_TRAIT_CLIENT
         m_effect = GetExplosionEffect();
         m_effect.Initialize(GameEffect::EmitterType::FireAndForget);
@@ -56,8 +54,6 @@ namespace MultiplayerSample
 
     void EnergyBallComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        AZ_TracePrintf("EnergyBall", "OnDeactivate for entity %llu\n", GetNetEntityId());
-
 #if AZ_TRAIT_CLIENT
         m_effect = {};
         AZ::EntityBus::Handler::BusDisconnect();
@@ -66,32 +62,12 @@ namespace MultiplayerSample
     }
 
 #if AZ_TRAIT_CLIENT
-    void EnergyBallComponent::OnEntityDeactivated([[maybe_unused]] const AZ::EntityId&)
+    void EnergyBallComponent::OnEntityDeactivated([[maybe_unused]] const AZ::EntityId& entityId)
     {
         // Perform hit / explosion logic when this entity deactivates, but *before* the deactivation sequence is
         // actually running. This allows us to call the WeaponsNotificationBus to notify other components (like Script Canvas)
         // on this entity to perform hit logic. If we waited to run this until OnDeactivate, the other components would no
         // longer be active and wouldn't have a chance to process the logic.
-
-        static int hasHitEvent = 0;
-        static int doesNotHaveHitEvent = 0;
-
-        if (GetVelocity().IsClose(AZ::Vector3::CreateZero()) &&
-            !GetHitEvent().m_target.IsClose(AZ::Vector3::CreateZero()) &&
-            GetHitEvent().m_shooterNetEntityId != Multiplayer::InvalidNetEntityId &&
-            GetHitEvent().m_projectileNetEntityId != Multiplayer::InvalidNetEntityId)
-        {
-            hasHitEvent++;
-        }
-        else
-        {
-            doesNotHaveHitEvent++;
-
-            AZ_Assert(GetVelocity().IsClose(AZ::Vector3::CreateZero()), "Bad velocity - Deactivating energy ball before hit event was set.");
-            AZ_Assert(!GetHitEvent().m_target.IsClose(AZ::Vector3::CreateZero()), "Bad target - Deactivating energy ball before hit event was set.");
-            AZ_Assert(GetHitEvent().m_shooterNetEntityId != Multiplayer::InvalidNetEntityId, "Bad shooterNetEntityId - Deactivating energy ball before hit event was set.");
-            AZ_Assert(GetHitEvent().m_projectileNetEntityId != Multiplayer::InvalidNetEntityId, "Bad projectileNetEntityId - Deactivating energy ball before hit event was set.");
-        }
 
         // Create an explosion effect wherever the ball was last at before deactivating.
         m_effect.TriggerEffect(GetEntity()->GetTransform()->GetWorldTM());
