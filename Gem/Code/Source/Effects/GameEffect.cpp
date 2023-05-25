@@ -95,6 +95,12 @@ namespace MultiplayerSample
     void GameEffect::Initialize([[maybe_unused]] EmitterType emitterType)
     {
 #if AZ_TRAIT_CLIENT
+        AZ_Assert(!IsInitialized(), "Destroy() needs to be called before calling Initialize() for a second time.");
+        if (IsInitialized())
+        {
+            return;
+        }
+
         m_popcornFx = PopcornFX::PopcornFXRequestBus::FindFirstHandler();
         m_audioSystem = AZ::Interface<Audio::IAudioSystem>::Get();
         m_emitterType = emitterType;
