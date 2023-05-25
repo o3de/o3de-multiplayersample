@@ -13,6 +13,15 @@
 
 #include <Request/AWSGameLiftServerRequestBus.h>
 
+AZ_CVAR(
+    float,
+    sv_gameSessionNoPlayerShutdownTimeoutSeconds,
+    3600.0f,
+    nullptr,
+    AZ::ConsoleFunctorFlags::DontReplicate,
+    "The amount of seconds to wait before shutting down a game session if no players join."
+);
+
 namespace MPSGameLift
 {
     void MPSGameLiftServerSystemComponent::Reflect(AZ::ReflectContext* context)
@@ -49,6 +58,7 @@ namespace MPSGameLift
     {
         Multiplayer::SessionNotificationBus::Handler::BusConnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusConnect();
+        Multiplayer::GetMultiplayer()->AddConnectionAcquiredHandler(m_connectionAquiredEventHandler);
 
         AWSGameLift::AWSGameLiftServerRequestBus::Broadcast(
             &AWSGameLift::AWSGameLiftServerRequestBus::Events::NotifyGameLiftProcessReady);
@@ -56,6 +66,7 @@ namespace MPSGameLift
 
     void MPSGameLiftServerSystemComponent::Deactivate()
     {
+        m_connectionAquiredEventHandler.Disconnect();
         Multiplayer::SessionNotificationBus::Handler::BusDisconnect();
         AzFramework::LevelLoadBlockerBus::Handler::BusDisconnect();
     }
@@ -84,6 +95,10 @@ namespace MPSGameLift
                 "MPSGameLiftServerSystemComponent",
                 "Session requested by Amazon GameLift. Make sure to load into a multiplayer level before players join.");
         }
+
+        // Start a timer to shutdown this server if no players join.
+        // This scheduled event will be stopped if m_connectionAquiredEventHandler is triggered.
+        m_gameSessionNoPlayerShutdown.Enqueue(AZ::SecondsToTimeMs(sv_gameSessionNoPlayerShutdownTimeoutSeconds));
     }
 
     bool MPSGameLiftServerSystemComponent::ShouldBlockLevelLoading(const char* levelName)

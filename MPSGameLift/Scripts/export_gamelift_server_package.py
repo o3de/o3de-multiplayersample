@@ -18,6 +18,7 @@ After this script runs, test the server locally and upload the server package to
 import os
 import argparse
 import shutil
+import psutil
 
 import o3de.export_project as exp
 import o3de.enable_gem as enable_gem
@@ -45,6 +46,18 @@ parser.add_argument('-g', '--generator', choices=['Visual Studio 16', 'Visual St
 parser.add_argument('--no-clobber', action='store_true', dest='no_clobber', help='Do not create a new package if an existing GameLift server package exists.')
 
 args = parser.parse_args(o3de_context.args)
+
+# Ask user to shutdown any O3DE applications before building
+o3de_process_names = ['o3de', 'editor', 'assetprocessor', f'{project_name.lower()}.serverlauncher', f'{project_name.lower()}.gamelauncher' ]
+for process in psutil.process_iter():
+    # strip off .exe and check process name
+    if os.path.splitext(process.name())[0].lower() in o3de_process_names:
+        user_input = input(f'{process.name()} is running. Continuing may cause build errors.\nStop {process.name()} before continuing? (y/n). Quit(q)')
+        if user_input.lower() == 'y':
+            process.terminate()
+            process.wait()
+        elif user_input.lower() == 'q':
+            quit()
 
 # Check if the GameLift server package folder already exists
 if os.path.exists(gamelift_package_folder_name) and args.no_clobber:

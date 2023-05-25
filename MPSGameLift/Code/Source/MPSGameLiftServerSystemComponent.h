@@ -9,7 +9,10 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzFramework/API/ApplicationAPI.h>
+#include <Multiplayer/IMultiplayer.h>
 #include <Multiplayer/Session/SessionNotifications.h>
+#include <AzCore/Console/ILogger.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 
 namespace MPSGameLift
 {
@@ -45,6 +48,27 @@ namespace MPSGameLift
         // AzFramework::LevelLoadBlockerBus::Handler overrides
         bool ShouldBlockLevelLoading(const char* levelName) override;
 
+    private:
         AZStd::string m_loadedLevelName;
+
+        // Keep track if the server starts a game session but no players join
+        AZ::ScheduledEvent m_gameSessionNoPlayerShutdown = AZ::ScheduledEvent([]
+            {
+                if (auto console = AZ::Interface<AZ::IConsole>::Get())
+                {
+                    float sv_gameSessionNoPlayerShutdownTimeoutSeconds = 0.0f;
+                    console->GetCvarValue("sv_gameSessionNoPlayerShutdownTimeoutSeconds", sv_gameSessionNoPlayerShutdownTimeoutSeconds);
+                    AZLOG_WARN("Terminating GameLift server due to zero players joining the game session after %f seconds.", sv_gameSessionNoPlayerShutdownTimeoutSeconds);
+
+                    Multiplayer::GetMultiplayer()->Terminate(AzNetworking::DisconnectReason::TerminatedByServer);
+                    AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::ExitMainLoop);
+                }
+            }, 
+            AZ::Name("MPSGameLiftServerSystemComponent No Player Joined the Game Session so Shutdown the App"));
+
+        // This event handler will subscribe to IMultiplayer and be triggered in the event a new connection is aquired by this server (ie: a player joining).
+        Multiplayer::ConnectionAcquiredEvent::Handler m_connectionAquiredEventHandler = Multiplayer::ConnectionAcquiredEvent::Handler([this]([[maybe_unused]] Multiplayer::MultiplayerAgentDatum agentDatum) -> void {
+            this->m_gameSessionNoPlayerShutdown.RemoveFromQueue();
+            });
     };
 }

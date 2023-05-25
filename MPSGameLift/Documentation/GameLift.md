@@ -25,7 +25,7 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     ```sh
     <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO
     ```
-    A folder named "GameLiftWindowsServerPackage" containing the server will be created inside of the current working directory.
+    A folder named "GameLiftPackageWindows" containing the server will be created inside of the current working directory.
 
     ---
     **Important**
@@ -112,16 +112,17 @@ aws gamelift register-compute --compute-name CustomCompute1 --fleet-id <FleetId>
 
 If the operation was successful, the console will display the JSON result.
 Record the `ComputeName` for the next steps. Example: **CustomCompute1**
-Also record the `GameLiftServiceSdkEndpoint` for later. Example: **wss://us-west-2.api.amazongamelift.com**
+Also record the `GameLiftServiceSdkEndpoint` for passing into `sv_gameliftAnywhereWebSocketUrl` later. Example: **wss://us-west-2.api.amazongamelift.com**
 
 ### Get Compute auth token
 
 ```sh
-aws gamelift get-compute-auth-token --fleet-id <FleedId> --compute-name <ComputeName>
+aws gamelift get-compute-auth-token --fleet-id <FleetId> --compute-name <ComputeName>
 ```
 
 If the operation was successful, the console will display the JSON result.
 Record the `AuthToken` for the next steps. Example: **123a4b5c-d6e7-8fgh-9i01-2jklm34no567**
+Note the `AuthToken` expiration timestamp (15 minutes). Be sure to use the `AuthToken` to connect before it expires. 
 
 ## Start an instance of the Game Server executable on your machine
 
