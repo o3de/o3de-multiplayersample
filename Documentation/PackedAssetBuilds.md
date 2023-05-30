@@ -124,7 +124,7 @@ Follow steps for "Create a bundle for game assets", "Create a bundle for engine 
 
 Alternatively, you can use the command line batch tool (from profile non-monolithic build) to bundle the assets. The bundling process is as follows:
 
-* Generate asset lists from the existing seed files that reference the game assets used by o3de-multiplayer. (The seed files can be found at `\path\to\o3de-multiplayersample\AssetBundling\SeedLists`.)
+* Generate asset lists from the existing seed files that reference the game assets used by o3de-multiplayersample. (The seed files can be found at `\path\to\o3de-multiplayersample\AssetBundling\SeedLists`.)
 
 ```shell
 build\windows\bin\profile\AssetBundlerBatch.exe assetLists 
