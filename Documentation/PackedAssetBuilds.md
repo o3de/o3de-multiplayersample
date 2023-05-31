@@ -120,6 +120,61 @@ Follow steps for "Create a bundle for game assets", "Create a bundle for engine 
 
 > It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
 
+### Using AssetBundlerBatch Command Line Interface to Bundle Content
+
+Alternatively, you can use the command line batch tool (from profile non-monolithic build) to bundle the assets. The bundling process is as follows:
+
+* Generate asset lists from the existing seed files that reference the game assets used by o3de-multiplayersample. (The seed files can be found at `\path\to\o3de-multiplayersample\AssetBundling\SeedLists`.)
+
+```shell
+build\windows\bin\profile\AssetBundlerBatch.exe assetLists 
+    --addDefaultSeedListFiles 
+    --assetListFile \path\to\o3de-multiplayersample\AssetBundling\AssetLists\engine_pc.assetlist 
+    --project-path \path\to\o3de-multiplayersample 
+    --allowOverwrites
+```
+
+> O3DE gems specify their default seed lists by placing a seed file at `\path\to\o3de\Gems\Terrain\Assets\seedList.seed`. If a project references a gem these default seed lists will be included with option `--addDefaultSeedListFiles`.
+
+Project custom seed lists can be specified as follows:
+
+```shell
+build\windows\bin\profile\AssetBundlerBatch.exe assetLists 
+    --assetListFile \path\to\o3de-multiplayersample\AssetBundling\AssetLists\game_pc.assetlist 
+    --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed 
+    --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\GameSeedList.seed 
+    --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\ProfileOnlySeedList.seed 
+    --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\VFXSeedList.seed 
+    --project-path \path\to\o3de-multiplayersample 
+    --allowOverwrites
+```
+
+> `--allowOverwrites` is an optional parameter to allow overwriting existing asset lists.
+
+* Use generated asset lists to generate game bundles.
+
+```shell
+build\windows\bin\profile\AssetBundlerBatch.exe bundles 
+    --assetListFile \path\to\o3de-multiplayersample\AssetBundling\AssetLists\engine_pc.assetlist 
+    --outputBundlePath \path\to\o3de-multiplayersample\AssetBundling\Bundles\engine_pc.pak 
+    --project-path \path\to\o3de-multiplayersample 
+    --allowOverwrites
+```
+
+```shell
+build\windows\bin\profile\AssetBundlerBatch.exe bundles 
+    --assetListFile \path\to\o3de-multiplayersample\AssetBundling\AssetLists\game_pc.assetlist 
+    --outputBundlePath \path\to\o3de-multiplayersample\AssetBundling\Bundles\game_pc.pak 
+    --project-path \path\to\o3de-multiplayersample 
+    --allowOverwrites
+```
+
+The above commands will create two bundle files: `engine_pc.pak` and `game_pc.pak` in `\path\to\o3de-multiplayersample\AssetBundling\Bundles` folder. These pak files will need to be copied along with the monolithic game launchers to create a stand-alone final game build.
+
+For 23.05 build of o3de-multiplayersample, the expected sizes of these pack files on Windows are:
+* `engine_pc.pak` - around 72 MB
+* `game_pc.pak` - around 1046 MB
+
 ### Create the Launcher Zip file
 
 Use the following .bat file or equivalent copy steps to create a directory with the launchers in it:
