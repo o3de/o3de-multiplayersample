@@ -557,7 +557,7 @@ namespace MultiplayerSample
             {
                 // Use SystemFile::Rename to move the file to the final destination
                 userSettingsStream.Close();
-                bool renameSuccess = AZ::IO::SystemFile::Rename(userSettingsStream.GetFilename(), userSettingsSavePath.c_str(), true);
+                [[maybe_unused]] bool renameSuccess = AZ::IO::SystemFile::Rename(userSettingsStream.GetFilename(), userSettingsSavePath.c_str(), true);
                 AZ_Error("UserSettings", renameSuccess, 
                     "Renaming '%s' to '%s' failed.", userSettingsStream.GetFilename(), userSettingsSavePath.c_str());
             }
