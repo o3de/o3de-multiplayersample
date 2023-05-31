@@ -169,7 +169,7 @@ build\windows\bin\profile\AssetBundlerBatch.exe bundles
     --allowOverwrites
 ```
 
-The above commands will create two bundle files: `engine.pak` and `game_pc.pak` in `\path\to\o3de-multiplayersample\AssetBundling\Bundles` folder. These pak files will need to be copied along with the monolithic game launchers to create a stand-alone final game build.
+The above commands will create two bundle files: `engine_pc.pak` and `game_pc.pak` in `\path\to\o3de-multiplayersample\AssetBundling\Bundles` folder. These pak files will need to be copied along with the monolithic game launchers to create a stand-alone final game build.
 
 For 23.05 build of o3de-multiplayersample, the expected sizes of these pack files on Windows are:
 * `engine_pc.pak` - around 72 MB
