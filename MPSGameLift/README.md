@@ -7,7 +7,6 @@ Enable this gem for MultiplayerSample in order to enable AWS GameLift integratio
 | Link                                                      | Description                                |
 |-----------------------------------------------------------|--------------------------------------------|
 | [GameLift Setup](Documentation/GameLift.md)               | How to build server and deploy to GameLift |
-| [GameLift Local Setup](Documentation/GameLiftLocal.md)    | How to test GameLift locally               |
 
 
 ## License

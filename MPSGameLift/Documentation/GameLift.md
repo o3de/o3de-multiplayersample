@@ -194,11 +194,21 @@ aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_
 Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
 ### Create Fleet
-After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
+
+Create a fleet with your server build using the following command:
 
 ```sh
 aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
+
+To run multiple servers on a single EC2 instance, you can define additional server processes as follows. Make sure the `--sv_port` parameter is set to a unique value for each process.
+
+```sh
+aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --sv_port=33460 --console-command-file=launch_server.cfg, ConcurrentExecutions=1}, {LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --sv_port=33465 --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+```
+
+After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
+
 ---
 **NOTE**
 
