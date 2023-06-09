@@ -154,11 +154,6 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
-It is recommended to prepare this JSON object in advance as the `PlayerSessionId` generated in the next step is only valid for 60 seconds.
-
-```json
-{ "GameSessionId": "<GameSessionId>", "PlayerId": "PlayerId", "PlayerSessionId": "<PlayerSessionId>" }
-```
 
 ### Create a Player Session
 
@@ -173,7 +168,7 @@ Record the `PlayerSessionId` for the next steps. Example: **psess-1a2b3c45-d6e7-
 
 ### Connect the Client
 
-Add the `PlayerSessionId` into the JSON and paste the JSON into the textarea inside the Client, then press "Connect".
+Copy and paste the player session JSON table output into the textarea inside the Client, then press "Connect".
 The client should now successfully connect to your local server.
 
 
@@ -239,7 +234,18 @@ Record PlayerSessionId and use this in the game immediately because it expires a
 
 ---
 
-Paste in the game session and player session and click Connect. 
+Paste the player session JSON table output into the textbox and press "Connect".
+For example,
 ```json
-{ "GameSessionId": "<GameSessionId>", "PlayerId": "player_id", "PlayerSessionId": "<PlayerSessionId>" }
+    {
+        "PlayerSessionId": "psess-6a9a7352-8ee9-407f-ad06-cd09ba7c3ca2",
+        "PlayerId": "Player1",
+        "GameSessionId": "arn:aws:gamelift:us-west-2::gamesession/fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f/custom-location-1/gsess-5850bac5-d4fb-4588-a489-c3b62bd5f099",
+        "FleetId": "fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f",
+        "FleetArn": "arn:aws:gamelift:us-west-2:353687041169:fleet/fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f",
+        "CreationTime": "2023-06-08T14:32:12.811000-07:00",
+        "Status": "RESERVED",
+        "IpAddress": "127.0.0.1",
+        "Port": 33450
+    }
 ```
