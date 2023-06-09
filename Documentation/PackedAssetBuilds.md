@@ -96,7 +96,7 @@ C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher Mu
 Profile monolithic game binaries will be located in `C:\git\o3de\build\mono\bin\profile`.
 Optionally, you can build monolithic release game binaries.
 
-> Release game binaries won't have to access to a developer console and/or certain logs. It is a good idea to get profile monolithic build to work before test the release monolithic binaries.
+> Release game binaries won't have to access to a developer console and/or certain logs. It is a good idea to get profile monolithic build to work before testing the release monolithic binaries.
 
 ```shell
 C:\git\o3de> cmake --build build\mono --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher MultiplayerSample.UnifiedLauncher --config release
