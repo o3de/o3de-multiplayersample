@@ -30,6 +30,8 @@ namespace MPSGameLift
         void Activate() override;
         void Deactivate() override;
 
+        // Join a GameLift game session.
+        // Internally, GameLift will use the game session id to generate new player session id and pass it back to this client as a ticket for connecting to the host server on GameLift.
         void JoinSession(const AZ::ConsoleCommandContainer& consoleFunctionParameters);
         AZ_CONSOLEFUNC(MPSGameLiftClientSystemComponent, JoinSession, AZ::ConsoleFunctorFlags::DontReplicate, "Join an existing game session");
 
