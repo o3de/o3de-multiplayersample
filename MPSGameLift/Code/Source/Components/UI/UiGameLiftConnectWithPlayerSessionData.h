@@ -49,5 +49,6 @@ namespace MPSGameLift
         AZ::EntityId m_connectToHostFailedUi;
         AZ::EntityId m_jsonParseFailTextUi;
         Multiplayer::SessionConnectionConfig m_sessionConnectionConfig;
+        AZStd::string m_region;
     };
 } // namespace MultiplayerSample

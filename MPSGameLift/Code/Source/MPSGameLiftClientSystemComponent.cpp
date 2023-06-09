@@ -8,7 +8,6 @@
 #include "MPSGameLiftClientSystemComponent.h"
 
 #include <AzCore/Serialization/SerializeContext.h>
-#include <Request/AWSGameLiftRequestBus.h>
 #include <Request/AWSGameLiftSessionRequestBus.h>
 #include <Request/AWSGameLiftJoinSessionRequest.h>
 
@@ -45,8 +44,10 @@ namespace MPSGameLift
 
     void MPSGameLiftClientSystemComponent::Activate()
     {
-        AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
+        auto loadLevelCommand = AZStd::string::format("LoadLevel %s", "mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable");
+        AZ::Interface<AZ::IConsole>::Get()->PerformCommand(loadLevelCommand.c_str());        
     } 
+
     void MPSGameLiftClientSystemComponent::Deactivate()
     {
     }
