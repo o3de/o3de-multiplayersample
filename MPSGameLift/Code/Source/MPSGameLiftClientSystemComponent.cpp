@@ -7,6 +7,7 @@
 
 #include "MPSGameLiftClientSystemComponent.h"
 
+#include <Framework/Util.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <Request/AWSGameLiftJoinSessionRequest.h>
 #include <Request/AWSGameLiftRequestBus.h>
@@ -72,15 +73,8 @@ namespace MPSGameLift
 
         // Configure the GameLift client with the proper region; 
         // Note: fallback region is defined inside default_aws_resource_mappings.json
-        AZStd::string region;
-        const uint32_t regionIndex = 3; // Region is the 4th value in a GameLift Arn. arn:aws:gamelift:<region>
-        AZStd::vector<AZStd::string> tokenizedGameLiftArn;
-        AZ::StringFunc::Tokenize(gameSessionId, tokenizedGameLiftArn, ":");
-        if (tokenizedGameLiftArn.size() >= regionIndex)
-        {
-            region = tokenizedGameLiftArn[regionIndex];
-        }
-        
+        AZStd::string region = AWSCore::Util::ExtractRegion(gameSessionId);
+
         AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, region);
 
         AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Broadcast(

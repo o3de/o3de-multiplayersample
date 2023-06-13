@@ -129,15 +129,7 @@ namespace MPSGameLift
             gameLiftArn = fleetArn.GetString();
         }
 
-        const uint32_t regionIndex = 3; // Region is the 4th value in a GameLift Arn. arn:aws:gamelift:<region>
-        AZStd::vector<AZStd::string> tokenizedGameLiftArn;
-        AZ::StringFunc::Tokenize(gameLiftArn, tokenizedGameLiftArn, ":");
-
-        if (tokenizedGameLiftArn.size() >= regionIndex)
-        {
-            m_region = tokenizedGameLiftArn[regionIndex];
-        }
-
+        m_region = AWSCore::Util::ExtractRegion(gameLiftArn);
         if (m_region.empty())
         {
             UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Failed to extract AWS region. Provide either a valid GameSessionId or FleetArn!");
