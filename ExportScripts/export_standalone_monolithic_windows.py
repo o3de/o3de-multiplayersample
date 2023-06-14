@@ -290,5 +290,5 @@ if __name__ == "__main__":
 
     logger.info(f"Exporting project is complete! Release Directory can be found at {args.output_path}")
 
-    if args.quiet:
+    if not args.quiet:
         process_command(['explorer', args.output_path])
