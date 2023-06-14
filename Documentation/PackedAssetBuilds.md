@@ -143,7 +143,6 @@ build\windows\bin\profile\AssetBundlerBatch.exe assetLists
     --assetListFile \path\to\o3de-multiplayersample\AssetBundling\AssetLists\game_pc.assetlist 
     --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed 
     --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\GameSeedList.seed 
-    --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\ProfileOnlySeedList.seed 
     --seedListFile \path\to\o3de-multiplayersample\AssetBundling\SeedLists\VFXSeedList.seed 
     --project-path \path\to\o3de-multiplayersample 
     --allowOverwrites
