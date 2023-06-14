@@ -10,7 +10,6 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
-#include <AzCore/StringFunc/StringFunc.h>
 
 #include <LyShine/Bus/UiButtonBus.h>
 #include <LyShine/Bus/UiCursorBus.h>
