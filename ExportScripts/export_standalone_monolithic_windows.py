@@ -10,10 +10,9 @@ import pathlib
 import logging
 import os
 import time
-import sys
-import subprocess
-import json
+import glob
 
+from o3de.validation import valid_o3de_project_json, valid_o3de_engine_json
 from queue import Queue, Empty
 from threading  import Thread
 from typing import List
@@ -22,10 +21,10 @@ from subprocess import Popen, PIPE
 logger = logging.getLogger('o3de.gamejam')
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 logging.basicConfig(format=LOG_FORMAT)
-#This is an export script for MPS on the Windows platform
+# This is an export script for MPS on the Windows platform
 # this has to be a complete standalone script, b/c project export doesnt exist in main branch yet
 
-#View the argparse parameters for options available. An example invocation:
+# View the argparse parameters for options available. An example invocation:
 
 # @<O3DE_ENGINE_ROOT_PATH>
 # > python\python.cmd <O3DE_MPS_PROJECT_ROOT_PATH>\ExportScripts\export_standalone_monolithic_windows.py -ps <O3DE_MPS_PROJECT_ROOT_PATH> -egn <O3DE_ENGINE_ROOT_PATH> -bnmt -out <MPS_OUTPUT_RELEASE_DIR_PATH> -zip
@@ -187,31 +186,37 @@ def process_command(args: list,
 
 
 if __name__ == "__main__":
-    
-
     parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample on windows',
                                  description = "Exports O3DE's MultiplayerSample to the desired install directory in project layout...")
     parser.add_argument('-ps', '--project-path', type=pathlib.Path, required=True, help='Path to the intended O3DE project.')
     parser.add_argument('-egn', '--engine-path', type=pathlib.Path, required=True, help='Path to the intended O3DE engine copy.')
     parser.add_argument('-out', '--output-path', type=pathlib.Path, required=True, help='Path that describes the final resulting Release Directory path location.')
-    parser.add_argument('-cfg', '--config', type=str, default='profile', choices=['release', 'profile'], help='The CMake build configuration to use when building project binaries.')
-    parser.add_argument('-ll', '--log-level', default='INFO',
+    parser.add_argument('-cfg', '--config', type=str, default='profile', choices=['release', 'profile'], help='The CMake build configuration to use when building project binaries. If tool binaries are built with this script, they will use profile mode.')
+    parser.add_argument('-ll', '--log-level', default='ERROR',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
                         help="Set the log level")
+    parser.add_argument('-aof', '--archive-output-format',
+                        type=str,
+                        help="Format of archive to create from the output directory",
+                        choices=["none", "zip", "gzip", "bz2", "xz"], default="none")
     parser.add_argument('-bnmt', '--build-non-mono-tools', action='store_true')
     parser.add_argument('-nmbp', '--non-mono-build-path', type=pathlib.Path, default=None)
     parser.add_argument('-mbp', '--mono-build-path', type=pathlib.Path, default=None)
-    parser.add_argument('-zip', '--zip-output', action='store_true', help='This option places the final output of the build into a zipped archive')
+    parser.add_argument('-a', '--archive-output', action='store_true', help='This option places the final output of the build into a compressed archive')
+    parser.add_argument('-q', '--quiet', action='store_true', help='Suppresses logging information unless an error occurs.')
     args = parser.parse_args()
 
-    logging.getLogger().setLevel(args.log_level)
+    if args.quiet:
+        logging.getLogger().setLevel(logging.ERROR)
+    else:    
+        logging.getLogger().setLevel(args.log_level)
 
     non_mono_build_path = (args.engine_path) / 'build' / 'non_mono' if args.non_mono_build_path is None else args.non_mono_build_path
     mono_build_path = (args.engine_path) / 'build' / 'mono' if args.mono_build_path is None else args.mono_build_path
 
     #validation
-    assert args.engine_path.is_dir() and (args.engine_path / 'engine.json').is_file(), "Invalid Engine path provided!"
-    assert args.project_path.is_dir() and (args.project_path / 'project.json').is_file(), "Invalid Project path provided!"
+    assert valid_o3de_project_json(args.project_path / 'project.json') and valid_o3de_engine_json(args.engine_path / 'engine.json')
+
 
     #commands are based on 
     #https://github.com/o3de/o3de-multiplayersample/blob/development/Documentation/PackedAssetBuilds.md
@@ -221,10 +226,9 @@ if __name__ == "__main__":
     if args.build_non_mono_tools:
         process_command(['cmake', '-S', '.', '-B', str(non_mono_build_path), '-DLY_MONOLITHIC_GAME=0', f'-DLY_PROJECTS={args.project_path}'], cwd=args.engine_path)
 
-        process_command(['cmake', '--build', str(non_mono_build_path), '--target', 'Editor', 'AssetBundler', 'AssetBundlerBatch', 'AssetProcessor', 'AssetProcessorBatch', '--config','profile'], cwd=args.engine_path)
+        process_command(['cmake', '--build', str(non_mono_build_path), '--target', 'AssetBundler', 'AssetBundlerBatch', 'AssetProcessor', 'AssetProcessorBatch', '--config','profile'], cwd=args.engine_path)
 
-        asset_processor_batch_path = non_mono_build_path / 'bin' / 'profile' / 'AssetProcessorBatch'
-        process_command([asset_processor_batch_path, '--project-path', args.project_path], cwd=args.engine_path)
+        process_command(['cmake', '--build', str(non_mono_build_path), '--target', 'MultiplayerSample.Assets', '--config', 'profile'], cwd=args.engine_path)
     
     #Build monolithic game
     process_command(['cmake', '-S', '.', '-B', str(mono_build_path), '-DLY_MONOLITHIC_GAME=1', '-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0', f'-DLY_PROJECTS={args.project_path}'], cwd=args.engine_path)
@@ -258,28 +262,33 @@ if __name__ == "__main__":
     # This is to prevent any accidental file locking mechanism from failing subsequent bundling operations
     time.sleep(1)
 
-    game_bundle_path   = args.project_path / 'AssetBundling' / 'Bundles' / 'game_pc.pak'
+    game_bundle_path = args.project_path / 'AssetBundling' / 'Bundles' / 'game_pc.pak'
     process_command([asset_bundler_batch_path, 'bundles', '--assetListFile', game_asset_list_path, '--outputBundlePath', game_bundle_path, '--project-path', args.project_path, '--allowOverwrites'], cwd=args.engine_path)
 
+    # Create Launcher Layout Directory
+    import shutil
+    output_cache_path = args.output_path / 'Cache' / 'pc' 
+    output_aws_gem_path = args.output_path / 'Gems' / 'AWSCore'
+    os.makedirs(output_cache_path, exist_ok=True)
+    os.makedirs(output_aws_gem_path, exist_ok=True)
 
-    #Create Launcher Zip File
-    os.makedirs( args.output_path / 'Cache' / 'pc', exist_ok=True)
-    os.makedirs( args.output_path / 'Gems' / 'AWSCore', exist_ok=True)
+    for file in glob.glob(str(pathlib.PurePath(args.project_path / 'AssetBundling' / 'Bundles' / '*.pak'))):
+        shutil.copy(file, output_cache_path)
+    for file in glob.glob(str(pathlib.PurePath(mono_build_path / 'bin' / args.config / '*.*'))):
+        shutil.copy(file, args.output_path)
+    
+    for file in glob.glob(str(pathlib.PurePath(mono_build_path / 'bin' / args.config / 'Gems' / 'AWSCore' / '*.*'))):
+        shutil.copy(file, output_aws_gem_path)
+    for file in glob.glob(str(pathlib.PurePath(args.project_path / 'launch_*.*'))):
+        shutil.copy(file, args.output_path)
 
-    process_command(['xcopy', '/Y', pathlib.PurePath(args.project_path / 'AssetBundling' / 'Bundles' / '*.pak'),
-                            args.output_path / 'Cache' / 'pc'], cwd=args.engine_path)
-    process_command(['xcopy', '/Y', pathlib.PurePath(mono_build_path / 'bin' / 'profile' / '*.*'),
-                            args.output_path], cwd=args.engine_path)
-    process_command(['xcopy', '/Y', pathlib.PurePath(mono_build_path  / 'bin' / 'profile' / 'Gems' / 'AWSCore' / '*.*'),
-                            args.output_path / 'Gems' / 'AWSCore'], cwd=args.engine_path)
-    process_command(['xcopy', '/Y', pathlib.PurePath(args.project_path / 'launch_*.*'), args.output_path], cwd=args.engine_path)
-
-    if args.zip_output:
-        import shutil
+    # Optionally zip the layout directory if the user requests
+    if args.archive_output:
         archive_name = args.output_path
-        print("Zipping output directory (this may take a while)...")
-        shutil.make_archive(args.output_path, 'zip', root_dir = args.output_path)
+        logger.info("Archiving output directory (this may take a while)...")
+        shutil.make_archive(args.output_path, args.archive_output_format, root_dir = args.output_path)
 
-    print(f"Exporting project is complete! Release Directory can be found at {args.output_path}")
+    logger.info(f"Exporting project is complete! Release Directory can be found at {args.output_path}")
 
-    process_command(['explorer', args.output_path])
+    if args.quiet:
+        process_command(['explorer', args.output_path])
