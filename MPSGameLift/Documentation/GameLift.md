@@ -14,12 +14,6 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     ```
     Even if you have already installed the AWS CLI, ensure it is updated as some commands may not be available on older versions.
 
-1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
-
-    a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region.
-
-    b. This step will be removed once we properly parse the game-session data which contains the fleet-id, region-id, etc  
-
 1. Use Export Project to Compile Code and Build Assets
 
     ```sh
@@ -150,7 +144,7 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ### Start Client
 
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
@@ -193,7 +187,7 @@ Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l2
 Create a fleet with your server build using the following command:
 
 ```sh
-aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region <Region> --name GameLiftO3DTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
 
 To run multiple servers on a single EC2 instance, you can define additional server processes as follows. Make sure the `--sv_port` parameter is set to a unique value for each process.
@@ -222,7 +216,7 @@ Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::g
 
 Launch the game client with:
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
 ```
 ```sh
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
