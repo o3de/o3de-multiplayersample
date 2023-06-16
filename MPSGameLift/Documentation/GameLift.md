@@ -38,31 +38,29 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 ---
 **NOTE**
 
-This will not build the game client. If you need the client for testing, also run this command:
-```sh
-cmake --build build\windows_mono --target MultiplayerSample.GameLauncher --config profile -- /m /nologo
-```
+The `--package-gamelauncher` commandline option can be added to also also package the game client.
+A folder named "MultiplayerSampleGamePackage" containing the game launcher will be created inside of the current working directory.
 
 ---
 
-1. Test the profile pak server and game locally
+1. Test the profile pak server and game locally without using GameLift
     Run the server in headless mode using `rhi=null` and `NullRenderer` parameters; the server appears as a white screen in headless mode.
     
-    `C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 -sys_PakPriority=2 --console-command-file=launch_server.cfg`
+    `.\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer --console-command-file=launch_server.cfg --net_udpDefaultTimeoutMs=20000`
     
-    `<path-to-multiplayer-sample>\build\windows\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --connect`
+    `.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe --connect=127.0.0.1 --net_udpDefaultTimeoutMs=20000`
 
     ---
     **NOTE**
 
     Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.
-
+    net_udpDefaultTimeoutMs is increased to 20 seconds in case the initial client level load takes too long. (see https://github.com/o3de/o3de/issues/14659)
     ---
 
-1. Open C:\GameLiftPackageWindows\user\log\Server.log
-    You should see the "New Starbase" level loaded
+1. Open .\GameLiftPackageWindows\user\log\Server.log
+    You should see a level load command. This is the "New Starbase" level.
     ```
-    Entities from new root spawnable 'levels/newstarbase/newstarbase.spawnable' are ready
+    LoadLevel : <empty>
     ```
 
 
@@ -144,7 +142,7 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ### Start Client
 
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
+.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
@@ -216,7 +214,7 @@ Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::g
 
 Launch the game client with:
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
+.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
 ```
 ```sh
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
