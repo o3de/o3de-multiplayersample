@@ -38,7 +38,7 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 ---
 **NOTE**
 
-The `--package-gamelauncher` commandline option can be added to also also package the game client.
+The `--package-gamelauncher` command line option can be added to also package the game client.
 A folder named "MultiplayerSampleGamePackage" containing the game launcher will be created inside of the current working directory.
 
 ---
