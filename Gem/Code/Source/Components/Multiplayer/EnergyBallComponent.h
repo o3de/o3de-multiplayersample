@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <AzCore/Component/EntityBus.h>
 #include <Source/AutoGen/EnergyBallComponent.AutoComponent.h>
 #include <Source/Weapons/WeaponGathers.h>
 
@@ -14,6 +15,7 @@ namespace MultiplayerSample
 {
     class EnergyBallComponent
         : public EnergyBallComponentBase
+        , public AZ::EntityBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::EnergyBallComponent, s_energyBallComponentConcreteUuid, MultiplayerSample::EnergyBallComponentBase);
@@ -23,24 +25,15 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-#if AZ_TRAIT_CLIENT
-        void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent) override;
-#endif
-
     private:
 #if AZ_TRAIT_CLIENT
+        void OnEntityDeactivated(const AZ::EntityId&) override;
         void DebugDraw();
-        void OnBallActiveChanged(bool active);
 
         AZ::ScheduledEvent m_debugDrawEvent{ [this]()
         {
             DebugDraw();
         }, AZ::Name("EnergyBallDebugDraw") };
-
-        AZ::Event<bool>::Handler m_ballActiveHandler{ [this](bool active)
-        {
-            OnBallActiveChanged(active);
-        } };
 #endif
 
         GameEffect m_effect;
@@ -75,8 +68,6 @@ namespace MultiplayerSample
         AZ::Transform m_lastSweepTransform = AZ::Transform::CreateIdentity();
         Multiplayer::NetEntityId m_shooterNetEntityId = Multiplayer::InvalidNetEntityId;
         NetEntityIdSet m_filteredNetEntityIds;
-
-        HitEvent m_hitEvent;
 #endif
     };
 }

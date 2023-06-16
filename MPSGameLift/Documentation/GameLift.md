@@ -14,12 +14,6 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
     ```
     Even if you have already installed the AWS CLI, ensure it is updated as some commands may not be available on older versions.
 
-1. Work in progress (WiP) step: Add your AWS region to Config/default_aws_resource_mappings.json (example: "Region": "us-west-2")
-
-    a. Currently needed otherwise when the client initializes GameLift there will be an error about not having a region.
-
-    b. This step will be removed once we properly parse the game-session data which contains the fleet-id, region-id, etc  
-
 1. Use Export Project to Compile Code and Build Assets
 
     ```sh
@@ -150,15 +144,10 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ### Start Client
 
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
-It is recommended to prepare this JSON object in advance as the `PlayerSessionId` generated in the next step is only valid for 60 seconds.
-
-```json
-{ "GameSessionId": "<GameSessionId>", "PlayerId": "PlayerId", "PlayerSessionId": "<PlayerSessionId>" }
-```
 
 ### Create a Player Session
 
@@ -173,7 +162,7 @@ Record the `PlayerSessionId` for the next steps. Example: **psess-1a2b3c45-d6e7-
 
 ### Connect the Client
 
-Add the `PlayerSessionId` into the JSON and paste the JSON into the textarea inside the Client, then press "Connect".
+Copy and paste the player session JSON table output into the textarea inside the Client, then press "Connect".
 The client should now successfully connect to your local server.
 
 
@@ -194,11 +183,21 @@ aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_
 Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
 ### Create Fleet
-After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
+
+Create a fleet with your server build using the following command:
 
 ```sh
-aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+aws gamelift create-fleet --region <Region> --name GameLiftO3DTest --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
 ```
+
+To run multiple servers on a single EC2 instance, you can define additional server processes as follows. Make sure the `--sv_port` parameter is set to a unique value for each process.
+
+```sh
+aws gamelift create-fleet --region <Region> --name GameLiftO3DTest2016 --ec2-instance-type c5.large --fleet-type ON_DEMAND --build-id <BuildId> --runtime-configuration "GameSessionActivationTimeoutSeconds=300, ServerProcesses=[{LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --sv_port=33460 --console-command-file=launch_server.cfg, ConcurrentExecutions=1}, {LaunchPath=C:\game\MultiplayerSample.ServerLauncher.exe, Parameters= --rhi=null -sys_PakPriority=2 -NullRenderer -sv_terminateOnPlayerExit=true -bg_ConnectToAssetProcessor=0 --sv_gameLiftEnabled=true --sv_dedicated_host_onstartup=false --sv_port=33465 --console-command-file=launch_server.cfg, ConcurrentExecutions=1}]" --ec2-inbound-permissions "FromPort=33450,ToPort=34449,IpRange=0.0.0.0/0,Protocol=UDP"
+```
+
+After running this command it'll take about an hour for the fleet to activate. Check the status on the GameLift dashboard. 
+
 ---
 **NOTE**
 
@@ -217,7 +216,7 @@ Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::g
 
 Launch the game client with:
 ```sh
-<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0 --loadlevel="mpsgamelift/prefabs/GameLiftConnectJsonMenu.spawnable"
+<path-to-multiplayer-sample>\build\windows_mono\bin\profile\MultiplayerSample.GameLauncher.exe -bg_ConnectToAssetProcessor=0
 ```
 ```sh
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
@@ -229,7 +228,18 @@ Record PlayerSessionId and use this in the game immediately because it expires a
 
 ---
 
-Paste in the game session and player session and click Connect. 
+Paste the player session JSON table output into the textbox and press "Connect".
+For example,
 ```json
-{ "GameSessionId": "<GameSessionId>", "PlayerId": "player_id", "PlayerSessionId": "<PlayerSessionId>" }
+    {
+        "PlayerSessionId": "psess-6a9a7352-8ee9-407f-ad06-cd09ba7c3ca2",
+        "PlayerId": "Player1",
+        "GameSessionId": "arn:aws:gamelift:us-west-2::gamesession/fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f/custom-location-1/gsess-5850bac5-d4fb-4588-a489-c3b62bd5f099",
+        "FleetId": "fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f",
+        "FleetArn": "arn:aws:gamelift:us-west-2:353687041169:fleet/fleet-1b49cff7-eb2b-4f74-866a-959da3e9cf1f",
+        "CreationTime": "2023-06-08T14:32:12.811000-07:00",
+        "Status": "RESERVED",
+        "IpAddress": "127.0.0.1",
+        "Port": 33450
+    }
 ```

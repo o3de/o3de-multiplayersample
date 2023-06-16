@@ -19,7 +19,11 @@
 #include <LyShine/Bus/UiInteractableBus.h>
 
 #include <Multiplayer/Session/SessionRequests.h>
+#include <Request/AWSGameLiftRequestBus.h>
 #include <Request/AWSGameLiftSessionRequestBus.h>
+#include <AzCore/Jobs/JobContext.h>
+#include <AzCore/Jobs/JobFunction.h>
+#include <Multiplayer/Session/ISessionHandlingRequests.h>
 
 
 namespace MPSGameLift
@@ -59,7 +63,6 @@ namespace MPSGameLift
 
     void UiGameLiftConnectWithPlayerSessionData::Activate()
     {
-        Multiplayer::SessionAsyncRequestNotificationBus::Handler::BusConnect();
         UiCursorBus::Broadcast(&UiCursorInterface::IncrementVisibleCounter);
 
         // Listen for button presses
@@ -84,8 +87,6 @@ namespace MPSGameLift
     {
         m_onConnectToHostFailed.Disconnect();
         UiCursorBus::Broadcast(&UiCursorInterface::DecrementVisibleCounter);
-
-        Multiplayer::SessionAsyncRequestNotificationBus::Handler::BusDisconnect();
     }
 
     void UiGameLiftConnectWithPlayerSessionData::OnJSONChanged(const AZStd::string& gameLiftJsonString)
@@ -95,12 +96,14 @@ namespace MPSGameLift
 
         if (gameLiftJsonString.empty())
         {
-            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Please provide GameLift GameSessionId and PlayerSessionId in JSON format!");
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Please provide GameLift player connection information in JSON format!");
             return;
         }
         
         // Parse GameLift JSON
-        m_request = {};
+        m_sessionConnectionConfig = {};
+        m_region.clear();
+
         rapidjson::Document document;
         document.Parse(gameLiftJsonString.c_str());
 
@@ -110,35 +113,73 @@ namespace MPSGameLift
             return;
         }
 
-        if (!document.HasMember("GameSessionId"))
+        // Extract the AWS region from either a fleet arn or game session arn
+        AZStd::string gameLiftArn;
+        if (document.HasMember("GameSessionId"))
         {
-            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Missing GameSessionId!");
+            // Example game session format: "arn:aws:gamelift:us-west-2::gamesession<id>"
+            const rapidjson::Value& gameSessionId = document["GameSessionId"];
+            gameLiftArn = gameSessionId.GetString();
+        }
+        else if (document.HasMember("FleetArn"))
+        {
+            // Example fleet arn format: "arn:aws:gamelift:us-west-2:353687041169:fleet<id>"
+            const rapidjson::Value& fleetArn = document["FleetArn"];
+            gameLiftArn = fleetArn.GetString();
+        }
+
+        m_region = AWSCore::Util::ExtractRegion(gameLiftArn);
+        if (m_region.empty())
+        {
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Failed to extract AWS region. Provide either a valid GameSessionId or FleetArn!");
             return;
         }
 
+        // Alert the user if any other information is missing from the JSON they provided
         if (!document.HasMember("PlayerSessionId"))
         {
             UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Missing PlayerSessionId!");
             return;
         }
 
-        const rapidjson::Value& gameSessionId = document["GameSessionId"];
-        if (!gameSessionId.IsString())
+        if (!document.HasMember("IpAddress") && !document.HasMember("DnsName"))
         {
-            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Invalid GameSessionId!");
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Must provide either an IpAddress or DnsName!");
             return;
+        }
+
+        if (!document.HasMember("Port"))
+        {
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Missing Port!");
+            return;
+        }
+
+        const rapidjson::Value& port = document["Port"];
+        if (!port.IsUint())
+        {
+            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Invalid Port!");
+            return;
+        }
+
+        // Fill out SessionConnectionConfig and try connecting to host
+        if (document.HasMember("IpAddress"))
+        {
+            const rapidjson::Value& ipAddress = document["IpAddress"];
+            m_sessionConnectionConfig.m_ipAddress = ipAddress.GetString();
+        }
+
+        if (document.HasMember("DnsName"))
+        {
+            const rapidjson::Value& dnsName = document["DnsName"];
+            m_sessionConnectionConfig.m_dnsName = dnsName.GetString();
         }
 
         const rapidjson::Value& playerSessionId = document["PlayerSessionId"];
-        if (!playerSessionId.IsString())
-        {
-            UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "Invalid PlayerSessionId!");
-            return;
-        }
+
+        m_sessionConnectionConfig.m_port = aznumeric_cast<uint16_t>(port.GetUint());
+        m_sessionConnectionConfig.m_playerSessionId = playerSessionId.GetString();
 
         UiTextBus::Event(m_jsonParseFailTextUi, &UiTextInterface::SetText, "");
-        m_request.m_sessionId = gameSessionId.GetString();
-        m_request.m_playerId = playerSessionId.GetString();
         UiInteractableBus::Event(m_connectButtonUi, &UiInteractableInterface::SetIsHandlingEvents, true);
     }
 
@@ -162,9 +203,17 @@ namespace MPSGameLift
             // Enable blocker ui while we attempt connection
             UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
 
-            AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Broadcast(
-                &AWSGameLift::AWSGameLiftSessionAsyncRequestBus::Events::JoinSessionAsync, m_request);
-            return;
+            // Enable GameLift and connect to host
+            AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, m_region);
+            if (auto clientRequestHandler = AZ::Interface<Multiplayer::ISessionHandlingClientRequests>::Get())
+            {
+                clientRequestHandler->RequestPlayerJoinSession(m_sessionConnectionConfig);
+            }
+            else
+            {
+                AZ_Assert(false, "UiGameLiftConnectWithPlayerSessionData failed to connect because there's no ISessionHandlingClientRequests registered. " 
+                    "Please update code to ensure an ISessionHandlingClientRequests has been created before trying to connect this client to a host!");
+            }
         }
         
         if (buttonEntityId == m_connectToHostFailedUi)
@@ -178,17 +227,5 @@ namespace MPSGameLift
     {
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
         UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
-    }
-
-    void UiGameLiftConnectWithPlayerSessionData::OnJoinSessionAsyncComplete(bool joinSessionsResponse)
-    {
-        UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
-
-        if (!joinSessionsResponse)
-        {
-            UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
-        }
-    }
-
-    
+    }    
 } // namespace MultiplayerSample

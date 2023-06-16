@@ -24,7 +24,7 @@ namespace MultiplayerSample
 
         void OnInit() override {}
         void OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override;
-        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override {};
+        void OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
 #if AZ_TRAIT_CLIENT
         void HandleNotifyTeleport(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& teleportedLocation) override;

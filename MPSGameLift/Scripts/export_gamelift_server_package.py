@@ -109,7 +109,7 @@ if (args.code):
     if (process_command(["cmake", "-B", monolithic_build_folder, "-S", o3de_context.project_path, "-G", args.generator, "-DLY_MONOLITHIC_GAME=1", "-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0"])):
         quit()
 
-    if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "profile", "--", "/m"])):
+    if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "release", "--", "/m"])):
         quit()
 
 # Build Assets
@@ -185,7 +185,7 @@ os.makedirs(gamelift_package_cache_dir, exist_ok=True)
 os.makedirs(gamelift_package_gems_dir, exist_ok=True)
 
 # Copy .exe and .dll files to GameLiftWindowsServerPackage directory
-build_dir = os.path.join(monolithic_build_folder, "bin", "profile")
+build_dir = os.path.join(monolithic_build_folder, "bin", "release")
 for file_name in os.listdir(build_dir):
     file_path = os.path.join(build_dir, file_name)
     if os.path.isfile(file_path) and file_name.lower().endswith(('.exe', '.dll')):
@@ -206,7 +206,7 @@ for file_name in os.listdir(bundles_directory):
         shutil.copy(file_path, gamelift_package_cache_dir)
 
 # Copy files to Gems\AWSCore directory
-gems_files_dir = os.path.join(monolithic_build_folder, "bin", "profile", "Gems", "AWSCore")
+gems_files_dir = os.path.join(monolithic_build_folder, "bin", "release", "Gems", "AWSCore")
 for file_name in os.listdir(gems_files_dir):
     file_path = os.path.join(gems_files_dir, file_name)
     if os.path.isfile(file_path):
