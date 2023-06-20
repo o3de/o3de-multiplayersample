@@ -195,13 +195,13 @@ def create_exe_package(new_package_folder_name, exe_name):
     for file_name in os.listdir(build_dir):
         file_path = os.path.join(build_dir, file_name)
         if os.path.isfile(file_path) and file_name.lower().endswith((exe_name.lower(), '.dll')):
-            shutil.copy(file_path, new_package_folder_name)
+            shutil.copy2(file_path, new_package_folder_name)
 
     # Copy .pak files to Cache\pc directory
     for file_name in os.listdir(bundles_directory):
         if file_name.endswith(".pak"):
             file_path = os.path.join(bundles_directory, file_name)
-            shutil.copy(file_path, package_cache_dir)
+            shutil.copy2(file_path, package_cache_dir)
 
 # Create the GameLift server package
 create_exe_package(gamelift_package_folder_name, 'ServerLauncher.exe')
@@ -214,7 +214,7 @@ else:
     o3de_logger.error(f"Could not find serverlauncher.cfg! Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.")
     quit()
 
-# GameLift server needs Gems\AWSCore
+# GameLift server needs AWSCore metadata files that have been output to the build directory.
 gamelift_package_gems_dir = os.path.join(gamelift_package_folder_name, "Gems", "AWSCore")
 os.makedirs(gamelift_package_gems_dir, exist_ok=True)
 gems_files_dir = os.path.join(monolithic_build_folder, "bin", "release", "Gems", "AWSCore")
