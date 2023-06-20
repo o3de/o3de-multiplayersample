@@ -32,6 +32,7 @@ build_folder = os.path.join(o3de_context.project_path, "build", "windows")
 monolithic_build_folder = os.path.join(o3de_context.project_path, "build", "windows_mono")
 bundles_directory = os.path.join(o3de_context.project_path, "AssetBundling", "Bundles" )
 gamelift_package_folder_name = "GameLiftPackageWindows"
+client_package_folder_name = "MultiplayerSampleGamePackage"
 
 o3de_logger.info(f"Exporting AWS GameLift Server Package for {project_name}")
 
@@ -42,6 +43,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('--code', action='store_true', help='Build code')
 parser.add_argument('--assets', action='store_true', help='Build assets')
+parser.add_argument('--package-gamelauncher', action='store_true', help='Produce a client GameLauncher.exe release package along side the GameLift server package.')
 parser.add_argument('-g', '--generator', choices=['Visual Studio 16', 'Visual Studio 17'], help='Which compiler do you want to use?')
 parser.add_argument('--no-clobber', action='store_true', dest='no_clobber', help='Do not create a new package if an existing GameLift server package exists.')
 
@@ -112,6 +114,12 @@ if (args.code):
     if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.ServerLauncher", "--config", "release", "--", "/m"])):
         quit()
 
+    # Buld the monolithic game launcher build
+    if args.package_gamelauncher:
+        if (process_command(["cmake", "--build", monolithic_build_folder, "--target", f"{project_name}.GameLauncher", "--config", "release", "--", "/m"])):
+            quit()
+
+
 # Build Assets
 if (args.assets):
     # Process assets
@@ -151,7 +159,6 @@ if (args.assets):
     if (process_command([asset_bundler_batch, "assetLists", "--assetListFile", game_asset_list_path, "--platform", platform, "--allowOverwrites",
                          "--seedListFile", os.path.join(seed_list_directory, "BasePopcornFxSeedList.seed"), 
                          "--seedListFile", os.path.join(seed_list_directory, "GameSeedList.seed"), 
-                         "--seedListFile", os.path.join(seed_list_directory, "ProfileOnlySeedList.seed"), 
                          "--seedListFile", os.path.join(seed_list_directory, "VFXSeedList.seed")]) != 0):
         quit()
 
@@ -172,26 +179,34 @@ if (args.assets):
                          "--assetListFile", engine_asset_list_path]) != 0):
         quit()
 
-# Add all the required exe's, dll's, and asset pak files into a folder to upload to GameLift
-gamelift_package_cache_dir = os.path.join(gamelift_package_folder_name, "Cache", "pc")
-gamelift_package_gems_dir = os.path.join(gamelift_package_folder_name, "Gems", "AWSCore")
+def create_exe_package(new_package_folder_name, exe_name):
+    # Add all the required exe's, dll's, and asset pak files into a folder to upload to GameLift
+    package_cache_dir = os.path.join(new_package_folder_name, "Cache", "pc")
 
-# Delete the old server package
-if os.path.exists(gamelift_package_folder_name):
-    shutil.rmtree(gamelift_package_folder_name)
+    # Delete the old server package
+    if os.path.exists(new_package_folder_name):
+        shutil.rmtree(new_package_folder_name)
 
-# Create the folders
-os.makedirs(gamelift_package_cache_dir, exist_ok=True)
-os.makedirs(gamelift_package_gems_dir, exist_ok=True)
+    # Create the folders
+    os.makedirs(package_cache_dir, exist_ok=True)
 
-# Copy .exe and .dll files to GameLiftWindowsServerPackage directory
-build_dir = os.path.join(monolithic_build_folder, "bin", "release")
-for file_name in os.listdir(build_dir):
-    file_path = os.path.join(build_dir, file_name)
-    if os.path.isfile(file_path) and file_name.lower().endswith(('.exe', '.dll')):
-        shutil.copy(file_path, gamelift_package_folder_name)
+    # Copy .exe and .dll files to GameLiftWindowsServerPackage directory
+    build_dir = os.path.join(monolithic_build_folder, "bin", "release")
+    for file_name in os.listdir(build_dir):
+        file_path = os.path.join(build_dir, file_name)
+        if os.path.isfile(file_path) and file_name.lower().endswith((exe_name.lower(), '.dll')):
+            shutil.copy2(file_path, new_package_folder_name)
 
-# Copy launch_server.cfg file to GameLiftWindowsServerPackage directory
+    # Copy .pak files to Cache\pc directory
+    for file_name in os.listdir(bundles_directory):
+        if file_name.endswith(".pak"):
+            file_path = os.path.join(bundles_directory, file_name)
+            shutil.copy2(file_path, package_cache_dir)
+
+# Create the GameLift server package
+create_exe_package(gamelift_package_folder_name, 'ServerLauncher.exe')
+
+# GameLift server package needs launch_server.cfg file
 launch_server_cfg_filepath = os.path.join(o3de_context.project_path, "launch_server.cfg")
 if os.path.isfile(launch_server_cfg_filepath):
     shutil.copy(launch_server_cfg_filepath, gamelift_package_folder_name)
@@ -199,18 +214,18 @@ else:
     o3de_logger.error(f"Could not find serverlauncher.cfg! Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.")
     quit()
 
-# Copy .pak files to Cache\pc directory
-for file_name in os.listdir(bundles_directory):
-    if file_name.endswith(".pak"):
-        file_path = os.path.join(bundles_directory, file_name)
-        shutil.copy(file_path, gamelift_package_cache_dir)
-
-# Copy files to Gems\AWSCore directory
+# GameLift server needs AWSCore metadata files that have been output to the build directory.
+gamelift_package_gems_dir = os.path.join(gamelift_package_folder_name, "Gems", "AWSCore")
+os.makedirs(gamelift_package_gems_dir, exist_ok=True)
 gems_files_dir = os.path.join(monolithic_build_folder, "bin", "release", "Gems", "AWSCore")
 for file_name in os.listdir(gems_files_dir):
     file_path = os.path.join(gems_files_dir, file_name)
     if os.path.isfile(file_path):
         shutil.copy(file_path, gamelift_package_gems_dir)
+
+# Create the Client Package
+if args.package_gamelauncher:
+    create_exe_package(client_package_folder_name, 'GameLauncher.exe')
 
 o3de_logger.info("Export Successful!\n"
                  "Test the server locally and upload the server package to GameLift.\n"
