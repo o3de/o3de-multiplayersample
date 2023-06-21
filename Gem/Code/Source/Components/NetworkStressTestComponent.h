@@ -67,13 +67,13 @@ namespace MultiplayerSample
 
         bool m_displayEntitySpawner = false;
 #endif
-        bool m_isServer = false;
-        int m_quantity = 1;
-        float m_fireIntervalMinMs = 100.f;
-        float m_fireIntervalMaxMs = 10000.f;
-        float m_actionIntervalMinMs = 500.f;
-        float m_actionIntervalMaxMs = 10000.f;
-        int m_teamID = 0;
+        [[maybe_unused]] bool m_isServer = false;
+        [[maybe_unused]] int m_quantity = 1;
+        [[maybe_unused]] float m_fireIntervalMinMs = 100.f;
+        [[maybe_unused]] float m_fireIntervalMaxMs = 10000.f;
+        [[maybe_unused]] float m_actionIntervalMinMs = 500.f;
+        [[maybe_unused]] float m_actionIntervalMaxMs = 10000.f;
+        [[maybe_unused]] int m_teamID = 0;
 
 #if AZ_TRAIT_SERVER
         AZ::ScheduledEvent m_autoSpawnTimer;

@@ -85,7 +85,7 @@ namespace MultiplayerSample
         AZ::Vector3 m_effectOffset = AZ::Vector3::CreateZero(); // The offset to use when triggering an effect
 
         // Tracks whether to reuse the emitter or to fire-and-forget each effect trigger.
-        EmitterType m_emitterType = EmitterType::ReusableEmitter; 
+        [[maybe_unused]] EmitterType m_emitterType = EmitterType::ReusableEmitter; 
 
 #if AZ_TRAIT_CLIENT
         PopcornFX::StandaloneEmitter* m_emitter = nullptr;
