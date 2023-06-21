@@ -115,7 +115,7 @@ build\non_mono\bin\profile\AssetBundler.exe --project-path="c:\your\path\to\o3de
 
 Follow steps for "Create a bundle for game assets", "Create a bundle for engine assets" and "Add bundles to the release game layout" from https://www.o3de.org/docs/user-guide/packaging/asset-bundler/bundle-assets-for-release/
 
-* The "default seed lists" choice should choose all but 4 seed lists to make the `engine_pc.pak`
+* The "default seed lists" choice should choose all but 3 seed lists to make the `engine_pc.pak`
 * The other [seed lists](https://github.com/o3de/o3de-multiplayersample/tree/development/AssetBundling/SeedLists) should all get selected to make the `game_pc.pak`.
 
 > It's important to make sure that the bootstrap.game.profile.setreg file has been added to one of the seed files. (also add debug if you want to support debug builds)
