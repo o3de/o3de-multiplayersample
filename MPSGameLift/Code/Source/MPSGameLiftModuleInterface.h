@@ -20,6 +20,7 @@
 #if AZ_DEDICATED_SERVER_ONLY
     #include <MPSGameLiftServerSystemComponent.h>
     #include <AzCore/Console/IConsole.h>
+    #include <AzCore/Date/DateFormat.h>
     #include <AzCore/Settings/SettingsRegistry.h>
     #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
     #include <AzCore/Platform.h>
@@ -37,15 +38,23 @@ namespace MPSGameLift
         MPSGameLiftModuleInterface()
         {
             #if AZ_DEDICATED_SERVER_ONLY
-                // Change game server logs to go into a folder based on the server process id.
+                // Change game server logs to go into a folder based on timestamp + server process id.
                 // Normally, all the server.log files would go to the same folder named "log".
                 // This way GameLift can archive the logs for a specific server.
-                AZ::IO::FixedMaxPath projectLogPath;
-                AZStd::fixed_string<32> processIdString;
 
-                AZ::SettingsRegistry::Get()->Get(projectLogPath.Native(), AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectLogPath);
+                // Timestamp
+                AZ::Date::Iso8601TimestampString utcTimestampString;
+                AZ::Date::GetFilenameCompatibleFormatNow(utcTimestampString);
+
+                // Process Id
+                AZStd::fixed_string<32> processIdString;
                 AZStd::to_string(processIdString, AZ::Platform::GetCurrentProcessId());
-                projectLogPath = projectLogPath / processIdString;
+                
+                // Create a log subfolder using Timestamp + Process Id
+                AZ::IO::FixedMaxPath projectLogPath;
+                AZ::SettingsRegistry::Get()->Get(projectLogPath.Native(), AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectLogPath);
+
+                projectLogPath = projectLogPath / AZ::IO::FixedMaxPathString::format("%s_%s", utcTimestampString.c_str(), processIdString.c_str());
 
                 AZ::SettingsRegistry::Get()->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectLogPath, projectLogPath.Native());
             #endif
