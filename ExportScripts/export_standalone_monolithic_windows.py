@@ -200,7 +200,7 @@ if __name__ == "__main__":
     parser.add_argument('-aof', '--archive-output-format',
                         type=str,
                         help="Format of archive to create from the output directory",
-                        choices=["none", "zip", "gzip", "bz2", "xz"], default="none")
+                        choices=["zip", "gzip", "bz2", "xz"], default="zip")
     parser.add_argument('-bnmt', '--build-non-mono-tools', action='store_true')
     parser.add_argument('-nmbp', '--non-mono-build-path', type=pathlib.Path, default=None)
     parser.add_argument('-mbp', '--mono-build-path', type=pathlib.Path, default=None)
@@ -253,7 +253,7 @@ if __name__ == "__main__":
     if not asset_bundler_batch_path.is_file():
         logger.error(f"AssetBundlerBatch not found at path '{asset_bundler_batch_path}'. In order to bundle the data for MPS, this executable must be present!")
         logger.error("To correct this issue, do 1 of the following: "
-                     "1) use the --build-non-mono-tools flag in the CLI parameters"
+                     "1) Use the --build-non-mono-tools flag in the CLI parameters"
                      "2) If you are trying to build in a project-centric fashion, please switch to engine-centric for this export script"
                      f"3) Build AssetBundlerBatch by hand and make sure it is available at {asset_bundler_batch_path}"
                      "4) Set the --non-mono-build-path to point at a directory which contains this executable")
