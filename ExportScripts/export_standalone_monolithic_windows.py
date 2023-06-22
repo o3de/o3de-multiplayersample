@@ -18,7 +18,7 @@ from threading  import Thread
 from typing import List
 from subprocess import Popen, PIPE
 
-logger = logging.getLogger('o3de.gamejam')
+logger = logging.getLogger('o3de.mps_export')
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 logging.basicConfig(format=LOG_FORMAT)
 # This is an export script for MPS on the Windows platform
@@ -27,7 +27,7 @@ logging.basicConfig(format=LOG_FORMAT)
 # View the argparse parameters for options available. An example invocation:
 
 # @<O3DE_ENGINE_ROOT_PATH>
-# > python\python.cmd <O3DE_MPS_PROJECT_ROOT_PATH>\ExportScripts\export_standalone_monolithic_windows.py -ps <O3DE_MPS_PROJECT_ROOT_PATH> -egn <O3DE_ENGINE_ROOT_PATH> -bnmt -out <MPS_OUTPUT_RELEASE_DIR_PATH> -zip
+# > python\python.cmd <O3DE_MPS_PROJECT_ROOT_PATH>\ExportScripts\export_standalone_monolithic_windows.py -pp <O3DE_MPS_PROJECT_ROOT_PATH> -ep <O3DE_ENGINE_ROOT_PATH> -bnmt -out <MPS_OUTPUT_RELEASE_DIR_PATH> -a -aof zip
 
 def enqueue_output(out, queue):
     for line in iter(out.readline, b''):
@@ -183,15 +183,17 @@ def process_command(args: list,
 
 
 # EXPORT SCRIPT STARTS HERE!
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample on windows',
-                                 description = "Exports O3DE's MultiplayerSample to the desired install directory in project layout...")
-    parser.add_argument('-ps', '--project-path', type=pathlib.Path, required=True, help='Path to the intended O3DE project.')
-    parser.add_argument('-egn', '--engine-path', type=pathlib.Path, required=True, help='Path to the intended O3DE engine copy.')
+                                 description = "Exports O3DE's MultiplayerSample to the desired output directory with release layout. "
+                                                "In order to use this script, the engine and project must be registered beforehand. "
+                                                "See this example on the MPS Github page: "
+                                                "https://github.com/o3de/o3de-multiplayersample/blob/development/README.md#required-step-to-compile")
+    parser.add_argument('-pp', '--project-path', type=pathlib.Path, required=True, help='Path to the intended O3DE project.')
+    parser.add_argument('-ep', '--engine-path', type=pathlib.Path, required=True, help='Path to the intended O3DE engine.')
     parser.add_argument('-out', '--output-path', type=pathlib.Path, required=True, help='Path that describes the final resulting Release Directory path location.')
-    parser.add_argument('-cfg', '--config', type=str, default='profile', choices=['release', 'profile'], help='The CMake build configuration to use when building project binaries. If tool binaries are built with this script, they will use profile mode.')
+    parser.add_argument('-cfg', '--config', type=str, default='profile', choices=['release', 'profile'],
+                        help='The CMake build configuration to use when building project binaries. If tool binaries are built with this script, they will use profile mode.')
     parser.add_argument('-ll', '--log-level', default='ERROR',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
                         help="Set the log level")
@@ -221,6 +223,17 @@ if __name__ == "__main__":
     #commands are based on 
     #https://github.com/o3de/o3de-multiplayersample/blob/development/Documentation/PackedAssetBuilds.md
 
+
+    logger.info(f"Project path for MPS: {args.project_path}")
+    logger.info(f"Engine path to build MPS: {args.engine_path}")
+    logger.info(f"Build path for non-monolithic executables: {args.non_mono_build_path}")
+    logger.info(f"Build path for monolithic executables: {args.mono_build_path}")
+    
+    output_cache_path = args.output_path / 'Cache' / 'pc' 
+    output_aws_gem_path = args.output_path / 'Gems' / 'AWSCore'
+    
+    os.makedirs(output_cache_path, exist_ok=True)
+    os.makedirs(output_aws_gem_path, exist_ok=True)
     
     #Build o3de-multiplayersample and the engine (non-monolithic)
     if args.build_non_mono_tools:
@@ -250,33 +263,28 @@ if __name__ == "__main__":
                     '--seedListFile', seed_folder_path  / 'GameSeedList.seed']
 
     if args.config == 'profile':
-        game_asset_list_command += ['--seedListFile', seed_folder_path / 'ProfileOnlySeedList.seed']
+        profile_seed_list_path = seed_folder_path / 'ProfileOnlySeedList.seed'
+        if profile_seed_list_path.is_file():
+            game_asset_list_command += ['--seedListFile', profile_seed_list_path]
 
     game_asset_list_command += ['--seedListFile', seed_folder_path / 'VFXSeedList.seed', '--project-path', args.project_path, '--allowOverwrites']
 
     process_command(game_asset_list_command, cwd=args.engine_path)
 
-    engine_bundle_path = args.project_path / 'AssetBundling' / 'Bundles' / 'engine_pc.pak'
+    engine_bundle_path = output_cache_path / 'engine_pc.pak'
     process_command([asset_bundler_batch_path, 'bundles', '--assetListFile', engine_asset_list_path, '--outputBundlePath', engine_bundle_path, '--project-path', args.project_path, '--allowOverwrites'], cwd=args.engine_path)
 
     # This is to prevent any accidental file locking mechanism from failing subsequent bundling operations
     time.sleep(1)
 
-    game_bundle_path = args.project_path / 'AssetBundling' / 'Bundles' / 'game_pc.pak'
+    game_bundle_path = output_cache_path / 'game_pc.pak'
     process_command([asset_bundler_batch_path, 'bundles', '--assetListFile', game_asset_list_path, '--outputBundlePath', game_bundle_path, '--project-path', args.project_path, '--allowOverwrites'], cwd=args.engine_path)
 
     # Create Launcher Layout Directory
     import shutil
-    output_cache_path = args.output_path / 'Cache' / 'pc' 
-    output_aws_gem_path = args.output_path / 'Gems' / 'AWSCore'
-    os.makedirs(output_cache_path, exist_ok=True)
-    os.makedirs(output_aws_gem_path, exist_ok=True)
 
-    for file in glob.glob(str(pathlib.PurePath(args.project_path / 'AssetBundling' / 'Bundles' / '*.pak'))):
-        shutil.copy(file, output_cache_path)
     for file in glob.glob(str(pathlib.PurePath(mono_build_path / 'bin' / args.config / '*.*'))):
         shutil.copy(file, args.output_path)
-    
     for file in glob.glob(str(pathlib.PurePath(mono_build_path / 'bin' / args.config / 'Gems' / 'AWSCore' / '*.*'))):
         shutil.copy(file, output_aws_gem_path)
     for file in glob.glob(str(pathlib.PurePath(args.project_path / 'launch_*.*'))):
