@@ -11,7 +11,7 @@ import logging
 import os
 import time
 import glob
-
+import sys
 from o3de.validation import valid_o3de_project_json, valid_o3de_engine_json
 from queue import Queue, Empty
 from threading  import Thread
@@ -186,7 +186,7 @@ def process_command(args: list,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample on windows',
                                  description = "Exports O3DE's MultiplayerSample to the desired output directory with release layout. "
-                                                "In order to use this script, the engine and project must be registered beforehand. "
+                                                "In order to use this script, the engine and project must be setup and registered beforehand. "
                                                 "See this example on the MPS Github page: "
                                                 "https://github.com/o3de/o3de-multiplayersample/blob/development/README.md#required-step-to-compile")
     parser.add_argument('-pp', '--project-path', type=pathlib.Path, required=True, help='Path to the intended O3DE project.')
@@ -248,8 +248,18 @@ if __name__ == "__main__":
     
     process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.GameLauncher', 'MultiplayerSample.ServerLauncher', 'MultiplayerSample.UnifiedLauncher', '--config', args.config], cwd=args.engine_path)
 
-    #Bundle content
+    #Before bundling content, make sure that the necessary executables exist
     asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / 'AssetBundlerBatch'
+    if not asset_bundler_batch_path.is_file():
+        logger.error(f"AssetBundlerBatch not found at path '{asset_bundler_batch_path}'. In order to bundle the data for MPS, this executable must be present!")
+        logger.error("To correct this issue, do 1 of the following: "
+                     "1) use the --build-non-mono-tools flag in the CLI parameters"
+                     "2) If you are trying to build in a project-centric fashion, please switch to engine-centric for this export script"
+                     f"3) Build AssetBundlerBatch by hand and make sure it is available at {asset_bundler_batch_path}"
+                     "4) Set the --non-mono-build-path to point at a directory which contains this executable")
+        sys.exit(1)
+
+    #Bundle content
     engine_asset_list_path = args.project_path / 'AssetBundling' /  'AssetLists' / 'engine_pc.assetlist'
     
     process_command([asset_bundler_batch_path, 'assetLists','--addDefaultSeedListFiles', '--assetListFile', engine_asset_list_path, '--project-path', args.project_path, '--allowOverwrites' ], cwd=args.engine_path)
@@ -263,6 +273,8 @@ if __name__ == "__main__":
                     '--seedListFile', seed_folder_path  / 'GameSeedList.seed']
 
     if args.config == 'profile':
+        # Dev branch has removed the profile seed list, but it still remains in main for now.
+        # This will be removed after the next release, when both branches are synchronized
         profile_seed_list_path = seed_folder_path / 'ProfileOnlySeedList.seed'
         if profile_seed_list_path.is_file():
             game_asset_list_command += ['--seedListFile', profile_seed_list_path]
