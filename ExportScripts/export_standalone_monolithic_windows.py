@@ -213,8 +213,21 @@ if __name__ == "__main__":
     parser.add_argument('-q', '--quiet', action='store_true', help='Suppresses logging information unless an error occurs.')
     args = parser.parse_args()
 
-    selected_platform = args.platform
+    if args.quiet:
+        logging.getLogger().setLevel(logging.ERROR)
+    else:    
+        logging.getLogger().setLevel(args.log_level)
 
+    non_mono_build_path = (args.engine_path) / 'build' / 'non_mono' if args.non_mono_build_path is None else args.non_mono_build_path
+    mono_build_path = (args.engine_path) / 'build' / 'mono' if args.mono_build_path is None else args.mono_build_path
+
+    #validation
+    assert valid_o3de_project_json(args.project_path / 'project.json') and valid_o3de_engine_json(args.engine_path / 'engine.json')
+
+
+    #commands are based on 
+    #https://github.com/o3de/o3de-multiplayersample/blob/development/Documentation/PackedAssetBuilds.md
+    selected_platform = args.platform
     if not selected_platform:
         logger.info("Platform not specified! Defaulting to Host platform...")
         system_platform = platform.system()
@@ -230,22 +243,6 @@ if __name__ == "__main__":
                 system_platform = "Mac OS"
             logger.error(f"MPS exporting for {system_platform} is currently unsupported! Please use either a Windows or Linux machine to build project.")
             sys.exit(1)
-
-    if args.quiet:
-        logging.getLogger().setLevel(logging.ERROR)
-    else:    
-        logging.getLogger().setLevel(args.log_level)
-
-    non_mono_build_path = (args.engine_path) / 'build' / 'non_mono' if args.non_mono_build_path is None else args.non_mono_build_path
-    mono_build_path = (args.engine_path) / 'build' / 'mono' if args.mono_build_path is None else args.mono_build_path
-
-    #validation
-    assert valid_o3de_project_json(args.project_path / 'project.json') and valid_o3de_engine_json(args.engine_path / 'engine.json')
-
-
-    #commands are based on 
-    #https://github.com/o3de/o3de-multiplayersample/blob/development/Documentation/PackedAssetBuilds.md
-
 
     logger.info(f"Project path for MPS: {args.project_path}")
     logger.info(f"Engine path to build MPS: {args.engine_path}")
@@ -277,9 +274,9 @@ if __name__ == "__main__":
 
     if not args.no_unified_launcher:
         process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.UnifiedLauncher', '--config', args.config], cwd=args.engine_path)
-        
+
     #Before bundling content, make sure that the necessary executables exist
-    asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / 'AssetBundlerBatch'
+    asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / ('AssetBundlerBatch' + ('.exe' if selected_platform=='pc' else ''))
     if not asset_bundler_batch_path.is_file():
         logger.error(f"AssetBundlerBatch not found at path '{asset_bundler_batch_path}'. In order to bundle the data for MPS, this executable must be present!")
         logger.error("To correct this issue, do 1 of the following: "
