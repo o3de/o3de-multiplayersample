@@ -12,6 +12,7 @@ import os
 import time
 import glob
 import sys
+import platform
 from o3de.validation import valid_o3de_project_json, valid_o3de_engine_json
 from queue import Queue, Empty
 from threading  import Thread
@@ -204,9 +205,31 @@ if __name__ == "__main__":
     parser.add_argument('-bnmt', '--build-non-mono-tools', action='store_true')
     parser.add_argument('-nmbp', '--non-mono-build-path', type=pathlib.Path, default=None)
     parser.add_argument('-mbp', '--mono-build-path', type=pathlib.Path, default=None)
+    parser.add_argument('-nogame', '--no-game-launcher', action='store_true', help='this flag skips building the Game Launcher on a platform if not needed.')
+    parser.add_argument('-noserver', '--no-server-launcher', action='store_true', help='this flag skips building the Server Launcher on a platform if not needed.')
+    parser.add_argument('-nounified', '--no-unified-launcher', action='store_true', help='this flag skips building the Unified Launcher on a platform if not needed.')
+    parser.add_argument('-pl', '--platform', type=str, default=None, choices=['pc', 'linux'])
     parser.add_argument('-a', '--archive-output', action='store_true', help='This option places the final output of the build into a compressed archive')
     parser.add_argument('-q', '--quiet', action='store_true', help='Suppresses logging information unless an error occurs.')
     args = parser.parse_args()
+
+    selected_platform = args.platform
+
+    if not selected_platform:
+        logger.info("Platform not specified! Defaulting to Host platform...")
+        system_platform = platform.system()
+        if not system_platform:
+            logger.error("Unable to identify host platform! Please supply the platform using '--platform'. Options are [pc, linux].")
+            sys.exit(1)
+        if system_platform == "Windows":
+            selected_platform = "pc"
+        elif system_platform == "Linux":
+            selected_platform = "linux"
+        else:
+            if system_platform == "Darwin":
+                system_platform = "Mac OS"
+            logger.error(f"MPS exporting for {system_platform} is currently unsupported! Please use either a Windows or Linux machine to build project.")
+            sys.exit(1)
 
     if args.quiet:
         logging.getLogger().setLevel(logging.ERROR)
@@ -229,7 +252,7 @@ if __name__ == "__main__":
     logger.info(f"Build path for non-monolithic executables: {args.non_mono_build_path}")
     logger.info(f"Build path for monolithic executables: {args.mono_build_path}")
     
-    output_cache_path = args.output_path / 'Cache' / 'pc' 
+    output_cache_path = args.output_path / 'Cache' / selected_platform
     output_aws_gem_path = args.output_path / 'Gems' / 'AWSCore'
     
     os.makedirs(output_cache_path, exist_ok=True)
@@ -246,8 +269,15 @@ if __name__ == "__main__":
     #Build monolithic game
     process_command(['cmake', '-S', '.', '-B', str(mono_build_path), '-DLY_MONOLITHIC_GAME=1', '-DALLOW_SETTINGS_REGISTRY_DEVELOPMENT_OVERRIDES=0', f'-DLY_PROJECTS={args.project_path}'], cwd=args.engine_path)
     
-    process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.GameLauncher', 'MultiplayerSample.ServerLauncher', 'MultiplayerSample.UnifiedLauncher', '--config', args.config], cwd=args.engine_path)
+    if not args.no_game_launcher:
+        process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.GameLauncher', '--config', args.config], cwd=args.engine_path) 
+    
+    if not args.no_server_launcher:
+        process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.ServerLauncher', '--config', args.config], cwd=args.engine_path)
 
+    if not args.no_unified_launcher:
+        process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.UnifiedLauncher', '--config', args.config], cwd=args.engine_path)
+        
     #Before bundling content, make sure that the necessary executables exist
     asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / 'AssetBundlerBatch'
     if not asset_bundler_batch_path.is_file():
@@ -260,12 +290,12 @@ if __name__ == "__main__":
         sys.exit(1)
 
     #Bundle content
-    engine_asset_list_path = args.project_path / 'AssetBundling' /  'AssetLists' / 'engine_pc.assetlist'
+    engine_asset_list_path = args.project_path / 'AssetBundling' /  'AssetLists' / f'engine_{selected_platform}.assetlist'
     
     process_command([asset_bundler_batch_path, 'assetLists','--addDefaultSeedListFiles', '--assetListFile', engine_asset_list_path, '--project-path', args.project_path, '--allowOverwrites' ], cwd=args.engine_path)
 
 
-    game_asset_list_path = args.project_path /'AssetBundling'/'AssetLists'/'game_pc.assetlist'
+    game_asset_list_path = args.project_path /'AssetBundling'/'AssetLists'/ f'game_{selected_platform}.assetlist'
     seed_folder_path = args.project_path/'AssetBundling'/'SeedLists'
 
     game_asset_list_command = [asset_bundler_batch_path, 'assetLists', '--assetListFile', game_asset_list_path, 
@@ -283,13 +313,13 @@ if __name__ == "__main__":
 
     process_command(game_asset_list_command, cwd=args.engine_path)
 
-    engine_bundle_path = output_cache_path / 'engine_pc.pak'
+    engine_bundle_path = output_cache_path / f'engine_{selected_platform}.pak'
     process_command([asset_bundler_batch_path, 'bundles', '--assetListFile', engine_asset_list_path, '--outputBundlePath', engine_bundle_path, '--project-path', args.project_path, '--allowOverwrites'], cwd=args.engine_path)
 
     # This is to prevent any accidental file locking mechanism from failing subsequent bundling operations
     time.sleep(1)
 
-    game_bundle_path = output_cache_path / 'game_pc.pak'
+    game_bundle_path = output_cache_path / f'game_{selected_platform}.pak'
     process_command([asset_bundler_batch_path, 'bundles', '--assetListFile', game_asset_list_path, '--outputBundlePath', game_bundle_path, '--project-path', args.project_path, '--allowOverwrites'], cwd=args.engine_path)
 
     # Create Launcher Layout Directory
@@ -309,6 +339,3 @@ if __name__ == "__main__":
         shutil.make_archive(args.output_path, args.archive_output_format, root_dir = args.output_path)
 
     logger.info(f"Exporting project is complete! Release Directory can be found at {args.output_path}")
-
-    if not args.quiet:
-        process_command(['explorer', args.output_path])
