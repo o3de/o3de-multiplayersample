@@ -22,13 +22,13 @@ from subprocess import Popen, PIPE
 logger = logging.getLogger('o3de.mps_export')
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 logging.basicConfig(format=LOG_FORMAT)
-# This is an export script for MPS on the Windows platform
+# This is an export script for MPS
 # this has to be a complete standalone script, b/c project export doesnt exist in main branch yet
 
 # View the argparse parameters for options available. An example invocation:
 
 # @<O3DE_ENGINE_ROOT_PATH>
-# > python\python.cmd <O3DE_MPS_PROJECT_ROOT_PATH>\ExportScripts\export_standalone_monolithic_windows.py -pp <O3DE_MPS_PROJECT_ROOT_PATH> -ep <O3DE_ENGINE_ROOT_PATH> -bnmt -out <MPS_OUTPUT_RELEASE_DIR_PATH> -a -aof zip
+# > python\python.cmd <O3DE_MPS_PROJECT_ROOT_PATH>\ExportScripts\export_standalone_monolithic.py -pp <O3DE_MPS_PROJECT_ROOT_PATH> -ep <O3DE_ENGINE_ROOT_PATH> -bnmt -out <MPS_OUTPUT_RELEASE_DIR_PATH> -a -aof zip
 
 def enqueue_output(out, queue):
     for line in iter(out.readline, b''):
@@ -185,7 +185,7 @@ def process_command(args: list,
 
 # EXPORT SCRIPT STARTS HERE!
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample on windows',
+    parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample as a standalone release',
                                  description = "Exports O3DE's MultiplayerSample to the desired output directory with release layout. "
                                                 "In order to use this script, the engine and project must be setup and registered beforehand. "
                                                 "See this example on the MPS Github page: "
