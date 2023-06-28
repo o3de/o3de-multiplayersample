@@ -185,7 +185,7 @@ def process_command(args: list,
 
 # EXPORT SCRIPT STARTS HERE!
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample as a standalone release',
+    parser = argparse.ArgumentParser(prog='Exporter for MultiplayerSample as a standalone build',
                                  description = "Exports O3DE's MultiplayerSample to the desired output directory with release layout. "
                                                 "In order to use this script, the engine and project must be setup and registered beforehand. "
                                                 "See this example on the MPS Github page: "
@@ -208,7 +208,7 @@ if __name__ == "__main__":
     parser.add_argument('-nogame', '--no-game-launcher', action='store_true', help='this flag skips building the Game Launcher on a platform if not needed.')
     parser.add_argument('-noserver', '--no-server-launcher', action='store_true', help='this flag skips building the Server Launcher on a platform if not needed.')
     parser.add_argument('-nounified', '--no-unified-launcher', action='store_true', help='this flag skips building the Unified Launcher on a platform if not needed.')
-    parser.add_argument('-pl', '--platform', type=str, default=None, choices=['pc', 'linux'])
+    parser.add_argument('-pl', '--platform', type=str, default=None, choices=['pc', 'linux', 'mac'])
     parser.add_argument('-a', '--archive-output', action='store_true', help='This option places the final output of the build into a compressed archive')
     parser.add_argument('-q', '--quiet', action='store_true', help='Suppresses logging information unless an error occurs.')
     args = parser.parse_args()
@@ -228,20 +228,22 @@ if __name__ == "__main__":
     #commands are based on 
     #https://github.com/o3de/o3de-multiplayersample/blob/development/Documentation/PackedAssetBuilds.md
     selected_platform = args.platform
+
+    system_platform = platform.system().lower()
+
     if not selected_platform:
         logger.info("Platform not specified! Defaulting to Host platform...")
-        system_platform = platform.system()
         if not system_platform:
-            logger.error("Unable to identify host platform! Please supply the platform using '--platform'. Options are [pc, linux].")
+            logger.error("Unable to identify host platform! Please supply the platform using '--platform'. Options are [pc, linux, mac].")
             sys.exit(1)
-        if system_platform == "Windows":
+        if system_platform == "windows":
             selected_platform = "pc"
-        elif system_platform == "Linux":
+        elif system_platform == "linux":
             selected_platform = "linux"
+        elif system_platform == "darwin":
+            selected_platform = "mac"
         else:
-            if system_platform == "Darwin":
-                system_platform = "Mac OS"
-            logger.error(f"MPS exporting for {system_platform} is currently unsupported! Please use either a Windows or Linux machine to build project.")
+            logger.error(f"MPS exporting for {system_platform} is currently unsupported! Please use either a Windows, Mac or Linux machine to build project.")
             sys.exit(1)
 
     logger.info(f"Project path for MPS: {args.project_path}")
@@ -276,7 +278,7 @@ if __name__ == "__main__":
         process_command(['cmake', '--build', str(mono_build_path), '--target', 'MultiplayerSample.UnifiedLauncher', '--config', args.config], cwd=args.engine_path)
 
     #Before bundling content, make sure that the necessary executables exist
-    asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / ('AssetBundlerBatch' + ('.exe' if selected_platform=='pc' else ''))
+    asset_bundler_batch_path = non_mono_build_path / 'bin' / 'profile' / ('AssetBundlerBatch' + ('.exe' if system_platform=='windows' else ''))
     if not asset_bundler_batch_path.is_file():
         logger.error(f"AssetBundlerBatch not found at path '{asset_bundler_batch_path}'. In order to bundle the data for MPS, this executable must be present!")
         logger.error("To correct this issue, do 1 of the following: "
