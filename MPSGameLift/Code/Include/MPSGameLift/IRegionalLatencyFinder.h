@@ -23,6 +23,8 @@ namespace MPSGameLift
         virtual void RequestLatencies() = 0;
 
         // Gets the measured latency for a given AWS region
+        // @param Region (example: us-west-2)
+        // @return The round-trip-time to send and receive a response from an given regional endpoint 
         virtual AZStd::chrono::milliseconds GetLatencyForRegion(const AZStd::string& region) const = 0;
     };
 
@@ -32,6 +34,7 @@ namespace MPSGameLift
     public:
         using MutexType = AZStd::recursive_mutex;
 
+        // A notification when IRegionalLatencyFinder::RequestLatencies has finished recording the latency from each regional endpoint.
         virtual void OnRequestLatenciesComplete() {}
     };
     typedef AZ::EBus<RegionalLatencyFinderNotifications> RegionalLatencyFinderNotificationBus;
