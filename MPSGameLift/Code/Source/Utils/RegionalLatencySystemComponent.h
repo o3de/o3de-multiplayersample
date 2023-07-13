@@ -32,7 +32,7 @@ namespace MPSGameLift
     {
     public:
         static constexpr char RegionalEndpointUrlFormat[] = "https://dynamodb.%s.amazonaws.com";
-        static constexpr const char* Regions[] = { "us-west-2", "us-east-1", "ru-central-1", "me-south-1" };
+        static constexpr const char* Regions[] = { "us-west-2", "us-east-1" };
 
 
         AZ_COMPONENT(RegionalLatencySystemComponent, "{699E7875-5274-4516-88C9-A8D3010B9D3A}");

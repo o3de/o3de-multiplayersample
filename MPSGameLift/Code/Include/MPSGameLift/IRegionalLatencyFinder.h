@@ -19,12 +19,12 @@ namespace MPSGameLift
 
         virtual ~IRegionalLatencyFinder() = default;
 
-        // Request latency checks for all set regions
+        // Sends an HTTP request to gather the latency for all set regions
         virtual void RequestLatencies() = 0;
 
-        // Gets the measured latency for a given AWS region
+        // Gets the measured latency for a given region
         // @param Region (example: us-west-2)
-        // @return The round-trip-time to send and receive a response from an given regional endpoint 
+        // @return The round-trip-time of sending and receiving a response from a given regional endpoint 
         virtual AZStd::chrono::milliseconds GetLatencyForRegion(const AZStd::string& region) const = 0;
     };
 
@@ -32,7 +32,7 @@ namespace MPSGameLift
         : public AZ::ComponentBus
     {
     public:
-        // HTTP Requests callbacks can occur outside of main thread
+        // HTTP Request callbacks occur outside of main thread.
         // Ensure notifications are thread safe.
         using MutexType = AZStd::recursive_mutex;
 
