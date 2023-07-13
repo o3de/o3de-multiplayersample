@@ -10,6 +10,8 @@
 #include <AzCore/Module/Module.h>
 #include <Unified/MPSGameLiftSystemComponent.h>
 
+#include <Utils/RegionalLatencySystemComponent.h>
+
 #if AZ_TRAIT_CLIENT
     #include <MPSGameLiftClientSystemComponent.h>
     #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
@@ -61,6 +63,7 @@ namespace MPSGameLift
 
             m_descriptors.insert(m_descriptors.end(), {
                 MPSGameLiftSystemComponent::CreateDescriptor(),
+                RegionalLatencySystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
                     UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),

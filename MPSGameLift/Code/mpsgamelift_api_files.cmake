@@ -6,4 +6,5 @@
 
 set(FILES
     Include/MPSGameLift/MPSGameLiftBus.h
+    Include/MPSGameLift/IRegionalLatencyFinder.h
 )

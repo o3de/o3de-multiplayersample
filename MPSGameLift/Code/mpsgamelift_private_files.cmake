@@ -6,6 +6,8 @@
 
 set(FILES
     Source/MPSGameLiftModuleInterface.h
+    Source/Utils/RegionalLatencySystemComponent.h
+    Source/Utils/RegionalLatencySystemComponent.cpp
     Source/Unified/MPSGameLiftSystemComponent.cpp
     Source/Unified/MPSGameLiftSystemComponent.h
 )
