@@ -20,7 +20,6 @@ git clone -b development https://github.com/o3de/o3de-multiplayersample.git
 git clone https://github.com/o3de/o3de-multiplayersample-assets.git
 cd o3de-multiplayersample-assets
 git switch development
-git lfs pull
 git submodule update --init --recursive
 ```
 4. Now register the engine, project, and gems (this is similar to [registration found in O3DE MPS Github readme](https://github.com/o3de/o3de-multiplayersample/blob/MPSProjectExportTestingInstructions/README.md#step-2-register-the-engine-the-project-and-the-gems)):
