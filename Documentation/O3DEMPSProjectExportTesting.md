@@ -9,11 +9,11 @@
 1. Clone the development branch of O3DE:
 ```bash
 cd \path\to\workspace
-git clone https://github.com/o3de/o3de.git # this should already be in development branch
+git clone -b development https://github.com/o3de/o3de.git 
 ```
 2. Clone the development branch of O3DE MPS:
 ```bash
-git clone https://github.com/o3de/o3de-multiplayersample.git # this should already be in development branch
+git clone -b development https://github.com/o3de/o3de-multiplayersample.git
 ```
 3. Clone O3DE MPS Assets, then switch to development branch. Afterwards initialize any submodules (such as O3DEPopcornFX), and make sure they are on development:
 ```bash
@@ -22,36 +22,34 @@ cd o3de-multiplayersample-assets
 git switch development
 git lfs pull
 git submodule update --init --recursive
-cd Gems/O3DEPopcornFXPlugin
-git switch development
 ```
-4. Now get the engine registered, along with projects (this is similar to registration found in O3DE MPS Github readme):
+4. Now register the engine, project, and gems (this is similar to [registration found in O3DE MPS Github readme](https://github.com/o3de/o3de-multiplayersample/blob/MPSProjectExportTestingInstructions/README.md#step-2-register-the-engine-the-project-and-the-gems)):
 ```bash
 cd \path\to\workspace\o3de
 python\get_python
 scripts\o3de register --this-engine
-scripts\o3de register --all-gems-path \path\to\workspace\o3de-multiplayersample-assets\Gems
 scripts\o3de register -p \path\to\workspace\o3de-multiplayersample
+scripts\o3de register --all-gems-path \path\to\workspace\o3de-multiplayersample-assets\Gems
 ```
 
 ## Run Project Export
-We can use the export script for MPSGamelift to export in a project-centric manner. 
+Use the MPSGamelift export script to produce a game and server package. 
 
-1. To do so, first create the directory you want to output the game to, cd into that directory, then run the export command:
+1. Create the directory you want to output the game and server, navigate to that directory, and run the export command:
 ```bash
 mkdir \path\to\output
 cd \path\to\output
 \full\path\to\workspace\o3de\scripts\o3de export-project -es \full\path\to\workspace\o3de-multiplayersample\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO --package-gamelauncher
 ```
 
-2. Use `ls`  to verify that the project was exported. You should see two directories in your output folder: `MultiplayerSampleGamePackage` and `GameLiftPackageWindows`
+2. You should see two directories in your output folder: `MultiplayerSampleGamePackage` and `GameLiftPackageWindows`.
 
 ## Test Exported Project
-1. To test MPS, first run the server, then run the Game. You may need to provide admin privelege to allow talking to the AssetProcessor:
+1. To test MPS, first run the server, then run the game. You may need to provide admin privilege to enable a connection to AssetProcessor:
 ```bash
 .\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer --console-command-file=launch_server.cfg --net_udpDefaultTimeoutMs=20000
  
-# wait for server to get setup, then run the game launcher
+# Wait for server to get setup, then run the game launcher
 .\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe --connect=127.0.0.1 --net_udpDefaultTimeoutMs=20000
 ```
 
