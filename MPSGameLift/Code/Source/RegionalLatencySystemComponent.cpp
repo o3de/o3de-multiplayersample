@@ -6,7 +6,7 @@
  *
  */
 
-#include <Utils/RegionalLatencySystemComponent.h>
+#include "RegionalLatencySystemComponent.h"
 
 #include <aws/core/http/HttpResponse.h>
 #include <HttpRequestor/HttpRequestorBus.h>
@@ -19,23 +19,14 @@
 
 namespace MPSGameLift
 {
-    RegionalLatencySystemComponent::RegionalLatencySystemComponent()
-    {
-        AZ::Interface<IRegionalLatencyFinder>::Register(this);
-
-    }
-
-    RegionalLatencySystemComponent::~RegionalLatencySystemComponent()
-    {
-        AZ::Interface<IRegionalLatencyFinder>::Unregister(this);
-    }
-
     void RegionalLatencySystemComponent::Activate()
     {
+        AZ::Interface<IRegionalLatencyFinder>::Register(this);
     }
 
     void RegionalLatencySystemComponent::Deactivate()
     {
+        AZ::Interface<IRegionalLatencyFinder>::Unregister(this);
     }
 
     void RegionalLatencySystemComponent::Reflect(AZ::ReflectContext* context)
@@ -44,35 +35,6 @@ namespace MPSGameLift
         {
             serializeContext->Class<RegionalLatencySystemComponent, AZ::Component>()
                 ->Version(1)
-            ;
-        }
-
-        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
-        {
-            behaviorContext->EBus<RegionalLatencyFinderNotificationBus>("RegionalLatencyFinderNotificationBus")->
-                Handler<MPSGameLift::BehaviorRegionalLatencyFinderBusHandler>();
-
-
-            behaviorContext->Class<RegionalLatencySystemComponent>("RegionalLatencySystemComponent")
-                ->Attribute(AZ::Script::Attributes::Category, "MPSGameLift Gem")
-                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
-
-                ->Method("RequestLatencies", []()
-                    {
-                        if (const auto latencyFinder = AZ::Interface<IRegionalLatencyFinder>::Get())
-                        {
-                            latencyFinder->RequestLatencies();
-                        }
-                    })
-                ->Method("GetLatencyForRegionMs", [](const AZStd::string& region) -> uint32_t
-                    {
-                        if (const auto latencyFinder = AZ::Interface<IRegionalLatencyFinder>::Get())
-                        {
-                            return aznumeric_cast<uint32_t>(latencyFinder->GetLatencyForRegion(region).count());
-                        }
-
-                        return 0;
-                    })
             ;
         }
     }
@@ -107,7 +69,7 @@ namespace MPSGameLift
                         HttpRequestor::HttpRequestorRequestBus::BroadcastResult(roundTripTime, &HttpRequestor::HttpRequestorRequests::GetLastRoundTripTime);
 
                         AZStd::lock_guard<AZStd::mutex> lock(m_mapMutex);
-                        m_latencyMap[region] = roundTripTime;
+                        m_regionalLatencies[region] = roundTripTime;
                     }
                     else
                     {
@@ -118,7 +80,7 @@ namespace MPSGameLift
                     m_responsesPending.fetch_sub(1);
                     if (m_responsesPending.load() == 0)
                     {
-                        RegionalLatencyFinderNotificationBus::Broadcast(&RegionalLatencyFinderNotifications::OnRequestLatenciesComplete);
+                        RegionalLatencyFinderNotificationBus::Broadcast(&RegionalLatencyFinderNotifications::OnRequestLatenciesComplete, m_regionalLatencies);
                     }
                 });
         }
@@ -128,7 +90,7 @@ namespace MPSGameLift
     {
         {
             AZStd::lock_guard<AZStd::mutex> lock(m_mapMutex);
-            if (const auto latencyKeyValue = m_latencyMap.find(region); latencyKeyValue != m_latencyMap.end())
+            if (const auto latencyKeyValue = m_regionalLatencies.find(region); latencyKeyValue != m_regionalLatencies.end())
             {
                 return latencyKeyValue->second;
             }
@@ -138,4 +100,3 @@ namespace MPSGameLift
         return {};
     }
 } // namespace MPSGameLift
-

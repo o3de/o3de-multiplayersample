@@ -10,11 +10,11 @@
 #include <AzCore/Module/Module.h>
 #include <Unified/MPSGameLiftSystemComponent.h>
 
-#include <Utils/RegionalLatencySystemComponent.h>
 
 #if AZ_TRAIT_CLIENT
     #include <MPSGameLiftClientSystemComponent.h>
     #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
+    #include <RegionalLatencySystemComponent.h>
 #endif
 
  // We only want this logic to execute in dedicated server builds, not in the Editor or Unified builds.
@@ -63,8 +63,8 @@ namespace MPSGameLift
 
             m_descriptors.insert(m_descriptors.end(), {
                 MPSGameLiftSystemComponent::CreateDescriptor(),
-                RegionalLatencySystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
+                    RegionalLatencySystemComponent::CreateDescriptor(),
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
                     UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),
                 #endif
@@ -84,6 +84,7 @@ namespace MPSGameLift
             };
 
             #if AZ_TRAIT_CLIENT
+                requiredSystemComponents.push_back(azrtti_typeid<RegionalLatencySystemComponent>());
                 requiredSystemComponents.push_back(azrtti_typeid<MPSGameLiftClientSystemComponent>());
             #endif
 

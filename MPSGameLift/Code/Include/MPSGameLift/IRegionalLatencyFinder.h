@@ -8,12 +8,15 @@
 
 #pragma once
 
-
-#include <AzCore/Component/ComponentBus.h>
+#include <AzCore/RTTI/RTTIMacros.h>
+#include <AzCore/std/chrono/chrono.h>
+#include <AzCore/std/string/string.h>
 
 
 namespace MPSGameLift
 {
+    typedef AZStd::unordered_map<AZStd::string, AZStd::chrono::milliseconds> RegionalLatencies;
+
     //! @class IRegionalLatencyFinder
     //! @brief IRegionalLatencyFinder provides estimate information about the network latency between server regions and this client application.
     //!   Example: This interface requests and stores the round-trip-time it takes for the game client to reach a server endpoint
@@ -38,17 +41,19 @@ namespace MPSGameLift
         virtual AZStd::chrono::milliseconds GetLatencyForRegion(const AZStd::string& region) const = 0;
     };
 
+    //! @class RegionalLatencyFinderNotifications
+    //! @brief RegionalLatencyFinderNotifications provides notifications about regional latency.
     class RegionalLatencyFinderNotifications
-        : public AZ::ComponentBus
+        : public AZ::EBusTraits
     {
     public:
         // HTTP Request callbacks occur outside of main thread.
         // Ensure notifications are thread safe.
         using MutexType = AZStd::recursive_mutex;
 
+
         // A notification when IRegionalLatencyFinder::RequestLatencies has finished recording the latency from each regional endpoint.
-        virtual void OnRequestLatenciesComplete() {}
+        virtual void OnRequestLatenciesComplete([[maybe_unused]] const RegionalLatencies& latencies) {}
     };
     typedef AZ::EBus<RegionalLatencyFinderNotifications> RegionalLatencyFinderNotificationBus;
-
 } //namespace MPSGameLift
