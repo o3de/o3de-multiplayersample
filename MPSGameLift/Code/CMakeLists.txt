@@ -241,7 +241,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::AWSCore.Static
                 Gem::AWSGameLift.Client.Static
                 Gem::HttpRequestor.Static
-                3rdParty::AWSNativeSDK::Core
                 $<TARGET_OBJECTS:Gem::${gem_name}.Unified.Private.Object>
     )
 
