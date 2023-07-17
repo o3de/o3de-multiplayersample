@@ -59,14 +59,12 @@ ly_add_target(
             Gem::HttpRequestor
             Gem::Multiplayer.Client
             Gem::LyShine
-
         PRIVATE
             Gem::Multiplayer.Client.Static
             Gem::AWSCore.Static
             Gem::HttpRequestor.Static
             Gem::AWSGameLift.Client.Static
             Gem::LyShine.Static
-            3rdParty::AWSNativeSDK::Core
 )
 
 ly_add_target(
