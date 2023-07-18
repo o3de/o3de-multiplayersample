@@ -12,6 +12,7 @@
 #include <MPSGameLift/IRegionalLatencyFinder.h>
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/std/containers/vector.h>
 
@@ -32,9 +33,11 @@ namespace MPSGameLift
         * Reflects component data into the reflection contexts, including the serialization, edit, and behavior contexts.
         */
         static void Reflect(AZ::ReflectContext* context);
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
 
         /* IRegionalLatencyFinder overrides... */
         void RequestLatencies() override;
+        void AddRequestLatenciesCompleteEventHandler(RequestLatenciesCompleteEvent::Handler& handler) override;
         AZStd::chrono::milliseconds GetLatencyForRegion(const AZStd::string& region) const override;
    
     protected:
@@ -45,5 +48,12 @@ namespace MPSGameLift
         AZStd::atomic_int m_responsesPending = 0;
         mutable AZStd::mutex m_mapMutex;
         RegionalLatencies m_regionalLatencies;
+        RequestLatenciesCompleteEvent m_requestLatenciesCompleteEvent;
+
+        AZ::ScheduledEvent m_broadcastLatencyCompleteMainThread{ [this]()
+        {
+            AZStd::lock_guard<AZStd::mutex> lock(m_mapMutex);
+            m_requestLatenciesCompleteEvent.Signal(m_regionalLatencies);
+        }, AZ::Name("BroadcastLatencyComplete") };
     };
 } // namespace MPSGameLift

@@ -39,6 +39,11 @@ namespace MPSGameLift
         }
     }
 
+    void RegionalLatencySystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    {
+        provided.push_back(AZ_CRC_CE("MPSGameLiftRegionalLatencyFinder"));
+    }
+
     void RegionalLatencySystemComponent::RequestLatencies()
     {
         // Response callbacks are received on a separate thread. 
@@ -80,10 +85,16 @@ namespace MPSGameLift
                     m_responsesPending.fetch_sub(1);
                     if (m_responsesPending.load() == 0)
                     {
-                        RegionalLatencyFinderNotificationBus::Broadcast(&RegionalLatencyFinderNotifications::OnRequestLatenciesComplete, m_regionalLatencies);
+                        // Tell listeners that all HTTP latency requests responses have returned during the next main thread tick.
+                        m_broadcastLatencyCompleteMainThread.Enqueue(AZ::Time::ZeroTimeMs);
                     }
                 });
         }
+    }
+
+    void RegionalLatencySystemComponent::AddRequestLatenciesCompleteEventHandler(RequestLatenciesCompleteEvent::Handler& handler)
+    {
+        handler.Connect(m_requestLatenciesCompleteEvent);
     }
 
     AZStd::chrono::milliseconds RegionalLatencySystemComponent::GetLatencyForRegion(const AZStd::string& region) const
