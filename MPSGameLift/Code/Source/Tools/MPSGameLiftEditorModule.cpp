@@ -37,6 +37,7 @@ namespace MPSGameLift
         {
             return AZ::ComponentTypeList {
                 azrtti_typeid<MPSGameLiftEditorSystemComponent>(),
+                azrtti_typeid<RegionalLatencySystemComponent>()
             };
         }
     };
