@@ -56,6 +56,7 @@ ly_add_target(
         PUBLIC
             AZ::AzCore
             AZ::AzFramework
+            Gem::AWSCore
             Gem::HttpRequestor
             Gem::Multiplayer.Client
             Gem::LyShine
@@ -64,6 +65,7 @@ ly_add_target(
             Gem::AWSCore.Static
             Gem::HttpRequestor.Static
             Gem::AWSGameLift.Client.Static
+            Gem::AWSClientAuth.Static
             Gem::LyShine.Static
 )
 
@@ -117,6 +119,7 @@ ly_add_target(
             Gem::Multiplayer.Unified.Static
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
+            Gem::AWSClientAuth.Static
             Gem::LyShine.Static
 	    Gem::HttpRequestor.Static
     RUNTIME_DEPENDENCIES
@@ -142,6 +145,7 @@ ly_add_target(
             Gem::Multiplayer.Client.Static
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static
+            Gem::AWSClientAuth.Static
             Gem::${gem_name}.Client.Private.Object
     RUNTIME_DEPENDENCIES
         Gem::AWSGameLift.Clients
@@ -240,6 +244,8 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::Multiplayer.Unified.Static
                 Gem::AWSCore.Static
                 Gem::AWSGameLift.Client.Static
+                Gem::AWSClientAuth.Static
+                AZ::AWSNativeSDKInit
                 Gem::HttpRequestor.Static
                 $<TARGET_OBJECTS:Gem::${gem_name}.Unified.Private.Object>
     )
