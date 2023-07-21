@@ -69,7 +69,7 @@ namespace MPSGameLift
             AZStd::unordered_map<AZStd::string, int> latencies;
         };
 
-        //! Stuct for storing a player in matchmaking
+        //! Struct for storing a player in matchmaking
         //! Capturing values returned by GameLift's MatchmakingTicket::Players response
         //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct Player
