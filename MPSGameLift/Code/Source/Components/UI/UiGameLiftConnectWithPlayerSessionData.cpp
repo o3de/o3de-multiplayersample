@@ -25,6 +25,7 @@
 #include <AzCore/Jobs/JobFunction.h>
 #include <Multiplayer/Session/ISessionHandlingRequests.h>
 
+#include <Framework/Util.h>
 
 namespace MPSGameLift
 {

@@ -17,7 +17,6 @@
 
 namespace MultiplayerSample
 {
-    constexpr static float SecondsToMs = 1000.f;
 
     NetworkAiComponentController::NetworkAiComponentController(NetworkAiComponent& parent)
         : NetworkAiComponentControllerBase(parent)
@@ -25,6 +24,8 @@ namespace MultiplayerSample
 	}
 
 #if AZ_TRAIT_SERVER
+    constexpr static float SecondsToMs = 1000.f;
+
     void NetworkAiComponentController::TickMovement(NetworkPlayerMovementComponentController& movementController, float deltaTime)
     {
         // TODO: Execute this tick only if this component is owned by this endpoint (currently ticks on server only)
