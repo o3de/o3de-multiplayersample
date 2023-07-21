@@ -23,8 +23,7 @@ namespace MPSGameLift
 
         // IMatchmaking overrides...
         bool RequestMatch(const RegionalLatencies& regionalLatencies) override;
-        AZStd::string GetTicketId() const override {return m_ticketId;}
-        bool HasMatch(const AZStd::string& ticketId) override;
+        AZStd::string GetTicketId() const override { return m_ticketId; }
 
      protected:
         void Activate() override;

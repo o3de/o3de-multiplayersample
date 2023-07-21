@@ -88,7 +88,6 @@ namespace MPSGameLift
             PlayerAttributes playerAttributes;
         };
 
-
         //! Struct for storing the success response.
         struct RequestMatchmakingResponse
         {
@@ -161,7 +160,7 @@ namespace MPSGameLift
             Parameters parameters; //! Request parameter.
         };
 
-        using MPSRequestMatchmakingRequestJob = AWSCore::ServiceRequestJob<RequestMatchmaking>;
+        using MPSRequestMatchmakingJob = AWSCore::ServiceRequestJob<RequestMatchmaking>;
     }  // ServiceAPI
 
     void MatchmakingSystemComponent::Activate()
@@ -189,7 +188,6 @@ namespace MPSGameLift
         provided.push_back(AZ_CRC_CE("MPSGameLiftMatchmaking"));
     }
 
-
    bool MatchmakingSystemComponent::RequestMatch(const RegionalLatencies& regionalLatencies)
     {
         if (!m_ticketId.empty())
@@ -209,7 +207,7 @@ namespace MPSGameLift
         httpLatenciesParam.pop_back();  // pop the trailing white-space
 
         // Set API endpoint and region
-        ServiceAPI::MPSRequestMatchmakingRequestJob::Config* config = ServiceAPI::MPSRequestMatchmakingRequestJob::GetDefaultConfig();
+        ServiceAPI::MPSRequestMatchmakingJob::Config* config = ServiceAPI::MPSRequestMatchmakingJob::GetDefaultConfig();
         AZStd::string actualRegion;
         AWSCore::AWSResourceMappingRequestBus::BroadcastResult(actualRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
 
@@ -219,13 +217,13 @@ namespace MPSGameLift
         config->endpointOverride = AZStd::string::format("https://%s.execute-api.%s.amazonaws.com/%s?latencies=%s",
             restApi.c_str(), actualRegion.c_str(), "Prod/requestmatchmaking", httpLatenciesParam.c_str()).c_str();
 
-        // Request Match
-        ServiceAPI::MPSRequestMatchmakingRequestJob* requestJob = ServiceAPI::MPSRequestMatchmakingRequestJob::Create(
-            [this](ServiceAPI::MPSRequestMatchmakingRequestJob* successJob)
+        // Request serverless backend to make match
+        ServiceAPI::MPSRequestMatchmakingJob* requestJob = ServiceAPI::MPSRequestMatchmakingJob::Create(
+            [this](ServiceAPI::MPSRequestMatchmakingJob* successJob)
             {
                 m_ticketId = successJob->result.ticketId;
             },
-            []([[maybe_unused]] ServiceAPI::MPSRequestMatchmakingRequestJob* failJob)
+            []([[maybe_unused]] ServiceAPI::MPSRequestMatchmakingJob* failJob)
             {
                 AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
             },
@@ -233,14 +231,5 @@ namespace MPSGameLift
 
         requestJob->Start();
         return true;
-    }
-
-    bool MatchmakingSystemComponent::HasMatch(const AZStd::string& ticketId)
-    {
-        if (ticketId.empty())
-        {
-            return false;
-        }
-        return false;
     }
 }

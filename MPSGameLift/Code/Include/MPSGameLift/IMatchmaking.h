@@ -10,15 +10,6 @@
 
 namespace MPSGameLift
 {
-    // Result data structure for a check on a matchmaking request
-    struct MatchmakingResults
-    {
-        AZStd::string address;
-        uint32_t port = 0;
-        AZStd::string playerId;
-        bool found = false;
-    };
-
     // Supports matchmaking request calls to a serverless backend
     class IMatchmaking
     {
@@ -26,14 +17,13 @@ namespace MPSGameLift
         AZ_RTTI(IMatchmaking, "{371687E5-9626-4201-91E3-0FD1F79CB8B6}");
         virtual ~IMatchmaking() = default;
 
-        // Request a match for the player, providing player latencies for defined regions
+        // Request a match for the player.
+        // @param RegionalLatencies A map of latency times between this client and a regional server endpoint.
+        // Regional latencies help determine the best server to join.
         virtual bool RequestMatch(const RegionalLatencies& regionalLatencies) = 0;
 
-        // Gets the current ticket id if any
+        // Gets the current matchmaking ticket id if any
+        // @return A matchmaking ticket id, or empty string if no ticket has been received.
         virtual AZStd::string GetTicketId() const = 0;
-
-        // Checks if a match has been made
-        // TODO: Needs to return the matchmaking results
-        virtual bool HasMatch(const AZStd::string& ticketId) = 0;
     };
 } // namespace MPSGameLift
