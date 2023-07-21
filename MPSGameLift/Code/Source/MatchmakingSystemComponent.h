@@ -8,7 +8,9 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/EBus/ScheduledEvent.h>
 #include <MPSGameLift/IMatchmaking.h>
+
 
 namespace MPSGameLift
 {
@@ -28,8 +30,11 @@ namespace MPSGameLift
      protected:
         void Activate() override;
         void Deactivate() override;
+        void RequestMatchStatus();
 
     private:
         AZStd::string m_ticketId;
+        AZ::ScheduledEvent m_requestMatchStatusEvent = AZ::ScheduledEvent([this] { this->RequestMatchStatus(); }, AZ::Name("MPS Request Match Status"));
+
      };
 }
