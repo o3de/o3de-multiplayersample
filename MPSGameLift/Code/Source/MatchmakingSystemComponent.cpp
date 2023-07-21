@@ -24,6 +24,9 @@ namespace MPSGameLift
     {
         struct PlayerSkill
         {
+            //! Storage for a matchmaking player's skill level as defined by MultiplayerSample's matchmaking ruleset.
+            //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes::skill response
+            //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
             {
                 if (strcmp(key, "N") == 0)
@@ -36,6 +39,9 @@ namespace MPSGameLift
             int skill;
         };
 
+        //! A collection of key:value pairs containing player information for use in matchmaking
+        //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes response
+        //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct PlayerAttributes
         {
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
@@ -50,6 +56,9 @@ namespace MPSGameLift
             PlayerSkill skill;
         };
 
+        //! Struct for storing a player's regional latency map
+        //! Capturing values returned by GameLift's MatchmakingTicket::Players::LatencyInMs response
+        //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct Latencies
         {
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
@@ -60,6 +69,9 @@ namespace MPSGameLift
             AZStd::unordered_map<AZStd::string, int> latencies;
         };
 
+        //! Stuct for storing a player in matchmaking
+        //! Capturing values returned by GameLift's MatchmakingTicket::Players response
+        //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct Player
         {
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
@@ -90,6 +102,8 @@ namespace MPSGameLift
         };
 
         //! Struct for storing the success response.
+        //! Capturing ticket-id and players data provided by GameLift's Matchmaking response
+        //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_MatchmakingTicket.html
         struct RequestMatchmakingResponse
         {
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
