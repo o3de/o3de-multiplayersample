@@ -14,6 +14,7 @@
 #include <AWSCoreBus.h>
 #include <ResourceMapping/AWSResourceMappingBus.h>
 
+#include <Framework/Error.h>
 #include <Framework/ServiceRequestJob.h>
 
 
@@ -109,29 +110,6 @@ namespace MPSGameLift
             AZStd::vector<Player> players;
         };
 
-        //! Struct for storing the error.
-        struct RequestMatchmakingError
-        {
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
-            {
-                if (strcmp(key, "message") == 0)
-                {
-                    return reader.Accept(message);
-                }
-
-                if (strcmp(key, "type") == 0)
-                {
-                    return reader.Accept(type);
-                }
-
-                return reader.Ignore();
-            }
-
-            //! Do not rename the following members since they are expected by the AWSCore dependency.
-            AZStd::string message; //!< Error message.
-            AZStd::string type; //!< Error type.
-        };
-
         // Service RequestJobs
         AWS_FEATURE_GEM_SERVICE(MPSGameLift);
 
@@ -156,7 +134,7 @@ namespace MPSGameLift
             };
 
             RequestMatchmakingResponse result;
-            RequestMatchmakingError error;
+            AWSCore::Error error;
             Parameters parameters; //! Request parameter.
         };
 
