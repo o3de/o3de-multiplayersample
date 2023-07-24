@@ -2,7 +2,6 @@
 
 ## Notes
 
-* The general O3DE project-centric export script is still in development. For now the project-centric instructions will be calibrated using the MPS Gamelift Export Script. Once the general script is merged, the instructions will be updated.
 * This instruction set assumes the host platform is Windows. Instructions for Linux coming shortly.
 
 ## Fresh Install and Setup
@@ -32,13 +31,11 @@ scripts\o3de register --all-gems-path \path\to\workspace\o3de-multiplayersample-
 ```
 
 ## Run Project Export
-Use the MPSGamelift export script to produce a game and server package. 
+Use the O3DE Project-centric export script to produce a game and server package. 
 
 1. Create the directory you want to output the game and server, navigate to that directory, and run the export command:
 ```bash
-mkdir \path\to\output
-cd \path\to\output
-\full\path\to\workspace\o3de\scripts\o3de export-project -es \full\path\to\workspace\o3de-multiplayersample\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO --package-gamelauncher
+\path\to\workspace\o3de\scripts\o3de export-project -es \path\to\o3de\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp \path\to\o3de-multiplayersample -out \full\path\to\output -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\GameSeedList.seed -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\VFXSeedList.seed 
 ```
 
 2. You should see two directories in your output folder: `MultiplayerSampleGamePackage` and `GameLiftPackageWindows`.
