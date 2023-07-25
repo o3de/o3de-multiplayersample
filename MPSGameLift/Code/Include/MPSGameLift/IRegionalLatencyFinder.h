@@ -8,10 +8,11 @@
 
 #pragma once
 
+#include <AzCore/EBus/Event.h>
 #include <AzCore/RTTI/RTTIMacros.h>
 #include <AzCore/std/chrono/chrono.h>
+#include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/std/string/string.h>
-
 
 namespace MPSGameLift
 {
