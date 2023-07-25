@@ -31,7 +31,7 @@ scripts\o3de register --all-gems-path \path\to\workspace\o3de-multiplayersample-
 ```
 
 ## Run Project Export
-Use the O3DE Project-centric export script to produce a game and server package. 
+Use the O3DE project-centric export script to produce a game and server package. 
 
 1. Create the directory you want to output the game and server, navigate to that directory, and run the export command:
 ```bash
