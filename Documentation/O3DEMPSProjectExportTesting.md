@@ -35,7 +35,13 @@ Use the O3DE project-centric export script to produce a game and server package.
 
 1. Create the directory you want to output the game and server, navigate to that directory, and run the export command:
 ```bash
-\path\to\workspace\o3de\scripts\o3de export-project -es \path\to\o3de\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp \path\to\o3de-multiplayersample -out \full\path\to\output -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\GameSeedList.seed -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\VFXSeedList.seed 
+
+# Windows
+%O3DE_PATH%\scripts\o3de export-project -es %O3DE_PATH%\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp %O3DE_PROJECT_PATH% -out %OUTPUT_PATH% -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\GameSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\VFXSeedList.seed 
+
+#Linux
+$O3DE_PATH/scripts/o3de export-project -es $O3DE_PATH/scripts/o3de/ExportScripts/export_standalone_monolithic_project_centric.py -pp $O3DE_PROJECT_PATH -out $OUTPUT_PATH -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/BasePopcornFxSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/GameSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/VFXSeedList.seed
+
 ```
 
 2. You should see two directories in your output folder: `MultiplayerSampleGamePackage` and `GameLiftPackageWindows`.
