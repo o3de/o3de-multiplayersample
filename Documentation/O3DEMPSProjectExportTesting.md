@@ -52,10 +52,10 @@ After setting those variables, navigate to that directory, and run the export co
 ```bash
 
 # On Windows
-%O3DE_PATH%\scripts\o3de export-project -es %O3DE_PATH%\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp %O3DE_PROJECT_PATH% -out %OUTPUT_PATH% -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\GameSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\VFXSeedList.seed 
+%O3DE_PATH%\scripts\o3de.bat export-project -es %O3DE_PATH%\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp %O3DE_PROJECT_PATH% -out %OUTPUT_PATH% -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\GameSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\VFXSeedList.seed 
 
 # On Linux
-$O3DE_PATH/scripts/o3de export-project -es $O3DE_PATH/scripts/o3de/ExportScripts/export_standalone_monolithic_project_centric.py -pp $O3DE_PROJECT_PATH -out $OUTPUT_PATH -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/BasePopcornFxSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/GameSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/VFXSeedList.seed
+$O3DE_PATH/scripts/o3de.sh export-project -es $O3DE_PATH/scripts/o3de/ExportScripts/export_standalone_monolithic_project_centric.py -pp $O3DE_PROJECT_PATH -out $OUTPUT_PATH -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/BasePopcornFxSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/GameSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/VFXSeedList.seed
 
 ```
 
@@ -64,10 +64,20 @@ $O3DE_PATH/scripts/o3de export-project -es $O3DE_PATH/scripts/o3de/ExportScripts
 ## Test Exported Project
 1. To test MPS, first run the server, then run the game. You may need to provide admin privilege to enable a connection to AssetProcessor:
 ```bash
+# On Windows
 .\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer --console-command-file=launch_server.cfg --net_udpDefaultTimeoutMs=20000
- 
-# Wait for server to get setup, then run the game launcher
+
+# On Linux
+./GameLiftPackageWindows/MultiplayerSample.ServerLauncher --rhi=null -NullRenderer --console-command-file=launch_server.cfg --net_udpDefaultTimeoutMs=20000
+```
+
+Wait for server to get setup, then run the game launcher
+```bash
+# On Windows
 .\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe --connect=127.0.0.1 --net_udpDefaultTimeoutMs=20000
+
+# On Linux
+./MultiplayerSampleGamePackage/MultiplayerSample.GameLauncher --connect=127.0.0.1 --net_udpDefaultTimeoutMs=20000
 ```
 
 2. At this point, check to see if the game runs, and if you're able to run around, see particles, shoot, and hear sounds. Any errors or crashes should result in timestamped logs, which can be found at `GameLiftPackageWindows\user\log\server.log`, or `MultiplayerSampleGamePackage\user\log\game.log`.
