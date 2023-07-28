@@ -20,7 +20,7 @@
 #include <Multiplayer/Session/ISessionHandlingRequests.h>
 #include <Request/AWSGameLiftRequestBus.h>
 
-#pragma optimize("",off)
+
 namespace MPSGameLift
 {
     namespace ServiceAPI
@@ -312,6 +312,10 @@ namespace MPSGameLift
 
                 // Make a request to check match status every second, until we timeout, or receive a valid match
                 m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
+
+                // Begin counting a timeout
+                m_matchRequestTimeout = false;
+                m_requestMatchTimeoutEvent.Enqueue(AZ::SecondsToTimeMs(MatchRequestTimeoutSeconds));
             },
             []([[maybe_unused]] ServiceAPI::RequestMatchmakingJob* failJob)
             {
@@ -342,14 +346,15 @@ namespace MPSGameLift
                 if (successJob->result.playerSessionId.empty() || successJob->result.playerSessionId == "NotPlacedYet")
                 {
                     // Make a request to check match status every second, until we timeout, or receive a valid match
-                    AZ_Error("MatchmakingSystemComponent", false, "Match not placed yet. Checking again after 1 second.");
-
-                    m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
-                    return;
+                    if (!m_matchRequestTimeout)
+                    {
+                        m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
+                        return;
+                    }
                 }
 
-                // Enable GameLift and connect to host
-                AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "us-east-1");
+                // Enable GameLift game client system and connect to the host server
+                AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
                 Multiplayer::SessionConnectionConfig sessionConnectionConfig {
                     successJob->result.playerSessionId,
                     successJob->result.dnsName,
@@ -370,5 +375,3 @@ namespace MPSGameLift
         requestJob->Start();
     }
 }
-
-#pragma optimize("",on)
