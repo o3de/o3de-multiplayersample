@@ -164,14 +164,14 @@ namespace MPSGameLift
         };
 
         // Service RequestJobs
-        AWS_FEATURE_GEM_SERVICE(MPSRequestMatchmaking);
+        AWS_FEATURE_GEM_SERVICE(MPSGameLift);
 
         //! GET request to place a matchmaking request "/requestmatchmaking".
         class RequestMatchmaking
             : public AWSCore::ServiceRequest
         {
         public:
-            SERVICE_REQUEST(MPSRequestMatchmaking, HttpMethod::HTTP_GET, "");
+            SERVICE_REQUEST(MPSGameLift, HttpMethod::HTTP_GET, "");
 
             struct Parameters
             {
@@ -222,14 +222,13 @@ namespace MPSGameLift
             int port;
         };
 
-        AWS_FEATURE_GEM_SERVICE(MPSRequestMatchStatus);
 
         //! GET request to find matchmaking status "/requestmatchstatus".
         class RequestMatchStatus
             : public AWSCore::ServiceRequest
         {
         public:
-            SERVICE_REQUEST(MPSRequestMatchStatus, HttpMethod::HTTP_GET, "");
+            SERVICE_REQUEST(MPSGameLift, HttpMethod::HTTP_GET, "");
 
             struct Parameters
             {
