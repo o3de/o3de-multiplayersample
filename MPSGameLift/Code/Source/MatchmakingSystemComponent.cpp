@@ -25,40 +25,18 @@ namespace MPSGameLift
 {
     namespace ServiceAPI
     {
-        struct PlayerSkill
-        {
-            //! Storage for a matchmaking player's skill level as defined by MultiplayerSample's matchmaking ruleset.
-            //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes::skill response
-            //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
-            {
-                // Player skill is a number
-                // FlexMatch uses "N" (number) for interpreting how rules are logically compared
-                if (strcmp(key, "N") == 0)
-                {
-                    return reader.Accept(skill);
-                }
-                return reader.Ignore();
-            }
-
-            int skill;
-        };
-
         //! A collection of key:value pairs containing player information for use in matchmaking
         //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes response
+        //! The MultiplayerSample game doesn't match make based on any player attributes, 
+        //!    but the FlexMatch JSON response returns a "PlayerAttributes" table so this is here to avoid asserting.
+        //!    See https://github.com/o3de/o3de/issues/16468
         //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct PlayerAttributes
         {
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
+            bool OnJsonKey([[maybe_unused]]const char* key, AWSCore::JsonReader& reader)
             {
-                if (strcmp(key, "skill") == 0)
-                {
-                    return reader.Accept(skill);
-                }
                 return reader.Ignore();
             }
-
-            PlayerSkill skill;
         };
 
         //! Struct for storing a player's regional latency map
@@ -160,7 +138,6 @@ namespace MPSGameLift
             AZStd::vector<Player> players;
             GameSessionConnectionInfo gameSessionConnectionInfo;
             AZStd::string status;
-
         };
 
         // Service RequestJobs
