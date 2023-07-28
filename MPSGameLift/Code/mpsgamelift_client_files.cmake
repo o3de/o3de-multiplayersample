@@ -6,6 +6,8 @@
 #
 
 set(FILES
+    Source/MatchmakingSystemComponent.cpp
+    Source/MatchmakingSystemComponent.h
     Source/MPSGameLiftClientSystemComponent.cpp
     Source/MPSGameLiftClientSystemComponent.h
     Source/Components/UI/UiGameLiftConnectWithPlayerSessionData.cpp

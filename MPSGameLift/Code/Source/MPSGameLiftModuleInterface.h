@@ -12,6 +12,7 @@
 
 
 #if AZ_TRAIT_CLIENT
+    #include <MatchmakingSystemComponent.h>
     #include <MPSGameLiftClientSystemComponent.h>
     #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
     #include <RegionalLatencySystemComponent.h>
@@ -64,6 +65,7 @@ namespace MPSGameLift
             m_descriptors.insert(m_descriptors.end(), {
                 MPSGameLiftSystemComponent::CreateDescriptor(),
                 #if AZ_TRAIT_CLIENT
+                    MatchmakingSystemComponent::CreateDescriptor(),
                     RegionalLatencySystemComponent::CreateDescriptor(),
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
                     UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),
@@ -84,6 +86,7 @@ namespace MPSGameLift
             };
 
             #if AZ_TRAIT_CLIENT
+                requiredSystemComponents.push_back(azrtti_typeid<MatchmakingSystemComponent>());
                 requiredSystemComponents.push_back(azrtti_typeid<RegionalLatencySystemComponent>());
                 requiredSystemComponents.push_back(azrtti_typeid<MPSGameLiftClientSystemComponent>());
             #endif
