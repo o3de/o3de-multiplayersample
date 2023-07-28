@@ -32,6 +32,8 @@ namespace MPSGameLift
             //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
             bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
             {
+                // Player skill is a number
+                // FlexMatch uses "N" (number) for interpreting how rules are logically compared
                 if (strcmp(key, "N") == 0)
                 {
                     return reader.Accept(skill);

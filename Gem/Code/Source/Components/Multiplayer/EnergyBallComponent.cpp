@@ -198,7 +198,6 @@ namespace MultiplayerSample
                     // Look for physics rigid body component and make impact updates
                     if (Multiplayer::NetworkRigidBodyComponent* rigidBodyComponent = handle.GetEntity()->FindComponent<Multiplayer::NetworkRigidBodyComponent>())
                     {
-                        const AZ::Vector3 explosionCentre = position;
                         const AZ::Vector3 hitObject = handle.GetEntity()->GetTransform()->GetWorldTM().GetTranslation();
                         const AZ::Vector3 impulse = (hitObject - position).GetNormalized() * damage * sv_EnergyBallImpulseScalar;
                         rigidBodyComponent->SendApplyImpulse(impulse, position);
