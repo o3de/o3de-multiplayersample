@@ -8,8 +8,6 @@
 #include "MatchmakingSystemComponent.h"
 
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/RTTI/BehaviorContext.h>
 
 #include <AWSCoreBus.h>
 #include <ResourceMapping/AWSResourceMappingBus.h>
