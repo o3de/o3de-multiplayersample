@@ -27,7 +27,7 @@ namespace MPSGameLift
     {
         //! A collection of key:value pairs containing player information for use in matchmaking
         //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes response
-        //! The MultiplayerSample game doesn't match make based on any player attributes, 
+        //! The MultiplayerSample game doesn't match players based on any game-specific attributes, 
         //!    but the FlexMatch JSON response returns a "PlayerAttributes" table so this is here to avoid asserting.
         //!    See https://github.com/o3de/o3de/issues/16468
         //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
@@ -273,14 +273,20 @@ namespace MPSGameLift
 
         // Set API endpoint and region
         ServiceAPI::RequestMatchmakingJob::Config* config = ServiceAPI::RequestMatchmakingJob::GetDefaultConfig();
-        AZStd::string actualRegion;
-        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(actualRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        AZStd::string defaultRegion;
+        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(defaultRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        if (defaultRegion.empty())
+        {
+            AZLOG_ERROR("MatchmakingSystemComponent::RequestMatch failed. Client doesn't have a default region defined and so can't find an endpoint to request an available match."
+                "Please fill out default_aws_resource_mappings.json");
+            return false;
+        }
 
         AZStd::string restApi;
         AWSCore::AWSResourceMappingRequestBus::BroadcastResult(restApi, &AWSCore::AWSResourceMappingRequests::GetResourceNameId, "MPSMatchmaking");
-        config->region = actualRegion.c_str();
+        config->region = defaultRegion.c_str();
         config->endpointOverride = AZStd::string::format("https://%s.execute-api.%s.amazonaws.com/%s?latencies=%s",
-            restApi.c_str(), actualRegion.c_str(), "Prod/requestmatchmaking", httpLatenciesParam.c_str()).c_str();
+            restApi.c_str(), defaultRegion.c_str(), "Prod/requestmatchmaking", httpLatenciesParam.c_str()).c_str();
 
         // Request serverless backend to make match
         ServiceAPI::RequestMatchmakingJob* requestJob = ServiceAPI::RequestMatchmakingJob::Create(
@@ -308,14 +314,20 @@ namespace MPSGameLift
     void MatchmakingSystemComponent::RequestMatchStatus()
     {
         ServiceAPI::RequestMatchStatusJob::Config* config = ServiceAPI::RequestMatchStatusJob::GetDefaultConfig();
-        AZStd::string actualRegion;
-        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(actualRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        AZStd::string defaultRegion;
+        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(defaultRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        if (defaultRegion.empty())
+        {
+            AZLOG_ERROR("MatchmakingSystemComponent::RequestMatchStatus failed. Client doesn't have a default region defined, so cannot find an endpoint to ask about the match status."
+                "Please fill out default_aws_resource_mappings.json");
+            return;
+        }
 
         AZStd::string restApi;
         AWSCore::AWSResourceMappingRequestBus::BroadcastResult(restApi, &AWSCore::AWSResourceMappingRequests::GetResourceNameId, "MPSMatchmaking");
-        config->region = actualRegion.c_str();
+        config->region = defaultRegion.c_str();
         config->endpointOverride = AZStd::string::format("https://%s.execute-api.%s.amazonaws.com/%s?ticketId=%s",
-            restApi.c_str(), actualRegion.c_str(), "Prod/requestmatchstatus", m_ticketId.c_str()).c_str();
+            restApi.c_str(), defaultRegion.c_str(), "Prod/requestmatchstatus", m_ticketId.c_str()).c_str();
 
         // Ask backend for match status
         ServiceAPI::RequestMatchStatusJob* requestJob = ServiceAPI::RequestMatchStatusJob::Create(
@@ -327,8 +339,8 @@ namespace MPSGameLift
                     if (!m_matchRequestTimeout)
                     {
                         m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
-                        return;
                     }
+                    return;
                 }
 
                 // Enable GameLift game client system and connect to the host server
