@@ -8,8 +8,6 @@
 #include "MatchmakingSystemComponent.h"
 
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/RTTI/BehaviorContext.h>
 
 #include <AWSCoreBus.h>
 #include <ResourceMapping/AWSResourceMappingBus.h>
@@ -17,45 +15,26 @@
 #include <Framework/Error.h>
 #include <Framework/ServiceRequestJob.h>
 
+#include <Multiplayer/Session/ISessionHandlingRequests.h>
+#include <Request/AWSGameLiftRequestBus.h>
+
 
 namespace MPSGameLift
 {
     namespace ServiceAPI
     {
-        struct PlayerSkill
-        {
-            //! Storage for a matchmaking player's skill level as defined by MultiplayerSample's matchmaking ruleset.
-            //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes::skill response
-            //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
-            {
-                // Player skill is a number
-                // FlexMatch uses "N" (number) for interpreting how rules are logically compared
-                if (strcmp(key, "N") == 0)
-                {
-                    return reader.Accept(skill);
-                }
-                return reader.Ignore();
-            }
-
-            int skill;
-        };
-
         //! A collection of key:value pairs containing player information for use in matchmaking
         //! Capturing values returned by GameLift's MatchmakingTicket::Players::PlayerAttributes response
+        //! The MultiplayerSample game doesn't match players based on any game-specific attributes, 
+        //!    but the FlexMatch JSON response returns a "PlayerAttributes" table so this is here to avoid asserting.
+        //!    See https://github.com/o3de/o3de/issues/16468
         //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_Player.html
         struct PlayerAttributes
         {
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
+            bool OnJsonKey([[maybe_unused]]const char* key, AWSCore::JsonReader& reader)
             {
-                if (strcmp(key, "skill") == 0)
-                {
-                    return reader.Accept(skill);
-                }
                 return reader.Ignore();
             }
-
-            PlayerSkill skill;
         };
 
         //! Struct for storing a player's regional latency map
@@ -103,6 +82,29 @@ namespace MPSGameLift
             PlayerAttributes playerAttributes;
         };
 
+        struct GameSessionConnectionInfo
+        {
+            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
+            {
+                if (strcmp(key, "DnsName") == 0)
+                {
+                    return reader.Accept(dnsName);
+                }
+                if (strcmp(key, "IpAddress") == 0)
+                {
+                    return reader.Accept(ipAddress);
+                }
+                if (strcmp(key, "GameSessionArn") == 0)
+                {
+                    return reader.Accept(gameSessionArn);
+                }
+                return reader.Ignore();
+            }
+            AZStd::string dnsName;
+            AZStd::string ipAddress;
+            AZStd::string gameSessionArn;
+        };
+
         //! Struct for storing the success response.
         //! Capturing ticket-id and players data provided by GameLift's Matchmaking response
         //! https://docs.aws.amazon.com/gamelift/latest/apireference/API_MatchmakingTicket.html
@@ -118,12 +120,22 @@ namespace MPSGameLift
                 {
                     return reader.Accept(players);
                 }
+                if (strcmp(key, "GameSessionConnectionInfo") == 0)
+                {
+                    return reader.Accept(gameSessionConnectionInfo);
+                }
+                if (strcmp(key, "Status") == 0)
+                {
+                    return reader.Accept(status);
+                }
 
                 return reader.Ignore();
             }
 
             AZStd::string ticketId;
             AZStd::vector<Player> players;
+            GameSessionConnectionInfo gameSessionConnectionInfo;
+            AZStd::string status;
         };
 
         // Service RequestJobs
@@ -153,8 +165,65 @@ namespace MPSGameLift
             AWSCore::Error error;
             Parameters parameters; //! Request parameter.
         };
+        using RequestMatchmakingJob = AWSCore::ServiceRequestJob<RequestMatchmaking>;
 
-        using MPSRequestMatchmakingJob = AWSCore::ServiceRequestJob<RequestMatchmaking>;
+        struct RequestMatchStatusResponse
+        {
+            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader)
+            {
+                if (strcmp(key, "PlayerSessionId") == 0)
+                {
+                    return reader.Accept(playerSessionId);
+                }
+                if (strcmp(key, "IpAddress") == 0)
+                {
+                    return reader.Accept(ipAddress);
+                }
+                if (strcmp(key, "DnsName") == 0)
+                {
+                    return reader.Accept(dnsName);
+                }
+                if (strcmp(key, "Port") == 0)
+                {
+                    return reader.Accept(port);
+                }
+
+                return reader.Ignore();
+            }
+
+            AZStd::string playerSessionId;
+            AZStd::string ipAddress;
+            AZStd::string dnsName;
+            int port;
+        };
+
+
+        //! GET request to find matchmaking status "/requestmatchstatus".
+        class RequestMatchStatus
+            : public AWSCore::ServiceRequest
+        {
+        public:
+            SERVICE_REQUEST(MPSGameLift, HttpMethod::HTTP_GET, "");
+
+            struct Parameters
+            {
+                bool BuildRequest(AWSCore::RequestBuilder& request)
+                {
+                    return request.WriteJsonBodyParameter(*this);
+                }
+
+                bool WriteJson([[maybe_unused]] AWSCore::JsonWriter& writer) const
+                {
+                    return true;
+                }
+            };
+
+            RequestMatchStatusResponse result;
+            AWSCore::Error error;
+            Parameters parameters; //! Request parameter.
+        };
+        using RequestMatchStatusJob = AWSCore::ServiceRequestJob<RequestMatchStatus>;
+
     }  // ServiceAPI
 
     void MatchmakingSystemComponent::Activate()
@@ -201,23 +270,36 @@ namespace MPSGameLift
         httpLatenciesParam.pop_back();  // pop the trailing white-space
 
         // Set API endpoint and region
-        ServiceAPI::MPSRequestMatchmakingJob::Config* config = ServiceAPI::MPSRequestMatchmakingJob::GetDefaultConfig();
-        AZStd::string actualRegion;
-        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(actualRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        ServiceAPI::RequestMatchmakingJob::Config* config = ServiceAPI::RequestMatchmakingJob::GetDefaultConfig();
+        AZStd::string defaultRegion;
+        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(defaultRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        if (defaultRegion.empty())
+        {
+            AZLOG_ERROR("MatchmakingSystemComponent::RequestMatch failed. Client doesn't have a default region defined and so can't find an endpoint to request an available match."
+                "Please fill out default_aws_resource_mappings.json");
+            return false;
+        }
 
         AZStd::string restApi;
         AWSCore::AWSResourceMappingRequestBus::BroadcastResult(restApi, &AWSCore::AWSResourceMappingRequests::GetResourceNameId, "MPSMatchmaking");
-        config->region = actualRegion.c_str();
+        config->region = defaultRegion.c_str();
         config->endpointOverride = AZStd::string::format("https://%s.execute-api.%s.amazonaws.com/%s?latencies=%s",
-            restApi.c_str(), actualRegion.c_str(), "Prod/requestmatchmaking", httpLatenciesParam.c_str()).c_str();
+            restApi.c_str(), defaultRegion.c_str(), "Prod/requestmatchmaking", httpLatenciesParam.c_str()).c_str();
 
         // Request serverless backend to make match
-        ServiceAPI::MPSRequestMatchmakingJob* requestJob = ServiceAPI::MPSRequestMatchmakingJob::Create(
-            [this](ServiceAPI::MPSRequestMatchmakingJob* successJob)
+        ServiceAPI::RequestMatchmakingJob* requestJob = ServiceAPI::RequestMatchmakingJob::Create(
+            [this](ServiceAPI::RequestMatchmakingJob* successJob)
             {
                 m_ticketId = successJob->result.ticketId;
+
+                // Make a request to check match status every second, until we timeout, or receive a valid match
+                m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
+
+                // Begin counting a timeout
+                m_matchRequestTimeout = false;
+                m_requestMatchTimeoutEvent.Enqueue(AZ::SecondsToTimeMs(MatchRequestTimeoutSeconds));
             },
-            []([[maybe_unused]] ServiceAPI::MPSRequestMatchmakingJob* failJob)
+            []([[maybe_unused]] ServiceAPI::RequestMatchmakingJob* failJob)
             {
                 AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
             },
@@ -225,5 +307,59 @@ namespace MPSGameLift
 
         requestJob->Start();
         return true;
+    }
+
+    void MatchmakingSystemComponent::RequestMatchStatus()
+    {
+        ServiceAPI::RequestMatchStatusJob::Config* config = ServiceAPI::RequestMatchStatusJob::GetDefaultConfig();
+        AZStd::string defaultRegion;
+        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(defaultRegion, &AWSCore::AWSResourceMappingRequests::GetDefaultRegion);
+        if (defaultRegion.empty())
+        {
+            AZLOG_ERROR("MatchmakingSystemComponent::RequestMatchStatus failed. Client doesn't have a default region defined, so cannot find an endpoint to ask about the match status."
+                "Please fill out default_aws_resource_mappings.json");
+            return;
+        }
+
+        AZStd::string restApi;
+        AWSCore::AWSResourceMappingRequestBus::BroadcastResult(restApi, &AWSCore::AWSResourceMappingRequests::GetResourceNameId, "MPSMatchmaking");
+        config->region = defaultRegion.c_str();
+        config->endpointOverride = AZStd::string::format("https://%s.execute-api.%s.amazonaws.com/%s?ticketId=%s",
+            restApi.c_str(), defaultRegion.c_str(), "Prod/requestmatchstatus", m_ticketId.c_str()).c_str();
+
+        // Ask backend for match status
+        ServiceAPI::RequestMatchStatusJob* requestJob = ServiceAPI::RequestMatchStatusJob::Create(
+            [this](ServiceAPI::RequestMatchStatusJob* successJob)
+            {
+                if (successJob->result.playerSessionId.empty() || successJob->result.playerSessionId == "NotPlacedYet")
+                {
+                    // Make a request to check match status every second, until we timeout, or receive a valid match
+                    if (!m_matchRequestTimeout)
+                    {
+                        m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
+                    }
+                    return;
+                }
+
+                // Enable GameLift game client system and connect to the host server
+                AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
+                Multiplayer::SessionConnectionConfig sessionConnectionConfig {
+                    successJob->result.playerSessionId,
+                    successJob->result.dnsName,
+                    successJob->result.ipAddress,
+                    aznumeric_cast<uint16_t>(successJob->result.port)
+                };
+                if (auto clientRequestHandler = AZ::Interface<Multiplayer::ISessionHandlingClientRequests>::Get())
+                {
+                    clientRequestHandler->RequestPlayerJoinSession(sessionConnectionConfig);
+                }
+            },
+            []([[maybe_unused]] ServiceAPI::RequestMatchStatusJob* failJob)
+            {
+                AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
+            },
+            config);
+
+        requestJob->Start();
     }
 }

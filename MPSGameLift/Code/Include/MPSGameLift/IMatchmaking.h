@@ -19,7 +19,8 @@ namespace MPSGameLift
 
         // Request a match for the player.
         // @param RegionalLatencies A map of latency times between this client and a regional server endpoint.
-        // Regional latencies help determine the best server to join.
+        //     Regional latencies help determine the best server to join.
+        // @return True if the request was sent; otherwise false.
         virtual bool RequestMatch(const RegionalLatencies& regionalLatencies) = 0;
 
         // Gets the current matchmaking ticket id if any
