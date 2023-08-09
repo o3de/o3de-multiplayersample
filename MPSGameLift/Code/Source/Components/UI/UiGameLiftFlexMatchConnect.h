@@ -39,6 +39,8 @@ namespace MPSGameLift
         static constexpr char StatusMatchmakingFailedToReceiveTicket[] = "Failed to receive matchmaking ticket.\nAre server fleets running?";
         static constexpr char StatusMatchmakingFailedToReceiveStatusUpdate[] = "Failed to receive status update.\nMake sure you are connected to the internet and try again.";
         static constexpr char StatusMatchmakingTimedOut[] = "Matchmaking timed out!\nReport ticket id to a developer.";
+        static constexpr char StatusMatchmakingFailedReasonUnknown[] = "Matchmaking failed.\nReason unknown.";
+
 
     public:
         AZ_COMPONENT(MPSGameLift::UiGameLiftFlexMatchConnect, "{EFB9D394-8134-400F-B751-42BA81CD08A7}");
@@ -80,6 +82,8 @@ namespace MPSGameLift
             case MatchMakingFailReason::TimedOut:
                 PushStatusFail(StatusMatchmakingTimedOut);
                 break;
+            default:
+                PushStatusFail(StatusMatchmakingFailedReasonUnknown);
             }
         } };
 
