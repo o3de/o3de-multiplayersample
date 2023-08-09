@@ -15,14 +15,7 @@
 #include <LyShine/Bus/UiCursorBus.h>
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
-#include <LyShine/Bus/UiTextInputBus.h>
-#include <LyShine/Bus/UiInteractableBus.h>
 
-#include <Multiplayer/Session/SessionRequests.h>
-#include <Request/AWSGameLiftRequestBus.h>
-#include <Request/AWSGameLiftSessionRequestBus.h>
-#include <AzCore/Jobs/JobContext.h>
-#include <AzCore/Jobs/JobFunction.h>
 #include <Multiplayer/Session/ISessionHandlingRequests.h>
 
 
@@ -74,15 +67,24 @@ namespace MPSGameLift
         // Listen for disconnect events to know if connecting to the host server failed
         AZ::Interface<Multiplayer::IMultiplayer>::Get()->AddEndpointDisconnectedHandler(m_onConnectToHostFailed);
         AZ::Interface<IRegionalLatencyFinder>::Get()->AddRequestLatenciesCompleteEventHandler(m_requestLatenciesComplete);
+
+        // Listen for auth events
+        AWSClientAuth::AWSCognitoAuthorizationNotificationBus::Handler::BusConnect();
+
+        // Listen for matchmaking events
+        AZ::Interface<IMatchmaking>::Get()->AddMatchmakingFailedEventHandler(m_onMatchmakingFailed);
+        AZ::Interface<IMatchmaking>::Get()->AddMatchmakingSuccessEventHandler(m_onMatchmakingSuccess);
+        AZ::Interface<IMatchmaking>::Get()->AddMatchmakingTicketReceivedEventHandler(m_onMatchmakingTicketReceived);
     }
 
     void UiGameLiftFlexMatchConnect::Deactivate()
     {
+        AWSClientAuth::AWSCognitoAuthorizationNotificationBus::Handler::BusDisconnect();
         m_onConnectToHostFailed.Disconnect();
         UiCursorBus::Broadcast(&UiCursorInterface::DecrementVisibleCounter);
     }
 
-    void UiGameLiftFlexMatchConnect::OnButtonClicked(AZ::EntityId buttonEntityId) const
+    void UiGameLiftFlexMatchConnect::OnButtonClicked(AZ::EntityId buttonEntityId)
     {
         const auto console = AZ::Interface<AZ::IConsole>::Get();
         if (!console)
@@ -103,33 +105,102 @@ namespace MPSGameLift
             UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
             UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, "Searching for match...");
 
-            AZ::Interface<IRegionalLatencyFinder>::Get()->RequestLatencies();
+            bool clientAuthInitialized = false;
+            AWSClientAuth::AWSCognitoAuthorizationRequestBus::BroadcastResult(clientAuthInitialized, &AWSClientAuth::IAWSCognitoAuthorizationRequests::Initialize);
+
+            if (clientAuthInitialized)
+            {
+                m_statusUpdates.push_back(StatusPlayerAuthInitSuccess);
+            }
+            else
+            {
+                PushStatusFail(StatusPlayerAuthInitFailed);
+                return;
+            }
+            
+            AWSClientAuth::AWSCognitoAuthorizationRequestBus::Broadcast(&AWSClientAuth::IAWSCognitoAuthorizationRequests::RequestAWSCredentialsAsync);
         }
         
         if (buttonEntityId == m_connectToHostFailedUi)
         {
             // Player acknowledged connection failed. Close the warning popup.
             UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, false);
+            UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
+            m_statusUpdates.clear();
         }
     }
 
-    void UiGameLiftFlexMatchConnect::OnRequestLatenciesComplete(const RegionalLatencies& regionLatencies)
+    void UiGameLiftFlexMatchConnect::OnRequestLatenciesComplete(const RegionalLatencies& regionalLatencies)
     {
-        UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, "Latencies found...");
+        if (regionalLatencies.empty())
+        {
+            PushStatusFail(StatusLatencyRequestFailed);
+            return;
+        }
 
+        // Tell player server endpoints were reached and display the round-trip-time...
         AZStd::string latencyPrint;
-        for (const auto latency : regionLatencies)
+        for (const auto& latency : regionalLatencies)
         {
             latencyPrint += AZStd::string::format("%s: %ims\n", latency.first.c_str(), static_cast<uint32_t>(latency.second.count()));
         }
+        
+        ReplaceStatusUpdate(AZStd::string::format(StatusLatencyRequestSuccess, latencyPrint.c_str()));
 
-        UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, latencyPrint.c_str());
-
+        // Start matchmaking
+        AZ::Interface<IMatchmaking>::Get()->RequestMatch(regionalLatencies);
     }
 
     void UiGameLiftFlexMatchConnect::OnConnectToHostFailed()
     {
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
         UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
-    }    
+    }
+
+    void UiGameLiftFlexMatchConnect::OnRequestAWSCredentialsSuccess([[maybe_unused]] const AWSClientAuth::ClientAuthAWSCredentials& awsCredentials)
+    {
+        ReplaceStatusUpdate(StatusAnonPlayerCredentialsReceived);
+        PushStatusUpdate(StatusRequestingServerRegionLatencies);
+        AZ::Interface<IRegionalLatencyFinder>::Get()->RequestLatencies();
+    }
+
+    void UiGameLiftFlexMatchConnect::OnRequestAWSCredentialsFail([[maybe_unused]] const AZStd::string& error)
+    {
+        PushStatusFail(StatusAnonPlayerCredentialsFailed);
+    }
+
+    void UiGameLiftFlexMatchConnect::PushStatusUpdate(const AZStd::string& statusUpdate)
+    {
+        m_statusUpdates.push_back(statusUpdate);
+        RenderStatusText();
+    }
+    
+    void UiGameLiftFlexMatchConnect::ReplaceStatusUpdate(const AZStd::string& statusUpdate)
+    {
+        m_statusUpdates.pop_back();
+        m_statusUpdates.push_back(statusUpdate);
+        RenderStatusText();
+    }
+    
+    void UiGameLiftFlexMatchConnect::PushStatusFail(const AZStd::string& reason)
+    {
+        // Display the latest status update in red
+        const AZStd::string markupRedFont = "<font color = \"#ff0000\">";
+        PushStatusUpdate(markupRedFont + reason + "</font>");
+        
+        // Enable the matchmaking failed popup, and allow the user to close the popup, and try again.
+        UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, true);
+    }
+
+    void UiGameLiftFlexMatchConnect::RenderStatusText()
+    {
+        // Combine each all the status updates into a single list and render to UI text.
+        AZStd::string statusTextbox;
+        for (const auto& status : m_statusUpdates)
+        {
+            statusTextbox += status + "\n";
+        }
+
+        UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, statusTextbox);
+    }
 } // namespace MultiplayerSample

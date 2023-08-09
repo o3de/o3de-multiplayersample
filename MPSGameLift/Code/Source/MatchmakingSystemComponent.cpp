@@ -291,6 +291,7 @@ namespace MPSGameLift
             [this](ServiceAPI::RequestMatchmakingJob* successJob)
             {
                 m_ticketId = successJob->result.ticketId;
+                m_matchmakingTicketReceivedEvent.Signal(m_ticketId);
 
                 // Make a request to check match status every second, until we timeout, or receive a valid match
                 m_requestMatchStatusEvent.Enqueue(AZ::SecondsToTimeMs(1.0));
@@ -299,9 +300,10 @@ namespace MPSGameLift
                 m_matchRequestTimeout = false;
                 m_requestMatchTimeoutEvent.Enqueue(AZ::SecondsToTimeMs(MatchRequestTimeoutSeconds));
             },
-            []([[maybe_unused]] ServiceAPI::RequestMatchmakingJob* failJob)
+            [this]([[maybe_unused]] ServiceAPI::RequestMatchmakingJob* failJob)
             {
                 AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
+                m_matchmakingFailedEvent.Signal(MatchMakingFailReason::FailedToReceiveTicket);
             },
             config);
 
@@ -342,6 +344,7 @@ namespace MPSGameLift
                 }
 
                 // Enable GameLift game client system and connect to the host server
+                m_matchmakingSuccessEvent.Signal();
                 AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
                 Multiplayer::SessionConnectionConfig sessionConnectionConfig {
                     successJob->result.playerSessionId,
@@ -354,12 +357,29 @@ namespace MPSGameLift
                     clientRequestHandler->RequestPlayerJoinSession(sessionConnectionConfig);
                 }
             },
-            []([[maybe_unused]] ServiceAPI::RequestMatchStatusJob* failJob)
+            [this]([[maybe_unused]] ServiceAPI::RequestMatchStatusJob* failJob)
             {
-                AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
+                AZ_Error("MatchmakingSystemComponent", false, "Unable to request match status error: %s", failJob->error.message.c_str());
+                m_matchmakingFailedEvent.Signal(MatchMakingFailReason::FailedToReceiveStatusUpdate);
             },
             config);
 
         requestJob->Start();
     }
+
+    void MatchmakingSystemComponent::AddMatchmakingTicketReceivedEventHandler(MatchmakingTicketReceivedEvent::Handler& handler)
+    {
+        handler.Connect(m_matchmakingTicketReceivedEvent);
+    }
+    
+    void MatchmakingSystemComponent::AddMatchmakingSuccessEventHandler(MatchmakingSuccessEvent::Handler& handler)
+    {
+        handler.Connect(m_matchmakingSuccessEvent);
+    }
+    
+    void MatchmakingSystemComponent::AddMatchmakingFailedEventHandler(MatchmakingFailedEvent::Handler& handler)
+    {
+        handler.Connect(m_matchmakingFailedEvent);
+    }
+
 }
