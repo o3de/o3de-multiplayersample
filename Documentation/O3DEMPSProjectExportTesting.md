@@ -52,7 +52,7 @@ After setting those variables, navigate to that directory, and run the export co
 ```bash
 
 # On Windows
-%O3DE_PATH%\scripts\o3de export-project -es %O3DE_PATH%\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp %O3DE_PROJECT_PATH% -out %OUTPUT_PATH% -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl \path\to\o3de-multiplayersample\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\GameSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\VFXSeedList.seed 
+%O3DE_PATH%\scripts\o3de export-project -es %O3DE_PATH%\scripts\o3de\ExportScripts\export_standalone_monolithic_project_centric.py -pp %O3DE_PROJECT_PATH% -out %OUTPUT_PATH% -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\BasePopcornFxSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\GameSeedList.seed -sl %O3DE_PROJECT_PATH%\AssetBundling\SeedLists\VFXSeedList.seed
 
 # On Linux
 $O3DE_PATH/scripts/o3de export-project -es $O3DE_PATH/scripts/o3de/ExportScripts/export_standalone_monolithic_project_centric.py -pp $O3DE_PROJECT_PATH -out $OUTPUT_PATH -cfg release -a zip -nounified -gpfp launch_client.cfg -spfp launch_client.cfg -code -assets -ll INFO -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/BasePopcornFxSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/GameSeedList.seed -sl $O3DE_PROJECT_PATH/AssetBundling/SeedLists/VFXSeedList.seed
