@@ -40,7 +40,7 @@ namespace MPSGameLift
 
         // Adds a MatchmakingTicketReceivedEvent Handler which is invoked when FlexMatch gives the player back a matchmaking ticket.
         // This ticket id can be used by developers for debugging should matchmaking fail.
-        // @param handler The MatchmakingSuccessEvent Handler to add
+        // @param handler The MatchmakingTicketReceivedEvent Handler to add
         virtual void AddMatchmakingTicketReceivedEventHandler(MatchmakingTicketReceivedEvent::Handler& handler) = 0;
 
         // Adds a MatchmakingSuccessEvent Handler which is invoked when FlexMatch has discovered a valid game.
