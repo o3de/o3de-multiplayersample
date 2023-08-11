@@ -264,10 +264,10 @@ namespace MPSGameLift
         AZStd::string httpLatenciesParam;
         for (auto const& [region, latencyMs] : regionalLatencies)
         {
-            httpLatenciesParam += AZStd::string::format("%s_%lld ", region.c_str(), latencyMs.count());
+            httpLatenciesParam += AZStd::string::format("%s_%u_", region.c_str(), aznumeric_cast<uint32_t>(latencyMs.count()));
         }
 
-        httpLatenciesParam.pop_back();  // pop the trailing white-space
+        httpLatenciesParam.pop_back();  // pop the trailing underscore
 
         // Set API endpoint and region
         ServiceAPI::RequestMatchmakingJob::Config* config = ServiceAPI::RequestMatchmakingJob::GetDefaultConfig();
@@ -344,6 +344,7 @@ namespace MPSGameLift
                 }
 
                 // Enable GameLift game client system and connect to the host server
+                m_requestMatchTimeoutEvent.RemoveFromQueue();
                 m_matchmakingSuccessEvent.Signal();
                 AWSGameLift::AWSGameLiftRequestBus::Broadcast(&AWSGameLift::AWSGameLiftRequestBus::Events::ConfigureGameLiftClient, "");
                 Multiplayer::SessionConnectionConfig sessionConnectionConfig {
