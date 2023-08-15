@@ -303,7 +303,7 @@ namespace MPSGameLift
             [this]([[maybe_unused]] ServiceAPI::RequestMatchmakingJob* failJob)
             {
                 AZ_Error("MatchmakingSystemComponent", false, "Unable to request match error: %s", failJob->error.message.c_str());
-                m_matchmakingFailedEvent.Signal(MatchMakingFailReason::FailedToReceiveTicket);
+                m_matchmakingFailedEvent.Signal(MatchmakingFailReason::FailedToReceiveTicket);
             },
             config);
 
@@ -361,7 +361,7 @@ namespace MPSGameLift
             [this]([[maybe_unused]] ServiceAPI::RequestMatchStatusJob* failJob)
             {
                 AZ_Error("MatchmakingSystemComponent", false, "Unable to request match status error: %s", failJob->error.message.c_str());
-                m_matchmakingFailedEvent.Signal(MatchMakingFailReason::FailedToReceiveStatusUpdate);
+                m_matchmakingFailedEvent.Signal(MatchmakingFailReason::FailedToReceiveStatusUpdate);
             },
             config);
 

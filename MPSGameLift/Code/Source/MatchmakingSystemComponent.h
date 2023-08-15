@@ -52,7 +52,8 @@ namespace MPSGameLift
                     "Matches should start even if only 1 player is found; the backend might not be configured properly.");
                 m_requestMatchStatusEvent.RemoveFromQueue();
                 m_matchRequestTimeout = true;
-                m_matchmakingFailedEvent.Signal(MatchMakingFailReason::TimedOut);
+                m_matchmakingFailedEvent.Signal(MatchmakingFailReason::TimedOut);
+                m_ticketId.clear();
             }
         , AZ::Name("MPS Request Match Timeout"));
         
