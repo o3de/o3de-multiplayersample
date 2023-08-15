@@ -264,7 +264,7 @@ namespace MPSGameLift
         AZStd::string httpLatenciesParam;
         for (auto const& [region, latencyMs] : regionalLatencies)
         {
-            httpLatenciesParam += AZStd::string::format("%s_%lld ", region.c_str(), latencyMs.count());
+            httpLatenciesParam += AZStd::string::format("%s_%" PRIi64, region.c_str(), latencyMs.count());
         }
 
         httpLatenciesParam.pop_back();  // pop the trailing white-space
