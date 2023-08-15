@@ -57,9 +57,9 @@ namespace MPSGameLift
         UiCursorBus::Broadcast(&UiCursorInterface::IncrementVisibleCounter);
 
         // Listen for button presses
-        UiButtonBus::Event(m_quitButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
-        UiButtonBus::Event(m_connectButtonUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
-        UiButtonBus::Event(m_connectToHostFailedUi, &UiButtonInterface::SetOnClickCallback, [this](AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnButtonClicked(buttonEntityId); });
+        UiButtonBus::Event(m_quitButtonUi, &UiButtonInterface::SetOnClickCallback, [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnQuitClicked(); });
+        UiButtonBus::Event(m_connectButtonUi, &UiButtonInterface::SetOnClickCallback, [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnConnectClicked(); });
+        UiButtonBus::Event(m_connectToHostFailedUi, &UiButtonInterface::SetOnClickCallback, [this]([[maybe_unused]] AZ::EntityId buttonEntityId, [[maybe_unused]] AZ::Vector2 position) { OnConnectionFailedAcknowledged(); });
 
         // Hide the attempting connection ui until the player tries to connect
         UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
@@ -84,7 +84,7 @@ namespace MPSGameLift
         UiCursorBus::Broadcast(&UiCursorInterface::DecrementVisibleCounter);
     }
 
-    void UiGameLiftFlexMatchConnect::OnButtonClicked(AZ::EntityId buttonEntityId)
+    void UiGameLiftFlexMatchConnect::OnQuitClicked()
     {
         const auto console = AZ::Interface<AZ::IConsole>::Get();
         if (!console)
@@ -93,41 +93,37 @@ namespace MPSGameLift
             return;
         }
 
-        if (buttonEntityId == m_quitButtonUi)
+        console->PerformCommand("quit");
+    }
+
+    void UiGameLiftFlexMatchConnect::OnConnectClicked()
+    {
+        // Enable blocker ui while we attempt connection
+        UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
+        UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, "Searching for match...");
+
+        bool clientAuthInitialized = false;
+        AWSClientAuth::AWSCognitoAuthorizationRequestBus::BroadcastResult(clientAuthInitialized, &AWSClientAuth::IAWSCognitoAuthorizationRequests::Initialize);
+
+        if (clientAuthInitialized)
         {
-            console->PerformCommand("quit");
+            m_statusUpdates.push_back(StatusPlayerAuthInitSuccess);
+        }
+        else
+        {
+            PushStatusFail(StatusPlayerAuthInitFailed);
             return;
         }
-        
-        if (buttonEntityId == m_connectButtonUi)
-        {
-            // Enable blocker ui while we attempt connection
-            UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, true);
-            UiTextBus::Event(m_matchmakingStatusTextUi, &UiTextInterface::SetText, "Searching for match...");
 
-            bool clientAuthInitialized = false;
-            AWSClientAuth::AWSCognitoAuthorizationRequestBus::BroadcastResult(clientAuthInitialized, &AWSClientAuth::IAWSCognitoAuthorizationRequests::Initialize);
+        AWSClientAuth::AWSCognitoAuthorizationRequestBus::Broadcast(&AWSClientAuth::IAWSCognitoAuthorizationRequests::RequestAWSCredentialsAsync);
+    }
 
-            if (clientAuthInitialized)
-            {
-                m_statusUpdates.push_back(StatusPlayerAuthInitSuccess);
-            }
-            else
-            {
-                PushStatusFail(StatusPlayerAuthInitFailed);
-                return;
-            }
-            
-            AWSClientAuth::AWSCognitoAuthorizationRequestBus::Broadcast(&AWSClientAuth::IAWSCognitoAuthorizationRequests::RequestAWSCredentialsAsync);
-        }
-        
-        if (buttonEntityId == m_connectToHostFailedUi)
-        {
-            // Player acknowledged connection failed. Close the warning popup.
-            UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, false);
-            UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
-            m_statusUpdates.clear();
-        }
+    void UiGameLiftFlexMatchConnect::OnConnectionFailedAcknowledged()
+    {
+        // Player acknowledged connection failed. Close the warning popup.
+        UiElementBus::Event(m_connectToHostFailedUi, &UiElementInterface::SetIsEnabled, false);
+        UiElementBus::Event(m_attemptConnectionBlockerUi, &UiElementInterface::SetIsEnabled, false);
+        m_statusUpdates.clear();
     }
 
     void UiGameLiftFlexMatchConnect::OnRequestLatenciesComplete(const RegionalLatencies& regionalLatencies)
@@ -138,11 +134,11 @@ namespace MPSGameLift
             return;
         }
 
-        // Tell player server endpoints were reached and display the round-trip-time...
+        // Tell player server endpoints were reached and display the ping (estimate it as round-trip-time divided by 2)...
         AZStd::string latencyPrint;
         for (const auto& latency : regionalLatencies)
         {
-            latencyPrint += AZStd::string::format("%s: %ims\n", latency.first.c_str(), static_cast<uint32_t>(latency.second.count()));
+            latencyPrint += AZStd::string::format("%s: %ims\n", latency.first.c_str(), static_cast<uint32_t>(latency.second.count()/2));
         }
         
         ReplaceStatusUpdate(AZStd::string::format(StatusLatencyRequestSuccess, latencyPrint.c_str()));

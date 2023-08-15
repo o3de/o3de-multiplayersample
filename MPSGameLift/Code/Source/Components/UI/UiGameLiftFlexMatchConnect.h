@@ -69,17 +69,17 @@ namespace MPSGameLift
             PushStatusUpdate(StatusMatchmakingMatchFound);
         } };
         
-        MatchmakingFailedEvent::Handler m_onMatchmakingFailed{ [this](MatchMakingFailReason reason)
+        MatchmakingFailedEvent::Handler m_onMatchmakingFailed{ [this](MatchmakingFailReason reason)
         {
             switch(reason)
             {
-            case MatchMakingFailReason::FailedToReceiveTicket:
+            case MatchmakingFailReason::FailedToReceiveTicket:
                 PushStatusFail(StatusMatchmakingFailedToReceiveTicket);
                 break;
-            case MatchMakingFailReason::FailedToReceiveStatusUpdate:
+            case MatchmakingFailReason::FailedToReceiveStatusUpdate:
                 PushStatusFail(StatusMatchmakingFailedToReceiveStatusUpdate);
                 break;
-            case MatchMakingFailReason::TimedOut:
+            case MatchmakingFailReason::TimedOut:
                 PushStatusFail(StatusMatchmakingTimedOut);
                 break;
             default:
@@ -95,8 +95,10 @@ namespace MPSGameLift
         // Listen for disconnect events to know if connecting to the host server failed
         void OnConnectToHostFailed();
         Multiplayer::EndpointDisconnectedEvent::Handler m_onConnectToHostFailed{ [this]([[maybe_unused]] Multiplayer::MultiplayerAgentType agent) { OnConnectToHostFailed(); } };
-        
-        void OnButtonClicked(AZ::EntityId buttonEntityId);
+
+        void OnQuitClicked();
+        void OnConnectClicked();
+        void OnConnectionFailedAcknowledged();
 
         void PushStatusUpdate(const AZStd::string& statusUpdate);
         void ReplaceStatusUpdate(const AZStd::string& statusUpdate);

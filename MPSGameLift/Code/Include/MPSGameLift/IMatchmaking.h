@@ -10,7 +10,7 @@
 
 namespace MPSGameLift
 {
-    enum class MatchMakingFailReason
+    enum class MatchmakingFailReason
     {
         FailedToReceiveTicket,
         FailedToReceiveStatusUpdate,
@@ -19,7 +19,7 @@ namespace MPSGameLift
 
     using MatchmakingTicketReceivedEvent = AZ::Event<AZStd::string>;
     using MatchmakingSuccessEvent = AZ::Event<>;
-    using MatchmakingFailedEvent = AZ::Event<MatchMakingFailReason>;
+    using MatchmakingFailedEvent = AZ::Event<MatchmakingFailReason>;
 
     // Supports matchmaking request calls to a serverless backend
     class IMatchmaking
