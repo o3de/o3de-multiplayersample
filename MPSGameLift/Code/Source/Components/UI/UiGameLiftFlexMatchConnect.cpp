@@ -50,6 +50,28 @@ namespace MPSGameLift
         }
     }
 
+    UiGameLiftFlexMatchConnect::UiGameLiftFlexMatchConnect()
+        : m_onMatchmakingFailed{ [this](MatchmakingFailReason reason)
+        {
+            switch (reason)
+            {
+            case MatchmakingFailReason::FailedToReceiveTicket:
+                PushStatusFail(StatusMatchmakingFailedToReceiveTicket);
+                break;
+            case MatchmakingFailReason::FailedToReceiveStatusUpdate:
+                PushStatusFail(StatusMatchmakingFailedToReceiveStatusUpdate);
+                break;
+            case MatchmakingFailReason::TimedOut:
+                PushStatusFail(StatusMatchmakingTimedOut);
+                break;
+            default:
+                PushStatusFail(StatusMatchmakingFailedReasonUnknown);
+            }
+        } }
+    {
+        
+    }
+    
     void UiGameLiftFlexMatchConnect::Activate()
     {
         UiCursorBus::Broadcast(&UiCursorInterface::IncrementVisibleCounter);

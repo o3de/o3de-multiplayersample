@@ -49,6 +49,7 @@ namespace MPSGameLift
         * Reflects component data into the reflection contexts, including the serialization, edit, and behavior contexts.
         */
         static void Reflect(AZ::ReflectContext* context);
+        UiGameLiftFlexMatchConnect();
 
     protected:
         void Activate() override;
@@ -69,23 +70,7 @@ namespace MPSGameLift
             PushStatusUpdate(StatusMatchmakingMatchFound);
         } };
         
-        MatchmakingFailedEvent::Handler m_onMatchmakingFailed{ [this](MatchmakingFailReason reason)
-        {
-            switch(reason)
-            {
-            case MatchmakingFailReason::FailedToReceiveTicket:
-                PushStatusFail(StatusMatchmakingFailedToReceiveTicket);
-                break;
-            case MatchmakingFailReason::FailedToReceiveStatusUpdate:
-                PushStatusFail(StatusMatchmakingFailedToReceiveStatusUpdate);
-                break;
-            case MatchmakingFailReason::TimedOut:
-                PushStatusFail(StatusMatchmakingTimedOut);
-                break;
-            default:
-                PushStatusFail(StatusMatchmakingFailedReasonUnknown);
-            }
-        } };
+        MatchmakingFailedEvent::Handler m_onMatchmakingFailed;
 
         MatchmakingTicketReceivedEvent::Handler m_onMatchmakingTicketReceived{ [this](AZStd::string ticketId)
         {
