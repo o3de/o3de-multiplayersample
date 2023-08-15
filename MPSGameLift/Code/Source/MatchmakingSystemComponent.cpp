@@ -229,6 +229,7 @@ namespace MPSGameLift
     void MatchmakingSystemComponent::Activate()
     {
         AZ::Interface<IMatchmaking>::Register(this);
+        AZ::Interface<Multiplayer::IMultiplayer>::Get()->AddEndpointDisconnectedHandler(m_onHostDisconnect);
     }
 
     void MatchmakingSystemComponent::Deactivate()

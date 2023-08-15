@@ -11,6 +11,8 @@
 #include <AzCore/Console/ILogger.h>
 #include <AzCore/EBus/ScheduledEvent.h>
 #include <MPSGameLift/IMatchmaking.h>
+#include <Multiplayer/IMultiplayer.h>
+
 
 namespace MPSGameLift
 {
@@ -64,5 +66,7 @@ namespace MPSGameLift
         MatchmakingSuccessEvent m_matchmakingSuccessEvent;
         MatchmakingFailedEvent m_matchmakingFailedEvent;
 
+        // Reset ticket if we disconnected from the host
+        Multiplayer::EndpointDisconnectedEvent::Handler m_onHostDisconnect{ [this]([[maybe_unused]] Multiplayer::MultiplayerAgentType agent) { m_ticketId.clear(); } };
     };
 }
