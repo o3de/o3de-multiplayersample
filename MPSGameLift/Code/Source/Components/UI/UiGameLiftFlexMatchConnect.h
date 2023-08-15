@@ -18,7 +18,7 @@ namespace MPSGameLift
 {
     /*!
      * \class UiGameLiftFlexMatchConnect
-     * \brief An example ui component used for connecting to GameLift using a user-provided JSON string that contains the game-session-id and player-session-id.
+     * \brief An example ui component used for joining multiplayer matches via the IMatchmaking system.
     */
     class UiGameLiftFlexMatchConnect
         : public AZ::Component

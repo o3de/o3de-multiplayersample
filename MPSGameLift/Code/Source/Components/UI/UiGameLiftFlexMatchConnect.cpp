@@ -16,8 +16,6 @@
 #include <LyShine/Bus/UiElementBus.h>
 #include <LyShine/Bus/UiTextBus.h>
 
-#include <Multiplayer/Session/ISessionHandlingRequests.h>
-
 
 namespace MPSGameLift
 {
