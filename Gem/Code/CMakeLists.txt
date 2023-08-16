@@ -102,6 +102,7 @@ ly_add_target(
             Gem::PhysX
             Gem::PopcornFX.Static
             Gem::Multiplayer
+            Gem::AudioSystem.API
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Unified.Static
