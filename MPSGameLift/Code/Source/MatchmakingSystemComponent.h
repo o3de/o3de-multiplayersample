@@ -11,6 +11,8 @@
 #include <AzCore/Console/ILogger.h>
 #include <AzCore/EBus/ScheduledEvent.h>
 #include <MPSGameLift/IMatchmaking.h>
+#include <Multiplayer/IMultiplayer.h>
+
 
 namespace MPSGameLift
 {
@@ -28,6 +30,9 @@ namespace MPSGameLift
         // IMatchmaking overrides...
         bool RequestMatch(const RegionalLatencies& regionalLatencies) override;
         AZStd::string GetTicketId() const override { return m_ticketId; }
+        void AddMatchmakingTicketReceivedEventHandler(MatchmakingTicketReceivedEvent::Handler& handler) override;
+        void AddMatchmakingSuccessEventHandler(MatchmakingSuccessEvent::Handler& handler) override;
+        void AddMatchmakingFailedEventHandler(MatchmakingFailedEvent::Handler& handler) override;
 
      protected:
         void Activate() override;
@@ -49,9 +54,19 @@ namespace MPSGameLift
                     "Matches should start even if only 1 player is found; the backend might not be configured properly.");
                 m_requestMatchStatusEvent.RemoveFromQueue();
                 m_matchRequestTimeout = true;
+                m_matchmakingFailedEvent.Signal(MatchmakingFailReason::TimedOut);
+                m_ticketId.clear();
             }
         , AZ::Name("MPS Request Match Timeout"));
         
         bool m_matchRequestTimeout = false;
+
+        // Matchmaking Events
+        MatchmakingTicketReceivedEvent m_matchmakingTicketReceivedEvent;
+        MatchmakingSuccessEvent m_matchmakingSuccessEvent;
+        MatchmakingFailedEvent m_matchmakingFailedEvent;
+
+        // Reset ticket if we disconnected from the host
+        Multiplayer::EndpointDisconnectedEvent::Handler m_onHostDisconnect{ [this]([[maybe_unused]] Multiplayer::MultiplayerAgentType agent) { m_ticketId.clear(); } };
     };
 }

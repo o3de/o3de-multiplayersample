@@ -10,6 +10,17 @@
 
 namespace MPSGameLift
 {
+    enum class MatchmakingFailReason
+    {
+        FailedToReceiveTicket,
+        FailedToReceiveStatusUpdate,
+        TimedOut
+    };
+
+    using MatchmakingTicketReceivedEvent = AZ::Event<AZStd::string>;
+    using MatchmakingSuccessEvent = AZ::Event<>;
+    using MatchmakingFailedEvent = AZ::Event<MatchmakingFailReason>;
+
     // Supports matchmaking request calls to a serverless backend
     class IMatchmaking
     {
@@ -26,5 +37,18 @@ namespace MPSGameLift
         // Gets the current matchmaking ticket id if any
         // @return A matchmaking ticket id, or empty string if no ticket has been received.
         virtual AZStd::string GetTicketId() const = 0;
+
+        // Adds a MatchmakingTicketReceivedEvent Handler which is invoked when FlexMatch gives the player back a matchmaking ticket.
+        // This ticket id can be used by developers for debugging should matchmaking fail.
+        // @param handler The MatchmakingTicketReceivedEvent Handler to add
+        virtual void AddMatchmakingTicketReceivedEventHandler(MatchmakingTicketReceivedEvent::Handler& handler) = 0;
+
+        // Adds a MatchmakingSuccessEvent Handler which is invoked when FlexMatch has discovered a valid game.
+        // @param handler The MatchmakingSuccessEvent Handler to add
+        virtual void AddMatchmakingSuccessEventHandler(MatchmakingSuccessEvent::Handler& handler) = 0;
+
+        // Adds a MatchmakingFailedEvent Handler which is invoked when no match is found.
+        // @param handler The MatchmakingFailedEvent Handler to add
+        virtual void AddMatchmakingFailedEventHandler(MatchmakingFailedEvent::Handler& handler) = 0;
     };
 } // namespace MPSGameLift

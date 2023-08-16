@@ -15,6 +15,7 @@
     #include <MatchmakingSystemComponent.h>
     #include <MPSGameLiftClientSystemComponent.h>
     #include <Components/UI/UiGameLiftConnectWithPlayerSessionData.h>
+    #include <Components/UI/UiGameLiftFlexMatchConnect.h>
     #include <RegionalLatencySystemComponent.h>
 #endif
 
@@ -69,6 +70,7 @@ namespace MPSGameLift
                     RegionalLatencySystemComponent::CreateDescriptor(),
                     MPSGameLiftClientSystemComponent::CreateDescriptor(),
                     UiGameLiftConnectWithPlayerSessionData::CreateDescriptor(),
+                    UiGameLiftFlexMatchConnect::CreateDescriptor(),
                 #endif
                 #if AZ_DEDICATED_SERVER_ONLY
                     MPSGameLiftServerSystemComponent::CreateDescriptor(),
