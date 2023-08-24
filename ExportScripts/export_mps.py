@@ -22,9 +22,9 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
                               output_path: pathlib.Path,
                               should_build_tools: bool,
                               build_config: str,
+                              asset_bundling_path: pathlib.Path,
                               max_bundle_size: int,
                               enable_gamelift: bool,
-                              should_build_all_code: bool,
                               should_build_all_assets: bool,
                               should_build_game_launcher: bool,
                               should_build_server_launcher: bool,
@@ -34,16 +34,19 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
                               game_build_path: pathlib.Path,
                               archive_output_format: str,
                               fail_on_asset_errors: bool,
+                              engine_centric: bool,
                               logger: logging.Logger):
     if not logger:
         logger = logging.getLogger()
         logger.setLevel(logging.ERROR)
 
-    default_base_build_path = ctx.engine_path / 'build' if ctx.is_engine_centric else ctx.project_path / 'build'
+    default_base_build_path = ctx.engine_path / 'build' if engine_centric else ctx.project_path / 'build'
     if not tools_build_path:
         tools_build_path = default_base_build_path / 'tools'
     if not game_build_path:
         game_build_path = default_base_build_path / 'game'
+    if not asset_bundling_path:
+        asset_bundling_path = default_base_build_path / 'asset_bundling'
 
     seed_folder_path = ctx.project_path / 'AssetBundling' / 'SeedLists'
     seedlist_paths = [
@@ -85,41 +88,47 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
         if should_build_tools:
             exp.build_export_toolchain(ctx=ctx,
                                        tools_build_path=tools_build_path,
+                                       engine_centric=engine_centric,
                                        logger=logger)
-        else:
-            exp.validate_export_toolchain(tools_build_path=tools_build_path)
 
-        if should_build_all_code:
+        launcher_type = 0
+        if should_build_game_launcher:
+            launcher_type |= exp.LauncherType.GAME
+        if should_build_server_launcher:
+            launcher_type |= exp.LauncherType.SERVER
+        if should_build_unified_launcher:
+            launcher_type |= exp.LauncherType.UNIFIED
 
-            launcher_type = 0
-            if should_build_game_launcher:
-                launcher_type |= exp.LauncherType.GAME
-            if should_build_server_launcher:
-                launcher_type |= exp.LauncherType.SERVER
-            if should_build_unified_launcher:
-                launcher_type |= exp.LauncherType.UNIFIED
-
+        if launcher_type != 0:
             exp.build_game_targets(ctx=ctx,
                                    build_config=build_config,
                                    game_build_path=game_build_path,
+                                   engine_centric=engine_centric,
                                    launcher_types=launcher_type,
                                    allow_registry_overrides=allow_registry_overrides,
                                    logger=logger)
 
         if should_build_all_assets:
+            asset_processor_path = exp.get_asset_processor_batch_path(tools_build_path=tools_build_path,
+                                                                      required=True)
+            logger.info(f"Using '{asset_processor_path}' to process the assets.")
             exp.build_assets(ctx=ctx,
                              tools_build_path=tools_build_path,
+                             engine_centric=engine_centric,
                              fail_on_ap_errors=fail_on_asset_errors,
                              logger=logger)
 
-            expected_bundles_path = exp.bundle_assets(ctx=ctx,
-                                                      selected_platform=selected_platform,
-                                                      seedlist_paths=validated_seedslist_paths,
-                                                      tools_build_path=tools_build_path,
-                                                      custom_asset_list_path= ctx.project_path / 'AssetBundling' / 'Bundles',
-                                                      max_bundle_size=max_bundle_size)
-        else:
-            expected_bundles_path = ctx.project_path / 'AssetBundling' / 'Bundles'
+        # Generate the bundle
+        asset_bundler_path = exp.get_asset_bundler_batch_path(tools_build_path=tools_build_path,
+                                                              required=True)
+        logger.info(f"Using '{asset_bundler_path}' to bundle the assets.")
+        expected_bundles_path = exp.bundle_assets(ctx=ctx,
+                                                  selected_platform=selected_platform,
+                                                  seedlist_paths=validated_seedslist_paths,
+                                                  tools_build_path=tools_build_path,
+                                                  engine_centric=engine_centric,
+                                                  asset_bundling_path=asset_bundling_path,
+                                                  max_bundle_size=max_bundle_size)
 
         project_file_patterns_to_copy = []
         game_project_file_patterns_to_copy = ['launch_client.cfg']
@@ -144,7 +153,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
         for export_layout in export_layouts:
             exp.setup_launcher_layout_directory(project_path=ctx.project_path,
                                                 asset_platform=selected_platform,
-                                                game_build_path=game_build_path,
+                                                launcher_build_path=game_build_path,
                                                 build_config=build_config,
                                                 bundles_to_copy=[expected_bundles_path / f'game_{selected_platform}.pak',
                                                                  expected_bundles_path / f'engine_{selected_platform}.pak'],
@@ -173,9 +182,8 @@ if "o3de_context" in globals():
                     prog=f'o3de.py export-project -es {__file__}',
                     description="Exports the Multiplayer Samples project as standalone to the desired output directory with release layout. "
                                 "In order to use this script, the engine and project must be setup and registered beforehand. ",
-                    epilog="Note: You can pass additional arguments to the cmake command to build the projects during the export"
-                           "process by adding a '/' between the arguments for this script and the additional arguments you would"
-                           "like to pass down to cmake build.",
+                    epilog=exp.CUSTOM_CMAKE_ARG_HELP_EPILOGUE,
+                    formatter_class=argparse.RawTextHelpFormatter,
                     add_help=False
         )
         parser.add_argument(exp.CUSTOM_SCRIPT_HELP_ARGUMENT,default=False,action='store_true',help='Show this help message and exit.')
@@ -188,8 +196,6 @@ if "o3de_context" in globals():
                             choices=["none", "zip", "gzip", "bz2", "xz"], default="none")
         parser.add_argument('-gl', '--game-lift', default=False, action='store_true',
                             help='Enable Gamelift for the Multiplayer Sample package')
-        parser.add_argument('-code', '--should-build-code', default=False,action='store_true',
-                            help='Toggles building all code for the project by launcher type (game, server, unified).')
         parser.add_argument('-assets', '--should-build-assets', default=False, action='store_true',
                             help='Toggles building all assets for the project by launcher type (game, server, unified).')
         parser.add_argument('-foa', '--fail-on-asset-errors', default=False, action='store_true',
@@ -203,11 +209,14 @@ if "o3de_context" in globals():
                             " If not specified, default is <o3de_project_path>/build/game.")
         parser.add_argument('-regovr', '--allow-registry-overrides', default=False, type = bool,
                             help="When configuring cmake builds, this determines if the script allows for overriding registry settings from external sources.")
+        parser.add_argument('-abp', '--asset-bundling-path', type=pathlib.Path, default=None,
+                            help="Designates where the artifacts from the asset bundling process will be written to before creation of the package. If not specified, default is <o3de_project_path>/build/asset_bundling.")
         parser.add_argument('-maxsize', '--max-bundle-size', type=int, default=2048, help='Specify the maximum size of a given asset bundle.')
         parser.add_argument('-nogame', '--no-game-launcher', action='store_true', help='This flag skips building the Game Launcher on a platform if not needed.')
         parser.add_argument('-noserver', '--no-server-launcher', action='store_true', help='This flag skips building the Server Launcher on a platform if not needed.')
         parser.add_argument('-nounified', '--no-unified-launcher', action='store_true', help='This flag skips building the Unified Launcher on a platform if not needed.')
         parser.add_argument('-pl', '--platform', type=str, default=exp.get_default_asset_platform(), choices=['pc', 'linux', 'mac'])
+        parser.add_argument('-ec', '--engine-centric', action='store_true', default=False, help='Option use the engine-centric work flow to export the project.')
         parser.add_argument('-q', '--quiet', action='store_true', help='Suppresses logging information unless an error occurs.')
 
         if o3de_context is None:
@@ -230,9 +239,9 @@ if "o3de_context" in globals():
                                   output_path=args.output_path,
                                   should_build_tools=args.build_tools,
                                   build_config=args.config,
+                                  asset_bundling_path=args.asset_bundling_path,
                                   max_bundle_size=args.max_bundle_size,
                                   enable_gamelift=args.game_lift,
-                                  should_build_all_code=args.should_build_code,
                                   should_build_all_assets=args.should_build_assets,
                                   fail_on_asset_errors=args.fail_on_asset_errors,
                                   should_build_game_launcher=not args.no_game_launcher,
@@ -242,6 +251,7 @@ if "o3de_context" in globals():
                                   tools_build_path=args.tools_build_path,
                                   game_build_path=args.game_build_path,
                                   archive_output_format=args.archive_output,
+                                  engine_centric=args.engine_centric,
                                   logger=o3de_logger)
     except exp.ExportProjectError as err:
         print(err)

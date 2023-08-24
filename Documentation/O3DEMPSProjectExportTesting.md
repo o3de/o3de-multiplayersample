@@ -96,7 +96,7 @@ Generate the project packages using the projects own `mps_export.py` script in c
     <br/>
     **Windows**
     ```commandline
-    %PROJECT_BASE%\o3de\scripts\o3de.bat export-project -pp %PROJECT_BASE%\o3de-multiplayersample -es ExportScripts\export_mps.py -out %PROJECT_EXPORT_BASE%\mps_server -cfg release -a zip -nounified -code -gl -assets -ll INFO / -- /m
+    %PROJECT_BASE%\o3de\scripts\o3de.bat export-project -pp %PROJECT_BASE%\o3de-multiplayersample -es ExportScripts\export_mps.py -out %PROJECT_EXPORT_BASE%\mps_server -cfg release -a zip -nounified -code -gl -assets -ll INFO -cba -- /m
     ```
     **Linux**
     ```commandline
