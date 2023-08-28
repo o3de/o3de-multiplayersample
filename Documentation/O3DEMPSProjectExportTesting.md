@@ -79,7 +79,7 @@
     ```
 
 ## Run Project Export
-Generate the project packages using the projects own `mps_export.py` script in conjunction with the O3DE export command.
+Generate the project packages using the projects own `export_mps.py` script in conjunction with the O3DE export command.
 
 
 1. Create the directory you want to output the game and server. <br/>
