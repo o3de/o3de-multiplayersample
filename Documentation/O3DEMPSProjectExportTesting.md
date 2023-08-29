@@ -111,7 +111,7 @@ Generate the project packages using the project's `export_mps.py` script in conj
 
 ## Test Exported Project
 
-1. To test the MultiPlayer Sample,.first launch the server (You may need to provide admin privilege to enable a connection to AssetProcessor)
+1. Start testing MultiplayerSample by launching the server (You may need to provide admin privilege to enable a connection to AssetProcessor)
 
 **Windows**
 ```commandline
