@@ -103,7 +103,7 @@ Generate the project packages using the project's `export_mps.py` script in conj
     $PROJECT_BASE/o3de/scripts/o3de.sh export-project -pp $PROJECT_BASE/o3de-multiplayersample -es ExportScripts/export_mps.py -out $PROJECT_EXPORT_BASE/mps_server -cfg release -a zip -nounified -code -gl -assets -ll INFO
     ```
    
-    > Note: The export commands described above will automatically enable the `MPSGameLift` gem when building the package. To opt-out of not enabling Game Lift, remove the `-gl` argument from the above command.
+    > Note: The export commands described above will automatically enable the `MPSGameLift` gem when building the package. To opt-out of enabling GameLift, remove the `-gl` argument from the above command.
     
     > Note: The export commands above will also generate an archive (zip) of the output directories  
    
