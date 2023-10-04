@@ -15,7 +15,7 @@ sudo yum -y install libunwind-devel
 
 echo 'Update outdated make package'
 mkdir make && cd make
-wget http://ftp.gnu.org/gnu/make/make-4.2.1.tar.gz
+wget https://ftp.gnu.org/gnu/make/make-4.2.1.tar.gz
 tar zxvf make-4.2.1.tar.gz
 mkdir make-4.2.1-build make-4.2.1-install
 cd make-4.2.1-build
@@ -28,7 +28,7 @@ cd /local/game/
 
 echo 'Installing missing libs for AL2023'
 mkdir glibc && cd glibc
-wget http://mirror.rit.edu/gnu/libc/glibc-2.29.tar.gz
+wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
 tar zxvf glibc-2.29.tar.gz
 mkdir glibc-2.29-build glibc-2.29-install
 cd glibc-2.29-build
