@@ -28,6 +28,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
                               should_build_all_assets: bool,
                               should_build_game_launcher: bool,
                               should_build_server_launcher: bool,
+                              should_build_headless_server_launcher: bool,
                               should_build_unified_launcher: bool,
                               allow_registry_overrides: bool,
                               tools_build_path: pathlib.Path,
@@ -96,6 +97,8 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
             launcher_type |= exp.LauncherType.GAME
         if should_build_server_launcher:
             launcher_type |= exp.LauncherType.SERVER
+        if should_build_headless_server_launcher:
+            launcher_type |= exp.LauncherType.HEADLESS
         if should_build_unified_launcher:
             launcher_type |= exp.LauncherType.UNIFIED
 
@@ -133,22 +136,27 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
         project_file_patterns_to_copy = []
         game_project_file_patterns_to_copy = ['launch_client.cfg']
         server_project_file_patterns_to_copy = ['launch_server.cfg']
+        if enable_gamelift:
+            server_project_file_patterns_to_copy.append('MPSGameLift/Scripts/install.sh')
 
         export_layouts = []
         if should_build_game_launcher:
             export_layouts.append(exp.ExportLayoutConfig(output_path=output_path / f'{ctx.project_name}GamePackage',
                                                          project_file_patterns=project_file_patterns_to_copy + game_project_file_patterns_to_copy,
-                                                         ignore_file_patterns=[f'*.ServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.UnifiedLauncher{exp.EXECUTABLE_EXTENSION}']))
+                                                         ignore_file_patterns=[f'*.HeadlessServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.ServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.UnifiedLauncher{exp.EXECUTABLE_EXTENSION}']))
 
         if should_build_server_launcher:
             export_layouts.append(exp.ExportLayoutConfig(output_path=output_path / f'{ctx.project_name}ServerPackage',
                                                          project_file_patterns=project_file_patterns_to_copy + server_project_file_patterns_to_copy,
-                                                         ignore_file_patterns=[f'*.GameLauncher{exp.EXECUTABLE_EXTENSION}', f'*.UnifiedLauncher{exp.EXECUTABLE_EXTENSION}']))
-
+                                                         ignore_file_patterns=[f'*.HeadlessServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.GameLauncher{exp.EXECUTABLE_EXTENSION}', f'*.UnifiedLauncher{exp.EXECUTABLE_EXTENSION}']))
+        if should_build_headless_server_launcher:
+            export_layouts.append(exp.ExportLayoutConfig(output_path=output_path / f'{ctx.project_name}HeadlessServerPackage',
+                                                         project_file_patterns=project_file_patterns_to_copy + server_project_file_patterns_to_copy,
+                                                         ignore_file_patterns=[f'*.ServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.GameLauncher{exp.EXECUTABLE_EXTENSION}', f'*.UnifiedLauncher{exp.EXECUTABLE_EXTENSION}']))
         if should_build_unified_launcher:
             export_layouts.append(exp.ExportLayoutConfig(output_path=output_path / f'{ctx.project_name}UnifiedPackage',
                                                          project_file_patterns=project_file_patterns_to_copy + game_project_file_patterns_to_copy + server_project_file_patterns_to_copy,
-                                                         ignore_file_patterns=[f'*.ServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.GameLauncher{exp.EXECUTABLE_EXTENSION}']))
+                                                         ignore_file_patterns=[f'*.HeadlessServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.ServerLauncher{exp.EXECUTABLE_EXTENSION}', f'*.GameLauncher{exp.EXECUTABLE_EXTENSION}']))
 
         for export_layout in export_layouts:
             exp.setup_launcher_layout_directory(project_path=ctx.project_path,
@@ -214,6 +222,7 @@ if "o3de_context" in globals():
         parser.add_argument('-maxsize', '--max-bundle-size', type=int, default=2048, help='Specify the maximum size of a given asset bundle.')
         parser.add_argument('-nogame', '--no-game-launcher', action='store_true', help='This flag skips building the Game Launcher on a platform if not needed.')
         parser.add_argument('-noserver', '--no-server-launcher', action='store_true', help='This flag skips building the Server Launcher on a platform if not needed.')
+        parser.add_argument('-noheadless', '--no-headless-server-launcher', action='store_true', help='This flag skips building the Headless Server Launcher on a platform if not needed.')
         parser.add_argument('-nounified', '--no-unified-launcher', action='store_true', help='This flag skips building the Unified Launcher on a platform if not needed.')
         parser.add_argument('-pl', '--platform', type=str, default=exp.get_default_asset_platform(), choices=['pc', 'linux', 'mac'])
         parser.add_argument('-ec', '--engine-centric', action='store_true', default=False, help='Option use the engine-centric work flow to export the project.')
@@ -246,6 +255,7 @@ if "o3de_context" in globals():
                                   fail_on_asset_errors=args.fail_on_asset_errors,
                                   should_build_game_launcher=not args.no_game_launcher,
                                   should_build_server_launcher=not args.no_server_launcher,
+                                  should_build_headless_server_launcher=not args.no_headless_server_launcher,
                                   should_build_unified_launcher=not args.no_unified_launcher,
                                   allow_registry_overrides=args.allow_registry_overrides,
                                   tools_build_path=args.tools_build_path,
