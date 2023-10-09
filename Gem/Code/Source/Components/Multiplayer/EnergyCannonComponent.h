@@ -24,6 +24,7 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_CLIENT
         void HandleRPC_TriggerBuildup(AzNetworking::IConnection* invokingConnection) override;
+        void HandleRPC_StopBuildup(AzNetworking::IConnection* invokingConnection) override;
 #endif
 
     private:
@@ -52,12 +53,6 @@ namespace MultiplayerSample
         {
             OnFireEnergyBall();
         }, AZ::Name("FireEnergyCannon")};
-
-        void OnKillEnergyBall();
-        AZ::ScheduledEvent m_killEvent{ [this]()
-        {
-            OnKillEnergyBall();
-        }, AZ::Name("KillEnergyBall") };
 #endif
     };
 }

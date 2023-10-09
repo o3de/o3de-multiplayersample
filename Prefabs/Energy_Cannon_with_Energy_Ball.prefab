@@ -50,250 +50,6 @@
         }
     },
     "Entities": {
-        "Entity_[656261840212]": {
-            "Id": "Entity_[656261840212]",
-            "Name": "Energy Ball",
-            "Components": {
-                "Component_[10306762055022788925]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 10306762055022788925
-                },
-                "Component_[10375256730531750003]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 10375256730531750003
-                },
-                "Component_[1260159715379895998]": {
-                    "$type": "EditorRigidBodyComponent",
-                    "Id": 1260159715379895998,
-                    "Configuration": {
-                        "entityId": "",
-                        "Gravity Enabled": false
-                    }
-                },
-                "Component_[12889870600493739301]": {
-                    "$type": "PopcornFXEmitterEditorComponent",
-                    "Id": 12889870600493739301,
-                    "ParticleSystem": {
-                        "assetId": {
-                            "guid": "{4981130E-D6A9-54D3-A693-2B957A15051F}"
-                        },
-                        "assetHint": "popcornfx/particles/energyballtrap/fx_energyballtrap_projectile.pkfx"
-                    },
-                    "PrewarmTime": 0.0,
-                    "AttributeList": {
-                        "Attributes": [
-                            {
-                                "Name": "Color Intensity",
-                                "Type": 31
-                            },
-                            {
-                                "Name": "Global Scale",
-                                "Type": 31
-                            }
-                        ],
-                        "AttributesRawData": "AACAPwAAAAAAAAAAAAAAAM3MTD8AAAAAAAAAAAAAAAA="
-                    },
-                    "EditorAttributeList": {
-                        "AttributeCategories": [
-                            {
-                                "Attributes": [
-                                    {
-                                        "ValueFX": 1.0
-                                    },
-                                    {
-                                        "ValueFX": 0.800000011920929
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                },
-                "Component_[1317909201307914089]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 1317909201307914089
-                },
-                "Component_[147163556142342236]": {
-                    "$type": "EditorAudioTriggerComponent",
-                    "Id": 147163556142342236,
-                    "Play Trigger": {
-                        "controlName": "play_sx_int_energyballtrap_projectile"
-                    }
-                },
-                "Component_[14745079858933335176]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 14745079858933335176,
-                    "Parent Entity": "Entity_[660556807508]",
-                    "Transform Data": {
-                        "Translate": [
-                            -9.5367431640625e-7,
-                            -0.30000001192092896,
-                            0.6000000238418579
-                        ],
-                        "UniformScale": 0.5
-                    }
-                },
-                "Component_[15147782715820726746]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 15147782715820726746
-                },
-                "Component_[15983379144838108017]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 15983379144838108017,
-                    "m_template": {
-                        "$type": "AudioProxyComponent"
-                    }
-                },
-                "Component_[16569145727191893785]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 16569145727191893785,
-                    "m_template": {
-                        "$type": "MultiplayerSample::EnergyBallComponent",
-                        "ExplosionEffect": {
-                            "ParticleAsset": {
-                                "guid": "{D49CE200-BF8B-5DBF-98BD-14CF7C480D45}"
-                            },
-                            "AudioTrigger": "play_sx_int_energyballtrap_impact"
-                        },
-                        "GatherParams": {
-                            "GatherShape": 2,
-                            "CastDistance": 0.0,
-                            "TravelSpeed": 10.0,
-                            "BulletDrop": false
-                        },
-                        "HitEffect": {
-                            "HitMagnitude": 45.0
-                        }
-                    }
-                },
-                "Component_[16681766830394531701]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 16681766830394531701,
-                    "m_template": {
-                        "$type": "Multiplayer::NetworkRigidBodyComponent"
-                    }
-                },
-                "Component_[425805608025666933]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 425805608025666933,
-                    "m_template": {
-                        "$type": "NetBindComponent"
-                    }
-                },
-                "Component_[4846885455041562164]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 4846885455041562164
-                },
-                "Component_[7697210517306281973]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 7697210517306281973
-                },
-                "Component_[8308919018390390778]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 8308919018390390778,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
-                            "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
-                        },
-                        "sourceName": "WeaponImpactDecal.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{6EA0260B-0747-51BF-944D-BE4B312FC90C}",
-                                "path": "scriptcanvas/WeaponImpactDecal.scriptcanvas"
-                            },
-                            "variables": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "MultiplayerSample::SpawnDecalConfig"
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
-                                    },
-                                    "VariableName": "Weapon Impact Decal Config",
-                                    "InitialValueSource": 1
-                                }
-                            ],
-                            "overrides": [
-                                {
-                                    "Datum": {
-                                        "isOverloadedStorage": false,
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{FC3DA616-174B-48FD-9BFB-BC277132FB47}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "MultiplayerSample::SpawnDecalConfig",
-                                        "value": {
-                                            "MaterialAssetId": {
-                                                "guid": "{FD203077-616F-53C5-9553-660CCB88DB7B}"
-                                            },
-                                            "Scale": 2.0,
-                                            "Opacity": 0.800000011920929,
-                                            "LifeTimeSec": 8.0,
-                                            "FadeOutTimeSec": 4.0
-                                        }
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{1850E939-4A77-4323-807E-6EFF953D8810}"
-                                    },
-                                    "VariableName": "Weapon Impact Decal Config",
-                                    "InitialValueSource": 1
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[8670461081840355986]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 8670461081840355986,
-                    "ComponentOrderEntryArray": [
-                        {
-                            "ComponentId": 14745079858933335176
-                        },
-                        {
-                            "ComponentId": 425805608025666933,
-                            "SortIndex": 1
-                        },
-                        {
-                            "ComponentId": 8772152848682895905,
-                            "SortIndex": 2
-                        },
-                        {
-                            "ComponentId": 1260159715379895998,
-                            "SortIndex": 3
-                        },
-                        {
-                            "ComponentId": 16681766830394531701,
-                            "SortIndex": 4
-                        },
-                        {
-                            "ComponentId": 16569145727191893785,
-                            "SortIndex": 5
-                        }
-                    ]
-                },
-                "Component_[8772152848682895905]": {
-                    "$type": "GenericComponentWrapper",
-                    "Id": 8772152848682895905,
-                    "m_template": {
-                        "$type": "Multiplayer::NetworkTransformComponent"
-                    }
-                },
-                "Component_[9370914006782848444]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 9370914006782848444
-                }
-            }
-        },
         "Entity_[660556807508]": {
             "Id": "Entity_[660556807508]",
             "Name": "Energy Cannon",
@@ -351,7 +107,6 @@
                     "m_template": {
                         "$type": "MultiplayerSample::EnergyCannonComponent",
                         "RateOfFireMs": 5000,
-                        "BallLifetimeMs": 3800,
                         "BuildUpTimeMs": 3300,
                         "FiringEffect": {
                             "ParticleAsset": {
@@ -364,7 +119,20 @@
                                 0.6000000238418579
                             ]
                         },
-                        "EnergyBallEntity": "Entity_[656261840212]"
+                        "FireVector": [
+                            0.0,
+                            -1.0,
+                            0.0
+                        ],
+                        "ProjectileSpawnable": {
+                            "Spawnable": {
+                                "assetId": {
+                                    "guid": "{EF1C280A-0044-5786-918F-8613DC58EF30}",
+                                    "subId": 2851397279
+                                },
+                                "assetHint": "prefabs/energy_ball.network.spawnable"
+                            }
+                        }
                     }
                 },
                 "Component_[15505496297744353802]": {
@@ -389,10 +157,7 @@
                 },
                 "Component_[398718130345139058]": {
                     "$type": "EditorEntitySortComponent",
-                    "Id": 398718130345139058,
-                    "Child Entity Order": [
-                        "Entity_[656261840212]"
-                    ]
+                    "Id": 398718130345139058
                 },
                 "Component_[5124962855717337225]": {
                     "$type": "EditorDisabledCompositionComponent",

@@ -10,8 +10,6 @@
 #include <Components/AttachPlayerWeaponComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
-#include <Components/PerfTest/NetworkRandomImpulseComponent.h>
-#include <Components/PerfTest/NetworkTestSpawnerComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
 #include <Components/UI/UiPlayerArmorComponent.h>

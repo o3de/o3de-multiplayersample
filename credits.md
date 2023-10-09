@@ -1,5 +1,6 @@
 # O3DE 2305 - Initial Release Contributors
 
+* Guthrie Adams - Programming
 * Galib Arrieta (lumbermixalot) - Programming
 * Mike Balfour - Programming
 * Karl Berg - Programming

@@ -142,7 +142,7 @@ If you have problems with working with LFS, see the troubleshooting guide: https
 
 ## Step 2. Register the engine, the project, and the Gems
 
-### Option #1 - Use the CLI
+### Required step to compile
 
 <span style="background-color:#4F3C3C">**NOTE:** The following steps only need to be performed once.</span>
 
@@ -166,7 +166,7 @@ If you have problems with working with LFS, see the troubleshooting guide: https
 
 The final step prints warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
 
-### Option #2 - Use Project Manager
+### Build Using the Project Manager
 
 If you've already built the O3DE engine, use the O3DE project manager to open an existing project.
 
@@ -319,13 +319,14 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 ## Documentation
 
-| Link                                                            | Description                                                               |
-|-----------------------------------------------------------------|---------------------------------------------------------------------------|
-| [README_LINUX](README_LINUX.md)                                 | Linux specific setup instructions                                         |
-| [Release Notes](Documentation/ReleaseNotes.md)                  | Release notes and known issues per major release                          |
-| [Gameplay Configuration](Documentation/GamplayConfiguration.md) | How to adjust gameplay settings                                           |
-| [SettingsScreen](Documentation/SettingsScreen.md)               | How to use and extend the settings screen                                 |
-| [Packaging MPS](Documentation/PackedAssetBuilds.md)             | How to build and package MPS for distribution or running servers remotely |
+| Link                                                                             | Description                                                               |
+|----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions                                         |
+| [Release Notes](Documentation/ReleaseNotes.md)                                   | Release notes and known issues per major release                          |
+| [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings                                           |
+| [SettingsScreen](Documentation/SettingsScreen.md)                                | How to use and extend the settings screen                                 |
+| [Packaging MPS](Documentation/PackedAssetBuilds.md)                              | How to build and package MPS for distribution or running servers remotely |
+| [GameLift Setup](MPSGameLift/README.md)                                          | How to enable AWS GameLift integration                                    |
 
 ## O3DE Useful Links
 

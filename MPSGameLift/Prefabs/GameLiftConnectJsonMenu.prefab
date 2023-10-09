@@ -1,0 +1,117 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "GameLiftConnectJsonMenu",
+        "Components": {
+            "Component_[13540928444711948170]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 13540928444711948170
+            },
+            "Component_[13544879924687445074]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 13544879924687445074
+            },
+            "Component_[15453880038543022661]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 15453880038543022661
+            },
+            "Component_[15960298776308806438]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 15960298776308806438,
+                "Child Entity Order": [
+                    "Entity_[466129925084]"
+                ]
+            },
+            "Component_[16527492674660896064]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 16527492674660896064,
+                "Parent Entity": ""
+            },
+            "Component_[5630969592270320016]": {
+                "$type": "EditorLockComponent",
+                "Id": 5630969592270320016
+            },
+            "Component_[6186517794458587673]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 6186517794458587673
+            },
+            "Component_[6698480114361194487]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 6698480114361194487
+            },
+            "Component_[8187400323384211786]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 8187400323384211786
+            },
+            "Component_[9756989223779659314]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 9756989223779659314
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[466129925084]": {
+            "Id": "Entity_[466129925084]",
+            "Name": "GameLiftConnectJSON",
+            "Components": {
+                "Component_[10630782083030922713]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 10630782083030922713
+                },
+                "Component_[12232560104650265478]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 12232560104650265478
+                },
+                "Component_[12500894386562363070]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 12500894386562363070,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 17795659237990325456
+                        },
+                        {
+                            "ComponentId": 451846989706125778,
+                            "SortIndex": 1
+                        }
+                    ]
+                },
+                "Component_[13999325477256183148]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 13999325477256183148
+                },
+                "Component_[15068052874545116436]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 15068052874545116436
+                },
+                "Component_[15841670706696246095]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 15841670706696246095
+                },
+                "Component_[17638590505545927915]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 17638590505545927915
+                },
+                "Component_[17795659237990325456]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 17795659237990325456,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[18293118188077174336]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 18293118188077174336
+                },
+                "Component_[451846989706125778]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 451846989706125778,
+                    "m_template": {
+                        "$type": "UiCanvasAssetRefComponent",
+                        "CanvasAssetRef": {
+                            "AssetPath": "mpsgamelift/uicanvases/gameliftconnectjson.uicanvas"
+                        },
+                        "IsAutoLoad": true
+                    }
+                }
+            }
+        }
+    }
+}

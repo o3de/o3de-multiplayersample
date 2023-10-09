@@ -379,10 +379,35 @@ namespace MultiplayerSample
         }
     }
 
+    bool HitEvent::operator!=(const HitEvent& rhs) const
+    {
+        if ((m_target != rhs.m_target) ||
+            (m_shooterNetEntityId != rhs.m_shooterNetEntityId) ||
+            (m_projectileNetEntityId != rhs.m_projectileNetEntityId) ||
+            (m_hitEntities.size() != rhs.m_hitEntities.size()))
+        {
+            return true;
+        }
+
+        // We define equality here as having the same entries in the same order.
+        for (size_t index = 0; index < m_hitEntities.size(); index++)
+        {
+            if ((m_hitEntities[index].m_hitNetEntityId != rhs.m_hitEntities[index].m_hitNetEntityId) ||
+                (!m_hitEntities[index].m_hitPosition.IsClose(rhs.m_hitEntities[index].m_hitPosition)) ||
+                (!m_hitEntities[index].m_hitNormal.IsClose(rhs.m_hitEntities[index].m_hitNormal)))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     bool HitEvent::Serialize(AzNetworking::ISerializer& serializer)
     {
         return serializer.Serialize(m_target, "Target")
             && serializer.Serialize(m_shooterNetEntityId, "ShooterNetEntityId")
+            && serializer.Serialize(m_projectileNetEntityId, "ProjectileNetEntityId")
             && serializer.Serialize(m_hitEntities, "HitEntities");
     }
 
@@ -395,6 +420,7 @@ namespace MultiplayerSample
                 ->Version(1)
                 ->Field("Target", &HitEvent::m_target)
                 ->Field("ShooterNetEntityId", &HitEvent::m_shooterNetEntityId)
+                ->Field("ProjectileNetEntityId", &HitEvent::m_projectileNetEntityId)
                 ->Field("HitEntities", &HitEvent::m_hitEntities);
         }
 
@@ -408,6 +434,7 @@ namespace MultiplayerSample
                 ->Constructor<>()
                 ->Property("Target", BehaviorValueProperty(&HitEvent::m_target))
                 ->Property("ShooterNetEntityId", BehaviorValueProperty(&HitEvent::m_shooterNetEntityId))
+                ->Property("ProjectileNetEntityId", BehaviorValueProperty(&HitEvent::m_projectileNetEntityId))
                 ->Property("HitEntities", BehaviorValueProperty(&HitEvent::m_hitEntities))
                 ;
         }

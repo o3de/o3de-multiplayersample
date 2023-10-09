@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <AzCore/Component/EntityBus.h>
 #include <Source/AutoGen/EnergyBallComponent.AutoComponent.h>
 #include <Source/Weapons/WeaponGathers.h>
 
@@ -14,6 +15,7 @@ namespace MultiplayerSample
 {
     class EnergyBallComponent
         : public EnergyBallComponentBase
+        , public AZ::EntityBus::Handler
     {
     public:
         AZ_MULTIPLAYER_COMPONENT(MultiplayerSample::EnergyBallComponent, s_energyBallComponentConcreteUuid, MultiplayerSample::EnergyBallComponentBase);
@@ -23,24 +25,15 @@ namespace MultiplayerSample
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
 
-#if AZ_TRAIT_CLIENT
-        void HandleRPC_BallExplosion(AzNetworking::IConnection* invokingConnection, const HitEvent& hitEvent) override;
-#endif
-
     private:
 #if AZ_TRAIT_CLIENT
+        void OnEntityDeactivated(const AZ::EntityId&) override;
         void DebugDraw();
-        void OnBallActiveChanged(bool active);
 
         AZ::ScheduledEvent m_debugDrawEvent{ [this]()
         {
             DebugDraw();
         }, AZ::Name("EnergyBallDebugDraw") };
-
-        AZ::Event<bool>::Handler m_ballActiveHandler{ [this](bool active)
-        {
-            OnBallActiveChanged(active);
-        } };
 #endif
 
         GameEffect m_effect;
@@ -57,9 +50,8 @@ namespace MultiplayerSample
 
 #if AZ_TRAIT_SERVER
         void HandleRPC_LaunchBall(AzNetworking::IConnection* invokingConnection, const AZ::Vector3& startingPosition, const AZ::Vector3& direction, const Multiplayer::NetEntityId& owningNetEntityId) override;
-        void HandleRPC_KillBall(AzNetworking::IConnection* invokingConnection) override;
         void CheckForCollisions();
-        void HideEnergyBall();
+        void KillEnergyBall();
 
     private:
         AZ::ScheduledEvent m_collisionCheckEvent{ [this]()
@@ -67,12 +59,15 @@ namespace MultiplayerSample
             CheckForCollisions();
         }, AZ::Name("EnergyBallCheckForCollisions") };
 
+        AZ::ScheduledEvent m_killEvent{ [this]()
+        {
+            KillEnergyBall();
+        }, AZ::Name("KillEnergyBall") };
+
         AZ::Vector3 m_direction = AZ::Vector3::CreateZero();
         AZ::Transform m_lastSweepTransform = AZ::Transform::CreateIdentity();
         Multiplayer::NetEntityId m_shooterNetEntityId = Multiplayer::InvalidNetEntityId;
         NetEntityIdSet m_filteredNetEntityIds;
-
-        HitEvent m_hitEvent;
 #endif
     };
 }

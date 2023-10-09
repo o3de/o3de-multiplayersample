@@ -33,6 +33,14 @@ namespace MultiplayerSample
 #endif
     }
 
+    void NetworkTeleportCompatibleComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+#if AZ_TRAIT_CLIENT
+        // Clean up the teleport effect emitter.
+        m_effect = {};
+#endif
+    }
+
 #if AZ_TRAIT_CLIENT
     void NetworkTeleportCompatibleComponent::HandleNotifyTeleport([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::Vector3& teleportedLocation)
     {

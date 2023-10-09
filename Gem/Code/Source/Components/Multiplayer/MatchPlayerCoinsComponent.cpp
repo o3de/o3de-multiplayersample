@@ -23,15 +23,16 @@ namespace MultiplayerSample
 
     void MatchPlayerCoinsComponent::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
-        if (IsNetEntityRoleClient())
-        {
-            AZ::Interface<MatchPlayerCoinsComponent>::Register(this);
-        }
+#if AZ_TRAIT_CLIENT
+        AZ::Interface<MatchPlayerCoinsComponent>::Register(this);
+#endif
     }
 
     void MatchPlayerCoinsComponent::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+#if AZ_TRAIT_CLIENT
         AZ::Interface<MatchPlayerCoinsComponent>::Unregister(this);
+#endif
     }
 
     AZStd::vector<PlayerCoinState> MatchPlayerCoinsComponent::GetPlayerCoinCounts() const

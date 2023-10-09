@@ -10,6 +10,8 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzFramework/Windowing/WindowBus.h>
+#include <Source/UserSettings/MultiplayerSampleUserSettings.h>
+
 
 namespace MultiplayerSample
 {
@@ -40,8 +42,7 @@ namespace MultiplayerSample
         void Deactivate() override;
     private:
         // WindowNotificationBus overrides
-        void OnWindowResized(uint32_t width, uint32_t height) override;
-        void OnRefreshRateChanged([[maybe_unused]] uint32_t refreshRate) override;
+        void OnFullScreenModeChanged(bool fullscreen) override;
 
         static AzFramework::NativeWindowHandle GetWindowHandle();
 
@@ -57,18 +58,31 @@ namespace MultiplayerSample
         static void OnGraphicsApiToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnTextureQualityToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnMasterVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMusicVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnSfxVolumeToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnVolumeToggle(VolumeChannel volumeChannel, UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnFullscreenToggle(UiToggle& toggle, ToggleDirection toggleDirection);
         static void OnResolutionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnReflectionToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnMsaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
+        static void OnTaaToggle(UiToggle& toggle, ToggleDirection toggleDirection);
 
         template<typename ValueType>
         static uint32_t GetRotatedIndex(
-            const AZStd::vector<AZStd::pair<ValueType, AZStd::string>>& valuesToLabels,
+            const AZStd::span<const AZStd::pair<ValueType, AZStd::string_view>> valuesToLabels,
             const ValueType& value, ToggleDirection toggleDirection);
 
         UiToggle m_graphicsApiToggle;
         UiToggle m_textureQualityToggle;
-        UiToggle m_masterVolumeToggle;
         UiToggle m_fullscreenToggle;
         UiToggle m_resolutionToggle;
+
+        UiToggle m_reflectionToggle;
+        UiToggle m_msaaToggle;
+        UiToggle m_taaToggle;
+
+        UiToggle m_masterVolumeToggle;
+        UiToggle m_musicVolumeToggle;
+        UiToggle m_sfxVolumeToggle;
     };
 }

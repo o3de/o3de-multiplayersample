@@ -1,0 +1,242 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "BubbleCannon",
+        "Components": {
+            "Component_[11001270654282643547]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 11001270654282643547
+            },
+            "Component_[12617755861961541756]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 12617755861961541756
+            },
+            "Component_[1321664764349957244]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 1321664764349957244
+            },
+            "Component_[13448855395315457750]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 13448855395315457750
+            },
+            "Component_[1392263484156039254]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 1392263484156039254,
+                "Child Entity Order": [
+                    "Entity_[10746127456612]"
+                ]
+            },
+            "Component_[17194855693624462444]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 17194855693624462444
+            },
+            "Component_[2997603619889818047]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 2997603619889818047
+            },
+            "Component_[3400743385441374090]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 3400743385441374090,
+                "Parent Entity": ""
+            },
+            "Component_[5728354788904342666]": {
+                "$type": "EditorLockComponent",
+                "Id": 5728354788904342666
+            },
+            "Component_[8871860021798450429]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 8871860021798450429
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[10746127456612]": {
+            "Id": "Entity_[10746127456612]",
+            "Name": "Bubble Cannon",
+            "Components": {
+                "Component_[12185129918259758752]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 12185129918259758752,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                    "subId": 269172407
+                                },
+                                "assetHint": "defenceturret/defenceturret.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[12627717619833949403]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12627717619833949403,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[13913926960209768839]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 13913926960209768839
+                },
+                "Component_[14739979666928822184]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 14739979666928822184,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 3533828349650165605
+                        },
+                        {
+                            "ComponentId": 15034031694382477776,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 9219518570565453785,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 12627717619833949403,
+                            "SortIndex": 3
+                        }
+                    ]
+                },
+                "Component_[15034031694382477776]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 15034031694382477776,
+                    "m_template": {
+                        "$type": "MultiplayerSample::EnergyCannonComponent",
+                        "RateOfFireMs": 1500,
+                        "BuildUpTimeMs": 100,
+                        "FiringEffect": {
+                            "ParticleAsset": {
+                                "guid": "{8D79CA21-1BF9-59A5-8C2F-FE52D54B9E6B}"
+                            },
+                            "AudioTrigger": "play_sx_wpn_bubblegun_fire",
+                            "EffectOffset": [
+                                0.0,
+                                0.25,
+                                2.0
+                            ]
+                        },
+                        "FireVector": [
+                            0.0,
+                            0.5,
+                            0.8659999966621399
+                        ],
+                        "ProjectileSpawnable": {
+                            "Spawnable": {
+                                "assetId": {
+                                    "guid": "{10056BEC-1313-5F27-90E0-9BE6E69A171D}",
+                                    "subId": 2235376842
+                                },
+                                "assetHint": "prefabs/bubbleball.network.spawnable"
+                            }
+                        }
+                    }
+                },
+                "Component_[15505496297744353802]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 15505496297744353802
+                },
+                "Component_[15594701352099365687]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 15594701352099365687
+                },
+                "Component_[2942213479640514248]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 2942213479640514248
+                },
+                "Component_[3533828349650165605]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 3533828349650165605,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[398718130345139058]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 398718130345139058
+                },
+                "Component_[5124962855717337225]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 5124962855717337225
+                },
+                "Component_[6858561294880275950]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 6858561294880275950,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": {
+                                "{}": {
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{6750615E-D0A9-5759-B55A-A68B64343574}"
+                                        },
+                                        "assetHint": "defenceturret/defenceturret_opaque_mat.azmaterial"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "Component_[8731904734389776651]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 8731904734389776651
+                },
+                "Component_[9112722425705082704]": {
+                    "$type": "EditorMeshColliderComponent",
+                    "Id": 9112722425705082704,
+                    "ColliderConfiguration": {
+                        "Rotation": [
+                            0.0,
+                            -0.0,
+                            1.0,
+                            -0.0
+                        ],
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "opaque_MAT"
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "PhysicsAsset": {
+                            "Asset": {
+                                "assetId": {
+                                    "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                    "subId": 421091912
+                                },
+                                "assetHint": "defenceturret/defenceturret.pxmesh"
+                            },
+                            "Configuration": {
+                                "PhysicsAsset": {
+                                    "assetId": {
+                                        "guid": "{98F0A4B8-3708-5D15-BFB4-FA4AA377F084}",
+                                        "subId": 421091912
+                                    },
+                                    "loadBehavior": "QueueLoad",
+                                    "assetHint": "defenceturret/defenceturret.pxmesh"
+                                }
+                            }
+                        }
+                    },
+                    "DebugDrawSettings": {
+                        "LocallyEnabled": false
+                    }
+                },
+                "Component_[9219518570565453785]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 9219518570565453785,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[9579942683680693676]": {
+                    "$type": "EditorStaticRigidBodyComponent",
+                    "Id": 9579942683680693676
+                }
+            }
+        }
+    }
+}
