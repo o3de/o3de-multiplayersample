@@ -1,4 +1,4 @@
-Version = 2.17.0.17676;
+Version = 2.18.0.18760;
 CEngineRendererInterface	$6B70D015
 {
 	InterfaceName = "Editor features";
@@ -265,6 +265,8 @@ CParticleRendererFeature	$B660FBF9
 		"$ECEE2C92",
 		"$C71A50C8",
 		"$4703F6C7",
+		"$44ED3089",
+		"$2464CFDC",
 		"$6B1D589C",
 	};
 }
@@ -363,6 +365,8 @@ CParticleNodeTemplateExport	$6B1D589C
 		"ViewposAligned",
 		"NormalAxisAligned",
 		"SideAxisAligned",
+		"SideAxisAlignedTube",
+		"SideAxisAlignedMultiPlane",
 	};
 }
 CParticleNodePinIn	$6B1D589F
@@ -5074,4 +5078,78 @@ CParticleNodePinOut	$C3ECE4FE
 {
 	SelfName = "Value";
 	Owner = "$25BA4FE3";
+}
+CParticleNodeTemplateExport	$2464CFDC
+{
+	InputPins = {
+		"$ACE27859",
+	};
+	OutputPins = {
+		"$6C201C5D",
+	};
+	ExportedName = "General.SegmentCount";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueI4 = int4(8, 0, 0, 0);
+	MinValueI4 = int4(3, 0, 0, 0);
+	MaxValueI4 = int4(16, 0, 0, 0);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "General.BillboardingMode";
+	RuleValue = "3";
+}
+CParticleNodePinIn	$ACE27859
+{
+	SelfName = "DefaultValue";
+	Owner = "$2464CFDC";
+}
+CParticleNodePinOut	$6C201C5D
+{
+	SelfName = "Value";
+	Owner = "$2464CFDC";
+}
+CParticleNodeTemplateExport	$44ED3089
+{
+	InputPins = {
+		"$880D83C6",
+	};
+	OutputPins = {
+		"$C7C72EFA",
+	};
+	ExportedName = "General.PlaneCount";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueI4 = int4(2, 0, 0, 0);
+	MinValueI4 = int4(2, 0, 0, 0);
+	MaxValueI4 = int4(8, 0, 0, 0);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "General.BillboardingMode";
+	RuleValue = "4";
+}
+CParticleNodePinIn	$880D83C6
+{
+	SelfName = "DefaultValue";
+	Owner = "$44ED3089";
+}
+CParticleNodePinOut	$C7C72EFA
+{
+	SelfName = "Value";
+	Owner = "$44ED3089";
 }
