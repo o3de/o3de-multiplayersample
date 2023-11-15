@@ -1,4 +1,4 @@
-Version = 2.17.0.17676;
+Version = 2.18.0.18760;
 CEngineRendererInterface	$6B70D015
 {
 	InterfaceName = "Experimental material features";
@@ -256,6 +256,8 @@ CParticleRendererFeature	$B660FBF9
 		"$ECEE2C92",
 		"$C71A50C8",
 		"$4703F6C7",
+		"$1CD109AB",
+		"$FA60E0CE",
 		"$6B1D589C",
 	};
 }
@@ -354,6 +356,8 @@ CParticleNodeTemplateExport	$6B1D589C
 		"ViewposAligned",
 		"NormalAxisAligned",
 		"SideAxisAligned",
+		"SideAxisAlignedTube",
+		"SideAxisAlignedMultiPlane",
 	};
 }
 CParticleNodePinIn	$6B1D589F
@@ -1688,6 +1692,7 @@ CParticleNodeTemplateExport	$88F8E019
 	CategoryName = {
 		"@eng:BasicTransformUVs",
 	};
+	PinRules = Rule1;
 }
 CParticleNodePinIn	$88F8E01F
 {
@@ -3104,6 +3109,9 @@ CParticleNodeTemplateExport	$DEF82E86
 	UseSlider = true;
 	DefaultValueF4 = float4(5.0000000e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
 	MaxValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+	PinRules = Rule1;
+	DependentProperty = "General.BillboardingMode";
+	RuleValue = "3";
 }
 CParticleNodePinIn	$AE218CC1
 {
@@ -4426,4 +4434,78 @@ CParticleNodePinOut	$0AEAA135
 {
 	SelfName = "Value";
 	Owner = "$BB3DED95";
+}
+CParticleNodeTemplateExport	$1CD109AB
+{
+	InputPins = {
+		"$BD23BFC1",
+	};
+	OutputPins = {
+		"$B6664671",
+	};
+	ExportedName = "General.PlaneCount";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueI4 = int4(2, 0, 0, 0);
+	MinValueI4 = int4(2, 0, 0, 0);
+	MaxValueI4 = int4(8, 0, 0, 0);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "General.BillboardingMode";
+	RuleValue = "4";
+}
+CParticleNodePinIn	$BD23BFC1
+{
+	SelfName = "DefaultValue";
+	Owner = "$1CD109AB";
+}
+CParticleNodePinOut	$B6664671
+{
+	SelfName = "Value";
+	Owner = "$1CD109AB";
+}
+CParticleNodeTemplateExport	$FA60E0CE
+{
+	InputPins = {
+		"$0B7EBFDE",
+	};
+	OutputPins = {
+		"$2D0B75A0",
+	};
+	ExportedName = "General.SegmentCount";
+	ExportedType = int;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:General",
+	};
+	HasMin = true;
+	HasMax = true;
+	UseSlider = true;
+	DefaultValueI4 = int4(8, 0, 0, 0);
+	MinValueI4 = int4(3, 0, 0, 0);
+	MaxValueI4 = int4(16, 0, 0, 0);
+	PinRules = Rule1;
+	BaseVisibility = Hidden;
+	RuleResult = Visible;
+	DependentProperty = "General.BillboardingMode";
+	RuleValue = "3";
+}
+CParticleNodePinIn	$0B7EBFDE
+{
+	SelfName = "DefaultValue";
+	Owner = "$FA60E0CE";
+}
+CParticleNodePinOut	$2D0B75A0
+{
+	SelfName = "Value";
+	Owner = "$FA60E0CE";
 }
