@@ -126,7 +126,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
                                                               required=True)
         logger.info(f"Using '{asset_bundler_path}' to bundle the assets.")
         expected_bundles_path = exp.bundle_assets(ctx=ctx,
-                                                  selected_platform=selected_platform,
+                                                  selected_platforms=[selected_platform],
                                                   seedlist_paths=validated_seedslist_paths,
                                                   seedfile_paths=[],
                                                   tools_build_path=tools_build_path,
