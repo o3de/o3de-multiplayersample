@@ -98,7 +98,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
         if should_build_server_launcher:
             launcher_type |= exp.LauncherType.SERVER
         if should_build_headless_server_launcher:
-            launcher_type |= exp.LauncherType.HEADLESS
+            launcher_type |= exp.LauncherType.HEADLESS_SERVER
         if should_build_unified_launcher:
             launcher_type |= exp.LauncherType.UNIFIED
 
