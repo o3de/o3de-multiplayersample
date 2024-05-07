@@ -98,7 +98,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
         if should_build_server_launcher:
             launcher_type |= exp.LauncherType.SERVER
         if should_build_headless_server_launcher:
-            launcher_type |= exp.LauncherType.HEADLESS
+            launcher_type |= exp.LauncherType.HEADLESS_SERVER
         if should_build_unified_launcher:
             launcher_type |= exp.LauncherType.UNIFIED
 
@@ -126,7 +126,7 @@ def export_multiplayer_sample(ctx: exp.O3DEScriptExportContext,
                                                               required=True)
         logger.info(f"Using '{asset_bundler_path}' to bundle the assets.")
         expected_bundles_path = exp.bundle_assets(ctx=ctx,
-                                                  selected_platform=selected_platform,
+                                                  selected_platforms=[selected_platform],
                                                   seedlist_paths=validated_seedslist_paths,
                                                   seedfile_paths=[],
                                                   tools_build_path=tools_build_path,
