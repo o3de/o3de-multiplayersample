@@ -4,11 +4,11 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 #
 
-# The cpu architecture to base the docker base script from
 ARG INPUT_ARCHITECTURE=amd64
 
-# The root to base the docker script base from
 ARG INPUT_IMAGE=ubuntu:22.04
+
+FROM ${INPUT_ARCHITECTURE}/${INPUT_IMAGE}
 
 # Argument to determining the package type ('server', 'headless-server', 'launcher', or 'unified-launcher')
 ARG PACKAGE_TYPE=launcher  # Default to 'launcher'
@@ -33,46 +33,49 @@ ARG O3DE_MPS_ASSETS_REPO=https://github.com/o3de/o3de-multiplayersample-assets
 ARG O3DE_MPS_ASSETS_BRANCH=development
 ARG O3DE_MPS_ASSETS_COMMIT=HEAD
 
-FROM ${INPUT_ARCHITECTURE}/${INPUT_IMAGE}
-
-# Argument to determining the package type ('server', 'headless-server', 'launcher', or 'unified-launcher')
+# Argument to determining the package type ('server', 'headless', 'launcher', or 'unified')
 ARG PACKAGE_TYPE=launcher  # Default to 'launcher'
 
-# o3de repo arguments (redeclared)
-ARG O3DE_REPO
-ARG O3DE_BRANCH
-ARG O3DE_COMMIT
-ARG O3DE_EXTRAS_REPO
-ARG O3DE_EXTRAS_BRANCH
-ARG O3DE_EXTRAS_COMMIT
-ARG O3DE_MPS_REPO
-ARG O3DE_MPS_BRANCH
-ARG O3DE_MPS_COMMIT
-ARG O3DE_MPS_ASSETS_REPO
-ARG O3DE_MPS_ASSETS_BRANCH
-ARG O3DE_MPS_ASSETS_COMMIT
+# Argument to run fullscreen (for game, unified, and server package types)
+ARG RUN_FULLSCREEN=0
 
+# Set the workspace to work from
 ENV WORKSPACE=/data/workspace
-
 WORKDIR $WORKSPACE
 
-ENV O3DE_REPO=${O3DE_REPO}
-ENV O3DE_BRANCH=${O3DE_BRANCH}
-ENV O3DE_COMMIT=${O3DE_COMMIT}
+# o3de Environment
+ENV O3DE_REPO=$O3DE_REPO
+ENV O3DE_BRANCH=$O3DE_BRANCH
+ENV O3DE_COMMIT=$O3DE_COMMIT
+ENV O3DE_ROOT=$WORKSPACE/o3de
 
-ENV O3DE_EXTRAS_REPO=${O3DE_EXTRAS_REPO}
-ENV O3DE_EXTRAS_BRANCH=${O3DE_EXTRAS_BRANCH}
-ENV O3DE_EXTRAS_COMMIT=${O3DE_EXTRAS_COMMIT}
+# o3de-extras Environment
+ENV O3DE_EXTRAS_REPO=$O3DE_EXTRAS_REPO
+ENV O3DE_EXTRAS_BRANCH=$O3DE_EXTRAS_BRANCH
+ENV O3DE_EXTRAS_COMMIT=$O3DE_EXTRAS_COMMIT
+ENV O3DE_EXTRAS_ROOT=$WORKSPACE/o3de-extras
 
-ENV O3DE_MPS_REPO=${O3DE_MPS_REPO}
-ENV O3DE_MPS_BRANCH=${O3DE_MPS_BRANCH}
-ENV O3DE_MPS_COMMIT=${O3DE_MPS_COMMIT}
+# o3de-multiplayersample Environment
+ENV O3DE_MPS_ASSETS_REPO=$O3DE_MPS_ASSETS_REPO
+ENV O3DE_MPS_ASSETS_BRANCH=$O3DE_MPS_ASSETS_BRANCH
+ENV O3DE_MPS_ASSETS_COMMIT=$O3DE_MPS_ASSETS_COMMIT
+ENV O3DE_MPS_ASSETS_ROOT=$WORKSPACE/o3de-multiplayersample-assets
 
-ENV O3DE_MPS_ASSETS_REPO=${O3DE_MPS_ASSETS_REPO}
-ENV O3DE_MPS_ASSETS_BRANCH=${O3DE_MPS_ASSETS_BRANCH}
-ENV O3DE_MPS_ASSETS_COMMIT=${O3DE_MPS_ASSETS_COMMIT}
+# o3de-multiplayersample-assets Environment
+ENV O3DE_MPS_REPO=$O3DE_MPS_REPO
+ENV O3DE_MPS_BRANCH=$O3DE_MPS_BRANCH
+ENV O3DE_MPS_COMMIT=$O3DE_MPS_COMMIT
+ENV O3DE_MPS_ROOT=$WORKSPACE/o3de-multiplayersample
 
-ENV PACKAGE_TYPE=${PACKAGE_TYPE}
+# Validate and set the package type
+RUN if [ $PACKAGE_TYPE = "game" ];then echo "Building Game Launcher Image"; \
+    elif [ $PACKAGE_TYPE = "unified" ];then echo "Building Unified Launcher Image"; \
+    elif [ $PACKAGE_TYPE = "server" ];then echo "Building Server Launcher Image"; \
+    elif [ $PACKAGE_TYPE = "headless" ];then echo "Building Headless Server Launcher Image"; \
+    else echo "Invalid PACKAGE_TYPE argument '$PACKAGE_TYPE'. Must be one of ('server', 'headless', 'game', or 'unified')" && exit 1; \
+    fi
+ENV PACKAGE_TYPE=$PACKAGE_TYPE
+ENV RUN_FULLSCREEN=$RUN_FULLSCREEN
 
 # Add additional package repositories needed for packages
 RUN apt-get update && \
@@ -98,7 +101,8 @@ RUN apt-get update && \
         libsdl2-dev \
         zlib1g-dev \
         mesa-common-dev \
-        libssl-dev libxcb-icccm4 \
+        libssl-dev \
+        libxcb-icccm4 \
         libxcb-image0 \
         libxcb-keysyms1 \
         libxcb-render-util0 \
@@ -109,11 +113,10 @@ RUN apt-get update && \
         binutils-dev \
         libvulkan1 
 
-COPY build.sh /data/workspace/build.sh
+COPY build.sh $WORKSPACE/build.sh
+COPY launch.sh $WORKSPACE/launch.sh
 
-RUN /data/workspace/build.sh && \
-    rm -rf ~/.o3de && \
-    rm -rf ~/O3DE
+RUN $WORKSPACE/build.sh
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
