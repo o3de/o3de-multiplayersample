@@ -51,6 +51,11 @@ These instructions use the following installation paths. Be sure to substitute y
    cd o3de-multiplayersample-assets
    git submodule update --init --recursive
    ```
+5. From your root project folder clone O3DE-Extras. The O3DE-Extras repo is required for the [WWISE Audio gem](https://github.com/o3de/o3de-extras/tree/development/Gems/AudioEngineWwise).
+   ```shell
+   cd $HOME/my-o3de-projects
+   git clone https://github.com/o3de/o3de-extras/
+   ```
 
 ### Option #2 - Cloning into the engine repository directory
 
@@ -97,7 +102,10 @@ These instructions use the following installation paths. Be sure to substitute y
    ```shell
    $HOME/o3de/scripts/o3de register --all-gems-path $HOME/my-o3de-projects/o3de-multiplayersample-assets/Gems
    ```
-
+1. Register the audio gem.
+   ```shell
+   $HOME/o3de/scripts/o3de register --gem-path $HOME/my-o3de-projects/o3de-extras/Gems/AudioEngineWwise/
+   ```
 1. Register the project.
 
    ```shell
