@@ -1,5 +1,7 @@
 # Docker support for Multiplayer Sample
 
+The O3DE Multiplayer Sample supports construction of Docker images on the Linux environment. 
+
 ## Prerequisites
 
 * [Hardware requirements of o3de](https://www.o3de.org/docs/welcome-guide/requirements/)
@@ -45,12 +47,12 @@ The Docker scripts accepts arguments to control how to build the Docker image fo
 
 #### Game Launcher
 ```
-docker build --build-arg PACKAGE_TYPE=game -f Dockerfile -t amd64/o3de-mps-server:latest .
+docker build --build-arg PACKAGE_TYPE=game -f Dockerfile -t amd64/o3de-mps-game:latest .
 ```
 
 ### Unified Game Launcher
 ```
-docker build --build-arg PACKAGE_TYPE=unified -f Dockerfile -t amd64/o3de-mps-server:latest .
+docker build --build-arg PACKAGE_TYPE=unified -f Dockerfile -t amd64/o3de-mps-unified:latest .
 ```
 
 ### Server Launcher
@@ -60,7 +62,7 @@ docker build --build-arg PACKAGE_TYPE=server -f Dockerfile -t amd64/o3de-mps-ser
 
 ### Headless Server Launcher
 ```
-docker build --build-arg PACKAGE_TYPE=headless -f Dockerfile -t amd64/o3de-mps-server:latest .
+docker build --build-arg PACKAGE_TYPE=headless -f Dockerfile -t amd64/o3de-mps-headless:latest .
 ```
 
 ### From github
@@ -87,7 +89,7 @@ docker build --build-arg PACKAGE_TYPE=headless -t amd64/o3de-mps-headless:latest
 ```
 
 
-# Running the Docker image
+# Running the Docker image locally
 Running the non-headless Docker images requires Vulkan and GPU acceleration provided by the NVIDIA drivers and container toolkit. The following directions will describe how to launch the Docker containers, utilizing the host Linux machine's X11 display and nvidia drivers, and connecting to the default 'bridge' network. (For advanced network isolation, refer to Docker's command-line reference for [network](https://docs.docker.com/reference/cli/docker/container/run/#network))
 
 ```
@@ -99,4 +101,9 @@ docker run --rm --gpus all -e DISPLAY=:1 --network="bridge" -v /tmp/.X11-unix:/t
 * **amd64/o3de-mps-unified** : The unified game/server launcher
 * **amd64/o3de-mps-server** : The server launcher
 * **amd64/o3de-mps-headless** : The headless server launcher (Does not require GPU acceleration)
+
+
+# Deploying the Docker image
+The Docker image can be published to any docker container registry and deployed on any Linux operating system that supports Docker.
+
 
