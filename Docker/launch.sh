@@ -20,7 +20,7 @@ elif [ "$PACKAGE_TYPE" = "launcher" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_LAUNCHER
     LAUNCHER_TARGET=GameLauncher
-elif [ "$PACKAGE_TYPE" = "unified-launcher" ]
+elif [ "$PACKAGE_TYPE" = "unified" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_UNIFIED_LAUNCHER
     LAUNCHER_TARGET=UnifiedLauncher

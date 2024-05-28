@@ -116,7 +116,8 @@ RUN apt-get update && \
 COPY build.sh $WORKSPACE/build.sh
 COPY launch.sh $WORKSPACE/launch.sh
 
-RUN $WORKSPACE/build.sh
+RUN $WORKSPACE/build.sh \
+    && rm $WORKSPACE/build.sh
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all

@@ -14,33 +14,15 @@ BUILD_ROOT=$WORKSPACE/build
 ###############################################################################
 # Clone and bootstrap O3DE
 ###############################################################################
-git_clone_o3de() {
-    echo "Cloning o3de from $O3DE_REPO/$O3DE_BRANCH into $O3DE_ROOT"
-    git clone --single-branch -b $O3DE_BRANCH $O3DE_REPO $O3DE_ROOT && \
-        git -C $O3DE_ROOT lfs install && \
-        git -C $O3DE_ROOT lfs pull && \
-        git -C $O3DE_ROOT reset --hard $O3DE_COMMIT 
-    if [ $? -ne 0 ]
-    then
-        echo "Error cloning o3de from $O3DE_REPO"
-        exit 1
-    fi
-}
-
-
-
-
-
-
-
-if [ -d $O3DE_ROOT ]
+echo "Cloning o3de from $O3DE_REPO/$O3DE_BRANCH into $O3DE_ROOT"
+git clone --single-branch -b $O3DE_BRANCH $O3DE_REPO $O3DE_ROOT && \
+    git -C $O3DE_ROOT lfs install && \
+    git -C $O3DE_ROOT lfs pull && \
+    git -C $O3DE_ROOT reset --hard $O3DE_COMMIT 
+if [ $? -ne 0 ]
 then
-    # O3DE root exists, keep track of this
-    O3DE_CLONED=0
-else
-    # O3dE root does not exist, clone into the image
-    git_clone_o3de()
-    O3DE_CLONED=1
+    echo "Error cloning o3de from $O3DE_REPO"
+    exit 1
 fi
 
 $O3DE_ROOT/python/get_python.sh && \
@@ -179,15 +161,15 @@ if [ "$PACKAGE_TYPE" = "server" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_SERVER
     LAUNCHER_TARGET=ServerLauncher
-elif [ "$PACKAGE_TYPE" = "headless-server" ]
+elif [ "$PACKAGE_TYPE" = "headless" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_HEADLESS_SERVER
     LAUNCHER_TARGET=HeadlessServerLauncher
-elif [ "$PACKAGE_TYPE" = "launcher" ]
+elif [ "$PACKAGE_TYPE" = "game" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_LAUNCHER
     LAUNCHER_TARGET=GameLauncher
-elif [ "$PACKAGE_TYPE" = "unified-launcher" ]
+elif [ "$PACKAGE_TYPE" = "unified" ]
 then
     PACKAGE_FOLDER=$WORKSPACE/MPS_UNIFIED_LAUNCHER
     LAUNCHER_TARGET=UnifiedLauncher
