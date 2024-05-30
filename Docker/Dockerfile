@@ -6,9 +6,11 @@
 
 ARG INPUT_ARCHITECTURE=amd64
 
-ARG INPUT_IMAGE=ubuntu:22.04
+ARG INPUT_IMAGE=ubuntu
 
-FROM ${INPUT_ARCHITECTURE}/${INPUT_IMAGE}
+ARG INPUT_TAG=jammy
+
+FROM ${INPUT_ARCHITECTURE}/${INPUT_IMAGE}:${INPUT_TAG}
 
 # Argument to determining the package type ('server', 'headless-server', 'launcher', or 'unified-launcher')
 ARG PACKAGE_TYPE=launcher  # Default to 'launcher'
