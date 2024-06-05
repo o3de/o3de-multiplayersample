@@ -17,16 +17,12 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 1. Use Export Project to Compile Code and Build Assets
 
     ```sh
-    <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\MPSGameLift\Scripts\export_gamelift_server_package.py --code --assets -ll INFO
+    cd <path-to-multiplayer-sample>
+    <path-to-o3de-engine>\scripts\o3de.bat export-project -es <path-to-multiplayer-sample>\ExportScripts\export_mps.py --log-level INFO --output-path <path-to-export-folder> --config release --game-lift --build-tools true --archive-output none -assets --no-unified-launcher
     ```
-    A folder named "GameLiftPackageWindows" containing the server will be created inside of the current working directory.
-
-    ---
-    **Important**
-
-    The export_gamelift_server_package script only works for projects built using engine source, and won't work with engine as an sdk. 
-
-    ---
+    Validate the export was successful.
+    1. The --output-path directory will contain 3 new folders: "MultiplayerSampleGamePackage", "MultiplayerSampleServerPackage", and "MultiplayerSampleHeadlessServerPackage". 
+    2. The ServerLauncher folders will contain "install.sh" (install.sh is what GameLift will need to run before starting the server when running on Linux).
     
     ---
     **Important**
@@ -35,32 +31,25 @@ This README covers optional setup, testing and running on [Amazon GameLift](http
 
     ---
 
----
-**NOTE**
-
-The `--package-gamelauncher` command line option can be added to also package the game client.
-A folder named "MultiplayerSampleGamePackage" containing the game launcher will be created inside of the current working directory.
-
----
 
 1. Test the profile pak server and game locally without using GameLift
     Run the server in headless mode using `rhi=null` and `NullRenderer` parameters; the server appears as a white screen in headless mode.
     
-    `.\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer --console-command-file=launch_server.cfg --net_udpDefaultTimeoutMs=20000`
+    `<path-to-export-folder>\MultiplayerSampleHeadlessServerPackage\MultiplayerSample.HeadlessServerLauncher.exe --rhi=null -NullRenderer --console-command-file=launch_server.cfg`
     
-    `.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe --connect=127.0.0.1 --net_udpDefaultTimeoutMs=20000`
+    `<path-to-export-folder>\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe --connect=127.0.0.1`
 
     ---
     **NOTE**
 
     Launch_server.cfg is required because there's a bug with multiplayer when calling --loadlevel in the command-line. See https://github.com/o3de/o3de/issues/15773.
-    net_udpDefaultTimeoutMs is increased to 20 seconds in case the initial client level load takes too long. (see https://github.com/o3de/o3de/issues/14659)
+
     ---
 
-1. Open .\GameLiftPackageWindows\user\log\Server.log
+1. Open <path-to-export-folder>\MultiplayerSampleHeadlessServerPackage\user\log\Server.log
     You should see a level load command. This is the "New Starbase" level.
     ```
-    LoadLevel : <empty>
+    LoadLevel : NewStarbase
     ```
 
 
@@ -125,7 +114,7 @@ Notes:
 - `ProcessId` can be omitted. A unique default `ProcessId` will be generated out of the timestamp.
 
 ```sh
-C:\GameLiftPackageWindows\MultiplayerSample.ServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 --console-command-file=launch_server.cfg --sv_dedicated_host_onstartup=false --sv_gameLiftEnabled=true --sv_gameliftAnywhereEnabled=true --sv_gameliftAnywhereWebSocketUrl="<WebSocketUrl>" --sv_gameliftAnywhereAuthToken="<AuthToken>" --sv_gameliftAnywhereFleetId="<FleetId>" --sv_gameliftAnywhereHostId="<ComputeName>" --sv_gameliftAnywhereProcessId="<ProcessId>"
+<path-to-export-folder>\MultiplayerSampleHeadlessServerPackage\MultiplayerSample.HeadlessServerLauncher.exe --rhi=null -NullRenderer -bg_ConnectToAssetProcessor=0 --console-command-file=launch_server.cfg --sv_dedicated_host_onstartup=false --sv_gameLiftEnabled=true --sv_gameliftAnywhereEnabled=true --sv_gameliftAnywhereWebSocketUrl="<WebSocketUrl>" --sv_gameliftAnywhereAuthToken="<AuthToken>" --sv_gameliftAnywhereFleetId="<FleetId>" --sv_gameliftAnywhereHostId="<ComputeName>" --sv_gameliftAnywhereProcessId="<ProcessId>"
 ```
 
 ### Create a Game Session
@@ -142,7 +131,7 @@ If the operation fails, make sure the server is running. Ensure that `InitSDK` a
 ### Start Client
 
 ```sh
-.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
+<path-to-export-folder>\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
 ```
 
 Once started, the client should show a text area where the session information needs to be pasted into. You may need to press `~` on your keyboard to open the console and release the cursor from being bound to the client window.
@@ -176,7 +165,7 @@ Builds are tied to Fleets; you may want to delete the existing build and fleet v
 ---
  
 ```sh
-aws gamelift upload-build --server-sdk-version 5.0.0 --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region <Region>
+aws gamelift upload-build --server-sdk-version 5.1.2 --operating-system WINDOWS_2016 --build-root <path-to-export-folder>\MultiplayerSampleHeadlessServerPackage --name MultiplayerSample --build-version v1.0 --region <Region>
 ```
 Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
@@ -212,17 +201,15 @@ aws gamelift create-game-session --region <Region> --fleet-id <FleetId> --name f
 ```
 Record GameSessionId for the next step. Example: **arn:aws:gamelift:us-west-2::gamesession/fleet-1a23bc4d-456e-78fg-h9i0-jk1l23456789/custom-location-1/gsess-ab1cd2ef-3gh4-5678-ijk9-0l1mn2o345p6**
 
-Launch the game client with:
+Launch the game client before creating the player session because the player session needs to be used within 60 seconds:
 ```sh
-.\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
-```
-```sh
+<path-to-export-folder>\MultiplayerSampleGamePackage\MultiplayerSample.GameLauncher.exe
 aws gamelift create-player-session --region <Region> --game-session-id <GameSessionId> --player-id Player1
 ```
 ---
 **NOTE**
 PlayerId passed into create-player-session shouldn't be the same PlayerId passed into this JSON block; keep these unique. 
-Record PlayerSessionId and use this in the game immediately because it expires after 60 seconds. Example: **psess-12345678-9012-3ab4-cd5e-67890f12gh34**
+Copy the PlayerSession JSON table and use this in the game immediately because it expires after 60 seconds.
 
 ---
 
