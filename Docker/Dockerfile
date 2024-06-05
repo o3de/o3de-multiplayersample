@@ -35,8 +35,6 @@ ARG O3DE_MPS_ASSETS_REPO=https://github.com/o3de/o3de-multiplayersample-assets
 ARG O3DE_MPS_ASSETS_BRANCH=development
 ARG O3DE_MPS_ASSETS_COMMIT=HEAD
 
-# Argument to determining the package type ('server', 'headless', 'launcher', or 'unified')
-ARG PACKAGE_TYPE=launcher  # Default to 'launcher'
 
 # Argument to run fullscreen (for game, unified, and server package types)
 ARG RUN_FULLSCREEN=0
