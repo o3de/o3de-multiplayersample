@@ -13,7 +13,7 @@ ARG INPUT_TAG=jammy
 FROM ${INPUT_ARCHITECTURE}/${INPUT_IMAGE}:${INPUT_TAG}
 
 # Argument for determining the package type ('server', 'headless-server', 'game', or 'unified-launcher')
-ARG PACKAGE_TYPE=launcher  # Default to 'launcher'
+ARG PACKAGE_TYPE=game  # Default to 'game'
 
 # o3de repo arguments
 ARG O3DE_REPO=https://github.com/o3de/o3de
