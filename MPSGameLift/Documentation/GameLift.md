@@ -165,7 +165,7 @@ Builds are tied to Fleets; you may want to delete the existing build and fleet v
 ---
  
 ```sh
-aws gamelift upload-build --server-sdk-version 5.1.2 --operating-system WINDOWS_2016 --build-root C:\GameLiftPackageWindows\ --name MultiplayerSample --build-version v1.0 --region <Region>
+aws gamelift upload-build --server-sdk-version 5.1.2 --operating-system WINDOWS_2016 --build-root <path-to-export-folder>\MultiplayerSampleHeadlessServerPackage --name MultiplayerSample --build-version v1.0 --region <Region>
 ```
 Record BuildId for the next step. Example: **build-1a23bc4d-456e-78fg-h9i0-jk1l23456789**
 
