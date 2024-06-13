@@ -9,6 +9,7 @@
 #include <AzCore/Module/Module.h>
 #include <Components/AttachPlayerWeaponComponent.h>
 #include <Components/ExampleFilteredEntityComponent.h>
+#include <Components/OcclusionFilteredEntityComponent.h>
 #include <Components/PerfTest/NetworkPrefabSpawnerComponent.h>
 #include <Components/UI/UiCoinCountComponent.h>
 #include <Components/UI/UiGameOverComponent.h>
@@ -44,6 +45,7 @@ namespace MultiplayerSample
                 MultiplayerSampleSystemComponent::CreateDescriptor(),
                 AttachPlayerWeaponComponent::CreateDescriptor(),
                 ExampleFilteredEntityComponent::CreateDescriptor(),
+                OcclusionFilteredEntityComponent::CreateDescriptor(),
                 NetworkPrefabSpawnerComponent::CreateDescriptor(),
                 UiCoinCountComponent::CreateDescriptor(),
                 BackgroundMusicComponent::CreateDescriptor(),
