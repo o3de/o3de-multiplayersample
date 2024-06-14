@@ -70,7 +70,7 @@ namespace MultiplayerSample
                     const AZStd::vector<bool> visibility = occlusionHandler->GetOcclusionViewEntityToEntityVisibility(
                         m_occlusionViewName, controllerEntity.GetEntity()->GetId(), AZStd::vector<AZ::EntityId>{ entity->GetId() }
                     );
-                    // If the query succeeded and the entity cannot be seend then filter it out from network replication.
+                    // If the query succeeded and the entity cannot be seen then filter it out from network replication.
                     result = !visibility.empty() && !visibility[0];
                 }
                 });
