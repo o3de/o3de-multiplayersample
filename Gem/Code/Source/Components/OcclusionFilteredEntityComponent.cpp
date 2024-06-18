@@ -47,8 +47,8 @@ namespace MultiplayerSample
     }
 
     bool OcclusionFilteredEntityComponent::IsEntityFiltered(
-        [[maybe_unused]] AZ::Entity* entity,
-        [[maybe_unused]] Multiplayer::ConstNetworkEntityHandle controllerEntity,
+        AZ::Entity* entity,
+        Multiplayer::ConstNetworkEntityHandle controllerEntity,
         [[maybe_unused]] AzNetworking::ConnectionId connectionId)
     {
         bool result = false;
@@ -60,11 +60,11 @@ namespace MultiplayerSample
         {
             AzFramework::OcclusionRequestBus::Broadcast([&](AzFramework::OcclusionRequestBus::Events* occlusionHandler) {
                 // Check for a preexisting occlusion view or create one if necessary.
-                if (!occlusionHandler->IsOcclusionView(m_occlusionViewName))
+                if (!occlusionHandler->IsOcclusionViewValid(m_occlusionViewName))
                 {
                     occlusionHandler->CreateOcclusionView(m_occlusionViewName);
                 }
-                if (occlusionHandler->IsOcclusionView(m_occlusionViewName))
+                if (occlusionHandler->IsOcclusionViewValid(m_occlusionViewName))
                 {
                     // Perform an occlusion query to determine if the controlled entity can see the filtered entity.
                     const AZStd::vector<bool> visibility = occlusionHandler->GetOcclusionViewEntityToEntityVisibility(
