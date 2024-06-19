@@ -39,6 +39,8 @@ set(FILES
     Source/Components/NetworkWeaponsComponent.h
     Source/Components/NetworkSimplePlayerCameraComponent.cpp
     Source/Components/NetworkSimplePlayerCameraComponent.h
+    Source/Components/OcclusionFilteredEntityComponent.h
+    Source/Components/OcclusionFilteredEntityComponent.cpp
     Source/Components/PerfTest/NetworkPrefabSpawnerComponent.cpp
     Source/Components/PerfTest/NetworkPrefabSpawnerComponent.h
     Source/Components/PerfTest/NetworkRandomImpulseComponent.cpp
