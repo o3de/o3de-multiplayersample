@@ -398,10 +398,6 @@ namespace MultiplayerSample
                     isFullscreen, windowHandle,
                     &AzFramework::WindowRequestBus::Events::GetFullScreenState);
 
-                AzFramework::WindowRequestBus::Event(
-                    windowHandle,
-                    &AzFramework::WindowRequestBus::Events::SetEnableCustomizedResolution, fullscreen);
-
                 if (isFullscreen != fullscreen) 
                 {
                     m_changingResolution = true;
