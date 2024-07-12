@@ -1,4 +1,4 @@
-Version = 2.18.0.18760;
+Version = 2.19.0.20559;
 CEngineRendererInterface	$6B70D015
 {
 	InterfaceName = "Editor features";
@@ -37,6 +37,7 @@ CEngineRendererInterface	$6B70D015
 		"$A2ABAB94",
 		"$123456AC",
 		"$DDECD857",
+		"$4A7D66F1",
 		"$D857A09F",
 		"$047497F3",
 		"$9154DFA0",
@@ -51,6 +52,7 @@ CEngineRendererInterface	$6B70D015
 		"$71D528E3",
 		"$E75E73C7",
 		"$8D50578F",
+		"$14F128A7",
 	};
 }
 CParticleRendererFeature	$81861AB7
@@ -2568,6 +2570,8 @@ CRHIRenderingSettings	$6DF50834
 		"$A2DFDBD4",
 		"$DBCFAF80",
 		"$46727B95",
+		"$1051A2E8",
+		"$3D9C9762",
 	};
 }
 CRHIRenderingFeature	$EA67A6E3
@@ -5152,4 +5156,209 @@ CParticleNodePinOut	$C7C72EFA
 {
 	SelfName = "Value";
 	Owner = "$44ED3089";
+}
+CParticleRendererFeature	$14F128A7
+{
+	FeatureName = "ComputeVelocity";
+	Feature = "$FD60B428";
+	Properties = {
+		"$1FD66E5F",
+	};
+}
+CParticleNodeTemplateExport	$FD60B428
+{
+	InputPins = {
+		"$14E77F02",
+	};
+	OutputPins = {
+		"$FAF0B67D",
+	};
+	ExportedName = "ComputeVelocity";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$14E77F02
+{
+	SelfName = "DefaultValue";
+	Owner = "$FD60B428";
+}
+CParticleNodePinOut	$FAF0B67D
+{
+	SelfName = "Value";
+	Owner = "$FD60B428";
+}
+CRHIRenderingFeature	$1051A2E8
+{
+	FeatureName = "ComputeVelocity";
+}
+CParticleNodeTemplateExport	$1FD66E5F
+{
+	Description = {
+		"@eng:Previous frame position of the particle.",
+	};
+	InputPins = {
+		"$4A2AE2B5",
+	};
+	OutputPins = {
+		"$DE6E30A8",
+	};
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:ComputeVelocity",
+	};
+	PinRules = Rule1;
+	RuleResult = Hidden;
+	DependentProperty = "General.Position";
+	RuleFunction = Visible;
+}
+CParticleNodePinIn	$4A2AE2B5
+{
+	SelfName = "DefaultValue";
+	Owner = "$1FD66E5F";
+}
+CParticleNodePinOut	$DE6E30A8
+{
+	SelfName = "Value";
+	Owner = "$1FD66E5F";
+}
+CParticleRendererFeature	$4A7D66F1
+{
+	FeatureName = "LegacyLitOpaque";
+	Feature = "$70F51C43";
+	Properties = {
+		"$42BA5EC6",
+		"$11064CCB",
+		"$AE28F402",
+	};
+}
+CParticleNodeTemplateExport	$70F51C43
+{
+	InputPins = {
+		"$335F1F91",
+	};
+	OutputPins = {
+		"$7407BDF3",
+	};
+	ExportedName = "LegacyLitOpaque";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$335F1F91
+{
+	SelfName = "DefaultValue";
+	Owner = "$70F51C43";
+}
+CParticleNodePinOut	$7407BDF3
+{
+	SelfName = "Value";
+	Owner = "$70F51C43";
+}
+CRHIRenderingFeature	$3D9C9762
+{
+	FeatureName = "LegacyLitOpaque";
+	UseUV = true;
+	UseNormal = true;
+	UseTangent = true;
+	UseSceneLightingInfo = true;
+	PropertiesAsShaderConstants = {
+		"NormalMap",
+		"SpecularMap",
+	};
+	TexturesUsedAsLookUp = {
+		"NormalMap",
+	};
+}
+CParticleNodeTemplateExport	$42BA5EC6
+{
+	Description = {
+		"@eng:Texture map representing tangent-space normals to be used for lighting",
+	};
+	InputPins = {
+		"$378D8F7C",
+	};
+	OutputPins = {
+		"$F4EECB3F",
+	};
+	ExportedName = "LegacyLitOpaque.NormalMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:LegacyLitOpaque",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/NMap_Flat.dds";
+}
+CParticleNodePinIn	$378D8F7C
+{
+	SelfName = "DefaultValue";
+	Owner = "$42BA5EC6";
+}
+CParticleNodePinOut	$F4EECB3F
+{
+	SelfName = "Value";
+	Owner = "$42BA5EC6";
+}
+CParticleNodeTemplateExport	$11064CCB
+{
+	Description = {
+		"@eng:Can cast shadows (not implemented in editor)",
+	};
+	InputPins = {
+		"$6E04C968",
+	};
+	OutputPins = {
+		"$021D646B",
+	};
+	ExportedName = "LegacyLitOpaque.CastShadows";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+	CategoryName = {
+		"@eng:LegacyLitOpaque",
+	};
+}
+CParticleNodePinIn	$6E04C968
+{
+	SelfName = "DefaultValue";
+	Owner = "$11064CCB";
+}
+CParticleNodePinOut	$021D646B
+{
+	SelfName = "Value";
+	Owner = "$11064CCB";
+}
+CParticleNodeTemplateExport	$AE28F402
+{
+	Description = {
+		"@eng:Source map used in specular lighting computation",
+	};
+	InputPins = {
+		"$A0C8ADF0",
+	};
+	OutputPins = {
+		"$5A6AC521",
+	};
+	ExportedName = "LegacyLitOpaque.SpecularMap";
+	ExportedType = dataImage;
+	Type = Input;
+	CategoryName = {
+		"@eng:LegacyLitOpaque",
+	};
+	DefaultValueData = "Library/PopcornFXCore/Materials/DefaultTextures/Black.dds";
+}
+CParticleNodePinOut	$5A6AC521
+{
+	SelfName = "Value";
+	Owner = "$AE28F402";
+}
+CParticleNodePinIn	$A0C8ADF0
+{
+	SelfName = "DefaultValue";
+	Owner = "$AE28F402";
 }

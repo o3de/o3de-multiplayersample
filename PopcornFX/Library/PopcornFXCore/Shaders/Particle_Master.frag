@@ -56,12 +56,14 @@ vec3	computeBRDF(vec3 surfToLight, vec3 surfToView, vec3 surfaceNormal, float ro
 {
 	vec3    halfVec = normalize(surfToLight + surfToView);
 
-	float   NoL = max(0.0f, dot(surfToLight, surfaceNormal));
+	float   NoL = dot(surfToLight, surfaceNormal);
 
 #if     defined(HAS_NormalWrap)
-	float   normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor);
+	float   normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor) * 0.5f;
 	NoL = normalWrapFactor + (1.0f - normalWrapFactor) * NoL;
 #endif
+
+	NoL = max(0.0f, NoL);
 
 	float   specIntensity = max(0.0f, dot(halfVec, surfaceNormal));
 	float   NoV = max(EPSILON, dot(surfToView, surfaceNormal)); // Weird behavior when this is near 0
