@@ -64,14 +64,15 @@ namespace MultiplayerSample
                 {
                     occlusionHandler->CreateOcclusionView(m_occlusionViewName);
                 }
+
                 if (occlusionHandler->IsOcclusionViewValid(m_occlusionViewName))
                 {
                     // Perform an occlusion query to determine if the controlled entity can see the filtered entity.
-                    const AZStd::vector<bool> visibility = occlusionHandler->GetOcclusionViewEntityToEntityVisibility(
+                    const auto visibility = occlusionHandler->GetOcclusionViewEntityToEntityVisibility(
                         m_occlusionViewName, controllerEntity.GetEntity()->GetId(), AZStd::vector<AZ::EntityId>{ entity->GetId() }
                     );
                     // If the query succeeded and the entity cannot be seen then filter it out from network replication.
-                    result = !visibility.empty() && !visibility[0];
+                    result = (!visibility.empty() && (visibility[0] == AzFramework::OcclusionState::Hidden));
                 }
                 });
         }
