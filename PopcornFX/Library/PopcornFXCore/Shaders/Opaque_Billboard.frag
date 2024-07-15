@@ -28,7 +28,7 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
     color = vec4(1.0f, 1.0f, 1.0f, 0.1f);
 #endif
 
-#if     defined(HAS_Diffuse) || defined(HAS_Lit) || defined(HAS_LegacyLit) || defined(HAS_Emissive) // has texture sampling
+#if     defined(HAS_Diffuse) || defined(HAS_Lit) || defined(HAS_LegacyLitOpaque) || defined(HAS_Emissive) // has texture sampling
 
 	vec2    fragUV0 = fInput.fragUV0;
 
@@ -199,20 +199,20 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 	metalness = GET_CONSTANT(Material, Lit_Metalness);
 	metalness *= roughMetal.y;
 
-#elif   defined(HAS_LegacyLit)
+#elif   defined(HAS_LegacyLitOpaque)
 
 #if defined(HAS_TransformUVs)
-	vec3 normalTex =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV0, dUVdx, dUVdy).xyz;
+	vec3 normalTex =  SAMPLEGRAD(LegacyLitOpaque_NormalMap, fragUV0, dUVdx, dUVdy).xyz;
 #else
-	vec3 normalTex =  SAMPLE(LegacyLit_NormalMap, fragUV0).xyz;
+	vec3 normalTex =  SAMPLE(LegacyLitOpaque_NormalMap, fragUV0).xyz;
 #endif
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
 #if defined(HAS_TransformUVs)
-		vec3 normalTex2 =  SAMPLEGRAD(LegacyLit_NormalMap, fragUV1, dUVdx, dUVdy).xyz;
+		vec3 normalTex2 =  SAMPLEGRAD(LegacyLitOpaque_NormalMap, fragUV1, dUVdx, dUVdy).xyz;
 #else
-		vec3 normalTex2 =  SAMPLE(LegacyLit_NormalMap, fragUV1).xyz;
+		vec3 normalTex2 =  SAMPLE(LegacyLitOpaque_NormalMap, fragUV1).xyz;
 #endif
 		normalTex = mix(normalTex, normalTex2, blendMix);
 	}
@@ -239,11 +239,11 @@ void     FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS
 	// In the old lighting feature, we stored the specular and glossiness in the specular map.
 	// To mimic something similar, we just set the roughness to (1.0 - specularValue) * 0.7 + 0.3 to avoid very sharp specular which did not exist before
 	// The metalness is always 0.
-	roughness = (1.0 - SAMPLE(LegacyLit_SpecularMap, fragUV0).x) * 0.7 + 0.3;
+	roughness = (1.0 - SAMPLE(LegacyLitOpaque_SpecularMap, fragUV0).x) * 0.7 + 0.3;
 #if defined(HAS_Atlas)
 	if (blendingType >= 1)
 	{
-		float roughness2 = (1.0 - SAMPLE(LegacyLit_SpecularMap, fragUV1).x) * 0.7 + 0.3;
+		float roughness2 = (1.0 - SAMPLE(LegacyLitOpaque_SpecularMap, fragUV1).x) * 0.7 + 0.3;
 		roughness = mix(roughness, roughness2, blendMix);
 	}
 #endif

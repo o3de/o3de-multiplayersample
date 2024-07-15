@@ -37,12 +37,15 @@ vec3	FresnelSchlick(vec3 surfaceMetalColor, float cosTheta)
 void	ApplyLightBRDF(INOUT(SFragSurface) fSurf, vec3 surfToLight, vec3 surfToView, vec3 lightColor, vec3 surfaceDiffuseColor, float attenuation, float litMask FS_ARGS)
 {
 	vec3	halfVec = normalize(surfToLight + surfToView);
-	float	NoL = max(0.0f, dot(surfToLight, fSurf.m_Normal)) * attenuation;
+	
+	float   NoL = dot(surfToLight, fSurf.m_Normal);
 
-#	if defined(HAS_NormalWrap)
-	float	normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor);
+#if     defined(HAS_NormalWrap)
+	float   normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor) * 0.5f;
 	NoL = normalWrapFactor + (1.0f - normalWrapFactor) * NoL;
-#	endif
+#endif
+
+	NoL = max(0.0f, NoL) * attenuation;
 
 	float	specIntensity = max(0.0f, dot(halfVec, fSurf.m_Normal));
 	float	NoV = max(EPSILON, dot(surfToView, fSurf.m_Normal)); // Weird behavior when this is near 0
