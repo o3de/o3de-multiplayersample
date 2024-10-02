@@ -261,7 +261,9 @@ namespace MultiplayerSample
                 {
                     auto ssrOptions = reflectionFeatureProcessor->GetSSROptions();
                     ssrOptions.m_enable = (reflectionType != SpecularReflections::None);
-                    ssrOptions.m_rayTracing = (reflectionType == SpecularReflections::ScreenSpaceAndRaytracing);
+                    ssrOptions.m_reflectionMethod = (reflectionType == SpecularReflections::ScreenSpaceAndRaytracing) ?
+                                                    AZ::Render::SSROptions::ReflectionMethod::RayTracing :
+                                                    AZ::Render::SSROptions::ReflectionMethod::ScreenSpace;
                     reflectionFeatureProcessor->SetSSROptions(ssrOptions);
                 }
             }
@@ -395,10 +397,6 @@ namespace MultiplayerSample
                 AzFramework::WindowRequestBus::EventResult(
                     isFullscreen, windowHandle,
                     &AzFramework::WindowRequestBus::Events::GetFullScreenState);
-
-                AzFramework::WindowRequestBus::Event(
-                    windowHandle,
-                    &AzFramework::WindowRequestBus::Events::SetEnableCustomizedResolution, fullscreen);
 
                 if (isFullscreen != fullscreen) 
                 {

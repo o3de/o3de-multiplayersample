@@ -56,12 +56,14 @@ vec3	computeBRDF(vec3 surfToLight, vec3 surfToView, vec3 surfaceNormal, float ro
 {
 	vec3    halfVec = normalize(surfToLight + surfToView);
 
-	float   NoL = max(0.0f, dot(surfToLight, surfaceNormal));
+	float   NoL = dot(surfToLight, surfaceNormal);
 
 #if     defined(HAS_NormalWrap)
-	float   normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor);
+	float   normalWrapFactor = GET_CONSTANT(Material, NormalWrap_WrapFactor) * 0.5f;
 	NoL = normalWrapFactor + (1.0f - normalWrapFactor) * NoL;
 #endif
+
+	NoL = max(0.0f, NoL);
 
 	float   specIntensity = max(0.0f, dot(halfVec, surfaceNormal));
 	float   NoV = max(EPSILON, dot(surfToView, surfaceNormal)); // Weird behavior when this is near 0
@@ -189,7 +191,10 @@ void    FragmentMain(IN(SFragmentInput) fInput, OUT(SFragmentOutput) fOutput FS_
 	vec2	UVOffset = fInput.fragTransformUVs_UVOffset;
 	vec4	rect0 = vec4(1.0f, 1.0f, 0.0f, 0.0f);
 #	if	defined(HAS_Atlas)
-	rect0 = LOADF4(GET_RAW_BUFFER(Atlas), RAW_BUFFER_INDEX(min(LOADU(GET_RAW_BUFFER(Atlas), 0) - 1, uint(fInput.fragAtlas_TextureID)) * 4 + 1));
+	if (blendingType >= 1)
+	{
+		rect0 = LOADF4(GET_RAW_BUFFER(Atlas), RAW_BUFFER_INDEX(min(LOADU(GET_RAW_BUFFER(Atlas), 0) - 1, uint(fInput.fragAtlas_TextureID)) * 4 + 1));
+	}
 	vec4	rect1 = LOADF4(GET_RAW_BUFFER(Atlas), RAW_BUFFER_INDEX(min(LOADU(GET_RAW_BUFFER(Atlas), 0) - 1, uint(fInput.fragAtlas_TextureID) + 1) * 4 + 1));
 
 	vec2	oldFragUV1 = fragUV1;

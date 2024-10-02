@@ -189,6 +189,7 @@ ly_add_target(
         PRIVATE
             Gem::${gem_name}.Unified.Private.Object
             Gem::Multiplayer.Unified.Static
+            Gem::AWSClientAuth.Static
             Gem::AWSCore.Static
             Gem::AWSGameLift.Client.Static  # Unified launchers are considered clients to GameLift
     RUNTIME_DEPENDENCIES

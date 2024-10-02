@@ -1,8 +1,9 @@
-Version = 2.17.0.17676;
+Version = 2.19.0.20559;
 CParticleRendererMaterial	$6B70D015
 {
 	RendererFeatures = {
 		"$4126ECB5",
+		"$4A4A4170",
 		"$CF8BEC2E",
 		"$BF96EAFE",
 		"$35A36C4E",
@@ -18,6 +19,7 @@ CParticleRendererMaterial	$6B70D015
 		"$30A73448",
 		"$D46EA531",
 	};
+	NodeGraph = "$1429F371";
 }
 CParticleRendererFeatureDesc	$4126ECB5
 {
@@ -102,4 +104,106 @@ CParticleRendererFeatureDesc	$B15452BE
 	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
 	RendererFeatureName = "Culling";
 	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$4A4A4170
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Editor.pkri";
+	RendererFeatureName = "ComputeVelocity";
+	Mandatory = true;
+}
+CParticleNodeGraph	$1429F371
+{
+	CustomName = "Adapter";
+	Nodes = {
+		"$1D049D0B",
+		"$83C8CB74",
+		"$004AFAD0",
+	};
+	WorkspaceZoom = -4;
+}
+CParticleNodeTemplateExport	$1D049D0B
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$7373276A",
+	};
+	OutputPins = {
+		"$600CC215",
+	};
+	WorkspacePosition = int2(-638, 0);
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$7373276A
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$1D049D0B";
+}
+CParticleNodePinOut	$600CC215
+{
+	SelfName = "Value";
+	Owner = "$1D049D0B";
+	ConnectedPins = {
+		"$9D3FADCA",
+	};
+}
+CParticleNodeTemplate	$83C8CB74
+{
+	InputPins = {
+		"$9D3FADCA",
+	};
+	OutputPins = {
+		"$F11D634F",
+	};
+	WorkspacePosition = int2(-176, 0);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "PreviousFrameValue";
+}
+CParticleNodePinIn	$9D3FADCA
+{
+	SelfName = "Value";
+	Owner = "$83C8CB74";
+	ConnectedPins = {
+		"$600CC215",
+	};
+}
+CParticleNodePinOut	$F11D634F
+{
+	SelfName = "Value";
+	Owner = "$83C8CB74";
+	ConnectedPins = {
+		"$9CE6187D",
+	};
+}
+CParticleNodeTemplateExport	$004AFAD0
+{
+	InputPins = {
+		"$9CE6187D",
+	};
+	WorkspacePosition = int2(330, 0);
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Output;
+	TransformSpace = World;
+	TransformMode = Position;
+}
+CParticleNodePinIn	$9CE6187D
+{
+	SelfName = "Value";
+	Owner = "$004AFAD0";
+	ConnectedPins = {
+		"$F11D634F",
+	};
 }
