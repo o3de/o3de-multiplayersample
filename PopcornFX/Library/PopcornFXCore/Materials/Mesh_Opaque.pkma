@@ -1,0 +1,209 @@
+Version = 2.20.1.21979;
+CParticleRendererMaterial	$6B70D015
+{
+	RendererFeatures = {
+		"$191F1761",
+		"$1046C467",
+		"$D857A09F",
+		"$D8481107",
+		"$A357A567",
+		"$3D324B43",
+		"$D851A09F",
+		"$EA3837ED",
+		"$35A36C4E",
+		"$7FB4AB5F",
+		"$CB4D3C7E",
+		"$1098ED35",
+		"$EAC726E3",
+		"$1BCA2B7D",
+		"$B040E9CD",
+		"$862F644E",
+	};
+	NodeGraph = "$37F5471E";
+}
+CParticleRendererFeatureDesc	$191F1761
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "GeometryMesh";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$3D324B43
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Diffuse";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D851A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "DiffuseRamp";
+}
+CParticleRendererFeatureDesc	$EA3837ED
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Lit";
+}
+CParticleRendererFeatureDesc	$35A36C4E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Emissive";
+}
+CParticleRendererFeatureDesc	$7FB4AB5F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$1098ED35
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "AlphaRemap";
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	FragmentShader = "Library/PopcornFXCore/Shaders/Particle_Master.frag";
+}
+CParticleRendererFeatureDesc	$A357A567
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Opaque";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$1BCA2B7D
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TextureRepeat";
+}
+CParticleRendererFeatureDesc	$B040E9CD
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "MeshAtlas";
+}
+CParticleRendererFeatureDesc	$862F644E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "UseVertexColors";
+}
+CParticleRendererFeatureDesc	$CB4D3C7E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$D8481107
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Culling";
+	Mandatory = true;
+}
+CParticleNodeGraph	$37F5471E
+{
+	CustomName = "Adapter";
+	Nodes = {
+		"$87F67927",
+		"$418856AB",
+		"$B5A326C1",
+	};
+	WorkspaceZoom = -4;
+}
+CParticleRendererFeatureDesc	$1046C467
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "ComputeVelocity";
+	Mandatory = true;
+}
+CParticleNodeTemplateExport	$87F67927
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$A31B735D",
+	};
+	OutputPins = {
+		"$E0AE63BD",
+	};
+	WorkspacePosition = int2(-572, -44);
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$A31B735D
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$87F67927";
+}
+CParticleNodePinOut	$E0AE63BD
+{
+	SelfName = "Value";
+	Owner = "$87F67927";
+	ConnectedPins = {
+		"$62CF9F44",
+	};
+}
+CParticleNodeTemplate	$418856AB
+{
+	InputPins = {
+		"$62CF9F44",
+	};
+	OutputPins = {
+		"$F182785E",
+	};
+	WorkspacePosition = int2(-88, -44);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "PreviousFrameValue";
+}
+CParticleNodePinIn	$62CF9F44
+{
+	SelfName = "Value";
+	Owner = "$418856AB";
+	ConnectedPins = {
+		"$E0AE63BD",
+	};
+}
+CParticleNodePinOut	$F182785E
+{
+	SelfName = "Value";
+	Owner = "$418856AB";
+	ConnectedPins = {
+		"$6DA9B3B7",
+	};
+}
+CParticleNodeTemplateExport	$B5A326C1
+{
+	InputPins = {
+		"$6DA9B3B7",
+	};
+	WorkspacePosition = int2(396, -44);
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Output;
+	TransformSpace = World;
+	TransformMode = Position;
+}
+CParticleNodePinIn	$6DA9B3B7
+{
+	SelfName = "Value";
+	Owner = "$B5A326C1";
+	ConnectedPins = {
+		"$F182785E",
+	};
+}

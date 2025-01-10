@@ -1,0 +1,233 @@
+Version = 2.20.1.21979;
+CParticleRendererMaterial	$6B70D015
+{
+	RendererFeatures = {
+		"$191F1492",
+		"$579AF35E",
+		"$D857A09F",
+		"$5F3F8D5F",
+		"$DCD8A7E7",
+		"$3D324B43",
+		"$D851A09F",
+		"$EA3837ED",
+		"$C5F9C9BF",
+		"$4B933A29",
+		"$35A36C4E",
+		"$7FB4AB5F",
+		"$1098ED35",
+		"$EA331F29",
+		"$1DB717AE",
+		"$EAC726E3",
+		"$DCD8B8C4",
+		"$860D8229",
+		"$FCA910FF",
+		"$A70CBFC8",
+	};
+	NodeGraph = "$B959BBF0";
+}
+CParticleRendererFeatureDesc	$191F1492
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "GeometryRibbon";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$5F3F8D5F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Transparent";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$3D324B43
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Diffuse";
+}
+CParticleRendererFeatureDesc	$D851A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "DiffuseRamp";
+}
+CParticleRendererFeatureDesc	$EA3837ED
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Lit";
+}
+CParticleRendererFeatureDesc	$C5F9C9BF
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "NormalWrap";
+}
+CParticleRendererFeatureDesc	$4B933A29
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "NormalBend";
+}
+CParticleRendererFeatureDesc	$35A36C4E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Emissive";
+	EnabledByDefault = true;
+}
+CParticleRendererFeatureDesc	$7FB4AB5F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$1098ED35
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "AlphaRemap";
+}
+CParticleRendererFeatureDesc	$EA331F29
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "SoftParticles";
+}
+CParticleRendererFeatureDesc	$1DB717AE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "BasicTransformUVs";
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	FragmentShader = "Library/PopcornFXCore/Shaders/Particle_Master.frag";
+}
+CParticleRendererFeatureDesc	$DCD8B8C4
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "CustomTextureU";
+}
+CParticleRendererFeatureDesc	$DCD8A7E7
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "CorrectDeformation";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$860D8229
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TextureRepeat";
+}
+CParticleRendererFeatureDesc	$FCA910FF
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$A70CBFC8
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "FastLit";
+}
+CParticleNodeGraph	$B959BBF0
+{
+	CustomName = "Adapter";
+	Nodes = {
+		"$AD5CA0B9",
+		"$8008D4C8",
+		"$A07EF654",
+	};
+	WorkspaceZoom = -4;
+}
+CParticleRendererFeatureDesc	$579AF35E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "ComputeVelocity";
+	Mandatory = true;
+}
+CParticleNodeTemplateExport	$AD5CA0B9
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$373279C9",
+	};
+	OutputPins = {
+		"$C2362DC6",
+	};
+	WorkspacePosition = int2(-572, -66);
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$373279C9
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$AD5CA0B9";
+}
+CParticleNodePinOut	$C2362DC6
+{
+	SelfName = "Value";
+	Owner = "$AD5CA0B9";
+	ConnectedPins = {
+		"$5E1C0BF7",
+	};
+}
+CParticleNodeTemplate	$8008D4C8
+{
+	InputPins = {
+		"$5E1C0BF7",
+	};
+	OutputPins = {
+		"$2B4EB242",
+	};
+	WorkspacePosition = int2(-88, -66);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "PreviousFrameValue";
+}
+CParticleNodePinIn	$5E1C0BF7
+{
+	SelfName = "Value";
+	Owner = "$8008D4C8";
+	ConnectedPins = {
+		"$C2362DC6",
+	};
+}
+CParticleNodePinOut	$2B4EB242
+{
+	SelfName = "Value";
+	Owner = "$8008D4C8";
+	ConnectedPins = {
+		"$32C74DF4",
+	};
+}
+CParticleNodeTemplateExport	$A07EF654
+{
+	InputPins = {
+		"$32C74DF4",
+	};
+	WorkspacePosition = int2(396, -66);
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Output;
+	TransformSpace = World;
+	TransformMode = Position;
+}
+CParticleNodePinIn	$32C74DF4
+{
+	SelfName = "Value";
+	Owner = "$A07EF654";
+	ConnectedPins = {
+		"$2B4EB242",
+	};
+}

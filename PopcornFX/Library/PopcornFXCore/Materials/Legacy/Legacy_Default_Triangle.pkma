@@ -1,0 +1,63 @@
+Version = 2.20.1.21979;
+CParticleRendererMaterial	$6B70D015
+{
+	RendererFeatures = {
+		"$191F1761",
+		"$D857A09F",
+		"$3D324B43",
+		"$9154DFA0",
+		"$7605928F",
+		"$4B933A29",
+		"$EAC726E3",
+		"$4ADE8DE2",
+	};
+}
+CParticleRendererFeatureDesc	$191F1761
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "GeometryTriangle";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$3D324B43
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "Diffuse";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$4B933A29
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "Lit";
+}
+CParticleRendererFeatureDesc	$9154DFA0
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "NormalBend";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "TriangleCustomNormals";
+}
+CParticleRendererFeatureDesc	$4ADE8DE2
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "TriangleCustomUVs";
+}
+CParticleRendererFeatureDesc	$7605928F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Legacy.pkri";
+	RendererFeatureName = "Transparent";
+	Mandatory = true;
+}
+CRHIMaterialShaders	$00269EC3
+{
+	FragmentShader = "Library/PopcornFXCore/Shaders/Legacy/Default_Triangle.frag";
+}
