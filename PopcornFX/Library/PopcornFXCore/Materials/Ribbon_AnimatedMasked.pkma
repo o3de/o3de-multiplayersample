@@ -1,0 +1,577 @@
+Version = 2.20.1.21979;
+CParticleRendererMaterial	$6B70D015
+{
+	RendererFeatures = {
+		"$82290D6B",
+		"$BBEA7D3C",
+		"$BF53D1F0",
+		"$6E070218",
+		"$F9AE8557",
+		"$F3990E53",
+		"$3FD07EA7",
+		"$3576B2F9",
+		"$1CE37377",
+		"$3AB53997",
+		"$41E01F70",
+		"$923923FE",
+		"$2B0AD5F2",
+		"$B05415BE",
+		"$E768DA10",
+		"$16691B38",
+	};
+	NodeGraph = "$AEEAC0BC";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	FragmentShader = "Library/PopcornFXCore/Shaders/Particle_Master.frag";
+}
+CParticleRendererFeatureDesc	$82290D6B
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "GeometryRibbon";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$BF53D1F0
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "UVDistortions";
+}
+CParticleRendererFeatureDesc	$6E070218
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "AlphaMasks";
+}
+CParticleRendererFeatureDesc	$F9AE8557
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Dissolve";
+}
+CParticleRendererFeatureDesc	$F3990E53
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Emissive";
+	EnabledByDefault = true;
+}
+CParticleRendererFeatureDesc	$3FD07EA7
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$3576B2F9
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Diffuse";
+}
+CParticleRendererFeatureDesc	$1CE37377
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "DiffuseRamp";
+}
+CParticleRendererFeatureDesc	$3AB53997
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CParticleRendererFeatureDesc	$41E01F70
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "NormalWrap";
+}
+CParticleRendererFeatureDesc	$923923FE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "NormalBend";
+}
+CParticleNodeGraph	$AEEAC0BC
+{
+	CustomName = "Adapter";
+	Nodes = {
+		"$4EACBB2A",
+		"$3DD83F59",
+		"$97D3828B",
+		"$8C6E0B59",
+		"$052D0901",
+		"$C924A3F5",
+		"$0FCC4CE4",
+		"$C615FBE0",
+		"$10A48657",
+		"$C269499B",
+		"$55A3BB36",
+		"$851A7529",
+		"$F06DBE83",
+		"$E9AA2DA5",
+		"$56D22DB2",
+		"$1A584F4A",
+	};
+	WorkspacePosition = int2(-14, -184);
+	WorkspaceZoom = -6;
+	HasExplicitWorkspaceCoords = true;
+}
+CParticleNodeTemplateExport	$4EACBB2A
+{
+	InputPins = {
+		"$737D0DAF",
+	};
+	OutputPins = {
+		"$8C1042AC",
+	};
+	WorkspacePosition = int2(-572, 308);
+	ExportedName = "AlphaMasks";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$737D0DAF
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$4EACBB2A";
+}
+CParticleNodePinOut	$8C1042AC
+{
+	SelfName = "Value";
+	Owner = "$4EACBB2A";
+}
+CParticleRendererFeatureDesc	$2B0AD5F2
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Lit";
+}
+CParticleRendererFeatureDesc	$B05415BE
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Transparent";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$E768DA10
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "CorrectDeformation";
+}
+CParticleNodeTemplate	$3DD83F59
+{
+	InputPins = {
+		"$2D817408",
+	};
+	OutputPins = {
+		"$56CB17CB",
+	};
+	WorkspacePosition = int2(-1276, 990);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "self.age";
+}
+CParticleNodePinIn	$2D817408
+{
+	SelfName = "Scale";
+	Type = float;
+	Visible = false;
+	Owner = "$3DD83F59";
+	BaseType = float;
+	ValueF = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinOut	$56CB17CB
+{
+	SelfName = "Age";
+	Type = float;
+	Owner = "$3DD83F59";
+	BaseType = float;
+	ConnectedPins = {
+		"$E117A7C8",
+		"$ACD68EDB",
+		"$F60A46C2",
+		"$1FB5CE00",
+	};
+}
+CParticleNodeTemplateExport	$97D3828B
+{
+	InputPins = {
+		"$ACD68EDB",
+	};
+	OutputPins = {
+		"$D42DA13A",
+	};
+	WorkspacePosition = int2(-572, 770);
+	ExportedName = "AlphaMasks.Mask2AnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:AlphaMasks",
+	};
+}
+CParticleNodePinIn	$ACD68EDB
+{
+	SelfName = "DefaultValue";
+	Owner = "$97D3828B";
+	ConnectedPins = {
+		"$56CB17CB",
+	};
+}
+CParticleNodePinOut	$D42DA13A
+{
+	SelfName = "Value";
+	Owner = "$97D3828B";
+	ConnectedPins = {
+		"$3ED353BE",
+	};
+}
+CParticleNodeTemplateExport	$8C6E0B59
+{
+	InputPins = {
+		"$7F874C63",
+	};
+	OutputPins = {
+		"$20D8C01D",
+	};
+	WorkspacePosition = int2(-572, 1012);
+	ExportedName = "UVDistortions";
+	ExportedType = bool;
+	Type = Input;
+	InputType = Property;
+}
+CParticleNodePinIn	$7F874C63
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$8C6E0B59";
+}
+CParticleNodePinOut	$20D8C01D
+{
+	SelfName = "Value";
+	Owner = "$8C6E0B59";
+}
+CParticleNodeTemplateExport	$052D0901
+{
+	InputPins = {
+		"$E117A7C8",
+	};
+	OutputPins = {
+		"$FE3E3461",
+	};
+	WorkspacePosition = int2(-572, 550);
+	ExportedName = "AlphaMasks.Mask1AnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:AlphaMasks",
+	};
+}
+CParticleNodePinIn	$E117A7C8
+{
+	SelfName = "DefaultValue";
+	Owner = "$052D0901";
+	ConnectedPins = {
+		"$56CB17CB",
+	};
+}
+CParticleNodePinOut	$FE3E3461
+{
+	SelfName = "Value";
+	Owner = "$052D0901";
+	ConnectedPins = {
+		"$E1298589",
+	};
+}
+CParticleNodeTemplateExport	$C924A3F5
+{
+	InputPins = {
+		"$F60A46C2",
+	};
+	OutputPins = {
+		"$D830BFC8",
+	};
+	WorkspacePosition = int2(-572, 1232);
+	ExportedName = "UVDistortions.Distortion1AnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:UVDistortions",
+	};
+}
+CParticleNodePinIn	$F60A46C2
+{
+	SelfName = "DefaultValue";
+	Owner = "$C924A3F5";
+	ConnectedPins = {
+		"$56CB17CB",
+	};
+}
+CParticleNodePinOut	$D830BFC8
+{
+	SelfName = "Value";
+	Owner = "$C924A3F5";
+	ConnectedPins = {
+		"$EB2EBB07",
+	};
+}
+CParticleNodeTemplateExport	$0FCC4CE4
+{
+	InputPins = {
+		"$1FB5CE00",
+	};
+	OutputPins = {
+		"$D19D1D5E",
+	};
+	WorkspacePosition = int2(-572, 1452);
+	ExportedName = "UVDistortions.Distortion2AnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:UVDistortions",
+	};
+}
+CParticleNodePinIn	$1FB5CE00
+{
+	SelfName = "DefaultValue";
+	Owner = "$0FCC4CE4";
+	ConnectedPins = {
+		"$56CB17CB",
+	};
+}
+CParticleNodePinOut	$D19D1D5E
+{
+	SelfName = "Value";
+	Owner = "$0FCC4CE4";
+	ConnectedPins = {
+		"$D3C4F805",
+	};
+}
+CParticleNodeTemplateExport	$C615FBE0
+{
+	InputPins = {
+		"$E1298589",
+	};
+	WorkspacePosition = int2(396, 550);
+	ExportedName = "AlphaMasks.Mask1AnimationCursor";
+	ExportedType = float;
+	Type = Output;
+	CategoryName = {
+		"@eng:AlphaMasks",
+	};
+}
+CParticleNodePinIn	$E1298589
+{
+	SelfName = "Value";
+	Owner = "$C615FBE0";
+	ConnectedPins = {
+		"$FE3E3461",
+	};
+}
+CParticleNodeTemplateExport	$10A48657
+{
+	InputPins = {
+		"$3ED353BE",
+	};
+	WorkspacePosition = int2(396, 770);
+	ExportedName = "AlphaMasks.Mask2AnimationCursor";
+	ExportedType = float;
+	Type = Output;
+	CategoryName = {
+		"@eng:AlphaMasks",
+	};
+}
+CParticleNodePinIn	$3ED353BE
+{
+	SelfName = "Value";
+	Owner = "$10A48657";
+	ConnectedPins = {
+		"$D42DA13A",
+	};
+}
+CParticleNodeTemplateExport	$C269499B
+{
+	InputPins = {
+		"$EB2EBB07",
+	};
+	WorkspacePosition = int2(396, 1232);
+	ExportedName = "UVDistortions.Distortion1AnimationCursor";
+	ExportedType = float;
+	Type = Output;
+	CategoryName = {
+		"@eng:UVDistortions",
+	};
+}
+CParticleNodePinIn	$EB2EBB07
+{
+	SelfName = "Value";
+	Owner = "$C269499B";
+	ConnectedPins = {
+		"$D830BFC8",
+	};
+}
+CParticleNodeTemplateExport	$55A3BB36
+{
+	InputPins = {
+		"$D3C4F805",
+	};
+	WorkspacePosition = int2(396, 1452);
+	ExportedName = "UVDistortions.Distortion2AnimationCursor";
+	ExportedType = float;
+	Type = Output;
+	CategoryName = {
+		"@eng:UVDistortions",
+	};
+}
+CParticleNodePinIn	$D3C4F805
+{
+	SelfName = "Value";
+	Owner = "$55A3BB36";
+	ConnectedPins = {
+		"$D19D1D5E",
+	};
+}
+CParticleRendererFeatureDesc	$16691B38
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "FastLit";
+}
+CParticleRendererFeatureDesc	$BBEA7D3C
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "ComputeVelocity";
+	Mandatory = true;
+}
+CParticleNodeTemplateExport	$851A7529
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$E14E1391",
+	};
+	OutputPins = {
+		"$2926C4DC",
+	};
+	WorkspacePosition = int2(-572, -374);
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$E14E1391
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$851A7529";
+}
+CParticleNodePinOut	$2926C4DC
+{
+	SelfName = "Value";
+	Owner = "$851A7529";
+	ConnectedPins = {
+		"$8102EC8B",
+	};
+}
+CParticleNodeTemplate	$F06DBE83
+{
+	InputPins = {
+		"$8102EC8B",
+	};
+	OutputPins = {
+		"$7B2868F7",
+	};
+	WorkspacePosition = int2(-88, -374);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "PreviousFrameValue";
+}
+CParticleNodePinIn	$8102EC8B
+{
+	SelfName = "Value";
+	Owner = "$F06DBE83";
+	ConnectedPins = {
+		"$2926C4DC",
+	};
+}
+CParticleNodePinOut	$7B2868F7
+{
+	SelfName = "Value";
+	Owner = "$F06DBE83";
+	ConnectedPins = {
+		"$0264551C",
+	};
+}
+CParticleNodeTemplateExport	$E9AA2DA5
+{
+	InputPins = {
+		"$0264551C",
+	};
+	WorkspacePosition = int2(396, -374);
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Output;
+	TransformSpace = World;
+	TransformMode = Position;
+}
+CParticleNodePinIn	$0264551C
+{
+	SelfName = "Value";
+	Owner = "$E9AA2DA5";
+	ConnectedPins = {
+		"$7B2868F7",
+	};
+}
+CParticleNodeTemplateExport	$56D22DB2
+{
+	Description = {
+		"@eng:[0, inf] value that acts as the alpha threshold value for the dissolve. With a dissolve softness of zero, every pixel that has an alpha value less than the animation cursor value will be discarded.",
+	};
+	InputPins = {
+		"$648457F2",
+	};
+	OutputPins = {
+		"$1A9EB007",
+	};
+	WorkspacePosition = int2(-572, -110);
+	ExportedName = "Dissolve.DissolveAnimationCursor";
+	ExportedType = float;
+	Type = Input;
+	CategoryName = {
+		"@eng:Dissolve",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$648457F2
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$56D22DB2";
+}
+CParticleNodePinOut	$1A9EB007
+{
+	SelfName = "Value";
+	Owner = "$56D22DB2";
+	ConnectedPins = {
+		"$5509C981",
+	};
+}
+CParticleNodeTemplateExport	$1A584F4A
+{
+	Description = {
+		"@eng:[0, inf] value that acts as the alpha threshold value for the dissolve. With a dissolve softness of zero, every pixel that has an alpha value less than the animation cursor value will be discarded.",
+	};
+	InputPins = {
+		"$5509C981",
+	};
+	WorkspacePosition = int2(418, -110);
+	ExportedName = "Dissolve.DissolveAnimationCursor";
+	ExportedType = float;
+	Type = Output;
+	CategoryName = {
+		"@eng:Dissolve",
+	};
+	DefaultValueF4 = float4(1.0000000e+00, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00);
+}
+CParticleNodePinIn	$5509C981
+{
+	SelfName = "Value";
+	Owner = "$1A584F4A";
+	ConnectedPins = {
+		"$1A9EB007",
+	};
+}
