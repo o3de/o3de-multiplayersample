@@ -246,7 +246,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::AWSCore.Static
                 Gem::AWSGameLift.Client.Static
                 Gem::AWSClientAuth.Static
-                AZ::AWSNativeSDKInit
                 Gem::HttpRequestor.Static
                 $<TARGET_OBJECTS:Gem::${gem_name}.Unified.Private.Object>
     )
