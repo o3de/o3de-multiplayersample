@@ -142,7 +142,7 @@ If you have problems with working with LFS, see the troubleshooting guide: https
 
 ## Step 2. Register the engine, the project, and the Gems
 
-### Required step to compile
+### Option #1 - Use the CLI
 
 <span style="background-color:#4F3C3C">**NOTE:** The following steps only need to be performed once.</span>
 
@@ -166,7 +166,7 @@ If you have problems with working with LFS, see the troubleshooting guide: https
 
 The final step prints warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
 
-### Build Using the Project Manager
+### Option #2 - Use Project Manager
 
 If you've already built the O3DE engine, use the O3DE project manager to open an existing project.
 
