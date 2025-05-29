@@ -1,0 +1,196 @@
+Version = 2.20.1.21979;
+CParticleRendererMaterial	$6B70D015
+{
+	RendererFeatures = {
+		"$191F1761",
+		"$0AFDE33C",
+		"$D857A09F",
+		"$008ACB56",
+		"$93540081",
+		"$35A36C4E",
+		"$7FB4AB5F",
+		"$337C6546",
+		"$EAC726E3",
+		"$1BCA2B7D",
+		"$B040E9CD",
+		"$862F644E",
+		"$98B9ED49",
+		"$69384768",
+	};
+	NodeGraph = "$49625406";
+}
+CParticleRendererFeatureDesc	$191F1761
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "GeometryMesh";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$D857A09F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EnableRendering";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$35A36C4E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Emissive";
+}
+CParticleRendererFeatureDesc	$7FB4AB5F
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "EmissiveRamp";
+}
+CParticleRendererFeatureDesc	$EAC726E3
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TransformUVs";
+}
+CRHIMaterialShaders	$00269EC3
+{
+	FragmentShader = "Library/PopcornFXCore/Shaders/Particle_Master.frag";
+}
+CParticleRendererFeatureDesc	$1BCA2B7D
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "TextureRepeat";
+}
+CParticleRendererFeatureDesc	$B040E9CD
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "MeshAtlas";
+}
+CParticleRendererFeatureDesc	$862F644E
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "UseVertexColors";
+}
+CParticleRendererFeatureDesc	$93540081
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Transparent";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$98B9ED49
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "SoftParticles";
+}
+CParticleRendererFeatureDesc	$337C6546
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Atlas";
+}
+CParticleRendererFeatureDesc	$008ACB56
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Culling";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$69384768
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "Tint";
+	Mandatory = true;
+}
+CParticleRendererFeatureDesc	$0AFDE33C
+{
+	RendererInterfacePath = "Library/PopcornFXCore/Materials/Interface/Default.pkri";
+	RendererFeatureName = "ComputeVelocity";
+}
+CParticleNodeGraph	$49625406
+{
+	CustomName = "Adapter";
+	Nodes = {
+		"$4EE64E02",
+		"$CD7322A4",
+		"$D75B3EBE",
+	};
+	WorkspaceZoom = -4;
+}
+CParticleNodeTemplateExport	$4EE64E02
+{
+	Description = {
+		"@eng:Billboard center in world coordinates",
+	};
+	InputPins = {
+		"$1FC67CB6",
+	};
+	OutputPins = {
+		"$B8371FA2",
+	};
+	WorkspacePosition = int2(-572, -44);
+	ExportedName = "General.Position";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Input;
+	VisibleByDefault = true;
+	TransformSpace = World;
+	TransformMode = Position;
+	CategoryName = {
+		"@eng:General",
+	};
+}
+CParticleNodePinIn	$1FC67CB6
+{
+	SelfName = "DefaultValue";
+	Visible = false;
+	Owner = "$4EE64E02";
+}
+CParticleNodePinOut	$B8371FA2
+{
+	SelfName = "Value";
+	Owner = "$4EE64E02";
+	ConnectedPins = {
+		"$30E90247",
+	};
+}
+CParticleNodeTemplate	$CD7322A4
+{
+	InputPins = {
+		"$30E90247",
+	};
+	OutputPins = {
+		"$79A6F42F",
+	};
+	WorkspacePosition = int2(-88, -44);
+	SubGraphFilePath = "Library/PopcornFXCore/Templates/Core.pkfx";
+	SubGraphName = "PreviousFrameValue";
+}
+CParticleNodePinIn	$30E90247
+{
+	SelfName = "Value";
+	Owner = "$CD7322A4";
+	ConnectedPins = {
+		"$B8371FA2",
+	};
+}
+CParticleNodePinOut	$79A6F42F
+{
+	SelfName = "Value";
+	Owner = "$CD7322A4";
+	ConnectedPins = {
+		"$44D2827F",
+	};
+}
+CParticleNodeTemplateExport	$D75B3EBE
+{
+	InputPins = {
+		"$44D2827F",
+	};
+	WorkspacePosition = int2(396, -44);
+	ExportedName = "ComputeVelocity.PreviousPosition";
+	ExportedType = float3;
+	Semantic = 3D_Coordinate;
+	Type = Output;
+	TransformSpace = World;
+	TransformMode = Position;
+}
+CParticleNodePinIn	$44D2827F
+{
+	SelfName = "Value";
+	Owner = "$D75B3EBE";
+	ConnectedPins = {
+		"$79A6F42F",
+	};
+}
