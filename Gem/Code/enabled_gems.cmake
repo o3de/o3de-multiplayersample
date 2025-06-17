@@ -40,11 +40,7 @@ set(ENABLED_GEMS
     LmbrCentral
     LyShine
     LyShineExamples
-    HttpRequestor
     Atom
-    AWSCore
-    AWSClientAuth
-    AWSMetrics
     Presence
     LocalUser
     SaveData

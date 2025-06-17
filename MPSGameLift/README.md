@@ -1,6 +1,12 @@
 # MultiplayerSample GameLift Integration Gem
 
-Enable this gem for MultiplayerSample in order to enable AWS GameLift integration.
+## Install MPSGameLift Gem
+
+1. Open _MultiplayerSample/project.json_
+    1. Add `"MPSGameLift"` to `external_subdirectories`
+    1. Add `"MPSGameLift"` to `gem_names`
+1. [Download and register AWS gems for O3DE](https://github.com/aws/o3de-repo/blob/main/README.md) 
+1. Compile MultiplayerSample 
 
 ## Setup Instructions
 
