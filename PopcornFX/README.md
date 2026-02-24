@@ -1,5 +1,14 @@
 # PopcornFX Assets - O3DE Multiplayer Sample
 
+The popcornFX branch of O3DE Multiplayer Sample is now maintained in the
+`popcornfx-wwise` branch.  It is kept here only for reference, so you can open the popcornFX editor and view
+what the particle effects look like, and create similar ones using OpenParticleEngine.
+
+If you would instead like to use PopcornFX, consider switching to the `popcornfx-wwise` branch of this repository.
+
+The rest of this document is for reference, and will be updated if/when effects are created using OpenParticleSystem.
+
+
 The Multiplayer Sample includes several visual effects (VFX) assets created with PopcornFX. VFX are combinations of particle emitters, textures, materials, and meshes that create all sorts of phenomenae, such as fire, smoke, explosions, electrical arcs, and weather such as rain and snow. This README documents these VFX assets so that you can customize them or deconstruct them to learn how to build PopcornFX assets of your own.
 
 The PopcornFX project containing all the source assets can be found in the following directory:

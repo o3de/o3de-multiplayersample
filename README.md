@@ -4,7 +4,9 @@
 
 The MultiplayerSample Project is a third-person multiplayer game built on Open 3D Engine (O3DE), where robots battle one another for dominance in an under construction, multi-tiered starbase.
 
-<span style="background-color:#4F3C3C">**NOTE:** For Linux setup, see the guide in [README_LINUX.md](README_LINUX.md)</span>
+This version of the Multiplayer Sample Project uses O3DE's OpenParticleEngine and O3DE's miniaudio plugins for particle effects and
+sound effects.  You can also switch to the branch `popcornfx-wwise` to get a version of this project that has support for WWISE
+and PopcornFX, but you may have to downgrade your O3DE Engine version to a version where that support was last known working.
 
 ## Game overview
 
@@ -21,7 +23,7 @@ Game features:
 * A configurable number of rounds (default: 3 rounds)
 * Configurable gem spawning patterns per round to drive player exploration
 * Support for 1 to 10 players
-* Rich sounds and visual effects support
+* Rich sounds and visual effects support via the O3DE OpenParticleSystem and O3DE Miniaudio gems.
 * Teleporters to aid player exploration and to demonstrate moving players.
 * [User Settings screen](Documentation/SettingsScreen.md)
 * Many points of extensibility
@@ -51,166 +53,186 @@ This repository uses **Git LFS** to store large binary files. A GitHub personal 
 
 These instructions use the following installation paths. Be sure to substitute your local installation paths:
 
-* O3DE installation root: `C:/o3de/`
-* O3DE 3rd-party packages root: `C:/o3de-packages/`
+* O3DE installation root (Where you installed or cloned O3DE from source)
+  * `C:\o3de-repos\o3de`
+* Location to download this repository and other related ones to:
+   * `C:\o3de-projects` (Windows)
+   * `~/o3de-projects` (Linux and others)
 
-## Step 1: Clone the repository
+## Step 1: Getting the files
 
 <span style="background-color:#4F3C3C">**NOTE:** You can clone the project to any local directory. If you clone the project inside an existing Git repository directory (for example, the directory that contains your local O3DE engine repository) you should add the o3de-multiplayersample project directory to the Git exclude file for the existing Git repository.</span>
 
-### Option #1 (Recommended) - Cloning into a directory outside the engine repository directory
+### Clone the `o3de-multiplayersample` and `o3de-multiplayersample-assets` repositories
 
-1. In a terminal, `cd` to the local directory where you'd like to clone the project, for example:
+1. In a terminal, `cd` to the local directory where you'd like to clone the project, creating it if it doesn't exist:
 
+   Windows:
    ```shell
-   mkdir C:/my-o3de-projects
-   cd C:/my-o3de-projects
+   mkdir C:\o3de-projects
+   cd C:\o3de-projects
    ```
 
-2. Clone the project.
+   Linux/Others:
+   ```shell
+   mkdir ~/o3de-projects
+   cd ~/o3de-projects
+   ```
 
+2. Clone the project.  This command is the same on all operating systems and will produce a subfolder called `o3de-multiplayersample`
    ```shell
    git clone https://github.com/o3de/o3de-multiplayersample.git
    Cloning into 'o3de-multiplayersample'...
    ```
 
-3. Clone the assets. In this example the assets are cloned beside the multiplayersample project.
+3. Clone the assets. In this example the assets are cloned beside the multiplayersample project.  This command is the same on all operating systems and will produce a subfolder called `o3de-multiplayersample-assets`
 
    ```shell
    git clone https://github.com/o3de/o3de-multiplayersample-assets.git
    Cloning into 'o3de-multiplayersample-assets'...
    ```
 
-4. From inside your clone of o3de-multiplayersample-assets, update the submodules. This step adds some required content such as the PopcornFX Gem.
-
-   ```shell
-   cd o3de-multiplayersample-assets
-   git submodule update --init --recursive
-   ```
-
-### Option #2 - Cloning into the engine repository directory
-
-1. Clone the project into a directory named 'o3de-multiplayersample' in your existing engine repository directory.
-
-   ```shell
-   git clone https://github.com/o3de/o3de-multiplayersample.git C:/o3de/o3de-multiplayersample
-   Cloning into 'o3de-multiplayersample'...
-   ```
-
-1. Clone the asset Gems into a directory named 'o3de-multiplayersample-assets' in your existing engine Gems directory.
-
-   ```shell
-   git clone https://github.com/o3de/o3de-multiplayersample-assets.git C:/o3de/gems/o3de-multiplayersample-assets
-   Cloning into 'o3de-multiplayersample-assets'...
-   ```
-
-1. From inside your clone of o3de-multiplayersample-assets, update the submodules. This step adds some required content such as the PopcornFX Gem.
-
-   ```shell
-   cd C:/o3de/gems/o3de-multiplayersample-assets
-   git submodule update --init --recursive
-   ```
-
-1. Modify the local engine git exclude file to ignore the project directory.
-
-   ```shell
-   echo o3de-multiplayersample > C:/o3de/.git/info/exclude
-   echo o3de-multiplayersample-assets > C:/o3de/.git/info/exclude
-   ```
-
 ### Step 1a. Ensure your branches match
 
-Before building the project, ensure that o3de, o3de-multiplayersample and o3de-multiplayersample-assets are all cloned from the same named branches. For example, if you are using the **development** branch of o3de-multiplayersample, then it must be matched with the **development** branches of o3de, and o3de-multiplayersample-assets. Ensure that you update the submodules in o3de-multiplayersample-assets when switching branches in that repository.
+Before building the project, ensure that O3DE itself, `o3de-multiplayersample` and `o3de-multiplayersample-assets` are all using the same version. For example, if you are using the **development** branch of the engine itself (O3DE), then ensure that you check out the **development** branches of `o3de-multiplayersample`, and `o3de-multiplayersample-assets` as well.
 
-If you're using a release or installer version of O3DE, then you must checkout versions of the sample repositories that match the release. O3DE uses standard Git [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to identify the release-compatible version of each repository. 
+So for example, if you installed O3DE v2510.2, you can check for a compatible version here
+* https://github.com/o3de/o3de-multiplayersample/tags - notice 2510.2
+* https://github.com/o3de/o3de-multiplayersample-assets/tags  also 2510.2
 
-For each O3DE release, repositories that have been updated to match the release should have a matching tag for the release. You can see all defined tags using the [Tags](https://github.com/o3de/o3de-multiplayersample/tags] view in each repository.
+In each of the repositories, you can do a `git checkout tags/<tag>` command to make sure your workspace is populated with the files from that particular tag (or use your favorite git UI to do the same thing):
 
-Branches can be checked out using standard Git commands, for example, `git checkout tags/<tag> -b <local branch name>`.
+These commands are the same on all operating systems.  They enter each folder, and make sure that the appropriate tag is checked out, then go back up to the base folder again.
+
+```shell
+cd o3de-multiplayersample
+git checkout tags/2510.2
+cd ..
+
+cd o3de-multiplayersample-assets
+git checkout tags/2510.2
+cd ..
+```
 
 ### Step 1b. Verify you have the LFS files.
 
-Verify that you have all the files from the LFS endpoint. For each cloned repository, run:
+Verify that you have all the files from the LFS endpoint  These commands are the same on every operating system, and enter each sub-folder, execute the `git lfs pull` command and then leave the subfolder.
 
-```
+```shell
+cd o3de-multiplayersample
 git lfs pull
+cd ..
+
+cd o3de-multiplayersample-assets
+git lfs pull
+cd ..
 ```
 
 If using your own fork, complete LFS setup by updating the [LFS Url](https://www.o3de.org/docs/welcome-guide/setup/setup-from-github/#fork-and-clone). 
 
 If you have problems with working with LFS, see the troubleshooting guide: https://github.com/o3de/o3de/wiki/Git-LFS-Troubleshooting.
 
-## Step 2. Register the engine, the project, and the Gems
+## Step 2: Register the engine, the project, and the Gems
+Since we installed the assets and the projects in an arbitrary location of your choice (`c:\o3de-projects` or `~/o3de-projects` in the above example),
+we need to tell the engine where they are located ("Register them") so that it can find them during build and configure.
 
-### Required step to compile
+You can do this manually using the Project Manager GUI (click 'add existing' project, 'add existing' gem) over and over for each gem or project you wish
+to register, but in this case, since there are a lot of them, its quicker to use the CLI tool to do this for you.  The O3DE CLI tool lives wherever you installed
+O3DE to (so for example, `C:\O3DE\2510.2` if you used the v2510.2 installer, or `c:\o3de-repos\o3de` if you checked the code out there.)  It lives in a subfolder
+called `scripts` and is called `o3de` on Windows, `o3de.sh` on others.
+
+### Commands:
 
 <span style="background-color:#4F3C3C">**NOTE:** The following steps only need to be performed once.</span>
 
-1. Register the engine.
+Register the multiplayer sample asset gems (`--all-gems-path` option) and the project itself (`-p` option)
 
+#### Windows:
    ```shell
-   C:/o3de/scripts/o3de register --this-engine
+   (PATH TO O3DE ENGINE)\scripts\o3de register --all-gems-path C:\o3de-projects\o3de-multiplayersample-assets\Gems
+   (PATH TO O3DE ENGINE)\scripts\o3de register -p C:\o3de-projects\o3de-multiplayersample
+   ```
+#### Linux and Others
+   ```shell
+   (PATH TO O3DE ENGINE)/scripts/o3de.sh register --all-gems-path ~/o3de-projects/o3de-multiplayersample-assets/Gems
+   (PATH TO O3DE ENGINE)/scripts/o3de.sh register -p ~/o3de-projects/o3de-multiplayersample
    ```
 
-1. Register the asset Gems.
+## Step 3: Build the project
 
+### Option 1: Configure and Build using the Project Manager GUI
+
+If you've already built the O3DE engine, or downloaded the installer, you can use the O3DE project manager to open and build the project
+
+1. Run `o3de.exe`. If you used the engine build instructions from the [Getting Started](https://www.o3de.org/docs/welcome-guide/) guide, `o3de.exe` can be found at `C:/o3de/build/windows/bin/profile/o3de.exe`.   If you installed it via an installer package, it will be a shortcut on your desktop or your application menu ("O3DE Project Manager").
+
+1. You can choose **Build** in Project Manager to build the project, and skip the following **Option 2: Configure and build using CLI** step which does the same thing (and results in the same files being created in the same locations).
+
+### Option 2: Configure and build using CLI
+
+This command outputs all the project binaries in the project's build directory (for example `c:/my-o3de-projects/o3de-multiplayersample/build`).
+
+1. Configure command (Run from within the projects folder, ie, `c:\my-o3de-projects\o3de-multiplayersample`)
+
+   #### Windows:
    ```shell
-   C:/o3de/scripts/o3de register --all-gems-path C:/my-o3de-projects/o3de-multiplayersample-assets/Gems
+   cmake -S . -B build/windows
+   ```
+   Once you've done the above, projects will be created in the build/windows sub folder that you can open with Visual Studio.
+   You don't need to use the CLI at this point - you can open that solution file, change the config to `profile` and set the Editor
+   as your startup project, and just hit "Build and run".  Alternatively, you can continue with step 2 below to build it from the
+   command line.  The result is the same.
+
+   #### Linux / Others:
+   ```shell
+   cmake -S . -B build/linux -G "Ninja Multi-Config"
    ```
 
-1. Register the project.
-
+2. Building it from the command line:
+   #### Windows:
    ```shell
-   C:/o3de/scripts/o3de register -p C:/my-o3de-projects/o3de-multiplayersample
+   cmake --build build/windows --target Editor --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m
    ```
+   binary files will be output into `build/windows/bin/profile`.
 
-The final step prints warnings that the compatibility check for MultiplayerSample and Blast will be skipped. These warnings can be ignored.
-
-### Build Using the Project Manager
-
-If you've already built the O3DE engine, use the O3DE project manager to open an existing project.
-
-1. Run `o3de.exe`. If you used the engine build instructions from the [Getting Started](https://www.o3de.org/docs/welcome-guide/) guide, `o3de.exe` can be found at `C:/o3de/build/windows/bin/profile/o3de.exe`.
-
-1. (Optional) If MultiplayerSample is not in the **My Projects** view, then click the **New Project...** drop down and select **Open Existing Project**. Select the o3de-multiplayersample project. See the [Project Manager User Guide](https://www.o3de.org/docs/user-guide/project-config/project-manager/#projects) for details.
-
-1. You can choose **Build** in Project Manager to build the project, and skip the following **Step 3. Configure and build** steps.
-
-## Step 3. Configure and build
-
-### Option #1 (Recommended) -  Project-centric approach
-
-This option outputs all the project binaries in the project's build directory (for example `c:/my-o3de-projects/o3de-multiplayersample/build`).
-
-1. Example project-centric configure command.
-
+   #### Linux/Others:
    ```shell
-   cmake -S c:/my-o3de-projects/o3de-multiplayersample -B c:/my-o3de-projects/o3de-multiplayersample/build/windows -G "Visual Studio 16" -DLY_3RDPARTY_PATH="c:/o3de-packages"
+   cmake --build build/linux --target Editor --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile
    ```
+   Binary files will be output in `build/linux/bin/profile`.
+   
+## Step 4: Run The Project
 
-1. Example project-centric build command.
+MultiplayerSampleProject is a multiplayer game, and this means there are several options to launch it.
+Namely:
+* You can launch the Editor and open a level like NewStarBase. Clicking the 'play' button (CTRL+G) will automatically launch a server in the background and connect to it as a client  This is the quickest way to see the game running.
+* You can launch a headless ('dedicated') or graphics enabled (spectator) server and then connect clients to it.  This is more how players would run your game once shipped.
 
-   ```shell
-   cmake --build c:/my-o3de-projects/o3de-multiplayersample/build/windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
-   ```
+### Running the project by Launching it in the Editor
 
-### Option #2 - Engine-centric approach to building a project
+#### Option 1:  Use the project manager (O3DE)
+If you installed O3DE via the installer, you can open the Editor from the O3DE project manager directly after building, by clicking the "Open Editor" button.
 
-This option will output all the project and engine binaries in the engine's build directory (for example, `c:/o3de/build`).
+#### Option 2:  (Visual studio, Windows)
+If you open the generated solution files from the build/windows subfolder, select Editor as your startup project, and `profile` as your configuration, then hit built and run, the editor will start.
 
-1. Example engine-centric configure command.
+#### Option 3:  (Linux / Manually using CLI)
+If you want to do this manually using a CLI, you need to find the editor binary (`Editor.exe` on windows, `Editor` on linux/others).
 
-   ```shell
-   cmake -S C:/o3de -B C:/o3de/build/windows -G "Visual Studio 16" -DLY_3RDPARTY_PATH="C:/o3de-packages" -DLY_PROJECTS="C:/o3de/o3de-multiplayersample"
-   ```
+Note that the editor binary will either be in your project's `build/windows/bin/profile` (or `build/linux/bin/profile` on Linux/others), 
+if you are building O3DE from source code, or will be in the place you installed o3de, for example, on windows this might be something
+like `C:\O3DE\25.10\bin\windows\profile\default\editor.exe`
 
-1. Example engine-centric build command.
+Either way, you would pass the `--project-path` command line option to tell it where your project is, so for example, a full command
+line on windows might look like `c:\O3DE\25.10\bin\windows\profile\default\editor.exe --project-path=c:\o3de-projects\o3de-multiplayersample`.
+Alternatively, if Editor binary is already located within your project folder, you can just run it from there without any command line
+arguments (double click on it or run it where it is from the CLI).
 
-   ```shell
-   cmake --build C:/o3de/build/windows --target Editor MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile -- /m /nologo
-   ```
+By default, launching a local server from the editor during **Play Mode** is enabled. To disable this behavior, update the `editorsv_enabled` value in the `editor.cfg` file to `false`.
 
-## Step 4. Setup the client and server
+Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/) for the complete list of console variables (CVARs) which support play in O3DE Editor with servers.
+
+### Running the project by launching a standalone server and client
 
 Under project root, there are two files: `launch_client.cfg` and `launch_server.cfg`.
 
@@ -232,9 +254,9 @@ Under project root, there are two files: `launch_client.cfg` and `launch_server.
    LoadLevel Levels/NewStarbase/NewStarbase.spawnable
    ```
 
-## Step 5. Launch the server
+#### Launching a standalone server
 
-### Option #1 - Launch the server with arguments
+##### Option #1 - Launch the server with arguments
 
 The server launcher can be run with the following command:
 
@@ -244,7 +266,7 @@ build\windows\bin\profile\MultiplayerSample.ServerLauncher.exe --console-command
 
 Note that the `launch_server.cfg` configuration file is passed with the `--console-command-file` argument.
 
-### Option #2 - Launch the server from a command file
+#### Option #2 - Launch the server from a command file
 
 Alternatively, you can run `launch_server.cmd` (Windows) or `launch_server.sh` (Unix) which includes the `--console-command-file` argument.
 
@@ -252,25 +274,23 @@ Alternatively, you can run `launch_server.cmd` (Windows) or `launch_server.sh` (
 launch_server.cmd 
 ```
 
-### Option #3 - Launch a headless server
+#### Option #3 - Launch a headless server
 
 If you do not need to see rendered output on your server, you can reduce resource usage by launching a headless server that uses the null renderer.
 
 <span style="background-color:#4F3C3C">**NOTE:** Parameters to use null renderer must be passed on the command line as the console-command-file is parsed after rendering is configured.</span>
 
+For each of the above options (#1, #2, #3) you will need to then connect to the server with the client, in order to play, see Step 6.
+
 ```shell
 build\windows\bin\profile\MultiplayerSample.ServerLauncher.exe --console-command-file=launch_server.cfg -rhi=null -NullRenderer
 ```
 
-### Option #4 - Launch the server in O3DE Editor
+#### Option #4 - Launch the server in O3DE Editor
 
-By default, launching a local server from the editor during **Play Mode** is enabled. To disable this behavior, update the `editorsv_enabled` value in the `editor.cfg` file to `false`.
+### Launch the Client and connect to a server
 
-Refer to the O3DE document [Test Multiplayer Games in the O3DE Editor](https://o3de.org/docs/user-guide/gems/reference/multiplayer/multiplayer-gem/test-in-editor/) for the complete list of console variables (CVARs) which support play in O3DE Editor with servers.
-
-## Step 6. Launch the Client
-
-### Option #1 - Launch the client with arguments
+#### Option #1 - Launch the client with arguments
 
 The client launcher can be run with the following command:
 
@@ -280,7 +300,7 @@ build\windows\bin\profile\MultiplayerSample.GameLauncher.exe --console-command-f
 
 This command starts the client and connects to the server specified in `launch_client.cfg`.
 
-### Option #2 - Launch the client from a command file
+#### Option #2 - Launch the client from a command file
 
 Alternatively, you can run `launch_client.cmd` (Windows) or `launch_client.sh` (Unix) which includes the `--console-command-file` argument.
 
@@ -288,9 +308,9 @@ Alternatively, you can run `launch_client.cmd` (Windows) or `launch_client.sh` (
 launch_client.cmd 
 ```
 
-## Debugging in Visual Studio
+## Debugging in an IDE
 
-When you debug `MultiplayerSample.GameLauncher` and `MultiplayerSample.ServerLauncher` from Visual Studio, it's helpful to automatically host and connect so that you don't need to open the console (**~**) and explicitly execute the `host` and `loadlevel` commands on server, or the `connect` command on client.
+When you debug `MultiplayerSample.GameLauncher` and `MultiplayerSample.ServerLauncher` from an IDE like Visual Studio, it's helpful to automatically host and connect so that you don't need to open the console (**~**) and explicitly execute the `host` and `loadlevel` commands on server, or the `connect` command on client.
 
 For convenience, `Gem/Code/CMakeLists.txt` defines `ADDITIONAL_VS_DEBUGGER_COMMAND_ARGUMENTS` which allow Visual Studio to automatically populate the debugger with command arguments.
 
@@ -321,7 +341,6 @@ You can contribute by [reporting issues and making feature requests](https://git
 
 | Link                                                                             | Description                                                               |
 |----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [README_LINUX](README_LINUX.md)                                                  | Linux specific setup instructions                                         |
 | [Release Notes](Documentation/ReleaseNotes.md)                                   | Release notes and known issues per major release                          |
 | [Gameplay Configuration](Documentation/GamplayConfiguration.md)                  | How to adjust gameplay settings                                           |
 | [SettingsScreen](Documentation/SettingsScreen.md)                                | How to use and extend the settings screen                                 |

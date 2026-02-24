@@ -28,7 +28,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
-            Gem::PopcornFX.Static
+            Gem::OpenParticleSystem.API
             Gem::Multiplayer.Client
             Gem::AudioSystem.API
         PRIVATE
@@ -100,7 +100,7 @@ ly_add_target(
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
             Gem::PhysX
-            Gem::PopcornFX.Static
+            Gem::OpenParticleSystem.API
             Gem::Multiplayer
             Gem::AudioSystem.API
         PRIVATE

@@ -18,7 +18,6 @@ set(ENABLED_GEMS
     Multiplayer
     Multiplayer_ScriptCanvas
     AudioSystem
-    AudioEngineWwise
     Camera
     EMotionFX
     PhysX
@@ -55,9 +54,7 @@ set(ENABLED_GEMS
     landscape_mps
     kb3d_mps
     level_art_mps
-    particlefx_mps
     pbr_material_pack_mps
-    PopcornFX
     DiffuseProbeGrid
     Terrain
     Profiler
