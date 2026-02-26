@@ -20,12 +20,12 @@ set(ENABLED_GEMS
     AudioSystem
     Camera
     EMotionFX
-    PhysX
+    PhysX5
     CameraFramework
     ScriptCanvas
     ScriptCanvasPhysics
     ScriptCanvasTesting
-    PhysXDebug
+    PhysX5Debug
     WhiteBox
     FastNoise
     SurfaceData
