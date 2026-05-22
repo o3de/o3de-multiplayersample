@@ -200,7 +200,9 @@ This command outputs all the project binaries in the project's build directory (
    cmake --build build/linux --target Editor --target MultiplayerSample.GameLauncher MultiplayerSample.ServerLauncher --config profile
    ```
    Binary files will be output in `build/linux/bin/profile`.
-   
+
+   > **Note (Linux, headless / launcher-only builds):** if you're building only launcher targets without `Editor` (e.g. on a CI runner with no graphical environment), also add `--target MultiplayerSample` to the command. The Editor's `Tools` alias normally pulls in the bare `MultiplayerSample` gem variant, which AssetProcessor needs at bake time for BehaviorContext (otherwise `.scriptcanvas` bakes referencing MultiplayerSample components fail with "Failed to load dynamic library at path libMultiplayerSample.so"). Building the Editor brings it in implicitly; headless builds need to ask for it explicitly.
+
 ## Step 4: Run The Project
 
 MultiplayerSampleProject is a multiplayer game, and this means there are several options to launch it.

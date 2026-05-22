@@ -182,19 +182,6 @@ ly_create_alias(NAME MultiplayerSample.Tools    NAMESPACE Gem TARGETS Gem::Multi
 ly_create_alias(NAME MultiplayerSample.Clients  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Client)
 ly_create_alias(NAME MultiplayerSample.Servers  NAMESPACE Gem TARGETS Gem::MultiplayerSample.Server)
 ly_create_alias(NAME MultiplayerSample.Unified  NAMESPACE Gem TARGETS Gem::MultiplayerSample)
-# Ensure the bare unified MultiplayerSample target (used by AssetProcessor
-# at asset-bake time via the Builders alias above) is built whenever the
-# Client or Server variants are built. Without this, building only
-# MultiplayerSample.GameLauncher leaves AssetProcessor unable to load the
-# gem at bake time -- breaks ScriptCanvas asset compilation that needs
-# BehaviorContext from this gem. Closes #500.
-if (TARGET MultiplayerSample.Client AND TARGET MultiplayerSample)
-    add_dependencies(MultiplayerSample.Client MultiplayerSample)
-endif()
-if (TARGET MultiplayerSample.Server AND TARGET MultiplayerSample)
-    add_dependencies(MultiplayerSample.Server MultiplayerSample)
-endif()
-
 
 ################################################################################
 # Gem dependencies
