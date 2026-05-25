@@ -17,7 +17,6 @@
 #include <WeaponNotificationBus.h>
 
 #if AZ_TRAIT_CLIENT
-#   include <PopcornFX/PopcornFXBus.h>
 #   include <DebugDraw/DebugDrawBus.h>
 #endif
 
