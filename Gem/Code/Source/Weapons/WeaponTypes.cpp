@@ -10,10 +10,6 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 
-#if AZ_TRAIT_CLIENT
-#   include <PopcornFX/PopcornFXBus.h>
-#endif
-
 namespace MultiplayerSample
 {
     const char* GetEnumString(WeaponType value)

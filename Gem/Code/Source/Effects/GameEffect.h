@@ -19,12 +19,6 @@
 #   include <IAudioSystem.h>
 #endif
 
-namespace PopcornFX
-{
-    struct StandaloneEmitter;
-    class PopcornFXRequests;
-}
-
 namespace MultiplayerSample
 {
     //! A class containing a singular game effect, consisting of a graphical particle effect and an attached sound trigger.
@@ -80,7 +74,8 @@ namespace MultiplayerSample
         const AZ::Vector3& GetEffectOffset() const;
 
     private:
-        AZ::Data::AssetId m_particleAssetId; // The particle effect to play upon effect activation
+        // TODO:  OpenParticleSystem_MPS - When we can reference assets from OPS, add this here.
+        //AZ::Data::Asset<OpenParticle::ParticleAsset> m_particleAsset{ AZ::Data::AssetLoadBehavior::PreLoad }; // The spawnable containing the effect entities to spawn
         AZStd::string m_audioTrigger; // The name of the audio trigger to use on effect activation
         AZ::Vector3 m_effectOffset = AZ::Vector3::CreateZero(); // The offset to use when triggering an effect
 
@@ -88,12 +83,10 @@ namespace MultiplayerSample
         [[maybe_unused]] EmitterType m_emitterType = EmitterType::ReusableEmitter; 
 
 #if AZ_TRAIT_CLIENT
-        PopcornFX::StandaloneEmitter* m_emitter = nullptr;
         Audio::IAudioProxy* m_audioProxy = nullptr;
-        Audio::TATLIDType m_audioTriggerId = INVALID_AUDIO_CONTROL_ID;
-
-        PopcornFX::PopcornFXRequests* m_popcornFx = nullptr;
+        Audio::TATLIDType m_audioTriggerId = { 0 };
         Audio::IAudioSystem* m_audioSystem = nullptr;
 #endif
+		bool m_isInitialized = false;
     };
 }

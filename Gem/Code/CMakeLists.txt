@@ -27,14 +27,14 @@ ly_add_target(
             Gem::LyShine
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
-            Gem::PhysX
-            Gem::PopcornFX.Static
+            Gem::PhysX5
+            Gem::OpenParticleSystem.API
             Gem::Multiplayer.Client
             Gem::AudioSystem.API
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Client.Static
-            Gem::PhysX.Static
+            Gem::PhysX5.Static
             Gem::DebugDraw.Static
             Gem::ImGui.Static
             Gem::LyShine.Static
@@ -64,12 +64,13 @@ ly_add_target(
         PUBLIC
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
-            Gem::PhysX
+            Gem::PhysX5
             Gem::Multiplayer.Server
+            Gem::OpenParticleSystem.API
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Server.Static
-            Gem::PhysX.Static
+            Gem::PhysX5.Static
             Gem::GameState.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
@@ -99,14 +100,14 @@ ly_add_target(
             Gem::LyShine
             Gem::StartingPointInput
             Gem::EMotionFXStaticLib
-            Gem::PhysX
-            Gem::PopcornFX.Static
+            Gem::PhysX5
+            Gem::OpenParticleSystem.API
             Gem::Multiplayer
             Gem::AudioSystem.API
         PRIVATE
             Gem::LmbrCentral.Static
             Gem::Multiplayer.Unified.Static
-            Gem::PhysX.Static
+            Gem::PhysX5.Static
             Gem::DebugDraw.Static
             Gem::ImGui.Static
             Gem::LyShine.Static

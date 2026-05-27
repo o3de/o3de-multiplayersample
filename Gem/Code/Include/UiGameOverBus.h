@@ -18,7 +18,7 @@ namespace MultiplayerSample
         virtual ~UiGameOverNotifications() = default;
 
         virtual void SetGameOverScreenEnabled([[maybe_unused]] bool enabled) = 0;
-        virtual void DisplayResults(MatchResultsSummary results) {}
+        virtual void DisplayResults([[maybe_unused]] MatchResultsSummary results) {}
     };
 
     using UiGameOverBus = AZ::EBus<UiGameOverNotifications>;
